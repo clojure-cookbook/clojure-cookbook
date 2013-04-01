@@ -1,4 +1,4 @@
-= Clojure Coobook
+= Clojure Cookbook
 
 include::chapters/primitive_data.asciidoc
 include::chapters/composite_data.asciidoc
