@@ -1,13 +1,13 @@
 = Clojure Cookbook
 
-include::chapters/primitive_data.asciidoc
-include::chapters/composite_data.asciidoc
-include::chapters/local_io.asciidoc
-include::chapters/network_io.asciidoc
-include::chapters/gui.asciidoc
-include::chapters/databases.asciidoc
-include::chapters/webapps.asciidoc
-include::chapters/clojurescript.asciidoc
-include::chapters/deployment.asciidoc
-include::chapters/distributed.asciidoc
-include::chapters/testing.asciidoc
+include::ch_primitive_data.asciidoc
+include::ch_composite_data.asciidoc
+include::ch_local_io.asciidoc
+include::ch_network_io.asciidoc
+include::ch_gui.asciidoc
+include::ch_databases.asciidoc
+include::ch_webapps.asciidoc
+include::ch_clojurescript.asciidoc
+include::ch_deployment.asciidoc
+include::ch_distributed.asciidoc
+include::ch_testing.asciidoc
