@@ -1,5 +1,9 @@
 = Clojure Cookbook
 
 include::ch_primitive_data.asciidoc
-
+include::ch_composite_data.asciidoc
+include::ch_local_io.asciidoc
+include::ch_network_io.asciidoc
+include::ch_gui.asciidoc
+include::ch_databases.asciidoc
 
