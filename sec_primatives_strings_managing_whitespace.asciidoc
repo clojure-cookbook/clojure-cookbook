@@ -33,7 +33,7 @@ To manage whitespace _inside_ a string we need to get more creative. Use
 
 What constitutes whitespace in Clojure? The answer depends on the
 function, some are more liberal than others, but you can safely assume
-space (+ +), tab (+\t+), newline (+\n+), carriage return (+\r+), line
+space ( ), tab (+\t+), newline (+\n+), carriage return (+\r+), line
 feed (+\f+) and vertical tab (+\x0B+) will be treated as whitespace.
 This set of characters is the set matched by +\s+ in Java's regular
 expression implementation.
@@ -69,3 +69,4 @@ or right hand side of a string use +clojure.string/triml+ or
 
 * Primatives section (composing strings) for adding whitespace to a
 string, particularly justification.
+
