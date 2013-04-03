@@ -1,19 +1,16 @@
-Building a string from parts
-----------------------------
+==== Building a string from parts
 
-Problem
-~~~~~~~
+===== Problem
 
 You have multiple strings, values or collections that you need to
 combine into one string.
 
-Solution
-~~~~~~~~
+===== Solution
 
 Use the +str+ function to concatenate strings and/or values.
 
 [source,clojure]
-------------------------------------------------
+----
 (str "John" " " "Doe")
 ;; -> "John Doe"
 
@@ -24,13 +21,13 @@ Use the +str+ function to concatenate strings and/or values.
 
 (str last-name ", " first-name " - age: " age)
 ;; -> "Doe, John - age: 42"
-------------------------------------------------
+----
 
 Use +apply+ with +str+ to concatenate a collection of values into a
 single string.
 
 [source,clojure]
----------------------------------------------------------------------------
+----
 ;; To collapse a sequence of characters back into a string
 (apply str "ROT13: " [\W \h \y \v \h \f \  \P \n \r \f \n \e])
 ;; -> "ROT13: Whyvhf Pnrfne"
@@ -39,10 +36,9 @@ single string.
 (def lines ["#! /bin/bash\n", "du -a ./ | sort -n -r\n"])
 (apply str lines)
 ;; -> "#! /bin/bash\ndu -a ./ | sort -n -r\n"
----------------------------------------------------------------------------
+----
 
-Discussion
-~~~~~~~~~~
+===== Discussion
 
 Clojure's +str+ is like a good Unix tool; It has one job, and it does it
 well. When provided with one or more argument, +str+ invokes Java's
@@ -58,16 +54,16 @@ calling +str+ with a variable number of arguments.
 This apply...
 
 [source,clojure]
--------------------------
+----
 (apply str ["a" "b" "c'])
--------------------------
+----
 
 ...is functionally equivalent to:
 
 [source,clojure]
------------------
+----
 (str "a" "b" "c")
------------------
+----
 
 Since Clojure injects little opinion into joining strings, you're free
 to inject your own with the plethora collection manipulating functions
@@ -76,17 +72,15 @@ a number of rows. This example is particularly well suited for +apply+,
 as you can prefix the header without having to insert it on to the front
 of your rows collection.
 
-====
-.Constructing a CSV from a header string and vector of rows
 [source,clojure]
--------------------------------------------------------------------------------
+----
+;; Constructing a CSV from a header string and vector of rows
 (def header "first_name,last_name,employee_number\n")
 (def rows ["luke,vanderhart,1","ryan,neufeld,2"])
 
 (apply str header (interpose "\n" rows))
 ;; -> "first_name,last_name,employee_number\nluke,vanderhart,1\nryan,neufeld,2"
--------------------------------------------------------------------------------
-====
+----
 
 +apply+ and +interpose+ can be a lot of ceremony when you're not doing
 anything too fancy. It is often easier to use the +clojure.string/join+
@@ -97,11 +91,11 @@ Without, it returns each item squashed together similar to what
 +(apply str coll)+ would return.
 
 [source,clojure]
--------------------------------------------------
+----
 (def food-items ["milk" "butter" "flour" "eggs"])
 (clojure.string/join ", " food-items)
 ;; -> "milk, butter, flour, eggs"
 
 (clojure.string/join [1 2 3 4])
 ;; -> "1234"
--------------------------------------------------
+----

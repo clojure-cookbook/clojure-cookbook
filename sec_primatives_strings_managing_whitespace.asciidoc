@@ -1,28 +1,25 @@
-Cleaning up whitespace in a string
-----------------------------------
+==== Cleaning up whitespace in a string
 
-Problem
-~~~~~~~
+===== Problem
 
 You need to clean up the whitespace in a string.
 
-Solution
-~~~~~~~~
+===== Solution
 
 Use the +clojure.string/trim+ function to remove all of the whitespace
 at the beginning and end of a string.
 
 [source,clojure]
----------------------------------------------------
+----
 (clojure.string/trim " \tBacon ipsum dolor sit.\n")
 ;; -> "Bacon ipsum dolor sit."
----------------------------------------------------
+----
 
 To manage whitespace _inside_ a string we need to get more creative. Use
 +clojure.string/replace+ to fix-up whitespace inside a string.
 
 [source,clojure]
---------------------------------------------------------------------
+----
 ;; Collapse whitespace into a single space
 (string/replace "Who\t\nput  all this\fwhitespace here?" #"\s+" " ")
 ;; -> "Who put all this whitespace here?"
@@ -30,10 +27,9 @@ To manage whitespace _inside_ a string we need to get more creative. Use
 ;; Replace Windows-style line-endings with Unix-style newlines"
 (string/replace "Line 1\r\nLine 2" "\r\n" "\n")
 ;; -> "Line 1\nLine 2"
---------------------------------------------------------------------
+----
 
-Discussion
-~~~~~~~~~~
+===== Discussion
 
 What constitutes whitespace in Clojure? The answer depends on the
 function, some are more liberal than others, but you can safely assume
@@ -49,11 +45,11 @@ common technique is to require +clojure.string+ as a shorthand like
 +str+ or +string+ to make code more terse.
 
 [source,clojure]
--------------------------------------------------------------------
+----
 (require '[clojure.string :as str])
 (str/replace "Look Ma, no hands" "hands" "long namespace prefices")
 ;; -> "Look Ma, no long namespace prefices"
--------------------------------------------------------------------
+----
 
 You might not always want to remove whitespace from both ends of a
 string. For cases where you want to remove whitespace from just the left
@@ -61,16 +57,15 @@ or right hand side of a string use +clojure.string/triml+ or
 +clojure.string/trimr+, respectively.
 
 [source,clojure]
----------------------------------------------
+----
 (string/triml " Column Header\t")
 ;; -> "Column Header\t"
 
 (string/trimr "\t\t* Second-level bullet.\n")
 ;; -> "\t\t* Second-level bullet."
----------------------------------------------
+----
 
-See Also
-~~~~~~~~
+===== See Also
 
 * Primatives section (composing strings) for adding whitespace to a
 string, particularly justification.

@@ -1,20 +1,17 @@
-Performing trigonometry
------------------------
+==== Performing trigonometry
 
-Problem
-~~~~~~~
+===== Problem
 
 You need to implement mathematical functions that require trigonometry.
 
-Solution
-~~~~~~~~
+===== Solution
 
 All of the trigometric functions are accessible via +java.util.Math+,
 which is available as +Math+. Use them like you would any other
 namespaced function.
 
 [source,clojure]
---------------------------------------------------
+----
 ;; Calculating sin(a + b). The formula for this is
 ;; sin(a + b) = sin a * cos b + sin b cos a
 (defn sin-plus [a b]
@@ -23,7 +20,7 @@ namespaced function.
 
 (sin-plus 0.1 0.3)
 ;; -> 0.38941834230865047
---------------------------------------------------
+----
 
 Trigonometric functions operate on values measured in radians. If you
 have values measured in degrees, such as latitude or longitude, then
@@ -31,7 +28,7 @@ you'll need to convert them to radians first. Use +Math/toRadians+ to
 convert degrees to radians.
 
 [source,clojure]
---------------------------------------------------------------------------------------------
+----
 ;; Calculating the distance in kilometres between two points on Earth
 (def earth-radius 6371.009)
 
@@ -51,10 +48,10 @@ convert degrees to radians.
 
 (distance-between [49.2000 -98.1000] [35.9939, -78.8989])
 ;; -> 2139.42827188432
---------------------------------------------------------------------------------------------
+----
 
-Discussion
-~~~~~~~~~~
+===== Discussion
+
 
 MORE DISCUSSION
 
@@ -64,8 +61,7 @@ roots. A full list of methods is available in the
 http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[java.util.Math
 javadocs].
 
-See Also
-~~~~~~~~
+===== See Also
 
 * Primatives section on performance and type hinting.
 * Other math  sections?
