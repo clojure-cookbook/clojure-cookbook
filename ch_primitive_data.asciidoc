@@ -4,8 +4,12 @@
 === Strings & Characters
 
 include::sec_capitalizing_strings.asciidoc[]
+include::sec_primatives_strings_managing_whitespace.asciidoc
+include::sec_primatives_strings_concatenating_strings.asciidoc
 
 === Numbers
+
+include::sec_primatives_math_trigonometry.asciidoc[]
 
 === Dates
 
