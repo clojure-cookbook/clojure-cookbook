@@ -9,6 +9,8 @@ include::sec_primitives_strings_managing_whitespace.asciidoc[]
 
 include::sec_primitives_strings_concatenating_strings.asciidoc[]
 
+include::sec_primitives_strings_find_and_replace.asciidoc[]
+
 === Numbers
 
 include::sec_primitives_math_trigonometry.asciidoc[]
