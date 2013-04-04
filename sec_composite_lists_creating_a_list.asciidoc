@@ -1,0 +1,72 @@
+==== Creating a list
+
+===== Problem
+
+You want to create a list data structure in your source code.
+
+===== Solution
+
+There are two basic ways to specifically construct a list (a
++clojure.lang.PersistentList+.)
+
+You can use parens in combination with a single quote to indicate that
+the list should only be read as a data structure, not immediately
+evaluated.
+
+[source,clojure]
+----
+'(1 :2 "3")
+;; -> (1 :2 "3")
+----
+
+Or, more commonly, you can use the +list+ function, which takes a
+variadic number of arguments and constructs a list from them.
+
+[source,clojure]
+----
+(list 1 :2 "3")
+;; -> (1 :2 "3")
+----
+
+===== Discussion
+
+Typically, between these two approaches, using the +list+ function is the better choice. The problem with constructing quoted lists is that the quote also prevents evaluation of everything _inside_ the list, which means that symbols will be returned as literal symbols, instead of resolving vars or calling functions. +list+, however, will eval its arguments in the normal way before constructing the list, and is usually what is desired for non-macro code.
+
+[source,clojure]
+----
+(def x 2)
+
+'(1 x)
+;; -> (1 x)
+
+(list 1 x)
+;; -> (1 2)
+----
+
+That said, +'()+ is the idiomatic way to create an empty list - it is
+more terse, and the concern about evaling its contents is
+irrelevant when it's empty.
+
+===== See Also
+
+- (xref) Creating a vector
+
+.Lists vs. Vectors
+****
+
+Clojure includes both List and Vector types. Both are sequential data
+structures. However, for most purposes, vectors are a better fit, and
+more commonly used in idiomatic Clojure.
+
+There are a couple reasons for this. Vectors have a cleaner literal
+syntax than lists, and are just as space-efficient and performant. In
+addition, vectors support near-constant lookup time by index
+(O(log~32~0 n), as opposed to lists, which require linear time
+(O(n)).
+
+In general, the only reason to explicitly choose a list over a vector is
+if you need a data structure which supports efficient insertions at
+the beginning, which lists do; vectors are most efficient when
+appending items to the end.
+
+****
