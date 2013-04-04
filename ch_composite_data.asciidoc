@@ -5,6 +5,8 @@
 
 include::sec_composite_lists_creating_a_list.asciidoc[]
 
+include::sec_composite_lists_creating_a_list_from_existing.asciidoc[]
+
 === Vectors
 
 === Sets

@@ -30,7 +30,13 @@ variadic number of arguments and constructs a list from them.
 
 ===== Discussion
 
-Typically, between these two approaches, using the +list+ function is the better choice. The problem with constructing quoted lists is that the quote also prevents evaluation of everything _inside_ the list, which means that symbols will be returned as literal symbols, instead of resolving vars or calling functions. +list+, however, will eval its arguments in the normal way before constructing the list, and is usually what is desired for non-macro code.
+Typically, between these two approaches, using the +list+ function is
+the better choice. The problem with constructing quoted lists is that
+the quote also prevents evaluation of everything _inside_ the list,
+which means that symbols will be returned as literal symbols, instead
+of resolving vars or calling functions. +list+, however, will eval its
+arguments in the normal way before constructing the list, and is
+usually what is desired for non-macro code.
 
 [source,clojure]
 ----

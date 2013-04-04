@@ -1,0 +1,76 @@
+==== Creating a list from an existing data structure
+
+===== Problem
+
+You have an existing sequential data structure which you would like to
+convert into a list as its concrete data type.
+
+===== Solution
+
+The easiest solution is: don't. Having a concrete list provides little
+or no advantage over simply using the sequence abstraction directly on
+your existing data, and for large data structures, conversion can be
+expensive.
+
+If you do know that this is what you need, there are two ways to do
+it.
+
+First, you could use the +apply+ function to call the +list+ function,
+passing it your existing data structure as its arguments.
+
+[source,clojure]
+----
+(apply list [1 2 3 4 5])
+;; -> (1 2 3 4 5)
+----
+
+Alternatively, you could use the +into+ function to repeatedly conjoin
+elements from your original data on to a list. Note, however, that
+this approach has the effect of reversing the order of the original
+collection.
+
+[source,clojure]
+----
+(into '() [1 2 3 4 5])
+;; -> (5 4 3 2 1)
+----
+
+===== Discussion
+
+These two approaches are both viable choices. However, what actually
+happens in each case is quite different.
+
+When using +apply+, you are actually invoking the +list+ function with
+however many arguments are in the data structure. This may sound
+strange, particularly if the data structure contains millions of
+items. What does it mean to invoke a function with a million
+arguments? How does that even work, given that the JVM limits methods
+to 255
+arguments?:[http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3.3[JVM
+class file specification]]
+
+As it turns out, functions with variadic arguments (such as +list+)
+are handled in a somewhat special way: the argument list is passed in
+as a sequence. +apply+ knows this, and passes this seqence view of the
+original structure directly through to the recieving function. This is
+why it works; there is never actually a JVM method invocation with a
+million arguments.
+
++into+ works quite differently; it takes two arguments, the first
+being a data structure and the second being a sequence. It then
+repeatedly conjoins items from the sequence onto the data structure
+provided using the +conj+ function (discussed in greater detail
+elsewhere). This is why the sequence is reversed; items are always
+pulled from the front of the sequence, but +conj+ on a list _prepends_
+the element being added. Therefore, the first element in the input
+sequence will end up being the last item in the list, and so on.
+
+So why ever choose +into+ over +apply+, given that it reverses the
+order? Speed. +into+ utilizes Clojure _transients_, which provides a
+considerable performance improvement. On the author's machine,
+converting a million item vector to a list using +apply+ took an
+average of 750 milliseconds, while using +apply+ took about half that
+time, for an average of 350 milliseconds. Of course, the list was in
+reverse order, and reversing either the input or the output negates
+the speed advantage. In the end, +into+ is only advantagous in
+situations where a reversed order is acceptable.
