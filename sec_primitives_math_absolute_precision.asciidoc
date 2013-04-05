@@ -1,0 +1,12 @@
+[[sec_primitives_math_arbitrary_precision]]
+==== Maintaining Accuracy with Extremely Large/Small Numbers
+
+===== Problem
+
+===== Solution
+
+===== Discussion
+
+===== See Also
+
+* See <<sec_primitives_rational_numbers> for information on maintaining accuracy with rational numbers.

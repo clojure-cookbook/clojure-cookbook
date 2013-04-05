@@ -19,7 +19,13 @@ include::sec_primitives_strings_find_and_replace.asciidoc[]
 
 include::sec_primitives_strings_tokenizing_strings.asciidoc[]
 
+include::sec_primitives_symbols_unique_symbols.asciidoc[]
+
 === Numbers
+
+include::sec_primitives_math_absolute_precision.asciidoc[]
+
+include::sec_primitives_math_working_with_rational_numbers.asciidoc[]
 
 include::sec_primitives_math_parsing_numbers.asciidoc[]
 
