@@ -1,0 +1,101 @@
+[[sec_primitives_strings_formatting_strings]]
+==== Formatting strings
+
+===== Problem
+
+You need to insert values into a string, formatting how those values appear in the string.
+
+===== Solution
+
+The quickest method for formatting values into a string with the +str+ function.
+
+[source,clojure]
+----
+(def me {:first-name "Ryan", :favorite-language "Clojure"})
+(str "My name is " (:first-name me) ", and I really like to program in " (:favorite-language me))
+;; -> "My name is Ryan, and I really like to program in Clojure"
+
+(apply str (interpose " " [1 2.000 (/ 3 1) (/ 4 9)]))
+;; -> "1 2.0 3 4/9"
+----
+
+With +str+, however, values are inserted blindly, appearing in their
+default "+.toString()+" appearance. Not only that, it can sometimes be
+difficult to look at a +str+ form and interpret what the intended
+output is.
+
+For greater control over how values are printed use the +format+ function.
+
+[source,clojure]
+----
+;; Produce a filename with a zero-padded sortable index
+(defn filename [name i]
+  (format "%03d-%s" i name)) <1>
+   
+(filename "my-awesome-file.txt" 42)
+;; -> "042-my-awesome-file.txt"
+
+;; Create a table using justification
+(defn tableify [row]
+  (apply format "%-20s | %-20s | %-20s" row)) <2>
+
+(def header ["First Name", "Last Name", "Employee ID"])
+(def employees [["Ryan", "Neufeld", 2]
+                ["Luke", "Vanderhart", 1]])
+
+(->> (concat [header] employees)
+     (map tableify)
+     (map println))
+;; First Name           | Last Name            | Employee ID         
+;; Ryan                 | Neufeld              | 2                   
+;; Luke                 | Vanderhart           | 1                   
+----
+<1> The +0+ flag indicates to pad a digit ("+d+") with zeroes (three, in this case.)
+<2> The +-+ flag indicates to left justify the string ("+s+") by 10 characters.
+
+===== Discussion
+
+When it comes to inserting values into a string you have two very
+different options. You could use +str+, which is great for a quick
+fix, but lacks control over how values are presented. Or, you could
+use +format+, which exposes fine-grained control over how values are
+displayed, but requires knowledge of C and Java-style formatting
+strings. We suggest you use only as tool as you need: stick
+to +str+ when the default formatting for a value will suffice, and use
++format+ when you need more control over how values display/
+
+.Format Strings
+**** 
+The first argument passed to +format+ is what is
+called a "format string." The syntax for these strings isn't new or
+unique to Clojure or even Java, but in fact comes from C's +printf+
+function. Clojure's +format+ function uses Java's +String/format+,
+which implements +printf+ style value substitution.
+
+A format string is a normal string with any number of embedded format
+specifiers. A format specifier is a placeholder to be replaced by a
+value some time later. In its simplest form this is a +%+ followed by
+a type specifier character, for example "+%d+" for a integer ('d' is for digit), or "+%f%"
+for a float. Beyond specifiers for strings, integers and flaots, there are specifiers for characters, dates, and numbers of different bases (octal, hexadecimal) to name a few.
+
+What makes these format specifiers special is that you may indicate
+any number of flags and options between the percent sign and the
+specifier character. From the above examples: "+%-10s+" indicates the
+provided string (+s+) should be left justified (+-+) with a total
+minimum width of 10. "+%07.3f+" would turn a number into zero-padded
+number that was seven characters wide and included three decimal
+places (just like the Dewey Decimal system.)
+
+[source,clojure]
+----
+(format "%07.3f" 0.005)
+;; -> "000.005" ;; The Dewey Decimal sub-class for books on "Computer programming, programs & data"
+----
+
+Visit http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Formatter.html[java.util.Formatter] to learn more about formatting strngs.
+**** 
+
+===== See Also
+
+* <<sec_primitives_building_strings_from_parts>>
+* See <<sec_primitives_dates_formatting_dates>> for more detailed information on using +format+ with dates.

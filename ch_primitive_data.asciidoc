@@ -11,7 +11,13 @@ include::sec_primitives_strings_concatenating_strings.asciidoc[]
 
 include::sec_primitives_strings_strings_as_seqs_of_characters.asciidoc[]
 
+include::sec_primitives_strings_integer_to_character_conversions.asciidoc[]
+
+include::sec_primitives_strings_formatting_strings.asciidoc[]
+
 include::sec_primitives_strings_find_and_replace.asciidoc[]
+
+include::sec_primitives_strings_tokenizing_strings.asciidoc[]
 
 === Numbers
 

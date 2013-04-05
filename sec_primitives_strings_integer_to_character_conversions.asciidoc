@@ -1,0 +1,45 @@
+==== Converting Between Characters and Integers
+
+===== Problem
+
+You need to convert characters to their integer value, or vica-versa.
+
+===== Solution
+
+Use the +int+ function to coerce a character to its integer value.
+
+[source,clojure]
+----
+(int \a)
+;; -> 97
+
+(int \ø)
+;; -> 248
+
+(map int "Hello, world!")
+;; -> (72 101 108 108 111 44 32 119 111 114 108 100 33)
+----
+
+Use the +char+ function to coerce an integer (or any other number type) back into a character.
+
+[source,clojure]
+----
+(char 97)
+;; -> \a
+
+(char 12345)
+;; -> \〹
+
+(reduce #(str %1 (char %2))
+        ""
+        [115 101 99 114 101 116 32 109 101 115 115 97 103 101 115])
+;; -> "secret messages"
+----
+
+===== Discussion
+
+Converting between characters and integers is a simple matter in Clojure; merely use the +int+ and +char+ functions to coerce characters between their numerical and character forms.
+
+===== See Also
+
+* See <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string.

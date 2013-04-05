@@ -52,16 +52,19 @@ convert degrees to radians.
 
 ===== Discussion
 
+It may be surprising to some that Clojure doesn't have its own interal
+math namespace, but why re-invent the wheel? Despite its tainted
+reputation, Java can perform, especially when it comes to math;
+Clojure's Java interop forms and typing sugar make doing math using
++java.util.Math+ almost pleasant. 
 
-MORE DISCUSSION
-
-+java.lang.Math+ isn't only for trigonometry, it also contains a number
-of functions useful for dealing with exponentiation, logarithms and
-roots. A full list of methods is available in the
++java.lang.Math+ isn't only for trigonometry, it also contains a
+number of functions useful for dealing with exponentiation, logarithms
+and roots. A full list of methods is available in the
 http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[java.util.Math
 javadocs].
 
 ===== See Also
 
 * Primatives section on performance and type hinting.
-* Other math  sections?
+* Other math sections?
