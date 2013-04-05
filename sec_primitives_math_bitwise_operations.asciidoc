@@ -1,0 +1,82 @@
+==== Performing Bitwise Operations
+
+===== Problem
+
+You need to perform bitwise operations on numbers.
+
+===== Solution
+
+Bitwise operations aren't quite as useful in Clojure as they are in
+systems languages like C or C++, but the techniques learned in those
+systems languages can still be useful. Clojure exposes a number of bitwise operations in its core namespace, all prefixed with +bit-+.
+
+One place bitwise operations really shine is in compressing a large
+number of binary flags into a single value.
+
+[source,clojure]
+----
+;; Modelling a subset of Unix filesystem flags in a single integer
+(def fs-flags [:owner-read :owner-write :group-read :group-write :global-read :global-write])
+
+(def bitmap (zipmap fs-flags
+                    (map (partial bit-shift-left 1) (range)))) <1>
+;; -> {:owner-read 1, :owner-write 2, :group-read 4, ...}
+
+(defn permissions-int [& flags]
+  (reduce bit-or 0 (map bitmap flags)))
+
+(def owner-only (permissions-int :owner-read :owner-write))
+(Integer/toBinaryString owner-only)
+;; -> "11"
+
+(def read-only (permissions-int :owner-read :group-read :global-read))
+(Integer/toBinaryString read-only)
+;; -> "10101"
+
+(defn able-to? [permissions flag]
+  (not= 0 (bit-and permissions (bitmap flag))))
+
+(able-to? read-only :global-read)  ;; -> true
+(able-to? read-only :global-write) ;; -> false
+----
+
+<1> Map every flag to the succession of potential bit positions as the integers they represent
+
+
+===== See Also
+
+Clojure provides a full complement of bitwise operations in its core
+library. This includes 'and', 'or', their negations and shifts, to name a few.
+
+When working with bitwise operations it can often be necessary to view
+the binary representation of an integer. Java's
++Integer/toBinaryString+ can conveniently print out a binary
+representation of a number. 
+
+Interestingly enough, core also includes a +bit-set+ and +bit-test+.
+These two operations set or test an individual bit position in an
+integer. Instead of working in multiples of two as is necessary for
+operations like +bit-and+, we can operate by the *index* of the flag
+we're interested in. This drastically simplifies the example from
+above.
+
+
+[source,clojure]
+----
+;; Modelling a subset of Unix filesystem flags in a single integer
+(def fs-flags [:owner-read :owner-write :group-read :group-write :global-read :global-write])
+(def bitmap (zipmap fs-flags
+                    (map #(.indexOf fs-flags %) fs-flags)))
+
+(def no-permissions 0)
+(def owner-read (bit-set no-permissions (:owner-read bitmap)))
+
+(Integer/toBinaryString owner-read)
+;; -> "1"
+
+;; Granting global permissions...
+(def anything (reduce #(bit-set %1 (bitmap %2)) no-permissions fs-flags))
+(Integer/toBinaryString anything)
+;; -> "111111"
+----
+

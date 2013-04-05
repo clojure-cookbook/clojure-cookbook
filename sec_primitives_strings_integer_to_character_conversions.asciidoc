@@ -27,8 +27,8 @@ Use the +char+ function to coerce an integer (or any other number type) back int
 (char 97)
 ;; -> \a
 
-(char 12345)
-;; -> \〹
+(char 125)
+;; -> \}
 
 (reduce #(str %1 (char %2))
         ""

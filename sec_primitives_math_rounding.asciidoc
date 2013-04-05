@@ -1,0 +1,60 @@
+==== Truncating and Rounding Numbers
+
+===== Problem
+
+You need to truncate or round a decimal number to a lower precision number.
+
+===== Solution
+
+If the integer portion of a number is all you are concerned with, use +int+ to coerce a number to an integer. Of course, this completely discards any decimal places without performing any rounding.
+
+[source,clojure]
+----
+(int 2.0001)
+;; -> 2
+
+(int 2.999999999)
+;; -> 2
+----
+
+If you still value some level of precision then rounding is probably
+what you're after. You can use +Math/round+ to perform simple
+rounding. 
+
+[source,clojure]
+----
+(Math/round 2.0001)
+;; -> 2
+
+(Math/round 2.999)
+;; -> 3
+----
+
+This is the equivalent of +(int (\+ n 0.5))+.
+
+If you want to perform an unbalanced rounding, such as unconditionally
+"rounding up" or "rounding down" then you should use +Math/ceil+ or
++Math/floor+ respectively.
+
+[source,clojure]
+----
+(Math/ceil 2.0001)
+;; -> 3.0
+
+(Math/floor 2.999)
+;; -> 2.0
+----
+
+You'll notice these functions return decimal numbers. Wrap calls to +ceil+ or +floor+ in +int+ to return an integer.
+
+===== Discussion
+
+Rounding in whole or half integer increments is fairly trivial in
+Clojure. What about if you want to round a number to some arbitrary
+precision? What if you want to round to some arbitrary precision AND
+choose the mode of rounding (up, down, ceiling or floor.) For that
+you'd have to use +with-precision+.
+
+TODO: Example of using with-precision
+
+TODO: Rounding rationals?
