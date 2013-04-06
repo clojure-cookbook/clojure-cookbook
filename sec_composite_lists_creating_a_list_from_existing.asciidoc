@@ -12,8 +12,8 @@ or no advantage over simply using the sequence abstraction directly on
 your existing data, and for large data structures, conversion can be
 expensive.
 
-If you do know that this is what you need, there are two ways to do
-it.
+If you do know that you need an explicit conversion of the concrete
+data structure, there are two ways to do it.
 
 First, you could use the +apply+ function to call the +list+ function,
 passing it your existing data structure as its arguments.
@@ -38,7 +38,7 @@ collection.
 ===== Discussion
 
 These two approaches are both viable choices. However, what actually
-happens in each case is quite different.
+happens in each case is very different.
 
 When using +apply+, you are actually invoking the +list+ function with
 however many arguments are in the data structure. This may sound

@@ -1,0 +1,60 @@
+==== Creating a vector
+
+===== Problem
+
+You want to create a vector data structure either as a literal, or
+from an existing data structure.
+
+===== Solution
+
+By far, the easiest way to create a vector is using the literal vector
+notation of square brackets. However, it is also possible to use the
++vector+ function, which creates a vector of its arguments.
+
+[source,clojure]
+----
+[1 :2 "3"]
+;; -> [1 :2 "3"]
+
+(vector 1 :2 "3")
+;; -> [1 :2 "3"]
+----
+
+To construct a vector from an existing data structure, you can use the
++vec+ function, which takes any collection and returns a vector
+containing the same items.
+
+[source,clojure]
+----
+(vec '(1 :2 "3"))
+;; -> [1 :2 "3"]
+----
+
+Alternatively, you can use the +into+ function, which takes two
+collections and repeatedly invokes +conj+ on the first with items from
+the second.
+
+[source,clojure]
+----
+(into [] '(1 :2 "3"))
+;; -> [1 :2 "3"]
+----
+
+===== Discussion
+
+There is rarely any reason to use the +vector+ function over the
+literal vector syntax. Unlike lists, vectors are not evaluated as
+function calls (or anything else) in Clojure, so quoting is not a
+concern as it is with list literals.
+
+Oddly enough, when constructing a vector from an existing collection,
+using the +into+ approach is currently about 30% more performant on
+large collections compared to +vec+ due to its use of transients to
+speed things up. If you're converting large collections and speed
+matters, consider using +into+. Otherwise, +vec+ is usually more
+readable.
+
+===== See also
+
+* Creating a list (xref)
+* Creating a list from an existing collection (xref)

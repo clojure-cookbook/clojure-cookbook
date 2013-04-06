@@ -57,7 +57,7 @@ irrelevant when it's empty.
 
 - (xref) Creating a vector
 
-.Lists vs. Vectors
+.Lists versus Vectors
 ****
 
 Clojure includes both List and Vector types. Both are sequential data
