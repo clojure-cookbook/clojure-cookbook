@@ -28,9 +28,11 @@ rounding.
 
 (Math/round 2.999)
 ;; -> 3
-----
 
-This is the equivalent of +(int (\+ n 0.5))+.
+;; This is equivalent to:
+(int (+ 2.99 0.5))
+;; -> 3
+----
 
 If you want to perform an unbalanced rounding, such as unconditionally
 "rounding up" or "rounding down" then you should use +Math/ceil+ or

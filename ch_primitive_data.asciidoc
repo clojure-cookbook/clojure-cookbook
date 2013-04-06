@@ -37,6 +37,21 @@ include::sec_primitives_math_bitwise_operations.asciidoc[]
 
 === Dates
 
+include::sec_primitives_dates_current_date.asciidoc[]
+
+include::sec_primitives_dates_reader_literal.asciidoc[]
+
+include::sec_primitives_dates_parsing_dates.asciidoc[]
+
 include::sec_primitives_dates_formatting_dates.asciidoc[]
+
+include::sec_primitives_dates_comparing_dates.asciidoc[]
+
+include::sec_primitives_dates_time_between.asciidoc[]
+
+include::sec_primitives_dates_date_ranges.asciidoc[]
+
+include::sec_primitives_dates_working_with_time_zones_and_leap_years.asciidoc[]
+
 
 === UUIDs

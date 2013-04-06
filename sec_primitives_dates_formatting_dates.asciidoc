@@ -1,12 +1,68 @@
 [[sec_primitives_dates_formatting_dates]]
-==== Formatting Dates
+==== Formatting Dates using clj-time
 
 ===== Problem
 
+You need to print dates or times in a particular format.
+
 ===== Solution
+
+While it is possible to format Java Date-like instances (+Date+,
++Calendar+ and +Timestamp+) with +clojure.core/format+', we suggest
+you use https://github.com/KirinDave/clj-time[clj-time] to format
+dates.
+
+Use +clj-time.format/unparse+ with any clj-time +DateTimeFormatter+,
+custom or built-in to output a date/time as a string.
+
+[source,clojure]
+----
+(require '[clj-time.format :as tf])
+(require '[clj-time.core :as t])
+
+(tf/unparse (tf/formatters :date) (t/now))
+;; -> "2013-04-06"
+
+(def my-format (tf/formatter "MMM d, yyyy 'at' hh:mm"))
+(tf/unparse my-format (t/now))
+;; -> "Apr 6, 2013 at 04:54"
+----
 
 ===== Discussion
 
+It is certainly possible to format pure Java dates and times, but in
+our experience it often isn't worth the hassle; the syntax is ugly,
+and the workflow is overly verbose. clj-time, and it's backing library
+Joda Time have a track record for making it easy to work with dates
+and times on the JVM.
+
+If you need to format native Java date/time instances, you can use the
+functions in the +clj-time.coerce+ namespace to coerce any number of
+Java date/time instances into Joda Time instances.
+
+[source,clojure]
+----
+(require '[clj-time.coerce :as tc])
+
+(tc/from-date (java.util.Date.))
+;; -> #<DateTime 2013-04-06T17:03:16.872Z>
+----
+
+Similarly, you can use +clj-time.coerce+ to coerce instances _from_
+Joda Time instances into other formats.
+
+[source,clojure]
+----
+(tc/to-date (t/now))
+;; -> #inst "2013-04-06T17:03:57.239-00:00"
+
+(tc/to-long (t/now))
+;; -> 1365267761585
+----
+
 ===== See Also
 
-* See <<sec_primitives_strings_formatting_strings>> for more general information on the +format+ function.
+Since Java time classes don't 
+
+* See <<sec_primitives_dates_parsing_dates>> for more detailing
+  information on +formatter+
