@@ -27,7 +27,7 @@ For simple patterns use +replace+ with a normal string as its matcher.
 Plain string replacement will only get you so far. When you need to
 replace a pattern with some variability to it you'll need to reach for
 the big guns: regular expressions. Use Clojure's regular expression
-literals (+#"..."+) specify a pattern as a regular expression.
+literals (+#"..."+) to specify a pattern as a regular expression.
 
 [source,clojure]
 ----
