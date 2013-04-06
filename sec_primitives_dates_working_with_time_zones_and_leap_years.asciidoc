@@ -6,7 +6,11 @@ You need to gracefully handle times and dates in a number of time zones.
 
 ===== Solution
 
-The JVM's built-in time and date classes do work well with the notion of time zones; +Date+ treats every value as UTC, and +Calendar+ is cumbersome to work with in Clojure. Use https://github.com/clj-time/clj-time[clj-time] to properly deal with time zones.
+The JVM's built-in time and date classes do work well with the notion
+of time zones; +Date+ treats every value as UTC, and +Calendar+ is
+cumbersome to work with in Clojure. Use
+https://github.com/clj-time/clj-time[clj-time] to properly deal with
+time zones.
 
 [source,clojure]
 ----
