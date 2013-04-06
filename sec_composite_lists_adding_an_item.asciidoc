@@ -1,0 +1,72 @@
+==== "Adding" an item to a list
+
+===== Problem
+
+You want to add an item to a list; or, putting it in functional terms,
+you want to create a new list based on an existing list containing an
+additional item.
+
+===== Solution
+
+Use the +conj+ function. +conj+ is used to add an item or items to a
+logical collection, and is polymorphic, meaning it works on multiple
+concrete data types, including lists.
+
+[source,clojure]
+----
+(conj (list 1 2 3) 4)
+;; -> (4 1 2 3)
+----
+
+Adding multiple items at once:
+
+[source,clojure]
+----
+(conj (list 1 2 3) 4 5)
+;; -> (5 4 1 2 3)
+----
+
+===== Discussion
+
+The behavior of +conj+ is may vary slightly depending on the concrete
+type. It always "adds" an item to an immutable collection by returning
+a new collection containing the new item, but may add the item to
+different places in the collection depending on what is most effecient
+for the particular type.
+
+In the case of lists, +conj+ will always add the item at the
+_beginning_ of the list, since a linked list data structure supports
+constant-time insertion only at the beginning.
+
+.+conj+ versus +cons+
+****
+
+If you are familiar with Common Lisp or Scheme, you were probably
+expecting to see the +cons+ function used, instead of +conj+. Clojure
+does have a +cons+ function, but it has a slightly different purpose.
+
+While +conj+ will return a new concrete +clojure.lang.PersistentList+
+(when used on a list), +cons+ will always construct a new _sequence_,
+where the item added is the _first_ and the collection is the _rest_.
+
+This distinction is subtle, especially since a
++clojure.lang.PersistentList+ and a sequence constructed using +cons+
+are both types of persistent linked lists, algorithmically speaking.
+
+The best way to think about it is that +conj+ is a concrete *data
+structure* operation, which will not change the concrete type of the
+data structure it is applied to, while +cons+ is a *sequence*
+operation and only guarantees that it will return a sequence:[in fact,
+it returns a cons cell (+clojure.lang.Cons+) which implements the
+sequence interface], no matter what type of seq-able collection you
+gave it to start with.
+
+Unlike +conj+, +cons+ is also guaranteed to return a sequence with the
+item prepended to the beginning no matter what the collection type is.
+
+****
+
+===== See Also
+
+* Adding an item to a vector (xref)
+
