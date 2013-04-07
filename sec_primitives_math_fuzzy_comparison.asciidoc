@@ -1,0 +1,94 @@
+==== Performing Fuzzy Comparison
+
+===== Problem
+
+You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating point numbers, which are susceptible to "drift" through repeated operations. 
+
+===== Solution
+
+Clojure has no built-in functions for fault-tolerant equality or "fuzzy comparison" as it is often called. It's trivial to implement your own +fuzzy=+ function.
+
+[source,clojure]
+----
+(defn fuzzy= [tolerance x y]
+  (let [diff (Math/abs (- x y))]
+    (< diff tolerance)))
+
+(fuzzy= 0.01 10 10.000000000001)
+;; -> true
+
+(fuzzy= 0.01 10 10.1)
+;; -> false
+----
+
+===== Discussion
+
++fuzzy=+ works like most other fuzzy comparison algorithms do; first,
+it finds the absolute difference between the two operands, and second,
+it tests whether that difference falls beneath the given tolerance.
+Of course, there's nothing dictating that the tolerance needs to be
+some minute fractional number. If you were comparing large numbers and
+wanted to ignore variantions under a thousand you could set the
+tolerance to 1000.
+
+Even with +fuzzy=+, you still need to take care when comparing
+floating point values, especially for values differing by numbers
+_very close_ to your tolerance. At differences bordering the supplied
+tolerance you may find the results to be unexpected. 
+
+[source,clojure]
+----
+(- 0.22 0.23)
+;; -> -0.010000000000000009
+
+(- 0.23 0.24)
+;; -> -0.009999999999999981
+----
+
+As odd as this is, this isn't unexpected. The IEEE 754 specification
+for floating point values is a purposefully limited format, a tradeoff
+between accuracy and performance. If absolute precision is what you're
+after, then you should be using +BigDecimal+ or +BigInt+. See
+<<sec_primitives_arbitrary_precision>> for more information on those
+two types.
+
+The +fuzzy=+ function, as written, has a number of interesting side
+effects. First and foremost, having tolerance as the first
+argument makes it use +partial+ to produce partially applied equals
+functions tuned to a specific tolerance.
+
+[source,clojure]
+----
+(def equal-within-ten? (partial fuzzy= 10))
+
+(equal-within-ten? 100 109)
+;; -> true
+
+(equal-within-ten? 100 110)
+;; -> false
+----
+
+What if you wanted to sort using fuzzy comparison? The +sort+ function
+takes as an optional argument a predicate or comparator. Let's write a
+function +fuzzy-comparator+ that returns a comparator with a given tolerance.
+
+[source,clojure]
+----
+(defn fuzzy-comparator [tolerance]
+  (fn [x y]
+    (if (fuzzy= tolerance x y) <1>
+      0
+      (compare x y)))) <2>
+
+(sort (fuzzy-comparator 10) [100 11 150 10 9])
+;; -> (11 10 9 100 150) ; 100 and 150 have moved, but not 11, 10, 9
+----
+
+* <1> If the two values being compared are within +tolerance+ of each
+  other, return +0+ to indicate they are equal.
+* <2> Otherwise fallback to normal +compare+
+
+===== See Also
+
+* TODO: IEEE 754 link
+* <<sec_primitives_arbitrary_precision>>

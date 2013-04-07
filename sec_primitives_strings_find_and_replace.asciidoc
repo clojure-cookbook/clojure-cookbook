@@ -45,7 +45,7 @@ literals (+#"..."+) to specify a pattern as a regular expression.
 
 ===== Discussions
 
-As far as string functions go, +replace+ is simultaneously one of the most powerful, and one of the most complex functions go. The majority of this complexity arises from the varying +match+ and +replacement+ types it can operate with.
+As far as string functions go, +replace+ is one of the more powerful and most complex ones. The majority of this complexity arises from the varying +match+ and +replacement+ types it can operate with.
 
 When passed a string match +replace+ expects a string +replacement+. Any occurances of +match+ in the supplied string will be replaced directly with +replacement+.
 
