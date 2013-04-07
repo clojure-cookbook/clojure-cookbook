@@ -66,3 +66,11 @@ a random element from a non-sequential collection like a set, use
 (rand-nth (seq #{:heads :tails}))
 ;; -> :heads
 ----
+
+If you're trying to randomly sort a collection, use +shuffle+ to
+receive a random permutation of your collection.
+
+[source,clojure]
+----
+(shuffle [1 2 3 4 5 6])
+;; -> [3 1 4 5 2 6]
