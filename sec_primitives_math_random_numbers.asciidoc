@@ -1,0 +1,68 @@
+==== Generating Random Numbers
+
+===== Problem
+
+You need to generate a random number.
+
+===== Solution
+
+Clojure has a number of pseudo-random number generating functions
+available for your disposal.
+
+For generating random floating point numbers from +0.0+ up to (but not including) +1.0+, use +rand+.
+
+[source, clojure]
+----
+(rand)
+;; -> 0.0249306187447903
+
+(rand)
+;; -> 0.9242089829055088
+----
+
+For generating random integers use +rand-int+.
+
+[source, clojure]
+----
+;; Emulating a six-sided die
+(defn roll-d6 []
+  (inc (rand-int 6)))
+
+(roll-d6)
+;; -> 1
+
+(roll-d6)
+;; -> 3
+----
+
+===== Discussion
+
+In addition to generating a number from +0.0+ to +1.0+, +rand+ also
+accepts an optional argument that specifies the exclusive maximum
+value. For example, +(rand 5)+ would return a floating point number
+ranging from +0.0+ (inclusive) to +5.0+ (exclusive).
+
+At first blush +rand-int+ seems like an ideal way to select a random
+element from a vector or list. This is a lot of ceremony though, use
++rand-nth+ instead to get a random element from any sequential collect
+(i.e. the collection responds to +nth+.)
+
+[source,clojure]
+----
+(rand-nth [1 2 3])
+;; -> 1
+
+(rand-nth '(:a :b :c))
+;; -> :c
+----
+
+This won't work for sets or hash-maps however. If you want to retrieve
+a random element from a non-sequential collection like a set, use
++seq+ to transform that collection into a sequence before calling
++rand-nth+ on it. 
+
+[source,clojure]
+----
+(rand-nth (seq #{:heads :tails}))
+;; -> :heads
+----

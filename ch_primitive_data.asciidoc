@@ -31,9 +31,13 @@ include::sec_primitives_math_parsing_numbers.asciidoc[]
 
 include::sec_primitives_math_rounding.asciidoc[]
 
+include::sec_primitives_math_fuzzy_comparison.asciidoc[]
+
 include::sec_primitives_math_trigonometry.asciidoc[]
 
 include::sec_primitives_math_bitwise_operations.asciidoc[]
+
+include::sec_primitives_math_random_numbers.asciidoc[]
 
 === Dates
 
