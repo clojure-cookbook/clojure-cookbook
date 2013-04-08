@@ -1,0 +1,94 @@
+==== Working with Currency
+
+===== Problem
+
+You need to manipulate values that represent currency.
+
+;; TODO: bug report, this doesn't work - plus casts the second arg as ^double
+
+===== Solution
+
+Use the https://github.com/clojurewerkz/money[Money] library for
+representing, manipulating and storing values in monetary units.
+
+The +clojurewerkz.money.amounts+ namespace contains functions for
+creating, modifying and comparing units of currency.
+
+[source,clojure]
+----
+(require '[clojurewerkz.money.amounts    :as ma])
+(require '[clojurewerkz.money.currencies :as mc])
+
+;; $2.00 in USD
+(def two (ma/amount-of mc/USD 2))
+two
+;; -> #<Money USD 2.00>
+
+
+(ma/plus two two)
+;; -> #<Money USD 4.00>
+
+(ma/minus two two)
+;; -> #<Money USD 0.00>
+
+(ma/< two (ma/amount-of mc/USD 2.01))
+;; -> true
+
+(ma/total [two two two two])
+;; -> #<Money USD 8.00>
+----
+
+===== Discussion
+
+Working with currency is serious business. Never trust built-in
+numerical types with handling currency - especially floating point
+values. These types are simply not meant to capture and manipulate
+currency with the semantics and precision required. In particular,
+floating point values of the IEEE 754 standard carry a certain
+imprecision by design.
+
+[source,clojure]
+----
+(- 0.23 0.24)
+;; -> -0.009999999999999981
+----
+
+You should always use a library custom-tailored for dealing with
+money. The Money library wraps the trusted and battle-tested Java
+library Joda Money. Money provide a large amount of functionality
+beyond arithmetic including rounding and currency conversion.
+
+[source,clojure]
+----
+(ma/round (ma/amount-of mc/USD 3.14) 0 :down)
+;; -> #<Money USD 3.00>
+
+(ma/convert-to (ma/amount-of mc/CAD 152.34) mc/USD 1.01696 :down)
+;; -> #<Money USD 154.92>
+----
+
+The round function takes four arguments, an amount of currency, a
+scale factor, and a rounding mode. Scaling factor is a somewhat
+peculiar argument, it might be familiar to you if you've ever done
+scaling with +BigDecimal+, which shares identical factors. A scale of
++-1+ scales to the tens place, +0+ scales to the ones place, and so on and
+so forth. Further details can be found in the javadoc for the
+http://joda-money.sourceforge.net/apidocs/src-html/org/joda/money/Money.html#line.1173[rounded]
+method of Joda Money's +Money+ class. The final argument is
+a rounding mode, of which there are quite a few. +:ceiling+ and +:floor+ round towards positive or
+negative infinity. +:up+ and +:down+ round towards or away from zero.
+Finally +:half-up+, +:half-down+ and +:half-even+ round towards the
+nearest neighbour, preferring up, down or the most even neighbor.
+
++clojurewerkz.money.amounts/convert-to+ is a much less complicated
+function. +convert-to+ take an amount of currency, a target currency, a
+conversion factor, and a rounding mode. Money doesn't provide its own
+conversion factor, since these change so often, so you'll need to seek
+out a reputable source for conversation rates - unfortunately we can't
+help you with this one.
+
+Money also provides support for a number of different persistence and
+serialization mediums, including
+https://github.com/dakrone/cheshire[Cheshire] for converting to/from
+JSON and http://clojuremongodb.info/[Monger] for persisting currency
+values to MongoDB.
