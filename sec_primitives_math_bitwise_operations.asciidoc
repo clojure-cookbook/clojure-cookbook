@@ -18,8 +18,9 @@ number of binary flags into a single value.
 ;; Modelling a subset of Unix filesystem flags in a single integer
 (def fs-flags [:owner-read :owner-write :group-read :group-write :global-read :global-write])
 
+;; Fold flags into a map of flag->bit
 (def bitmap (zipmap fs-flags
-                    (map (partial bit-shift-left 1) (range)))) <1>
+                    (map (partial bit-shift-left 1) (range))))
 ;; -> {:owner-read 1, :owner-write 2, :group-read 4, ...}
 
 (defn permissions-int [& flags]
@@ -39,9 +40,6 @@ number of binary flags into a single value.
 (able-to? read-only :global-read)  ;; -> true
 (able-to? read-only :global-write) ;; -> false
 ----
-
-<1> Map every flag to the succession of potential bit positions as the integers they represent
-
 
 ===== See Also
 

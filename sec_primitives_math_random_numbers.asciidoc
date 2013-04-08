@@ -74,3 +74,4 @@ receive a random permutation of your collection.
 ----
 (shuffle [1 2 3 4 5 6])
 ;; -> [3 1 4 5 2 6]
+----
