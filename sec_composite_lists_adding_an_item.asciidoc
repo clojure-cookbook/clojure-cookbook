@@ -3,7 +3,7 @@
 ===== Problem
 
 You want to add an item to a list; or, putting it in functional terms,
-you want to create a new list based on an existing list containing an
+you want to derive a new list from an existing list which contains an
 additional item.
 
 ===== Solution
