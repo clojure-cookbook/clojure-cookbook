@@ -1,0 +1,95 @@
+==== Getting the value at an index
+
+===== Problem
+
+You have a vector, and you want to retrieve the value which the vector
+contains at a particular location (index).
+
+===== Solution
+
+There are several ways to do this.
+
+====== Using +nth+
+
+The +nth+ function, which works on all sequences, is special cased to
+provide constant-time performance when used with indexed collections
+such as vectors.
+
+[source,clojure]
+----
+(nth [:a :b :c :d] 2)
+;; -> :c
+----
+
+If given an index greater than the size of the vector, +nth+ will
+throw an exception unless you pass it an optional third argument,
+which will be returned if the provided index is out-of-bounds.
+
+[source,clojure]
+----
+(nth [:a :b :c] 4)
+;; -> IndexOutOfBoundsException
+
+(nth [:a :b :c] 4 :not-found)
+;; -> :not-found
+----
+
+====== Using vectors as functions of their indices
+
+Vectors are themselves functions which, when called with an integer
+argument, will return the value at that index.
+
+[source,clojure]
+----
+(def v [:a :b :c])
+(v 2)
+;; -> :c
+----
+
+Using an out-of-range index when invoking a vector as a function will
+result in an +IndexOutOfBoundsException+.
+
+====== Using +get+
+
+Because vectors support the associative interface with integer indexes
+as keys, you can also use the +get+ function to retrieve values by
+index.
+
+[source,clojure]
+----
+(get [:a :b :c] 2)
+;; -> :c
+----
+
+Unlike +nth+, when you pass an out-of-range index to +get+, it will
+return +nil+, not throw an exception. Unless, that is, you provide a
+default value to be returned if the key (the index, in this case) is
+not found.
+
+[source,clojure]
+----
+(get [:a :b :c] 5)
+;; -> :nil
+
+(get [:a :b :c] 5 :not-found)
+;; -> :not-found
+----
+
+===== Discussion
+
+Which technique should you use? All work equally well, but the choice
+does emphasize the way in which you're looking at your vector. +nth+
+focuses on its sequential nature, whereas +get+ emphasizes its
+indexed, associative quality. Using the vector as a function is also
+consistent with the way all associative collections in Clojure act as
+functions of their keys.
+
+Ultimately, when making a choice like this, you should consider:
+
+* What would make the code most evident?
+* What is the nature of the data in this case? For example, is it most fundamentally a sequence and only coincidentally a vector (implying +nth+), or fundamentally a correlation of values to indexes (implying +get+)?
+* What is the failure mode of the proposed technique? For example, would a nil return value or an exception be preferable?
+
+===== See also
+
+* Getting items from a map by key (xref)

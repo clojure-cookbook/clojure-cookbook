@@ -1,0 +1,47 @@
+==== Setting the value at an index
+
+===== Problem
+
+Given a vector, you would like to obtain a new vector with a different
+value at a particular index.
+
+===== Solution
+
+Use +assoc+ to set the value at a particular index.
+
+[source,clojure]
+----
+(assoc [:a :b :c ] 1 :x)
+;; -> [:a :x :c]
+----
+
++assoc+ can also be used to set multiple indexes at the same time, by
+providing additional index/value pairs.
+
+[source,clojure]
+----
+(assoc [:a :b :c ] 1 :x 2 :y)
+;; -> [:a :x :y]
+----
+
+===== Discussion
+
+As you may have noticed, +assoc+ is the same function used to set the
+value of keys in a map. This is because vectors, like maps, are
+associative and implement the same interface
+(+clojure.lang.Associative+), which is what +assoc+ uses under the
+hood.
+
+Unlike maps, however, the keys used when using +assoc+ on a vector
+must be integer indexes within the range of the vector. Attempting to
+use a non-integer key will cause an +IllegalArgumentException+, and
+attemting to +assoc+ an index greater than one more than the size of
+the vector  will throw a +IndexOutOfBoundsException+.
+
+Note that it _is_ possible to +assoc+ to an index 1 greater than the
+current size of the vector, this will have the result of appending the item to the end. (see adding items to a vector (xref)).
+
+===== See also
+
+* Adding items to a vector (xref)
+* Setting values in a map (xref)

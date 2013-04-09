@@ -2,8 +2,8 @@
 
 ===== Problem
 
-You want to add an item to a vector (that is, create a new immutable
-vector with an item added to it.)
+You want to add an item to a vector, yielding a new vector containing
+the item.
 
 ===== Solution
 
@@ -19,12 +19,12 @@ or more items appended to the end.
 ;; -> [1 2 3 4 5]
 ----
 
+===== Discussion
+
 Vectors to not support adding new items anywhere but at the end - if
 you need to insert an item in the middle, you will have to use a
 sequence maniuplation function and convert back to a vector (if
 necessary) when you're done.
-
-===== Discussion
 
 Since vectors are associative (mapping integer indexes to values at
 that index), you could also use the +assoc+ function with an index one

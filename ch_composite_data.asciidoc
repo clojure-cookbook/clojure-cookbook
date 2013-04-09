@@ -17,6 +17,12 @@ include::sec_composite_vectors_creating_a_vector.asciidoc[]
 
 include::sec_composite_vectors_adding_an_item.asciidoc[]
 
+include::sec_composite_vectors_removing_an_item.asciidoc[]
+
+include::sec_composite_vectors_get_item_at_index.asciidoc[]
+
+include::sec_composite_vectors_set_item_at_index.asciidoc[]
+
 === Sets
 
 === Maps
