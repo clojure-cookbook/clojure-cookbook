@@ -1,4 +1,5 @@
-==== Using Regular Expressions to Find and Replace on Strings
+[[sec_primitives_strings_find_replace]]
+==== Performing Find and Replace on Strings
 
 ===== Problem
 
