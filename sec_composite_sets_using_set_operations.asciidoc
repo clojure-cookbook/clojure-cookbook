@@ -1,0 +1,79 @@
+==== Using set operations
+
+===== Problem
+
+You would like to obtain the union, intersection or difference of two
+sets.
+
+Or, you want to test if one set is a subset or superset of another.
+
+===== Solution
+
+All these functions are available in the +clojure.set+ namespace,
+which is built in to Clojure.
+
++union+ takes any number of sets as arguments, and returns a set
+containing their union (a set containing all the elements from all the
+sets).
+
+[source,clojure]
+----
+(clojure.set/union #{:red :white} #{:white :blue} #{:blue :green})
+;; -> #{:red :white :blue :green}
+----
+
++intersection+ also takes any number of sets as args, and returns
+their intersection (a set consisting only of the items shared by all
+the argument sets.)
+
+[source,clojure]
+----
+(clojure.set/intersection #{:red :white :blue}
+                          #{:red :blue :green}
+                          #{:yellow :blue :red})
+;; -> #{:red :blue}
+----
+
++difference+ takes a set as its first argument, and returns it without
+elements from the sets given in the additional arguments.
+
+[source,clojure]
+----
+(clojure.set/difference #{:red :white :blue :yellow}
+                        #{:red :blue}
+                        #{:white})
+;; -> #{:yellow}
+----
+
++subset?+ returns true if and only if the first argument is a subset
+of the second (that is, if every member of the first set is also a
+member of the second.)
+
+[source,clojure]
+----
+(clojure.set/subset? #{:blue :white}
+                     #{:red :white :blue})
+;; -> true
+
+(clojure.set/subset? #{:blue :black}
+                     #{:red :white :blue})
+;; -> false
+----
+
++superset?+ works the same way, except returning true only if the
+first set is a _superset_ of the second.
+
+As you may have noticed, +superset?+ is actually identical to
++subset?+, only with the order of the arguments reversed.
+
+===== Discussion
+
+In general, you should try to use these set manipulation functions
+wherever they are applicable. Sets represent a sizable portion of the
+data most developers work with day to day, whether they are recognized
+and explicitly modeled as sets or not.
+
+If your data does represent a logical set, then model them using set
+data structures, and try to think about manipulating them in terms of
+set operations. In many cases, you will find that this makes your
+program substantially easier to reason about.

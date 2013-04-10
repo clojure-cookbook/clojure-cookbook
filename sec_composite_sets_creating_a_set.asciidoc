@@ -1,0 +1,80 @@
+==== Creating a set
+
+===== Problem
+
+You want to create a set data structure either as a literal, or from
+an existing data structure.
+
+===== Solution
+
+The literal syntax for a set is a hash symbol preceding the set
+contents wrapped in curly braces.
+
+[source,clojure]
+----
+#{:a :b :c}
+;; -> #{:a :b :c}
+----
+
+To create a set from an existing collection, you can use the +set+
+function to transform it directly.
+
+[source,clojure]
+----
+(set [:a :b :c :a])
+;; -> #{:a :b :c}
+----
+
+Alternatively, you could use the +into+ function, which repeatedly
+applies +conj+ to items from a sequence on to an empty set,
+constructing a set containing all the items from the sequence.
+
+[source,clojure]
+----
+(into #{} [:a :b :c :a])
+;; -> #{:a :b :c}
+----
+
+Oddly enough, as with vectors, the +into+ technique is considerably
+faster than the direct +set+ constructor. Use it whenever you're
+working with large sets where performance is a concern.
+
+===== Discussion
+
+These techniques all construct _hash sets_; sets which use a hashtable
+as their internal representation.
+
+Clojure also supports _sorted sets_, which maintain their internal
+structure as a sorted binary tree. The only way to create a sorted set
+is via the +sorted-set+ function, which creates a new, empty instance
+of +clojure.lang.PersistentTreeSet+, the concrete type of a sorted
+set.
+
+Adding items to a sorted set with +conj+ will yield another sorted
+set, so to obtain a sorted set with items in it, just +conj+ (or use
++into+) to add the items you need.
+
+To inspect a set to see whether it's a hash set or a sorted set, you
+can either look at the concrete type in the REPL using the +class+
+function, or use the +sorted?+ predicate, which returns true only for
+inherently sorted collections.
+
+[source,clojure]
+----
+(def my-unsorted (into #{} [:a :b :c :a]))
+(def my-sorted (into (sorted-set) [:a :b :c :a]))
+
+(sorted? my-unsorted)
+;; -> false
+
+(sorted? my-sorted)
+;; -> true
+
+(class my-sorted)
+;; -> clojure.lang.PersistentTreeSet
+----
+
+===== See also
+
+* Creating a vector (xref)
+* Adding items to a set (xref)

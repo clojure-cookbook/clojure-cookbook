@@ -1,0 +1,88 @@
+==== Testing set membership
+
+===== Problem
+
+You want to check if an item or items are members of a set.
+
+===== Solution
+
+The easiest way to check a single item is with the +contains?+
+function, which takes a set and an item and returns true if the item
+is a member of the set.
+
+[source,clojure]
+----
+(contains? #{:red :white :green} :blue)
+;; -> false
+
+(contains? #{:red :white :green} :green)
+;; -> true
+----
+
+The +get+ function also works with sets and does basically the same
+thing, except instead of returning +true+ or +false+ it returns the
+value itself if it is a member, or nil if it is not.
+
+[source,clojure]
+----
+(get #{:red :white :green} :blue)
+;; -> nil
+
+(get #{:red :white :green} :green)
+;; -> :green
+----
+
+Finally, sets are also functions. When you invoke them with a single
+argument, they work just like +get+, returning the argument if it is a
+member or nil if not.
+
+[source,clojure]
+----
+(def my-set #{:red :white :green})
+
+(my-set :blue)
+;; -> nil
+
+(my-set :green)
+;; -> :green
+----
+
+===== Discussion
+
+The choice between +contains?+ and +get+ is mainly an aesthetic one.
+However, if your set might contain +nil+ as an actual value you care
+about, you'll definitely need to use +contains?+, since a +nil+ return
+from +get+ wouldn't tell you anything in that case.
+
+The ability to use a set as a function is interesting, but it's
+especially useful when you want to use it as a predicate function on a
+sequence operation. For example, it's fairly common to want to filter
+a sequence to only contain items in a set. In this case, using the set
+itself is both easy and idiomatic.
+
+[source,clojure]
+----
+(take 10
+  (filter #{1 2 3}
+          (repeatedly #(rand-int 10))))
+
+;; -> (2 1 2 3 2 2 1 2 2 1)
+ ----
+
+This snippet first creates an infinite lazy sequence consisting of
+random numbers between one and ten, using +repeatedly+ to call
++rand-int+ (wrapped in an anonymous function) over and over. Then, it
+feeds this sequence through a filter, with a _set_ of the numbers 0-3
+as the filter predicate.
+
+The result is another infinite lazy sequence, but containing only
+members of the predicate set.
+
+This example is contrived. However, using sets as a predicate function
+is an extremely useful technique that that pops up quite frequently in
+most Clojure projects.
+
+===== See also
+
+* Checking if a key is present in a map (xref)
+* Using set operations (xref)

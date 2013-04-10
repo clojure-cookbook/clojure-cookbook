@@ -25,6 +25,14 @@ include::sec_composite_vectors_set_item_at_index.asciidoc[]
 
 === Sets
 
+include::sec_composite_sets_creating_a_set.asciidoc[]
+
+include::sec_composite_sets_adding_and_removing.asciidoc[]
+
+include::sec_composite_sets_testing_set_membership.asciidoc[]
+
+include::sec_composite_sets_using_set_operations.asciidoc[]
+
 === Maps
 
 === Sequences
