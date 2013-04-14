@@ -1,0 +1,95 @@
+==== Generating Unique IDs
+
+===== Problem
+
+You need to generate a unique ID.
+
+===== Solution
+
+Use Java's +java.util.UUID/randomUUID+ to generate a universally
+unique ID (UUID).
+
+[source,clojure]
+----
+(java.util.UUID/randomUUID)
+;; -> #uuid "5358e6e3-7f81-40f0-84e5-750e29e6ee05"
+
+(java.util.UUID/randomUUID)
+;; -> #uuid "a6f92a6f-f736-468f-9e26-f392852825f4"
+----
+
+===== Solution
+
+Often times when building systems you want to assign a unique ID to
+objects and records. Often times IDs are simple integers that
+monotonically increase with time. This isn't without its problems
+though; You can't mingle IDs of objects from different origins and
+worse, they reveal information about the amount and input volume of
+your data.
+
+This is where UUIDs come in. UUIDs, or Universally Unique IDs, are
+128-bit random numbers almost certainly unique across the entire
+universe. A bold clame, of course - see
+http://www.ietf.org/rfc/rfc4122.txt[RFC 4122] for more detailed
+information on UUIDs, how they're generated, and the math behind them.
+TODO: more info - four types, guarantees on UUIDs
+
+You may have noticed Clojure prints UUIDs with a +#uuid+ in front of
+them. This is a reader literal tag, it acts as a shortcut for the
+Clojure reader to read and initialize UUID objects. Reader literals
+are a lot like string or number literals like +"Hi"+ or +42+, but they
+can capture more complex data types. This makes it possible for
+formats like https://github.com/edn-format/edn[edn] to communicate in
+a common lingo about things like UUIDs without resorting to string
+interning and accompanying custom parsing logic.
+
+.Sequential IDs
+****
+One thing you will lose with the move from sequential IDs to UUIDs is
+the implicit sortability of a chronologically increasing number. What
+if you could generate UUIDs that were both unique *and* sortable?
+Datomic does something similar with its +squuid+ function (TODO:
+namespaced name). It's simple to write a function that behaves
+simlarly.
+
+[source,clojure]
+----
+(defn squuid []
+  (let [uuid (java.util.UUID/randomUUID)
+        time (System/currentTimeMillis)
+        secs (quot time 1000)
+        lsb (.getLeastSignificantBits uuid)
+        msb (.getMostSignificantBits uuid)
+        timed-msb (bit-or (bit-shift-left secs 32)
+                          (bit-and 0x00000000ffffffff msb))]
+    (java.util.UUID. timed-msb lsb)))
+----
+
+This approximation of Datomic's +squuid+ splits and re-assembles a
+random UUID, using +bit-or+ to merge the current time with the most
+significant 32-bits of the UUID. The two halves of the UUID
+are then re-assembled using the +java.util.UUID.+ constructor,
+yielding UUIDs that increase sequentially over time.
+
+[source,clojure]
+----
+(def first (squuid))
+;; -> #uuid "51674ca0-eadc-4a5b-b9fb-67b05d5a71b7"
+
+(def second (squuid))
+;; -> #uuid "51674cb4-cffe-45c6-86c7-985c621e39e9"
+
+(def third (squuid))
+;; -> #uuid "51674ca6-ff8c-476a-9eb7-9f39de3e45f4"
+
+(sort [first second third])
+;; -> (#uuid "51674ca0-eadc-4a5b-b9fb-67b05d5a71b7"
+       #uuid "51674ca5-5320-4d5d-9621-f6ff2b0a404c"
+       #uuid "51674ca6-ff8c-476a-9eb7-9f39de3e45f4")
+----
+****
+
+===== See Also
+
+* <<sec_primitives_dates_reader_literal>> for information on +#inst+,
+  another reader literal for dates.

@@ -8,7 +8,8 @@ You need to perform bitwise operations on numbers.
 
 Bitwise operations aren't quite as useful in Clojure as they are in
 systems languages like C or C++, but the techniques learned in those
-systems languages can still be useful. Clojure exposes a number of bitwise operations in its core namespace, all prefixed with +bit-+.
+systems languages can still be useful. Clojure exposes a number of
+bitwise operations in its core namespace, all prefixed with +bit-+.
 
 One place bitwise operations really shine is in compressing a large
 number of binary flags into a single value.

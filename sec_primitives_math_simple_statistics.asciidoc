@@ -1,0 +1,73 @@
+==== Statistics on Collections of Numbers
+
+===== Problem
+
+You need to calculate simple statistics like mean, median and mode on a collection of numbers.
+
+===== Solution
+
+Find the _mean_ (average) of a collection by dividing its total by the +count+ of the collection.
+
+[source,clojure]
+----
+(defn mean [coll]
+  (let [sum (apply + coll)
+        count (count coll)]
+    (if (pos? count)
+      (/ sum count)
+      0)))
+
+(mean [1 2 3 4])
+;; -> 5/2
+
+(mean [1 1.6 7.4 10])
+;; -> 5.0
+
+(mean [])
+;; -> 0
+----
+
+Find the _median_ (middle value) of a collection by +sort+ing its
+values and +get+ing its middle value. There are, of course, special
+considerations for collections of odd-length. In these cases median is
+considering the mean of the *two* middle values.
+
+[source,clojure]
+----
+(defn median [coll]
+  (let [sorted (sort coll)
+        count (count sorted)
+        halfway (int (/ count 2))]
+    (if (odd? count)
+      (nth sorted halfway) <1>
+      (let [bottom (dec halfway)
+            bottom-val (nth sorted other)
+            top-val (nth sorted halfway)]
+        (mean [bottom-val top-val]))))) <2>
+
+(median [5 2 4 1 3])
+;; -> 3
+
+(median [7 0 2 3])
+;; -> 5/2  ; The average of 2 and 3.
+----
+
+* <1> In the case +coll+ has an odd number of items, simply retrieve that item with +nth+.
+* <2> When +coll+ has an even number of items, find the index for the other central value (+bottom+), and take the mean of the top and bottom value.
+
+Find the _mode_ (most frequently occuring value) of a collection by using +frequencies+ and +reduce+.
+
+[source,clojure]
+----
+(def mode [coll]
+  (let [freqs (frequencies coll)]
+    ;; TODO: find max value
+  ))    
+
+(mode [1 2 2 3])
+----
+
++frequencies+ returns a map that tallies the number of times each
+value in +coll+ occurs. TODO: more description.
+
+;; TODO: Std. Dev.

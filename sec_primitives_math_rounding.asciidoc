@@ -54,9 +54,8 @@ You'll notice these functions return decimal numbers. Wrap calls to +ceil+ or +f
 Rounding in whole or half integer increments is fairly trivial in
 Clojure. What about if you want to round a number to some arbitrary
 precision? What if you want to round to some arbitrary precision AND
-choose the mode of rounding (up, down, ceiling or floor.) For that
-you'd have to use +with-precision+.
+choose the mode of rounding (up, down, ceiling or floor.)
 
-TODO: Example of using with-precision
+TODO: Mention with-precision
 
 TODO: Rounding rationals?
