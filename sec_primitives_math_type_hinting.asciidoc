@@ -57,8 +57,8 @@ types wrong, the method invocation won't work. Clojure won't blow up
 on you, but it will have to reflect in spite of your hints.
 
 What about when you have a *sequence* of values, all of a uniform type? Clojure
-provides a number of special hints for these cases, namely +^ints+, +^floats+
-+^longs+ and +^doubles+. Hinting these types will allow you to pass
+provides a number of special hints for these cases, namely +`^`ints+, +`^`floats+
++`^`longs+ and +`^`doubles+. Hinting these types will allow you to pass
 whole arrays as arguments to Java functions and not provoke reflection
 for any items in a sequence.
 ;; TODO: Type hinting other types of collections.
