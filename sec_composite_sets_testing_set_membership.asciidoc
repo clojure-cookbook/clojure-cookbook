@@ -67,7 +67,7 @@ itself is both easy and idiomatic.
           (repeatedly #(rand-int 10))))
 
 ;; -> (2 1 2 3 2 2 1 2 2 1)
- ----
+----
 
 This snippet first creates an infinite lazy sequence consisting of
 random numbers between one and ten, using +repeatedly+ to call
