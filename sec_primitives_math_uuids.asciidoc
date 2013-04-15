@@ -27,12 +27,11 @@ though; You can't mingle IDs of objects from different origins and
 worse, they reveal information about the amount and input volume of
 your data.
 
-This is where UUIDs come in. UUIDs, or Universally Unique IDs, are
+This is where UUIDs come in. UUIDs, or Universally Unique Identifiers, are
 128-bit random numbers almost certainly unique across the entire
 universe. A bold clame, of course - see
 http://www.ietf.org/rfc/rfc4122.txt[RFC 4122] for more detailed
 information on UUIDs, how they're generated, and the math behind them.
-TODO: more info - four types, guarantees on UUIDs
 
 You may have noticed Clojure prints UUIDs with a +#uuid+ in front of
 them. This is a reader literal tag, it acts as a shortcut for the
@@ -45,12 +44,12 @@ interning and accompanying custom parsing logic.
 
 .Sequential IDs
 ****
+
 One thing you will lose with the move from sequential IDs to UUIDs is
 the implicit sortability of a chronologically increasing number. What
 if you could generate UUIDs that were both unique *and* sortable?
-Datomic does something similar with its +squuid+ function (TODO:
-namespaced name). It's simple to write a function that behaves
-simlarly.
+Datomic does something similar with its +datomic.api/squuid+ function.
+It's simple to write a function that behaves simlarly.
 
 [source,clojure]
 ----

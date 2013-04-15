@@ -4,8 +4,6 @@
 
 You need to manipulate values that represent currency.
 
-;; TODO: bug report, this doesn't work - plus casts the second arg as ^double
-
 ===== Solution
 
 Use the https://github.com/clojurewerkz/money[Money] library for

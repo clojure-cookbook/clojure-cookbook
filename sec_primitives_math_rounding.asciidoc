@@ -56,6 +56,3 @@ Clojure. What about if you want to round a number to some arbitrary
 precision? What if you want to round to some arbitrary precision AND
 choose the mode of rounding (up, down, ceiling or floor.)
 
-TODO: Mention with-precision
-
-TODO: Rounding rationals?

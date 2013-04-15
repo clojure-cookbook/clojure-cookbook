@@ -90,5 +90,5 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance.
 
 ===== See Also
 
-* TODO: IEEE 754 link
+* See the Wikipedia article on http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating Point] for more detailed information on floating point numbers.
 * <<sec_primitives_arbitrary_precision>>

@@ -77,4 +77,4 @@ sparingly, and only if you fully understand their syntax.
 ===== See Also
 
 * +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurance of +match+.
-* TODO: resource for regular expressions
+* http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] is a fantastic book for learning and mastering Regular Expression syntax.
