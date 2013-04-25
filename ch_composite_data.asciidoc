@@ -35,4 +35,15 @@ include::sec_composite_sets_using_set_operations.asciidoc[]
 
 === Maps
 
+include::sec_composite_maps_creating_a_map.asciidoc[]
+
+include::sec_composite_maps_retrieving_keys.asciidoc[]
+
+include::sec_composite_maps_setting_keys.asciidoc[]
+
+include::sec_composite_maps_using_composites_as_keys.asciidoc[]
+
+
+
+
 === Sequences
