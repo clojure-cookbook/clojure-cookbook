@@ -1,0 +1,101 @@
+==== Using composite values as map keys
+
+===== Problem
+
+You'd like to use a value that isn't a simple primitive type as a
+lookup key in a map. For example:
+
+* You'd like to use geographic or cartesian coordinates as map keys.
+* You'd like to associate values with functions.
+
+===== Solution
+
+Because of its robust identity semantics on composite values, Clojure
+fully supports using any immutable value as a map key. More
+importantly, doing so is reasonably efficient.
+
+For example, consider the data structure to represeent a chess board,
+an 8x8 grid where each position can have one of 6 possible types of
+piece. Rows are represented by the numbers 1-8, and columns by the
+letters a-h.
+
+In Clojure, you can represent this directly as a map:
+
+[source,clojure]
+----
+(def chessboard { [:a 5] [:white :king]
+                  [:a 4] [:white :pawn]
+                  [:d 4] [:black :king] })
+----
+
+Moving a piece then, requires two operations: +dissoc+ing the old
+position for a piece, and +assoc+ing the new position.
+
+[source,clojure]
+----
+(defn move
+  "Given a map representing a chess board, move the piece at src
+  to dest"
+  [board source dest]
+  (-> board
+      (dissoc source)
+      (assoc dest (board source))))
+----
+
+As another example of "non-traditional" map keys, consider the
+situation where you have a set of functions, and you want to be able
+to assign them each a "weighting" and multiply the return value by the
+corresponding weight whenever the function is called.
+
+An easy way to do this is to store the functions and weights in a map,
+with the functions as keys.
+
+[source,clojure]
+----
+(def weight-map { fn-a 1.0
+                  fn-b 0.8
+                  fn-c 1.9 })
+----
+
+Then, you can use a simple wrapper function to apply the functions
+with the weights applied:
+
+[source,clojure]
+----
+(defn apply-weighted
+  "Given a weight map, a function and args, applies the function
+  to the args, multiplying the result by the weighting for the
+  function. If the weight map does not specify a weight for the
+  function, a default of 1.0 is used."
+  [weight-map f & args]
+  (* (get weight-map f 1.0)
+     (apply f args)))
+----
+
+===== Discussion
+
+A more traditional way to model the chess game would be with a
+two-dimensional array, or, in Clojure's case, with a vector of
+vectors.
+
+This is certainly a reasonable thing to do, and is (possibly) slightly
+more performant. However, it is a less clean model of the actual
+problem domain. It requires a translation, for example, from Chess's
+row/column numbers and letters to zero-indexed indices. Using a map
+lets you store the positions directly, in native Chess terminology.
+
+Similarly, there are alternative implementations for the
+function-weighting example. It could be implemented using a +cond+
+statement with all the functions and weights enumerated, or by
+replacing the functions altogether with a protocol method which could
+then have varying implementations with different weights.
+
+However, storing the functions and weights in a map has the benefit of
+making it obvious at a glance what the weightings for particular
+functions are. More importantly, it is possible to store multiple
+different sets of weights, and switch between different weight schemes
+dynamically at runtime.
+
+===== See also
+
+* Retrieving keys from maps

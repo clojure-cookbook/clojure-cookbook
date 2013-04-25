@@ -1,0 +1,193 @@
+==== Retreiving keys from a map
+
+===== Problem
+
+You want to get the value stored at a particular key from a map.
+
+===== Solution
+
+As with sets, there are several ways to retrieve keys by values.
+
+The most straightforward way is to use the +get+ function, which given
+a map and a key, returns the value stored at the key or +nil+ if the
+map does not contain the key.
+
+[source,clojure]
+----
+(get :name {:name "Kvothe" :class "Bard"})
+;; -> "Kvothe"
+
+(get :race {:name "Kvothe" :class "Bard"})
+;; -> nil
+----
+
+If desired, you can also pass a third argument to be used as the
+default return value instead of +nil+ if a map doesn't contain the key.
+
+[source,clojure]
+----
+(get :race {:name "Kvothe" :class "Bard"} "Human")
+;; -> "Human"
+----
+
+If your map uses keywords as keys, you can use the keyword itself as a
+function. Keywords implement the +IFn+ interface, and when invoked
+with a map as an argument, they will look themselves up in the map,
+returning the value if it is present, or +nil+ if not. You can also
+pass a second argument which will be used as a default return value in
+the case of a missing key, just as you can with +get+.
+
+[source,clojure]
+----
+(:name {:name "Marcus" :class "Paladin"})
+;; -> "Marcus"
+
+(:race {:name "Marcus" :class "Paladin"} "Human")
+;; -> "Human"
+----
+
+Finally, the third basic way to look up a value in the map is to use
+the map itself as a function, passing the key to be retrieved as the
+argument. Like +get+ and keyword functions, it is also possible to
+pass a second argument for use as a default value if the key is not
+found, otherwise +nil+ is returned.
+
+[source,clojure]
+----
+(def character {:name "Brock" :class "Barbarian"})
+
+(character :name)
+;; -> "Brock"
+
+(character :race)
+;; -> nil
+
+(character :race "Human")
+;; -> "Human"
+----
+
+There is a convenience function for looking up items in nested maps:
++get-in+. Instead of passing a single key, you can pass a sequence of
+keys, and they will be successively looked up in a nested structure,
+as if repeatedly calling +get+ on each level of the nested data
+structure. +nil+ is returned if any key is missing.
+
+[source,clojure]
+----
+(get-in {:name "Marcus" :weapon {:type :greatsword :damage "2d6"}}
+        [:weapon :damage])
+;; -> "2d6"
+
+(get-in {:name "Marcus"}
+        [:weapon :damage])
+;; -> nil
+----
+
++get-in+ also takes an optional default value, which will be returned
+if _any_ key in the nested hierarchy is missing.
+
+[source,clojure]
+----
+(get-in {:name "Marcus"}
+        [:weapon :damage]
+        "1d2 (fists)")
+;; -> "1d2 (fists)"
+----
+
+Note that +get-in+ works with _any_ associative data structure, not
+just maps. This means that it can be combined to work with (for
+example) indices of vectors.
+
+[source,clojure]
+----
+(get-in [{:name "Marcus" :class "Paladin"}
+         {:name "Kvothe" :class "Bard"}
+         {:name "Felter" :class "Druid"}]
+        [1 :class])
+;; -> "Bard"
+----
+
+===== Discussion
+
+Which technique of the three discussed above is the best to use? All
+have identical semantics, but in idiomatic Clojure they convey
+different implications about the scenario in which they are used.
+
+Typically, keyword-as-a-function lookup is used when maps are being
+used as "objects" and the keys as "fields", where the map contains a
+relatively small, well known set of keys, and when there is a
+reasonable expectation that the key will actually be present.
+
+The +get+ function or map-as-a-function lookup techniques, on the
+other hand, are more frequently used with large maps where the set of
+possible keys is more open-ended. There is less motivation for
+choosing between the two; the only difference to be aware of is that
+when the "map" provided is +nil+ for some reason, using it in function
+position will throw an exception, while applying +get+ to +nil+ will
+simply return +nil+.
+
+It is interesting to note, as well, that the ability to use a map
+itself as a function is not just an arbitrary convenience. In the
+technical sense of the word "function", maps _are_ functions of keys
+to values. Consider the following function definition and map:
+
+[source,clojure]
+----
+(defn square [x] (* x x))
+----
+
+[source,clojure]
+----
+(def square {1 1, 2 4, 3 9, 4 16, 5 25})
+----
+
+Using an invocation of the form +(square 3)+, the caller can actually
+be _agnostic_ to whether +square+ is a "real" function or a map. Of
+course, the normally defined function has a number of advantages in
+this case; for one, it has an unlimited domain instead of just the
+keys enumerated. And the multiplication function is fairly fast, so
+precomputing results is not a win. But in some cases, for functions
+that do have a more naturally constrained domain and which are more
+expensive to compute, being able to use a map implementation of a
+function can be a real boon to performance.
+
+Because all of the different techniques for retrieving values from a
+map return +nil+ if the key is not present, special handling is
+required if you need to differentiate the scenario in which a key
+_does_ exist in a map, with a vlue of nil, and where the key does not
+exist at all.
+
+The easiest way to do this is to always provide a default value to be
+returned in the case of a missing key. To be absolutely sure that you
+can differentiate the default value from any possible value the map
+might possibly contain, you can use a namespace-qualified keyword
+(e.g, +::not-found+)
+
+It is also possible to use the +contains?+ function, which takes a
+collection and a key, and returns true if and only if the collection
+has a specific entry for that key, even if the value is +nil+.
+
+.The meaning of +contains?+
+****
+
+The exact behavior of the +contains?+ function is a frequent topic for
+confusion, especially since several other languages have a function
+with a similar name that does something different.
+
+In Clojure, +contains?+ is _not_ a search function; it does not
+inspect a collection to see if the item is present. Rather, it is a
+_lookup_ function, and only works on associative or indexed
+collections. In other languages, it is frequently named +containsKey+
+or something similar.
+
+This means it works as one would expect on maps and sets, returning
+true if the specified key is a valid key or member in the
+collection. But for vectors, it will return true only if passed an
+integer between zero and the maximum index of the vector. And it will
+throw an exception if used at all with a list or a sequence.
+
+****
+
+===== See also
+
+* Maps as sequences
