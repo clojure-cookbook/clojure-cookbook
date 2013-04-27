@@ -1,0 +1,101 @@
+==== Applying a functions to maps
+
+===== Problem
+
+You'd like to apply a transformation function to the keys or the
+values of a map.
+
+===== Solution
+
+Use one of these simple general-purpose functions, modified to suit
+any needs you have.
+
+[source,clojure]
+----
+(defn map-keys
+  "Given a map and a function, returns the map resulting from applying
+  the function to each key."
+  [m f]
+  (zipmap (map f (keys m)) (vals m)))
+----
+
+[source,clojure]
+----
+(defn map-vals
+  "Given a map and a function, returns the map resulting from applying
+  the function to each value."
+  [m f]
+  (zipmap (keys m) (map f (vals m))))
+----
+
+[source,clojure]
+----
+(defn map-kv
+  "Given a map and a function of two arguments, returns the map
+  resulting from applying the function to each of its entries. The
+  provided function must return a pair (a two-element sequence.)"
+  [m f]
+  (into {} (map (fn [[k v]] (f k v)) m)))
+----
+
+===== Discussion
+
++map-keys+ and +map-vals+ are extremely straightforward. They each
+start by breaking the map down into a sequence of keys and a sequence
+of values using the +keys+ and +vals+ functions, which return a
+sequence of the keys or values of a map, respectively. Then, they use
+the +map+ function to transform either the sequence of keys or the
+sequence of vals. Finally, the +zipmap+ function is used to recombine
+the key and value sequences into a single map, with the updates in
+place.
+
++map-kv+ works a bit differently. It starts by converting the map into
+a sequence of map entries, then uses +map+ to apply them to an
+anonymous function which destructures the key and value, and then
+passes the key and value to the caller-provided function. Finally, it
+uses +into+ to repeatedly conjoin the resulting pairs onto an empty
+map, returning a new map that
+
+The following example is identical, but does not use destructuring, so the high-level structure is a bit more clear:
+
+[source,clojure]
+----
+(defn map-kv
+  [m f]
+  (into {} (map (fn [entry]
+                  (f (key entry) (val entry)))
+                m)))
+----
+
+It is easy to see that these three functions are all riffs on the
+standard +map+ function, applied to map data structures. What about
+the other staple of functional programming, +reduce+?
+
+Clojure already has a +reduce-kv+ function built in, added in version 1.4.
+
++reduce-kv+ takes three arguments; a function, an initial value, and
+an associative collection. The provided function must also take three
+arguments. +reduce-kv+ reduces the provided collection by first
+applying the function to the initial value, the first key and its
+corresponding value from the map. The resulting value is then
+re-applied along with the second key and value, the resulting value
+with the third key and value, and so on.
+
+The following example uses +reduce-kv+ to obtain the sum of all the
+values in a map.
+
+[source,clojure]
+----
+(reduce-kv (fn [agg _ val]
+             (+ agg val))
+           0
+           {:a 1 :b 2 :c 3})
+----
+
+Note that an underscore (+_+) is used instead of +key+ in the function
+argument declaration; this is idiomatic in Clojure to name any argument
+that isn't actually used in the body.
+
+===== See also
+
+* Maps as sequences

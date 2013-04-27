@@ -1,0 +1,110 @@
+==== Maps as Sequences & Sequences as Maps
+
+===== Problem
+
+* You want to view a map as a sequence of entries
+* You want to create a map by joining a sequence of entries
+
+===== Solution
+
+To obtain a sequence view of a map, simply call +seq+ on it. Note that
+most sequence-processing functions call +seq+ on their arguments
+themselves, so it's usally not necessary to do this explicitly.
+
+[source,clojure]
+----
+(seq {:a 1, :b 2, :c 3, :d 4})
+;; -> ([:a 1] [:c 3] [:b 2] [:d 4])
+----
+
+This creates a sequence of key-value pairs, which you can then process
+as you would any sequence.
+
+To create a map _from_ a sequence, you can exploit the fact that
++conj+, when applied to a map, can take a two-element vector as a
+key-value pair and use it to add the respective key and value on to
+the map.
+
+[source,clojure]
+----
+(def m {:a 1, :b 2})
+(conj m [:c 3])
+;; -> {:a 1, :b 2, :c 3}
+----
+
+Because the +into+ function uses repeated applications of +conj+ to
+add items from one sequence onto a collection, this means it can be
+used to transform a sequence of pairs into a single map.
+
+[source,clojure]
+----
+(into {} [[:a 1] [:b 2] [:c 3]])
+;; -> {:a 1, :b 2, :c 3}
+----
+
+It is also possible to construct a map from _two_ sequences; one
+containing keys, one containing values. This is the purpose of the
++zipmap+ function. Given two sequences, it will return a single map
+with keys from the first argument sequence and values from the second.
+
+[source,clojure]
+----
+(zipmap [:a :b :c] [1 2 3])
+;; -> {:c 3, :b 2, :a 1}
+----
+
+If one of thes sequences passed to zipmap is shorter than the other,
+the extra values will be ignored, and the output map will only contain
+entries up to the length of the shortest sequence.
+
+===== Discussion
+
+When obtaining a sequence view of a _hash map_, the map entries will
+be returned in an arbitrary or undefined order. Conveniently, this
+order (although arbitrary) _is_ guaranteed to be consistent if the
+same map is turned into a sequence multiple times.
+
+When using a _sorted map_, the entries will be returned according to
+their sort order in the map. For example:
+
+[source,clojure]
+----
+(seq (hash-map :a 1, :b 2, :c 3, :d 4))
+;; -> ([:a 1] [:c 3] [:b 2] [:d 4])
+
+(seq (sorted-map :a 1, :b 2, :c 3, :d 4))
+;; -> ([:a 1] [:b 2] [:c 3] [:d 4])
+----
+
+There is another interesting fact about the entry values in this
+sequence. They are printed as vectors, and they _are_ vectors insofar
+as they implement the full vector interface. However, their concrete
+type is not actually +clojure.lang.PersistentVector+; rather, they are
+a different kind of vector called a _map entry_, which is not only a
+vector but also supports the +clojure.lang.MapEntry+ interface.
+
+The +MapEntry+ interface provides +key+ and +val+ functions which can
+be used to retrieve the key and value of an entry.
+
+[source,clojure]
+----
+(def entry (first {:a 1 :b 2}))
+
+(class entry)
+;; -> clojure.lang.MapEntry
+
+(key entry)
+;; -> :a
+
+(val entry)
+;; -> :1
+----
+
+These functions should be preferred to using the +first+ and +second+
+functions on map entries when processing maps as sequences, since they
+preserve the semantic of key/value pairs, making the code easier to
+read.
+
+===== See also
+
+* Mapping over the keys or values of a map

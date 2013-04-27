@@ -1,0 +1,180 @@
+==== Keeping multiple values for a key
+
+===== Problem
+
+Normally, maps are strictly one value per key; if you +assoc+ an
+existing key, the old value is replaced.
+
+Sometimes it is useful to have a map-like interface (a "multimap")
+which is capable of storing _multiple_ values for the same key. There
+is no such capability built in to Clojure.
+
+So, how would you design a multimap data structure, backed by a normal
+map?
+
+===== Solution
+
+[source,clojure]
+----
+(defprotocol MultiAssociative
+  "An associative structure that can contain multiple values for a key"
+  (insert [m key value] "Insert a value into a MultiAssociative")
+  (delete [m key value] "Remove a value from a MultiAssociative")
+  (get-all [m key] "Returns a set of all values storted at key in a
+                    MultiAssociative. Returns the empty set if there
+                    are no values."))
+
+(defn- value-set?
+  "Helper predicate that returns true if the value is a set which
+  represents multiple values in a MultiAssociative"
+  [v]
+  (and (set? v) (::multi-value (meta v))))
+
+(defn value-set
+  "Given any number of items as argumnents, returns a set representing
+  multiple values in a MultiAssociative. If there is only one item,
+  simply returns the item"
+  [& items]
+  (if (= 1 (count items))
+    (first items)
+    (with-meta (set items) {::multi-value true})))
+
+(extend-protocol MultiAssociative
+  clojure.lang.Associative
+  (insert [this key value]
+    (let [v (get this key)]
+      (assoc this key (cond
+                       (nil? v) value
+                       (value-set? v) (conj v value)
+                       :else (value-set v value)))))
+  (delete [this key value]
+    (let [v (get this key)]
+      (if (value-set? v)
+        (assoc this key (apply value-set (disj v value)))
+        (if (= v value)
+          (dissoc this key)
+          this))))
+  (get-all [this key]
+    (let [v (get this key)]
+      (cond
+       (value-set? v) v
+       (nil? v) #{}
+       :else #{v}))))
+----
+
+And, of course, corresponding unit tests (using +clojure.test+.)
+
+[source,clojure]
+----
+(deftest test-insert
+  (testing "inserting to a new key"
+    (is (= {:k :v} (insert {} :k :v))))
+  (testing "inserting to an existing key (single existing item)"
+    (let [m (insert {} :k :v1)]
+      (is (= {:k #{:v1 :v2}}
+             (insert m :k :v2)))))
+  (testing "inserting to an existing key (multiple existing items)"
+    (let [m (insert (insert {} :k :v1) :k :v2)]
+      (is (= {:k #{:v1 :v2 :v3}}
+             (insert m :k :v3))))))
+
+(deftest test-delete
+  (testing "deleting a non-present key"
+    (is (= {:k :v} (delete {:k :v} :nosuch :nada))))
+  (testing "deleting a non-present value"
+    (is (= {:k :v} (delete {:k :v} :k :nada))))
+  (testing "deleting a single value"
+    (is (= {} (delete {:k :v} :k :v))))
+  (testing "deleting one of two values"
+    (let [m (insert (insert {} :k :v1) :k :v2)]
+      (is (= {:k :v1} (delete m :k :v2)))))
+  (testing "deleting one of several values"
+    (let [m (insert (insert (insert {} :k :v1) :k :v2) :k :v3)]
+      (is (= {:k #{:v1 :v2}} (delete m :k :v3))))))
+
+(deftest test-get-all
+  (testing "get a non-present key"
+    (is (= #{} (get-all {} :nosuch))))
+  (testing "get a single value"
+    (is (= #{:v} (get-all {:k :v} :k))))
+  (testing "get multiple values"
+    (is (= #{:v1 :v2} (get-all (insert (insert {} :k :v1) :k :v2) :k)))))
+----
+
+===== Discussion
+
+First, this code defines a protocol to implement the set of functions
+that comprise the multimap behavior. A protocol is a great choice in
+this situation; it ties together several methods that perform related
+operations on the same object, and it allows for multiple concrete
+implementations.
+
+In this case, there are three methods required to implement the
+desired functionality. Note that it does _not_ override or
+re-implement any of the core map methods (+assoc+, +dissoc+ etc.). The
+semantics of the new behavior are simply different from regular maps,
+and Clojure defines very strong semantics around core
+functions. Breaking or overriding these expectations is always a bad
+idea, especially when using a distinct set of functions makes it clear
+when multimap functionality is being used.
+
+The concrete implementation of +MultiAssociative+ extends the protocol
+to the +clojure.lang.Associative+ interface. It would certainly be
+possible to implement it on something more targeted, such as
++IPersistentSet+, but since it only _requires_ something associative
+for the implementation, it's best not to be too specific. Coding
+against +clojure.lang.Associative+ also gives several additional
+capabilities for free; for example, there is now automatically a
+"multvector" as well, that can store multiple values at each index
+(provided they are added using +insert+.)
+
+Reading the code, you'll notice that good deal of the actual logic is
+devoted to making sure that single values are stored plainly, while
+multiple values are wrapped in a set. This is maintained both when
+inserting and deleting items, requiring to the functions to run a
+check on what type the value is and wrap or unwrap
+accordingly. Similarly, +get-all+ needs to wrap single values in a set
+before returning, since it specifies that it must return a set.
+
+This is a design decision that has a several benefits and
+tradeoffs. The alternative would be to always wrap the values in a
+set, even single values. This would make the code a bit simpler, and
+eliminate most of the type checking, wrapping and unwrapping forms.
+
+However, the simplicity would come with a price. If values (even
+single values) were _always_ wrapped in a set, the map being used as a
+multimap would not be easily usable via the normal map functions; it
+would contain a lot of odd-looking single-item sets, and if anything
+were added to it using +assoc+ it would be incompatible with future
+uses of +insert+ on that key.
+
+In essence, the wrapping and unwrapping is to allow any map to be
+usable via both the standard +Associative+ _and_ the
++MultiAssociative+ interfaces, without requiring the user to keep
+track of which "kind" of a map it is. Values inserted using +assoc+
+can be read with +get-all+, and values inserted using +insert+ can be
+removed with +dissoc+. All expectations regarding normal maps should
+hold. In the case of a normal +get+ on a key with multiple values, a
+set containing multiple items will be returned; this is probably what
+
+There is one more feature of this code that deserves commentary; that
+is, the use of +::multi-value+ metadata on the sets used to store
+multiple values, applied and tested using the +value-set+ and
++value-set?+ functions.
+
+This is to handle the edge case where the intended _value_ for a key
+is, itself, a set. The code needs a way to disambiguate between sets
+it creates in order to manage multiple keys for a value, and sets that
+are simply values provided by users.
+
+This is accomplished by placing metadata on sets created to contain
+values. A namespace-scoped keyword is used to ensure that it will not
+collide with any possible existing metadata on values provided by the
+user. Then, all the code has to do is check if a set has the
++::multi-value+ metadata to know whether it's a set containing values,
+or is itself a value.
+
+===== See also
+
+* Using a protocol to extend an existing interface
+

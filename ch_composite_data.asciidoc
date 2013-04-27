@@ -43,7 +43,10 @@ include::sec_composite_maps_setting_keys.asciidoc[]
 
 include::sec_composite_maps_using_composites_as_keys.asciidoc[]
 
+include::sec_composite_maps_as_sequences.asciidoc[]
 
+include::sec_composite_maps_applying_functions_to.asciidoc[]
 
+include::sec_composite_maps_multiple_values.asciidoc[]
 
 === Sequences
