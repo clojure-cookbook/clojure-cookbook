@@ -56,7 +56,7 @@ It may be surprising to some that Clojure doesn't have its own interal
 math namespace, but why re-invent the wheel? Despite its tainted
 reputation, Java can perform, especially when it comes to math;
 Clojure's Java interop forms and typing sugar make doing math using
-+java.util.Math+ almost pleasant. 
++java.util.Math+ almost pleasant.
 
 +java.lang.Math+ isn't only for trigonometry, it also contains a
 number of functions useful for dealing with exponentiation, logarithms
@@ -66,5 +66,4 @@ javadocs].
 
 ===== See Also
 
-* Primatives section on performance and type hinting.
-* Other math sections?
+* See <<sec_primitives_math_type_hinting>> for information on improving performance of heavy math.

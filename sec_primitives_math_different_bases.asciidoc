@@ -25,10 +25,7 @@ the radix number (e.g. 2, 16, etc.) and the letter +r+. Any base from
 ;; -> 624567473
 ----
 
-To output integers use the Java method +Integer/toString+. Unlike the
-ordering of most Clojure functions, this method takes an integer
-first, and the optional base second, making it hard to partially
-apply without wrapping it in another function.
+To output integers use the Java method +Integer/toString+.
 
 [source,clojure]
 ----
@@ -44,10 +41,11 @@ apply without wrapping it in another function.
 
 ===== Discussion
 
-As mentioned, the ordering for +Integer/toString+ is a little
-inconvenient if you want to partially apply the method with a given
-radix. You can write a small wrapper around +Integer/toString+ to
-accomplish this.
+Unlike the
+ordering of most Clojure functions, this method takes an integer
+first, and the optional base second, making it hard to partially
+apply without wrapping it in another function. You can write a small
+wrapper around +Integer/toString+ to accomplish this.
 
 [source,clojure]
 ----
