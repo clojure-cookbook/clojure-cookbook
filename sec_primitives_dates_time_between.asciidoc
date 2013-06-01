@@ -48,7 +48,7 @@ since-april-first
 ===== Discussion
 
 Calculating the length of an interval of times is one of the more
-complex operations you can perform with time. Time on Planet Earth is
+complex operations you can perform with time. Time on planet Earth is
 a complex beast, complected by constructs like leap time and time
 zones; https://github.com/clj-time/clj-time[clj-time] is the only
 library we're aware of that is capable of wrangling this complexity.

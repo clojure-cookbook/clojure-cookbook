@@ -42,10 +42,11 @@ accepts an optional argument that specifies the exclusive maximum
 value. For example, +(rand 5)+ would return a floating point number
 ranging from +0.0+ (inclusive) to +5.0+ (exclusive).
 
-At first blush +rand-int+ seems like an ideal way to select a random
-element from a vector or list. This is a lot of ceremony though, use
-+rand-nth+ instead to get a random element from any sequential collect
-(i.e. the collection responds to +nth+.)
++(rand-int 5)+, on the other hand, would return a random _integer_ between +0+
+(inclusive) and +5+ (exclusive). At first blush +rand-int+ might seem like an
+ideal way to select a random element from a vector or list. This is a lot of
+ceremony though, use +rand-nth+ instead to get a random element from any
+sequential collect (i.e. the collection responds to +nth+.)
 
 [source,clojure]
 ----
@@ -59,7 +60,7 @@ element from a vector or list. This is a lot of ceremony though, use
 This won't work for sets or hash-maps however. If you want to retrieve
 a random element from a non-sequential collection like a set, use
 +seq+ to transform that collection into a sequence before calling
-+rand-nth+ on it. 
++rand-nth+ on it.
 
 [source,clojure]
 ----

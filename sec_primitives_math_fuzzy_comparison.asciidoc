@@ -2,11 +2,13 @@
 
 ===== Problem
 
-You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating point numbers, which are susceptible to "drift" through repeated operations. 
+You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating point numbers, which are susceptible to "drift" through repeated operations.
 
 ===== Solution
 
-Clojure has no built-in functions for fault-tolerant equality or "fuzzy comparison" as it is often called. It's trivial to implement your own +fuzzy=+ function.
+Clojure has no built-in functions for fault-tolerant equality or "fuzzy
+comparison" as it is often called. It's trivial to implement your own
++fuzzy=+ function.
 
 [source,clojure]
 ----
@@ -34,7 +36,7 @@ tolerance to 1000.
 Even with +fuzzy=+, you still need to take care when comparing
 floating point values, especially for values differing by numbers
 _very close_ to your tolerance. At differences bordering the supplied
-tolerance you may find the results to be unexpected. 
+tolerance you may find the results to be unexpected.
 
 [source,clojure]
 ----

@@ -1,3 +1,4 @@
+[[sec_primitives_math_type_hinting]]
 ==== Alleviating Performance Problems With Type Hinting
 
 ===== Problem
@@ -12,7 +13,7 @@ diagnose excessive reflection.
 
 [source,clojure]
 ----
-(defn column-idx 
+(defn column-idx
   "Return the index number of a column in a CSV header row"
   [header-cols col]
   (.indexOf (vec header-cols) col))
@@ -23,7 +24,7 @@ diagnose excessive reflection.
 
 (set! *warn-on-reflection* true)
 
-(defn column-idx 
+(defn column-idx
   "Return the index number of a column in a CSV header row"
   [header-cols col]
   (.indexOf (vec header-cols) col))
@@ -35,11 +36,11 @@ diagnose excessive reflection.
 ----
 
 Once you've identified reflection, add type hints to your argument
-list preceding each argument in the form "+^Type arg+". 
+list preceding each argument in the form "+^Type arg+".
 
 [source,clojure]
 ----
-(defn column-idx 
+(defn column-idx
   "Return the index number of a column in a CSV header row"
   [^java.util.List header-cols col]
   (.indexOf header-cols col))
