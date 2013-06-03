@@ -1,0 +1,50 @@
+[[ch_composite_data]]
+== Composite Data
+
+=== Lists
+
+include::lists/creating-a-list/creating-a-list.asciidoc[]
+
+include::lists/creating-a-list-from-existing/creating-a-list-from-existing.asciidoc[]
+
+include::lists/adding-an-item/adding-an-item.asciidoc[]
+
+include::lists/removing-an-item/removing-an-item.asciidoc[]
+
+=== Vectors
+
+include::vectors/creating-a-vector/creating-a-vector.asciidoc[]
+
+include::vectors/adding-an-item/adding-an-item.asciidoc[]
+
+include::vectors/removing-an-item/removing-an-item.asciidoc[]
+
+include::vectors/get-item-at-index/get-item-at-index.asciidoc[]
+
+include::vectors/set-item-at-index/set-item-at-index.asciidoc[]
+
+=== Sets
+
+include::sets/creating-a-set/creating-a-set.asciidoc[]
+
+include::sets/adding-and-removing/adding-and-removing.asciidoc[]
+
+include::sets/testing-set-membership/testing-set-membership.asciidoc[]
+
+include::sets/using-set-operations/using-set-operations.asciidoc[]
+
+=== Maps
+
+include::maps/creating-a-map/creating-a-map.asciidoc[]
+
+include::maps/retrieving-keys/retrieving-keys.asciidoc[]
+
+include::maps/setting-keys/setting-keys.asciidoc[]
+
+include::maps/using-composites-as-keys/using-composites-as-keys.asciidoc[]
+
+include::maps/as-sequences/as-sequences.asciidoc[]
+
+include::maps/applying-functions-to/applying-functions-to.asciidoc[]
+
+include::maps/multiple-values/multiple-values.asciidoc[]
