@@ -1,4 +1,5 @@
 (ns clojure-cookbook.compile
+  (:refer-clojure :exclude [compile])
   (:require [clojure.java.io :as io]
             [clojure.string :as s]))
 
