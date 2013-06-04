@@ -36,6 +36,10 @@ One of the most helpful contributions you could make to the cookbook is a comple
 
 The general format for any cookbook recipes is **Problem**, **Solution** and **Discussion**. The length of a recipe is generally one to two pages, but there is no hard rule on length (big or small.) Simple examples may only warrant half a page, and more complex examples might push three or four pages. If you're in doubt, inquire early.
 
+#### The *literal* Format
+
+**TODO** about asciidoc.
+
 #### Problem Statement
 
 A problem statement is a short description of the problem the recipe provides a solution too.
@@ -76,6 +80,9 @@ See the following recipes for representative examples:
 * [Performing Fuzzy Comparison](primitive-data/math/fuzzy-comparison/fuzzy-comparison.asciidoc)
 * [Adding or Removing Items from Sets](composite-data/sets/adding-and-removing/adding-and-removing.asciidoc)
 
+#### Discussion
+
+**TODO**
 
 ### Style
 
