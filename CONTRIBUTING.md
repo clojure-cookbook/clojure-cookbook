@@ -8,13 +8,12 @@ This document describes how you can contribute and what you'll receive if you do
 
 Nearly any knowledge or bit of information you could contribute to the cookbook is valuable, but here are some concrete ideas:
 
-* Suggest an idea by making a change to our [Ideas Page](#)
+* Suggest an idea by [creating an issue](https://github.com/levand/clojure-cookbook/issues/new) with the tag "idea".
 * Correct a typo in an existing recipe.
 * Proofread and provide feedback on existing recipes.
 * Write a recipe yourself (find more details in the [Recipes](#Recipes) section below.)
 
-*While major contributions such as a whole recipe require a [license assignment](#licensing), typos, factual corrections and ideas do not.*
-
+*While major contributions such as a whole recipe require a [license assignment](#licensing) while typos, factual corrections and ideas do not.*
 
 ## Credits & Rewards
 
@@ -38,9 +37,11 @@ The general format for any cookbook recipes is **Problem**, **Solution** and **D
 
 #### The *literal* Format
 
-**TODO** about asciidoc.
+Recipes in *Clojure Cookbook* should be written in [AsciiDoc](http://www.methods.co.nz/asciidoc/) a markup language very similar to Markdown, but much more well suited for writing books. AsciiDoc has support for advanced features like [callouts](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html#X105), footnotes, [cross referencing links](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html#_internal_cross_references) and most importantly generating indices for the final book.
 
-#### Problem Statement
+You can find more information on the format in the [AsciiDoc User Guide](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html) or across numerous pre-existing `*.asciidoc` files in this repo.
+
+#### Problem
 
 A problem statement is a short description of the problem the recipe provides a solution too.
 
@@ -76,13 +77,17 @@ The solution to a problem briefly introduces the approach and contains the code 
 
 See the following recipes for representative examples:
 
+##### Examples
+
 * [Performing Find and Replace on Strings](primitive-data/strings/find-and-replace/find-and-replace.asciidoc)
 * [Performing Fuzzy Comparison](primitive-data/math/fuzzy-comparison/fuzzy-comparison.asciidoc)
 * [Adding or Removing Items from Sets](composite-data/sets/adding-and-removing/adding-and-removing.asciidoc)
 
 #### Discussion
 
-**TODO**
+The Discussion section is where your exposition occurs. Why would you solve this problem this way? What (if any) alternatives are there? How do the functions and methods work in depth – how and when would you use them in different ways? It is perfectly appropriate to include further code samples or examples in the discussion section to further illustrate the recipe.
+
+The [Examples](#examples) from the Solution section above are representative of Discussion sections.
 
 ### Style
 
@@ -107,16 +112,18 @@ You'll find a list of ideas under the [ideas tag](https://github.com/levand/cloj
 
 To get you started, here is a rough list of the chapters we hope to cover in the final book:
 
-* **Primitive Data** – strings, numbers, dates, etc.
-* **Composite Data** – plural data and the manipulation thereof
-* **Databases and Persistence** – ...
-* **Local IO** – reading/writing to the console, file manipulation, etc.
-* **Network IO** – ... 
-* **Distributed Computing** – …
-* **GUI applications** – …
-* **Packaging and Deployment** – ...
-* **Testing and Profiling** – …
-* **Web Applications** – …
-* **ClojureScript** – …
+Chapter                   | Description
+------------------------- | ------------------------------------------------------------------------
+Primitive Data            | strings, numbers, dates, etc.
+Composite Data            | plural data and the manipulation thereof
+Databases and Persistence | this one's all remembering things.
+Local IO                  | reading/writing to the console, files and other fun system calls.
+Network IO                | communication via web requests, socket connections or otherwise.
+Distributed Computing     | performing work across multiple machines or processes.
+GUI applications          | building desktop/mobile software.
+Packaging and Deployment  | "shipping it," so to speak. Also leiningen project-management goodness.
+Testing and Profiling     | How to make it right *and* tight.
+Web Applications          | Building web applications
+ClojureScript             | Clojure in the browser
 
 This is by no means a final list, but it should serve to give a general idea the shape of the book.
