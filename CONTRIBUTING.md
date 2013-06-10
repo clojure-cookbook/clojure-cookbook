@@ -8,7 +8,7 @@ This document describes how you can contribute and what you'll receive if you do
 
 Nearly any knowledge or bit of information you could contribute to the cookbook is valuable, but here are some concrete ideas:
 
-* Suggest an idea by [creating an issue](https://github.com/clojure-cookbook/clojure-cookbook/issues/new) with the tag "idea".
+* Suggest an idea by [creating an issue](../../issues/new) with the tag "idea".
 * Correct a typo or error in an existing recipe.
 * Proofread and provide feedback on existing recipes.
 * Write a recipe yourself (find more details in the [Recipes](#Recipes) section below.)
@@ -113,7 +113,7 @@ If you have any questions or concerns about the licensing model, please don't he
 
 ### Ideas
 
-You'll find a list of ideas under the [ideas tag](https://github.com/clojure-cookbook/clojure-cookbook/issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`. 
+You'll find a list of ideas under the [ideas tag](../../issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`. 
 
 To get you started, here is a rough list of the chapters we hope to cover in the final book:
 
