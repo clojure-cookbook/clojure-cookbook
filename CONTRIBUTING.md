@@ -101,9 +101,9 @@ When instructing readers what technique or library to use make it clear whether 
 
 ### Licensing
 
-The full book itself is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivs](http://creativecommons.org/licenses/by-nc-nd/3.0/) license, meaning that it can be freely distributed but not modified or resold commercially. This is to ensure the book is always of good quality (as befits the O'Reilly name) and to prevent third parties from profiting commercially by redistributing something intended to be free.
+The full book itself is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivs](http://creativecommons.org/licenses/by-nc-nd/3.0/) license, meaning that it can be freely distributed but not modified or resold commercially. This is to ensure the book is always of good quality (as befits the O'Reilly name) and to prevent third parties from profiting commercially by redistributing something intended to be free. Technically speaking, this book is open source in the "free as in beer" sense, rather than "free as in speech."
 
-However, in order for us to accept submissions, those submissions must be licensed such that *we* (the authors and O'Reilly) *can* create derivative works, sell print copies, and distribute it under a more restrictive license (discussed above.)
+However, in order for us to accept submissions, those submissions must be licensed such that *we* (the authors and O'Reilly) *can* in fact use your submission to create derivative works, sell print copies, and distribute it under a more restrictive license (discussed above.)
 
 Therefore, all public contributions must be licensed under the [Creative Commons Attribution](http://creativecommons.org/licenses/by/3.0/). Every submitted example *must* contain a `LICENSE` file containing the full legal code of the `Creative Commons Attribution` license, available [here](http://creativecommons.org/licenses/by/3.0/legalcode.txt). If it doesn't have such a file, we can't accept the pull request.
 

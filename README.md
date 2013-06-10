@@ -16,11 +16,14 @@ Every author of an accepted contribution will receive a *free digital copy of th
 
 ## Who we are
 
-We are Luke Vanderhart ([@levand](http://github.com/levand)) and Ryan Neufeld ([@rkneufeld](http://github.com/rkneufeld)), developers, authors, conference speakers and above all, teachers. For this book-building adventure we will be your guides; we'll be collecting and editing your contributions, interfacing with the publisher (O'Reilly) and pitching in to the book as well. 
+We are Luke Vanderhart ([@levand](http://github.com/levand)) and Ryan Neufeld ([@rkneufeld](http://github.com/rkneufeld)), developers, authors, conference speakers and (at the moment), teachers. For this book-building adventure we will be your guides; we'll be collecting and editing your contributions, interfacing with the publisher (O'Reilly) and writing a solid chunk of the book ourselves.
 
 ## License
 
-<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">This draft of Clojure Cookbook</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://clojure-cookbook.com" property="cc:attributionName" rel="cc:attributionURL">Relevance, Inc.</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/us/deed.en_US">Creative Commons Attribution-NonCommercial 3.0 United States License</a>.<br />Based on work at <a xmlns:dct="http://purl.org/dc/terms/" href="http://github.com/clojure-cookbook/book" rel="dct:source">http://github.com/clojure-cookbook/book</a>.
-</p></a>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">This draft of Clojure Cookbook</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.en_US">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/us/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/us/88x31.png" />
+
+Please see the [contribution guide](CONTRIBUTING.md) for how this works for accepting pull requests.
+
+Also, please note that because this is a *No Derivatives* license, you may *not* use this repository as a basis for creating your own book based on this one. Technically speaking, this book is open source in the "free as in beer" sense, rather than "free as in speech."
+
