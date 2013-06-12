@@ -28,10 +28,10 @@ Adding multiple items at once:
 
 ===== Discussion
 
-The behavior of +conj+ is may vary slightly depending on the concrete
+The behavior of +conj+ may vary slightly depending on the concrete
 type. It always "adds" an item to an immutable collection by returning
 a new collection containing the new item, but may add the item to
-different places in the collection depending on what is most effecient
+different places in the collection depending on what is most efficient
 for the particular type.
 
 In the case of lists, +conj+ will always add the item at the
@@ -56,7 +56,7 @@ are both types of persistent linked lists, algorithmically speaking.
 The best way to think about it is that +conj+ is a concrete *data
 structure* operation, which will not change the concrete type of the
 data structure it is applied to, while +cons+ is a *sequence*
-operation and only guarantees that it will return a sequence:[in fact,
+operation and only guarantees that it will return a sequence: in fact,
 it returns a cons cell (+clojure.lang.Cons+) which implements the
 sequence interface], no matter what type of seq-able collection you
 gave it to start with.
