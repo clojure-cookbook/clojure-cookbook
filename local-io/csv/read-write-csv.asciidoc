@@ -37,8 +37,8 @@ When reading, you can change the separator and quote delimiters, which default t
 
 [source,clojure]
 ----
-(csv/read-csv "this$-is-\na$test" :separator \$ :quote \-)
-;; -> (["this" "is"] ["a" "test"])
+(csv/read-csv "this$-is $-\na$test" :separator \$ :quote \-)
+;; -> (["this" "is $"] ["a" "test"])
 ----
 
 When writing, as with read-csv, you can configure the separator, quote, newline (between :lf (default) and :cr+lf), and the quote? predicate function, which takes a collection, and returns true or false to indicate if the string representation needs to be quoted.
