@@ -7,7 +7,7 @@ You want to obtain a new set with items added or removed.
 ===== Solution
 
 The +conj+ function supports sets, just as it does lists, vectors and
-maps. Use it to add an item or items to a set; just pass it the set
+maps. Use it to add an item or items to a set: just pass it the set
 and any number of items to add.
 
 [source,clojure]
