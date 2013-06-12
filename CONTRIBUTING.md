@@ -8,7 +8,7 @@ This document describes how you can contribute and what you'll receive if you do
 
 Nearly any knowledge or bit of information you could contribute to the cookbook is valuable, but here are some concrete ideas:
 
-* Suggest an idea by [creating an issue](../../issues/new) with the tag "idea".
+* Suggest an idea by [creating an issue](../../issues/new?title=Idea:%20I've%20got%20this%20great%20idea...&body=So here's what I was thinking...&labels[]=idea) with the tag "idea".
 * Correct a typo or error in an existing recipe.
 * Proofread and provide feedback on existing recipes.
 * Write a recipe yourself (find more details in the [Recipes](#Recipes) section below.)
