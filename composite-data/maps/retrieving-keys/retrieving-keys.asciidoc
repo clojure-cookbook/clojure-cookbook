@@ -14,10 +14,10 @@ map does not contain the key.
 
 [source,clojure]
 ----
-(get :name {:name "Kvothe" :class "Bard"})
+(get {:name "Kvothe" :class "Bard"} :name)
 ;; -> "Kvothe"
 
-(get :race {:name "Kvothe" :class "Bard"})
+(get {:name "Kvothe" :class "Bard"} :race)
 ;; -> nil
 ----
 
@@ -26,7 +26,7 @@ default return value instead of +nil+ if a map doesn't contain the key.
 
 [source,clojure]
 ----
-(get :race {:name "Kvothe" :class "Bard"} "Human")
+(get {:name "Kvothe" :class "Bard"} :race "Human")
 ;; -> "Human"
 ----
 
