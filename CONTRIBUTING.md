@@ -95,10 +95,6 @@ The general *tone* of writing in the book should phrase things from the perspect
 
 When instructing readers what technique or library to use make it clear whether something is the only option, the best option or one of many reasonable options. In particular, be mindful of the differences between words like *should*, *may*, etc – where possible adhere to [RFC2119](http://www.ietf.org/rfc/rfc2119.txt)'s recommended usage of such terms.
 
-### Source code
-
-**TODO (Luke)**: exposition about when include source code would be necessary, how to do it, and an example.
-
 ### Licensing
 
 The full book itself is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivs](http://creativecommons.org/licenses/by-nc-nd/3.0/) license, meaning that it can be freely distributed but not modified or resold commercially. This is to ensure the book is always of good quality (as befits the O'Reilly name) and to prevent third parties from profiting commercially by redistributing something intended to be free. Technically speaking, this book is open source in the "free as in beer" sense, rather than "free as in speech."
