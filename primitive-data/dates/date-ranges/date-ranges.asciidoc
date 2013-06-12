@@ -68,4 +68,4 @@ sequence of DateTime objects that stretches from a start time to an end time,
 stepped appropriately by the provided +step+ value.
 
 Imagine trying to build something similar in a language
-without first-class lazyness.
+without first-class laziness.

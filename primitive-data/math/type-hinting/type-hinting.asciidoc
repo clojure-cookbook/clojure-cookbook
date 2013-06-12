@@ -78,12 +78,12 @@ functions return value.
 ===== Discussion
 
 In highly performant code it is often the case that you'll choose to
-fall back to Java for increased performance. There is an impedence
+fall back to Java for increased performance. There is an impedance
 mismatch between Clojure and Java however; Java is strongly typed,
 whereas Clojure is not. Because of this, (almost) every time you
 invoke a Java function in Clojure it needs to reflect on the type of
 the provided arguments in order to select the appropriate Java method
-to invoke. For methods invoked seldomly this isn't too big of a deal,
+to invoke. For seldom-invoked methods this isn't too big of a deal,
 but for methods executed frequently the cost of reflection can pile up
 quickly.
 
@@ -105,7 +105,7 @@ for sequences.
 You may have noticed Clojure puts training wheels on all of its
 numeric types too, upgrading types liberally to avoid overflows. This
 isn't without a cost, of course, as Clojure needs to check on every
-operation to make sure you aren't overflowing containeres. If you need
+operation to make sure you aren't overflowing containers. If you need
 even more to-the-metal performance and happen to have nerves of steel
 yourself, then you may want to look at unchecked math. Setting
 +*unchecked-math*+ to true will disable this safety, causing addition,

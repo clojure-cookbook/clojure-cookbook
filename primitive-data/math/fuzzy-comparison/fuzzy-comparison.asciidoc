@@ -30,7 +30,7 @@ it finds the absolute difference between the two operands, and second,
 it tests whether that difference falls beneath the given tolerance.
 Of course, there's nothing dictating that the tolerance needs to be
 some minute fractional number. If you were comparing large numbers and
-wanted to ignore variantions under a thousand you could set the
+wanted to ignore variations under a thousand you could set the
 tolerance to 1000.
 
 Even with +fuzzy=+, you still need to take care when comparing

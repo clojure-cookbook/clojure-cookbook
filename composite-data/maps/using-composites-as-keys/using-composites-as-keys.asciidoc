@@ -14,7 +14,7 @@ Because of its robust identity semantics on composite values, Clojure
 fully supports using any immutable value as a map key. More
 importantly, doing so is reasonably efficient.
 
-For example, consider the data structure to represeent a chess board,
+For example, consider the data structure to represent a chess board,
 an 8x8 grid where each position can have one of 6 possible types of
 piece. Rows are represented by the numbers 1-8, and columns by the
 letters a-h.

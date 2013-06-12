@@ -25,7 +25,7 @@ an exception, while +rest+ will return an empty list.
 
 Lists do not support removing items except at the first position. If
 you need to remove an item in the middle or at the end of a list,
-you'll have to do so using the sequence maniupulation functions, then
+you'll have to do so using the sequence manipulation functions, then
 convert the result back into a concrete list (if you absolutely need
 it to be a list, for some reason).
 
