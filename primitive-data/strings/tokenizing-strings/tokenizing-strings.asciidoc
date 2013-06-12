@@ -24,7 +24,7 @@ allows you to control how many (or how few) times to split the
 provided string. You can control this with the optional +limit+
 argument. The most obvious effect of +limit+ is to limit the number
 values returned in the resulting collection. That said, +limit+
-doesn't always work like you would expect, and even the absense of
+doesn't always work like you would expect, and even the absence of
 this argument carries a meaning.
 
 Without +limit+, the +split+ function will return every possible

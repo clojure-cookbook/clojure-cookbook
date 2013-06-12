@@ -1,4 +1,4 @@
-==== Retreiving keys from a map
+==== Retrieving keys from a map
 
 ===== Problem
 
@@ -154,7 +154,7 @@ function can be a real boon to performance.
 Because all of the different techniques for retrieving values from a
 map return +nil+ if the key is not present, special handling is
 required if you need to differentiate the scenario in which a key
-_does_ exist in a map, with a vlue of nil, and where the key does not
+_does_ exist in a map, with a value of nil, and where the key does not
 exist at all.
 
 The easiest way to do this is to always provide a default value to be

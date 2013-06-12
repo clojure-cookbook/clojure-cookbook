@@ -20,7 +20,7 @@ map?
   "An associative structure that can contain multiple values for a key"
   (insert [m key value] "Insert a value into a MultiAssociative")
   (delete [m key value] "Remove a value from a MultiAssociative")
-  (get-all [m key] "Returns a set of all values storted at key in a
+  (get-all [m key] "Returns a set of all values stored at key in a
                     MultiAssociative. Returns the empty set if there
                     are no values."))
 
@@ -31,7 +31,7 @@ map?
   (and (set? v) (::multi-value (meta v))))
 
 (defn value-set
-  "Given any number of items as argumnents, returns a set representing
+  "Given any number of items as arguments, returns a set representing
   multiple values in a MultiAssociative. If there is only one item,
   simply returns the item"
   [& items]

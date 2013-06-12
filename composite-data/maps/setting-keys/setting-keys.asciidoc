@@ -13,8 +13,8 @@ values.
 
 [source,clojure]
 ----
-(def villian {:honorific "Dr." :name "Mayhem"})
-(assoc villian :occupation "Mad Scientist" :status :at-large)
+(def villain {:honorific "Dr." :name "Mayhem"})
+(assoc villain :occupation "Mad Scientist" :status :at-large)
 ;; -> {:honorific "Dr.", :name "Mayhem",
 ;;     :occupation "Mad Scientist", :status :at-large}
 ----
@@ -24,9 +24,9 @@ will return an updated map with the newly specified value for the key.
 
 [source,clojure]
 ----
-(def villian {:honorific "Dr.", :name "Mayhem",
+(def villain {:honorific "Dr.", :name "Mayhem",
               :occupation "Mad Scientist", :status :at-large})
-(assoc villian :status :deceased)
+(assoc villain :status :deceased)
 ;; -> {:honorific "Dr.", :name "Mayhem",
 ;;     :occupation "Mad Scientist", :status :deceased}
 ----
@@ -36,9 +36,9 @@ number of keys, returns a map absent those keys.
 
 [source,clojure]
 ----
-(def villian {:honorific "Dr.", :name "Mayhem",
+(def villain {:honorific "Dr.", :name "Mayhem",
               :occupation "Mad Scientist", :status :deceased})
-(dissoc villian :occupation :honorific)
+(dissoc villain :occupation :honorific)
 ;; -> {:name "Mayhem", :status :deceased}
 ----
 
@@ -130,7 +130,7 @@ as well as update values.
 ----
 
 Even though the starting map is empty, two empty maps are created for
-the values of th+:author+ and +:residence+ keys, meaning the +assoc+
+the values of the+:author+ and +:residence+ keys, meaning the +assoc+
 will be applied to a new, empty map.
 
 One other common use case for maps is as the values of one of

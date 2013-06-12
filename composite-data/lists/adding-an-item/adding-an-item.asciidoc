@@ -31,7 +31,7 @@ Adding multiple items at once:
 The behavior of +conj+ is may vary slightly depending on the concrete
 type. It always "adds" an item to an immutable collection by returning
 a new collection containing the new item, but may add the item to
-different places in the collection depending on what is most effecient
+different places in the collection depending on what is most efficient
 for the particular type.
 
 In the case of lists, +conj+ will always add the item at the

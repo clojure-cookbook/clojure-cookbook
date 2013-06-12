@@ -9,7 +9,7 @@
 
 To obtain a sequence view of a map, simply call +seq+ on it. Note that
 most sequence-processing functions call +seq+ on their arguments
-themselves, so it's usally not necessary to do this explicitly.
+themselves, so it's usually not necessary to do this explicitly.
 
 [source,clojure]
 ----
@@ -53,7 +53,7 @@ with keys from the first argument sequence and values from the second.
 ;; -> {:c 3, :b 2, :a 1}
 ----
 
-If one of thes sequences passed to zipmap is shorter than the other,
+If one of these sequences passed to zipmap is shorter than the other,
 the extra values will be ignored, and the output map will only contain
 entries up to the length of the shortest sequence.
 

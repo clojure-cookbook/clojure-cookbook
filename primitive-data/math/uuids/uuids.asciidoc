@@ -29,7 +29,7 @@ your data.
 
 This is where UUIDs come in. UUIDs, or Universally Unique Identifiers, are
 128-bit random numbers almost certainly unique across the entire
-universe. A bold clame, of course - see
+universe. A bold claim, of course - see
 http://www.ietf.org/rfc/rfc4122.txt[RFC 4122] for more detailed
 information on UUIDs, how they're generated, and the math behind them.
 
@@ -49,7 +49,7 @@ One thing you will lose with the move from sequential IDs to UUIDs is
 the implicit sortability of a chronologically increasing number. What
 if you could generate UUIDs that were both unique *and* sortable?
 Datomic does something similar with its +datomic.api/squuid+ function.
-It's simple to write a function that behaves simlarly.
+It's simple to write a function that behaves similarly.
 
 [source,clojure]
 ----
