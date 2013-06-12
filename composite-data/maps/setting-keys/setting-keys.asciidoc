@@ -130,7 +130,7 @@ as well as update values.
 ----
 
 Even though the starting map is empty, two empty maps are created for
-the values of the+:author+ and +:residence+ keys, meaning the +assoc+
+the values of the +:author+ and +:residence+ keys, meaning the +assoc+
 will be applied to a new, empty map.
 
 One other common use case for maps is as the values of one of
