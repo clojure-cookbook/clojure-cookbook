@@ -2,7 +2,7 @@
 
 ===== Problem
 
-You need to convert characters to their integer value, or vice versa.
+You need to convert characters to their respective code points (integer values) or vice versa.
 
 ===== Solution
 
