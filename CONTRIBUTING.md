@@ -101,7 +101,7 @@ The full book itself is licensed under a [Creative Commons Attribution-NonCommer
 
 However, in order for us to accept submissions, those submissions must be licensed such that *we* (the authors and O'Reilly) *can* in fact use your submission to create derivative works, sell print copies, and distribute it under a more restrictive license (discussed above.)
 
-Therefore, all sizable public contributions (anything more than a typo correction) must be licensed under a [Creative Commons Attribution](http://creativecommons.org/licenses/by/3.0/) license. The easiest way to do this is by placing a copy of [.license-assignments/template.txt](.license-assignments/template.txt) in the [.license-assignments/](.license-assignments) folder with the name `<your github username>.txt` the very first time you make a contribution.
+Therefore, all sizable public contributions (anything more than a typo correction) must be licensed under a [Creative Commons Attribution](http://creativecommons.org/licenses/by/3.0/) license. The easiest way to do this is by placing a copy of [.license-assignments/template.md](.license-assignments/template.md) in the [.license-assignments/](.license-assignments) folder with the name `<your github username>.md` the very first time you make a contribution.
 
 Source file should contain comments indicating the name of the author, for which you want to receive attribution.
 
