@@ -6,7 +6,7 @@ You need to implement mathematical functions that require trigonometry.
 
 ===== Solution
 
-All of the trigometric functions are accessible via +java.util.Math+,
+All of the trigonometric functions are accessible via +java.util.Math+,
 which is available as +Math+. Use them like you would any other
 namespaced function.
 
@@ -52,7 +52,7 @@ convert degrees to radians.
 
 ===== Discussion
 
-It may be surprising to some that Clojure doesn't have its own interal
+It may be surprising to some that Clojure doesn't have its own internal
 math namespace, but why re-invent the wheel? Despite its tainted
 reputation, Java can perform, especially when it comes to math;
 Clojure's Java interop forms and typing sugar make doing math using

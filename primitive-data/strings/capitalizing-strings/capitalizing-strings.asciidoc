@@ -39,7 +39,7 @@ untouched.
 ;; -> "!&$#@#%^[]"
 ----
 
-Clojure uses UTF-16 for all strings and as such its defintion of what
+Clojure uses UTF-16 for all strings and as such its definition of what
 a letter is is liberal enough to include accented characters. Take for
 example the phrase "Hurry up, computer!" which includes the letter
 'e' with both acute (é) and circumflex (ê) accents when translated

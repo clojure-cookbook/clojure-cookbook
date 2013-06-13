@@ -47,7 +47,7 @@ well. When provided with one or more argument, +str+ invokes Java's
 the next. When provided +nil+ or invoked without arguments +str+ will
 return the identity value for strings, the empty string.
 
-When it comes to string concatentation Clojure takes a fairly hands-off
+When it comes to string concatenation Clojure takes a fairly hands-off
 approach. There is nothing string-specific about +(apply str ...)+, it
 is merely the higher-order function +apply+ being used to emulate
 calling +str+ with a variable number of arguments.

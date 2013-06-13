@@ -76,7 +76,7 @@ A format string is a normal string with any number of embedded format
 specifiers. A format specifier is a placeholder to be replaced by a
 value some time later. In its simplest form this is a +%+ followed by
 a type specifier character, for example "+%d+" for a integer ('d' is for digit), or "+%f%"
-for a float. Beyond specifiers for strings, integers and flaots, there are specifiers for characters, dates, and numbers of different bases (octal, hexadecimal) to name a few.
+for a float. Beyond specifiers for strings, integers and floats, there are specifiers for characters, dates, and numbers of different bases (octal, hexadecimal) to name a few.
 
 What makes these format specifiers special is that you may indicate
 any number of flags and options between the percent sign and the
@@ -92,7 +92,7 @@ places (just like the Dewey Decimal system.)
 ;; -> "000.005" ;; The Dewey Decimal sub-class for books on "Computer programming, programs & data"
 ----
 
-Visit http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Formatter.html[java.util.Formatter] to learn more about formatting strngs.
+Visit http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Formatter.html[java.util.Formatter] to learn more about formatting strings.
 **** 
 
 ===== See Also

@@ -44,12 +44,12 @@ work is required to sort a collection of dates.
 
 [source,clojure]
 ----
-(def occurances
+(def occurrences
   [#inst "2013-04-06T17:40:57.688-00:00"
    #inst "2002-12-25T00:40:57.688-00:00"
    #inst "2025-12-25T11:23:31.123-00:00"])
 
-(sort occurances)
+(sort occurrences)
 ;; -> (#inst "2002-12-25T00:40:57.688-00:00"
 ;;     #inst "2013-04-06T17:40:57.688-00:00"
 ;;     #inst "2025-12-25T11:23:31.123-00:00")

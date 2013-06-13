@@ -48,7 +48,7 @@ literals (+#"..."+) to specify a pattern as a regular expression.
 
 As far as string functions go, +replace+ is one of the more powerful and most complex ones. The majority of this complexity arises from the varying +match+ and +replacement+ types it can operate with.
 
-When passed a string match +replace+ expects a string +replacement+. Any occurances of +match+ in the supplied string will be replaced directly with +replacement+.
+When passed a string match +replace+ expects a string +replacement+. Any occurrences of +match+ in the supplied string will be replaced directly with +replacement+.
 
 When passed a character match (such as +\c+ or +\n+) +replace+ expects a character +replacement+. Like string/string the character/character mode of +replace+ replaces item directly.
 
@@ -69,12 +69,12 @@ When passing a regex +match+ you can also provide a function for replacement ins
 If you've not used regular expressions before, then you're in for a
 treat. Regexps are a powerful tool for modifying strings with
 unbounded flexibility. Like any powerful new tool, it's easy to
-over-do it. Becuase of their terse and compact syntax it's very easy
+over-do it. Because of their terse and compact syntax it's very easy
 to produce regexps that are both difficult to interpret and at a high
 risk of being incorrect. We suggest you use regular expressions
 sparingly, and only if you fully understand their syntax.
 
 ===== See Also
 
-* +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurance of +match+.
+* +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurrence of +match+.
 * http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] is a fantastic book for learning and mastering Regular Expression syntax.

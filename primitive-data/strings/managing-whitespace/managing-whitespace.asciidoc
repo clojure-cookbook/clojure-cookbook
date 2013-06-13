@@ -47,8 +47,8 @@ common technique is to require +clojure.string+ as a shorthand like
 [source,clojure]
 ----
 (require '[clojure.string :as str])
-(str/replace "Look Ma, no hands" "hands" "long namespace prefices")
-;; -> "Look Ma, no long namespace prefices"
+(str/replace "Look Ma, no hands" "hands" "long namespace prefixes")
+;; -> "Look Ma, no long namespace prefixes"
 ----
 
 You might not always want to remove whitespace from both ends of a
@@ -67,6 +67,6 @@ or right hand side of a string use +clojure.string/triml+ or
 
 ===== See Also
 
-* Primatives section (composing strings) for adding whitespace to a
+* Primitives section (composing strings) for adding whitespace to a
 string, particularly justification.
 

@@ -23,7 +23,7 @@ or more items appended to the end.
 
 Vectors to not support adding new items anywhere but at the end - if
 you need to insert an item in the middle, you will have to use a
-sequence maniuplation function and convert back to a vector (if
+sequence manipulation function and convert back to a vector (if
 necessary) when you're done.
 
 Since vectors are associative (mapping integer indexes to values at
