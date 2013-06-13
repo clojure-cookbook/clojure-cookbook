@@ -167,7 +167,8 @@ It is also possible to use the +contains?+ function, which takes a
 collection and a key, and returns true if and only if the collection
 has a specific entry for that key, even if the value is +nil+.
 
-===== The meaning of +contains?+
+.The meaning of +contains?+
+****
 
 The exact behavior of the +contains?+ function is a frequent topic for
 confusion, especially since several other languages have a function
@@ -184,6 +185,8 @@ true if the specified key is a valid key or member in the
 collection. But for vectors, it will return true only if passed an
 integer between zero and the maximum index of the vector. And it will
 throw an exception if used at all with a list or a sequence.
+
+****
 
 ===== See also
 
