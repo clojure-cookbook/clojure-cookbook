@@ -78,6 +78,11 @@ retrieve the discrete list of modes.
 ;; -> (:smith :doe)
 ----
 
+////
+Standard deviation:
+Author: Jean Niklas L'orange. Github: hyPiRion
+////
+
 Find the sample _standard deviation_ by
 
 * For each value in the collection, subtract the +mean+ from the value and multiply that result by itself.
