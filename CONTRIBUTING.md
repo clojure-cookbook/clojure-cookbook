@@ -101,7 +101,7 @@ The full book itself is licensed under a [Creative Commons Attribution-NonCommer
 
 However, in order for us to accept submissions, those submissions must be licensed such that *we* (the authors and O'Reilly) *can* in fact use your submission to create derivative works, sell print copies, and distribute it under a more restrictive license (discussed above.)
 
-Therefore, all public contributions must be licensed under the [Creative Commons Attribution](http://creativecommons.org/licenses/by/3.0/). Every submitted example *must* contain a `LICENSE` file containing the full legal code of the `Creative Commons Attribution` license, available [here](http://creativecommons.org/licenses/by/3.0/legalcode.txt). If it doesn't have such a file, we can't accept the pull request.
+Therefore, all sizable public contributions (anything more than a typo correction) must be licensed under a [Creative Commons Attribution](http://creativecommons.org/licenses/by/3.0/) license. The easiest way to do this is by [signing our Contributor License Agreement](http://www.clahub.com/agreements/clojure-cookbook/clojure-cookbook) (via [CLAHub](clahub.com).)
 
 Source file should contain comments indicating the name of the author, for which you want to receive attribution.
 
