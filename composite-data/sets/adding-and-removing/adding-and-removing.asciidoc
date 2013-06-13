@@ -43,7 +43,7 @@ will remain a sorted set.
 Also worth noting is that these operations are simply no-ops if the
 set already does or does not contain the item being added or
 removed. +conj+ returns the same set if it already contains the item,
-just as +disj+ does if the specified item was already abset.
+just as +disj+ does if the specified item was already absent.
 
 If you're adding or removing large numbers of items from sets, you
 should also consider using the dedicated set manipulation functions

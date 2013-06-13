@@ -110,8 +110,7 @@ only be created by explicitly invoking the +sorted-map+ or
 +sorted-map-by+ functions.
 
 Using +assoc+ or +conj+ on a sorted map will always yield another
-sorted map. However, +assoc+-ing on to an array map will yield an
-array map once it reaches ten entries. The inverse is not true; using
+sorted map. However, +assoc+-ing on to an array map will yield a hash map once it reaches ten entries. The inverse is not true; using
 +dissoc+ on a hash map will not yield an array map, even if it becomes
 smaller than 10 entries.
 
