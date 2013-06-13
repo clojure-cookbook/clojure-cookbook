@@ -69,7 +69,7 @@ So why ever choose +into+ over +apply+, given that it reverses the
 order? Speed. +into+ utilizes Clojure _transients_, which provides a
 considerable performance improvement. On the author's machine,
 converting a million item vector to a list using +apply+ took an
-average of 750 milliseconds, while using +apply+ took about half that
+average of 750 milliseconds, while using +into+ took about half that
 time, for an average of 350 milliseconds. Of course, the list was in
 reverse order, and reversing either the input or the output negates
 the speed advantage. In the end, +into+ is only advantageous in
