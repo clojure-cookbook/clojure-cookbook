@@ -1,0 +1,73 @@
+==== Read a single keystroke from the console
+
+////
+Author: John Jacobsen @eigenhombre http://eigenhombre.com john@mail.npxdesigns.com
+////
+
+===== Problem
+
+Console input is normally buffered by lines; you want to read a
+single, unbuffered keystroke from the console.
+
+===== Solution
+
+Use +ConsoleReader+ from the http://jline.sourceforge.net/[JLine] library.
+
+[source,clojure]
+----
+;;
+;; Important: add [jline "2.11"] to :dependencies in project.clj
+;;
+(ns keystroke.core
+  (:import [jline.console ConsoleReader]))
+
+(defn show-keystroke []
+  (print "Enter a keystroke: ")
+  (flush)
+  (let [cr (ConsoleReader.)
+        keyint (.readCharacter cr)]
+    (println (format "Got %d ('%c')!" keyint (char keyint)))))
+----
+
+===== Discussion
+
+As in most languages, console IO in Java is buffered; +(flush)+
+writes the initial prompt to the standard output stream. However,
+input is buffered as well by default. The JLine library provides a
++ConsoleReader+ object whose +readCharacter+ method which lets you avoid the
+input buffering.
+
+Beware, however, of testing +(get-keystroke)+ at the REPL:
+
+[source,clojure]
+----
+% lein repl
+(use '[keystroke.core :only (show-keystroke)])
+(show-keystroke)
+Enter a keystroke:
+;; HANGS!
+----
+
+In order to connect the console's input correctly to the REPL, use
++lein trampoline repl+ (<r> below means user types the letter +r+):
+
+[source,clojure]
+----
+% lein trampoline repl
+(use '[keystroke.core :only (show-keystroke)])
+(show-keystroke)
+Enter a keystroke: <r>Got 114 ('r')!
+nil
+user=> 
+
+----
+
+There are several JLine implementations in https://clojars.org/[Clojars]; the default
+version at 2.11 was fairly up to date as of this writing.
+
+===== See Also
+
+If you want a richer terminal-based interface similar to what
+the C curses library provides, the
+http://sjl.bitbucket.org/clojure-lanterna/[Clojure Lanterna] library
+may be a good place to start.
