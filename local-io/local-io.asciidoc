@@ -1,2 +1,6 @@
 [[ch_local_io]]
 == Local IO
+
+include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
+
+
