@@ -125,21 +125,21 @@ possible to implement it on something more targeted, such as
 for the implementation, it's best not to be too specific. Coding
 against +clojure.lang.Associative+ also gives several additional
 capabilities for free; for example, there is now automatically a
-"multvector" as well, that can store multiple values at each index
+"multivector" as well, that can store multiple values at each index
 (provided they are added using +insert+.)
 
-Reading the code, you'll notice that good deal of the actual logic is
+Reading the code, you'll notice that a good deal of the actual logic is
 devoted to making sure that single values are stored plainly, while
 multiple values are wrapped in a set. This is maintained both when
-inserting and deleting items, requiring to the functions to run a
+inserting and deleting items, requiring the functions to run a
 check on what type the value is and wrap or unwrap
 accordingly. Similarly, +get-all+ needs to wrap single values in a set
 before returning, since it specifies that it must return a set.
 
-This is a design decision that has a several benefits and
+This is a design decision that has several benefits and
 tradeoffs. The alternative would be to always wrap the values in a
 set, even single values. This would make the code a bit simpler, and
-eliminate most of the type checking, wrapping and unwrapping forms.
+would eliminate most of the type checking as well as the wrapping and unwrapping of forms.
 
 However, the simplicity would come with a price. If values (even
 single values) were _always_ wrapped in a set, the map being used as a
@@ -155,10 +155,9 @@ track of which "kind" of a map it is. Values inserted using +assoc+
 can be read with +get-all+, and values inserted using +insert+ can be
 removed with +dissoc+. All expectations regarding normal maps should
 hold. In the case of a normal +get+ on a key with multiple values, a
-set containing multiple items will be returned; this is probably what
+set containing multiple items will be returned; this is probably what the user would expect upon inspecting the data.
 
-There is one more feature of this code that deserves commentary; that
-is, the use of +::multi-value+ metadata on the sets used to store
+There is one more feature of this code that deserves commentary: the use of +::multi-value+ metadata on the sets used to store
 multiple values, applied and tested using the +value-set+ and
 +value-set?+ functions.
 
