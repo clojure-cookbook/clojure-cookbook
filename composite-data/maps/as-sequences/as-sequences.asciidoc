@@ -43,7 +43,7 @@ used to transform a sequence of pairs into a single map.
 ----
 
 It is also possible to construct a map from _two_ sequences; one
-containing keys, one containing values. This is the purpose of the
+containing keys, and one containing values. This is the purpose of the
 +zipmap+ function. Given two sequences, it will return a single map
 with keys from the first argument sequence and values from the second.
 
