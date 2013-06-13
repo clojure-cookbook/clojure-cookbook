@@ -1,4 +1,4 @@
-==== Applying a functions to maps
+==== Applying functions to maps
 
 ===== Problem
 
@@ -54,7 +54,7 @@ a sequence of map entries, then uses +map+ to apply them to an
 anonymous function which destructures the key and value, and then
 passes the key and value to the caller-provided function. Finally, it
 uses +into+ to repeatedly conjoin the resulting pairs onto an empty
-map, returning a new map that
+map, returning a new map consisting of the transformed keys and values.
 
 The following example is identical, but does not use destructuring, so the high-level structure is a bit more clear:
 
