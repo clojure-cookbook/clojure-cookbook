@@ -25,9 +25,7 @@ To combine maps with no keys in common, use the +merge+ function.
 
 
 +merge+ can also be used to combine maps which have some, or all,
-keys in common. The source maps are processed from left to right so
-the value for a shared (common) key will be the value contained
-in the rightmost map with that key:
+keys in common.
 
 [source,clojure]
 ----
@@ -40,16 +38,11 @@ in the rightmost map with that key:
 ;;     "M.Fillmore" 1312, "W.H.Harrison" 2360}
 ----
 
-Note that map entries whose keys are not shared between argument maps
-are still added to the result map.
 
-
-Use the core +merge-with+ function when you wish to combine, filter, or
-process the values while merging the source maps. +merge-with+ takes an
-additional function argument which is used combine the values for
-keys which occur in more than one map. As with +merge+, map entries
-whose keys are not shared between maps are simply inserted into the
-result map.
+Use the core +merge-with+ function when you wish to combine, filter, or process
+the values of shared keys while merging the source maps. +merge-with+ takes an
+additional function argument which is used combine the values for keys which
+occur in more than one map:
 
 [source,clojure]
 ----
@@ -76,7 +69,6 @@ result map.
 
 For a given problem, the proper choice of map values combined with the
 use of +merge-with+ allows for some very concise and powerful solutions.
-
 In this example, we find shared likes and dislikes among our programming
 team using sets as the map values:
 
@@ -90,7 +82,7 @@ team using sets as the map values:
 ;; -> {:loves #{:scheme :clojure}, :hates #{:c :c++}}
 ----
 
-Next, suppose we have a collection of recent scores for our bowling team.
+Suppose we have a collection of recent scores for our bowling team.
 Each game is represented by a map of scores, keyed by bowler. We can use
 +merge-with+ to create a single map which records all scores earned by
 all bowlers:
@@ -120,11 +112,12 @@ remain unchanged after the merge).
 
 +merge-with+ facilitates powerful recipes for map combination by taking an
 additional function argument. The function is applied ala +reduce+: beginning
-with the share key entries of the leftmost two argument maps to form an
+with the shared key entries of the leftmost two argument maps to form an
 intermediate result map. Then the function is successively applied to the
 shared key entries of the intermediate result map and each of the remaining
 argument maps. As with +merge+, argument map entries whose keys are not shared
 are simply inserted into the result map.
+
 
 ===== See also
 
