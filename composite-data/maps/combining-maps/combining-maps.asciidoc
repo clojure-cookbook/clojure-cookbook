@@ -123,5 +123,6 @@ additional function argument. The function is applied
 
 ===== See also
 
-* Setting keys (xref)
-* Multiple value maps (xref)
+* See <<sec_composite_data_maps_setting_keys>> to learn more about manipulating maps.
+* See <<sec_composite_data_maps_multiple_values>> for information on
+  creating multiple value maps using a Clojure protocol.
