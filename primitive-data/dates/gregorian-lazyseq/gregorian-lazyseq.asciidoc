@@ -104,6 +104,7 @@ To test our function, we find all the Sundays in a sequence of day strings for
 the year 2000 and then select the last Sunday of the year:
 
 [source,clojure]
+----
 (def y2k (take 366 (gregorian-day-seq 2000)))
 
 (last (filter #(.startsWith % "Sun") y2k))
