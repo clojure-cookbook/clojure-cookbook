@@ -1,0 +1,129 @@
+==== Generate an Infinite Lazy Sequence of Gregorian Calendar Dates
+
+===== Problem
+
+You would like to generate a lazy sequence of Gregorian calendar dates (or
+times) beginning on a specific date and time.
+
+===== Solution
+
+You can use Java's +java.util.GregorianCalendar+ class and methods coupled
+with Clojure's +repeatedly+ function to generate an infinite lazy sequence
+of Gregorian calendar dates. You can then use +java.text.SimpleDateFormat+
+to format the dates into a huge variety of output formats.
+
+This example creates a lazy sequence of Gregorian calendar dates beginning on
+January 1, 1970 and each spanning a single day. Then we use the core
++take+ and +drop+ functions to select the last two days of February.
+
+[source,clojure]
+----
+(def daily-from-epoch
+  (let [ start-date (java.util.GregorianCalendar. 1970 0 0 0 0) ]
+    (repeatedly
+      (fn []
+        (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
+        (.clone start-date) ))))
+
+(take 2 (drop 57 daily-from-epoch))
+;; -> (#inst "1970-02-27T00:00:00.000-07:00" #inst "1970-02-28T00:00:00.000-07:00")
+----
+
+Note that the values in the result sequence are of type
++java.util.GregorianCalendar+ but the +print+ function
+of the REPL displays them as an +#inst+ reader literal.
+We can verify this by mapping the +class+ or +type+ function
+onto the sequence:
+
+[source,clojure]
+----
+(def end-of-feb (take 2 (drop 57 daily-from-epoch)))
+(map class end-of-feb)
+;; -> (java.util.GregorianCalendar java.util.GregorianCalendar)
+----
+
+
+We can generalize the previous example to a function which takes a starting
+year argument but defaults to some convenient year if the argument is not
+provided:
+
+[source,clojure]
+----
+(defn daily-from-year [& [start-year]]
+  (let [ start-date (java.util.GregorianCalendar. (or start-year 1970) 0 0 0 0) ]
+    (repeatedly
+      (fn []
+        (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
+        (.clone start-date) ))))
+
+(take 3 (daily-from-year 1999))
+;; -> (#inst "1999-01-01T00:00:00.000-07:00"
+;;     #inst "1999-01-02T00:00:00.000-07:00"
+;;     #inst "1999-01-03T00:00:00.000-07:00")
+
+(take 2 (daily-from-year))
+;; -> (#inst "1970-01-01T00:00:00.000-07:00" #inst "1970-01-02T00:00:00.000-07:00")
+----
+
+
+Using the +java.text.SimpleDateFormat+ class we can format our
+dates in a huge variety of different formats:
+
+[source,clojure]
+----
+(def end-of-days (take 3 (drop 353 (daily-from-year 2012))))
+(def cal-format (java.text.SimpleDateFormat. "EEE M/d/yyyy"))
+(def iso8601-format (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ss'Z'"))
+
+(map #(.format cal-format (.getTime %)) end-of-days)
+;; -> ("Wed 12/19/2012" "Thu 12/20/2012" "Fri 12/21/2012")
+
+(map #(.format iso8601-format (.getTime %)) end-of-days)
+;; -> ("2012-12-19T00:00:00-0700" "2012-12-20T00:00:00-0700" "2012-12-21T00:00:00-0700")
+----
+
+Finally, putting it all together we can create a function which
+generates an infinite lazy sequence of formatted Gregorian date strings.
+For convenience our function will, optionally, take the starting year and
+date format strings as arguments:
+
+[source,clojure]
+----
+(defn gregorian-day-seq
+  "Return an infinite sequence of formatted Gregorian day strings starting on January 1st of the given year (default 1970)"
+  [& [start-year date-format]]
+  (let [ gd-format (java.text.SimpleDateFormat. (or date-format "EEE M/d/yyyy"))
+         start-date (java.util.GregorianCalendar. (or start-year 1970) 0 0 0 0) ]
+    (repeatedly
+      (fn []
+        (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
+        (.format gd-format (.getTime start-date)) ))))
+----
+
+To test our function, we find all the Sundays in a sequence of day strings for
+the year 2000 and then select the last Sunday of the year:
+
+[source,clojure]
+(def y2k (take 366 (gregorian-day-seq 2000)))
+
+(last (filter #(.startsWith % "Sun") y2k))
+;; -> "Sun 12/31/2000"
+----
+
+===== Discussion
+
+Clojure has no date type of its own but, instead, relies on its
+ability to easily interoperate with Java.
+
+This solution creates a Gregorian calendar date and repeatedly increments it by some
+specific time unit.
+
+The result sequence created by +repeatedly+ is infinite so, in the example, we
+are careful to evaluate the sequence in a context which limits the results.
+
+===== See also
+
+* See <<sec_primitives_dates_current_date>> for information on using
+  +java.util.Date+ from Clojure.
+* See <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
+  reader literal for date/times.
