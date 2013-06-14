@@ -66,7 +66,7 @@ provided:
 ----
 
 
-Using the +java.text.SimpleDateFormat+ class we can format our
+Using the +java.text.SimpleDateFormat+ class we can format the
 dates in a huge variety of different formats:
 
 [source,clojure]
@@ -82,10 +82,11 @@ dates in a huge variety of different formats:
 ;; -> ("2012-12-19T00:00:00Z" "2012-12-20T00:00:00Z" "2012-12-21T00:00:00Z")
 ----
 
-Finally, putting it all together we can create a function which
-generates an infinite lazy sequence of formatted Gregorian date strings.
-For convenience our function will, optionally, take the starting year and
-date format strings as arguments:
+
+Finally, putting it all together, we show a function which generates an
+infinite lazy sequence of formatted Gregorian date strings. For convenience,
+the function, optionally, takes a starting year and date format strings as
+arguments:
 
 [source,clojure]
 ----
@@ -100,8 +101,9 @@ date format strings as arguments:
         (.format gd-format (.getTime start-date)) ))))
 ----
 
+
 To test our function, we find all the Sundays in a sequence of day strings for
-the year 2000 and then select the last Sunday of the year:
+the year 2000 and then select the last Sunday of that year:
 
 [source,clojure]
 ----
@@ -112,14 +114,27 @@ the year 2000 and then select the last Sunday of the year:
 
 ===== Discussion
 
-Clojure has no date type of its own but, instead, relies on its
-ability to easily interoperate with Java.
+Clojure has no date type of its own but, by default, relies on its
+ability to easily interoperate with Java (but see the +clj-time+ library
+for alternatives to Java's date, time, and calendar classes).
 
-This solution creates a Gregorian calendar date and repeatedly increments it by some
-specific time unit.
+This solution is based on the core +repeatedly+ function, which creates
+an infinite lazy sequence by repeatedly calling the argument function it is
+given and returning a sequence of the function's results. Since the function
+given to +repeatedly+ is a function of no arguments, it is presumed to achieve
+its goals by side-effects (making it an impure function).
 
-The result sequence created by +repeatedly+ is infinite so, in the example, we
-are careful to evaluate the sequence in a context which limits the results.
+In these examples, the impurity occurs as the argument function creates a
+Gregorian calendar date and repeatedly increments it by a single
++java.util.Calendar+ day unit. For each call of the function, we either return
+a copy of the Gregorian calendar object or a formatted string derived from the
+calendar object. (To avoid mysterious and unintended side-effects, it is
+advisable to avoid returning the mutated object directly).
+
+The result sequence created by +repeatedly+ is infinite unless an optional,
+limiting argument is provided (which it is not in this solution). Consequently,
+in the examples above, we are always careful to evaluate the result sequence in
+contexts (such as such as +take+ and +drop+) which limit the values produced.
 
 ===== See also
 
