@@ -59,9 +59,9 @@ You'll need an intermediate step through +name+, to go from keyword to symbol.
 ===== Discussion
 
 The primary conversion functions here are +str+, +keyword+, and +symbol+ - each
-named for the data type they return. One of these, +symbol+, is a bit stricter
-in terms of the input it allows: it must take a string, which is why you need
-the extra step in the keyword-to-symbol conversion.
+named for the data type they return. One of these, +symbol+, is a bit more
+strict in terms of the input it allows: it must take a string, which is why you
+need the extra step in the keyword-to-symbol conversion.
 
 There is another class of differences among these types: namely, that keywords
 and symbols may be namespaced, signified by a slash in the middle. For these
