@@ -1,0 +1,59 @@
+==== Work with csv or dsv data
+
+// By Jason Whitlark (jwhitlark)
+
+===== Problem
+
+You need to read or write csv data.
+
+===== Solution
+
+Use +clojure.data.csv/read-csv+ to lazily read csv from a String or java.io.Reader
+
+[source,clojure]
+----
+(clojure.data.csv/read-csv "this,is\na,test" )
+;; -> (["this" "is"] ["a" "test"])
+
+(with-open [in-file (clojure.java.io/reader "in-file.csv")]
+  (doall
+    (clojure.data.csv/read-csv in-file)))
+;; -> (["this" "is"] ["a" "test"])
+----
+
+Use +clojure.data.csv/write-csv+ to write csv data to java.io.Writer
+[source,clojure]
+----
+(with-open [out-file (clojure.java.io/writer "out.csv")]
+            (clojure.data.csv/write-csv out-file [["this" "is"] ["a" "test"]]))
+;; -> nil
+----
+
+===== Discussion
+
+The +clojure.data.csv+ library makes it easy to work with csv.  You need to remember that +read-csv+ is lazy; if you want to force it read data immediately, you'll need to wrap the call to +read-csv+ in +doall+.
+
+When reading, you can change the separator and quote delimiters, which default to \, and \", respectively. You must use chars, not strings, though.
+
+[source,clojure]
+----
+(csv/read-csv "this$-is $-\na$test" :separator \$ :quote \-)
+;; -> (["this" "is $"] ["a" "test"])
+----
+
+When writing, as with read-csv, you can configure the separator, quote, newline (between :lf (default) and :cr+lf), and the quote? predicate function, which takes a collection, and returns true or false to indicate if the string representation needs to be quoted.
+
+[source,clojure]
+----
+(with-open [out-file (clojure.java.io/writer "out.csv")]
+            (clojure.data.csv/write-csv out-file [["this" "is"] ["a" "test"]] :separator \$ :quote \-))
+;; -> nil
+----
+
+To capture csv output as a string, use +with-out-str+ and write to +*out*+.
+
+[source,clojure]
+----
+(with-out-str (csv/write-csv *out* [["this" "is"] ["a" "test"]]))
+;; -> "this,is\na,test\n"
+----

@@ -1,2 +1,6 @@
 [[ch_local_io]]
 == Local IO
+
+== CSV
+
+include::local-io/csv/read-write-csv.asciidoc[]
