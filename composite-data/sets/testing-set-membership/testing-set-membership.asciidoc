@@ -2,7 +2,7 @@
 
 ===== Problem
 
-You want to check if an item or items are members of a set.
+You want to check if an item is a member of a set.
 
 ===== Solution
 
@@ -20,7 +20,7 @@ is a member of the set.
 ----
 
 The +get+ function also works with sets and does basically the same
-thing, except instead of returning +true+ or +false+ it returns the
+thing, except instead of returning +true+ or +false+, it returns the
 value itself if it is a member, or nil if it is not.
 
 [source,clojure]
@@ -34,7 +34,7 @@ value itself if it is a member, or nil if it is not.
 
 Finally, sets are also functions. When you invoke them with a single
 argument, they work just like +get+, returning the argument if it is a
-member or nil if not.
+member, and nil otherwise.
 
 [source,clojure]
 ----
@@ -46,6 +46,19 @@ member or nil if not.
 (my-set :green)
 ;; -> :green
 ----
+
+Note as well that keywords behave in the same manner for sets as they
+do with maps: thus, the following is equivalent to having used +get+:
+
+[source,clojure]
+----
+(:blue #{:red :white :green})
+;; -> nil
+
+(:green #{:red :white :green})
+;; -> :green
+----
+
 
 ===== Discussion
 
