@@ -24,7 +24,7 @@ To combine maps with no keys in common, use the +merge+ function.
 ----
 
 
-+Merge+ can also be used to combine maps which have some, or all,
++merge+ can also be used to combine maps which have some, or all,
 keys in common. The source maps are processed from left to right so
 the value for a shared (common) key will be the value contained
 in the rightmost map with that key:
@@ -45,7 +45,7 @@ are still added to the result map.
 
 
 Use the core +merge-with+ function when you wish to combine, filter, or
-process the values while merging the source maps. +Merge-with+ takes an
+process the values while merging the source maps. +merge-with+ takes an
 additional function argument which is used combine the values for
 keys which occur in more than one map. As with +merge+, map entries
 whose keys are not shared between maps are simply inserted into the
@@ -110,7 +110,7 @@ all bowlers:
 
 ===== Discussion
 
-+Merge+ and +merge-with+ process their argument maps from left to right
++merge+ and +merge-with+ process their argument maps from left to right
 adding the keys and values successively to the result map. For +merge+,
 the final result value for any shared key is the value found in the
 rightmost argument map which contains that key (i.e. the rightmost map "wins").
@@ -118,8 +118,13 @@ You can think of +merge+ as successively "updating" the values for the
 shared keys (but, since Clojure maps are immutable, the argument maps
 remain unchanged after the merge).
 
-+Merge-with+ facilitates powerful recipes for map combination by taking an
-additional function argument. The function is applied 
++merge-with+ facilitates powerful recipes for map combination by taking an
+additional function argument. The function is applied ala +reduce+: beginning
+with the share key entries of the leftmost two argument maps to form an
+intermediate result map. Then the function is successively applied to the
+shared key entries of the intermediate result map and each of the remaining
+argument maps. As with +merge+, argument map entries whose keys are not shared
+are simply inserted into the result map.
 
 ===== See also
 
