@@ -49,14 +49,13 @@ Since the function given to +repeatedly+ is a function of no arguments, it is
 presumed to achieve its goals by side-effects (making it an impure function).
 Here, the impurity occurs as the argument function creates a Gregorian calendar
 date and repeatedly increments it by a single +java.util.Calendar+ day
-unit. For each call of the function, we either return a copy of the Gregorian
-calendar object or a formatted string derived from the calendar object. (To
-avoid mysterious and unintended side-effects, it is advisable to avoid
-returning the mutated object directly).
+unit. For each call of the function we return a copy of the Gregorian calendar
+object (to avoid mysterious and unintended side-effects, it is advisable to
+avoid returning the mutated object directly).
 
 The date values in the result sequence are of type
 +java.util.GregorianCalendar+ but the +print+ function of the REPL displays
-them as an +#inst+ reader literal.  We can verify that the sequence elements
+them as an +#inst+ reader literal. We can verify that the sequence elements
 are Gregorian calenders by mapping the +class+ (or +type+) function onto the
 sequence:
 
@@ -67,7 +66,7 @@ sequence:
 ;; -> (java.util.GregorianCalendar java.util.GregorianCalendar)
 ----
 
-We can generalize the first example to a function which takes a starting year
+We can generalize the solution to a function which takes a starting year
 argument but defaults to some convenient year if the argument is not provided:
 
 [source,clojure]
