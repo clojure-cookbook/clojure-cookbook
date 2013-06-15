@@ -7,10 +7,10 @@ times) beginning on a specific date and time.
 
 ===== Solution
 
-You can use Java's +java.util.GregorianCalendar+ class and methods coupled with
+You can use Java's +java.util.GregorianCalendar+ class coupled with
 Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
 calendar dates. You can then use +java.text.SimpleDateFormat+ to format the
-dates into a huge variety of output formats.
+dates, with a huge variety of output formats available.
 
 This example creates an infinite lazy sequence of Gregorian calendar dates
 beginning on January 1, 1970 and each spanning a single day. The core +take+
@@ -41,9 +41,9 @@ This solution is based on the core +repeatedly+ function, which creates a lazy
 sequence by repeatedly calling the argument function it is given and returning
 a sequence of the function's results. Because we do not provide the optional,
 limiting argument to +repeatedly+, the result sequences produced are
-infinite. Consequently, in the examples above, we are always careful to
-evaluate our result sequences in contexts (such as such as +take+ and +drop+)
-which limit the values produced.
+infinite. Consequently, in the REPL environment, we must be careful to evaluate
+our result sequences in contexts (such as such as +take+ and +drop+) which
+limit the values produced.
 
 Since the function given to +repeatedly+ is a function of no arguments, it is
 presumed to achieve its goals by side-effects (making it an impure function).
@@ -89,8 +89,8 @@ argument but defaults to some convenient year if the argument is not provided:
 ----
 
 
-Using the +java.text.SimpleDateFormat+ class we can then format
-the dates in a huge variety of different formats:
+Using the +java.text.SimpleDateFormat+ class we can then format the dates in a
+wide variety of different formats, two of which are illustrated:
 
 [source,clojure]
 ----
@@ -108,8 +108,7 @@ the dates in a huge variety of different formats:
 
 Finally, putting it all together, we can create a function which generates an
 infinite lazy sequence of formatted Gregorian date strings. For convenience,
-the function, optionally, takes a starting year and date format strings as
-arguments:
+the function takes optional starting year and date format string arguments:
 
 [source,clojure]
 ----
