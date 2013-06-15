@@ -7,14 +7,15 @@ times) beginning on a specific date and time.
 
 ===== Solution
 
-You can use Java's +java.util.GregorianCalendar+ class and methods coupled
-with Clojure's +repeatedly+ function to generate an infinite lazy sequence
-of Gregorian calendar dates. You can then use +java.text.SimpleDateFormat+
-to format the dates into a huge variety of output formats.
+You can use Java's +java.util.GregorianCalendar+ class and methods coupled with
+Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
+calendar dates. You can then use +java.text.SimpleDateFormat+ to format the
+dates into a huge variety of output formats.
 
-This example creates a lazy sequence of Gregorian calendar dates beginning on
-January 1, 1970 and each spanning a single day. Then we use the core
-+take+ and +drop+ functions to select the last two days of February.
+This example creates an infinite lazy sequence of Gregorian calendar dates
+beginning on January 1, 1970 and each spanning a single day. The core +take+
+and +drop+ functions are then used to select the last two days of February.
+(Be careful not to evaluate the infinite sequence itself in the REPL).
 
 [source,clojure]
 ----
@@ -29,11 +30,35 @@ January 1, 1970 and each spanning a single day. Then we use the core
 ;; -> (#inst "1970-02-27T00:00:00.000-07:00" #inst "1970-02-28T00:00:00.000-07:00")
 ----
 
-Note that the values in the result sequence are of type
-+java.util.GregorianCalendar+ but the +print+ function
-of the REPL displays them as an +#inst+ reader literal.
-We can verify that the sequence elements are Gregorian calenders
-by mapping the +class+ (or +type+) function onto the sequence:
+
+===== Discussion
+
+Clojure has no date type of its own but, by default, relies on its
+ability to easily interoperate with Java (but see the +clj-time+ library
+for alternatives to Java's date, time, and calendar classes).
+
+This solution is based on the core +repeatedly+ function, which creates a lazy
+sequence by repeatedly calling the argument function it is given and returning
+a sequence of the function's results. Because we do not provide the optional,
+limiting argument to +repeatedly+, the result sequences produced are
+infinite. Consequently, in the examples above, we are always careful to
+evaluate our result sequences in contexts (such as such as +take+ and +drop+)
+which limit the values produced.
+
+Since the function given to +repeatedly+ is a function of no arguments, it is
+presumed to achieve its goals by side-effects (making it an impure function).
+Here, the impurity occurs as the argument function creates a Gregorian calendar
+date and repeatedly increments it by a single +java.util.Calendar+ day
+unit. For each call of the function, we either return a copy of the Gregorian
+calendar object or a formatted string derived from the calendar object. (To
+avoid mysterious and unintended side-effects, it is advisable to avoid
+returning the mutated object directly).
+
+The date values in the result sequence are of type
++java.util.GregorianCalendar+ but the +print+ function of the REPL displays
+them as an +#inst+ reader literal.  We can verify that the sequence elements
+are Gregorian calenders by mapping the +class+ (or +type+) function onto the
+sequence:
 
 [source,clojure]
 ----
@@ -42,10 +67,8 @@ by mapping the +class+ (or +type+) function onto the sequence:
 ;; -> (java.util.GregorianCalendar java.util.GregorianCalendar)
 ----
 
-
-We can generalize the previous example to a function which takes a starting
-year argument but defaults to some convenient year if the argument is not
-provided:
+We can generalize the first example to a function which takes a starting year
+argument but defaults to some convenient year if the argument is not provided:
 
 [source,clojure]
 ----
@@ -66,8 +89,8 @@ provided:
 ----
 
 
-Using the +java.text.SimpleDateFormat+ class we can format the
-dates in a huge variety of different formats:
+Using the +java.text.SimpleDateFormat+ class we can then format
+the dates in a huge variety of different formats:
 
 [source,clojure]
 ----
@@ -83,7 +106,7 @@ dates in a huge variety of different formats:
 ----
 
 
-Finally, putting it all together, we show a function which generates an
+Finally, putting it all together, we can create a function which generates an
 infinite lazy sequence of formatted Gregorian date strings. For convenience,
 the function, optionally, takes a starting year and date format strings as
 arguments:
@@ -111,30 +134,6 @@ the year 2000 and then select the last Sunday of that year:
 (last (filter #(.startsWith % "Sun") y2k))
 ;; -> "Sun 12/31/2000"
 ----
-
-===== Discussion
-
-Clojure has no date type of its own but, by default, relies on its
-ability to easily interoperate with Java (but see the +clj-time+ library
-for alternatives to Java's date, time, and calendar classes).
-
-This solution is based on the core +repeatedly+ function, which creates
-an infinite lazy sequence by repeatedly calling the argument function it is
-given and returning a sequence of the function's results. Since the function
-given to +repeatedly+ is a function of no arguments, it is presumed to achieve
-its goals by side-effects (making it an impure function).
-
-In these examples, the impurity occurs as the argument function creates a
-Gregorian calendar date and repeatedly increments it by a single
-+java.util.Calendar+ day unit. For each call of the function, we either return
-a copy of the Gregorian calendar object or a formatted string derived from the
-calendar object. (To avoid mysterious and unintended side-effects, it is
-advisable to avoid returning the mutated object directly).
-
-The result sequence created by +repeatedly+ is infinite unless an optional,
-limiting argument is provided (which it is not in this solution). Consequently,
-in the examples above, we are always careful to evaluate the result sequence in
-contexts (such as such as +take+ and +drop+) which limit the values produced.
 
 ===== See also
 
