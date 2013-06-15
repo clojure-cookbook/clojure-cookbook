@@ -42,7 +42,7 @@ sequence by repeatedly calling the argument function it is given and returning
 a sequence of the function's results. Because we do not provide the optional,
 limiting argument to +repeatedly+, the result sequences produced are
 infinite. Consequently, in the REPL environment, we must be careful to evaluate
-our result sequences in contexts (such as such as +take+ and +drop+) which
+our result sequences in contexts (such as +take+ and +drop+) which
 limit the values produced.
 
 Since the function given to +repeatedly+ is a function of no arguments, it is
