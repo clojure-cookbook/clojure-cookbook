@@ -83,7 +83,7 @@ Standard deviation:
 Author: Jean Niklas L'orange. Github: hyPiRion
 ////
 
-Find the sample _standard deviation_ by
+Find the sample _standard deviation_ by completing the following steps:
 
 * For each value in the collection, subtract the +mean+ from the value and multiply that result by itself.
 * Then, sum up all those values.
@@ -119,6 +119,8 @@ more involved, and ultimately requires a good deal of processing
 compared to its numeric cousins.
 
 Here is a break down of how +mode+ works:
+
+// TODO: Clean up rendering of call-outs.
 
 * <1> +frequencies+ returns a map that tallies the number of times
 each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
