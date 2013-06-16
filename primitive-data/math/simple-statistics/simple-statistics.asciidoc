@@ -2,7 +2,8 @@
 
 ===== Problem
 
-You need to calculate simple statistics like mean, median and mode on a collection of numbers.
+You need to calculate simple statistics like mean, median, mode and standard
+deviation on a collection of numbers.
 
 ===== Solution
 
@@ -77,6 +78,37 @@ retrieve the discrete list of modes.
 ;; -> (:smith :doe)
 ----
 
+////
+Standard deviation:
+Author: Jean Niklas L'orange. Github: hyPiRion
+////
+
+Find the sample _standard deviation_ by
+
+* For each value in the collection, subtract the +mean+ from the value and multiply that result by itself.
+* Then, sum up all those values.
+* Divide the result by the number of values *minus one*.
+* Finally, take the square root of the previous result.
+
+[source,clojure]
+----
+(defn standard-deviation [coll]
+  (let [avg (mean coll) <5>
+        squares (for [x coll] ;<6>
+                  (let [x-avg (- x avg)]
+                    (* x-avg x-avg)))
+        total (count coll)]
+    (-> (/ (apply + squares) <7>
+           (- total 1)) <8>
+        (Math/sqrt)))) <9>
+
+(standard-deviation [4 5 2 9 5 7 4 5 4])
+;; -> 2.0
+
+(standard-deviation [4 5 5 4 4 2 2 6])
+;; -> 1.4142135623730951
+----
+
 ===== Discussion
 
 Both +mean+ and +median+ are fairly easy to reproduce in Clojure, but
@@ -93,3 +125,19 @@ each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
 * <2> +group-by+ with +second+ inverts the +freqs+ map, turning keys into values, merging duplicates into groups. This would turn +{:a 1 :b 1}+ into +{1 [[:a 1] [:b 1]]}+.
 * <3> The list of occurrences is now sortable; the last pair in the sorted list will be the modes, or most frequently occurring values.
 * <4> The final step is processing the raw mode pairs into discrete values. Taking +second+ turns +[2 [[:alan 2]]]+ into +[[:alan 2]]+, and +(map first)+ turns that into '(:alan).
+
++standard-deviation+ is a bit more mathematical than mean, median and mode. To
+get a better understanding on how it works, we can go through the first example
+step by step:
+
+* <5> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, we reuse the previously
+defined +mean+ function.
+* <6> we calculate a new list of values, where we subtract +5+ from every value
+and multiply that result with itself. The result is the list +(1 0 9 16 0 4 1 0 1)+.
+* <7> the sum of this new list is +32+, and we divide this by +9 - 1+, the
+number of elements minus one. The result of +32/8+ is +4+.
+* <9> finally, we take the square root of +4+ and get back +2.0+.
+
+<8> We have here covered the the _sample_ standard deviation, where we have a random
+sample of a larger population. If we have the complete population (_population_
+standard deviation), we should divide by +total+ instead of +(- total 1)+.
