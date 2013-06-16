@@ -128,12 +128,15 @@ each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
 * <3> The list of occurrences is now sortable; the last pair in the sorted list will be the modes, or most frequently occurring values.
 * <4> The final step is processing the raw mode pairs into discrete values. Taking +second+ turns +[2 [[:alan 2]]]+ into +[[:alan 2]]+, and +(map first)+ turns that into '(:alan).
 
-+standard-deviation+ is a bit more mathematical than mean, median and mode. To
-get a better understanding on how it works, we can go through the first example
-step by step:
+The standard deviation measures how much, on average, the individual values in a
+population deviate from the mean: The higher the standard deviation is, the
+"farther away" will the individual values be (on average). As
++standard-deviation+ is a bit more mathematical than +mean+, +median+ and
++mode+, we will go through the first example step by step to get a better
+understanding on how it works:
 
 * <5> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, we reuse the previously
-defined +mean+ function.
+defined +mean+ function to find this.
 * <6> we calculate a new list of values, where we subtract +5+ from every value
 and multiply that result with itself. The result is the list +(1 0 9 16 0 4 1 0 1)+.
 * <7> the sum of this new list is +32+, and we divide this by +9 - 1+, the
@@ -143,3 +146,9 @@ number of elements minus one. The result of +32/8+ is +4+.
 <8> We have here covered the the _sample_ standard deviation, where we have a random
 sample of a larger population. If we have the complete population (_population_
 standard deviation), we should divide by +total+ instead of +(- total 1)+.
+
+===== See Also
+
+* See the Wikipedia article on
+http://en.wikipedia.org/wiki/Standard_deviation[Standard deviation] for more
+information on standard deviation and what it can be used for.
