@@ -6,7 +6,7 @@
 (declare compile)
 
 (defn transform-includes
-  "Given a string representign an asciidoc file, return a new string
+  "Given a string representing an asciidoc file, return a new string
   with the includes transformed to a flat directory structure. As a
   side effect, compile & copy the included file."
   [contents file output-dir root-dir]

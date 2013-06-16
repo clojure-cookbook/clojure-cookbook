@@ -1,0 +1,126 @@
+==== Combining Maps
+
+===== Problem
+
+You have two or more maps you wish to combine to produce a single map.
+
+===== Solution
+
+The core +merge+ and +merge-with+ functions allow you to easily combine
+two or more maps in various ways. The source maps may or may not have
+keys in common and you can combine, select, and process the source map
+values to produce the result map.
+
+To combine maps with no keys in common, use the +merge+ function.
+
+[source,clojure]
+----
+(def arizona-bird-counts {:cactus-wren 8 :phainopepla 4 :mourning-dove 20})
+(def florida-bird-counts {:gull 20 :anhinga 8 :pelican 14 :egret 4})
+
+(merge florida-bird-counts arizona-bird-counts)
+;; -> {:mourning-dove 20, :pelican 14, :phainopepla 4, :cactus-wren 8,
+;;     :egret 4, :gull 20, :anhinga 8}
+----
+
+
++merge+ can also be used to combine maps which have some, or all,
+keys in common.
+
+[source,clojure]
+----
+(def vote-count-AM   {"W.H.Harrison" 82, "J.K.Polk" 54, "M.Fillmore" 12, "U.S.Grant" 727})
+(def vote-count-NOON {"Z.Taylor" 77, "W.H.Harrison" 441, "J.K.Polk" 254})
+(def vote-count-PM   {"W.H.Harrison" 2360, "J.K.Polk" 554, "M.Fillmore" 1312})
+
+(merge vote-count-AM vote-count-NOON vote-count-PM)
+;; -> {"J.K.Polk" 554, "U.S.Grant" 727, "Z.Taylor" 77,
+;;     "M.Fillmore" 1312, "W.H.Harrison" 2360}
+----
+
+
+Use the core +merge-with+ function when you wish to combine, filter, or process
+the values of shared keys while merging the source maps. +merge-with+ takes an
+additional function argument which is used combine the values for keys which
+occur in more than one map:
+
+[source,clojure]
+----
+(def florida-bird-counts {:gull 20 :anhinga 8 :pelican 14 :egret 4 })
+(def california-bird-counts {:gull 12 :pelican 4 :egret 11 :jay 3})
+
+(merge-with + california-bird-counts florida-bird-counts)
+;; -> {:pelican 18, :egret 15, :gull 32, :jay 3, :anhinga 8}
+----
+
+[source,clojure]
+----
+(def first-names {1 "Joe", 2 "Mary", 3 "Jane", 5 "Carl"})
+(def last-names  {1 "Jones", 5 "Case", 2 "Hart", 3 "Smith"})
+(def people-ids  {1 100 2 202 3 333 5 500})
+
+(merge-with str first-names people-ids)
+;; -> {1 "Joe100", 2 "Mary202", 3 "Jane333", 5 "Carl500"}
+
+(merge-with #(str %1 ", " %2) last-names first-names)
+;; -> {1 "Jones, Joe", 2 "Hart, Mary", 3 "Smith, Jane", 5 "Case, Carl"}
+----
+
+
+For a given problem, the proper choice of map values combined with the
+use of +merge-with+ allows for some very concise and powerful solutions.
+In this example, we find shared likes and dislikes among our programming
+team using sets as the map values:
+
+[source,clojure]
+----
+(def Alice {:loves #{:clojure :lisp :scheme} :hates #{:fortran :c :c++}})
+(def Bob   {:loves #{:clojure :scheme} :hates #{:c :c++ :algol}})
+(def Ted   {:loves #{:clojure :lisp :scheme} :hates #{:algol :basic :c :c++ :fortran}})
+
+(merge-with clojure.set/intersection Alice Bob Ted)
+;; -> {:loves #{:scheme :clojure}, :hates #{:c :c++}}
+----
+
+Suppose we have a collection of recent scores for our bowling team.
+Each game is represented by a map of scores, keyed by bowler. We can use
++merge-with+ to create a single map which records all scores earned by
+all bowlers:
+
+[source,clojure]
+----
+(def scores [{:bob 240 :ted 200 :carol 280 :alice 130}
+             {:don 200 :ted 180 :carol 240 :alice 100}
+             {:bob 200 :ted 180 :carol 240 :alice 100}
+             {:bob 200 :ted 180 :carol 240 :mary 100 :don 144}])
+
+(apply merge-with (comp flatten vector) scores)
+;; -> {:don (200 144), :ted (200 180 180 180), :bob (240 200 200),
+;;     :carol (280 240 240 240), :mary 100, :alice (130 100 100)}
+----
+
+
+===== Discussion
+
++merge+ and +merge-with+ process their argument maps from left to right
+adding the keys and values successively to the result map. For +merge+,
+the final result value for any shared key is the value found in the
+rightmost argument map which contains that key (i.e. the rightmost map "wins").
+You can think of +merge+ as successively "updating" the values for the
+shared keys (but, since Clojure maps are immutable, the argument maps
+remain unchanged after the merge).
+
++merge-with+ facilitates powerful recipes for map combination by taking an
+additional function argument. The function is applied ala +reduce+: beginning
+with the shared key entries of the leftmost two argument maps to form an
+intermediate result map. Then the function is successively applied to the
+shared key entries of the intermediate result map and each of the remaining
+argument maps. As with +merge+, argument map entries whose keys are not shared
+are simply inserted into the result map.
+
+
+===== See also
+
+* See <<sec_composite_data_maps_setting_keys>> to learn more about manipulating maps.
+* See <<sec_composite_data_maps_multiple_values>> for information on
+  creating multiple value maps using a Clojure protocol.

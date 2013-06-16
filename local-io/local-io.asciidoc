@@ -2,5 +2,4 @@
 == Local IO
 
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
-
-
+include::local-io/csv/read-write-csv.asciidoc[]
