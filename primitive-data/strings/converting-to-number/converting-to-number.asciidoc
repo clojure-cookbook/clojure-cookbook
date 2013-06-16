@@ -1,0 +1,43 @@
+==== Converting Strings to numbers
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to convert strings to numbers.
+
+===== Solution
+
+Using +read-string+ to convert a string to a number is very straight forward.
+
+[source,clojure]
+----
+(read-string "42")
+;; -> 42
+----
+
++read-string+ will convert integers, decimals and rationals. Rationals will be simplified.
+[source,clojure]
+----
+(map read-string ["42" "-1" "+1337" "3.14" "-5.55" "2/4"])
+;; -> (42 -1 1337 3.14 -5.55 1/2)
+----
+
+For cases when you may want to have more control and flexibility of the conversion process use regular expressions in combination with parsers for the number types.
+[source,clojure]
+----
+(defn to-number [string]
+  (cond (re-seq #"^[-+]?\d*[\.,]\d*$" string)
+        (Double/parseDouble (clojure.string/replace string #"," "."))
+        (re-seq #"^[-+]?\d+$" string)
+        (Integer/parseInt (clojure.string/replace string #"\+" ""))
+        :else string))
+
+(map to-number ["42" "-1" "+1337" "1.5" "3,14" "-5.55" "some text"])
+;; -> (42 -1 1337 1.5 3.14 -5.55 "some text")
+----
+
+===== Discussion
+Note that +read-string+, while simple and straight forward, can execute code (controlled by *read-eval*), and should therefor be used only with trusted sources.
+
+A function like +to-number+ can be very useful when reading CSV files that contains numbers.

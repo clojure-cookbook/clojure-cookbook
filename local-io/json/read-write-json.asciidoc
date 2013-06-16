@@ -1,0 +1,96 @@
+==== Work with JSON data
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to read or write JSON data.
+
+===== Solution
+
+Use +clojure.data.json/read+ to read JSON from a java.io.Reader.
+
+[source,clojure]
+----
+(with-open [in-file (clojure.java.io/reader "persons.json")]
+  (clojure.data.json/read in-file))
+;; -> [{"age" 32, "name" "Stefan"} {"age" 66, "name" "Mango"}]
+----
+
+Use +clojure.data.json/write+ to write JSON to a java.io.Writer.
+
+[source,clojure]
+----
+(with-open [out-file (clojure.java.io/writer "persons.json")]
+  (clojure.data.json/write [{:name "Stefan" :age 32} {:name "Mango" :age 66}]
+                           out-file))
+----
+
+To work with JSON Strings use +clojure.data.json/read-str+ and +clojure.data.json/write-str+.
+
+[source,clojure]
+----
+(clojure.data.json/write-str {:name "Stefan" :age 32 :height 174})
+;; -> "{\"age\":32,\"name\":\"Stefan\",\"height\":174}"
+
+(clojure.data.json/read-str "{\"name\": \"Stefan\", \"age\": 32, \"height\": 174}")
+;; -> {"name" "Stefan", "age" 32, "height" 174}
+----
+
+You can apply a function to each processed key by using the +:key-fn+ option.
+
+[source,clojure]
+----
+(clojure.data.json/read-str "{\"name\": \"Stefan\", \"age\": 32, \"height\": 174}" :key-fn keyword)
+;; -> {:name "Stefan", :age 32, :height 174}
+
+(clojure.data.json/write-str {:name "Stefan", :age 32, :height 174} :key-fn clojure.string/upper-case)
+;; -> "{\":AGE\":32,\":NAME\":\"Stefan\",\":HEIGHT\":174}"
+----
+
+To apply a function to each value, use the +:value-fn+ option. Your value function will be called with the key and the value as arguments.
+
+[source,clojure]
+----
+(defn meters-to-centimeters [key value]
+  (if (= key :height)
+    (* value 100)
+    value))
+
+(clojure.data.json/read-str "{\"name\": \"Stefan\", \"age\": 32, \"height\": 1.74}"
+               		    :key-fn keyword
+               		    :value-fn meters-to-centimeters)
+;; -> {:name "Stefan", :age 32, :height 174.0}
+
+(clojure.data.json/write-str {:name "Stefan", :age 32, :height 1.74} 
+			     :value-fn meters-to-centimeters)
+;; -> "{\"age\":32,\"name\":\"Stefan\",\"height\":174.0}"
+----
+
+===== Discussion
+Reading JSON with +read-str+ will not yield the same Clojure data that was written by +write-str+. If you write a map and then read it, you will lose the keywords. You can solve this by using the +:key-fn+. Use the +keyword+ function to get more idiomatic data. 
+
+[source,clojure]
+----
+(clojure.data.json/read-str (json/write-str {:name "Stefan" :age 32}))
+;; -> {"age" 32, "name" "Stefan"}
+
+(clojure.data.json/read-str (clojure.data.json/write-str {:name "Stefan" :age 32}) :key-fn keyword)
+;; -> {:age 32, :name "Stefan"}
+----
+
+It is common for JSON to be formated in lowerCamelCase. If so, you can use a key function that transforms lowerCamelCase to idiomatic Clojure format.
+
+[source,clojure]
+----
+(defn to-keyword [string]
+  (-> string
+      (clojure.string/replace #"[A-Z]" "-$0")
+      (clojure.string/lower-case)
+      (keyword)))
+
+(clojure.data.json/read-str "{\"firstName\": \"Stefan\", \"age\": 32}" :key-fn to-keyword)
+;; -> {:first-name "Stefan", :age 32}
+----
+
+The +:key-fn+ and the +:value-fn+ can be used for both +write-str+ and +read-str+. If you use both the +:key-fn+ and the +:value-fn+, the value-fn will be called after the key-fn have been called on the key when reading. So if you use a function to process a value that is conditional on a specific key, remember to condition on the key as is after the key-fn have been called. When writing, the value-fn will be the first function applied followed by the key-fn.
