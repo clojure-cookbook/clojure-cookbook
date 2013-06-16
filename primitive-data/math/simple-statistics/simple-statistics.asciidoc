@@ -130,7 +130,7 @@ each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
 
 The standard deviation measures how much, on average, the individual values in a
 population deviate from the mean: The higher the standard deviation is, the
-"farther away" will the individual values be (on average). As
+"farther away" the individual values will be (on average). As
 +standard-deviation+ is a bit more mathematical than +mean+, +median+ and
 +mode+, we will go through the first example step by step to get a better
 understanding on how it works:
