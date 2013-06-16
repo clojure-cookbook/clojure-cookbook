@@ -1,0 +1,121 @@
+==== Get files from a directory
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to get the files from a directory.
+
+===== Solution
+
+Using +file-seq+ you will get a sequence of +java.io.File+ objects.
+
+[source,clojure]
+----
+(file-seq (clojure.java.io/file "./next-gen"))
+;; -> (#<File ./next-gen> #<File ./next-gen/picard.jpg> #<File ./next-gen/locutus.bmp> #<File ./next-gen/data.txt>)
+----
+
+However it is a common scenario that you would want the file names rather than the actual file objects from the directory. You can achieve this by filtering on +.isFile+ and using +.getName+.
+[source,clojure]
+----
+(defn get-file-names-from-directory [directory]
+  (->> directory
+       (clojure.java.io/file)
+       (file-seq)
+       (filter #(.isFile %))
+       (map #(.getName %))))
+
+(get-file-names-from-directory "./next-gen")
+;; -> ("picard.jpg" "locutus.bmp" "data.txt")
+----
+
+If you want to filter on specific extensions, you can do that with a regular expression.
+[source,clojure]
+----
+(filter #(re-find #"^.*\.(jpg|JPG|txt)$" %) (get-file-names-from-directory "./next-gen"))
+;; -> ("picard.jpg" "data.txt")
+----
+
+You can make this more of a utility function and get the extensions and files as arguments. 
+First you can make a predicate to match against a vector of extensions.
+[source,clojure]
+----
+(defn has-file-extension? [file-name extensions]
+  (let [extension-pattern (clojure.string/join "|" extensions)
+        complete-pattern (str "^.+\\.(" extension-pattern ")$")
+        extensions-reg-exp (re-pattern complete-pattern)]
+    (if (re-find extensions-reg-exp file-name)
+      true
+      false)))
+
+(has-file-extension? "picard.jpg" ["txt" "jpg"])
+;; -> true
+
+(has-file-extension? "locutus.bmp" ["txt" "jpg"])
+;; -> false
+----
+
+Armed with the predicate you can make a convenience function that performs the filtering.
+[source,clojure]
+----
+(defn filter-on-extensions [files extensions]
+  (filter #(has-file-extension? % extensions) files))
+
+(filter-on-extensions ["picard.jpg" "locutus.bmp"] ["txt" "jpg"])
+;; -> ("picard.jpg")
+----
+
+Now you have all the parts to make a good looking utility function that get all the files from a directory with the given extensions.
+[source,clojure]
+----
+(defn get-files-with-extension [directory extensions]
+  (-> directory
+      (get-file-names-from-directory)
+      (filter-on-extensions extensions)))
+
+(get-files-with-extension "./next-gen" ["txt" "jpg"])
+;; -> ("picard.jpg" "data.txt")
+----
+
+===== Discussion
+Note that using +file-seq+ will give you a recursive tree from the given directory.
+
+[source,clojure]
+----
+(file-seq (clojure.java.io/file "./next-gen"))
+;; -> (#<File ./next-gen> #<File ./next-gen/picard.jpg> #<File ./next-gen/locutus.bmp> #<File ./next-gen/deep-space> #<File ./next-gen/deep-space/very-deep.org> #<File ./next-gen/data.txt>)
+----
+
+If that is not your intention, you can solve this by using a function that finds the depth of a file. Use the directory delimiter of your file system. The count is decreased by two to not count the own directory or the file name.
+[source,clojure]
+----
+(defn get-file-directory-depth [file]
+  (-> file
+      (.getPath)
+      (clojure.string/split #"\/")
+      (count)
+      (- 2)))
+----
+
+This function can now be used to filter on your required depth.
+[source,clojure]
+----
+(filter #(= (get-file-directory-depth %) 1)  (file-seq (clojure.java.io/file "./next-gen")))
+;; -> (#<File ./next-gen/picard.jpg> #<File ./next-gen/locutus.bmp> #<File ./next-gen/deep-space> #<File ./next-gen/data.txt>)
+----
+
+You can add this functionality to the +get-file-names-from-directory+ function.
+[source,clojure]
+----
+(defn get-file-names-from-directory-with-depth [directory depth]
+  (->> directory
+       (clojure.java.io/file)
+       (file-seq)
+       (filter #(.isFile %))
+       (filter #(= (get-file-directory-depth %) depth))
+       (map #(.getName %))))
+
+(get-file-names-from-directory-with-depth "./next-gen" 2)
+;; -> ("very-deep.org")
+----
