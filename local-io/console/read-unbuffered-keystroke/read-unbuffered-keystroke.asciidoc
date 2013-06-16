@@ -11,13 +11,16 @@ single, unbuffered keystroke from the console.
 
 ===== Solution
 
-Use +ConsoleReader+ from the http://jline.sourceforge.net/[JLine] library.
+Use +ConsoleReader+ from the JLine footnote:[https://github.com/jline/jline2];
+library, a Java library for handling console input.
+
+JLine is similar to BSD editline and GNU readline. There are a few
+older versions of the library out there -- adding +[jline "2.11"]+ to
+your +:dependencies+ in +project.clj+ will pick up the latest version
+as of this writing.
 
 [source,clojure]
 ----
-;;
-;; Important: add [jline "2.11"] to :dependencies in project.clj
-;;
 (ns keystroke.core
   (:import [jline.console ConsoleReader]))
 
@@ -34,7 +37,7 @@ Use +ConsoleReader+ from the http://jline.sourceforge.net/[JLine] library.
 As in most languages, console IO in Java is buffered; +(flush)+
 writes the initial prompt to the standard output stream. However,
 input is buffered as well by default. The JLine library provides a
-+ConsoleReader+ object whose +readCharacter+ method which lets you avoid the
++ConsoleReader+ object, whose +readCharacter+ method lets you avoid the
 input buffering.
 
 Beware, however, of testing +(get-keystroke)+ at the REPL:
@@ -49,7 +52,7 @@ Enter a keystroke:
 ----
 
 In order to connect the console's input correctly to the REPL, use
-+lein trampoline repl+ (<r> below means user types the letter +r+):
++lein trampoline repl+ (+<r>+ below means user types the letter +r+):
 
 [source,clojure]
 ----
@@ -61,9 +64,6 @@ nil
 user=> 
 
 ----
-
-There are several JLine implementations in https://clojars.org/[Clojars]; the default
-version at 2.11 was fairly up to date as of this writing.
 
 ===== See Also
 
