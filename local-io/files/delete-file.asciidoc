@@ -1,0 +1,73 @@
+==== Delete a file
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to delete a file.
+
+===== Solution
+
+Use +clojure.java.io/delete-file+ to delete the file.
+
+[source,clojure]
+----
+(clojure.java.io/delete-file "./file-to-delete.txt")
+;; -> true
+----
+
+If the file do not exist, a +java.io.IOException+ will be thrown.
+[source,clojure]
+----
+(clojure.java.io/delete-file "./file-that-do-not-exist.txt")
+;; -> java.io.IOException: Couldn't delete
+----
+
+If you do not want +delete-file+ to throw exceptions if the file could not be deleted, you can use the +silently+ flag.
+[source,clojure]
+----
+(clojure.java.io/delete-file "./file-that-do-not-exist.txt" true)
+;; -> true
+----
+
+For times when you want to do some custom handling of the eventual exceptions throw, you should put the call to +delete-file+ inside a +try-catch+.
+[source,clojure]
+----
+(try
+  (clojure.java.io/delete-file "./file-that-do-not-exist.txt")
+  (catch Exception e (str "exception: " (.getMessage e))))
+;; -> "exception: Couldn't delete ./file-that-do-not-exist.txt"
+----
+
+You can put this together with a call to +.exists+ to get a "safe" delete utility function.
+[source,clojure]
+----
+(defn safe-delete [file-path]
+  (if (.exists (clojure.java.io/file file-path))
+    (try
+      (clojure.java.io/delete-file file-path)
+      (catch Exception e (str "exception: " (.getMessage e))))
+    false))
+
+(safe-delete "./file-that-do-not-exist.txt")
+;; -> false
+(safe-delete "./file-to-delete.txt")
+;; -> true
+----
+===== Discussion
++clojure.java.io/delete-file+ can also be used to delete directories. Directories must be empty for the deletion to be successful. So any utility function you make to delete a directory must first delete all files in the given directory.
+[source,clojure]
+----
+(clojure.java.io/delete-file "./dir-to-delete")
+;; -> false
+
+(defn delete-directory [directory-path]
+  (let [directory-contents (file-seq (clojure.java.io/file directory-path))
+        files-to-delete (filter #(.isFile %) directory-contents)]
+    (doall (map #(safe-delete (.getPath %)) files-to-delete))
+    (safe-delete directory-path)))
+
+(delete-directory "./dir-to-delete")
+;; -> true
+----
+Note the call to +doall+. If you do not call +doall+ the deletion of the files would be lazy and then the files would still exists when the call to delete the actual directory is made.
