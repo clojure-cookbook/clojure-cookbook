@@ -1,0 +1,57 @@
+==== File properties
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to find properties of a file.
+
+===== Solution
+
+Clojure do not have any library functions to get the properties of a file. So what should you do then? Well since Clojure's interoperability with Java is superb, you can use the properties defined in +java.io.File+.
+
+[source,clojure]
+----
+(def my-file (clojure.java.io/file "./my-test-file.txt"))
+
+(.exists my-file)
+;; -> true
+
+(.isFile my-file)
+;; -> true
+
+(.isDirectory my-file)
+;; -> false
+
+(.getName my-file)
+;; -> "my-test-file.txt"
+
+(.getParent my-file)
+;; -> "."
+
+(.getPath my-file)
+;; -> "./my-test-file.txt"
+
+(.getAbsolutePath my-file)
+"/home/the-user/cookbook/./my-test-file.txt"
+----
+
+To make the properties that you are interested in more conveniently available, you can create a map from them.
+[source,clojure]
+----
+(defn get-file-properties [file-path]
+  (let [file (clojure.java.io/file file-path)]
+    {:file file
+     :exists? (.exists file)
+     :is-file? (.isFile file)
+     :is-directory? (.isDirectory file)}))
+
+(get-file-properties "./my-test-file.txt")
+;; -> {:file #<File ./my-test-file.txt>, 
+;;     :exists? true, 
+;;     :is-file? true, 
+;;     :is-directory? false}
+----
+
+===== See Also
+* See the Java documentation for http://doc.java.sun.com/DocWeb/api/java.io.File[java.io.File] for more available properties on files.
