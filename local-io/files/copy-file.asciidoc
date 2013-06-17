@@ -1,0 +1,47 @@
+==== Copy a file
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to copy a file.
+
+===== Solution
+
+Use +clojure.java.io/copy+ to make a copy of a file.
+
+[source,clojure]
+----
+(clojure.java.io/copy
+ (clojure.java.io/file "./file-to-copy.txt")
+ (clojure.java.io/file "./my-new-copy.txt"))
+;; -> nil
+----
+
+If the input file is not found a +java.io.FileNotFoundException+ will be thrown.
+
+Note that if the file already exists, it will be overwritten. If that is not what you want, you can put together a "safe" copy function that will catch any exceptions and optionally overwrite.
+[source,clojure]
+----
+(defn safe-copy [source-path destination-path & opts]
+  (let [source (clojure.java.io/file source-path)
+        destination (clojure.java.io/file destination-path)
+        options (merge {:overwrite false} (apply hash-map opts))]
+    (if (and (.exists source)
+             (or (:overwrite options) (= false (.exists destination))))
+      (try
+        (= nil (clojure.java.io/copy source destination))
+        (catch Exception e (str "exception: " (.getMessage e))))
+      false)))
+
+(safe-copy "./file-to-copy.txt" "./my-new-copy.txt")
+;; -> true
+(safe-copy "./file-to-copy.txt" "./my-new-copy.txt")
+;; -> false
+(safe-copy "./file-to-copy.txt" "./my-new-copy.txt" :overwrite true)
+;; -> true
+----
+Note the equality check against nil for when the file is copied. If you add this you will always get a boolean value from the function. This makes the function more convenient to use, since you can then conditionally check if the operation succeed or not.
+
+===== Discussion
+You can also use +clojure.java.io/copy+ with a +java.io.Reader+ (for input) and a +java.io.Writer+ as output.
