@@ -1,4 +1,4 @@
-==== Reading and Writing Clojure Data Structures
+==== Reading and Writing Clojure Data
 
 // By John Cromartie (jcromartie)
 
@@ -8,14 +8,14 @@ You need to store and retrieve Clojure data structures on disk.
 
 ===== Solution
 
-Use +spit+ with +pr-str+ to serialize small amounts of data.
+Use +pr-str+ and +spit+ to serialize small amounts of data.
 
 [source,clojure]
 ----
 (spit "data.clj" (pr-str [:a :b :c]))
 ----
 
-Use +read-string+ with +slurp+ to read small amounts of data.
+Use +read-string+ and +slurp+ to read small amounts of data.
 
 [source,clojure]
 ----
@@ -42,6 +42,9 @@ Use +read+ to efficiently read large data structures from a stream.
 ----
 
 ===== Discussion
+
+// This is very similar to local-io/read-write-files, I am trying to
+// harmonize the differences --JC
 
 The fact that "code is data" in Clojure, and that you have runtime
 access to the same reader the language uses to load source code from
@@ -75,10 +78,7 @@ configuration data and other types of simple structures.
 Reading and writing from streams is far more efficient, because it
 buffers input and output, dealing with data a few bytes at a time.
 
-IMPORTANT: When printing objects to disk via a stream, you must make
-sure to close it in order to flush the stream, otherwise your data
-might not appear on disk at all! The +with-open+ macro ensures that
-the stream is flushed and closed after the body is executed.
+IMPORTANT: See "Reading and Writing Files" for notes on managing streams.
 
 In addition to reading and writing a single data structure in a file,
 you can also append additional data structures to the same file and
