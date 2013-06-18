@@ -3,3 +3,4 @@
 
 include::local-io/csv/read-write-csv.asciidoc[]
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
+include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
