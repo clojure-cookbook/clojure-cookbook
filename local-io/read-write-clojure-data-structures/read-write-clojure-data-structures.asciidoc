@@ -1,0 +1,118 @@
+==== Reading and Writing Clojure Data Structures
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+You need to store and retrieve Clojure data structures on disk.
+
+===== Solution
+
+Use +spit+ with +pr-str+ to serialize small amounts of data.
+
+[source,clojure]
+----
+(spit "data.clj" (pr-str [:a :b :c]))
+----
+
+Use +read-string+ with +slurp+ to read small amounts of data.
+
+[source,clojure]
+----
+(read-string (slurp "data.clj"))
+;; -> [:a :b :c]
+----
+
+Use +pr+ to efficiently write large data structures to a stream.
+
+[source,clojure]
+----
+(with-open [w (clojure.java.io/writer "data.clj")]
+  (binding [*out* w]
+    (pr large-data-structure)))
+----
+
+Use +read+ to efficiently read large data structures from a stream.
+
+[source,clojure]
+----
+(with-open [r (java.io.PushbackReader. (clojure.java.io/reader "data.clj"))]
+  (binding [*read-eval* false]
+    (read r)))
+----
+
+===== Discussion
+
+The fact that "code is data" in Clojure, and that you have runtime
+access to the same reader the language uses to load source code from
+files makes this a relatively simple task. However, while this is
+often a good way to persist data to disk, you should be aware of a few
+issues.
+
+WARNING: The +read+ function is only appropriate for reading data from
+*trusted* sources. This is because the Clojure reader is not designed
+nor guaranteed to be safe or free from side-effects. Binding
++pass:[*read-eval*]+ to +false+ is just a small safeguard. If you need to
+read Clojure data structures from *untrusted* sources, i.e. anything
+you did not write yourself, then see the +clojure.edn+ library.
+
+The simple case of +slurp+ and +spit+ becomes unusable when the data
+is very large, because it creates a very large string in memory all at
+once. For instance: serializing one million random numbers (created
+with +rand+) results in an 18MB file, and consumes much more memory
+than that while reading or writing.
+
+[source]
+----
+user=> (spit "data.clj" (pr-str (repeatedly 1e6 rand)))
+OutOfMemoryError Java heap space  java.util.Arrays.copyOf (Arrays.java:2882)
+----
+
+But, if you know you are only dealing with a small amount of data,
+this approach is perfectly suitable. It is a good way to load
+configuration data and other types of simple structures.
+
+Reading and writing from streams is far more efficient, because it
+buffers input and output, dealing with data a few bytes at a time.
+
+IMPORTANT: When printing objects to disk via a stream, you must make
+sure to close it in order to flush the stream, otherwise your data
+might not appear on disk at all! The +with-open+ macro ensures that
+the stream is flushed and closed after the body is executed.
+
+In addition to reading and writing a single data structure in a file,
+you can also append additional data structures to the same file and
+read them back as a sequence later.
+
+[source,clojure]
+----
+(spit "data.clj" (prn-str [1 2 3]))
+(spit "data.clj" (prn-str [:a :b :c]) :append true)
+;; data.clj now contains two serialized structures
+----
+
+This is useful for appending small amounts of data to a file over
+time, such as for an event or transaction log.
+
+However +read-string+ will not suffice for reading multiple objects
+from a single string. To read a series of objects from a stream, you
+must continue to call +read+ until it has reached the end.
+
+[source,clojure]
+----
+(defn- read-one
+  [r]
+  (try
+    (read r)
+    (catch java.lang.RuntimeException e
+      (if (= "EOF while reading" (.getMessage e))
+        ::EOF
+        (throw e)))))
+
+(defn read-seq-from-file
+  "Reads a sequence of top-level objects in file at path."
+  [path]
+  (with-open [r (java.io.PushbackReader. (clojure.java.io/reader path))]
+    (binding [*read-eval* false]
+      (doall (take-while #(not= ::EOF %) (repeatedly #(read-one r)))))))
+----
