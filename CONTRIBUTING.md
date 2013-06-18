@@ -41,6 +41,16 @@ Recipes in *Clojure Cookbook* should be written in [AsciiDoc](http://www.methods
 
 You can find more information on the format in the [AsciiDoc User Guide](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html) or across numerous pre-existing `*.asciidoc` files in this repo.
 
+#### Recipe File Organization
+
+Recipes must reside in their own directories under the relevant chapter or sub-heading, e.g.:
+
+```
+primitive-data/math/random-numbers/random-numbers.asciidoc
+```
+
+Any included images or extended source code examples should reside in this directory as well.
+
 #### Problem
 
 A problem statement is a short description of the problem the recipe provides a solution too.
