@@ -1,2 +1,5 @@
 [[ch_strings]]
 == Strings
+
+include::creating-strings/creating-strings.asciidoc[]
+include::string-each-char/string-each-char.asciidoc[]

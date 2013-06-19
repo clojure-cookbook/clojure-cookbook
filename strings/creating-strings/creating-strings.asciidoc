@@ -1,0 +1,46 @@
+==== Creating Strings
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+You need to create a string by concatenating several values together.
+
+===== Solution
+
+Use +str+ to combine arguments into a single string.
+
+[source,clojure]
+----
+(str)
+;; -> ""
+
+(str "example" 1 2 3)
+;; -> "example123"
+
+(apply str (range 10))
+;; -> "0123456789"
+----
+
+===== Discussion
+
++str+ is one of the most crucial core functions in Clojure, because
+let's face it: when it all comes down do it, programming is all about
+turning strings of data into other strings of data.
+
+The underlying Java +.toString()+ method is called on each argument to
++str+ in order to build the result.
+
+Concatenating a large number of values is most efficient when you can
+pass them as arguments to +str+ all at once.
+
+[source]
+----
+user=> (time (dotimes [_ 100] (reduce str (range 1000))))
+"Elapsed time: 175.749 msecs"
+
+user=> (time (dotimes [_ 100] (apply str (range 1000))))
+"Elapsed time: 14.583 msecs"
+----
+
+// TODO: refer user to the "Functional Programming" section on the difference between reduce and apply
