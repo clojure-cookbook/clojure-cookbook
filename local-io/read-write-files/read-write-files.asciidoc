@@ -1,0 +1,84 @@
+==== Reading and writing files
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to read or write a file.
+
+===== Solution
+
+Write a string to a file with +spit+.
+
+[source,clojure]
+----
+(spit "stuff.txt" "my stuff")
+----
+
+Read the contents of a file with +slurp+.
+
+[source,clojure]
+----
+(slurp "stuff.txt")
+;; -> "all my stuff"
+----
+
+If required, an encoding can be specified with the +:encoding+ option.
+
+[source,clojure]
+----
+(slurp "stuff.txt" :encoding "UTF-8")
+;; -> "all my stuff"
+----
+
+Append data to an existing file using the +:append true+ option to +spit+.
+
+[source,clojure]
+----
+(spit "stuff.txt" "even more stuff" :append true)
+----
+
+To read a file line-by-line, instead of loading the entire contents
+into memory at once, use a +java.io.Reader+ together with +line-seq+.
+
+[source,clojure]
+----
+(with-open [r (clojure.java.io/reader "stuff.txt")]
+  (doseq [line (line-seq r)]
+    (println line)))
+----
+
+To write a large amount of data to a file, use a +java.io.Writer+.
+
+[source,clojure]
+----
+(with-open [w (clojure.java.io/writer "stuff.txt")]
+  (doseq [line some-large-seq-of-strings]
+    (.write w line)
+    (.newLine w)))
+----
+
+===== Discussion
+
+When using +:append+, text will be appended to the end of the
+file. Use newlines at the end of each line by appending +"\n"+ to the
+string to be printed. All lines in a text file should end with a
+newline including the last one.
+
+[source,clojure]
+----
+(defn spitn
+  "Append to file with newline"
+  [path text]
+  (spit path (str text "\n") :append true)
+----
+
++spit+ and +slurp+ deal with the entire contents of a file at a time,
+and close the file after reading or writing. If you need to read or
+write a lot of data, it is more efficient (in terms of both memory and
+time) to use streams.
+
+It is important to flush any writes to the underlying stream in order
+to ensure your data is actually written and resources are cleaned
+up. The +with-open+ macro flushes and closes the stream specified in
+its binding after executing its body.
