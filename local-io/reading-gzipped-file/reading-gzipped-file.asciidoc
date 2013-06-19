@@ -1,0 +1,33 @@
+==== Reading a Gzipped File
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+You need to read the contents of a file compressed with gzip (+.gz+).
+
+===== Solution
+
+Wrap a normal input stream with +java.util.zip.GZIPInputStream+ to
+read uncompressed data.
+
+[source,clojure]
+----
+(with-open [in (java.util.zip.GZIPInputStream.
+                (clojure.java.io/input-stream
+                 "file.txt.gz"))]
+  (slurp in))
+----
+
+===== Discussion
+
+Many of Clojure's IO functions will accept any type of Java
+stream. The +GZIPInputStream+ simply "wraps" any other input stream
+and attempts to decompress the original stream.
+
+By wrapping a normal input stream, as returned by
++clojure.java.io/input-stream+, we can pass it to +slurp+ and easily
+read the entire decompressed contents.
+
+You can leverage this same technique to read a compressed file
+line-by-line, or to read Clojure forms written with +pr+ or +pr-str+.
