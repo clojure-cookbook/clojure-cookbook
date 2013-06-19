@@ -18,7 +18,7 @@ unique ID (UUID).
 ;; -> #uuid "a6f92a6f-f736-468f-9e26-f392852825f4"
 ----
 
-===== Solution
+===== Discussion
 
 Often times when building systems you want to assign a unique ID to
 objects and records. Often times IDs are simple integers that
