@@ -1,7 +1,13 @@
 [[ch_local_io]]
 == Local IO
 
-include::local-io/csv/read-write-csv.asciidoc[]
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
-include::read-write-files/read-write-files.asciidoc
+include::csv/read-write-csv/read-write-csv.asciidoc[]
+include::files/copy-file/copy-file.asciidoc[]
+include::files/delete-file/delete-file.asciidoc[]
+include::files/file-properties/file-properties.asciidoc[]
+include::files/get-files-from-directory/get-files-from-directory.asciidoc[]
+include::json/read-write-json/read-write-json.asciidoc[]
+include::local-io.asciidoc[]
 include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
+include::read-write-files/read-write-files.asciidoc[]
