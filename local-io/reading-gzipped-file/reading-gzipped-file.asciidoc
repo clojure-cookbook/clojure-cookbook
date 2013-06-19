@@ -30,4 +30,6 @@ By wrapping a normal input stream, as returned by
 read the entire decompressed contents.
 
 You can leverage this same technique to read a compressed file
-line-by-line, or to read Clojure forms written with +pr+ or +pr-str+.
+line-by-line, or to read Clojure forms written with +pr+ or
++pr-str+. You can also decompress data this way from any other kind of
+stream, e.g. from a URL, memory, or a string.
