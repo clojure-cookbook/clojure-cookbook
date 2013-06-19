@@ -1,0 +1,74 @@
+==== Delete a file
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to delete a file.
+
+===== Solution
+
+Use +clojure.java.io/delete-file+ to delete the file.
+
+[source,clojure]
+----
+(clojure.java.io/delete-file "./file-to-delete.txt")
+;; -> true
+----
+
+If trying to delete a file that do not exist, a +java.io.IOException+ will be thrown.
+[source,clojure]
+----
+(clojure.java.io/delete-file "./file-that-do-not-exist.txt")
+;; -> java.io.IOException: Couldn't delete
+----
+
+If you do not want +delete-file+ to throw exceptions when the given file could not be deleted for whatever reason, you can add the +silently+ flag set to +true+ to the arguments.
+[source,clojure]
+----
+(clojure.java.io/delete-file "./file-that-do-not-exist.txt" true)
+;; -> true
+----
+
+===== Discussion
+For times when you want to do some custom handling of the eventual exceptions thrown, you should put the call to +delete-file+ inside a +try-catch+ body.
+[source,clojure]
+----
+(try
+  (clojure.java.io/delete-file "./file-that-do-not-exist.txt")
+  (catch Exception e (str "exception: " (.getMessage e))))
+;; -> "exception: Couldn't delete ./file-that-do-not-exist.txt"
+----
+
++java.io.File+ have an +.exists+ property that simply give you a boolean answer whether a file exists or not. You can put this property together with a +try-catch+ body to get a "safe" delete utility function. This function will first check to see if the file with the path from the argument do exist before trying to delete it.
+[source,clojure]
+----
+(defn safe-delete [file-path]
+  (if (.exists (clojure.java.io/file file-path))
+    (try
+      (clojure.java.io/delete-file file-path)
+      (catch Exception e (str "exception: " (.getMessage e))))
+    false))
+
+(safe-delete "./file-that-do-not-exist.txt")
+;; -> false
+(safe-delete "./file-to-delete.txt")
+;; -> true
+----
+
+The +clojure.java.io/delete-file+ function can also be used to delete directories. Directories must be empty for the deletion to be successful. So any utility function you make to delete a directory must first delete all files in the given directory.
+[source,clojure]
+----
+(clojure.java.io/delete-file "./dir-to-delete")
+;; -> false
+
+(defn delete-directory [directory-path]
+  (let [directory-contents (file-seq (clojure.java.io/file directory-path))
+        files-to-delete (filter #(.isFile %) directory-contents)]
+    (doall (map #(safe-delete (.getPath %)) files-to-delete))
+    (safe-delete directory-path)))
+
+(delete-directory "./dir-to-delete")
+;; -> true
+----
+The +delete-directory+ function will get a +file-seq+ with the contents of the given path. It will then filter to only get the files of that directory. The next step is to delete all the files and then finish up by deleting the directory itself. Note the call to +doall+. If you do not call +doall+ the deletion of the files would be lazy and then the files would still exist when the call to delete the actual directory is made, which would then fail.
