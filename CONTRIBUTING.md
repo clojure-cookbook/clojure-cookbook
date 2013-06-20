@@ -105,6 +105,8 @@ The [Examples](#examples) from the Solution section above are representative of 
 
 ### Style
 
+This is a book in the O'Reilly _Cookbook_ series. When in doubt, don't be afraid to refer to other _Cookbook_ titles for ideas on topics, style, structure, etc..
+
 The general *tone* of writing in the book should phrase things from the perspective of the reader. For example, use **"You should use X technique to accomplish Y"** instead of **"I would use X to accomplish Y"**.
 
 When instructing readers what technique or library to use make it clear whether something is the only option, the best option or one of many reasonable options. In particular, be mindful of the differences between words like *should*, *may*, etc – where possible adhere to [RFC2119](http://www.ietf.org/rfc/rfc2119.txt)'s recommended usage of such terms.
