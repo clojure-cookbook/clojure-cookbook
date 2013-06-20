@@ -53,12 +53,12 @@ Any included images or extended source code examples should reside in this direc
 
 #### Problem
 
-A problem statement is a short description of the problem the recipe provides a solution to.
+A problem statement is a short description of the problem the recipe provides a solution to. Problems should be _statements_ focused around the phrase "you want to". More complicated problems may break from this convention, but you should strive to reduce every problem to the simplest "you want to" statement possible.
 
 **Appropriate examples**:
 
 ```
-You need to generate a lazy sequence covering a range of dates and/or times.
+You want to generate a lazy sequence covering a range of dates and/or times.
 ```
 
 ```
@@ -83,6 +83,8 @@ map?
 
 The solution to a problem briefly introduces the approach and contains the code for the actual *solution* to the problem.
 
+Solutions should be centered around _imperative_ sentences which plainly tell the user what to do, followed by the smallest small code sample necessary to illustrate the approach. Tell the user what to do, then show them.
+
 **The solution to a problem should *discuss* the solution as little as possible** – leave this for the Discussion section.
 
 See the following recipes for representative examples:
@@ -97,9 +99,13 @@ See the following recipes for representative examples:
 
 The Discussion section is where your exposition occurs. Why would you solve this problem this way? What (if any) alternatives are there? How do the functions and methods work in depth – how and when would you use them in different ways? It is perfectly appropriate to include further code samples or examples in the discussion section to further illustrate the recipe.
 
+Use admonition paragraphs to highlight helpful side notes (with "TIP:") or potentially dangerous side effects (with "WARNING:"). See the Asciidoc docs for more info on admonitions.
+
 The [Examples](#examples) from the Solution section above are representative of Discussion sections.
 
 ### Style
+
+This is a book in the O'Reilly _Cookbook_ series. When in doubt, don't be afraid to refer to other _Cookbook_ titles for ideas on topics, style, structure, etc..
 
 The general *tone* of writing in the book should phrase things from the perspective of the reader. For example, use **"You should use X technique to accomplish Y"** instead of **"I would use X to accomplish Y"**.
 
