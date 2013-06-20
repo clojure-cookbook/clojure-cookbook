@@ -11,7 +11,8 @@ parse and validate them.
 
 ===== Solution
 
-Use +org.clojure/tools.cli+ footnote:[https://github.com/clojure/tools.cli]; library that replaces the +clojure.contrib/command-line+.
+Use +org.clojure/tools.cli+ https://github.com/clojure/tools.cli
+library that replaces the +clojure.contrib/command-line+.
 
 [source,clojure]
 ----
