@@ -4,7 +4,7 @@
 
 ===== Problem
 
-You need to read or write a file compressed with Gzip (i.e. a +.gz+ file).
+You want to read or write a file compressed with Gzip (i.e. a +.gz+ file).
 
 ===== Solution
 
