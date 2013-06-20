@@ -1,7 +1,8 @@
 ==== Parse command line arguments
-///
+
+////
 Author: Nicolas Bessi @nbessi
-///
+////
 
 ===== Problem
 
@@ -51,7 +52,7 @@ When using Leiningen +run+ command, arguments are passed to main function
 defined in your project manifest.
 
 If you want to test your arguments while working with +lein run+ command
-you have to differentiate the run argument from your own argument usin +--+:
+you have to differentiate the run argument from your own argument using +--+:
 
 [source,bash]
 ----
