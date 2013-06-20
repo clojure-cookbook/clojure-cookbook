@@ -1,0 +1,109 @@
+==== Exploring Clojure
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+When using a REPL you want to know more about a function, or what
+functions exist in a namespace.
+
+===== Solution
+
+Print the documentation for a function at the REPL with the +doc+ macro.
+
+[source]
+----
+user=> (doc conj)
+\-------------------------
+clojure.core/conj
+([coll x] [coll x & xs])
+  conj[oin]. Returns a new collection with the xs
+    'added'. (conj nil item) returns (item).  The 'addition' may
+    happen at different 'places' depending on the concrete type.
+----
+
+Print the source code for a function at the REPL with the +source+ macro.
+
+[source]
+----
+user=> (source reverse)
+(defn reverse
+  "Returns a seq of the items in coll in reverse order. Not lazy."
+  {:added "1.0"
+   :static true}
+  [coll]
+    (reduce1 conj () coll))
+----
+
+Find functions with documentation matching a given pattern.
+
+[source]
+----
+user=> (find-doc #"defmacro")
+\-------------------------
+clojure.core/definline
+([name & decl])
+Macro
+  Experimental - like defmacro, except defines a named function whose
+  body is the expansion, calls to which may be expanded inline as if
+  it were a macro. Cannot be used with variadic (&) args.
+\-------------------------
+clojure.core/defmacro
+([name doc-string? attr-map? [params*] body] [name doc-string? attr-map? ([params*] body) + attr-map?])
+Macro
+  Like defn, but the resulting function name is declared as a
+  macro and will be used as a macro by the compiler when it is
+  called.
+----
+
+Print a list of public functions in a namespace with the +dir+ macro.
+
+[source]
+----
+user=> (dir clojure.set)
+difference
+index
+intersection
+join
+map-invert
+project
+rename
+rename-keys
+select
+subset?
+superset?
+union
+----
+
+===== Discussion
+
+Clojure supports inline documentation of functions (more about that
+later), along with other metadata, which allows you to introspect
+things like documentation any time you want. The +doc+ and +source+
+macros are just convenience functions for the REPL.
+
+You can peek under the hood at almost everything in Clojure at any
+time. The next example may be a bit mind-expanding if you're not used
+to this level of introspection at runtime:
+
+[source]
+----
+user=> (source source)
+(defmacro source
+  "Prints the source code for the given symbol, if it can find it.
+  This requires that the symbol resolve to a Var defined in a
+  namespace for which the .clj is in the classpath.
+
+  Example: (source filter)"
+  [n]
+  `(println (or (source-fn '~n) (str "Source not found"))))
+----
+
+Keeping in mind that +source+ was defined in the +clojure.repl+
+namespace, we can peek at how exactly it retrieves the source by
+evaluating +(source clojure.repl/source-fn)+.
+
+Exploring Clojure in this way is a great way to learn about core
+functions and advanced Clojure programming techinques. The
++clojure.core+ namespace is chock full of high-quality and
+high-performance code at your fingertips.
