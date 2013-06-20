@@ -11,7 +11,7 @@ Nearly any knowledge or bit of information you could contribute to the cookbook 
 * Suggest an idea by [creating an issue](../../issues/new?title=Idea:%20I've%20got%20this%20great%20idea...&body=So here's what I was thinking...&labels[]=idea) with the tag "idea".
 * Correct a typo or error in an existing recipe.
 * Proofread and provide feedback on existing recipes.
-* Write a recipe yourself (find more details in the [Recipes](#Recipes) section below.)
+* Write a recipe yourself (find more details in the [Recipes](#recipes) section below.)
 
 *Major contributions such as a whole recipe require you to [license](#licensing) your submission. However, you can submit pull requests for typos, factual corrections and ideas without one*
 
@@ -53,7 +53,7 @@ Any included images or extended source code examples should reside in this direc
 
 #### Problem
 
-A problem statement is a short description of the problem the recipe provides a solution too.
+A problem statement is a short description of the problem the recipe provides a solution to.
 
 **Appropriate examples**:
 
@@ -113,7 +113,7 @@ However, in order for us to accept submissions, those submissions must be licens
 
 Therefore, all sizable public contributions (anything more than a typo correction) must be licensed under a [Creative Commons Attribution](http://creativecommons.org/licenses/by/3.0/) license. The easiest way to do this is by placing a copy of [.license-assignments/template.md](.license-assignments/template.md) in the [.license-assignments/](.license-assignments) folder with the name `<your github username>.md` the very first time you make a contribution.
 
-Source file should contain comments indicating the name of the author, for which you want to receive attribution.
+Source files should contain comments indicating the name of the author for which you want to receive attribution.
 
 If you have any questions or concerns about the licensing model, please don't hesitate to ask us.
 
@@ -128,8 +128,8 @@ Chapter                   | Description
 Primitive Data            | strings, numbers, dates, etc.
 Composite Data            | plural data and the manipulation thereof
 Databases and Persistence | this one's all remembering things.
-Local IO                  | reading/writing to the console, files and other fun system calls.
-Network IO                | communication via web requests, socket connections or otherwise.
+Local I/O                 | reading/writing to the console, files and other fun system calls.
+Network I/O               | communication via web requests, socket connections or otherwise.
 Distributed Computing     | performing work across multiple machines or processes.
 GUI applications          | building desktop/mobile software.
 Packaging and Deployment  | "shipping it," so to speak. Also leiningen project-management goodness.
