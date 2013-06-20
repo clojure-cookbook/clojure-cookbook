@@ -53,12 +53,12 @@ Any included images or extended source code examples should reside in this direc
 
 #### Problem
 
-A problem statement is a short description of the problem the recipe provides a solution to.
+A problem statement is a short description of the problem the recipe provides a solution to. Problems should be _statements_ focused around the phrase "you want to". More complicated problems may break from this convention, but you should strive to reduce every problem to the simplest "you want to" statement possible.
 
 **Appropriate examples**:
 
 ```
-You need to generate a lazy sequence covering a range of dates and/or times.
+You want to generate a lazy sequence covering a range of dates and/or times.
 ```
 
 ```
