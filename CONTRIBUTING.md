@@ -99,6 +99,8 @@ See the following recipes for representative examples:
 
 The Discussion section is where your exposition occurs. Why would you solve this problem this way? What (if any) alternatives are there? How do the functions and methods work in depth – how and when would you use them in different ways? It is perfectly appropriate to include further code samples or examples in the discussion section to further illustrate the recipe.
 
+Use admonition paragraphs to highlight helpful side notes (with "TIP:") or potentially dangerous side effects (with "WARNING:"). See the Asciidoc docs for more info on admonitions.
+
 The [Examples](#examples) from the Solution section above are representative of Discussion sections.
 
 ### Style
