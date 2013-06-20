@@ -83,6 +83,8 @@ map?
 
 The solution to a problem briefly introduces the approach and contains the code for the actual *solution* to the problem.
 
+Solutions should be centered around _imperative_ sentences which plainly tell the user what to do, followed by the smallest small code sample necessary to illustrate the approach. Tell the user what to do, then show them.
+
 **The solution to a problem should *discuss* the solution as little as possible** – leave this for the Discussion section.
 
 See the following recipes for representative examples:
