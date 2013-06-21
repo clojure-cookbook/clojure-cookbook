@@ -59,5 +59,7 @@ which will be compressed on disk when the stream is closed.
 
 ===== See Also
 
-* Reading and Writing ZIP Files
-* Reading and Writing Clojure Data to Disk
+// TODO: Does not exist yet?
+* <<sec_local_io_read_write_zip>>
+* <<sec_local_io_clojure_data_to_disk>>
+
