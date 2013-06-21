@@ -1,0 +1,115 @@
+==== Getting start wiht Databases
+
+===== Problem
+
+You want your system to be integrated with a SQL database.
+
+===== Solution
+
+The first thing to start is to have a DB installed on your system, in most UNIX-like system SQLite is already installed by default and we will use that for this recipe.
+
+To be sure that SQLite is installed open a terminal and type 
+[source, bash]
+----
+sqlite3
+----
+
+It should open a SQL shell.
+
+If there are problems before to continue with this recipe you need to install the database.
+
+Once the database is up and running you have to add dependencies you will need in our project.
+
+Add
+[source, clojure]
+----
+[org.clojure/java.jdbc "0.3.0-alpha4"]
+----
+
+to your dependencies to install the main library to access the database.
+
+You also need to installl the specific drivers for your type of database[1], in our case we need to add the SQLite drivers.
+
+[source, clojure]
+----
+[org.xerial/sqlite-jdbc "3.7.2"]
+----
+
+Once you have added the necessary dependencies you need to install them, so run a:
+[source, bash]
+----
+lein deps
+----
+
+And make sure that everything is fine.
+
+Now you need to define a connection that is simple a map.
+
+[source, clojure]
+----
+(def db {:subprotocol "sqlite"
+         :subname "path/to/the/database.sqlite"})
+----
+
+Now you can execute query against the database, to make sure that everything works fine you can try to make a little table, to put some values inside and to query them back.
+
+[source, clojure]
+----
+(require '[clojure.java.jdbc :as j])
+
+(j/with-connection db
+  (j/create-table :food
+    [:id :integer "PRIMARY KEY" "AUTOINCREMENT"]
+    [:name :varchar]
+    [:cost :float]))
+;; => (0)
+
+(j/insert! db :food
+  {:name "Lasagne" :cost 12.54}
+  {:name "Pizza" :cost 9.38})
+;; => ({:last_insert_rowid() 1} {:last_insert_rowid() 2})
+
+(j/query db ["SELECT * FROM food WHERE id < ?" 20])
+;; => ({:cost 12.54, :name "Lasagne", :id 1} {:cost 9.38, :name "Pizza", :id 2})
+----
+
+===== Discussion
+
+In this recipe we used SQLite but it is definitely possible to use differents SQL engines, such as PostgreSQL or MySQL or others.
+SQLite is very friendly and easy to set up it doesn't even ask for a username and password, while other databases do, in order to deal with those you need to add your username and password at the connection map.
+
+Obviously is also possible to connect to remote databases, you need to indicate the URI in the :subname of the connection.
+
+[source, clojure]
+----
+(def db {:subprotocol "postgresql"
+         :subname "//remote-host:port/dabase-name"
+	 :user "your_username"
+	 :password "theSecretPassword"})
+----
+
+Every SQL engine has its own drivers[1] to install:
+
+[source, clojure]
+----
+;; Apache Derby
+[org.apache.derby/derby "10.8.1.2"]
+;; HSQLDB
+[hsqldb/hsqldb "1.8.0.10"]
+;; Microsoft SQL Server using the jTDS driver
+[net.sourceforge.jtds/jtds "1.2.4"]
+;; MySQL
+[mysql/mysql-connector-java "5.1.25"]
+;; PostgreSQL
+[postgresql/postgresql "8.4-702.jdbc4"]
+;; SQLite
+[org.xerial/sqlite-jdbc "3.7.2"]
+----
+
+
+===== See Also
+
+* Query a database
+* Update values in a database
+
+[1] https://github.com/clojure/java.jdbc/#releases-and-dependency-information
