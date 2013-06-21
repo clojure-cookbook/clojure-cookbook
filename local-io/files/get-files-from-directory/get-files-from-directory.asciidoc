@@ -21,8 +21,8 @@ However it is a common scenario that you would want the file names rather than t
 ----
 (defn get-file-names-from-directory [directory]
   (->> directory
-       (clojure.java.io/file)
-       (file-seq)
+       clojure.java.io/file
+       file-seq
        (filter #(.isFile %))
        (map #(.getName %))))
 
@@ -73,7 +73,7 @@ Now you have all the parts to make a good looking utility function that get all 
 ----
 (defn get-files-with-extension [directory extensions]
   (-> directory
-      (get-file-names-from-directory)
+      get-file-names-from-directory
       (filter-on-extensions extensions)))
 
 (get-files-with-extension "./next-gen" ["txt" "jpg"])
@@ -93,9 +93,9 @@ If that is not your intention, you can solve this by using a function that finds
 ----
 (defn get-file-directory-depth [file]
   (-> file
-      (.getPath)
+      .getPath
       (clojure.string/split #"\/")
-      (count)
+      count
       (- 2)))
 ----
 
@@ -111,8 +111,8 @@ You can add this functionality to the +get-file-names-from-directory+ function. 
 ----
 (defn get-file-names-from-directory-with-depth [directory depth]
   (->> directory
-       (clojure.java.io/file)
-       (file-seq)
+       clojure.java.io/file
+       file-seq
        (filter #(.isFile %))
        (filter #(= (get-file-directory-depth %) depth))
        (map #(.getName %))))
