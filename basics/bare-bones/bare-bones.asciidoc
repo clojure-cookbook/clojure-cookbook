@@ -1,0 +1,78 @@
+==== Bare-Bones Clojure
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+You want to use Clojure from Java, but you don't want to install
+additional tools.
+
+===== Solution
+
+Obtain the Clojure JAR file by downloading and unzipping a release
+from [[http://clojure.org/downloads]]. Using a terminal, navigate to
+where you extracted the JAR, and start a Clojure REPL.
+
+[source,shell]
+----
+java -cp "clojure-1.5.1.jar" clojure.main
+----
+
+You are now running an interactive Clojure REPL (Read-Eval-Print
+Loop). Type an expression and hit <Enter> to evaluate it. Press
+<Ctrl>+D to exit.
+
+Specify a +.clj+ source code file to run it non-interactively.
+
+[source,shell]
+----
+java -cp "clojure-1.5.1.jar" clojure.main my_great_program.clj
+----
+
+===== Discussion
+
+The fact that Clojure on the JVM is encapsulated in a simple JAR file
+has some great benefits. For one, it means that Clojure is never
+really _installed_. It's just a dependency like any other Java
+library. You can easily swap out one version of Clojure for another by
+replacing a single file. Try doing that with Ruby!
+
+Let's dissect the +java+ invocation here a bit.
+
+[source,shell]
+----
+-cp "clojure-1.5.1.jar"
+----
+
+This sets the Java classpath to include Clojure (and only Clojure, in
+this example). A full explanation of the classpath is beyond the scope
+of this recipe, but suffice to say it is a list of places where Java
+should look to load classes.
+
+[source,shell]
+----
+clojure.main
+----
+
+Here we are specifying the class which Java should load and execute
+the +main+ method. Yes, +clojure.main+ is really a Java class. The
+reason it doesn't _look_ like a typical Java commmand line is because
+Clojure namespaces, which are compiled to classes, do not
+conventionally use capitalized names like most Java classes do.
+
+With no further arguments, Clojure starts an interactive REPL. With
+additional arguments, Clojure loads the source file(s) specified.
+
+This is the absolute bare-minimum Clojure environment, and is all you
+need to run Clojure code on any system with Java installed. Of course,
+for regular use and development, you will most certainly want a more
+feature-rich solution.
+
+In some cases, however, hand-tuning a Java invocation may be the best
+way to integrate Clojure into your environment. This is particularly
+useful on servers where deploying a simple JAR file is trivial
+compared to installing more complex packages.
+
+===== See Also
+
+* Leiningen
