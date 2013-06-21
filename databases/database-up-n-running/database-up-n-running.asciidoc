@@ -1,4 +1,6 @@
 ==== Getting start wiht Databases
+:Author: Simone Mosciatti
+:Email: simone@mweb.biz
 
 ===== Problem
 
