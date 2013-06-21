@@ -1,0 +1,74 @@
+Push library on Clojars
+=======================
+:Author: Simone Mosciatti
+:Email: simone@mweb.biz
+
+
+==== Push library on Clojars
+
+===== Problem
+After that you build your own library in clojure you want to make it public so that everybody can use it and simply add it to their dependecies.
+
+===== Solution
+
+In order to push some code in clojars you need to have a clojars account, just go to clojars.org and register.
+
+Complete the form for the registration and please note the field "SSH public key"
+
+The SSH public key is a key used for crypted transmission, you may already have one.
+
+In the UNIX-like system you just check if you have anything in the .ssh directory (under home), if you don't have anything you can just create such key using the command ssh-keygen -t rsa
+
+After that you have the key you just open the .pub(lic) file (.ssh/id_rsa.pub in this case) and you copy it into the form field, it is fine to share the public key, it is public for a reason.
+
+And now you have completed the registration on clojars, congrats :-)
+
+
+
+The project.clj file is extremely important also for pushing the code, the first argument of defproject is the name of the library you are pushing while the second argument is the version of such library.
+
+As example if you push a library with a project.clj like this:
+
+[source, clojure]
+----
+(defproject cookbook "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.5.1"]])
+----
+
+It is really important that after every change at your library you remember to increment the version.
+
+To actually push the code into clojars you just need one single command:
+[source, bash]
+----
+[simo@localhost cookbook]$ lein deploy clojars
+
+WARNING: please set :description in project.clj.
+WARNING: please set :url in project.clj.
+No credentials found for clojars
+See `lein help deploy` for how to configure credentials.
+Username: cookbook
+Password: 
+Wrote /home/simo/cookbook/pom.xml
+Created /home/simo/cookbook/target/cookbook-0.1.0-SNAPSHOT.jar
+Could not find metadata cookbook:cookbook:0.1.0-SNAPSHOT/maven-metadata.xml in clojars (https://clojars.org/repo/)
+Sending cookbook/cookbook/0.1.0-SNAPSHOT/cookbook-0.1.0-20130613.195025-1.pom (2k)
+    to https://clojars.org/repo/
+Sending cookbook/cookbook/0.1.0-SNAPSHOT/cookbook-0.1.0-20130613.195025-1.jar (2k)
+    to https://clojars.org/repo/
+Could not find metadata cookbook:cookbook/maven-metadata.xml in clojars (https://clojars.org/repo/)
+Sending cookbook/cookbook/0.1.0-SNAPSHOT/maven-metadata.xml (1k)
+    to https://clojars.org/repo/
+Sending cookbook/cookbook/maven-metadata.xml (1k)
+    to https://clojars.org/repo/
+
+----
+
+Whoever want to use your code need to add at the dependencies this:
+[source, clojure]
+----
+[cookbook "0.1.0-SNAPSHOT"]
+----
