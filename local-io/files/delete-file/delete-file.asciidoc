@@ -72,3 +72,6 @@ The +clojure.java.io/delete-file+ function can also be used to delete directorie
 ;; -> true
 ----
 The +delete-directory+ function will get a +file-seq+ with the contents of the given path. It will then filter to only get the files of that directory. The next step is to delete all the files and then finish up by deleting the directory itself. Note the call to +doall+. If you do not call +doall+ the deletion of the files would be lazy and then the files would still exist when the call to delete the actual directory is made, which would then fail.
+
+===== See Also
+* <<sec_local-io_files_get_files_from_dir>> for more details on using a +file-seq+ to get the files from a directory.
