@@ -67,6 +67,6 @@ Note the equality check against nil for when the file is copied. If you add this
 
 You can also use +clojure.java.io/copy+ with a +java.io.Reader+ and a +java.io.Writer+ as well as with streams.
 
-The same efficiency considerations that apply to reading and writing to a file in regards to selecting input and output sources from +File+, +Reader+, +Writer+ or streams should be applied to +copy+. See "Reading and writing files" for more information.
+The same efficiency considerations that apply to reading and writing to a file in regards to selecting input and output sources from +File+, +Reader+, +Writer+ or streams should be applied to +copy+. See <<sec_local-io_read_write_files>> for more information.
 
 The default buffer size used by copy is 1024. This can be changed with the +:buffer-size+ option.
