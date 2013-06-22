@@ -28,9 +28,16 @@ Use +feedparser-clj.core/parse-feed+ to parse RSS data from a URL.
 
 ==== Discussion
 
-The +feedparser-clj+ library makes it easy to parse RSS feeds,
-returning a single map structure that closely mimics the underlying
-XML feed.
++feedparser-clj+ is a wrapper around the Java ROME library which
+capable of processing a variety of RSS and Atom versions.
++feedparser-clj.core/parse-feed+ returns a Clojure map that closely
+mimics the underlying XML feed.
 
 Most of the time, what you care about will be under the +:entries+ key,
 which contains an array of maps corresponding to each RSS entry.
+
+[NOTE] 
+ROME returns a com.sun.syndication.feed.synd.SyndFeedImpl
+object under the covers, but it is generally preferred to return
+Clojure maps (or records) instead of Java objects.
+
