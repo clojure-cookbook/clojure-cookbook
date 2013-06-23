@@ -65,7 +65,7 @@ Note that if the file already exists, it will be overwritten. If that is not wha
 The +safe-copy+ function take the source and destination file path to copy. It also take a number of key/value pairs as options. 
 <1> These options are then merged with the default values. In this example there is only one option, the +:overwrite+ but with this structure for optional arguments you can easily add your own (such as +:encoding+ if needed). 
 <2> After the options have been processed, the function check if the destination file exists, and if so if it should be overwritten. If all is ok it will then perform the +copy+ inside a +try-catch+ body.
-<3> Note the equality check against nil for when the file is copied. If you add this you will always get a boolean value from the function. This makes the function more convenient to use, since you can then conditionally check if the operation succeed or not.
+<3> Note the equality check against +nil+ for when the file is copied. If you add this you will always get a boolean value from the function. This makes the function more convenient to use, since you can then conditionally check if the operation succeed or not.
 
 You can also use +clojure.java.io/copy+ with a +java.io.Reader+ and a +java.io.Writer+ as well as with streams.
 [source,clojure]
