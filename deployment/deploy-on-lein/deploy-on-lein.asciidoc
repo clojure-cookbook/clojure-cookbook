@@ -3,6 +3,16 @@ Push library on Clojars
 :Author: Simone Mosciatti
 :Email: simone@mweb.biz
 
+////
+TODO: This recipe needs improvement
+
+* Grammatical rewrite
+* Discussion in "Solution" -> "Discussion"
+* Samples could be tidied up. (warnings, etc.)
+
+See http://github.com/clojure-cookbook/clojure-cookbook/issues/90
+////
+
 
 ==== Push library on Clojars
 

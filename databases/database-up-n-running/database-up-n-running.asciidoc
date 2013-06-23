@@ -1,6 +1,22 @@
-==== Getting start wiht Databases
+==== Getting start with Databases
 :Author: Simone Mosciatti
 :Email: simone@mweb.biz
+
+////
+TODO: This recipe needs improvement
+
+* Grammatical rewrite
+* Discussion in "Solution" -> "Discussion"
+* File name of "up-n-running" should be changed. Is this *really* getting
+* started with a database, or just "Connecting to a SQL database."
+  Additionally, is it connecting to a database with JDBC, or Korma?
+* Samples could be tidied up.
+    * Instructing how to run `lein deps` is probably not necessary
+    * A list of possible drivers as dependencies with versions is not necessary
+
+See http://github.com/clojure-cookbook/clojure-cookbook/issues/91
+////
+
 
 ===== Problem
 
@@ -111,6 +127,7 @@ Every SQL engine has its own drivers[1] to install:
 
 ===== See Also
 
+// TODO: Link these when recipes exist
 * Query a database
 * Update values in a database
 
