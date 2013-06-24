@@ -1,0 +1,22 @@
+==== Work with XML data
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to read or write XML data.
+
+===== Solution
+// (clojure.zip/xml-zip (clojure.xml/parse "test-file.xml"))
+
+// add info on (parse-seq file)
+
+[source,clojure]
+----
+
+----
+
+===== Discussion
+
+===== See also
+https://en.wikipedia.org/wiki/XML
