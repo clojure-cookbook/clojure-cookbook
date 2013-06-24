@@ -13,6 +13,11 @@ Every author of an accepted contribution will receive a *free digital copy of th
 
 **No contribution is too small**. We welcome anything from typo fixes or ideas for recipes all the way to complete recipes and anything in between. You can find more information on how to contribute in our [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
+#### Trusted Contributors
+
+The following users are trusted contributors (push access) that have proven themselves through excellent judgement and outstanding contributions to the book. We support and strongely encourage these users to make corrections and improvements to the book at will (recipes aside.)
+
+* @jcromartie
 
 ## Who we are
 
