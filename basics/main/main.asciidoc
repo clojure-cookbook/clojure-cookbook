@@ -1,4 +1,4 @@
-==== Running a Clojure Program From Source
+==== Running Clojure Programs
 
 // by John Cromartie (jcromartie)
 
@@ -65,7 +65,6 @@ just like any other function during interactive development.
 Let's say you've moved the above +greet+ function into a +foo.util+
 namespace, and your project is structured something like this:
 
-[source,text]
 ----
 ./src/foo/util.clj
 ./src/foo/core.clj

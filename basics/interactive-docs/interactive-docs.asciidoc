@@ -10,10 +10,9 @@ From a REPL, you want to read documentation for a function.
 
 Print the documentation for a function at the REPL with the +doc+ macro.
 
-[source,text]
 ----
 user=> (doc conj)
--------------------------
+ -------------------------
 clojure.core/conj
 ([coll x] [coll x & xs])
   conj[oin]. Returns a new collection with the xs
@@ -23,7 +22,6 @@ clojure.core/conj
 
 Print the source code for a function at the REPL with the +source+ macro.
 
-[source,text]
 ----
 user=> (source reverse)
 (defn reverse
@@ -36,17 +34,16 @@ user=> (source reverse)
 
 Find functions with documentation matching a given regular expression using +find-doc+.
 
-[source,text]
 ----
 user=> (find-doc #"defmacro")
--------------------------
+ -------------------------
 clojure.core/definline
 ([name & decl])
 Macro
   Experimental - like defmacro, except defines a named function whose
   body is the expansion, calls to which may be expanded inline as if
   it were a macro. Cannot be used with variadic (&) args.
--------------------------
+ -------------------------
 clojure.core/defmacro
 ([name doc-string? attr-map? [params*] body] [name doc-string? attr-map? ([params*] body) + attr-map?])
 Macro
@@ -66,7 +63,6 @@ You can peek under the hood at almost everything in Clojure at any
 time. The next example may be a bit mind-expanding if you're not used
 to this level of introspection at runtime:
 
-[source,text]
 ----
 user=> (source source)
 (defmacro source
@@ -87,4 +83,3 @@ Exploring Clojure in this way is a great way to learn about core
 functions and advanced Clojure programming techinques. The
 +clojure.core+ namespace is chock full of high-quality and
 high-performance code at your fingertips.
-

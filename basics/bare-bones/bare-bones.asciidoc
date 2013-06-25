@@ -22,13 +22,6 @@ You are now running an interactive Clojure REPL (Read-Eval-Print
 Loop). Type an expression and hit <Enter> to evaluate it. Press
 <Ctrl>+D to exit.
 
-Specify a +.clj+ source code file to run it non-interactively.
-
-[source,console]
-----
-$ java -cp "clojure-1.5.1.jar" clojure.main my_great_program.clj
-----
-
 ===== Discussion
 
 The fact that Clojure on the JVM is encapsulated in a simple JAR file
@@ -39,7 +32,6 @@ replacing a single file. Try doing that with Ruby!
 
 Let's dissect the +java+ invocation here a bit.
 
-[source,console]
 ----
 -cp "clojure-1.5.1.jar"
 ----
@@ -49,24 +41,20 @@ this example). A full explanation of the classpath is beyond the scope
 of this recipe, but suffice to say it is a list of places where Java
 should look to load classes.
 
-[source,console]
 ----
 clojure.main
 ----
 
 Here we are specifying the class which Java should load and execute
 the +main+ method. Yes, +clojure.main+ is really a Java class. The
-reason it doesn't _look_ like a typical Java commmand line is because
+reason this doesn't _look_ like a typical Java invocation is because
 Clojure namespaces, which are compiled to classes, do not
-conventionally use capitalized names like most Java classes do.
-
-With no further arguments, Clojure starts an interactive REPL. With
-additional arguments, Clojure loads the source file(s) specified.
+conventionally use capitalized names like Java classes do.
 
 This is the absolute bare-minimum Clojure environment, and is all you
 need to run Clojure code on any system with Java installed. Of course,
 for regular use and development, you will most certainly want a more
-feature-rich solution.
+feature-rich solution like Leiningen.
 
 In some cases, however, hand-tuning a Java invocation may be the best
 way to integrate Clojure into your environment. This is particularly
@@ -76,3 +64,4 @@ compared to installing more complex packages.
 ===== See Also
 
 * Leiningen
+* Running Clojure Programs

@@ -10,7 +10,6 @@ You want to know what namespaces are loaded, and what public vars are available 
 
 Use +loaded-libs+ to obtain the set of currently-loaded namespaces. e.g., from a REPL:
 
-[source,text]
 ----
 user=> (pprint (loaded-libs))
 #{clojure.core.protocols clojure.instant clojure.java.browse
@@ -20,7 +19,6 @@ user=> (pprint (loaded-libs))
 
 Use +dir+ from a REPL to print the public vars in a namespace.
 
-[source,text]
 ----
 user=> (dir clojure.instant)
 parse-timestamp
@@ -48,6 +46,9 @@ Namespaces in Clojure are dynamic mappings of symbols to vars. A
 namespace is not available until it is +require+'ed by something else,
 e.g. when starting a REPL or as a dependency in a +ns+
 declaration. Nothing is known about available Clojure libs and
-namespaces until runtime, which is in stark contrast to typical Java
-development.
+namespaces until runtime, which is in contrast to typical Java
+development (where most everything about a package is known at compile
+time).
 
+The downside of this dynamic nature is that you need to at least know
+which namespaces to load in order to explore them.
