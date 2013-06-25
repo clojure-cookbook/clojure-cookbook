@@ -4,18 +4,18 @@
 
 ===== Problem
 
-You want to use Clojure from Java, but you don't want to install
-additional tools.
+You want to use Clojure but you don't want to install additional
+tools.
 
 ===== Solution
 
 Obtain the Clojure JAR file by downloading and unzipping a release
-from [[http://clojure.org/downloads]]. Using a terminal, navigate to
+from http://clojure.org/downloads. Using a terminal, navigate to
 where you extracted the JAR, and start a Clojure REPL.
 
-[source,shell]
+[source,console]
 ----
-java -cp "clojure-1.5.1.jar" clojure.main
+$ java -cp "clojure-1.5.1.jar" clojure.main
 ----
 
 You are now running an interactive Clojure REPL (Read-Eval-Print
@@ -24,9 +24,9 @@ Loop). Type an expression and hit <Enter> to evaluate it. Press
 
 Specify a +.clj+ source code file to run it non-interactively.
 
-[source,shell]
+[source,console]
 ----
-java -cp "clojure-1.5.1.jar" clojure.main my_great_program.clj
+$ java -cp "clojure-1.5.1.jar" clojure.main my_great_program.clj
 ----
 
 ===== Discussion
@@ -39,7 +39,7 @@ replacing a single file. Try doing that with Ruby!
 
 Let's dissect the +java+ invocation here a bit.
 
-[source,shell]
+[source,console]
 ----
 -cp "clojure-1.5.1.jar"
 ----
@@ -49,7 +49,7 @@ this example). A full explanation of the classpath is beyond the scope
 of this recipe, but suffice to say it is a list of places where Java
 should look to load classes.
 
-[source,shell]
+[source,console]
 ----
 clojure.main
 ----

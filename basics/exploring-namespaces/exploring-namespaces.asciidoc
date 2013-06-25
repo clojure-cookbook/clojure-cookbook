@@ -1,0 +1,53 @@
+==== Exploring Namespaces
+
+// By John Cromartie
+
+===== Problem
+
+You want to know what namespaces are loaded, and what public vars are available inside them.
+
+===== Solution
+
+Use +loaded-libs+ to obtain the set of currently-loaded namespaces. e.g., from a REPL:
+
+[source,text]
+----
+user=> (pprint (loaded-libs))
+#{clojure.core.protocols clojure.instant clojure.java.browse
+  clojure.java.io clojure.java.javadoc clojure.java.shell clojure.main
+  clojure.pprint clojure.repl clojure.string clojure.uuid clojure.walk}
+----
+
+Use +dir+ from a REPL to print the public vars in a namespace.
+
+[source,text]
+----
+user=> (dir clojure.instant)
+parse-timestamp
+read-instant-calendar
+read-instant-date
+read-instant-timestamp
+validated
+----
+
+Use +ns-publics+ to obtain a mapping of symbols to public vars in a namespace.
+
+[source,clojure]
+----
+(ns-publics 'clojure.instant)
+;; -> {read-instant-calendar #'clojure.instant/read-instant-calendar,
+;;     read-instant-timestamp #'clojure.instant/read-instant-timestamp,
+;;     validated #'clojure.instant/validated,
+;;     read-instant-date #'clojure.instant/read-instant-date,
+;;     parse-timestamp #'clojure.instant/parse-timestamp}
+----
+
+===== Discussion
+
+Namespaces in Clojure are dynamic mappings of symbols to vars. A
+namespace is not available until it is +require+'ed by something else,
+e.g. when starting a REPL or as a dependency in a +ns+
+declaration. Nothing is known about available Clojure libs and
+namespaces until runtime, which is in stark contrast to typical Java
+development.
+
