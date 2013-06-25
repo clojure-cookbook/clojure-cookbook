@@ -1,11 +1,10 @@
-==== Exploring Clojure
+==== Interactive Documentation
 
 // By John Cromartie (jcromartie)
 
 ===== Problem
 
-When using a REPL you want to know more about a function, or what
-functions exist in a namespace.
+From a REPL, you want to read documentation for a function.
 
 ===== Solution
 
@@ -35,7 +34,7 @@ user=> (source reverse)
     (reduce1 conj () coll))
 ----
 
-Find functions with documentation matching a given pattern.
+Find functions with documentation matching a given regular expression using +find-doc+.
 
 [source]
 ----
@@ -54,25 +53,6 @@ Macro
   Like defn, but the resulting function name is declared as a
   macro and will be used as a macro by the compiler when it is
   called.
-----
-
-Print a list of public functions in a namespace with the +dir+ macro.
-
-[source]
-----
-user=> (dir clojure.set)
-difference
-index
-intersection
-join
-map-invert
-project
-rename
-rename-keys
-select
-subset?
-superset?
-union
 ----
 
 ===== Discussion
