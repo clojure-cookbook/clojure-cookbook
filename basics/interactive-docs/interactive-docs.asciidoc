@@ -1,20 +1,18 @@
-==== Exploring Clojure
+==== Interactive Documentation
 
 // By John Cromartie (jcromartie)
 
 ===== Problem
 
-When using a REPL you want to know more about a function, or what
-functions exist in a namespace.
+From a REPL, you want to read documentation for a function.
 
 ===== Solution
 
 Print the documentation for a function at the REPL with the +doc+ macro.
 
-[source]
 ----
 user=> (doc conj)
-\-------------------------
+ -------------------------
 clojure.core/conj
 ([coll x] [coll x & xs])
   conj[oin]. Returns a new collection with the xs
@@ -24,7 +22,6 @@ clojure.core/conj
 
 Print the source code for a function at the REPL with the +source+ macro.
 
-[source]
 ----
 user=> (source reverse)
 (defn reverse
@@ -35,44 +32,24 @@ user=> (source reverse)
     (reduce1 conj () coll))
 ----
 
-Find functions with documentation matching a given pattern.
+Find functions with documentation matching a given regular expression using +find-doc+.
 
-[source]
 ----
 user=> (find-doc #"defmacro")
-\-------------------------
+ -------------------------
 clojure.core/definline
 ([name & decl])
 Macro
   Experimental - like defmacro, except defines a named function whose
   body is the expansion, calls to which may be expanded inline as if
   it were a macro. Cannot be used with variadic (&) args.
-\-------------------------
+ -------------------------
 clojure.core/defmacro
 ([name doc-string? attr-map? [params*] body] [name doc-string? attr-map? ([params*] body) + attr-map?])
 Macro
   Like defn, but the resulting function name is declared as a
   macro and will be used as a macro by the compiler when it is
   called.
-----
-
-Print a list of public functions in a namespace with the +dir+ macro.
-
-[source]
-----
-user=> (dir clojure.set)
-difference
-index
-intersection
-join
-map-invert
-project
-rename
-rename-keys
-select
-subset?
-superset?
-union
 ----
 
 ===== Discussion
@@ -86,7 +63,6 @@ You can peek under the hood at almost everything in Clojure at any
 time. The next example may be a bit mind-expanding if you're not used
 to this level of introspection at runtime:
 
-[source]
 ----
 user=> (source source)
 (defmacro source
