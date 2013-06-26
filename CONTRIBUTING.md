@@ -144,3 +144,5 @@ Web Applications          | Building web applications
 ClojureScript             | Clojure in the browser
 
 This is by no means a final list, but it should serve to give a general idea the shape of the book.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/clojure-cookbook/clojure-cookbook/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
