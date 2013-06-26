@@ -79,6 +79,27 @@ Keeping in mind that +source+ was defined in the +clojure.repl+
 namespace, we can peek at how exactly it retrieves the source by
 evaluating +(source clojure.repl/source-fn)+.
 
+In most REPL implementations +clojure.repl+ macros like +source+ and +doc+ are
+only referred into the +user+ namespace. This means as soon as you switch into
+another namespace the unqualified +clojure.repl+ macros will no longer be available.
+You can get around this by namespacing the macros (+clojure.repl/doc+ instead of +doc+,) or, for extended use, by +use+'ing the namespace 
+
+----
+user=> (ns foo)
+foo=> (doc +)
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: doc in this context, compiling:(NO_SOURCE_PATH:1:1)
+
+foo=> (use 'clojure.repl)
+nil
+
+foo=> (doc +)
+ -------------------------
+clojure.core/+
+([] [x] [x y] [x y & more])
+  Returns the sum of nums. (+) returns 0. Does not auto-promote
+  longs, will throw on overflow. See also: +'
+----
+
 Exploring Clojure in this way is a great way to learn about core
 functions and advanced Clojure programming techinques. The
 +clojure.core+ namespace is chock full of high-quality and
