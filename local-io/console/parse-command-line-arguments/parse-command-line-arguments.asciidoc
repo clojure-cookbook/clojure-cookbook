@@ -6,7 +6,7 @@ Author: Nicolas Bessi @nbessi
 
 ===== Problem
 
-You want you command line tool to be able to receive input arguments,
+You want your command line tool to be able to receive input arguments,
 parse and validate them.
 
 ===== Solution
@@ -48,12 +48,12 @@ library that replaces the +clojure.contrib/command-line+.
 Writing command line tools or being able to add arugment to
 an application/Web app is a must have.
 
-Clojure store all comand line arguments into +*command-line-args*+ list built-in.
-When using Leiningen +run+ command, arguments are passed to main function
+Clojure store all command line arguments into +*command-line-args*+ list built-in.
+When using the Leiningen +run+ command, arguments are passed to main function
 defined in your project manifest.
 
-If you want to test your arguments while working with +lein run+ command
-you have to differentiate the run argument from your own argument using +--+:
+If you want to test your arguments while working with +lein run+
+you have to differentiate the run arguments from your own arguments using +--+:
 
 [source,bash]
 ----
@@ -89,13 +89,13 @@ Usage:
  -v, --no-verbose, --verbose  false     I will talk a lot
 ----
 
-an option definition is done in a vector:
+Option definitions are specified in a vector:
 
 [source,clojure]
 ----
 ["-short-name" "--long-name" "description"]
 ----
 
-You can add a optional default value by appending +:default+
+You can add an optional default value by appending +:default+
 Flag keyword are defined by using the +:flag+ with a default set to true or
 by using the --[no-]myarg convention for long name with default set to false.
