@@ -7,16 +7,65 @@
 You need to read or write XML data.
 
 ===== Solution
-// (clojure.zip/xml-zip (clojure.xml/parse "test-file.xml"))
-
-// add info on (parse-seq file)
+Use +clojure.xml/parse+ to get a map representing the structure of an XML-file.
 
 [source,clojure]
 ----
-
+(use 'clojure.xml)
+(clojure.xml/parse (clojure.java.io/file "simple.xml"))
+;; -> {:tag :simple, :attrs nil, :content [
+;;    {:tag :item, :attrs {:id "1"}, :content ["First"]} 
+;;    {:tag :item, :attrs {:id "2"}, :content ["Second"]}]}
 ----
 
+If you want to process your XML as a +lazy-seq+, use +xml-seq+.
+[source,clojure]
+----
+(class (xml-seq (clojure.xml/parse (clojure.java.io/file "simple.xml"))))
+;; -> clojure.lang.LazySeq
+----
+
+Use +spit+ in combination with +clojure.xml/emit+ to write a structure that represents XML to a file.
+[source,clojure]
+----
+(spit "test.xml" (with-out-str (clojure.xml/emit simple-xml-map)))
+----
+The +with-out-str+ macro returns the string created by its body.
+
 ===== Discussion
+To work with XML you can handle it as any other map. Here is an example of a function that, given an id and a file, will parse the file for nodes with an attribute id that is equal to the argument.
+[source,clojure]
+----
+(defn get-with-id [id xml-file]
+  (for [node (xml-seq (clojure.xml/parse xml-file))
+        :when (= (get-in node [:attrs :id]) id)]
+    (:content node)))
+
+(get-with-id "2" simple-xml)
+
+;; -> (["Second"])
+----
+
+However if you are going to work a lot with your XML structure you might consider the convenience added using a "zipper". A "zipper" can be used to traverse structures.
+
+Use +clojure.data.zip.xml+ and +clojure.zip+ to access zipper functions for traversing XML.
+[source,clojure]
+----
+(def zipper (clojure.zip/xml-zip (clojure.xml/parse simple-xml)))	  <1>
+(clojure.data.zip.xml/xml-> zipper :item (clojure.data.zip.xml/attr :id)) <2>
+;; -> ("1" "2")
+(clojure.data.zip.xml/xml-> zipper :item clojure.data.zip.xml/text)	  <3>
+;; -> ("First" "Second")
+----
+In this example you will:
+<1> define a zipper
+<2> use the zipper to find all tags of +item+ and extract the +id+ attribute from them.
+<3> use the zipper to find all +item+ and get their text value.
+There are a lot more you can do with the xml zipper so check out the documentation.
+
+If you have control of how the data is stored you might consider to use JSON which maps really well to Clojure data structures, see <<sec_local_io_json>> for more information. One other alternative to consider is to directly persist Clojure data structures to a file, see <<sec_local_io_clojure_data_to_disk>>
 
 ===== See also
-https://en.wikipedia.org/wiki/XML
+* See <<sec_local-io_read_write_files>> for more information of how to write to files.
+
+* See the documentation for https://github.com/clojure/data.zip[+clojure.data.zip+]
