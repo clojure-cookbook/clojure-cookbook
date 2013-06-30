@@ -1,0 +1,20 @@
+[[sec_local-io_handle_binary_files]]
+
+==== Write, read, and parse binary files
+
+// By John Jacobsen (eigenhombre)
+
+===== Problem
+
+You need to write out some binary data
+
+
+===== Problem
+
+You want to read in some binary data
+
+===== Problem
+
+You want to parse binary data
+
+
