@@ -1,6 +1,9 @@
 [[sec_local_io_get_local_resource]]
 
-==== Get a local resource packaged with your program's source code
+// Author: John Jacobsen (eigenhombre) (with help from John Cromartie
+// (jcromartie) and Alex P (ifesdjeen))
+
+==== Package a local file with your program, and access it
 
 ===== Problem
 
@@ -8,7 +11,9 @@ You want access to some data stored locally with your code.
 
 ===== Solution
 
-Put your file(s) in +resources/+ located in the top level of your source code. Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.io/resource+] to read it.
+Put your file(s) in +resources/+ located in the top level of your project.
+Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.io/resource+] 
+to read it.
 
 For example, say you have a file +resources/people.edn+:
 
@@ -35,5 +40,11 @@ Then the following will read and process that file:
 ;=> (Lisp Python Clojure)
 ----
 
-Data packaged this way will continue to be available to your code after your program is distributed as a JAR file.
+===== Discussion
+
+Resources are loaded via the classpath. Leiningen puts the
++resources/+ directory on the classpath; when packaged, the contents
+of +resources/+ are copied to the root of the JAR. Data packaged this
+way will therefore continue to be available to your code after your
+JAR file is distributed.
 
