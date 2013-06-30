@@ -1,0 +1,39 @@
+[[sec_local_io_get_local_resource]]
+
+==== Get a local resource packaged with your program's source code
+
+===== Problem
+
+You want access to some data stored locally with your code.
+
+===== Solution
+
+Put your file(s) in +resources/+ located in the top level of your source code. Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.io/resource+] to read it.
+
+For example, say you have a file +resources/people.edn+:
+
+[source,clojure]
+----
+[{:first-name "John", :last-name "McCarthy", :language "Lisp"}
+ {:first-name "Guido", :last-name "Van Rossum", :language "Python"}
+ {:first-name "Rich", :last-name "Hickey", :language "Clojure"}]
+----
+
+Then the following will read and process that file:
+
+[source,clojure]
+----
+(ns process-people
+  (:use [clojure.java.io :only [resource]]))
+
+(println (->> "people.edn"
+              resource
+              slurp
+              read-string
+              (map :language)))
+
+;=> (Lisp Python Clojure)
+----
+
+Data packaged this way will continue to be available to your code after your program is distributed as a JAR file.
+
