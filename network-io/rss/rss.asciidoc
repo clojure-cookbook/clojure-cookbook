@@ -12,7 +12,6 @@ Use +feedparser-clj.core/parse-feed+ to parse RSS data from a URL.
 
 [source,clojure]
 ----
-
 (feedparser-clj.core/parse-feed "https://github.com/clojure-cookbook/clojure-cookbook/commits/master.atom")
 ;; -> {:authors [...] :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} {:link ... }] ... }
 ----
@@ -41,3 +40,52 @@ ROME returns a com.sun.syndication.feed.synd.SyndFeedImpl
 object under the covers, but it is generally preferred to return
 Clojure maps (or records) instead of Java objects.
 
+===== Lazy Pagination
+
+Some RSS feeds will have +<link rel="next">+ elements that indicate
+that the returned list is incomplete and more entries can be retrieved
+by following the link. A lazy list of these RSS entries can be
+generated:
+
+[source,clojure]
+----
+(defn next-uri 
+  "Return the rel=next href in a feed."
+  [feed]
+  (-> feed
+      :entry-links
+      (->> (filter #(= (:rel %) "next")))
+      first
+      :href))
+
+
+(defn lazy-stream 
+  "Return a lazy stream of RSS entries."
+  [uri]
+   (let [raw-response (feedparser-clj.core/parse-feed uri)]
+      (lazy-cat (:entries raw-response)
+         (if-let [nxt (next-uri raw-response)]
+            (lazy-stream nxt)))))
+
+----
+
+To verify that lazy loading is happening, logging or tracing can be
+added to lazy-stream, but it also easy to confirm that you can
+retrieve more entries than are present in a single fetch:
+
+[source,clojure]
+----
+(def uri "http://gdata.youtube.com/feeds/api/videos")
+;; -> #'user/uri
+
+(count (feedparser-clj.core/parse-feed uri))
+;; -> 15
+
+(count (take 50 (lazy-stream uri)))
+;; -> 50
+----
+
+[NOTE]
+Be careful when evaluating a lazy sequence in a REPL, it will attempt
+to print the entire sequence, so use +take+ to only realize part of 
+the sequence.
