@@ -21,3 +21,5 @@ include::deployment/deployment.asciidoc[]
 include::distributed-computation/distributed-computation.asciidoc[]
 
 include::testing/testing.asciidoc[]
+
+include::development-process/development-process.asciidoc[]
