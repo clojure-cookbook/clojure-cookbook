@@ -43,7 +43,7 @@ You can find more information on the format in the [AsciiDoc User Guide](http://
 
 #### Recipe File Organization
 
-Recipes must reside in their own directories under the relevant chapter or sub-heading, e.g.:
+Recipes must reside in their own directories under the relevant chapter or section, or in the `kitchen-sink` directory if you are not sure what chapter it belongs in, e.g.:
 
 ```
 primitive-data/math/random-numbers/random-numbers.asciidoc
@@ -125,7 +125,7 @@ If you have any questions or concerns about the licensing model, please don't he
 
 ### Ideas
 
-You'll find a list of ideas under the [ideas tag](../../issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`. 
+You'll find a list of ideas under the [ideas tag](../../issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`.
 
 To get you started, here is a rough list of the chapters we hope to cover in the final book:
 
