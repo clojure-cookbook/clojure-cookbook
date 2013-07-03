@@ -10,6 +10,14 @@ You need to read a property file and access its key-value pairs.
 
 Propertea is a library that offers simple access to property files.
 
+Given this property file you want to read from your Clojure code.
+
+[source,clojure]
+----
+banana=yellow
+grannysmith=green
+----
+
 Include propertea as a dependency for your project.
 
 [source,clojure]
