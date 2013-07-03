@@ -1,0 +1,118 @@
+==== Tracing code
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You need to trace the behavior of your code.
+
+===== Solution
+
+Use +clojure.tools.trace/trace+ to trace a value.
+[source,clojure]
+----
+(use 'clojure.tools.trace)
+(trace (+ 2 2))
+;; TRACE: 4
+;; 4
+----
+
+When tracing a value you can assign a tag to a trace to give additional information.
+[source,clojure]
+----
+(def add-tag "The point of the addition")
+(trace add-tag (+ 2 2))
+;; TRACE The point of the addition: 4
+;; 4
+----
+
+Use +trace-forms+ to trace a combination of forms.
+
+[source,clojure]
+----
+(trace-forms (+ 1 2 (/ 6 2)))
+;; -> 6
+----
+Wait, nothing special happens. Lets try that again with some code that fails.
+[source,clojure]
+----
+(trace-forms (+ 1 2 (/ 6 0)))
+;;ArithmeticException Divide by zero
+;;  Form failed: (/ 6 0)
+;;  Form failed: (+ 1 2 (/ 6 0))
+;;  clojure.lang.Numbers.divide (Numbers.java:156)
+----
+With a form failing you now get a trace following the execution of the forms.
+
+Use +deftrace+ to define a traced function.
+[source,clojure]
+----
+(deftrace divider [x y] (/ x y))
+(divider 2 (+ 1 1))
+;; TRACE t1467: (divider 2 2)
+;; TRACE t1467: => 1
+;; 1
+----
+
+Use +trace-vars+ and +untrace-vars+ to enable or disable tracing of a function.
+[source,clojure]
+----
+(defn adder [x y] (+ x y))
+(trace-vars cookbook.core/adder)
+(adder 2 2)
+;; TRACE t1309: (cookbook.core/adder 2 2)
+;; TRACE t1309: => 4
+;; 4
+(untrace-vars cookbook.core/adder)
+(adder 2 2)
+;; 4
+----
+
+Use +trace-ns+ and +untrace-ns+ to enable or disable tracing of all functions in a namespace.
+[source,clojure]
+----
+(trace-ns (create-ns 'cookbook.core))
+(adder 2 (divider 6 3))
+;; TRACE t1276: (cookbook.core/divider 6 3)
+;; TRACE t1276: => 2
+;; TRACE t1277: (cookbook.core/adder 2 2)
+;; TRACE t1277: => 4
+;; 4
+(untrace-ns (create-ns 'cookbook.core))
+(adder 2 (divider 6 3))
+;; 4
+----
+Note the use of +create-ns+ which will return the +Namespace+ instance given a namespace that already exists.
+
+===== Discussion
+Trace functionality will usually work in two different ways, as a pass through decoration of values, as with +trace+ or by changing the root-binding of a +var+ such in the case of +trace-var+ and +trace-ns+.
+
+It is worth noting that the +clojure.tools.trace/trace+ function can be rebound. By doing that you can change how traces are done and to where. The default implementation will print to the standard output, but you can easily change that.
+[source,clojure]
+----
+(ns clojure.tools.trace)
+(defn tracer [name value]
+  (spit "trace.txt"
+        (str name ": " value "\n") :append true))
+----
+With this definition of +trace+, any call made to +trace+ will add a line with the trace information to the "trace.txt" file. In this quick and easy way you have added logging of the traces, which sometimes might be sufficient instead of adding a dependency to a more sophisticated logging library.
+
+Note that if you during development re-define a traced function you also need to re-enable the tracing for that function.
+
+Tracing can be a useful tool when trying to get your head around a reduction.
+[source,clojure]
+----
+(trace-vars cookbook.core/adder)
+(reduce adder [1 2 3])
+;; TRACE t1338: (cookbook.core/adder 1 2)
+;; TRACE t1338: => 3
+;; TRACE t1339: (cookbook.core/adder 3 3)
+;; TRACE t1339: => 6
+;; 6
+----
+This will allow you to follow along in each step of the reduction.
+
+There is no clear cut between when to use logging and when to trace. However in deciding between the two you can think of traces as information targeting a developer while logs often is used by other people as well, such as system administrators. With that in mind, traces are usually not a part of an applications requirements, not localized and usually on a low level targeted for debugging purposes, since it aims at the developer. It is also often preferable that you make traces easy to add to an application to help in diagnostics of any problem.
+
+===== See also
+* See the documentation for https://github.com/clojure/tools.trace[+clojure.tools.trace+]
