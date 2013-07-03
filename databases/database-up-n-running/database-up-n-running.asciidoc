@@ -1,4 +1,4 @@
-==== Getting start with Databases
+==== Getting started with Databases
 :Author: Simone Mosciatti
 :Email: simone@mweb.biz
 
