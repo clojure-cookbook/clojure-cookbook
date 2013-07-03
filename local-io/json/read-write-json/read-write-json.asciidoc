@@ -80,7 +80,7 @@ Reading JSON with +read-str+ will not yield the same Clojure data that was writt
 ;; -> {:age 32, :name "Stefan"}
 ----
 
-It is common for JSON to be formated in lowerCamelCase. If so, you can use a key function that transforms lowerCamelCase to idiomatic Clojure format.
+It is common for JSON to be formatted in lowerCamelCase. If so, you can use a key function that transforms lowerCamelCase to idiomatic Clojure format.
 
 [source,clojure]
 ----
