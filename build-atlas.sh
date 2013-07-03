@@ -8,6 +8,6 @@ lein run ../clojure-cookbook.asciidoc /tmp/clojure-cookbook-atlas
 cd /tmp/clojure-cookbook-atlas
 
 git add .
-git commit -m "autmated update from github repository"
+git commit -m "automated update from github repository"
 git push
 

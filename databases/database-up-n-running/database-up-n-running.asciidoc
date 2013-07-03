@@ -46,7 +46,7 @@ Add
 
 to your dependencies to install the main library to access the database.
 
-You also need to installl the specific drivers for your type of database[1], in our case we need to add the SQLite drivers.
+You also need to install the specific drivers for your type of database[1], in our case we need to add the SQLite drivers.
 
 [source, clojure]
 ----
@@ -93,7 +93,7 @@ Now you can execute query against the database, to make sure that everything wor
 
 ===== Discussion
 
-In this recipe we used SQLite but it is definitely possible to use differents SQL engines, such as PostgreSQL or MySQL or others.
+In this recipe we used SQLite but it is definitely possible to use different SQL engines, such as PostgreSQL or MySQL or others.
 SQLite is very friendly and easy to set up it doesn't even ask for a username and password, while other databases do, in order to deal with those you need to add your username and password at the connection map.
 
 Obviously is also possible to connect to remote databases, you need to indicate the URI in the :subname of the connection.
