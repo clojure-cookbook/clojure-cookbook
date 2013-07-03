@@ -1,20 +1,20 @@
-==== Read property files
+==== Read property file
 
 // By Tobias Bayer (codebrickie)
 
 ===== Problem
 
-You need to read property files and access their key value pairs.
+You need to a read property file and access its key-value pairs.
 
 ===== Solution
 
 Propertea is a library that offers simple access to property files.
 
-Include Properta as a dependency for your project.
+Include propertea as a dependency for your project.
 
 [source,clojure]
 ----
-(defproject fruitcolors "0.1.0-SNAPSHOT"
+(defproject fruitcolors "1.0.0-SNAPSHOT"
   :dependencies [[propertea "1.2.3"]])
 ----
 
