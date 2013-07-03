@@ -36,4 +36,4 @@ Read the property file and access its key-value pairs.
 ===== Discussion
 
 ===== See Also
-See the https://github.com/jaycfields/propertea[Propertea documentation] for more details.
+See the https://github.com/jaycfields/propertea[propertea documentation] for more details.
