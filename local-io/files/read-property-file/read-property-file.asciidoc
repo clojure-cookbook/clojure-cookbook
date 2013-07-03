@@ -34,6 +34,14 @@ Read the property file and access its key-value pairs.
 ----
 
 ===== Discussion
+The basic +read-properties+ function treats all property values as strings. You can force parsing to other types by specifying the type for a property.
+
+[source,clojure]
+----
+(def props (read-properties "fruitcolors.properties")
+                            :parse-int [:intkey]
+                            :parse-boolean [:booleankey])
+----
 
 ===== See Also
 See the https://github.com/jaycfields/propertea[propertea documentation] for more details.
