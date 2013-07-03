@@ -3,19 +3,18 @@
 // Author: John Jacobsen (eigenhombre) (with help from John Cromartie
 // (jcromartie) and Alex P (ifesdjeen))
 
-==== Package a local file with your program, and access it
+==== Including and Accessing Resource Files in a Clojure Project
 
 ===== Problem
 
-You want access to some data stored locally with your code.
+You want to include resource files in your project and access them.
 
 ===== Solution
 
-Put your file(s) in +resources/+ located in the top level of your project.
-Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.io/resource+] 
-to read it.
+Places resource files in the +resources/+ directory at the top level
+of your project.
 
-For example, say you have a file +resources/people.edn+:
+For example, a file +resources/people.edn+:
 
 [source,clojure]
 ----
@@ -24,27 +23,31 @@ For example, say you have a file +resources/people.edn+:
  {:first-name "Rich", :last-name "Hickey", :language "Clojure"}]
 ----
 
-Then the following will read and process that file:
+Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.io/resource+] to read it.
 
 [source,clojure]
 ----
 (ns process-people
-  (:use [clojure.java.io :only [resource]]))
+  (:require [clojure.java.io :as io]))
 
-(println (->> "people.edn"
-              resource
-              slurp
-              read-string
-              (map :language)))
+(->> "people.edn"
+     io/resource
+     slurp
+     read-string
+     (map :language)))
 
-;=> (Lisp Python Clojure)
+;; -> (Lisp Python Clojure)
 ----
 
 ===== Discussion
 
 Resources are loaded via the classpath. Leiningen puts the
-+resources/+ directory on the classpath; when packaged, the contents
-of +resources/+ are copied to the root of the JAR. Data packaged this
-way will therefore continue to be available to your code after your
-JAR file is distributed.
++resources/+ directory on the classpath automatically; when packaged,
+the contents of +resources/+ are copied to the root of the JAR. Data
+packaged this way will therefore continue to be available to your code
+after your JAR file is distributed.
 
+You can also specify other resource directories using the `:resources-paths` key in your `project.clj`.
+
+[source,clojure]
+    :resource-paths ["src/main/resources"] ; inside src instead of project root
