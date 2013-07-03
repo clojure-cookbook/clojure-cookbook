@@ -4,7 +4,7 @@
 
 ===== Problem
 
-You need to a read property file and access its key-value pairs.
+You need to read a property file and access its key-value pairs.
 
 ===== Solution
 
