@@ -1,0 +1,69 @@
+==== Making HTTP Requests
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+You want to make a simple HTTP GET or POST request.
+
+===== Solution
+
+Use +slurp+ to make simple HTTP GET requests.
+
+[source,clojure]
+----
+(slurp "http://example.com")
+;; -> "<!doctype html>\n<html>\n<head>\n    <title>Example Domain</title> ...
+----
+
+Use the +clj-http+ library to make GET, POST, and other requests with
+specific parameters or headers, to handle redirects and other special
+circumstances, or to get specific details about the response.
+
+[source,clojure]
+----
+(ns example.clj-http
+  (:require [clj-http.client :as http]))
+
+(-> "http://clojure.org" http/get :status)
+;; -> 200
+
+(-> "http://clojure.org" http/get :headers (get "server"))
+;; -> "nginx"
+
+(-> "http://www.amazon.com/" http/get :cookies keys)
+;; -> ("session-id" "session-id-time" "x-wl-uid" "skin")
+----
+
+Parameters can be included in both GET and POST requests.
+
+[source,clojure]
+----
+(http/get "http://google.com/search" {:query-params {:q "clojure"}})
+;; -> {:status 200 ...}
+
+(http/post "http://example.com" {:form-params {:username "joecoder" :password "il0v3clojure"}})
+;; -> {:status 200 ...}
+----
+
+You can even use the +:multipart+ option to upload files, as from a
+HTML form via a web browser.
+
+===== Discussion
+
++slurp+ works to make HTTP GET requests because its arguments are
+passed to +clojure.java.io/reader+, which in turn correctly handles
+opening URL strings. This is totally sufficient for issuing a quick
+HTTP GET to a well-behaved URL. Unfortunately, this is where +slurp+'s
+usefulness ends. Among other limitations, it will not behave correctly
+for responses with HTTP redirects.
+
++clj-http+ is an extremely flexible Clojure wrapper around the very
+robust Apache HttpComponents library.
+
+Its features include convenient functions for other HTTP verbs like
+PUT and DELETE, for reading and sending cookies, headers, and other
+request metadata, reading and writing data using streams, files, or
+byte arrays, and lots more. Refer to the library documentation to
+learn about the huge variety of options available and to see many more
+examples.
