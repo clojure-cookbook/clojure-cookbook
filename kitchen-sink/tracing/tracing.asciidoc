@@ -112,7 +112,7 @@ Tracing can be a useful tool when trying to get your head around a reduction.
 ----
 This will allow you to follow along in each step of the reduction.
 
-There is no clear cut between when to use logging and when to trace. However in deciding between the two you can think of traces as information targeting a developer while logs often is used by other people as well, such as system administrators. With that in mind, traces are usually not a part of an applications requirements, not localized and usually on a low level targeted for debugging purposes, since it aims at the developer. It is also often preferable that you make traces easy to add to an application to help in diagnostics of any problem.
+There is a time and a place for everything, of course, and production isn't the most appropriate environment for you to flex your new-found Clojure-tracing skills. Typical places you'll make use of tracing are during development or while diagnosing a hard-to-catch bug you've been able to reproduce locally, but not diagnose. Include the +core.trace+ library in your project's +:dev+ profile to make tracing available where appropriate.
 
 ===== See also
 * See the documentation for https://github.com/clojure/tools.trace[+clojure.tools.trace+]
