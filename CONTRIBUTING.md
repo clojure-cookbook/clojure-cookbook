@@ -17,7 +17,9 @@ Nearly any knowledge or bit of information you could contribute to the cookbook 
 
 ## Credits & Rewards
 
-Any contribution, big or small, will net you a digital copy of the book and your name and GitHub handle immortalized in a contributors list in the book (think of the glory it will bring your family). 
+Any contribution, big or small, will net you a digital copy of the book and your name and GitHub handle immortalized in a contributors list in the book (think of the glory it will bring your family).
+
+On a legal note, we're obligated to let you know that the above mentioned rewards will be a contributors sole consideration for their contributions. (That, of course, and our ever-lasting love :wink:.)
 
 ### Write a recipe
 
