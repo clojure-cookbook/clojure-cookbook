@@ -45,7 +45,7 @@ library that replaces the +clojure.contrib/command-line+.
 ----
 
 ===== Discussion
-Writing command line tools or being able to add arugment to
+Writing command line tools or being able to add arguments to
 an application/Web app is a must have.
 
 Clojure store all command line arguments into +*command-line-args*+ list built-in.
