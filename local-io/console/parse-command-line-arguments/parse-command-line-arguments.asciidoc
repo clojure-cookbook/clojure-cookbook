@@ -99,3 +99,13 @@ Option definitions are specified in a vector:
 You can add an optional default value by appending +:default+
 Flag keyword are defined by using the +:flag+ with a default set to true or
 by using the --[no-]myarg convention for long name with default set to false.
+
+[source,clojure]
+----
+ ["-v" "--[no-]verbose" "I will talk a lot"]
+----
+or
+[source,clojure]
+----
+ ["-v" "--verbose" "I will talk a lot" :flag true]
+----
