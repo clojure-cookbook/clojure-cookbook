@@ -1,4 +1,4 @@
-By placing this file I, Colin Jones, hereby agree that all work, code, or works of authorship produced and contributed to this project are governed by and released under the Creative Commons Attribution 3.0 Unported License (as copied below).
+By placing this file I hereby agree that all work, code, or works of authorship produced and contributed to this project are governed by and released under the Creative Commons Attribution 3.0 Unported License (as copied below). You hereby grant us, and our successors, assigns, and sublicensees, a non-exclusive license to copy, reproduce, print, publish, distribute, translate, and otherwise use the Licensed Materials in all versions and editions of the Work, and in any works based on or incorporating the Work, in any and all media, in perpetuity and throughout the world.
 
 Accepting this agreement is accepting all of the terms and conditions outlined in the Creative Commons Attribution 3.0 Unported License (as copied below).
 
