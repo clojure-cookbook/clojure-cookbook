@@ -10,9 +10,10 @@ You need to read a property file and access its key-value pairs.
 
 Propertea is a library that offers simple access to property files.
 
-Given this property file you want to read from your Clojure code.
+Given this property file you want to read from your Clojure code:
 
-[source,clojure]
+.fruitcolors.properties
+[source]
 ----
 banana=yellow
 grannysmith=green
@@ -20,6 +21,7 @@ grannysmith=green
 
 Include propertea as a dependency for your project.
 
+.project.clj
 [source,clojure]
 ----
 (defproject fruitcolors "1.0.0-SNAPSHOT"
@@ -44,12 +46,48 @@ Read the property file and access its key-value pairs.
 ===== Discussion
 The basic +read-properties+ function treats all property values as strings. You can force parsing to other types by specifying the type for a property.
 
-[source,clojure]
+.other.properties
+[source]
 ----
-(def props (read-properties "fruitcolors.properties")
-                            :parse-int [:intkey]
-                            :parse-boolean [:booleankey])
+intkey=42
+booleankey=true
 ----
 
+[source,clojure]
+----
+(def props (read-properties "other.properties"
+                            :parse-int [:intkey]
+                            :parse-boolean [:booleankey]))
+
+(props :intkey)
+;; -> 42
+
+(class (props :intkey))
+;; -> java.lang.Integer
+
+(props :booleankey)
+;; -> true
+
+(class (props :booleankey))
+;; -> java.lang.Boolean
+----
+
+Sometimes the property file might not contain a key value pair and you might want to set a reasonable default value in this case:
+
+[source,clojure]
+----
+(def props (read-properties "other.properties" :default [:otherkey "awesome"]))
+
+(props :otherkey)
+;; -> "awesome"
+----
+
+You can also be strict on required properties. If an expected property is missing in your properties file, you can throw an exception:
+
+[source,clojure]
+----
+(def props (read-properties "other.properties" :required [:otherkey]))
+;; -> java.lang.RuntimeException: (:otherkey) are required ...
+----
 ===== See Also
 See the https://github.com/jaycfields/propertea[propertea documentation] for more details.
