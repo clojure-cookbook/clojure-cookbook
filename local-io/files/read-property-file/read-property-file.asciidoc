@@ -12,6 +12,7 @@ Propertea is a library that offers simple access to property files.
 
 Given this property file you want to read from your Clojure code.
 
+.fruitcolors.properties
 [source]
 ----
 banana=yellow
@@ -20,6 +21,7 @@ grannysmith=green
 
 Include propertea as a dependency for your project.
 
+.project.clj
 [source,clojure]
 ----
 (defproject fruitcolors "1.0.0-SNAPSHOT"
@@ -44,6 +46,7 @@ Read the property file and access its key-value pairs.
 ===== Discussion
 The basic +read-properties+ function treats all property values as strings. You can force parsing to other types by specifying the type for a property.
 
+.other.properties
 [source]
 ----
 intkey=42
