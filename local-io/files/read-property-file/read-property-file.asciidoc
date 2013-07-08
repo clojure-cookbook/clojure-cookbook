@@ -1,0 +1,55 @@
+==== Read property file
+
+// By Tobias Bayer (codebrickie)
+
+===== Problem
+
+You need to read a property file and access its key-value pairs.
+
+===== Solution
+
+Propertea is a library that offers simple access to property files.
+
+Given this property file you want to read from your Clojure code.
+
+[source,clojure]
+----
+banana=yellow
+grannysmith=green
+----
+
+Include propertea as a dependency for your project.
+
+[source,clojure]
+----
+(defproject fruitcolors "1.0.0-SNAPSHOT"
+  :dependencies [[propertea "1.2.3"]])
+----
+
+Read the property file and access its key-value pairs.
+
+[source,clojure]
+----
+(use '[propertea.core])
+
+(def props (read-properties "fruitcolors.properties"))
+
+(props :banana)
+;; -> "yellow"
+
+(props :grannysmith)
+;; -> "green"
+----
+
+===== Discussion
+The basic +read-properties+ function treats all property values as strings. You can force parsing to other types by specifying the type for a property.
+
+[source,clojure]
+----
+(def props (read-properties "fruitcolors.properties")
+                            :parse-int [:intkey]
+                            :parse-boolean [:booleankey])
+----
+
+===== See Also
+See the https://github.com/jaycfields/propertea[propertea documentation] for more details.
