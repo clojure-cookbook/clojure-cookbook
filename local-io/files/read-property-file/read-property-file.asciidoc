@@ -72,5 +72,22 @@ booleankey=true
 ;; -> java.lang.Boolean
 ----
 
+Sometimes the property file might not contain a key value pair and you might want to set a reasonable default value in this case:
+
+[source,clojure]
+----
+(def props (read-properties "other.properties" :default [:otherkey "awesome"]))
+
+(props :otherkey)
+;; -> "awesome"
+----
+
+You can also be strict on required properties. If an expected property is missing in your properties file, you can throw an exception:
+
+[source,clojure]
+----
+(def props (read-properties "other.properties" :required [:otherkey]))
+;; -> java.lang.RuntimeException: (:otherkey) are required ...
+----
 ===== See Also
 See the https://github.com/jaycfields/propertea[propertea documentation] for more details.
