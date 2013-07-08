@@ -86,8 +86,9 @@ generation.
 ----
 
 However, in other situations you may need to use a different Analyzer
-or write your own. For example, the +EnglishAnalyzer+ stems words
-such that tokens do not take into account pluralization or possessives.
+or write your own. For example, the +EnglishAnalyzer+ uses Porter stemming and
+other techniques more well suited for taking into account pluralization or
+possessives.
 
 [source,clojure]
 ----
