@@ -40,7 +40,7 @@ Define your keys and secrets and send the status update request to Twitter:
 
 ===== Discussion
 
-twitter-api offers more than just sending status updates.
+Twitter-api offers more than just sending status updates.
 The structure of function calls basically remains the same. Twitter-api functions take the credentials and request parameters as arguments.
 
 For example, you can show user details with ++users-show++:
