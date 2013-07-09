@@ -18,13 +18,15 @@ Include Monger in your project file:
               :dependencies [[com.novemberain/monger "1.6.0"]])
 ----
 
-Assuming your MongoDB instance is running with default parameters, you can connect to it:
+Assuming your MongoDB instance is running with default parameters, you can connect to it and select the database you want to work with:
 
 [source,clojure]
 ----
 (require '[monger.core :as mg])
 
 (mg/connect!)
+
+(mg/set-db! (mg/get-db "my-db"))
 ----
 
 INSERT DATA
