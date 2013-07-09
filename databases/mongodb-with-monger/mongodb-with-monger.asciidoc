@@ -29,6 +29,15 @@ Assuming your MongoDB instance is running with default parameters, you can conne
 (mg/set-db! (mg/get-db "my-db"))
 ----
 
+Inserting data into a collection is quite easy. In Clojure your data is most likely already represented as a map.
+
+[source,clojure]
+----
+(require '[monger.collection :as mc])
+
+(insert "musicians" { :first_name "John" :last_name "Lennon" })
+----
+
 INSERT DATA
 
 QUERY DATA (suggest ++find-maps++ for simple further usage of query results)
@@ -39,6 +48,8 @@ QUERY DATA (suggest ++find-maps++ for simple further usage of query results)
 ===== Discussion
 
 NON-STANDARD CONNECT
+
+INSERTING WITH EXPLICIT ID
 
 QUERY OPERATORS
 
