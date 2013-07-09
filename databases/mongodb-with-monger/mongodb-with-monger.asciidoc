@@ -38,8 +38,6 @@ Inserting data into a collection is quite easy. In Clojure your data is most lik
 (insert "musicians" { :first_name "John" :last_name "Lennon" })
 ----
 
-INSERT DATA
-
 QUERY DATA (suggest ++find-maps++ for simple further usage of query results)
  - WITHOUT PARAMS (aka "find-all")
  - WITH PARAMS
