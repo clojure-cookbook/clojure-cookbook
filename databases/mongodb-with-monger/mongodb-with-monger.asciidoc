@@ -27,7 +27,24 @@ Assuming your MongoDB instance is running with default parameters, you can conne
 (mg/connect!)
 ----
 
+INSERT DATA
+
+QUERY DATA (suggest ++find-maps++ for simple further usage of query results)
+ - WITHOUT PARAMS (aka "find-all")
+ - WITH PARAMS
+
+
 ===== Discussion
+
+NON-STANDARD CONNECT
+
+QUERY OPERATORS
+
+UPDATES
+
+REMOVE DOCUMENTS
+
+DISCONNECT
 
 ===== See Also
 See the http://clojuremongodb.info[Monger documentation] for more details.
