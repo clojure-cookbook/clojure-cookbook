@@ -4,7 +4,7 @@
 
 ===== Problem
 
-You need to quickly run and try additional clojure library jars without going through creating a leiningen project.
+You need to quickly run and try additional clojure library jars without creating a leiningen or maven project.
 
 ===== Solution
 
@@ -35,15 +35,10 @@ user=> (trace (+ 2 2))
 
 This sets the Java classpath to include Clojure and also the tools trace library jar allowing us to use functions like trace directly in repl. This also shows that leningen project file inclusion in general is not creating magic- essentially gets the jar file in the same way we manually got and adjusts the classpath accordingly.
 
-Getting the library from clojars or mvnrepository can be a bit of a hassle but if you really want to try bare bones this shows we are in the end adding another jar in the clojure world.
+Getting the library from clojars or mvnrepository can be a bit of a hassle but this shows we are in the end adding another jar in the clojure world.
 
 ===== See Also
 
 * Java command line
 
 * Leiningen
-
-
-
-
-jmd
