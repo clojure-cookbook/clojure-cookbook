@@ -34,12 +34,22 @@ Define your keys and secrets and send the status update request to Twitter:
                    "mncHyc4g1MGKDHMbI2rrhktRTlgLDXmIG2k1800yIY")) ; access token secret
 
 (statuses-update :oauth-creds credentials :params {:status "Hi there, I am sending this tweet from Clojure!"})
-
 ;; -> {:status {:code 200, :msg "OK",...
 ----
 
 
 ===== Discussion
+
+twitter-api offers more than just sending status updates.
+The basic structure of function calls basically remain the same. Twitter-api functions take the credentials and request parameters as arguments.
+
+For example, you can show user details with ++users-show++:
+
+[source,clojure]
+----
+(users-show :oauth-creds credentials :params {:screen-name "Alan_M_Turing"})
+;; -> ...:id 40514394, :profile_background_image_url_https "https://si0.twimg.com/images/themes/theme1/bg.png", :description "Without being overly modest, you can read this because of me.", :profile_text_color "333333", :screen_name "Alan_M_Turing"...
+----
 
 ===== See Also
 See the https://github.com/adamwynne/twitter-apitwitter-api documentation] for more details.
