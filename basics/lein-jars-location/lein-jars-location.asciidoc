@@ -4,7 +4,7 @@
 
 ===== Problem
 
-You need to quickly find clojure library jars that are put by leiningen project.
+You need to quickly find clojure library jars that are put by leiningen project for gaining more information regarding inner workings of the library for debugging or understanding how it works.
 
 ===== Solution
 
