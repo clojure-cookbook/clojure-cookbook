@@ -1,0 +1,43 @@
+==== Send a Twitter Status Update
+// By Tobias Bayer (codebrickie)
+
+===== Problem
+
+You want to send a status update to Twitter on behalf of a Twitter user.
+
+===== Solution
+
+There is a wrapper for the Twitter API based on http.async.client.
+
+Include the wrapper in your project file:
+
+.project.clj
+[source,clojure]
+----
+(defproject twitter "1.0.0-SNAPSHOT"
+              :dependencies [[twitter-api "0.7.4"]])
+----
+
+This recipe assumes you have already retrieved an OAuth consumer key and secret for your app from Twitter and an access token and secret for the user.
+SEE RECIPE XYZ ON HOW TO RETRIEVE AN ACCESS TOKEN VIA OAUTH.
+
+Define your keys and secrets and send the status update request to Twitter:
+
+[source,clojure]
+----
+(use '[twitter.oauth] '[twitter.api.restful])
+
+(def credentials (make-oauth-creds
+                   "Hux2MTu8gObgzbqNCpPZ2K" ; consumer key
+                   "hg4GsABTR3asRRjQGtpnHEhkQGaw0JETG3B7lEbd9M" ; consumer secret
+                   "18407745-cbJHihjBIE0ak6CrQ29631gfwPzm9AhekpGNYtOY4" ; access token
+                   "mncHyc4g1MGKDHMbI2rrhktRTlgLDXmIG2k1800yIY")) ; access token secret
+
+(statuses-update :oauth-creds credentials :params {:status "Hi there, I am sending this tweet from Clojure!"})
+----
+
+
+===== Discussion
+
+===== See Also
+See the https://github.com/adamwynne/twitter-apitwitter-api documentation] for more details.
