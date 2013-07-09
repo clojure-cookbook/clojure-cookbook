@@ -1,0 +1,50 @@
+==== Find leiningen project library jars local location and their source code.
+
+// By Rohit Sachdeva (rsachdeva)
+
+===== Problem
+
+You need to quickly find clojure library jars that are put by leiningen project.
+
+===== Solution
+
+Leiningen uses maven. See .m2 hidden directory in your home directory. This is the maven directory.  To find exact location of the folder use:
+
+[source,clojure]
+----
+lein classpath
+
+----
+
+Searching in the classpath string output here will give you the jar file folder name also.
+
+For getting source:
+[source,clojure]
+----
+lein pom
+
+mvn dependency:sources
+
+----
+
+In this case the files having sources will be in the same folders where we found the compiled jars.
+
+===== Discussion
+
+The jar files are zip files in the java world. We get the compiled jar files containing java classes, but
+we also have access to the source jars if you want to understand how the library works.
+
+The source jars can be used to explore source code by unzipping using the jar command line.
+
+[source,clojure]
+----
+$ jar xf file-name-sources.jar
+
+----
+
+Several IDE's allow attach source option where these jars can also be used.
+
+
+===== See Also
+
+* Maven (http://maven.apache.org/what-is-maven.html)
