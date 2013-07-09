@@ -34,6 +34,8 @@ Define your keys and secrets and send the status update request to Twitter:
                    "mncHyc4g1MGKDHMbI2rrhktRTlgLDXmIG2k1800yIY")) ; access token secret
 
 (statuses-update :oauth-creds credentials :params {:status "Hi there, I am sending this tweet from Clojure!"})
+
+;; -> {:status {:code 200, :msg "OK",...
 ----
 
 
