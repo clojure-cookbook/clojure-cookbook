@@ -1,4 +1,4 @@
-==== Find leiningen project library jars local location and their source code.
+==== Find leiningen project library jars local location and the associated source code for these jars.
 
 // By Rohit Sachdeva (rsachdeva)
 
@@ -43,6 +43,8 @@ $ jar xf file-name-sources.jar
 ----
 
 Several IDE's allow attach source option where these jars can also be used.
+
+The Source code if not available then will not show up in the directory. 
 
 
 ===== See Also
