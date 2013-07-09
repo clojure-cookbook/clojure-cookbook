@@ -1,4 +1,4 @@
-==== Adding additional jars for quick experimentation without leiningen or maven project
+==== Adding additional clojure library jars for quick experimentation without leiningen or maven project
 
 // By Rohit Sachdeva (rsachdeva)
 
@@ -35,7 +35,9 @@ user=> (trace (+ 2 2))
 
 This sets the Java classpath to include Clojure and also the tools trace library jar allowing us to use functions like trace directly in repl. This also shows that leningen project file inclusion in general is not creating magic- essentially gets the jar file in the same way we manually got and adjusts the classpath accordingly.
 
-Getting the library from clojars or mvnrepository can be a bit of a hassle but this shows we are in the end adding another jar in the clojure world.
+Another thing these tools like leiningen do is dependency management. Suppose the trace function calls a function included in another jar. You will get error that the function cannot be found. In that case you would have to add additional jars in the same way to the classpath.
+
+Getting the library from clojars or mvnrepository can be a bit of a hassle but this shows we are in the end when adding libraries we are just adding another jar.
 
 ===== See Also
 
