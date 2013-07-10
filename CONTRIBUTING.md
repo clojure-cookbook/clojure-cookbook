@@ -41,6 +41,12 @@ The general format for any cookbook recipes is **Problem**, **Solution** and **D
 
 Recipes in *Clojure Cookbook* should be written in [AsciiDoc](http://www.methods.co.nz/asciidoc/) a markup language very similar to Markdown, but much more well suited for writing books. AsciiDoc has support for advanced features like [callouts](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html#X105), footnotes, [cross referencing links](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html#_internal_cross_references) and most importantly generating indices for the final book.
 
+The `conventions.asciidoc` document serves as the guidelines for how
+to convey different things in AsciiDoc, like source code blocks, REPL
+sessions, shell sessions, expression results, output, etc.. Please
+read it carefully to learn about these important elements of good
+recipes.
+
 You can find more information on the format in the [AsciiDoc User Guide](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html) or across numerous pre-existing `*.asciidoc` files in this repo.
 
 #### Recipe File Organization
