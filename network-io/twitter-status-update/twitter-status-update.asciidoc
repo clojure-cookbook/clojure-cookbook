@@ -1,9 +1,9 @@
-==== Send a Twitter Status Update
+==== Using the Twitter API 
 // By Tobias Bayer (codebrickie)
 
 ===== Problem
 
-You want to send a status update to Twitter on behalf of a Twitter user.
+You want to connect to Twitter and use its API.
 
 ===== Solution
 
@@ -36,7 +36,7 @@ Define your keys and secrets and send the status update request to Twitter:
 (statuses-update :oauth-creds credentials :params {:status "Hi there, I am sending this tweet from Clojure!"})
 ;; -> {:status {:code 200, :msg "OK",...
 ----
-
+	
 
 ===== Discussion
 
