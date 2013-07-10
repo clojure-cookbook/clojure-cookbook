@@ -18,16 +18,25 @@ Include Monger in your project file:
               :dependencies [[com.novemberain/monger "1.6.0"]])
 ----
 
-Assuming your MongoDB instance is running with default parameters, you can connect to it:
+Assuming your MongoDB instance is running with default parameters, you can connect to it and select the database you want to work with:
 
 [source,clojure]
 ----
 (require '[monger.core :as mg])
 
 (mg/connect!)
+
+(mg/set-db! (mg/get-db "my-db"))
 ----
 
-INSERT DATA
+Inserting data into a collection is quite easy. In Clojure your data is most likely already represented as a map.
+
+[source,clojure]
+----
+(require '[monger.collection :as mc])
+
+(insert "musicians" { :first_name "John" :last_name "Lennon" })
+----
 
 QUERY DATA (suggest ++find-maps++ for simple further usage of query results)
  - WITHOUT PARAMS (aka "find-all")
@@ -37,6 +46,8 @@ QUERY DATA (suggest ++find-maps++ for simple further usage of query results)
 ===== Discussion
 
 NON-STANDARD CONNECT
+
+INSERTING WITH EXPLICIT ID
 
 QUERY OPERATORS
 
