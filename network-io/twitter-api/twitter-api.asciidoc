@@ -51,5 +51,25 @@ For example, you can show user details with ++users-show++:
 ;; -> ...:id 40514394, :profile_background_image_url_https "https://si0.twimg.com/images/themes/theme1/bg.png", :description "Without being overly modest, you can read this because of me.", :profile_text_color "333333", :screen_name "Alan_M_Turing"...
 ----
 
+Using Twitter's streaming feature for reading a user's timeline is also possible.
+First you should define a callback function that will be called later every time a new tweet is received:
+
+[source,clojure]
+----
+(use '[twitter.api.streaming] '[twitter.callbacks] '[twitter.callbacks.handlers])
+(import '(twitter.callbacks.protocols AsyncStreamingCallback))
+
+(def ^:dynamic *print-status-callback* 
+  (AsyncStreamingCallback. #(println %2) nil nil))
+----
+
+This function simply prints the raw output stream to the console.
+Now request the user stream and provide your callback:
+
+[source,clojure]
+----
+(user-stream :oauth-creds credentials :callbacks *print-status-callback*)
+----
+
 ===== See Also
 See the https://github.com/adamwynne/twitter-api[twitter-api documentation] for more details.
