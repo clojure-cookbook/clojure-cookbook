@@ -18,8 +18,7 @@ Include the wrapper in your project file:
               :dependencies [[twitter-api "0.7.4"]])
 ----
 
-This recipe assumes you have already retrieved an OAuth consumer key and secret for your app from Twitter and an access token and secret for the user.
-SEE RECIPE XYZ ON HOW TO RETRIEVE AN ACCESS TOKEN VIA OAUTH.
+This recipe assumes you have already retrieved an OAuth footnote:[See the Twitter documentation on how to receive OAuth credentials at https://dev.twitter.com/docs/auth/obtaining-access-tokens] consumer key and secret for your app from Twitter and an access token and secret for the user. Make sure your app has read/write access in order to post status updates.
 
 Define your keys and secrets and send the status update request to Twitter:
 
