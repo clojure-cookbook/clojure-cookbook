@@ -1,9 +1,9 @@
-==== Send a Twitter Status Update
+==== Using the Twitter API 
 // By Tobias Bayer (codebrickie)
 
 ===== Problem
 
-You want to send a status update to Twitter on behalf of a Twitter user.
+You want to connect to Twitter and use its API.
 
 ===== Solution
 
@@ -18,8 +18,7 @@ Include the wrapper in your project file:
               :dependencies [[twitter-api "0.7.4"]])
 ----
 
-This recipe assumes you have already retrieved an OAuth consumer key and secret for your app from Twitter and an access token and secret for the user.
-SEE RECIPE XYZ ON HOW TO RETRIEVE AN ACCESS TOKEN VIA OAUTH.
+This recipe assumes you have already retrieved an OAuth footnote:[See the Twitter documentation on how to receive OAuth credentials at https://dev.twitter.com/docs/auth/obtaining-access-tokens] consumer key and secret for your app from Twitter and an access token and secret for the user. Make sure your app has read/write access in order to post status updates.
 
 Define your keys and secrets and send the status update request to Twitter:
 
@@ -36,12 +35,12 @@ Define your keys and secrets and send the status update request to Twitter:
 (statuses-update :oauth-creds credentials :params {:status "Hi there, I am sending this tweet from Clojure!"})
 ;; -> {:status {:code 200, :msg "OK",...
 ----
-
+	
 
 ===== Discussion
 
-Twitter-api offers more than just sending status updates.
-The structure of function calls basically remains the same. Twitter-api functions take the credentials and request parameters as arguments.
+++twitter-api++ offers more than just sending status updates.
+The structure of function calls basically remains the same. ++twitter-api++ functions take the credentials and request parameters as arguments.
 
 For example, you can show user details with ++users-show++:
 
@@ -49,6 +48,26 @@ For example, you can show user details with ++users-show++:
 ----
 (users-show :oauth-creds credentials :params {:screen-name "Alan_M_Turing"})
 ;; -> ...:id 40514394, :profile_background_image_url_https "https://si0.twimg.com/images/themes/theme1/bg.png", :description "Without being overly modest, you can read this because of me.", :profile_text_color "333333", :screen_name "Alan_M_Turing"...
+----
+
+Using Twitter's streaming feature for reading a user's timeline is also possible.
+First you should define a callback function that will be called later every time a new tweet is received:
+
+[source,clojure]
+----
+(use '[twitter.api.streaming] '[twitter.callbacks] '[twitter.callbacks.handlers])
+(import '(twitter.callbacks.protocols AsyncStreamingCallback))
+
+(def ^:dynamic *print-status-callback* 
+  (AsyncStreamingCallback. #(println %2) nil nil))
+----
+
+This function simply prints the raw output stream to the console.
+Now request the user stream and provide your callback:
+
+[source,clojure]
+----
+(user-stream :oauth-creds credentials :callbacks *print-status-callback*)
 ----
 
 ===== See Also
