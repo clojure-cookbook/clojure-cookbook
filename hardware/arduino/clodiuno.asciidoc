@@ -29,4 +29,4 @@ Then, you can use it following way.
 
 ===== Usages
 
-You should visit <<https://github.com/nakkaya/clodiuno>> and <<http://nakkaya.com/clodiuno.html>>
+You should visit <https://github.com/nakkaya/clodiuno> and <http://nakkaya.com/clodiuno.html>
