@@ -24,8 +24,8 @@ Define your keys and secrets and send the status update request to Twitter:
 
 [source,clojure]
 ----
-(use 'twitter.oauth)
-(use 'twitter.api.restful)
+(use 'twitter.oauth
+     'twitter.api.restful)
 
 (def credentials (make-oauth-creds
                    "Hux2MTu8gObgzbqNCpPZ2K" ; consumer key
@@ -56,9 +56,9 @@ First you should define a callback function that will be called later every time
 
 [source,clojure]
 ----
-(use 'twitter.api.streaming) 
-(use 'twitter.callbacks) 
-(use 'twitter.callbacks.handlers)
+(use 'twitter.api.streaming
+     'twitter.callbacks
+     'twitter.callbacks.handlers)
 
 (import '(twitter.callbacks.protocols AsyncStreamingCallback))
 
