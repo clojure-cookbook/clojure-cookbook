@@ -59,4 +59,4 @@ calling `set` is about 2X faster.
 
 ===== See Also
 
-* Creating Sets
+* See <<sec_composite_creating_sets>> for more information on creating sets.
