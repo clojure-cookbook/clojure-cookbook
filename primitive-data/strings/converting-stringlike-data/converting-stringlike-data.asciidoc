@@ -44,7 +44,7 @@ To convert from a symbol or string to a keyword, use +keyword+.
 ;; -> :fantastic
 
 (keyword 'fantastic)
-;; -> "fantastic"
+;; -> :fantastic
 ----
 
 You'll need an intermediate step through +name+, to go from keyword to symbol.
