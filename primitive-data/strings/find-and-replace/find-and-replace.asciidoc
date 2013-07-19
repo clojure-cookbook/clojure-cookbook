@@ -18,7 +18,6 @@ For simple patterns use +replace+ with a normal string as its matcher.
 (clojure.string/replace about-me "green" "red")
 ;; -> "My favorite color is red!"
 
-"Those Canadian neighbours have coloured behaviour when it comes to word endings")
 (defn de-canadianize [s]
   (clojure.string/replace s "ou" "o"))
 (de-canadianize "Those Canadian neighbours have coloured behaviour when it comes to word endings")
