@@ -3,6 +3,7 @@
 
 include::get-local-resource/get-local-resource.asciidoc[]
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
+include::console/parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
 include::csv/read-write-csv/read-write-csv.asciidoc[]
 include::files/copy-file/copy-file.asciidoc[]
 include::files/delete-file/delete-file.asciidoc[]
