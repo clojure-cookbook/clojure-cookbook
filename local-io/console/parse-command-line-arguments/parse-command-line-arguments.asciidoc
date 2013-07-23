@@ -1,0 +1,111 @@
+==== Parse command line arguments
+
+////
+Author: Nicolas Bessi @nbessi
+////
+
+===== Problem
+
+You want your command line tool to be able to receive input arguments,
+parse and validate them.
+
+===== Solution
+
+Use +org.clojure/tools.cli+ https://github.com/clojure/tools.cli
+library that replaces the +clojure.contrib/command-line+.
+
+[source,clojure]
+----
+(ns dummy-command-line-parser.core
+  (:use [clojure.tools.cli :only (cli)]))
+
+(defn invalid? [opts args]
+  (empty? args))
+
+(defn do-the-stuff [opts, path]
+  (println "kwargs:" opts)
+  (println "trailing:" path))
+
+(defn -main
+  "The application's main function"
+  [& args]
+  (let [[opts args banner]
+        (cli args
+             ["-h" "--help" "Show help" :flag true :default nil]
+             ["-c" "--csv-context" "Predefined mode  [Standard, LibreOffice]"
+              :default "standard"]
+             ["-s" "--separator" "CSV separator" :default ","]
+             ["-v" "--[no-]verbose" "I will talk a lot"])]
+    (when (or (:help opts) (invalid? opts args))
+      (println "my_command [args] file_pathes ..")
+      (println "")
+      (println banner)
+      (System/exit 0))
+    (do-the-stuff opts, args)))
+----
+
+===== Discussion
+Writing command line tools or being able to add arguments to
+an application/Web app is a must have.
+
+Clojure store all command line arguments into +*command-line-args*+ list built-in.
+When using the Leiningen +run+ command, arguments are passed to main function
+defined in your project manifest.
+
+If you want to test your arguments while working with +lein run+
+you have to differentiate the run arguments from your own arguments using +--+:
+
+[source,bash]
+----
+% lein run -- my args
+----
+
+the +cli+ function is the main utility you will use.
+It recived a list of args and will return a vector containing:
+* A hash of all your keyword arguments
+* A vector of all non key word trailing argumenta
+* A generated help banner
+
+[source,bash]
+----
+lein run -- -s "|" -c "LibreOffice" -v my_file
+kwargs: {:verbose true, :separator |, :csv-context LibreOffice, :help false}
+trailing: [my_file]
+----
+Lets input invalid args to see the generated banner:
+
+[source,bash]
+----
+lein run -- -s "|" -c "LibreOffice" -v
+my_command [args] file_pathes ..
+
+Usage:
+
+ Switches                     Default   Desc
+ --------                     -------   ----
+ -h, --no-help, --help                  Show help
+ -c, --csv-context            standard  Predefined mode  [Standard, LibreOffice]
+ -s, --separator              ,         CSV separator
+ -v, --no-verbose, --verbose  false     I will talk a lot
+----
+
+Option definitions are specified in a vector:
+
+[source,clojure]
+----
+["-short-name" "--long-name" "description"]
+----
+
+You can add an optional default value by appending +:default+
+Flag keyword are defined by using the +:flag+ with a default set to true or
+by using the --[no-]myarg convention for long name with default set to false.
+
+[source,clojure]
+----
+ ["-v" "--[no-]verbose" "I will talk a lot"]
+----
+or
+[source,clojure]
+----
+ ["-v" "--verbose" "I will talk a lot" :flag true]
+----
