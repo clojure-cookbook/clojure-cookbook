@@ -3,3 +3,29 @@
 // By John Walker
 
 ==== Problem
+
+You want to make a window with trivial content.
+
+==== Solution
+
+Use the +seesaw+ to create a frame.
+
+[source,clojure]
+----
+(ns example.seesaw
+    (:require [seesaw :refer [frame native! pack! show!]]))
+
+(native!)
+
+----
+
+(frame :title "Jackson" :content "I can't believe it's not Michael!")
+;; -> 
+
+()
+----
+
+==== Discussion
++Seesaw+ is an extremely powerful library built on top of +Swing+. Note that +frame+ returns a +JFrame+, and that +config!+, +pack!+ and +show!+ all operate on its result. This implies that +Seesaw+ functions are able to operate on other +Swing+ interfaces, meaning that you can easily use window builders with +Seesaw+.
+
+
