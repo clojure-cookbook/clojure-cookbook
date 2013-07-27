@@ -1,0 +1,5 @@
+==== Making a Window
+
+// By John Walker
+
+==== Problem
