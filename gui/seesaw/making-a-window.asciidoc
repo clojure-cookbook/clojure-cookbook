@@ -8,7 +8,7 @@ You want to make a window with trivial content.
 
 ==== Solution
 
-The +Seesaw+ library is the best method of dealing with GUI's in Clojure. Since +Seesaw+ is based on +Swing+, it is necessary to make an initial call to +native!+ to style frames for the given desktop or window environment.
+The +Seesaw+ library is the best method of dealing with GUI's in Clojure. Since +Seesaw+ is based on +Swing+, it is necessary to make an initial call to +native!+ for styling frames to the host desktop or window environment.
 
 [source,clojure]
 ----
