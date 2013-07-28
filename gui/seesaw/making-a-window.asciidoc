@@ -8,24 +8,52 @@ You want to make a window with trivial content.
 
 ==== Solution
 
-Use the +seesaw+ to create a frame.
+The +Seesaw+ library is the best method of dealing with GUI's in Clojure. Since +Seesaw+ is based on +Swing+, it is necessary to make an initial call to +native!+ to style frames for the given desktop or window environment.
 
 [source,clojure]
 ----
 (ns example.seesaw
-    (:require [seesaw :refer [frame native! pack! show!]]))
+(:require [seesaw :refer [frame native! pack! show!]]))
 
 (native!)
-
+;; -> nil
 ----
 
-(frame :title "Jackson" :content "I can't believe it's not Michael!")
-;; -> 
+Use +frame+ to create a frame.
 
-()
+[source,clojure]
 ----
+(frame :title "Police" :content "Cool text!")
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame6,0,19,0x0,invalid,hidden,layout=java.awt.BorderLayout,title=Police,resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+Although a frame has been created, nothing appeared. In order to actually display the frame, you must make a call to +show!+.
+
+[source,clojure]
+----
+(def f (frame :title "Police" :content "Cool text!"))
+
+(show! f)
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame7,-5,-25,1376x798,layout=java.awt.BorderLayout,title=Police,resizable,iconified,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,5,25,1366x768,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+More complicated examples of GUI's in seesaw should have a call to +pack!+, which assigns width and height properties according to its content.
+
+[source,clojure]
+----
+(-> f pack! show!)
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame7,-5,-25,78x45,layout=java.awt.BorderLayout,title=Police,resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,5,25,68x15,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+You can change anything in the frame using +config!+.
+
+[source,clojure]
+----
+(config! f :title "Blue skies")
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame7,0,0,1366x768,hidden,layout=java.awt.BorderLayout,title=Blue skies,resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,1366x768,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+Note that the title property is now "Blue skies."
 
 ==== Discussion
-+Seesaw+ is an extremely powerful library built on top of +Swing+. Note that +frame+ returns a +JFrame+, and that +config!+, +pack!+ and +show!+ all operate on its result. This implies that +Seesaw+ functions are able to operate on other +Swing+ interfaces, meaning that you can easily use window builders with +Seesaw+.
-
-
+Since +Seesaw+ is operating on a +Swing+ objects, it is possible to operate on interfaces regularly created for Java applications. This implies that interface design can be done with conventional tools, and that +Seesaw+ can be used for acting on interfaces rather than designing them.
