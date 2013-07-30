@@ -102,5 +102,28 @@ If you'd like to execute some arbitrary CQL statements, you can use +client/exec
 (client/execute "INSERT INTO users (name, city, age) VALUES ('Alex', 'Munich', 19);")
 ----
 
+Another concept that people like about Cassandra is distributed counters. Counter columns provide an efficient way to count or sum anything you need. It is achieved by using atomic increment/decrement operations on values. In order to create a table with counter, you can use +counter+ type:
+
+[source,clojure]
+----
+(create-table :scores
+              (column-definitions {:username :varchar
+                                   :score    :counter
+                                   :primary-key [:username]}))
+----
+
+You can increment and decrement counters by using +increment-by+ and +decrement-by+ functions:
+
+[source,clojure]
+----
+(update :scores
+        {:score (increment-by 50)}
+        (where :name "Alex"))
+
+(update :scores
+        {:score (decrement-by 5)}
+        (where :name "Robert"))
+----
+
 ===== See Also
 See the http://clojurecassandra.info[Cassaforte documentation guides] for more details.
