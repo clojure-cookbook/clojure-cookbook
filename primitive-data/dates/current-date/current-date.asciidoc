@@ -1,4 +1,4 @@
-==== Obtaining the Current Data and Time
+==== Obtaining the Current Date and Time
 
 ===== Problem
 
