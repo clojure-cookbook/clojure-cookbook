@@ -59,11 +59,15 @@ Now, insert several users into the table:
 (insert "users" {:name "Robert" :city "Brussels" :age (int 30)})
 ----
 
-You can access these records using +select+ query. For example, if you want to retrieve all the users from the table, you can run:
+You can access these records using +select+ query. For example, if you want to retrieve all the users from the table or use +limit+ in your query, you can run:
 
 [source,clojure]
 ----
+;; Will retrieve all the users
 (select "users")
+
+;; Will retrieve top 10 users
+(select "users" (limit 10))
 ----
 
 Alternatively, if you want to retrieve information about a single person, by given +name+, you can add a +where+ clause to it:
