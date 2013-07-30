@@ -1,0 +1,106 @@
+==== Access Cassandra
+// By Oleksandr Petrov (ifesdjeen)
+
+===== Problem
+
+You want to work with data stored in Cassandra.
+
+===== Solution
+
+Use Cassaforte for connecting to Cassandra cluster and work with the records in the database.
+
+Include Cassaforte into your project file:
+
+.project.clj
+[source,clojure]
+----
+(defproject cassaforte-example "1.0.0-SNAPSHOT"
+              :dependencies [[clojurewerkz/cassaforte "1.1.0"]])
+----
+
+In order to connect to Cassandra cluster, create your first keyspace and start using it, you can require +client+ keyspace and use +cql+ and +query+ keyspaces. +client+ is responsible for connection, other two provide a simple interface to execute queries.
+
+[source,clojure]
+----
+(ns cassaforte.docs.examples
+  (:require [clojurewerkz.cassaforte.client :as client])
+  (:use clojurewerkz.cassaforte.cql
+        clojurewerkz.cassaforte.query))
+
+;; Will connect to 2 nodes in a cluster
+(client/connect! ["localhost" "another.node.local"])
+
+;; Creates a keyspace name `cassaforte_keyspace`, using Simple Replication Strategy and replication factor of 2
+(create-keyspace "cassaforte_keyspace"
+                 (with {:replication
+                        {:class "SimpleStrategy"
+                         :replication_factor 2 }}))
+
+;; Switch to the keyspace
+(use-keyspace "cassaforte_keyspace")
+----
+
+Now, you can create tables and start inserting data into them. For that, you can use +create-table+ and +insert+ functions.
+
+[source,clojure]
+----
+(create-table "users"
+              (column-definitions {:name :varchar
+                                   :city :varchar
+                                   :age  :int
+                                   :primary-key [:name]}))
+----
+
+Now, insert several users into the table:
+
+[source,clojure]
+----
+(insert "users" {:name "Alex" :city "Munich" :age (int 26)})
+(insert "users" {:name "Robert" :city "Brussels" :age (int 30)})
+----
+
+You can access these records using +select+ query. For example, if you want to retrieve all the users from the table, you can run:
+
+[source,clojure]
+----
+(select "users")
+----
+
+Alternatively, if you want to retrieve information about a single person, by given +name+, you can add a +where+ clause to it:
+
+[source,clojure]
+----
+(select "users" (where :name "Alex"))
+----
+
+===== Discussion
+
+There's much more to Cassandra than just creating tables and inserting values. If you want to update records in your database, you can use +update+ query:
+
+[source,clojure]
+----
+(update "users"
+        {:city "Berlin"}
+        (where :name "Alex"))
+----
+
+Deleting records from the database is just as easy:
+
+[source,clojure]
+----
+;; Will delete just one user
+(delete :users (where :name "Alex"))
+
+;; Will delete all users whose names match within IN clause
+(delete :users (where :name [:in ["Alex" "Robert"]]))
+----
+
+If you'd like to execute some arbitrary CQL statements, you can use +client/execute+:
+
+[source,clojure]
+----
+(client/execute "INSERT INTO users (name, city, age) VALUES ('Alex', 'Munich', 19);")
+----
+
+===== See Also
+See the http://clojurecassandra.info[Cassaforte documentation guides] for more details.
