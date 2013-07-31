@@ -1,0 +1,82 @@
+//////////////////////////////////////////
+Authored by:
+Steven Proctor
+//////////////////////////////////////////
+[[sec_date_from_unix_timestamp]]
+==== Converting a Unix timestamp to a Date
+
+===== Problem
+
+You need to get a Date object from a Unix timestamp.
+
+===== Solution
+
+When dealing with data from outside systems, many systems will
+express a timestamp in Unix time format.  Some areas that you may
+encounter this is dealing with certain data stores, parsing out data
+from timestamps in log files, or any number of other systems that
+have to deal with Dates and Times across multiple different timezones
+and cultures.
+
+Fortunately with Clojure's ability for nice interoperability with Java,
+you have an easy solution at hand.
+
+[source,clojure]
+----
+(defn from-unix-time
+  "Return a Java Date object from a Unix time representation expressed
+  in whole seconds."
+  [unix-time]
+  (java.util.Date. unix-time))
+----
+
+This is how you can use the +from-unix-time+ function:
+
+[source,clojure]
+----
+(from-unix-time 1366127520000)
+
+;; #inst "2013-04-16T15:52:00.000-00:00"
+----
+
+===== Discussion
+
+To get a Java Date object from a Unix time object, all you need to do
+is contruct a new +java.util.Date+ object using Clojure's Java interop
+functionality.
+
+If you are already using, or wish to use the
+https://github.com/clj-time/clj-time[clj-time] library, you can use +clj-time+
+to obtain a +DateTime+ object from a Unix timestamp.
+
+[source,clojure]
+----
+(require '[clj-time.coerce :as timec])
+
+(defn datetime-from-unix-time
+  "Return a DateTime object from a Unix time representation expressed
+  in whole seconds."
+  [unix-time]
+  (timec/from-long unix-time))
+----
+
+And using the +datetime-from-unix-time+ function, you can see you get a
+DateTime object back with the correct time:
+
+[source,clojure]
+----
+(datetime-from-unix-time 1366127520000)
+
+;; #<DateTime 2013-04-16T15:52:00.000Z>
+----
+
+You may not need to worry about dates and times being expressed as seconds
+very often, but when you do, isn't it nice to know how easy it can be to
+get those timestamps into a date format used by the rest of the system?
+
+===== See Also
+
+* See <<sec_date_to_unix_timestamp>> for how to convert a Date to a
+  Unix time.
+* See <<sec_current_date>> to see how to get the current time in
+  milliseconds, which can be converted to seconds.
