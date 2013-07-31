@@ -9,7 +9,7 @@ You need to print dates or times in a particular format.
 
 While it is possible to format Java Date-like instances (+Date+,
 +Calendar+ and +Timestamp+) with +clojure.core/format+', we suggest
-you use https://github.com/KirinDave/clj-time[clj-time] to format
+you use https://github.com/clj-time/clj-time[clj-time] to format
 dates.
 
 Use +clj-time.format/unparse+ with any clj-time +DateTimeFormatter+,
