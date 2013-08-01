@@ -89,6 +89,12 @@ It's also possible to define +map-kv+ using +reduce-kv+:
     (reduce-kv (fn [agg k v] (apply assoc agg (f k v))) {} m))
 ----
 
+Which could be used in this example:
+
+----    
+(map-kv {:one 1 :two 2} #(vector (s/replace-first %1 ":" "") (inc %2)))    
+----
+
 The following example uses +reduce-kv+ to obtain the sum of all the
 values in a map.
 
