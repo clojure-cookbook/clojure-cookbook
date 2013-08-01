@@ -81,6 +81,14 @@ corresponding value from the map. The resulting value is then
 re-applied along with the second key and value, the resulting value
 with the third key and value, and so on.
 
+It's also possible to define +map-kv+ using +reduce-kv+:
+
+----
+(defn map-kv
+    [m f]
+    (reduce-kv (fn [agg k v] (apply assoc agg (f k v))) {} m))
+----
+
 The following example uses +reduce-kv+ to obtain the sum of all the
 values in a map.
 
