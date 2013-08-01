@@ -86,7 +86,7 @@ It's also possible to define +map-kv+ using +reduce-kv+:
 ----
 (defn map-kv
     [m f]
-    (reduce-kv (fn [agg k v] (apply assoc agg (f k v))) {} m))
+    (reduce-kv (fn [agg k v] (conj agg (f k v))) {} m))
 ----
 
 Which could be used in this example:
