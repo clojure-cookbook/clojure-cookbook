@@ -1,4 +1,4 @@
-==== Using the Twitter API 
+==== Using the Twitter API
 // By Tobias Bayer (codebrickie)
 
 ===== Problem
