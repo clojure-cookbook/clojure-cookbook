@@ -81,20 +81,6 @@ corresponding value from the map. The resulting value is then
 re-applied along with the second key and value, the resulting value
 with the third key and value, and so on.
 
-It's also possible to define +map-kv+ using +reduce-kv+:
-
-----
-(defn map-kv
-    [m f]
-    (reduce-kv (fn [agg k v] (conj agg (f k v))) {} m))
-----
-
-Which could be used in this example:
-
-----    
-(map-kv {:one 1 :two 2 :three 3} #(vector (-> %1 str (subs 1)) (inc %2)))    
-----
-
 The following example uses +reduce-kv+ to obtain the sum of all the
 values in a map.
 
@@ -109,6 +95,20 @@ values in a map.
 Note that an underscore (+_+) is used instead of +key+ in the function
 argument declaration; this is idiomatic in Clojure to name any argument
 that isn't actually used in the body.
+
+It's also possible to define +map-kv+ using +reduce-kv+:
+
+----
+(defn map-kv
+    [m f]
+    (reduce-kv (fn [agg k v] (conj agg (f k v))) {} m))
+----
+
+Which could be used in this example:
+
+----    
+(map-kv {:one 1 :two 2 :three 3} #(vector (-> %1 str (subs 1)) (inc %2)))    
+----
 
 ===== See also
 
