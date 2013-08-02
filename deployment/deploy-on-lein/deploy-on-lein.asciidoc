@@ -1,7 +1,7 @@
-Push library on Clojars
-=======================
+////
 :Author: Simone Mosciatti
 :Email: simone@mweb.biz
+////
 
 ////
 TODO: This recipe needs improvement

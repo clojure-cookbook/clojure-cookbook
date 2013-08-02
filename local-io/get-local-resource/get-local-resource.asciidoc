@@ -50,4 +50,6 @@ after your JAR file is distributed.
 You can also specify other resource directories using the `:resources-paths` key in your `project.clj`.
 
 [source,clojure]
+----
     :resource-paths ["src/main/resources"] ; inside src instead of project root
+----
