@@ -1,4 +1,6 @@
 [[ch_databases]]
 == Databases
 
-include::databases/databases-up-n-running/databases-up-n-running.asciidoc[]
+include::database-up-n-running/database-up-n-running.asciidoc[]
+
+include::text-search/text-search.asciidoc[]
