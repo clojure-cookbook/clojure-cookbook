@@ -70,6 +70,13 @@ Since +Seesaw+ is operating on a +Swing+ objects, it is possible to operate on i
 ;; or if you have multiple buttons
 
 (config! [b1 b2 b3 b4] :enabled? true :selected? true :text "Press me (or don't!)")
-
 ----
 
+You can consider +show!+ to be shorthand for
+
+[source,clojure]
+----
+(config! f :visible? true)
+----
+
+thus, it is not necessary to call +show!+ after updating a frame.
