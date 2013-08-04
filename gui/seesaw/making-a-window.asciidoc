@@ -58,9 +58,18 @@ Note that the title property is now "Blue skies."
 ==== Discussion
 Since +Seesaw+ is operating on a +Swing+ objects, it is possible to operate on interfaces regularly created for Java applications. This implies that interface design can be done with conventional tools, and that +Seesaw+ can be used for acting on interfaces rather than designing them.
 
-+config!+ modifies a property in a frame, given a keyword (representing the property) and the new value following it. For example:
++config!+ modifies properties in a widget, given a series of keywords (representing the properties) and the new values following each one. It is fairly versatile in the sense that it can modify multiple widgets. For example:
 [source,clojure]
 ----
-(config! f :content "Sunny in Colorado")
+(config! f :title "The Weather":content "Sunny in Colorado")
+
+;; or if you have a button
+
+(config! b :enabled? true :selected? true :text "Press me")
+
+;; or if you have multiple buttons
+
+(config! [b1 b2 b3 b4] :enabled? true :selected? true :text "Press me (or don't!)")
+
 ----
 
