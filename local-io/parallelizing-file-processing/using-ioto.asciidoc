@@ -1,0 +1,55 @@
+==== Using Reducers with Files
+
+////
+Author: Edmund Jackson @edmundjackson
+////
+
+===== Problem
+
+You want to use reducers on a file to realize parallel processing
+without loading the file into memory.
+
+===== Solution
+
+Use the +Iota+ library, https://github.com/thebusby/iota
+
+Demonstration of a word count
+
+[source,clojure]
+----
+(ns word-count-with-iota
+  "Give the word count for a text file using iota and reducers"
+  (:require [iota                  :as io]
+            [clojure.core.reducers :as r]
+            [clojure.string        :as str]))
+
+;; -----------------------------------------------------------------------
+;;  These are the word counting functions,
+(defn count-map
+  "Returns an indicator map for words in s"
+  [s]
+  (reduce (fn [m w] (update-in m [w] (fnil (partial inc) 0))) {} (str/split s #" ")))
+
+(defn add-maps
+  "Returns a map where each key is the sum of vals of that key in m1 and m2."
+  ([] {}) ;; Necessary base-case for use as combiner in fold
+  ([m1 m2]
+     (reduce (fn [m [k v]] (update-in m [k] (fnil (partial + v) 0))) m1 m2)))
+
+;; -----------------------------------------------------------------------------
+;;  Main file processing
+(defn keyword-count
+  "Returns a map of the word counts"
+  [filename]
+  (->> (iota/seq filename)
+       (r/filter identity)
+       (r/map count-map)
+       (r/fold add-maps)))
+----
+
+===== Discussion
+
+Under the hood iota memory maps the file to prevent it having to be
+loaded into core which allows you to process huge files.  Furthermore by
+plugging into Clojure's reducers library you can utilize the
+map-reduce-combine pattern in parallel to realize substantial performance.
