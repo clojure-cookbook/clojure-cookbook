@@ -1,0 +1,73 @@
+==== Introduction to Ring
+
+===== Problem
+
+You need to write an HTTP service with clojure
+
+===== Solution
+
+Clojure has no built-in HTTP server, but the de-facto standard is Ring.
+
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [ring.adapter.jetty :as jetty]
+    clojure.pprint))
+
+;; Echo (with pretty-print) the request received.
+(defn handler [request]
+  {:status 200
+   :headers {"content-type" "text/clojure"}
+   :body (with-out-str (clojure.pprint/pprint request))})
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty handler {:port 3000}))
+----
+
+===== Discussion
+
+https://github.com/ring-clojure/ring[Ring] is the basis for web
+applications in clojure. It provides a low-level and straightforward request-
+response API, where requests and responses are plain old clojure maps.
+
+Ring applications are architected around handlers; functions that accept
+requests and return responses. The above example defines a single handler
+that just echos the response it receives.
+
+The basic response consists of 3 keys: `:status`, the status code of the response,
+`:headers`, a string-string map of the response headers you want, and `:body`,
+the string you want as your response body. Here, `:status` is 200 and `:body`
+just echos the request, which will hopefully be instructive. Here's what I get back
+from `http://localhost:3000/test/path/?qs=1`:
+
+[source, clojure]
+----
+{:ssl-client-cert nil,
+ :remote-addr "0:0:0:0:0:0:0:1",
+ :scheme :http,
+ :request-method :get,
+ :query-string "qs=1",
+ :content-type nil,
+ :uri "/test/path/",
+ :server-name "localhost",
+ :headers
+ {"accept-encoding" "gzip,deflate,sdch",
+  "connection" "keep-alive",
+  "user-agent"
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36",
+  "accept-language" "en-US,en;q=0.8",
+  "accept"
+  "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "host" "localhost:3000",
+  "cookie" ""},
+ :content-length nil,
+ :server-port 3000,
+ :character-encoding nil,
+ :body #<HttpInput org.eclipse.jetty.server.HttpInput@43efe432>}
+----
+
+You can see that this is pretty raw. The path can be found as :uri. The query
+string is present, but unparsed.
+
