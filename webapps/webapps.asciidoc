@@ -2,3 +2,5 @@
 == Web Applications
 
 include::ring/introduction/introduction.asciidoc
+
+include::ring/middleware/middleware.asciidoc
