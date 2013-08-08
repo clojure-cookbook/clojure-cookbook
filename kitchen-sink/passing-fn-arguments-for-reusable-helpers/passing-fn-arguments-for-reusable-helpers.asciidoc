@@ -5,8 +5,8 @@
 ==== Problem
 
 You want to reuse a single helper function in two different sections of your 
-code, but each caller needs the helper to do something slightly in one isolated
-part.
+code, but each caller needs the helper to do something slightly different in 
+one isolated part.
 
 Consider the following (highly contrived) example:
 
@@ -134,7 +134,7 @@ functions:
 ----
 
 Since you would need to call both functions separately, but always 
-together, you would create more opporutinities for errors if you accidentally 
+together, you would create more opportunities for errors if you accidentally 
 called one and not the other. We call this sort of artificial, error-prone 
 separation a "bad abstraction," and it highlights the benefits of the solution
 using functions as arguments.
