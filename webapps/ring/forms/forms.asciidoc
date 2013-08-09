@@ -1,0 +1,66 @@
+==== Handling form data with Ring
+
+===== Problem
+
+You want your app to accept user input
+
+===== Solution
+
+Use `ring.middleware.params.wrap-params` to add parameters to incoming request maps.
+
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [ring.adapter.jetty :as jetty]
+    [ring.middleware.params :refer [wrap-params]]))
+
+(def GREETING_FORM
+  (str
+    "<html>"
+    "  <form action='' method='post'>"
+    "    Enter your name: <input type='text' name='name'><br/>"
+    "    <input type='submit' value='Say Hello'>"
+    "  </form>"
+    "</html>"))
+
+(defn show-form []
+  {:body GREETING_FORM
+   :status 200 })
+
+(defn show-name
+  "A response showing that we know the user's name"
+  [name]
+  {:body (str "Hello, " name)
+   :status 200})
+
+(defn handler
+  "Show a form requesting the user's name, or greet them if they submitted the form"
+  [{params :form-params :as req}]
+  (let [name (params "name")]
+    (if name
+      (show-name name)
+      (show-form))))
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty (wrap-params handler) {:port 3000}))
+----
+
+===== Discussion
+
+`wrap-params` is a Ring middleware that handles the retrieval of querystring
+and form parameters from raw requests. It adds three keys to the request:
+
+* `:query-params`, containing a map of the parsed querystring parameters,
+* `:form-params`, containing a map of form body parameters, and
+* `:params`, which has the contents of both merged together.
+
+In the above example we use `:form-params`, and so our handler will only
+respond with a greeting on POST requests. If we had used `:params`, we would
+have the option of also passing a query string with a `"name"` parameter.
+
+Note the use of destructuring to retrieve the `:form-params` value from the
+request. This is a pretty common pattern. One gotcha to remember is that the
+params maps have *strings* for keys, not keywords.
+
