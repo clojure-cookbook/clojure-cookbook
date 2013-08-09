@@ -2,7 +2,7 @@
 
 // By Chris Frisz (cjfrisz)
 
-==== Problem
+===== Problem
 
 You want to reuse a single helper function in two different sections of your 
 code, but each caller needs the helper to do something slightly different in 
@@ -26,7 +26,7 @@ Consider the following (highly contrived) example:
   (my-message-helper "cool"))
 ----
 
-==== Solution
+===== Solution
 
 Modify the helper function to take an extra argument and apply it to the value
 that needs the specific work.
@@ -72,7 +72,7 @@ piece of work to be done in the helper and pass that as an argument.
 ;; "super cool"
 ----
 
-==== Discussion
+===== Discussion
 
 Even though our two functions, `make-awesome-message` and `make-cool-message`,
 did different work, we reused the common work done in `my-message-helper`. 
