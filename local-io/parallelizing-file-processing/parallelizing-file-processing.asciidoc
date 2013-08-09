@@ -51,8 +51,6 @@ realise their side-effects before exiting the +with-open+ block or the
 file will be closed by the time we wish to evaluate them.  We do this by
 calling +dorun+
 
-There are couple of caveats here.  Firstly, the row ordering of the
-output file will not match the input exactly.  Secondly, you will
-become IO bound quite quickly as all the writes happen on one thread
-so you may not get the speedup you expect unless the processing function
-is substantial.
+There are couple of caveats here.  Firstly, although the row ordering of the
+output file will match that of the input, the execution is not guaranteed.  Secondly, you will become IO bound quite quickly as all the writes happen on one thread so you may not get the speedup you expect unless the processing function
+is substantial.  Finally, pmap will not give you the core-fold increase you might expect.
