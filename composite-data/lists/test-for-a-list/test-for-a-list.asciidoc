@@ -46,6 +46,6 @@ It's almost always better to use +seq?+ instead of +list?+.
 
 ===== See Also
 
-- (xref) Adding to a list
+* <<sec_adding_to_a_list>>
 
 

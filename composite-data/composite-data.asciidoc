@@ -11,6 +11,8 @@ include::lists/adding-an-item/adding-an-item.asciidoc[]
 
 include::lists/removing-an-item/removing-an-item.asciidoc[]
 
+include::lists/test-for-a-list/test-for-a-list.asciidoc[]
+
 === Vectors
 
 include::vectors/creating-a-vector/creating-a-vector.asciidoc[]
