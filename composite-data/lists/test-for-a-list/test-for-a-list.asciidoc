@@ -1,0 +1,51 @@
+==== Test for a list
+
+===== Problem
+
+You want to test if a value is a list.
+
+===== Solution
+
+The +list?+ function may seem like the obvious choice, but in most cases it's better to use the more
+general +seq?+ function as your test.
+
+[source,clojure]
+----
+(list? '(1 2 3))
+;; -> true
+(list? (cons 1 '(2 3)))
+;; -> false
+(list? (range 5))
+;; -> false
+
+(type '(1 2 3))
+;; -> clojure.lang.PersistentList
+(type (cons 1 '(2 3)))
+;; -> clojure.lang.Cons
+(type (range 5))
+;; -> clojure.lang.LazySeq
+
+(seq? '(1 2 3))
+;; -> true
+(seq? (cons 1 '(2 3)))
+;; -> true
+(seq? (range 5))
+;; -> true
+----
+
+===== Discussion
+
+The +list?+ function specifically tests if the argument implements +clojure.lang.IPersistentList+,
+but in most cases you really want to know if the value is a *seq* (implements +clojure.lang.ISeq+),
+which is a more general abstraction than a list.  As shown in the solution, not everything that
+prints as a *list* (in parentheses) satisfies the +list?+ test.  In practice, you often get concrete
++Cons+ and +LazySeq+ values when manipulating lists.  By focusing on the fundamental *seq*
+abstraction, you don't need to worry about the details of those concrete implementations.  
+
+It's almost always better to use +seq?+ instead of +list?+.
+
+===== See Also
+
+- (xref) Adding to a list
+
+
