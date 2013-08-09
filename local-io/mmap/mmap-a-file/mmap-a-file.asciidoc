@@ -49,13 +49,9 @@ Define a method to create this new opaque type from a filename.
         size (.size fc)]
     (Mmap. fis 
            fc 
-           (reduce (fn [agg pos] (conj agg
-                                       (.map fc 
-                                             java.nio.channels.FileChannel$MapMode/READ_ONLY 
-                                             pos 
-                                             (min bytes-per-map (- size pos)))))
-                   []
-                   (range 0 size bytes-per-map)))))
+	   (mapv #(mmap % (min (- size %)	
+                               bytes-per-map)) 
+                         (range 0 size bytes-per-map)))))
 ----
 
 Provide a method to read from the Memory-mapped file.
