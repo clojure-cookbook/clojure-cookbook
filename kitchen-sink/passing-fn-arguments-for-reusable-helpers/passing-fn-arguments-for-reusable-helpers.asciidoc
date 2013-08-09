@@ -1,4 +1,4 @@
-=== Pass a Function As an Arugment to Make Helper Functions More Reusable
+=== Pass a Function As an Argument to Make Helper Functions More Reusable
 
 // By Chris Frisz (cjfrisz)
 
