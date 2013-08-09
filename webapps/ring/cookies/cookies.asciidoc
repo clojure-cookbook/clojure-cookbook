@@ -1,0 +1,89 @@
+==== Handling Cookies with Ring
+
+===== Problem
+
+Your web application needs to remember a user's name with a cookie.
+
+===== Solution
+
+Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your requests:
+
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [ring.adapter.jetty :as jetty]
+    [ring.middleware.cookies :refer [wrap-cookies]]
+    [ring.middleware.params :refer [wrap-params]]))
+
+(defn set-name-form
+  "A response showing a form for the user to enter their name."
+  []
+  {:body "<html><form action=''>Name: <input type='text' name='name'><input type='submit'></form></html>"
+   :status 200
+   :content-type "text/html"
+   })
+
+(defn show-name
+  "A response showing that we know the user's name"
+  [name]
+  {:body (str "Hello, " name)
+   :cookies {"name" {:value name}} ; Preserve the cookies
+   :status 200 })
+
+(defn handler
+  "If we know the user's name, show it; else, show a form to get it."
+  [{cookies :cookies params :params :as req}]
+  (prn cookies)
+  (prn params)
+  (let [name (or
+               ((get cookies "name") :value)
+               (get params "name"))]
+    (if name
+      (show-name name)
+      (set-name-form))))
+
+(def wrapped-handler
+  (-> handler
+      wrap-cookies
+      wrap-params))
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty wrapped-handler {:port 3000}))
+----
+
+===== Discussion
+
+In this example, we used the `wrap-cookies` and `wrap-params` middlewares included
+with ring-core. We show the user a form on first view for them to enter their name.
+After thier name is entered, a greeting is displayed thereafter instead, until
+the cookie is removed.
+
+We use `wrap-cookies` to let us retrieve the user's stored name, and `wrap-params`
+to retrieve the user's name from the `:params` key added to
+the request dict, in case it's not available from the cookies.
+
+Ring's cookie middleware simply adds an extra parameter, `:cookies`, onto your
+request dict, and sets any cookies you pass out as the `:cookies` parameter
+on the response. The `:cookies` parameter is a map that looks something like this:
+
+[source, clojure]
+----
+{"name" {:value "Some Guy"}}
+----
+
+You can add other optional parameters to each cookie, along with `:value`. From the
+https://github.com/ring-clojure/ring/wiki/Cookies[Ring Cookie Documentation]:
+
+[quote, Ring Docs]
+----
+As well as setting the value of the cookie, you can also set additional attributes:
+
+* `:domain` - restrict the cookie to a specific domain
+* `:path` - restrict the cookie to a specific path
+* `:secure` - restrict the cookie to HTTPS URLs if true
+* `:http-only` - restrict the cookie to HTTP if true (not accessible via e.g. JavaScript)
+* `:max-age` - the number of seconds until the cookie expires
+* `:expires` - a specific date and time the cookie expires
+----
