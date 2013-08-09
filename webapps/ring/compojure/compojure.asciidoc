@@ -1,0 +1,89 @@
+////
+:Author: Adam Bard
+:Email: adam@adambard.com
+////
+
+==== Routing requests with Compojure
+
+===== Problem
+
+You want an easy way to route your views.
+
+===== Solution
+
+Use https://github.com/weavejester/compojure[Compojure] to add routing to your app.
+
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [compojure.core :refer [defroutes GET]]
+    [ring.adapter.jetty :as jetty]))
+
+; View functions
+(defn view [x]
+  (str "<h1>" x "</h1>"))
+
+(defn index []
+  (view "Hello"))
+
+(defn index-fr []
+  (view "Bonjour"))
+
+; Routing
+(defroutes main-routes
+  (GET "/" [] (index))
+  (GET "/en/" [] (index))
+  (GET "/fr/" [] (index-fr))
+  (GET "/:greeting/" [greeting] (view greeting)))
+
+; Server
+(defn -main []
+ (jetty/run-jetty main-routes {:port 3000}))
+----
+
+===== Discussion
+
+Compojure is a routing library that lets you define routes for your app.
+It does this via the `defroutes` macro, which produces a Ring handler.
+
+Here, we define four routes:
+
+* `/`, which displays "Hello"
+* `/en/`, the same
+* `/fr/`, which displays "Bonjour", and
+* `/:greeting/`, which echos the greeting passed.
+
+The last view is an example of Compojure's URL parameter syntax. The section
+of the URL identified by `:greeting` is passed along to the view, which displays
+it for the user. So, visiting `http://localhost:3000/Buenos%20Dias/` displays
+"Buenos Dias" in response.
+
+The `[]` in each route is actually a syntactic sugar for intercepting these
+parameters. You can also use `req` or any other symbol to get the whole request:
+
+[source, clojure]
+----
+(defroutes main-routes-2
+  (GET "/" req (some-view req)))
+----
+
+You can even use Clojure's destructuring syntax to extract parts of the request.
+For example, if you're using the `wrap-params` middleware, you can grab the params
+and pass them to a function:
+
+[source, clojure]
+----
+(defroutes main-routes-2
+  (GET "/" {params :params} (some-other-view params)))
+----
+
+It is important to realize that compojure works on top of Ring. Your views
+should still return Ring response maps (although Compojure will wrap strings
+you return with a basic 200 reponse).
+
+Compojure provides a few other helpful tools:
+http://weavejester.github.io/compojure/compojure.route.html[`compojure.routes`],
+which provides helpers for serving resources, files and 404 responses; and
+http://weavejester.github.io/compojure/compojure.handler.html[`compojure.handler`],
+which bundles a number of ring middlewares into one convenient wrapper.
