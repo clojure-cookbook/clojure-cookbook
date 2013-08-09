@@ -3,7 +3,7 @@
 :Email: adam@adambard.com
 ////
 
-==== Introduction to Ring
+=== Introduction to Ring
 
 ===== Problem
 

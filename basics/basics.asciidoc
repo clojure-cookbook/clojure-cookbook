@@ -1,4 +1,4 @@
-=== Basics
+== Basics
 
 include::bare-bones/bare-bones.asciidoc[]
 

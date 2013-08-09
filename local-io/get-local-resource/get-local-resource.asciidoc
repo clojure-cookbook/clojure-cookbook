@@ -3,7 +3,7 @@
 // Author: John Jacobsen (eigenhombre) (with help from John Cromartie
 // (jcromartie) and Alex P (ifesdjeen))
 
-==== Including and Accessing Resource Files in a Clojure Project
+=== Including and Accessing Resource Files in a Clojure Project
 
 ===== Problem
 

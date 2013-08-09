@@ -1,4 +1,4 @@
-==== Setting the value at an index
+=== Setting the value at an index
 
 ===== Problem
 

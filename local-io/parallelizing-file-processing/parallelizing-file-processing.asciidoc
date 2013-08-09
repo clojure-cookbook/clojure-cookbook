@@ -1,4 +1,4 @@
-==== Parallelizing File Processing
+=== Parallelizing File Processing
 
 ////
 Author: Edmund Jackson @edmundjackson

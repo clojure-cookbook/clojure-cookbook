@@ -3,7 +3,7 @@
 :Email: adam@adambard.com
 ////
 
-==== Routing requests with Compojure
+=== Routing requests with Compojure
 
 ===== Problem
 

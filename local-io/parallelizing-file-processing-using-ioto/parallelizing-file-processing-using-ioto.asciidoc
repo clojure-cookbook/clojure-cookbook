@@ -1,4 +1,4 @@
-==== Using Reducers with Files
+=== Using Reducers with Files
 
 ////
 Author: Edmund Jackson @edmundjackson

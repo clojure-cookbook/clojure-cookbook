@@ -3,7 +3,7 @@
 :Email: adam@adambard.com
 ////
 
-==== Ring Middleware
+=== Ring Middleware
 
 ===== Problem
 

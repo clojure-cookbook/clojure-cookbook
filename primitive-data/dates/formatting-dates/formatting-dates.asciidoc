@@ -1,5 +1,5 @@
 [[sec_primitives_dates_formatting_dates]]
-==== Formatting Dates using clj-time
+=== Formatting Dates using clj-time
 
 ===== Problem
 

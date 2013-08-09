@@ -1,5 +1,5 @@
 [[sec_primitives_strings_seq_of_chars]]
-==== Treating a String as a Sequence of Characters
+=== Treating a String as a Sequence of Characters
 
 ===== Problem
 

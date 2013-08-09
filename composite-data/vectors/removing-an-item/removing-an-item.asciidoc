@@ -1,4 +1,4 @@
-==== "Removing" an item from a vector
+=== "Removing" an item from a vector
 
 ===== Problem
 

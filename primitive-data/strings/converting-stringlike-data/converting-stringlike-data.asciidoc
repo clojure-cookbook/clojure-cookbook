@@ -1,4 +1,4 @@
-==== Converting between strings, symbols, and keywords
+=== Converting between strings, symbols, and keywords
 
 ===== Problem
 

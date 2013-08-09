@@ -1,4 +1,4 @@
-==== Delete a file
+=== Delete a file
 
 // By Stefan Karlsson (zclj)
 

@@ -3,7 +3,7 @@
 :Email: adam@adambard.com
 ////
 
-==== Storing Sessions with Ring
+=== Storing Sessions with Ring
 
 ===== Problem
 

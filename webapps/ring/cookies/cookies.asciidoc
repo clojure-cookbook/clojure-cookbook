@@ -3,7 +3,7 @@
 :Email: adam@adambard.com
 ////
 
-==== Handling Cookies with Ring
+=== Handling Cookies with Ring
 
 ===== Problem
 

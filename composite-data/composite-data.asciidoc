@@ -1,7 +1,7 @@
 [[ch_composite_data]]
 == Composite Data
 
-=== Lists
+/* Lists */
 
 include::lists/creating-a-list/creating-a-list.asciidoc[]
 
@@ -13,7 +13,7 @@ include::lists/removing-an-item/removing-an-item.asciidoc[]
 
 include::lists/test-for-a-list/test-for-a-list.asciidoc[]
 
-=== Vectors
+/* Vectors */
 
 include::vectors/creating-a-vector/creating-a-vector.asciidoc[]
 
@@ -25,7 +25,7 @@ include::vectors/get-item-at-index/get-item-at-index.asciidoc[]
 
 include::vectors/set-item-at-index/set-item-at-index.asciidoc[]
 
-=== Sets
+/* Sets */
 
 include::sets/creating-a-set/creating-a-set.asciidoc[]
 
@@ -35,7 +35,7 @@ include::sets/testing-set-membership/testing-set-membership.asciidoc[]
 
 include::sets/using-set-operations/using-set-operations.asciidoc[]
 
-=== Maps
+/* Maps */
 
 include::maps/creating-a-map/creating-a-map.asciidoc[]
 

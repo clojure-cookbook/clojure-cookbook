@@ -3,7 +3,7 @@ Authored by:
 Steven Proctor
 //////////////////////////////////////////
 [[sec_date_from_unix_timestamp]]
-==== Converting a Unix timestamp to a Date
+=== Converting a Unix timestamp to a Date
 
 ===== Problem
 

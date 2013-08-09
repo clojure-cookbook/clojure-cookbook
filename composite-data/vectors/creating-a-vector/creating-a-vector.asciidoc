@@ -1,4 +1,4 @@
-==== Creating a vector
+=== Creating a vector
 
 ===== Problem
 

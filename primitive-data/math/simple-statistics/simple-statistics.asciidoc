@@ -1,4 +1,4 @@
-==== Statistics on Collections of Numbers
+=== Statistics on Collections of Numbers
 
 ===== Problem
 

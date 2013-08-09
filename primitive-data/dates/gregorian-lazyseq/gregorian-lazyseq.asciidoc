@@ -1,4 +1,4 @@
-==== Generate an Infinite Lazy Sequence of Gregorian Calendar Dates
+=== Generate an Infinite Lazy Sequence of Gregorian Calendar Dates
 
 ===== Problem
 

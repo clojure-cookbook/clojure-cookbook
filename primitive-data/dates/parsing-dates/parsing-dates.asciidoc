@@ -1,5 +1,5 @@
 [[sec_primitives_dates_parsing_dates]]
-==== Parsing Date and Times using clj-time
+=== Parsing Date and Times using clj-time
 
 ===== Problem
 

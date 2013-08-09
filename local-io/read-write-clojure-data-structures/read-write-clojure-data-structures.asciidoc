@@ -1,5 +1,5 @@
 [[sec_local_io_clojure_data_to_disk]]
-==== Reading and Writing Clojure Data
+=== Reading and Writing Clojure Data
 
 // By John Cromartie (jcromartie)
 

@@ -1,6 +1,6 @@
 == Primitive Data
 
-=== Strings & Characters
+/* Strings & Characters */
 
 include::strings/introduction/introduction.asciidoc[]
 
@@ -26,7 +26,7 @@ include::strings/tokenizing-strings/tokenizing-strings.asciidoc[]
 
 include::strings/inflecting-strings/inflecting-strings.asciidoc[]
 
-=== Numbers
+/* Numbers */
 
 include::math/absolute-precision/absolute-precision.asciidoc[]
 
@@ -54,7 +54,7 @@ include::math/currency/currency.asciidoc[]
 
 include::math/uuids/uuids.asciidoc[]
 
-=== Dates
+/* Dates */
 
 include::dates/current-date/current-date.asciidoc[]
 

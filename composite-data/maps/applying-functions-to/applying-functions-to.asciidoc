@@ -1,4 +1,4 @@
-==== Applying functions to maps
+=== Applying functions to maps
 
 ===== Problem
 

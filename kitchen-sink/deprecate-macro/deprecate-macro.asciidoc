@@ -1,4 +1,4 @@
-==== Using macros to simplify API deprecations
+=== Using macros to simplify API deprecations
 
 ===== Problem
 
