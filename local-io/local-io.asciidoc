@@ -26,3 +26,7 @@ include::read-write-files/read-write-files.asciidoc[]
 include::read-write-gzip/read-write-gzip.asciidoc[]
 
 include::xml/read-write-xml/read-write-xml.asciidoc[]
+
+include::parallelizing-file-processing/parallelizing-file-processing.asciidoc[]
+
+include::parallelizing-file-processing-using-ioto/parallelizing-file-processing-using-ioto.asciidoc[]
