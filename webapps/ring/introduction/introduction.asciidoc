@@ -37,7 +37,7 @@ requests and return responses. The above example defines a single handler
 that just echos the response it receives.
 
 The basic response consists of 3 keys: `:status`, the status code of the response,
-`:headers`, a string-string map of the response headers you want, and `:body`,
+`:headers`, an optional string-string map of the response headers you want, and `:body`,
 the string you want as your response body. Here, `:status` is 200 and `:body`
 just echos the request, which will hopefully be instructive. Here's what I get back
 from `http://localhost:3000/test/path/?qs=1`:
@@ -70,4 +70,5 @@ from `http://localhost:3000/test/path/?qs=1`:
 
 You can see that this is pretty raw. The path can be found as :uri. The query
 string is present, but unparsed.
+
 
