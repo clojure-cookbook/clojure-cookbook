@@ -1,3 +1,8 @@
+////
+:Author: Adam Bard
+:Email: adam@adambard.com
+////
+
 ==== Introduction to Ring
 
 ===== Problem
