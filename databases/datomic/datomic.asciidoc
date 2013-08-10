@@ -17,13 +17,13 @@ supports all the others.
 3. datomic:ddb://us-east-1/datomic/colors
 --
 These are three sample datomic URIs, and you can deduce their backends
-from the first piece of information after /datomic:/. In this case,
+from the first piece of information after *datomic:*. In this case,
 they are memory, disk and DynamoDB. You can use datomic-free for the
 first two and you'd need datomic-pro for the last.
 
 Find out the latest version of datomic-free at http://clojars.org and
 for datomic-pro, go to http://www.datomic.com, download the .zip file
-and run maven install, as below.
+and run +maven-install+, as below.
 
 [source,console]
 ---
@@ -72,7 +72,7 @@ d/connect.
 
 This particular query returns the phone number and the last search of
 a person whose last search contained the word 'bomb'. It's a good
-example of how you can improve with your own code the search itself.
+example of how you can augment with your own code the search itself.
 
 
 ===== See Also
