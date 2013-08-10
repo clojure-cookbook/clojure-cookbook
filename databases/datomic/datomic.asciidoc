@@ -40,6 +40,7 @@ $
 Now, assuming that you are using lein, add datomic as a dependency in
 your project.clj.
 
+[source,clojure]
 ---
   :dependencies [[org.clojure/clojure "1.5.1"]
                         ...
@@ -53,15 +54,15 @@ Finally, go to a REPL and do the actual query.
 ---
 $ lein repl
 ...
-data.server=> (ns user)
+data.server> (ns user)
 nil
-user=>  (require '(datomic [api :as d]))
+user>  (require '(datomic [api :as d]))
 nil
-user=> (def uri "datomic:free://localhost:4334/people")
+user> (def uri "datomic:free://localhost:4334/people")
 nil
-user=> (d/q '[:find ?phone ?search :where [_ :nsa-data/phone ?phone] [_ :google-data/last-search ?search] [(re-find #"bomb" ?search)]] (-> uri d/connect d/db)) 
+user> (d/q '[:find ?phone ?search :where [_ :nsa-data/phone ?phone] [_ :google-data/last-search ?search] [(re-find #"bomb" ?search)]] (-> uri d/connect d/db)) 
 #{["3425-2314" "pressure cooker bomb"]}
-user=>
+user>
 ---
 
 ===== Discussion
