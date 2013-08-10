@@ -12,10 +12,9 @@ There are two editions of datomic: *free*, which supports connecting
 to databases with memory and local storage backends, and *pro*, which
 supports all the others.
 
---
-datomic:mem://colors
-datomic:free://localhost:4334/colors
-datomic:ddb://us-east-1/datomic/colors
+1. datomic:mem://colors
+2. datomic:free://localhost:4334/colors
+3. datomic:ddb://us-east-1/datomic/colors
 --
 These are three sample datomic URIs, and you can deduce their backends
 from the first piece of information after /datomic:/. In this case,
