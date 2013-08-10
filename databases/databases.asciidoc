@@ -3,4 +3,6 @@
 
 include::database-up-n-running/database-up-n-running.asciidoc[]
 
+include::datomic/datomic[]
+
 include::text-search/text-search.asciidoc[]

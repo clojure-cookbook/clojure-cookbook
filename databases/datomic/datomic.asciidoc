@@ -1,0 +1,78 @@
+=== Connect to and query a datomic database
+
+// By Konrad Scorciapino (konr)
+
+===== Problem
+
+You want to connect to a datomic database and query it.
+
+===== Solution
+
+There are two editions of datomic: *free*, which supports connecting
+to databases with memory and local storage backends, and *pro*, which
+supports all the others.
+
+--
+datomic:mem://colors
+datomic:free://localhost:4334/colors
+datomic:ddb://us-east-1/datomic/colors
+--
+These are three sample datomic URIs, and you can deduce their backends
+from the first piece of information after /datomic:/. In this case,
+they are memory, disk and DynamoDB. You can use datomic-free for the
+first two and you'd need datomic-pro for the last.
+
+Find out the latest version of datomic-free at http://clojars.org and
+for datomic-pro, go to http://www.datomic.com, download the .zip file
+and run maven install, as below.
+
+[source,console]
+---
+$ unzip datomic-pro-0.8.4122.zip 
+...
+$ cd datomic-pro-0.8.4122 
+$ bin/maven-install 
+Installing datomic-pro-0.8.4122 in local maven repository...
+...
+$ 
+---
+
+Now, assuming that you are using lein, add datomic as a dependency in
+your project.clj.
+
+---
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                        ...
+                       [com.datomic/datomic-free "0.8.4020.26"]]
+---
+
+
+Finally, go to a REPL and do the actual query.
+
+[source,console]
+---
+$ lein repl
+...
+data.server=> (ns user)
+nil
+user=>  (require '(datomic [api :as d]))
+nil
+user=> (def uri "datomic:free://localhost:4334/people")
+nil
+user=> (d/q '[:find ?phone ?search :where [_ :nsa-data/phone ?phone] [_ :google-data/last-search ?search] [(re-find #"bomb" ?search)]] (-> uri d/connect d/db)) 
+#{["3425-2314" "pressure cooker bomb"]}
+user=>
+---
+
+===== Discussion
+
+Keep in mind that you abstract away the connection and do the query
+against the database itself, which is why you need to call d/db after
+d/connect.
+
+This particular query returns the phone number and the last search of
+a person whose last search contained the word 'bomb'. It's a good
+example of how you can improve with your own code the search itself.
+
+
+===== See Also
