@@ -76,3 +76,7 @@ example of how you can augment with your own code the search itself.
 
 
 ===== See Also
+
+// TODO: Link these when recipes exist
+* Create and populate a datomic database
+* Save schema and seed data on resources
