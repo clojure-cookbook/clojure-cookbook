@@ -1,0 +1,138 @@
+=== Creating templates for web applications with enlive
+
+===== Problem
+
+You want to construct pages in a dynamic manner, build them from parts and insert values during web page rendering.
+
+===== Solution
+
+Use Enlive snippets and templates to generate web page content dynamically.
+
+First thing you need to start, is to define a snippet and a template. Snippet is a unit of your page. It may be logical or visual entry, such as header, footer, page element. Snippet is usually a part of a template, and may serve as a container for other snippets. For example, for navigation on the web page. For that, let's first define an html template for the navigation.
+
+Content of +templates/header.html+
+
+[source, html]
+----
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <header>
+      <h1>Header placeholder</h1>
+      <ul id="navigation">
+        <li><a href="#">Placeholder for navigation</a></li>
+      </ul>
+    </header>
+  </body>
+</html>
+----
+
+[source, clojure]
+---
+(ns enlive-templating
+  (:require [net.cgrand.enlive-html :as html]))
+
+(html/defsnippet main-template "templates/header.html"
+  [:header]
+  [heading navigation-elements]
+  [:h1] (html/content heading)
+  [:ul [:li html/first-of-type]] (html/clone-for [[caption url] navigation-elements]
+                                                 [:li :a] (html/content caption)
+                                                 [:li :a] (html/set-attr :href url)))
+---
+
+
+This snippet can be now used within template. In order to create a template, you can use +net.cgrand.enlive-html/deftemplate+ function. +deftemplate+ is used as something what you would call layout in some other templating systems. In essence, it's either a self-contained page (rarely true in bigger applications), or a container for snippets.
+
+Now, you can start writing selectors and transformations for the given selectors. Let's add a title to the template. Given that your template already has +<head>+ and +<title>+ tags, let's insert a title.
+
+Content of +templates/application.html+
+
+[source, html]
+----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>This is a title placeholder</title>
+  </head>
+  <body>
+  </body>
+</html>
+----
+
+[source, clojure]
+----
+(html/deftemplate main-template "templates/application.html"
+  []
+  [:head :title] (html/content "Enlive starter kit"))
+---
+
+Here, +[:head :title]+ is a selector, pretty much like a css selector. If you're coming from jQuery, you can write same selector as $("head title"). html/content is a transformation. It puts the given content into the element specified by your selector.
+
+===== Discussion
+
+Enlive is a powerful templating tool. It lets you generate all pages in a very dynamic manner. It lets you completely decouple view logic from representation. You write HTML code, and then transform it into the page.
+
+Often times, you need to insert several values from hash into the page. For that, you can use Enlive variable replacements. For example, you have a snippet where user can see his name, avatar and amount of unread messages.
+
+Content of +templates/user_info_snippet.html+:
+
+[source, html]
+----
+<div id="user_info_snippet">
+  <img src="${user_avatar}" />
+  Hi, <span>${username}</span>.
+  You have ${unread_messages_count} new messages!
+</div>
+----
+
+[source, clojure]
+----
+(html/defsnippet user-info-snippet "templates/user_info_snippet.html"
+  [:#user_info_snippet]
+  []
+  [:#user_info_snippet html/any-node] (html/replace-vars {:username "Alex"
+                                                          :user_avatar "/users/alex/avatar.png"
+                                                          :unread_messages_count (str 15)}))
+----
+
+Now, you can call +user-info-snippet+ from your template, or from other snippets to get it rendered in-place.
+
+Enlive defines several helper functions for transformations. All transformations are used in combination with selectors:
+
+[source, clojure]
+----
+[<selector on the left>] <transformation on the right>
+----
+
+Let's take a look at several transformations. +content+ replaces the content of the element. Values can be nodes or collection of nodes.
+
+[source, html]
+----
+[:div#main] (html/content "this-is-some-content")
+---
+
++add-class+ adds CSS class(es) to the selected node:
+
+[source, html]
+----
+[:div#main] (html/add-class "foo" "bar")
+----
+
++append+ appends the values to the content of the selected element.
+
+[source, html]
+----
+[:div#main] (html/append "xyz" a-node "abc")
+----
+
++substitute+ replaces the current selection (node or fragment).
+
+[source, html]
+----
+[:div#main] (html/substitute "xyz" a-node "abc")
+----
+
+===== See Also
+
+For a standalone demo application to play around with, you can check out the https://github.com/ifesdjeen/enlive-ring[https://github.com/ifesdjeen/enlive-ring].
