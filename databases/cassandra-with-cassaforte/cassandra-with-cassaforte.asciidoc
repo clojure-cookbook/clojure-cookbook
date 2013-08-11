@@ -9,6 +9,8 @@ You want to work with data stored in Cassandra.
 
 Use Cassaforte for connecting to Cassandra cluster and work with the records in the database.
 
+In order to successfully go through this recipe, you should have Cassandra installed. You can find details on how to install Cassandra here: http://clojurecassandra.info/articles/getting_started.html#toc_2
+
 Include Cassaforte into your project file:
 
 .project.clj
