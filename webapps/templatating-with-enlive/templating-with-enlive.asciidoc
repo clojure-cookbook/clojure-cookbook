@@ -8,7 +8,17 @@ You want to construct pages in a dynamic manner, build them from parts and inser
 
 Use Enlive snippets and templates to generate web page content dynamically.
 
-First thing you need to start, is to define a snippet and a template. Snippet is a unit of your page. It may be logical or visual entry, such as header, footer, page element. Snippet is usually a part of a template, and may serve as a container for other snippets. For example, for navigation on the web page. For that, let's first define an html template for the navigation.
+First, add enlive to your project file:
+
+.project.clj
+[source,clojure]
+----
+(defproject enlive-templating "1.0.0-SNAPSHOT"
+            :dependencies [[org.clojure/clojure "1.5.1"]
+                           [enlive "1.1.1"]])
+----
+
+First thing you need to start, is to define a snippet and a template. Snippet is a unit of your page. It may be logical or visual entry, such as header, footer, page element. Snippet is usually a part of a template, and may serve as a container for other snippets. For example, for navigation on the web page. For that, let's first define an html template for the navigation. Snippets are created by using +net.cgrand.enlive-html/defsnippet+ function and, same as templates, they require a corresponding HTML template file to be availble in a classpath.
 
 Content of +templates/header.html+
 
