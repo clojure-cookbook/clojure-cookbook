@@ -1,0 +1,153 @@
+[[sec_local_io_pdf]]
+
+=== generating a PDF report
+
+//Author: Dmitri Sotnikov
+
+===== Problem
+
+You need to generate a PDF report
+
+===== Solution
+
+Use the +clj-pdf+ library to easily create PDF documents.
+To create a PDF call +clj-pdf.core/pdf+ with a vector containing a map of metadata followed by the document content. For example, a simple document might look as follows:
+
+----
+[{:title "My Document"} "some text"]
+----
+
+The content can consist of strings or vectors. Each vector represents a different element type such as a paragraph, a phrase, or a list.
+
+----
+[:heading "Lorem Ipsum"]
+[:line]
+[:list "first item"
+      "second item" 
+      "third item"]
+[:paragraph "I'm a paragraph"]
+[:phrase "some text here"]
+[:table  
+   ["foo" "bar" "baz"] 
+   ["foo1" "bar1" "baz1"] 
+   ["foo2" "bar2" "baz2"]]
+----
+
+Elements can have optional styling metadata
+
+----
+[:paragraph {:style :bold} "this text is bold"]
+----
+
+The content of each element can consist of other elements, any style applied to the parent element
+will be inherited by the child elements:
+
+----
+[:paragraph "some content"]
+
+[:paragraph
+{:style :bold :size 10 :family :halvetica :color [0 255 221]}
+"some content "
+[:phrase [:chunk "a chunk of text "] "more text"]]
+----
+
+child elements can augment or override the parent style
+---- 
+[:paragraph
+{:style :bold :size 10 :family :halvetica :color [0 255 221]}
+"some content "
+[:phrase {:size 15}
+ [:chunk {:style :italic} "a chunk of text "] "more text"]]
+----
+
+Images can be embedded in the document using the +:image+ element. Image content can be one of +java.net.URL+, +java.awt.Image+, a byte array, a base64 string, or a string representing URL or a file. Images larger than the page margins will automatically be scaled to fit.
+
+----
+[:image 
+  {:align      :center
+   :pad-left   100
+   :pad-right  50}
+  (javax.imageio.ImageIO/read "mandelbrot.jpg")]   
+[:image "mandelbrot.jpg"]
+[:image "http://clojure.org/space/showimage/clojure-icon.gif"]
+----
+
+The library also has support for bar charts, pie charts, line series and time series charts:
+
+----
+[:chart {:type "bar-chart" :title "Bar Chart" :x-label "Items" :y-label "Quality"} 
+ [2 "Foo"] [4 "Bar"] [10 "Baz"]]
+
+[:chart {:type :pie-chart :title "Big Pie"} ["One" 21] ["Two" 23] ["Three" 345]]
+
+[:chart {:type :line-chart :title "Line Chart" :x-label "checkpoints" :y-label "units"}
+ ["Foo" [1 10] [2 13] [3 120] [4 455] [5 300] [6 600]]
+ ["Bar" [1 13] [2 33] [3 320] [4 155] [5 200] [6 300]]]
+
+[:chart {:type :line-chart 
+        :time-series true 
+        :time-format "MM/yy"
+        :title "Time Chart" 
+        :x-label "time" 
+        :y-label "progress"}
+ ["Occurances" ["01/11" 200] ["02/12" 400] ["05/12" 350] ["11/13" 600]]]  
+----
+
+When you have data in a collection of maps, such as if you queried it using +clojure.java.jdbc+ then
+you can use the +clj-pdf.core/template+ macro to format it:
+
+----
+;;data
+(def employees
+ [{:country "Germany",
+   :place "Nuremberg",
+   :occupation "Engineer",
+   :name "Neil Chetty"}
+  {:country "Germany",
+   :place "Ulm",
+   :occupation "Engineer",
+   :name "Vera Ellison"}])
+----
+The +$+ is used to indicate the anchors in the template:
+----
+;;template
+(def employee-template
+ (template
+   [:paragraph
+    [:heading $name]
+    [:chunk {:style :bold} "occupation: "] $occupation "\n"
+    [:chunk {:style :bold} "place: "] $place "\n"
+    [:chunk {:style :bold} "country: "] $country
+    [:spacer]]))
+----
+
+calling the template with the employee data produces the following output
+----
+(employee-template employees)
+
+([:paragraph [:heading "Neil Chetty"] 
+ [:chunk {:style :bold} "occupation: "] "Engineer" "\n" 
+ [:chunk {:style :bold} "place: "] "Nuremberg" "\n" 
+ [:chunk {:style :bold} "country: "] "Germany" [:spacer]] 
+[:paragraph [:heading "Vera Ellison"] 
+ [:chunk {:style :bold} "occupation: "] "Engineer" "\n" 
+ [:chunk {:style :bold} "place: "] "Ulm" "\n" 
+ [:chunk {:style :bold} "country: "] "Germany" [:spacer]])
+----
+
+The anchors can also be post processed
+----
+(def employee-template
+ (template
+   [:paragraph
+    [:heading (if $name (.toUpperCase $name))]
+    [:chunk {:style :bold} "occupation: "] $occupation "\n"
+    [:chunk {:style :bold} "place: "] $place "\n"
+    [:chunk {:style :bold} "country: "] $country
+    [:spacer]]))
+----
+
+===== Discussion
+
+The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+ libraries. The syntax is inspired by the popular +Hiccup+ HTML templating engine.
+
