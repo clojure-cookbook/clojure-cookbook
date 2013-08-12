@@ -21,9 +21,9 @@ Elements nested in a collection will be automatically expanded:
 
 ----
 (pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
-
-;equivalent to
-
+----
+is equivalent to
+----
 (pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
 ----
 
