@@ -1,12 +1,12 @@
 [[sec_local_io_pdf]]
 
-=== generating a PDF report
+=== Generating a PDF report
 
 //Author: Dmitri Sotnikov
 
 ===== Problem
 
-You need to generate a PDF report
+Given some text, you need to generate a formatted PDF report
 
 ===== Solution
 
