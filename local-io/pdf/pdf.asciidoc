@@ -14,7 +14,17 @@ Use the +clj-pdf+ library to easily create PDF documents.
 To create a PDF call +clj-pdf.core/pdf+ with a vector containing a map of metadata followed by the document content. For example, a simple document might look as follows:
 
 ----
-[{:title "My Document"} "some text"]
+(pdf [{:title "My Document"} "some text"] "document.pdf")
+----
+
+Elements nested in a collection will be automatically expanded:
+
+----
+(pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
+
+;equivalent to
+
+(pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
 ----
 
 The content can consist of strings or vectors. Each vector represents a different element type such as a paragraph, a phrase, or a list.
