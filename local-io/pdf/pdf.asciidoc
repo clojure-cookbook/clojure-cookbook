@@ -11,7 +11,8 @@ Given some text, you need to generate a formatted PDF report
 ===== Solution
 
 Use the +clj-pdf+ library to easily create PDF documents.
-To create a PDF call +clj-pdf.core/pdf+ with a vector containing a map of metadata followed by the document content. For example, a simple document might look as follows:
+To create a PDF call +clj-pdf.core/pdf+ with a vector containing a map of metadata followed by the document content.
+The content can consist of strings, vectors or collections of vectors. For example, a simple document might look as follows:
 
 ----
 (pdf [{:title "My Document"} "some text"] "document.pdf")
@@ -22,12 +23,13 @@ Collections of elements will be automatically expanded:
 ----
 (pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
 ----
-is equivalent to
+the above is equivalent to
 ----
 (pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
 ----
 
-The content can consist of strings or vectors. Each vector represents a different element type such as a paragraph, a phrase, or a list.
+Each element such as a paragraph, a phrase, or a list is represented by a vector starting with keyword
+identifying the element type:
 
 ----
 [:heading "Lorem Ipsum"]
