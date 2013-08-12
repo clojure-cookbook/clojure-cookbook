@@ -17,7 +17,7 @@ To create a PDF call +clj-pdf.core/pdf+ with a vector containing a map of metada
 (pdf [{:title "My Document"} "some text"] "document.pdf")
 ----
 
-Elements nested in a collection will be automatically expanded:
+Collections of elements will be automatically expanded:
 
 ----
 (pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
