@@ -1,2 +1,6 @@
 [[ch_testing]]
 == Testing & Profiling
+
+=== Testing
+
+include::testing/unit-testing/unit-testing.asciidoc[]
