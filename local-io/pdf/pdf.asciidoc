@@ -1,23 +1,90 @@
 [[sec_local_io_pdf]]
 
-=== generating a PDF report
+=== Generating a PDF report
 
 //Author: Dmitri Sotnikov
 
 ===== Problem
 
-You need to generate a PDF report
+Given a collection of maps, such as those returned by +clojure.java.jdbc+ queries, you need to generate a formatted PDF report.
 
 ===== Solution
 
-Use the +clj-pdf+ library to easily create PDF documents.
-To create a PDF call +clj-pdf.core/pdf+ with a vector containing a map of metadata followed by the document content. For example, a simple document might look as follows:
+Use the +clj-pdf+ library to easily create the report. Say we have a vector containing the employee records as seen below:
 
 ----
-[{:title "My Document"} "some text"]
+;;data
+(def employees
+ [{:country "Germany",
+   :place "Nuremberg",
+   :occupation "Engineer",
+   :name "Neil Chetty"}
+  {:country "Germany",
+   :place "Ulm",
+   :occupation "Engineer",
+   :name "Vera Ellison"}])
 ----
 
-The content can consist of strings or vectors. Each vector represents a different element type such as a paragraph, a phrase, or a list.
+We first create a template for rendering each record using the +clj-pdf.core/template+ macro:
+
+----
+;;template
+(def employee-template
+ (template
+   [:paragraph
+    [:heading (.toUpperCase $name)]
+    [:chunk {:style :bold} "occupation: "] $occupation "\n"
+    [:chunk {:style :bold} "place: "] $place "\n"
+    [:chunk {:style :bold} "country: "] $country
+    [:spacer]]))
+----
+
+The +$+ in the template above is used to indicate the anchors for the dynamic content. Note that we can post-process the values of the anchors as we're doing with the +$name+.
+
+Calling the template with the employee data produces the following output:
+
+----
+(employee-template employees)
+
+([:paragraph [:heading "NEIL CHETTY"]
+  [:chunk {:style :bold} "occupation: "] "Engineer" "\n"
+  [:chunk {:style :bold} "place: "] "Nuremberg" "\n"
+  [:chunk {:style :bold} "country: "] "Germany" [:spacer]]
+ [:paragraph [:heading "VERA ELLISON"]
+  [:chunk {:style :bold} "occupation: "] "Engineer" "\n"
+  [:chunk {:style :bold} "place: "] "Ulm" "\n"
+  [:chunk {:style :bold} "country: "] "Germany"
+  [:spacer]])
+----
+
+We can now call +clj-pdf.core/pdf+ to create the PDF using this data:
+
+----
+(pdf [{:title "Employee Table"} (employee-template employees)] "employees.pdf")
+----
+
+===== Discussion
+
+The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+ libraries. The syntax is inspired by the popular +Hiccup+ HTML templating engine.
+
+A document is represented by a vector containing a map of metadata followed by the content. The content can in turn consist of strings, vectors or collections of vectors. For example, a simple document might look as follows:
+
+----
+(pdf [{:title "My Document"} "some text"] "document.pdf")
+----
+
+Collections of elements will be automatically expanded:
+
+----
+(pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
+----
+the above is equivalent to
+----
+(pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
+----
+
+Each element such as a paragraph, a phrase, or a list is represented by a vector starting with keyword
+identifying the element type:
 
 ----
 [:heading "Lorem Ipsum"]
@@ -37,6 +104,12 @@ Elements can have optional styling metadata
 
 ----
 [:paragraph {:style :bold} "this text is bold"]
+
+[:chunk {:style :bold
+         :size 18
+         :family :helvetica
+         :color [0 234 123]}
+ "some large green text"]
 ----
 
 The content of each element can consist of other elements, any style applied to the parent element
@@ -92,62 +165,3 @@ The library also has support for bar charts, pie charts, line series and time se
         :y-label "progress"}
  ["Occurances" ["01/11" 200] ["02/12" 400] ["05/12" 350] ["11/13" 600]]]  
 ----
-
-When you have data in a collection of maps, such as if you queried it using +clojure.java.jdbc+ then
-you can use the +clj-pdf.core/template+ macro to format it:
-
-----
-;;data
-(def employees
- [{:country "Germany",
-   :place "Nuremberg",
-   :occupation "Engineer",
-   :name "Neil Chetty"}
-  {:country "Germany",
-   :place "Ulm",
-   :occupation "Engineer",
-   :name "Vera Ellison"}])
-----
-The +$+ is used to indicate the anchors in the template:
-----
-;;template
-(def employee-template
- (template
-   [:paragraph
-    [:heading $name]
-    [:chunk {:style :bold} "occupation: "] $occupation "\n"
-    [:chunk {:style :bold} "place: "] $place "\n"
-    [:chunk {:style :bold} "country: "] $country
-    [:spacer]]))
-----
-
-calling the template with the employee data produces the following output
-----
-(employee-template employees)
-
-([:paragraph [:heading "Neil Chetty"] 
- [:chunk {:style :bold} "occupation: "] "Engineer" "\n" 
- [:chunk {:style :bold} "place: "] "Nuremberg" "\n" 
- [:chunk {:style :bold} "country: "] "Germany" [:spacer]] 
-[:paragraph [:heading "Vera Ellison"] 
- [:chunk {:style :bold} "occupation: "] "Engineer" "\n" 
- [:chunk {:style :bold} "place: "] "Ulm" "\n" 
- [:chunk {:style :bold} "country: "] "Germany" [:spacer]])
-----
-
-The anchors can also be post processed
-----
-(def employee-template
- (template
-   [:paragraph
-    [:heading (if $name (.toUpperCase $name))]
-    [:chunk {:style :bold} "occupation: "] $occupation "\n"
-    [:chunk {:style :bold} "place: "] $place "\n"
-    [:chunk {:style :bold} "country: "] $country
-    [:spacer]]))
-----
-
-===== Discussion
-
-The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+ libraries. The syntax is inspired by the popular +Hiccup+ HTML templating engine.
-
