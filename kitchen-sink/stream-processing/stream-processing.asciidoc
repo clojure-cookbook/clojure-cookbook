@@ -47,57 +47,51 @@ Processing received message source: stormy-bolt:5, stream: default, id: {}, [I'm
 Emitting: feeds-bolt default ["feeds produced: I'm bizarro Stormy!"]
 ----
 
-
-This topology doesn't do what we want, so we'll begin by modifying the
-input "spout" to produce realistic events. Open +src/feeds/spouts.clj+
-and replace the +defspout+ form with a new spout that will
-periodically produce random user events that one might see in an
-online marketplace:
+This topology just babbles incoherently, which isn't what we want, so
+we'll begin by modifying the input "spout" to produce realistic
+events. Open +src/feeds/spouts.clj+ and replace the +defspout+ form
+with a new spout that will periodically produce random user events
+that one might see in an online marketplace:
 
 [source,clojure]
 ----
-(defspout action-spout ["action"]
+(defspout action-spout ["event"]
   [conf context collector]
-  (let [actions [{:action :commented, :user :travis, :listing :red-shoes}
-                 {:action :liked, :user :jim, :listing :red-shoes}
-                 {:action :liked, :user :karen, :listing :green-hat}
-                 {:action :liked, :user :rob, :listing :green-hat}
-                 {:action :commented, :user :emma, :listing :green-hat}]]
+  (let [events [{:action :commented, :user :travis, :listing :red-shoes}
+                {:action :liked, :user :jim, :listing :red-shoes}
+                {:action :liked, :user :karen, :listing :green-hat}
+                {:action :liked, :user :rob, :listing :green-hat}
+                {:action :commented, :user :emma, :listing :green-hat}]]
     (spout
      (nextTuple []
        (Thread/sleep 1000)
-       (emit-spout! collector [(rand-nth actions)])))))
+       (emit-spout! collector [(rand-nth events)])))))
 ----
 
-Next, open +src/feeds/bolts/clj+ and replace the existing bolts with three new ones:
+Next, open +src/feeds/bolts/clj+. First, add a bolt that accepts a
+user and an event and produces a tuple of (user, event) for each user
+in the system:
 
 [source,clojure]
 ----
-(defbolt active-user-bolt ["user" "action"] [{action "action" :as tuple} collector]
+(defbolt active-user-bolt ["user" "event"] [{event "event" :as tuple} collector]
   (doseq [user [:jim :rob :karen :kaitlyn :emma :travis]]
-    (emit-bolt! collector [user action]))
+    (emit-bolt! collector [user event]))
   (ack! collector tuple))
+----
 
-(defbolt follow-bolt ["user" "action"] {:prepare true}
-  [conf context collector]
-  (let [follows {:jim #{:rob :emma}
-                 :rob #{:karen :kaitlyn :jim}
-                 :karen #{:kaitlyn :emma}
-                 :kaitlyn #{:jim :rob :karen :kaitlyn :emma :travis}
-                 :emma #{:karen}
-                 :travis #{:kaitlyn :emma :karen :rob}}]
-    (bolt
-     (execute [{user "user" action "action" :as tuple}]
-              (when ((follows user) (:user action))
-                (emit-bolt! collector [user action]))
-              (ack! collector tuple)))))
+Then add a bolt that accepts a user and an event and stores the event
+in a hash of sets like +{:user1 #{event1 event2} :user2 #{event1 event2}}+
+- these are the activity streams we'll present to users.
 
-(defbolt feed-bolt ["user" "action"] {:prepare true}
+[source,clojure]
+----
+(defbolt feed-bolt ["user" "event"] {:prepare true}
   [conf context collector]
   (let [feeds (atom {})]
     (bolt
-     (execute [{user "user" action "action" :as tuple}]
-              (swap! feeds #(update-in % [user] conj action))
+     (execute [{user "user" event "event" :as tuple}]
+              (swap! feeds #(update-in % [user] conj event))
               (println "Current feeds:")
               (clojure.pprint/pprint @feeds)
               (ack! collector tuple)))))
@@ -110,7 +104,7 @@ and bolts together:
 
 [source,clojure]
 ----
-(defn stormy-topology []
+(defn topology []
   (topology
    {"spout" (spout-spec action-spout)}
 
@@ -138,16 +132,140 @@ $ lein run -m feeds.topology/run!
 
 ===== Discussion
 
-- spouts
-- bolts
--- stateless
--- stateful
--- pulling from other datasources
-- topology
--- stream assignment types
--- parallelism
-- deployment
+Storm's Clojure DSL doesn't look like standard Clojure - instead, it
+uses Clojure's macros to extend the language to the domain of stream
+processing. Storm's stream processing abstraction consists of 4 core
+primitives:
 
+- *tuples* are dynamically typed lists of values, with support for
+   providing names for values
+- *spouts* produce tuples, often by reading from a distributed
+   queue
+- *bolts* accept tuples as input and produce new tuples - these
+   are the core computational units of a Storm topology
+- *streams* are used to wire spouts to bolts and bolts to other bolts,
+   creating a computational topology. Streams can be configured with
+   rules for routing certain types of tuples to specific instances of
+   bolts.
+
+We'll review the components of our system to give a better picture of
+how these primitives work together.
+
+====== action-spout
+
+[source,clojure]
+----
+(defspout action-spout ["event"]
+  [conf context collector]
+----
+
++defspout+ looks much like Clojure's standard +defn+ with one
+difference - the second argument to +defspout+ is a list of names that
+will be assigned to elements of each tuple this spout produces. This
+lets us use tuples like vectors or maps interchangeably. The third
+argument to +defspout+ is a list of arguments that will be bound
+various components of Storm's operational infrastructure - we'll use
++collector+ below, but will ignore the other two for now.
+
+[source,clojure]
+----
+  (let [events [{:action :commented, :user :travis, :listing :red-shoes}
+                {:action :liked, :user :jim, :listing :red-shoes}
+                {:action :liked, :user :karen, :listing :green-hat}
+                {:action :liked, :user :rob, :listing :green-hat}
+                {:action :commented, :user :emma, :listing :green-hat}]]
+----
+
++defspout+'s body will be evaluated once, when the spout instance is
+created, which gives us an opportunity to create in-memory state. In
+this case we'll create a list of events this spout will produce, but
+usually this will be a connection to a database or distributed queue.
+
+[source,clojure]
+----
+    (spout
+     (nextTuple []
+       (Thread/sleep 1000)
+       (emit-spout! collector [(rand-nth events)])))))
+----
+
+This call to +spout+ creates an instance of a spout with the given
+implementation of +nextTuple+. This implementation simply sleeps for
+one second and then uses +emit-spout!+ to emit a tuple consisting of a
+random event from the list above. +nextTuple+ will be called
+repeatedly in a tight loop, so if you create a spout that polls an
+external resource you may need to provide your own backoff algorithm
+to avoid excess load on that resource.
+
+We can also implement the spout's +ack+ method to implement a
+"reliable" spout that will provide message processing guarantees. For
+more information on reliable spouts, see Storm's spout implementation
+for the Kestrel queueing system.
+
+====== active-user-bolt
+
+Every time a user takes an action in our system we need to determine
+whether every other user in the system will be interested in it. Given
+a simple interest system like Twitter, where users express interest in
+a single way (user follows) we could simply look at the follower list
+of the user who took the action and update feeds accordingly. In a
+more complex system, however, interest might be expressed by having
+liked the item the action was taken against, by following a collection
+that the item has been added to or by following the seller of the
+item. In this world we need to consider a variety of factors for each
+user in the system for each event and determine whether the event
+should be added to that user's feed.
+
+Our first bolt starts this process by generating a tuple of +(user, event)+
+for each user in the system every time an event is generated by the
++action-spout+:
+
+[source,clojure]
+----
+(defbolt active-user-bolt ["user" "event"] [{event "event" :as tuple} collector]
+  (doseq [user [:jim :rob :karen :kaitlyn :emma :travis]]
+    (emit-bolt! collector [user event]))
+  (ack! collector tuple))
+----
+
++defbolt+'s signature looks very similar to +defspout+ - the second
+argument is a list of names that will be assigned to tuples generated
+by this bolt, and the third argument is a list of parameters. The
+first parameter will be bound to the input tuple, and may be
+destructured as a map or a vector.
+
+The body of this bolt iterates through a list of users in the system
+and emits a tuple for each of them. The last line of the body +ack!+s
+this tuple, which allows Storm to track message processing and restart
+processing when appropriate.
+
+====== follow-bolt
+
+- prepared bolt
+- filters
+- extension to scoring
+
+====== feed-bolt
+
+- stores in mutable state,
+
+====== topology
+
+- wire spouts, bolts together
+- stream groupings
+- parallelism
+
+====== deployment
+
+- topology can be deployed to arbitrarily many machines
+- parallelism of individual components can be adjusted
+
+====== conclusion
+
+- other stuff storm offers
+-- drpc
+
+- DSLs are magic
 
 ===== See also
 
