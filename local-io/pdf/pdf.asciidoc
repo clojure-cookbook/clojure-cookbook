@@ -46,14 +46,15 @@ Calling the template with the employee data produces the following output:
 ----
 (employee-template employees)
 
-([:paragraph [:heading "Neil Chetty"] 
- [:chunk {:style :bold} "occupation: "] "Engineer" "\n" 
- [:chunk {:style :bold} "place: "] "Nuremberg" "\n" 
- [:chunk {:style :bold} "country: "] "Germany" [:spacer]] 
-[:paragraph [:heading "Vera Ellison"] 
- [:chunk {:style :bold} "occupation: "] "Engineer" "\n" 
- [:chunk {:style :bold} "place: "] "Ulm" "\n" 
- [:chunk {:style :bold} "country: "] "Germany" [:spacer]])
+([:paragraph [:heading "NEIL CHETTY"]
+  [:chunk {:style :bold} "occupation: "] "Engineer" "\n"
+  [:chunk {:style :bold} "place: "] "Nuremberg" "\n"
+  [:chunk {:style :bold} "country: "] "Germany" [:spacer]]
+ [:paragraph [:heading "VERA ELLISON"]
+  [:chunk {:style :bold} "occupation: "] "Engineer" "\n"
+  [:chunk {:style :bold} "place: "] "Ulm" "\n"
+  [:chunk {:style :bold} "country: "] "Germany"
+  [:spacer]])
 ----
 
 We can now call +clj-pdf.core/pdf+ to create the PDF using this data:
