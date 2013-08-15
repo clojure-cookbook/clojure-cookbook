@@ -1,0 +1,53 @@
+=== Connect to a Datomic database
+
+===== Problem
+
+You need to connect to a Datomic database.
+
+===== Solution
+
+Connect to an in-memory database:
+
+[source,clojure]
+----
+(require '[datomic.api :as d])
+
+(def uri "datomic:mem://sample-database")
+
+(d/create-database uri)
+;; -> true
+
+(d/connect uri)
+;; -> #<LocalConnection datomic.peer.LocalConnection@49384d99>
+----
+
+Use the connection to get a database value to query:
+
+[source,clojure]
+----
+(d/db (d/connect uri))
+;; -> datomic.db.Db@7b7fea26
+----
+
+Use the connection to transact data:
+
+[source,clojure]
+----
+(d/transact (d/connect uri) [...])
+----
+
+===== Discussions
+
+Here we also show how to create a database, as we're dealing with an in-memory database.
+It is not necessary to call create-database if the database already exists, but it is safe to do so.
+
+When connecting to a database that isn't in memory, it is necessary for the relevant transactor and storage service to be running.
+
+The return value of +d/connect+ is used when querying a database value or when transacting data.
+
+It is also used when reading the transaction log or consuming the transaction report queue, or when 
+performing administrative tasks such as requesting an indexing job, garbage collecting storage, and 
+disposing resources associated with the connection.
+
+===== See Also
+

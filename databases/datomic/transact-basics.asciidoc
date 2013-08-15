@@ -1,0 +1,41 @@
+=== Write data to Datomic with Transactions
+
+===== Problem
+
+You need to add data to your Datomic database.
+
+===== Solution
+
+Use a Datomic connection to transact data:
+
+[source,clojure]
+----
+(d/transact conn [{:db/id #db/id[:db.part/user] :db/ident :alpha :db/doc "Alpha"}
+                  {:db/id #db/id[:db.part/user] :db/ident :beta :db/doc "Beta"}])
+----
+
+===== Discussions
+
+This map-based way of representing the data expands to a series of +:db/add+ statements:
+
+[source,clojure]
+----
+(d/transact conn [[:db/add #db/id[:db.part/user] :db/ident :alpha]
+                  [:db/add #db/id[:db.part/user] :db/doc "Alpha"]
+                  [:db/add #db/id[:db.part/user] :db/ident :beta]
+                  [:db/add #db/id[:db.part/user] :db/doc "Beta"]])
+----
+
+When transactions complete, you get a transaction report back, with four keys:
+
+* +:db-before+: the value of the database just before the transaction was committed.
+* +:db-after+: the value of the database just after the transaction was committed.
+* +:tx-data+: a vector of all the datoms that were transacted.
+* +:tempids+: a mapping of the temporary ids to the in-storage ids, one per temporary id in the transaction.
+
+You can use the +:db-after+ database to query the database directly after the transaction.
+
+You can use the +:tempids+ map to find the in-storage ids for any new entities you care about, much like you would when retrieving the last insert ID in SQL databases.
+
+===== See Also
+

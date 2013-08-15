@@ -6,3 +6,22 @@ include::database-up-n-running/database-up-n-running.asciidoc[]
 include::text-search/text-search.asciidoc[]
 
 include::cassandra-with-cassaforte/cassandra-with-cassaforte.asciidoc[]
+
+=== Datomic
+
+include::datomic/connect-to-datomic.asciidoc[]
+
+include::datomic/schema.asciidoc[]
+
+include::datomic/transact-basics.asciidoc[]
+
+include::datomic/transact-relations.asciidoc[]
+
+include::datomic/transact-retract-data.asciidoc[]
+
+include::datomic/transact-excise-data.asciidoc[]
+
+include::datomic/transact-with-consistency.asciidoc[]
+
+include::datomic/dry-run-transactions.asciidoc[]
+

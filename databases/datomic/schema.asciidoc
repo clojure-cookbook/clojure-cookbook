@@ -1,0 +1,111 @@
+=== Define schema for a Datomic database
+
+===== Problem
+
+You need to define how your data will be modelled in Datomic.
+
+===== Solution
+
+Define user schema attributes. Users have:
+
+* One email address, which must be unique to the database.
+* One name which we index for fast search.
+* Any number of roles.
+
+There are three roles: guest, author, and administrator.
+
+[source,clojure]
+----
+(def user-schema
+  [{:db/doc "User email address"
+    :db/ident :user/email
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/value
+    :db/id #db/id[:db.part/db]
+    :db.install/_attribute :db.part/db}
+
+   {:db/doc "User name"
+    :db/ident :user/name
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/index true
+    :db/id #db/id[:db.part/db]
+    :db.install/_attribute :db.part/db}
+
+   {:db/doc "User roles"
+    :db/ident :user/roles
+    :db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/many
+    :db/id #db/id[:db.part/db]
+    :db.install/_attribute :db.part/db}
+
+   [:db/add #db/id[:db.part/user] :db/ident :user.roles/guest]
+   [:db/add #db/id[:db.part/user] :db/ident :user.roles/author]
+   [:db/add #db/id[:db.part/user] :db/ident :user.roles/admin]])
+----
+
+Define group schema attributes. Groups have:
+
+* One UUID, which must be unique to the database.
+* One name, which we index for fast search.
+* Any number of users related to it.
+
+[source,clojure]
+----
+(def group-schema
+  [{:db/doc "Group UUID"
+    :db/ident :group/uuid
+    :db/valueType :db.type/uuid
+    :db/cardinality :db.cardinality/one
+    :db/unique :db.unique/value
+    :db/id #db/id[:db.part/db]
+    :db.install/_attribute :db.part/db}
+
+   {:db/doc "Group name"
+    :db/ident :group/name
+    :db/valueType :db.type/string
+    :db/cardinality :db.cardinality/one
+    :db/index true
+    :db/id #db/id[:db.part/db]
+    :db.install/_attribute :db.part/db}
+
+   {:db/doc "Group users"
+    :db/ident :group/users
+    :db/valueType :db.type/ref
+    :db/cardinality :db.cardinality/many
+    :db/id #db/id[:db.part/db]
+    :db.install/_attribute :db.part/db}])
+----
+
+Transact the schema into the database.
+
+[source,clojure]
+----
+(d/transact (d/connect "datomic:mem://sample-database") (concat user-schema group-schema))
+;; -> #<promise$settable_future$reify__5035@13e70a08:
+;;      {:db-before datomic.db.Db@f2b3fc89,
+;;       :db-after datomic.db.Db@b4dc4877,
+;;       :tx-data [#Datum{:e ... :a ... :v ... :tx ... :added true}
+;;                 ...],
+;;       :tempids {...}}>
+----
+
+===== Discussions
+
+Datomic schema is represented as Clojure data, and is added to the database in a transaction, just like any other data we would store.
+
+We use namespaces in schema to help us classify entities. Using namespaces is optional.
+
+Attributes with +:db/valueType :db.type/ref+ can only have other entities as their value(s). We use this type to model relationships between entities.
+
+Attributes with +:db/valueType :db.type/ref+ and +:db/unqiue+ values are implicitly indexed.
+
+Datomic does not enforce how attributes are combined for a given entity.
+
+Datomic does not enforce which entities are related to on a given +:db/valueType :db.type/ref+ attribute; any other entity can be related to, including the entity doing the relating!
+
+The roles we defined are not actually schema, they are normal entities just like any other data we store. Datomic allows us to use a shorthand for defining and querying on such enums.
+
+===== See Also
+
