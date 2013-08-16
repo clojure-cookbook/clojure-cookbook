@@ -18,10 +18,9 @@ First, add enlive to your project file:
                            [enlive "1.1.1"]])
 ----
 
-First thing you need to start, is to define a snippet and a template. Snippet is a unit of your page. It may be logical or visual entry, such as header, footer, page element. Snippet is usually a part of a template, and may serve as a container for other snippets. For example, for navigation on the web page. For that, let's first define an html template for the navigation. Snippets are created by using +net.cgrand.enlive-html/defsnippet+ function and, same as templates, they require a corresponding HTML template file to be availble in a classpath.
+First thing you need to start, is to define a snippet and a template.
 
-Content of +templates/header.html+
-
+.templates/header.html
 [source, html]
 ----
 <!DOCTYPE html>
@@ -38,7 +37,7 @@ Content of +templates/header.html+
 ----
 
 [source, clojure]
----
+----
 (ns enlive-templating
   (:require [net.cgrand.enlive-html :as html]))
 
@@ -49,15 +48,12 @@ Content of +templates/header.html+
   [:ul [:li html/first-of-type]] (html/clone-for [[caption url] navigation-elements]
                                                  [:li :a] (html/content caption)
                                                  [:li :a] (html/set-attr :href url)))
----
+----
 
 
-This snippet can be now used within template. In order to create a template, you can use +net.cgrand.enlive-html/deftemplate+ function. +deftemplate+ is used as something what you would call layout in some other templating systems. In essence, it's either a self-contained page (rarely true in bigger applications), or a container for snippets.
+This snippet can be now used within template. Now, you can start writing selectors and transformations for the given selectors. Let's add a title to the template. Given that your template already has +<head>+ and +<title>+ tags, let's insert a title.
 
-Now, you can start writing selectors and transformations for the given selectors. Let's add a title to the template. Given that your template already has +<head>+ and +<title>+ tags, let's insert a title.
-
-Content of +templates/application.html+
-
+.templates/application.html
 [source, html]
 ----
 <!DOCTYPE html>
@@ -75,7 +71,7 @@ Content of +templates/application.html+
 (html/deftemplate main-template "templates/application.html"
   []
   [:head :title] (html/content "Enlive starter kit"))
----
+----
 
 Here, +[:head :title]+ is a selector, pretty much like a css selector. If you're coming from jQuery, you can write same selector as $("head title"). html/content is a transformation. It puts the given content into the element specified by your selector.
 
@@ -83,10 +79,15 @@ Here, +[:head :title]+ is a selector, pretty much like a css selector. If you're
 
 Enlive is a powerful templating tool. It lets you generate all pages in a very dynamic manner. It lets you completely decouple view logic from representation. You write HTML code, and then transform it into the page.
 
+To explain Enlive concepts a bit more, +snippet+ is a unit of your page. It may be logical or visual entry, such as header, footer, page element. Snippet is usually a part of a template, and may serve as a container for other snippets. For example, for navigation on the web page. For that, let's first define an html template for the navigation. Snippets are created by using +net.cgrand.enlive-html/defsnippet+ function and, same as templates, they require a corresponding HTML template file to be availble in a classpath.
+
++Templates+ combine +snippets+ together, they serve like a basement for the snippets. In order to create a template, you can use +net.cgrand.enlive-html/deftemplate+ function. +deftemplate+ is used as something what you would call layout in some other templating systems. In essence, it's either a self-contained page (rarely true in bigger applications), or a container for snippets.
+
+Next concept is +selectors+, which are used within snippets and templates to identify the block of HTML code the +transformation+ would be applied to. They're very similar to CSS selectors, but also allow more sophisticated, predicate-based selections, for example, you can select a tag based on some part of content, or an attribute. +Transformations+ are functions that triggered on the elements found by selectors. They receive content obtained selector, and modify it in some way.
+
 Often times, you need to insert several values from hash into the page. For that, you can use Enlive variable replacements. For example, you have a snippet where user can see his name, avatar and amount of unread messages.
 
-Content of +templates/user_info_snippet.html+:
-
+.templates/user_info_snippet.html:
 [source, html]
 ----
 <div id="user_info_snippet">
@@ -120,7 +121,7 @@ Let's take a look at several transformations. +content+ replaces the content of 
 [source, html]
 ----
 [:div#main] (html/content "this-is-some-content")
----
+----
 
 +add-class+ adds CSS class(es) to the selected node:
 
@@ -145,4 +146,4 @@ Let's take a look at several transformations. +content+ replaces the content of 
 
 ===== See Also
 
-For a standalone demo application to play around with, you can check out the https://github.com/ifesdjeen/enlive-ring[https://github.com/ifesdjeen/enlive-ring].
+To see more on using enlive as a templating engine, see the https://github.com/ifesdjeen/enlive-ring[enlive-ring] GitHub repository.
