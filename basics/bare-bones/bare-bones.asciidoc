@@ -1,4 +1,4 @@
-==== Bare-Bones Clojure
+=== Bare-Bones Clojure
 
 // By John Cromartie (jcromartie)
 

@@ -1,4 +1,4 @@
-==== Retrieving Dates Relative to One Another
+=== Retrieving Dates Relative to One Another
 
 ===== Problem
 

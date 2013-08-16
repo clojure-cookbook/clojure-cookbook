@@ -1,17 +1,14 @@
-==== Creating a map
+=== Creating a Map
 
 ===== Problem
 
-You want to create a map data structure, creating an association of
-keys to values. Possibly, you also want the map to maintain the sort
-order of its keys.
+You want to create an association which maps keys to values. You
+possibly want to maintain a specific ordering of keys.
 
 ===== Solution
 
-By far, the easiest way to create a map is to use the map literal:
-curly braces containing alternating keys and values.
-
-A simple map using keyword keys:
+Use map literals (curly braces) with alternating keys and values to
+create simple maps.
 
 [source,clojure]
 ----
@@ -22,25 +19,24 @@ A simple map using keyword keys:
  :skills [:bashing :hacking :smashing]}
 ----
 
-Or, a map representing sparse data using integer keys:
+Keys and values can be any type. Commas may be used to delimit
+key-value pairs where the structure would be hard to discern at a
+glance.
 
 [source,clojure]
 ----
 {1 1, 8 64, 2 4, 9 81}
 ----
 
-In Clojure, commas are treated as whitespace characters, and they can
-(and should) be used to demarcate key/value pairs in cases where they
-would be difficult to visually distinguish. This has no effect on the
-actual map that is created; it is just to make code easier to read.
+TIP: In Clojure, commas are whitespace, which means that they can be
+used *anywhere* in a form with no effect on the value; it is just one
+way to make your code easier to read.
 
-An empty map can be created simply by a pair of empty braces, +{}+.
+Create an empty, unsorted map with a pair of braces: +{}+.
 
-Another way to create maps is to use the type-specific map constructor
-functions: +array-map+, +hash-map+ or +sorted-map+. These functions
-each construct and return a map of the corresponding concrete type,
-interpreting the arguments as key/value pairs (or an empty map, if no
-arguments are provided.)
+Create specific types of maps with map constructor
+functions. +array-map+, +hash-map+, and +sorted-map+ each return a map
+of the corresponding type.
 
 [source,clojure]
 ----
@@ -54,16 +50,9 @@ arguments are provided.)
 If a key occurs multiple times in the argument list, the last value
 will be that used in the final return map.
 
-If you're using a sorted map, it's also possible to use the
-+sorted-map-by+ function to create a sorted map using a custom
-comparator function, given as its first argument. Comparator functions
-must take two arguments, and should return true if the arguments are
-in sorted order (that is, if the first argument should be sorted
-before the second argument).
+Use +sorted-map-by+ to create a sorted map using a custom comparator.
 
-This example builds a comparator function inline using the +count+
-function to compare string lengths, and then sorts the keys
-accordingly.
+// TODO cross-reference recipe on sorting for more info on comparators
 
 [source,clojure]
 ----
@@ -73,18 +62,6 @@ accordingly.
                "elephants" 1
                "manatees" 3)
 ;; -> {"pigs" 14, "horses" 2, "manatees" 3, "elephants" 1}
-----
-
-Note that using +>+ instead of +<+ yields the opposite sort order:
-
-[source,clojure]
-----
-(sorted-map-by #(> (count %1) (count %2))
-               "pigs" 14
-               "horses" 2
-               "elephants" 1
-               "manatees" 3)
-;; -> {"elephants" 1, "manatees" 3, "horses" 2, "pigs" 14}
 ----
 
 ===== Discussion
@@ -105,15 +82,17 @@ Clojure maps can have one of three distinct concrete implementations.
   hash maps, but have slower insertion and access times.
 
 Array maps are the default implementation for small maps (under ten
-entries), and hash maps are the default for larger ones. Sorted maps can
-only be created by explicitly invoking the +sorted-map+ or
-+sorted-map-by+ functions.
+entries at the time of writing), and hash maps are the default for
+larger ones. Sorted maps can only be created by explicitly invoking
+the +sorted-map+ or +sorted-map-by+ functions.
 
 Using +assoc+ or +conj+ on a sorted map will always yield another
-sorted map. However, +assoc+-ing on to an array map will yield a hash map once it reaches ten entries. The inverse is not true; using
+sorted map. However, +assoc+-ing on to an array map will yield a hash
+map once it reaches a certain size. The inverse is not true; using
 +dissoc+ on a hash map will not yield an array map, even if it becomes
-smaller than 10 entries.
+very small.
 
 ===== See also
 
 * Creating a set (x-ref)
+* Comparators

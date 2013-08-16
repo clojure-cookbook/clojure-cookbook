@@ -1,4 +1,4 @@
-==== Getting the value at an index
+=== Getting the value at an index
 
 ===== Problem
 

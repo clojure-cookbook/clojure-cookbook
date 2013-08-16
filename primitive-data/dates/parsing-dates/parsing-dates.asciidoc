@@ -1,5 +1,5 @@
 [[sec_primitives_dates_parsing_dates]]
-==== Parsing Date and Times using clj-time
+=== Parsing Date and Times using clj-time
 
 ===== Problem
 
@@ -9,7 +9,7 @@ You need to parse dates from a string.
 
 Working directly with Java's date and time classes is like pulling
 teeth. We suggest using
-https://github.com/KirinDave/clj-time[clj-time], a Clojure wrapper
+https://github.com/clj-time/clj-time[clj-time], a Clojure wrapper
 over the excellent http://joda-time.sourceforge.net/[Joda Time]
 library.
 

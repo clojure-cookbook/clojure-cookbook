@@ -1,0 +1,62 @@
+=== Removing Duplicate Elements From a Collection
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+You have a sequence of elements and want to remove any duplicates,
+while possibly preserving the order of elements.
+
+===== Solution
+
+Use `set` to coerce a collection into a hash set, containing only
+distinct values.
+
+[source, clojure]
+----
+(set [:a :a :g :a :b :g])
+;; -> #{:a :b :g}
+----
+
+Use `distinct` to return a (possibly infinite) lazy sequence of only
+unique values in a collection in the order they appear.
+
+[source,clojure]
+----
+(distinct [:a :a :g :a :b :g])
+;; -> (:a :g :b)
+----
+
+===== Discussion
+
+Since the `set` function consumes the entire sequence passed to it,
+you cannot use it to filter an infinite sequence. `distinct`, on the
+other hand, is designed for consuming lazy sequences.
+
+[source, clojure]
+----
+(defn rand-int-seq
+  "Returns an infinite sequence of ints from [0, n)"
+  [n]
+  (repeatedly #(rand-int n)))
+
+;; the following expression will never return:
+(set (rand-int-seq 10))
+;; -> ... never returns
+
+;; however, if you limit the seq, set will work:
+(set (take 10 (rand-int-seq 10)))
+;; -> #{0 1 2 3 4 7 8 9}
+
+;; distinct works no matter what
+(take 10 (distinct (rand-int-seq 10)))
+;; -> (8 3 4 6 0 5 9 7 1 2)
+----
+
+There are also performance trade-offs to finding distinct elements in
+a collection. Using `distinct` is by far the slowest, while simply
+calling `set` is about 2X faster.
+
+===== See Also
+
+* See <<sec_composite_creating_sets>> for more information on creating sets.

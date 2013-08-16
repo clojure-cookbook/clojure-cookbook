@@ -1,113 +1,139 @@
-==== Creating a set
+[[sec_composite_creating_sets]]
+=== Creating a Set
 
 ===== Problem
 
-You want to create a set data structure either as a literal, or from
-an existing data structure.
+You want to create an unordered collection of _distinct_ objects,
+which can be tested for membership quickly.
 
 ===== Solution
 
-The literal syntax for a set is a hash symbol preceding the set
-contents wrapped in curly braces.
+Use a set literal to create a set of objects.
 
 [source,clojure]
 ----
 #{:a :b :c}
-;; -> #{:a :b :c}
+;; -> #{:a :c :b}
+
+;; duplicate elements in set literals are an error
+#{:x :y :z :z :z}
+;; throws #<IllegalArgumentException java.lang.IllegalArgumentException: Duplicate key: :z>
 ----
 
-To create a set from an existing collection, you can use the +set+
-function to transform it directly.
+Use +hash-set+ to create a set from arguments.
 
 [source,clojure]
 ----
-(set [:a :b :c :a])
-;; -> #{:a :b :c}
+(hash-set :a :b :c)
+;; -> #{:a :c :b}
+
+(apply hash-set :a [:b :c])
+;; -> #{:a :c :b}
 ----
 
-Alternatively, you could use the +into+ function, which repeatedly
-applies +conj+ to items from a sequence on to an empty set,
-constructing a set containing all the items from the sequence.
+Use +set+ to create a set from another collection.
+
+[source,clojure]
+----
+(set "hello")
+;; -> #{\e \h \l \o}
+----
+
+Alternatively, use +into+ with a set to create a new set.
 
 [source,clojure]
 ----
 (into #{} [:a :b :c :a])
 ;; -> #{:a :b :c}
+
+(into #{:a :b} [:b :c :d])
+;; -> #{:a :b :c :d}
 ----
 
-Oddly enough, as with vectors, the +into+ technique is considerably
-faster than the direct +set+ constructor. Use it whenever you're
-working with large sets where performance is a concern.
+[TIP]
+.Set Construction Performance
+********************************************************************************
+At the time of writing, the +into+ technique is about three times
+faster than +set+ for large collections of objects. Use it whenever
+you're working with large sets where performance is a concern.
+
+[source,text]
+----
+user=> (def largeseq (doall (range 1e5)))
+#'user/largeseq
+user=> (time (dotimes [_ 100] (set largeseq)))
+"Elapsed time: 5594.961 msecs"
+nil
+user=> (time (dotimes [_ 100] (into #{} largeseq)))
+"Elapsed time: 1329.66 msecs"
+nil
+----
+********************************************************************************
+
+Create a sorted set with +sorted-set+.
+
+[source,clojure]
+----
+(sorted-set 99 4 32 7)
+;; -> #{4 7 32 99}
+
+(into (sorted-set) "the quick brown fox jumps over the lazy dog")
+;; -> #{\space \a \b \c \d \e \f \g \h \i \j \k \l \m \n \o \p \q \r \s \t \u \v \w \x \y \z}
+----
 
 ===== Discussion
 
-These techniques all construct _hash sets_; sets which use a hashtable
-as their internal representation.
+Sets are very useful data structures. They are commonly used when you
+have a collection of values but you are only concerned with the
+_distinct_ values. Lookup of an element in a set is typically O(1).
 
-Clojure also supports _sorted sets_, which maintain their internal
-structure as a sorted binary tree. The only way to create a sorted set
-is via the +sorted-set+ function, which creates a new instance
-of +clojure.lang.PersistentTreeSet+ (the concrete type of for a sorted
-set) containing any arguments you pass.
+The techniques above all construct _hash sets_; sets which are
+unordered and use a hash table as their internal representation.
 
-Adding items to a sorted set with +conj+ will yield another sorted
-set, so to obtain a sorted set with items in it, just +conj+ (or use
-+into+) to add the items you need.
-
-To inspect a set to see whether it's a hash set or a sorted set, you
-can either look at the concrete type in the REPL using the +class+
-function, or use the +sorted?+ predicate, which returns true only for
-inherently sorted collections.
+Clojure also supports creating _sorted sets_, which maintain the order
+of their elements. Sets created with +sorted-set+ keep their elements
+in ascending order using +compare+. This is useful when treating the
+set as a seq.
 
 [source,clojure]
 ----
-(def my-unsorted (into #{:a :b} [:b :c]))
-(def my-sorted (into (sorted-set :a :b) [:b :c]))
-
-(sorted? my-unsorted)
-;; -> false
-
-(sorted? my-sorted)
-;; -> true
-
-(class my-sorted)
-;; -> clojure.lang.PersistentTreeSet
+(def alphabet (into (sorted-set) "qwertyuiopasdfghjklzxcvbnm"))
+(last alphabet)
+;; -> \z
+(second (disj alphabet \b))
+;; -> \c
 ----
 
-If the values you want to sort don't have a natural sort order (or you
-don't want to use their natural ordering), you can create a sorted set
-with a custom comparator function using
-+sorted-set-by+. +sorted-set-by+ takes a comparator function as its
-first argument, and uses the rest of the arguments as values in the
-set just as +sorted-set+ does.
+WARNING: All of the elements in a sorted set must be comparable
+against one another, e.g. you cannot have a sorted set that contains
+both strings and numbers. Attempting to add an uncomparable value will
+result in a runtime error.
 
-Comparator functions are a predicate function that must take two
-arguments, and should return true if the arguments are in sorted order
-(that is, if the first argument should before the second argument in
-the desired sort order). Conveniently, this includes built-in
-functions such as +<+.
+Adding or removing objects in a sorted set will always return another
+sorted set.
 
-So, to create a sorted set that sorts items in descending order, just
-pass the +>+ function to +sorted-set-by+.
+If the values you want to store don't have a natural sort order (or
+you don't want to use their natural ordering), you can specify a
+custom comparator using +sorted-set-by+. The comparator used to create
+the set is preserved when adding or removing objects.
 
 [source,clojure]
 ----
-(sorted-set-by > 3 1 5)
-;; -> #{5 3 1}
+(def descending-set (sorted-set-by > 1 2 3))
 
-(sorted-set-by < 3 1 5)
-;; -> #{1 3 5}
+(into descending-set [-1 4])
+;; -> #{4 3 2 1 -1}
 ----
 
-In addition to the quality of being sorted or not, there are some
-performance tradeoffs to consider when choosing between sorted and
-hash sets. Hash sets are based on hashtables, which offer constant
-time insert and lookup in most cases. However, they do require some
-degree of memory overhead. Sorted sets, based on a balanced red-black
-binary tree, are more memory efficient but not quite as fast at lookup
-and insertion.
+There are some performance tradeoffs to consider when choosing between
+hash sets and sorted sets. Hash sets are based on hash tables, which
+offer constant time insert and lookup in most cases. However, they do
+require some degree of memory overhead. Sorted sets, based on a
+balanced red-black binary tree, are more memory-efficient but slower
+for lookup and insertion.
 
 ===== See also
 
 * Creating a vector (xref)
-* Adding items to a set (xref)
+* Adding elements to a set (xref)
+* Removing elements from a set (xref)

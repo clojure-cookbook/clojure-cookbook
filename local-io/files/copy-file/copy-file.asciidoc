@@ -1,4 +1,4 @@
-==== Copy a file
+=== Copy a file
 
 // By Stefan Karlsson (zclj)
 

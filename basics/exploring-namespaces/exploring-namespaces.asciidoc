@@ -1,4 +1,4 @@
-==== Exploring Namespaces
+=== Exploring Namespaces
 
 // By John Cromartie
 

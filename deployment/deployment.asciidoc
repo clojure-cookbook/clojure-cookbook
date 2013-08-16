@@ -1,4 +1,4 @@
 [[ch_deployment]]
 == Deployment & Distribution
 
-include::deployment/deploy-on-lein/deploy-on-lein.asciidoc[]
+include::deploy-on-lein/deploy-on-lein.asciidoc[]

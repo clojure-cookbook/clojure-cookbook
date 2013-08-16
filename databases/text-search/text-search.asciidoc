@@ -1,0 +1,118 @@
+=== Full text search
+
+// By Osbert Feng (osbert)
+
+===== Problem
+
+You want to support flexible full text search over a dataset. For
+example, return all people that have "Clojure" in their job
+descriptions in the "United States".
+
+===== Solution
+
+Use +clucy+, a Clojure wrapper for Lucene.
+
+[source,clojure]
+----
+(def index (clucy.core/memory-index))
+;; -> #'user/index
+
+
+(clucy.core/add index
+   {:name "Alice" :description "Clojure expert" :location "North Carolina, United States"}
+   {:name "Bob" :description "Clojure novice" :location "Berlin, Germany"}
+   {:name "Eve" :description "Eavesdropper" :location "Maryland, United States"})
+;; -> nil
+
+(clucy.core/search index "description:clojure AND location:\"united states\"" 10)
+;; -> ({:name "Alice", :location "North Carolina, United States", :description "Clojure expert"})
+----
+
+===== Discussion
+
+Lucene is a Java library for information retrieval. To use Lucene, you
+generate documents and index them for later retrieval. Documents
+consist of fields and terms.
+
++clucy+ wraps Lucene in a convenient manner for use in Clojure, and is
+capable of generating Lucene documents directly from simple Clojure
+maps, where keys map to fields and values map to terms.
+
++clucy.core/search+ takes an index, a query string, and the number of
+results to return as parameters. Lucene is able to efficiently query
+in part because it is not necessary to return all matching documents,
+just the top +n+.
+
+[NOTE]
++clucy+ does not work as well out of the box with nested values in your
+maps. Be sure to flatten out values into simple strings for proper
+indexing and retrieval.
+
+Indexes in Lucene can stored in RAM, or on disk if you wish to persist
+your search index after your program terminates. This eliminates the
+time required to rebuild an index and also can be a way of persisting
+your application state if search is the only access pattern.
+
+[source,clojure]
+----
+(def index (clucy.core/disk-index "/tmp/index"))
+----
+
+As part of the process for generating documents, Lucene calls an
+analyzer on your strings to generate tokens for indexing. The default
++StandardAnalyzer+ is sufficient for most purposes, and can be
+customized with a list of "stop words" to be ignored during token
+generation.
+
+[source,clojure]
+----
+(import 'org.apache.lucene.analysis.standard.StandardAnalyzer)
+;; -> org.apache.lucene.analysis.standard.StandardAnalyzer
+
+(import 'org.apache.lucene.analysis.util.CharArraySet)
+;; -> org.apache.lucene.analysis.util.CharArraySet
+
+(def stop-words
+  (doto (CharArray. clucy.core/*version* 3 true)
+    (.add "do")
+    (.add "not")
+    (.add "index")))
+
+(binding [clucy.core/*analyzer* (StandardAnalyzer.
+                                 clucy.core/*version*
+                                 stop-words)]
+  ;; Do index add + search here
+  )
+----
+
+However, in other situations you may need to use a different Analyzer
+or write your own. For example, the +EnglishAnalyzer+ uses Porter stemming and
+other techniques more well suited for taking into account pluralization or
+possessives.
+
+[source,clojure]
+----
+(import org.apache.lucene.analysis.en.EnglishAnalyzer)
+;; -> org.apache.lucene.analysis.en.EnglishAnalyzer
+
+(binding [clucy.core/*analyzer* (EnglishAnalyzer. clucy.core/*version*)]
+  ;; Do index add + search here
+  )
+----
+
+The basic search query syntax is +field:term+, by default multiple
+clauses will perform an +OR+ search so an explicit +AND+ is required
+if both clauses must be true.
+
+If no field is specified, there an implicit field _content that
+indexes all map values. Documents returned are ordered by Lucene's
+default relevance algorithm which takes into account term frequency,
+distance, and document length.
+
+[source,clojure]
+----
+(clucy.core/search index "clojure united states" 10)
+;; -> ({:name "Alice", :location "North Carolina, United States", :description "Clojure expert"}
+;;     {:name "Eve", :location "Maryland, United States", :description "Eavesdropper"}
+;;     {:name "Bob", :location "Berlin, Germany", :description "Clojure novice"})
+----

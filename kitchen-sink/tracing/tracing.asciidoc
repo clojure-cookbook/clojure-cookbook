@@ -1,0 +1,149 @@
+=== Tracing code
+
+// By Stefan Karlsson (zclj)
+
+===== Problem
+
+You want to trace the execution of your code, in order to see what it is doing.
+
+===== Solution
+
+Use +clojure.tools.trace/trace+ to print a value and return it.
+
+[source,clojure]
+----
+(ns cookbook.core
+  (:use clojure.tools.trace))
+
+(doall (map #(* 2 (trace %)) (range 10)))
+;; -> (0 2 4 6 8 10 12 14 16 18)
+;; *out*
+;; TRACE: 0
+;; TRACE: 1
+;; TRACE: 2
+;; TRACE: 3
+;; TRACE: 4
+;; TRACE: 5
+;; TRACE: 6
+;; TRACE: 7
+;; TRACE: 8
+;; TRACE: 9
+----
+
+Use tags to give additional context to the output.
+
+[source,clojure]
+----
+(defn add
+  [a b]
+  (+ (trace "a" a) (trace "b" b)))
+
+(add 2 4)
+;; -> 6
+;; *out*
+;; TRACE a: 2
+;; TRACE b: 4
+----
+
+Use +trace-forms+ to trace a series of expressions, some of which may
+fail.
+
+[source,clojure]
+----
+(trace-forms (+ 1 2 (/ 6 0)))
+;; -> (throws an exception...)
+;; *out*
+;; ArithmeticException Divide by zero
+;;   Form failed: (/ 6 0)
+;;   Form failed: (+ 1 2 (/ 6 0))
+;;   clojure.lang.Numbers.divide (Numbers.java:156)
+----
+
+If no exception occurs, `trace-forms` produces no output.
+
+Use `deftrace` in place of `defn` to define a traced function.
+
+[source,clojure]
+----
+(deftrace divide [x y] (/ x y))
+(divide 2 (+ 1 1))
+;; -> 1
+;; *out*
+;; TRACE t1467: (divide 2 2)
+;; TRACE t1467: => 1
+----
+
+Use +trace-vars+ and +untrace-vars+ to enable or disable tracing of an
+existing function.
+
+[source,clojure]
+----
+(defn add [x y] (+ x y))
+(trace-vars cookbook.core/add)
+(add 2 2)
+;; -> 4
+;; *out*
+;; TRACE t1309: (cookbook.core/add 2 2)
+;; TRACE t1309: => 4
+(untrace-vars cookbook.core/add)
+(add 2 2)
+;; -> 4
+----
+
+Use +trace-ns+ and +untrace-ns+ to enable or disable tracing of all
+functions in a namespace.
+
+[source,clojure]
+----
+(trace-ns 'cookbook.core)
+(add 2 (divide 6 3))
+;; -> 4
+;; *out*
+;; TRACE t1276: (cookbook.core/divide 6 3)
+;; TRACE t1276: => 2
+;; TRACE t1277: (cookbook.core/add 2 2)
+;; TRACE t1277: => 4
+
+(untrace-ns 'cookbook.core)
+(add 2 (divide 6 3))
+;; -> 4
+----
+
+===== Discussion
+
+`tools.trace` provides two approaches to tracing the execution of
+code: explicitly tracing specific values, or through re-binding vars
+or entire namespaces. These low-level and high-level approaches are
+both effective tools for tracking down tough bugs.
+
+For example, tracing can be a useful tool when trying to get your head
+around a `reduce` operation:
+
+[source,clojure]
+----
+(trace-vars cookbook.core/add)
+(reduce add [1 2 3])
+;; -> 6
+;; *out*
+;; TRACE t1338: (cookbook.core/add 1 2)
+;; TRACE t1338: => 3
+;; TRACE t1339: (cookbook.core/add 3 3)
+;; TRACE t1339: => 6
+----
+
+This allows you to follow each step of the reduction.
+
+CAUTION: When using `trace-vars` or `trace-ns`, the traced version of
+a function is lost when the namespace is reloaded and the underlying
+var is redefined. You must remember to re-establish the traced
+versions, if necessary, after reloading a namespace.
+
+It is not advisable to deploy production code with tracing in
+place. Tracing is most suited to development and debugging,
+particularly from the REPL. Include +tools.trace+ in your
+`project.clj`'s +:dev+ profile to make tracing available only to
+development tasks.
+
+===== See also
+
+* Documentation for https://github.com/clojure/tools.trace[+clojure.tools.trace+]

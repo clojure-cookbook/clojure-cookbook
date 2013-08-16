@@ -1,4 +1,4 @@
-==== Changing the capitalization of a string
+=== Changing the capitalization of a string
 
 ===== Problem
 

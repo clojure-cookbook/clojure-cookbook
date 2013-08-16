@@ -1,5 +1,5 @@
 [[sec_primitives_math_arbitrary_precision]]
-==== Maintaining Accuracy with Extremely Large/Small Numbers
+=== Maintaining Accuracy with Extremely Large/Small Numbers
 
 ===== Problem
 

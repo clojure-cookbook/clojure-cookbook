@@ -1,0 +1,82 @@
+== Conventions Used in This Book
+
+=== Source Code
+
+Clojure source code appears in monospaced font, like this:
+
+[source,clojure]
+----
+(ns my-project.core)
+
+(defn add
+  [x y]
+  (+ x y))
+----
+
+When a Clojure expression is evaluated for a return value, that value
+is denoted with a comment followed by an arrow, like this:
+
+[source,clojure]
+----
+(add 1 2)
+;; -> 3
+----
+
+NOTE: Comments in Clojure start with a single semicolon. By
+convention, comments with two semicolons explain the preceding
+expression and are left-aligned to the same indentation
+level. Comments with a single semicolon are typically used for the
+right-hand margin, on the same line as the code being
+commented. Three semicolons or more are used for top-level section and
+file headers.
+
+When an expression produces output, it is denoted by a comment
+containing `*out*` followed by a comment with each line of output.
+
+[source,clojure]
+----
+(do (println "Hello!") (println "Goodbye!"))
+;; -> nil
+;; *out*
+;; Hello!
+;; Goodbye!
+----
+
+=== REPL Sessions
+
+REPLs (Read-Eval-Print Loop) are interactive prompts that evaluate
+expressions and print the result. The Bash prompt, +irb+, and the
++python+ prompt are examples of REPLs.
+
+A Clojure REPL session is denoted by a monospace font with a prompt
+that includes the current namespace and a "+>+" symbol, indicating the
+point where you should type your code. Output and return values appear
+after the prompt.
+
+// CONTRIBUTOR NOTE: there is currently no syntax highlighting for the
+// Clojure REPL that I know of. Maybe somebody could write a lexer for
+// Pygments?
+
+----
+user> (map str [4 5 6])
+("4" "5" "6")
+user> (println "Hello")
+Hello
+nil
+user> 
+----
+
+=== Console/Terminal Sessions
+
+Console sessions (e.g. shell commands) are denoted by monospace font,
+with lines beginning with a dollar sign (+$+) indicating a shell
+prompt. Output is printed without a leading "+$+".
+
+A backslash (+\+) at the end of a command line indicates a single
+command that continues on the next line.
+
+[source,console]
+----
+$ lein version
+Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
+----

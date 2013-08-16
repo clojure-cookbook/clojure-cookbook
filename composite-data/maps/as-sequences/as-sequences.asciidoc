@@ -1,4 +1,4 @@
-==== Maps as Sequences & Sequences as Maps
+=== Maps as Sequences & Sequences as Maps
 
 ===== Problem
 

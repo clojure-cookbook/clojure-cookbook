@@ -17,7 +17,9 @@ Nearly any knowledge or bit of information you could contribute to the cookbook 
 
 ## Credits & Rewards
 
-Any contribution, big or small, will net you a digital copy of the book and your name and GitHub handle immortalized in a contributors list in the book (think of the glory it will bring your family). 
+Any contribution, big or small, will net you a digital copy of the book and your name and GitHub handle immortalized in a contributors list in the book (think of the glory it will bring your family).
+
+On a legal note, we're obligated to let you know that the above mentioned rewards will be a contributors sole consideration for their contributions. (That, of course, and our ever-lasting love :wink:.)
 
 ### Write a recipe
 
@@ -39,11 +41,17 @@ The general format for any cookbook recipes is **Problem**, **Solution** and **D
 
 Recipes in *Clojure Cookbook* should be written in [AsciiDoc](http://www.methods.co.nz/asciidoc/) a markup language very similar to Markdown, but much more well suited for writing books. AsciiDoc has support for advanced features like [callouts](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html#X105), footnotes, [cross referencing links](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html#_internal_cross_references) and most importantly generating indices for the final book.
 
+The `conventions.asciidoc` document serves as the guidelines for how
+to convey different things in AsciiDoc, like source code blocks, REPL
+sessions, shell sessions, expression results, output, etc.. Please
+read it carefully to learn about these important elements of good
+recipes.
+
 You can find more information on the format in the [AsciiDoc User Guide](http://www.methods.co.nz/asciidoc/asciidoc.css-embedded.html) or across numerous pre-existing `*.asciidoc` files in this repo.
 
 #### Recipe File Organization
 
-Recipes must reside in their own directories under the relevant chapter or sub-heading, e.g.:
+Recipes must reside in their own directories under the relevant chapter or section, or in the `kitchen-sink` directory if you are not sure what chapter it belongs in, e.g.:
 
 ```
 primitive-data/math/random-numbers/random-numbers.asciidoc
@@ -125,7 +133,7 @@ If you have any questions or concerns about the licensing model, please don't he
 
 ### Ideas
 
-You'll find a list of ideas under the [ideas tag](../../issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`. 
+You'll find a list of ideas under the [ideas tag](../../issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`.
 
 To get you started, here is a rough list of the chapters we hope to cover in the final book:
 

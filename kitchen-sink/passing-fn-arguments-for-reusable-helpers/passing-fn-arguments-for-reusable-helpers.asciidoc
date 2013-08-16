@@ -1,0 +1,214 @@
+=== Pass a Function As an Argument to Make Helper Functions More Reusable
+
+// By Chris Frisz (cjfrisz)
+
+===== Problem
+
+You want to reuse a single helper function in two different sections of your 
+code, but each caller needs the helper to do something slightly different in 
+one isolated part.
+
+Consider the following (highly contrived) example:
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg]
+  (str "super " msg)
+  ;; make-awesome-message needs to prepend another string
+  ;; make-cool-message needs to print to the screen
+  )
+
+(defn make-awesome-message []
+  (my-message-helper "awesome"))
+
+(defn make-cool-message []
+  (my-message-helper "cool"))
+----
+
+===== Solution
+
+Modify the helper function to take an extra argument and apply it to the value
+that needs the specific work.
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg extra-fn]
+  (extra-fn (str "super " msg)))
+
+(defn make-awesome-message []
+  ; too few arguments to my-message-helper!
+  ; we'll fix it in the next step
+  (my-message-helper "awesome"))
+
+(defn make-cool-message []
+  ; too few arguments to my-message-helper
+  ; we'll fix it in the next step
+  (my-message-helper "cool"))
+----
+
+Next, modify each caller to create a function expression that does the specific 
+piece of work to be done in the helper and pass that as an argument.
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg extra-fn]
+  (extra-fn (str "super " msg)))
+
+(defn make-awesome-message []
+  (my-message-helper "awesome" (partial str "really ")))
+
+(defn make-cool-message []
+  (my-message-helper "cool" #(do (prn %) %)))
+
+(make-awesome-message)
+;; -> "really super awesome"
+
+(make-cool-message)
+;; -> "super cool"
+;; *out*
+;; "super cool"
+----
+
+===== Discussion
+
+Even though our two functions, `make-awesome-message` and `make-cool-message`,
+did different work, we reused the common work done in `my-message-helper`. 
+
+The astute reader may notice that for this example we could simply `let`-bind 
+the result of `my-message-helper` and do the work of the `extra-fn` within the
+context of our two main functions: 
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg]
+  (str "super " msg))
+
+(defn make-awesome-message []
+  (let [base-msg (my-message-helper "awesome")]
+    (str "really " base-msg)))
+
+(defn make-cool-message []
+  (let [base-msg (my-message-helper "cool")]
+    (do (prn base-msg) base-msg)))
+----
+
+Consider a slightly more complex example where the work done by `extra-fn` is 
+buried in the middle of a larger computation. For example, consider if 
+`my-message-helper` had originally appended another string to the end of the 
+message:
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg]
+  (str (str "super " msg) " times"))
+----
+
+In this case, you would have a harder time separating out the piece that needs
+the caller-specific work done without splitting `my-message-helper` into two
+functions: 
+
+[source, clojure]
+----
+(defn my-message-helper1
+  [msg]
+  (str "super " msg))
+
+(defn my-message-helper2
+  [msg]
+  (str msg " times"))
+
+(defn make-awesome-message []
+  (let [base-msg (my-message-helper1 "awesome")
+        awsome-work (str "really " base-msg)]
+    (my-message-helper2 awesome-work)))
+
+(defn make-cool-message []
+  (let [base-msg (my-message-helper1 "cool"]
+    (prn base-msg)
+    (my-message-helper2 base-msg))))
+----
+
+Since you would need to call both functions separately, but always 
+together, you would create more opportunities for errors if you accidentally 
+called one and not the other. We call this sort of artificial, error-prone 
+separation a "bad abstraction," and it highlights the benefits of the solution
+using functions as arguments.
+
+As an alternative to the function argument, you could pass a flag to 
+`my-message-helper` that tells it who called it, and perform the caller-
+specific work based on the flag. That would look something like this:
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg caller-flag]
+  (let [msg-base (str "super " msg)]
+    (case caller-flag
+      make-awesome-message (str "really " msg-base)
+      make-cool-message    (do (prn msg-base) msg-base))))
+
+(defn make-awesome-message []
+  (my-message-helper "awesome" 'make-awesome-message))
+
+(defn make-cool-message []
+  (my-message-helper "cool" 'make-cool-message))
+----
+
+Consider if you wanted to add a new function, `make-rad-message`, that prepends
+the string "mega " to the message:
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg caller-flag]
+  (let [msg-base (str "super " msg)]
+    (case caller-flag
+      make-awesome-message (str "really " msg-base)
+      make-cool-message    (do (prn msg-base) msg-base)
+      make-rad-message     (str "mega " msg-base))))
+
+(defn make-awesome-message []
+  (my-message-helper "awesome" 'make-awesome-message))
+
+(defn make-cool-message []
+  (my-message-helper "cool" 'make-cool-message))
+
+(defn make-rad-message []
+  (my-message-helper "rad" 'make-rad-message))
+----
+
+Notice that you had to add the definition for `make-rad-message` _and_ modify 
+the definition of `my-message-helper` to include a new `case` clause. Now 
+consider if you used function arguments to `my-message-helper` as before:
+
+[source, clojure]
+----
+(defn my-message-helper
+  [msg extra-fn]
+  (extra-fn (str "super " msg)))
+
+(defn make-awesome-message []
+  (my-message-helper "awesome" (partial str "really ")))
+
+(defn make-cool-message []
+  (my-message-helper "cool" #(do (prn %) %)))
+
+(defn make-rad-message []
+  (my-message-helper "rad" (partial str "mega ")))
+----
+
+In this example, you only needed to add the new definition for 
+`make-rad-message` and made no modifications to `my-message-helper`. By using
+a function argument instead of a flag, `my-message-helper` doesn't need to know
+anything about the caller. In other words, you have "decoupled" 
+`make-rad-message` from `my-message-helper`. 
+
+As a related side note, you should always prefer solutions that decouple 
+functions (or objects, data structures, etc.). As you can see from this 
+example, decoupling leads to less code modification when adding new features, 
+and therefore less chance for introducing errors.

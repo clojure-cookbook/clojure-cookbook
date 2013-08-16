@@ -1,4 +1,4 @@
-==== Interactive Documentation
+=== Interactive Documentation
 
 // By John Cromartie (jcromartie)
 
@@ -101,6 +101,6 @@ clojure.core/+
 ----
 
 Exploring Clojure in this way is a great way to learn about core
-functions and advanced Clojure programming techinques. The
+functions and advanced Clojure programming techniques. The
 +clojure.core+ namespace is chock full of high-quality and
 high-performance code at your fingertips.
