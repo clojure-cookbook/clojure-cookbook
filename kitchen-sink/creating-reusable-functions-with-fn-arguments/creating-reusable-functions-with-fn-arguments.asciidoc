@@ -1,12 +1,12 @@
-=== Pass a Function As an Argument to Make Helper Functions More Reusable
+=== Make a Function Reusable by Passing a `fn` as an Argument
 
 // By Chris Frisz (cjfrisz)
 
 ===== Problem
 
-You want to reuse a single helper function in two different sections of your 
-code, but each caller needs the helper to do something slightly different in 
-one isolated part.
+You want to reuse a single function in two different sections of your code, but
+each caller needs that function to do something slightly different in one 
+isolated part.
 
 Consider the following (highly contrived) example:
 
@@ -28,8 +28,8 @@ Consider the following (highly contrived) example:
 
 ===== Solution
 
-Modify the helper function to take an extra argument and apply it to the value
-that needs the specific work.
+Modify the `my-message-helper` function to take an extra argument (which we 
+assume is a `fn`) and apply it to the value that needs the specific work.
 
 [source, clojure]
 ----
@@ -48,8 +48,8 @@ that needs the specific work.
   (my-message-helper "cool"))
 ----
 
-Next, modify each caller to create a function expression that does the specific 
-piece of work to be done in the helper and pass that as an argument.
+Next, modify each caller to create a `fn` expression that does the specific 
+piece of work to be done in `my-message-helper` and pass that as an argument.
 
 [source, clojure]
 ----
