@@ -19,7 +19,7 @@ include::files/get-files-from-directory/get-files-from-directory.asciidoc[]
 
 include::json/read-write-json/read-write-json.asciidoc[]
 
-//include::local-io.asciidoc[]
+include::pdf/pdf.asciidoc[]
 
 include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
 
