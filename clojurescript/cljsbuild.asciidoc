@@ -90,6 +90,6 @@ options. This should go in project.clj.
 
 ===== See Also
 
-* https://github.com/emezeske/lein-cljsbuild[The GitHub page] for more commands
+* https://github.com/emezeske/lein-cljsbuild[The GitHub page] for more commands.
 * https://github.com/emezeske/lein-cljsbuild/blob/0.3.2/sample.project.clj[This
 sample project.clj file] for information about all of the options.
