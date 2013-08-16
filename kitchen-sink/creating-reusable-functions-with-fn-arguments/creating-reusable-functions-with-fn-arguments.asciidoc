@@ -124,7 +124,7 @@ functions:
 
 (defn make-awesome-message []
   (let [base-msg (my-message-helper1 "awesome")
-        awsome-work (str "really " base-msg)]
+        awesome-work (str "really " base-msg)]
     (my-message-helper2 awesome-work)))
 
 (defn make-cool-message []
