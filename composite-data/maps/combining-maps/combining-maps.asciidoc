@@ -108,6 +108,121 @@ must take two arguments, and is called with the values for each pair
 of duplicate keys as the result map is computed. Mappings for unique
 keys remain as-is in the result.
 
+Here's an example on how to efficiently merge long vectors of hashes
+using higher order functions and reducers.
+
+[source,clojure]
+----
+;; test data generator
+
+(defn make-keyword [s n]
+  (keyword (str s n)))
+
+(defn key-index [k]
+  (-> k str (subs 2) Long.))
+
+(defn compare-key-index [k1 k2]
+  (compare (key-index k1) (key-index k2)))
+
+(defn rand-pairs
+  ([]  (rand-pairs 4))
+  ([j] (rand-pairs j j))
+  ([j k]
+   (cons [(make-keyword "s" (rand-int j)) (rand-int k)]
+         (lazy-seq (rand-pairs j k)))))
+
+(defn sorted-rand-hash
+  ([] (sorted-rand-hash 4))
+  ([i] (sorted-rand-hash i i))
+  ([i j] (sorted-rand-hash i j j))
+  ([i j k]
+   (into (sorted-map-by compare-key-index) (take i (rand-pairs j k)))))
+
+(defn sorted-rand-hash-seq
+  ([]  (sorted-rand-hash-seq 4))
+  ([n] (sorted-rand-hash-seq n n))
+  ([n i] (sorted-rand-hash-seq n i i))
+  ([n i j] (sorted-rand-hash-seq n i j j))
+  ([n i j k]
+   (for [_ (range n)] (sorted-rand-hash i j k))))
+
+(defn sorted-rand-hash-vec [& args]
+  (into [] (apply sorted-rand-hash-seq args)))
+
+
+;; hof merging
+
+(defn merge-mk [fn-merge fn-agg fn-elt agg e]
+  (if (coll? agg)
+      (fn-merge agg (fn-elt e))
+      (fn-merge (fn-agg (fn-elt agg)) (fn-elt e))))
+
+(defn merge-sum [agg e]
+  (merge-mk + identity identity agg e))
+
+(defn merge-vec [agg e]
+  (merge-mk conj vector identity agg e))
+
+(defn val-cnt-map [e]
+  (if (map? e) e (sorted-map e 1)))
+
+(defn merge-val-cnt-map [agg e]
+  (merge-mk (partial merge-with +) identity val-cnt-map agg e))
+
+
+;; merge short vector of hashes
+
+(def hv (sorted-rand-hash-vec 8))
+
+(pprint hv)
+(pprint (apply merge-with merge-vec hv))
+(pprint (apply merge-with merge-val-cnt-map hv))
+(pprint (apply merge-with merge-sum hv))
+
+
+;; reducers library
+
+(require '(clojure.core [reducers :as r]))
+
+(def mon-merge-sum
+  (r/monoid (partial merge-with merge-sum)
+            #(sorted-map-by compare-key-index)))
+
+(def mon-merge-val-cnt-map
+  (r/monoid (partial merge-with merge-val-cnt-map)
+            #(sorted-map-by compare-key-index)))
+
+
+;; fold long vector of hashes
+
+(def lhv (sorted-rand-hash-vec 100000 8 8 8))
+
+(pprint (apply merge-with merge-sum lhv))
+(pprint (r/fold mon-merge-sum lhv))
+
+(pprint (apply merge-with merge-val-cnt-map lhv))
+(pprint (r/fold mon-merge-val-cnt-map lhv))
+
+
+;; benchmarks
+
+(require '[criterium.core :as c])
+
+(c/with-progress-reporting
+  (c/quick-bench (apply merge-with merge-sum lhv) :verbose))
+
+(c/with-progress-reporting
+  (c/quick-bench (r/fold mon-merge-sum lhv) :verbose))
+
+
+(c/with-progress-reporting
+  (c/quick-bench (apply merge-with merge-val-cnt-map lhv) :verbose))
+
+(c/with-progress-reporting
+  (c/quick-bench (r/fold mon-merge-val-cnt-map lhv) :verbose))
+
+----
+
 ===== See also
 
 * See <<sec_composite_data_maps_setting_keys>> to learn more about manipulating maps.
