@@ -1,0 +1,32 @@
+==== Writing to stdout and stderr
+
+////
+Author: Alan Busby @thebusby
+////
+
+===== Problem
+
+You want to write to stdout and stderr.
+
+===== Solution
+
+To stdout,
+
+[source,clojure]
+----
+(println "Print line to stdout")
+----
+
+To stderr,
+
+[source,clojure]
+----
+(binding [*out* *err*]
+  (println "Print line to stderr"))
+----
+
+===== Discussion
+
+In Clojure +*in*+, +*out*+, and +*err*+ are bound to stdin, stdout, and stderr.
+Using the +binding+ command all output normally sent to stdout can be sent to
+stderr; or using +clojure.java.io/writer+, to the file of your choice.
