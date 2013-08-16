@@ -1,0 +1,59 @@
+=== Doing things N times
+
+// By ICM Consulting - Yair Iny
+
+===== Problem
+
+You want to do something N times, similarly to using a for loop in Java/C/C++.
+
+===== Solution
+
+There are many variations to look at here.  If you want to do something that 
+has a side effect N times, use `dotimes`.  While this variation most closely
+resembles a Java/C/C++ program, there are better, more functional ways to do
+other things.
+
+[source, clojure]
+----
+(dotimes [i 5]
+	(println i))
+;; -> 0
+1
+2
+3
+4
+nil
+----
+
+If you want to produce something N times, you can use a combination 
+of `map` and `range`.  For example, this code creates squares of 
+integers from 0-4.
+
+[source, clojure]
+----
+(map #(* % %) (range 5))
+;; -> (0 1 4 9 16)
+----
+
+Sometimes you just want N of something.  Use `repeat` for this.
+
+[source, clojure]
+----
+(repeat 3 5)
+;; -> (5 5 5)
+----
+
+Maybe you want to invoke a function N times.  Use `repeatedly` for this.
+
+[source, clojure]
+----
+(repeatedly 4 #(rand-int 10))
+;; -> (2 8 9 1)
+----
+
+===== Discussion
+In general, many things that are done with for-loops in imperative languages 
+are better performed with `map`.  When you need the actual index there are 
+many options at your disposal, not least of which is the combination of `map` 
+and `range`.  It is also worth looking at `map-indexed` for when you want to 
+iterate over a sequence along with the index of each member.
