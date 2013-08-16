@@ -1,0 +1,69 @@
+==== Create an executable jar file
+
+////
+Author: Alan Busby @thebusby
+////
+
+===== Problem
+
+You want to create an executable jar.
+
+===== Solution
+
+Using +Leiningen+ to create an "uberjar", https://github.com/technomancy/leiningen
+
+Add a +:main+ and +:aot+ parameter to your +project.clj+.
+
+[source,clojure]
+----
+(defproject foo "1.0.0"
+  :dependencies [[org.clojure/clojure "1.5.1"]]
+  :main foo.core
+  :aot :all)
+----
+
+Add a +(:gen-class)+ parameter to the namespace listed as +:main+ in your +project.clj+ file.
+
+[source,clojure]
+----
+(ns foo.core
+  (:gen-class))
+----
+
+Add a +-main+ function to the namespace. 
+
+[source,clojure]
+----
+(defn -main [& args]
+  (->> args
+       (interpose "\n")
+       (apply str)
+       (println "Executed with the following args;\n")))
+----
+
+Call +lein uberjar+ to have Leiningen build an executable jar file.
+
+[source,bash]
+----
+$ lein uberjar
+Created /tmp/foo/target/uberjar/foo-1.0.0.jar
+Created /tmp/foo/target/foo-1.0.0-standalone.jar
+----
+
+Then execute the jar along with whatever parameters you'd like to provide.
+
+[source,bash]
+----
+$ java -jar target/foo-1.0.0-standalone.jar 1 2 3 4
+Executed with the following args;
+ 1
+2
+3
+4
+----
+
+===== Discussion
+
+Executable jar files provide an excellent method to package a program so
+it can be provided to users, called by cronjobs, or combined with other
+UNIX tools.
