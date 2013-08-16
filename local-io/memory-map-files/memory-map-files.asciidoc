@@ -1,4 +1,4 @@
-==== Memory-map a file
+==== Memory map a file
 
 ////
 Author: Alan Busby @thebusby
@@ -17,28 +17,28 @@ Import the library.
 [source,clojure]
 ----
 (ns io-with-clj-mmap
-  "Read from a memory-mapped file"
   (:require [clj-mmap :as mmap]))
 ----
 
-Read the first and last N bytes of a file
+Read the first and last N bytes of a text file.
 
 [source,clojure]
 ----
 (with-open [file (mmap/get-mmap "/path/to/file/file.txt")]
-  (let [n-bytes       10        
+  (let [n-bytes       10
+        file-size     (.size file)        
         first-n-bytes (mmap/get-bytes file 0 n-bytes)
         last-n-bytes  (mmap/get-bytes file (- file-size n-bytes) n-bytes)]
     [(String. first-n-bytes "UTF-8")
      (String. last-n-bytes  "UTF-8")]))
 ----
 
-Overwrite the first N bytes of a file
+Overwrite the first N bytes of a text file.
 
 [source,clojure]
 ----
 (with-open [file (mmap/get-mmap "/path/to/file/file.txt")]
-  (let [bytes-to-write (.getBytes "NEW TEXT HERE" "UTF-8")
+  (let [bytes-to-write (.getBytes "New text goes here" "UTF-8")
         file-size      (.size file)]
     (if (> file-size
            (alength bytes-to-write))
