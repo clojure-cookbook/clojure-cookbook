@@ -28,7 +28,7 @@ In your project.clj:
 Then, at the command line in your project's directory:
 
 [source, shell]
-
+----
 $ lein cljsbuild once
 
 ----
@@ -90,6 +90,6 @@ options. This should go in project.clj.
 
 ===== See Also
 
-* https://github.com/emezeske/lein-cljsbuild[The GitHub page] for more commands.
+* See the https://github.com/emezeske/lein-cljsbuild[lein-cljsbuild] GitHub repository for more commands.
 * https://github.com/emezeske/lein-cljsbuild/blob/0.3.2/sample.project.clj[This
 sample project.clj file] for information about all of the options.
