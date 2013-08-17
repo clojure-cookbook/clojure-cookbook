@@ -1,0 +1,109 @@
+////
+:Author: Adam Bard
+:Email: adam@adambard.com
+////
+
+=== Ring Middleware
+
+===== Problem
+
+Ring gives you query strings, but you'd really rather work with a parsed map.
+
+===== Solution
+
+Since Ring works with regular Clojure data and functions, you can easily define
+middleware as functions-returning-functions. Define a middleware that modifies
+the request by adding a parsed version of the query string to the request
+before passing it on to the handler:
+
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [ring.adapter.jetty :as jetty]
+    [clojure.string :as str]
+    clojure.pprint))
+
+(defn parse-query-string
+  "Parse a query string to a hash-map"
+  [qs]
+  (if (> (count qs) 0) ; Don't operate on nils or empty strings
+    (apply hash-map (str/split qs #"[&=]"))))
+
+(defn wrap-query
+  "Add a :query parameter to incoming requests that contains a parsed
+  version of the query string as a hash-map"
+  [handler]
+  (fn [req]
+    (let [parsed-qs (parse-query-string (:query-string req))
+          new-req (assoc req :query parsed-qs)]
+      (handler new-req))))
+
+(defn handler [req]
+  (let [name (get (:query req) "name")]
+    {:status 200
+     :body (str "Hello, " (or name "World"))}))
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty (wrap-query handler) {:port 3000}))
+----
+
+===== Discussion
+
+Since Ring handlers operate on regular Clojure maps, it's very easy to write middleware
+that wraps a handler. Here, we write a middleware that modifies the request
+before passing it to the handler. If the original request looked like this:
+
+[source, clojure]
+----
+{:query-string "x=1&y=2"
+ ; ... and the rest
+ }
+----
+
+Then the request received by the handler becomes:
+
+[source, clojure]
+----
+{:query-string "x=1&y=2"
+ :query {"x" "1" "y" "2"}
+ ; ... and the rest
+ }
+----
+
+However, you don't need to write your own middleware for this. Ring provides
+a number of middlewares to add to your app, including one called `params` that
+does the same as the middleware we just wrote but better:
+
+[quote, Ring Documentation]
+----
+**wrap-params**
+
+Middleware to parse urlencoded parameters from the query string and form
+body (if the request is a urlencoded form). Adds the following keys to
+the request map:
+  :query-params - a map of parameters from the query string
+  :form-params  - a map of parameters from the body
+  :params       - a merged map of all types of parameter
+Takes an optional configuration map. Recognized keys are:
+  :encoding - encoding to use for url-decoding. If not specified, uses
+              the request character encoding, or "UTF-8" if no request
+              character encoding is set.
+----
+
+You are in no way limited to using one middleware.  Usually, you'll at
+least want to use the cookie, session, and params middleware.  One concise way to wrap your handler
+with several middlewares is to use the `->` macro:
+
+[source, clojure]
+----
+(require '[ring.middleware.session :refer [wrap-session]])
+(require '[ring.middleware.cookies :refer [wrap-cookies]])
+(require '[ring.middleware.params :refer [wrap-params]])
+(def wrapped-handler
+  (-> handler
+    wrap-cookies
+    wrap-params
+    wrap-session))
+----

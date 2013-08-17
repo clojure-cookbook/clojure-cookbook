@@ -1,4 +1,4 @@
-==== Full text search
+=== Full text search
 
 // By Osbert Feng (osbert)
 

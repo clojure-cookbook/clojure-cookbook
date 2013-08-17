@@ -1,4 +1,4 @@
-==== Cleaning up whitespace in a string
+=== Cleaning up whitespace in a string
 
 ===== Problem
 

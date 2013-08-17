@@ -1,5 +1,5 @@
 [[sec_current_date]]
-==== Obtaining the Current Date and Time
+=== Obtaining the Current Date and Time
 
 ===== Problem
 

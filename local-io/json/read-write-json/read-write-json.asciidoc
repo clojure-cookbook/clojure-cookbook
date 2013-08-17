@@ -1,5 +1,5 @@
 [[sec_local_io_json]]
-==== Work with JSON data
+=== Work with JSON data
 
 // By Stefan Karlsson (zclj)
 

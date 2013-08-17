@@ -1,5 +1,5 @@
 [[sec_primitives_dates_reader_literal]]
-==== Representing Dates as Literals
+=== Representing Dates as Literals
 
 ===== Problem
 

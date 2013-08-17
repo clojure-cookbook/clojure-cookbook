@@ -1,4 +1,5 @@
-==== "Adding" an item to a list
+[[sec_adding_to_a_list]]
+=== "Adding" an item to a list
 
 ===== Problem
 
@@ -68,5 +69,5 @@ item prepended to the beginning no matter what the collection type is.
 
 ===== See Also
 
-* Adding an item to a vector (xref)
+* <<sec_adding_to_a_vector>>
 

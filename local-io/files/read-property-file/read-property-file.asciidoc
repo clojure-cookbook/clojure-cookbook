@@ -1,4 +1,4 @@
-==== Read property file
+=== Read property file
 
 // By Tobias Bayer (codebrickie)
 

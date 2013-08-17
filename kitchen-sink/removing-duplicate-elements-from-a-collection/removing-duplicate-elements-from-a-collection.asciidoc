@@ -1,4 +1,4 @@
-==== Removing Duplicate Elements From a Collection
+=== Removing Duplicate Elements From a Collection
 
 // By John Cromartie (jcromartie)
 

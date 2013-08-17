@@ -1,4 +1,4 @@
-==== Combining Maps
+=== Combining Maps
 
 ===== Problem
 

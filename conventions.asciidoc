@@ -1,6 +1,6 @@
-=== Conventions Used in This Book
+== Conventions Used in This Book
 
-==== Source Code
+=== Source Code
 
 Clojure source code appears in monospaced font, like this:
 
@@ -42,7 +42,7 @@ containing `*out*` followed by a comment with each line of output.
 ;; Goodbye!
 ----
 
-==== REPL Sessions
+=== REPL Sessions
 
 REPLs (Read-Eval-Print Loop) are interactive prompts that evaluate
 expressions and print the result. The Bash prompt, +irb+, and the
@@ -66,7 +66,7 @@ nil
 user> 
 ----
 
-==== Console/Terminal Sessions
+=== Console/Terminal Sessions
 
 Console sessions (e.g. shell commands) are denoted by monospace font,
 with lines beginning with a dollar sign (+$+) indicating a shell

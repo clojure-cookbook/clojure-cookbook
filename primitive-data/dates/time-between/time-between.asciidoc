@@ -1,5 +1,5 @@
 [[sec_primitives_dates_time_between]]
-==== Calculating the Length of a Time Interval
+=== Calculating the Length of a Time Interval
 
 ===== Problem
 

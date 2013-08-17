@@ -1,4 +1,4 @@
-==== Parse command line arguments
+=== Parse command line arguments
 
 ////
 Author: Nicolas Bessi @nbessi

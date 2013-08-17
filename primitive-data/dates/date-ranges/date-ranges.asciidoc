@@ -1,4 +1,4 @@
-==== Generating Ranges of Dates and Times
+=== Generating Ranges of Dates and Times
 
 ===== Problem
 

@@ -1,5 +1,5 @@
 [[sec_primitives_strings_formatting_strings]]
-==== Formatting strings
+=== Formatting strings
 
 ===== Problem
 

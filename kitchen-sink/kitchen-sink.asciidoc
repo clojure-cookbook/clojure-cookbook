@@ -1,0 +1,10 @@
+[[ch_kitchen_sink]]
+== Kitchen Sink (recipes without a home)
+
+include::creating-reusable-functions-with-fn-arguments/creating-reusable-functions-with-fn-arguments.asciidoc[]
+
+include::deprecate-macro/deprecate-macro.asciidoc[]
+
+include::removing-duplicate-elements-from-a-collection/removing-duplicate-elements-from-a-collection.asciidoc[]
+
+include::tracing/tracing.asciidoc[]

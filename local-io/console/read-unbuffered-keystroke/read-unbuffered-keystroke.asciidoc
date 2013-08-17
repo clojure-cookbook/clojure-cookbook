@@ -1,4 +1,4 @@
-==== Read a single keystroke from the console
+=== Read a single keystroke from the console
 
 ////
 Author: John Jacobsen @eigenhombre http://eigenhombre.com john@mail.npxdesigns.com

@@ -1,5 +1,3 @@
-= Clojure Cookbook
-
 include::primitive-data/primitive-data.asciidoc[]
 
 include::composite-data/composite-data.asciidoc[]
@@ -21,3 +19,5 @@ include::deployment/deployment.asciidoc[]
 include::distributed-computation/distributed-computation.asciidoc[]
 
 include::testing/testing.asciidoc[]
+
+include::kitchen-sink/kitchen-sink.asciidoc[]

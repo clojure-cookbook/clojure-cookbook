@@ -1,5 +1,5 @@
 [[sec_primitives_strings_re_find]]
-==== Searching a String by Pattern
+=== Searching a String by Pattern
 
 ===== Problem
 

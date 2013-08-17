@@ -1,4 +1,4 @@
-==== Working with Currency
+=== Working with Currency
 
 ===== Problem
 

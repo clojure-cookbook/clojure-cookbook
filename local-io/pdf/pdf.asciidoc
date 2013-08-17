@@ -1,0 +1,167 @@
+[[sec_local_io_pdf]]
+
+=== Generating a PDF report
+
+//Author: Dmitri Sotnikov
+
+===== Problem
+
+Given a collection of maps, such as those returned by +clojure.java.jdbc+ queries, you need to generate a formatted PDF report.
+
+===== Solution
+
+Use the +clj-pdf+ library to easily create the report. Say we have a vector containing the employee records as seen below:
+
+----
+;;data
+(def employees
+ [{:country "Germany",
+   :place "Nuremberg",
+   :occupation "Engineer",
+   :name "Neil Chetty"}
+  {:country "Germany",
+   :place "Ulm",
+   :occupation "Engineer",
+   :name "Vera Ellison"}])
+----
+
+We first create a template for rendering each record using the +clj-pdf.core/template+ macro:
+
+----
+;;template
+(def employee-template
+ (template
+   [:paragraph
+    [:heading (.toUpperCase $name)]
+    [:chunk {:style :bold} "occupation: "] $occupation "\n"
+    [:chunk {:style :bold} "place: "] $place "\n"
+    [:chunk {:style :bold} "country: "] $country
+    [:spacer]]))
+----
+
+The +$+ in the template above is used to indicate the anchors for the dynamic content. Note that we can post-process the values of the anchors as we're doing with the +$name+.
+
+Calling the template with the employee data produces the following output:
+
+----
+(employee-template employees)
+
+([:paragraph [:heading "NEIL CHETTY"]
+  [:chunk {:style :bold} "occupation: "] "Engineer" "\n"
+  [:chunk {:style :bold} "place: "] "Nuremberg" "\n"
+  [:chunk {:style :bold} "country: "] "Germany" [:spacer]]
+ [:paragraph [:heading "VERA ELLISON"]
+  [:chunk {:style :bold} "occupation: "] "Engineer" "\n"
+  [:chunk {:style :bold} "place: "] "Ulm" "\n"
+  [:chunk {:style :bold} "country: "] "Germany"
+  [:spacer]])
+----
+
+We can now call +clj-pdf.core/pdf+ to create the PDF using this data:
+
+----
+(pdf [{:title "Employee Table"} (employee-template employees)] "employees.pdf")
+----
+
+===== Discussion
+
+The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+ libraries. The syntax is inspired by the popular +Hiccup+ HTML templating engine.
+
+A document is represented by a vector containing a map of metadata followed by the content. The content can in turn consist of strings, vectors or collections of vectors. For example, a simple document might look as follows:
+
+----
+(pdf [{:title "My Document"} "some text"] "document.pdf")
+----
+
+Collections of elements will be automatically expanded:
+
+----
+(pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
+----
+the above is equivalent to
+----
+(pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
+----
+
+Each element such as a paragraph, a phrase, or a list is represented by a vector starting with keyword
+identifying the element type:
+
+----
+[:heading "Lorem Ipsum"]
+[:line]
+[:list "first item"
+      "second item" 
+      "third item"]
+[:paragraph "I'm a paragraph"]
+[:phrase "some text here"]
+[:table  
+   ["foo" "bar" "baz"] 
+   ["foo1" "bar1" "baz1"] 
+   ["foo2" "bar2" "baz2"]]
+----
+
+Elements can have optional styling metadata
+
+----
+[:paragraph {:style :bold} "this text is bold"]
+
+[:chunk {:style :bold
+         :size 18
+         :family :helvetica
+         :color [0 234 123]}
+ "some large green text"]
+----
+
+The content of each element can consist of other elements, any style applied to the parent element
+will be inherited by the child elements:
+
+----
+[:paragraph "some content"]
+
+[:paragraph
+{:style :bold :size 10 :family :halvetica :color [0 255 221]}
+"some content "
+[:phrase [:chunk "a chunk of text "] "more text"]]
+----
+
+child elements can augment or override the parent style
+---- 
+[:paragraph
+{:style :bold :size 10 :family :halvetica :color [0 255 221]}
+"some content "
+[:phrase {:size 15}
+ [:chunk {:style :italic} "a chunk of text "] "more text"]]
+----
+
+Images can be embedded in the document using the +:image+ element. Image content can be one of +java.net.URL+, +java.awt.Image+, a byte array, a base64 string, or a string representing URL or a file. Images larger than the page margins will automatically be scaled to fit.
+
+----
+[:image 
+  {:align      :center
+   :pad-left   100
+   :pad-right  50}
+  (javax.imageio.ImageIO/read "mandelbrot.jpg")]   
+[:image "mandelbrot.jpg"]
+[:image "http://clojure.org/space/showimage/clojure-icon.gif"]
+----
+
+The library also has support for bar charts, pie charts, line series and time series charts:
+
+----
+[:chart {:type "bar-chart" :title "Bar Chart" :x-label "Items" :y-label "Quality"} 
+ [2 "Foo"] [4 "Bar"] [10 "Baz"]]
+
+[:chart {:type :pie-chart :title "Big Pie"} ["One" 21] ["Two" 23] ["Three" 345]]
+
+[:chart {:type :line-chart :title "Line Chart" :x-label "checkpoints" :y-label "units"}
+ ["Foo" [1 10] [2 13] [3 120] [4 455] [5 300] [6 600]]
+ ["Bar" [1 13] [2 33] [3 320] [4 155] [5 200] [6 300]]]
+
+[:chart {:type :line-chart 
+        :time-series true 
+        :time-format "MM/yy"
+        :title "Time Chart" 
+        :x-label "time" 
+        :y-label "progress"}
+ ["Occurances" ["01/11" 200] ["02/12" 400] ["05/12" 350] ["11/13" 600]]]  
+----

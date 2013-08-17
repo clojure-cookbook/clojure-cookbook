@@ -1,4 +1,4 @@
-==== Inputting and Outputting Integers With Different Bases
+=== Inputting and Outputting Integers With Different Bases
 
 ===== Problem
 

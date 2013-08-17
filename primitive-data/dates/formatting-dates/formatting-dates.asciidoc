@@ -1,5 +1,5 @@
 [[sec_primitives_dates_formatting_dates]]
-==== Formatting Dates using clj-time
+=== Formatting Dates using clj-time
 
 ===== Problem
 
@@ -32,7 +32,7 @@ custom or built-in to output a date/time as a string.
 
 It is certainly possible to format pure Java dates and times, but in
 our experience it often isn't worth the hassle; the syntax is ugly,
-and the workflow is overly verbose. clj-time, and it's backing library
+and the workflow is overly verbose. clj-time, and its backing library
 Joda Time have a track record for making it easy to work with dates
 and times on the JVM.
 

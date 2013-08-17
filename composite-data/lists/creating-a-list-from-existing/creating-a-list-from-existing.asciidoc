@@ -1,4 +1,4 @@
-==== Creating a list from an existing data structure
+=== Creating a list from an existing data structure
 
 ===== Problem
 

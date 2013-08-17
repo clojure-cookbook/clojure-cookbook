@@ -1,6 +1,8 @@
 [[ch_local_io]]
 == Local IO
 
+include::writing-to-stdout-and-stderr/writing-to-stdout-and-stderr.asciidoc[]
+
 include::get-local-resource/get-local-resource.asciidoc[]
 
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
@@ -17,12 +19,22 @@ include::files/file-properties/file-properties.asciidoc[]
 
 include::files/get-files-from-directory/get-files-from-directory.asciidoc[]
 
+include::memory-map-files/memory-map-files.asciidoc[]
+
 include::json/read-write-json/read-write-json.asciidoc[]
+
+include::pdf/pdf.asciidoc[]
 
 include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
 
 include::read-write-files/read-write-files.asciidoc[]
 
+include::handle-binary-files/handle-binary-files.asciidoc[]
+
 include::read-write-gzip/read-write-gzip.asciidoc[]
 
 include::xml/read-write-xml/read-write-xml.asciidoc[]
+
+include::parallelizing-file-processing/parallelizing-file-processing.asciidoc[]
+
+include::parallelizing-file-processing-using-iota/parallelizing-file-processing-using-iota.asciidoc[]

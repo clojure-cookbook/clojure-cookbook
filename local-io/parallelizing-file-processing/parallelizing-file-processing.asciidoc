@@ -1,0 +1,56 @@
+=== Parallelizing File Processing
+
+////
+Author: Edmund Jackson @edmundjackson
+////
+
+===== Problem
+
+You want to transform a text file, line-by-line but using all cores and
+without loading it into memory.
+
+===== Solution
+
+A quick win using +pmap+ over +file-seq+
+
+[source,clojure]
+----
+(ns whatever
+  (:require [clojure.java.io :as jio]))
+
+(defn pmap-file
+  "Process input-file in a parallel, applying processing-fn to each row outputting into output-file"
+  [processing-fn input-file output-file]
+  (with-open [rdr (jio/reader input-file)
+              wtr (jio/writer output-file)]
+    (let [file-seq (line-seq rdr)]
+      (dorun
+       (map #(.write wtr %)
+            (pmap processing-fn file-seq))))))
+
+;; Example of calling this
+(def accumulator (atom 0))
+
+(defn- example-row-fn
+  "Trivial example"
+  [row-string]
+  (str row-string "," (swap! accumulator inc) "\n"))
+
+;; Call it
+(pmap-file example-row-fn "input.txt" "output.txt")
+----
+
+===== Discussion
+
+The idea is to use +pmap+ to map over the sequence of file rows in
+parallel.  However, you then need to pass each processed row through
++(map #(.write wtr %) ...)+ in order to ensure the rows are written
+one-at-a-time (put the write in the processing function to see what
+happens otherwise !).  Finally, as these are lazy sequences we need to
+realise their side-effects before exiting the +with-open+ block or the
+file will be closed by the time we wish to evaluate them.  We do this by
+calling +dorun+
+
+There are couple of caveats here.  Firstly, although the row ordering of the
+output file will match that of the input, the execution is not guaranteed.  Secondly, you will become IO bound quite quickly as all the writes happen on one thread so you may not get the speedup you expect unless the processing function
+is substantial.  Finally, pmap will not give you the core-fold increase you might expect.
