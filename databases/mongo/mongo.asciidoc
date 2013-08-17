@@ -1,0 +1,158 @@
+=== Working with MongoDB
+
+// by Clinton Dreisbach (cndreisbach)
+
+===== Problem
+
+You want to work with data stored in MongoDB.
+
+===== Solution
+
+Use Monger to connect to MongoDB and search or manipulate the data. Monger is a Clojure wrapper around the Java MongoDB driver.
+
+First, add Monger to your `project.clj` file:
+
+[source,clojure]
+---
+(defproject mongo-time "1.0.0"
+  :dependencies [[com.novemberain/monger "1.6.0"]])
+---
+
+To connect to MongoDB, use the `monger.core/connect!` function. This will store your connection in the `*mongodb-connection*` dynamic var. If you want to get a connection to use without storing it in a dynamic var, you can use `monger.core/connect` with the same options.
+
+[source,clojure]
+---
+(require '[monger.core :as mongo]))
+
+;; Connects to localhost, port 27017 by default.
+(mongo/connect!)
+
+;; Connects to another machine.
+(mongo/connect! {:host "192.168.1.100" :port 27017})
+
+;; Connects using more complex options.
+(let [options (mongo/mongo-options :auto-connect-retry true
+                                   :connect-timeout 15
+                                   :socket-timeout 15)
+      server (mongo/server-address "192.168.1.100" 27017)]
+  (mongo/connect! server options))
+
+;; Connects via a URI.
+(mongo/connect-via-uri! (System/genenv "MONGOHQ_URL"))
+
+;; Disconnects.
+(mongo/disconnect!)
+---
+
+Once you are connected, you can insert and query documents easily.
+
+[source,clojure]
+---
+(require '[monger.core :as mongo]
+         '[monger.collection :as coll])
+(import '[org.bson.types ObjectId])
+
+;; Sets the database in the *mongodb-database* var.
+(mongo/use-db! "mongo-time")
+
+;; Inserts one document. :_id is optional.
+(coll/insert "users" {:_id (ObjectId.) :name "Pete Killibrew" :state "KY"})
+(coll/insert "users" {:name "Jeremiah Forthright" :state "TX"})
+
+;; Inserts a batch of documents.
+(coll/insert-batch "users" [{:name "Wendy Perkins" :state "OK"}
+                            {:name "Steel Whitaker" :state "OK"}
+                            {:name "Sarah LaRue" :state "WY"}])
+
+;; Finds all documents and returns a com.mongodb.DBCursor.
+(coll/find "users")
+
+;; Finds all documents matching a query and returns a DBCursor.
+(coll/find "users" {:state "OK"})
+
+;; Finds documents and returns them as Clojure maps.
+(coll/find-maps "users" {:state "OK"})
+;; -> ({:_id #<ObjectId 520...>, :state "OK", :name "Wendy Perkins"}
+;;     {:_id #<ObjectId 520...>, :state "OK", :name "Steel Whitaker"})
+
+;; Finds one document and returns a com.mongodb.DBObject.
+(coll/find-one "users" {:name "Pete Killibrew"})
+
+;; Finds one document and returns it as a Clojure map.
+(coll/find-one-as-map "users" {:name "Sarah LaRue"})
+;; -> {:_id #<ObjectId 520...>, :state "WY", :name "Sarah LaRue"}
+---
+
+===== Discussion
+
+MongoDB, especially with Monger, can be a natural choice for storing Clojure data. It stores data as BSON (binary JSON), which maps well to Clojure's own vectors and maps.
+
+When inserting data, giving each document an `_id` is optional. One will be created for you if you do not have one in your document. It often makes sense to add it yourself, however, if you need to reference the document afterward.
+
+[source,clojure]
+---
+(require '[monger.collection :as coll])
+(import '[org.bson.types ObjectId])
+
+(let [id (ObjectId.)
+      user {:name "Lola Morales"}]
+  (coll/insert "users" (assoc user :_id id))
+  ;; Later, look up your user by their id.
+  (coll/find-map-by-id "users" id))
+;; -> {:_id #<ObjectId 521...>, :name "Lola Morales"}
+---
+
+In its idiomatic usage, Monger is set up to work with one connection and one database, as `monger.core/connect!` and `monger.core/use-db!` set dynamic vars to hold their information. It is easy to work around this, though. You can use `binding` to set these explicitly around code. In addition, you can use the `monger.multi.collection` namespace instead of `monger.collection`. All functions in the `monger.multi.collection` namespace take a database as their first argument.
+
+[source,clojure]
+---
+(require '[monger.core :as mongo]
+         '[monger.multi.collection :as multi])
+
+(mongo/connect!)
+
+;; use-db! takes a string for the database, as it is a convenience function,
+;; but for the monger.multi.collection and other functions, we need to use
+;; get-db to get the database.
+(let [stats-server (mongo/connect "stats.example.org")
+      app-db (mongo/get-db "mongo-time")
+      geo-db (mongo/get-db "geography")]
+
+  ;; Record data in our stats server.
+  (binding [mongo/*mongodb-connection* stats-server]
+    (multi/insert (mongo/get-db "stats") "access"
+                  {:ip "127.0.0.1" :time (java.util.Date.)}))
+
+  ;; Find users in our application DB.
+  (multi/find-maps app-db "users" {:state "WY"})
+
+  ;; Insert a square in our geography DB.
+  (multi/insert geo-db "shapes"
+                {:name "square" :sides 4
+                 :parallel true :equal true}))
+---
+
+The basic find functions in `monger.collection` will work for simple queries, but you will soon find yourself needing to make more complex queries, which is where `monger.query` comes in. This is a domain-specific language for MongoDB queries.
+
+---
+(require '[monger.query :as q])
+
+;; Find users, skipping the first two and getting the next three.
+(q/with-collection "users"
+  (q/find {})
+  (q/skip 2)
+  (q/limit 3))
+
+;; Gets all the users from Oklahoma, sorted by name.
+;; You must use array-map with sort so you can keep keys in order.
+(q/with-collection "users"
+  (q/find {:state "OK"})
+  (q/sort (array-map :name 1)))
+
+;; Gets all users not from Oklahoma or with names that start with "S".
+(q/with-collection "users"
+  (q/find {"$or" [{:state {"$ne" "OK"}}
+                  {:name #"^S"}]}))
+---
+
+CongoMongo is another Clojure library for working with MongoDB that you can consider.
