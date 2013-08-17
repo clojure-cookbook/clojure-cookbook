@@ -37,4 +37,4 @@ include::xml/read-write-xml/read-write-xml.asciidoc[]
 
 include::parallelizing-file-processing/parallelizing-file-processing.asciidoc[]
 
-include::parallelizing-file-processing-using-ioto/parallelizing-file-processing-using-ioto.asciidoc[]
+include::parallelizing-file-processing-using-iota/parallelizing-file-processing-using-iota.asciidoc[]
