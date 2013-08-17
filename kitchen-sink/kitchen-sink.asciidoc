@@ -1,7 +1,7 @@
 [[ch_kitchen_sink]]
 == Kitchen Sink (recipes without a home)
 
-include::passing-fn-arguments-for-reusable-helpers/passing-fn-arguments-for-reusable-helpers.asciidoc[]
+include::creating-reusable-functions-with-fn-arguments/creating-reusable-functions-with-fn-arguments.asciidoc[]
 
 include::deprecate-macro/deprecate-macro.asciidoc[]
 

@@ -1,2 +1,4 @@
 [[ch_clojurescript]]
 == ClojureScript
+
+include::cljsbuild/cljsbuild.asciidoc[]
