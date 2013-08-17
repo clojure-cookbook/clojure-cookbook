@@ -11,7 +11,7 @@ to insert dynamic content and use template inheritance to structure the template
 
 ===== Solution
 
-Use Selmer to create your template and call them with a context map containing the dynamic content.
+Use Selmer to create your template and call it with a context map containing the dynamic content.
 
 First, add Selmer to your project file:
 
@@ -46,6 +46,8 @@ dynamic content at runtime. A simple template might look as follows:
 </html>
 ----
 
+The template can then be rendered by calling the +selmer.parser/render-file+ function:
+
 [source, clojure]
 ----
 (ns selmer-templating
@@ -59,8 +61,8 @@ dynamic content at runtime. A simple template might look as follows:
 
 When +render-file+ runs it will populate the tags with the content provided.
 
-We can also apply filters to variables for additional post-processing. if we wanted to convert 
-our heading to upper case we could use the +upper+ filter for that:
+When the content is rendered we can apply filters to variables for additional post-processing.
+Below, we use the +upper+ filter to convert our heading to upper case:
 
 [source, html]
 ----
@@ -100,7 +102,7 @@ The +include+ tag will simply be replaced by the contents of the file it points 
 is compiled.
 
 We can also extend our base template when we create individual pages.
-To do that we would first define a block in our base template. This well serve as an anchor
+To do that we would first define a block in our base template. This will serve as an anchor
 for the child tempalte to overrdie.
 
 .src/views/templates/base.html
@@ -131,24 +133,55 @@ content for the +content+ block:
 
 ===== Discussion
 
-Selmer provides a powerful and familiar templating tool with many tags and filters for easily acomplishing many common tasks. It separates the view logic from presentation by design.
+Selmer provides a powerful and familiar templating tool with many tags and filters for easily acomplishing many common tasks.
+It separates the view logic from presentation by design.
 
-Selmer is also highly performant as it compiles the templates and ensures that only the dynamic content needs to be
+Selmer is also performant as it compiles the templates and ensures that only the dynamic content needs to be
 evaluated when sercing a request.
 
 === Selmer Concepts
 
-There are two types of tags in Selmer. Variable tags are used to render values from the context map on the page.
+Selmer includes two types of lements, these consists of variables and tags.
+
+Variables are used to render values from the context map on the page.
 The +{{+ and +}}+ are used to indicate the start and end of a variable.
 
-In many cases you may wish to postprocess the value of a variable. For example, you might want to convert it to upper case, pluralize it, or parse it as a date. Variable filters are used for this purpose.
+In many cases you may wish to postprocess the value of a variable. For example, you might want to convert it to upper case,
+pluralize it, or parse it as a date. Variable filters are used for this purpose.
 
 Tags are used to add various functionality to the template such as looping and conditions. We already saw examples of 
-the +for+, +include+, and +extends+ tags above.
+the +for+, +include+, and +extends+ tags above. The tags use +{%+ an +%}+ to define their content.
+
+The default tag characters might conflict with clientside frameworks such as AngularJS.
+In this case we can specify custom tags by passing a map containing any of the following keys to the parser:
+
+[source, clojure]
+----
+:tag-open
+:tag-close
+:filter-open
+:filter-close
+:tag-second
+:custom-tags
+:custom-filters
+----
+
+If we wanted to use +[+ and +]+ as our opening and closing tags, we could call the +render+ function as follows:
+
+[source, clojure]
+----
+(render "[% for ele in foo %] {{I'm not a tag, but the next one is}} [{ele}] [%endfor%]"
+        {:foo [1 2 3]}
+        {:tag-open \[
+         :tag-close \]})
+----
+
+The +render+ function works just like +render-file+, except that it accepts the template content as a string.
 
 ===== Defining Filters
 
-Selmer provides a rich set of filters that allow decorating the dynamic content. Some of the filters include +capitalize+, +pluralize+, +hash+, +length+, sort, and many others.
+Selmer provides a rich set of filters that allow decorating the dynamic content. Some of the filters include +capitalize+,
++pluralize+, +hash+, +length+, +sort+ and many others.
 
 However, if you need a custom filter that's not part of the library you can trivially add one yourself.
 For example, if we wanted to parse Markdown using the https://github.com/yogthos/markdown-clj[markdown-clj] library
@@ -163,7 +196,7 @@ and display it on the page we could write the following filter:
 (add-filter! :markdown md-to-html-string)
 ---- 
 
-We can now use this tag in our templates to render Markdown content:
+We can now use this filter in our templates to render Markdown content:
 
 [source, clojure]
 ----
@@ -175,8 +208,8 @@ We can now use this tag in our templates to render Markdown content:
 </ul>
 ----
 
-Note that we had to chain the markdown filter with the safe filter. This is due to the fact that Selmer escapes
-tag content by default. We could change our filter definition to indicate that its content does not need escaping
+Note that we had to chain the +markdown+ filter with the +safe+ filter. This is due to the fact that Selmer escapes
+variable content by default. We can change our filter definition to indicate that its content does not need escaping
 as follows:
 
 [source, clojure]
