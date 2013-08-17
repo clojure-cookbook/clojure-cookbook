@@ -16,3 +16,5 @@ include::ring/headers/headers.asciidoc[]
 include::ring/compojure/compojure.asciidoc[]
 
 include::liberator/basic.asciidoc[]
+
+include::templatating-with-selmer/templating-with-selmer.asciidoc[]
