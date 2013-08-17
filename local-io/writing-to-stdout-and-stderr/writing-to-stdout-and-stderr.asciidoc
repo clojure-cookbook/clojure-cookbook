@@ -1,4 +1,4 @@
-==== Writing to stdout and stderr
+=== Writing to stdout and stderr
 
 ////
 Author: Alan Busby @thebusby

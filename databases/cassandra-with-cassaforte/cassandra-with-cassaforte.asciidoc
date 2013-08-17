@@ -1,4 +1,4 @@
-==== Access Cassandra
+=== Access Cassandra
 // By Oleksandr Petrov (ifesdjeen)
 
 ===== Problem
