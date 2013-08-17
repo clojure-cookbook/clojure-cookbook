@@ -119,15 +119,13 @@ prepare it for reading, and writing, respectively.
 
 ===== See Also
 
-For more details on ByteBuffers, which play a key role in Java's NIO
+- For more details on ByteBuffers, which play a key role in Java's NIO
 library, see the Java NIO documentation, or Ron Hitchens, __Java NIO__
 (http://shop.oreilly.com/product/9780596002886.do).
 
-There is also a Clojure library
+- There is also a Clojure library
 (https://github.com/geoffsalmon/bytebuffer) which provides a thin, more idiomatic wrapper for ByteBuffer operations.
 
-Finally, the Gloss library (https://github.com/ztellman/gloss) provides a DSL
+- Finally, the Gloss library (https://github.com/ztellman/gloss) provides a DSL
 for reading and writing binary streams of data (whether file-based, or
 network-based).
-
-
