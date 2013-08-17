@@ -124,13 +124,13 @@ functions:
 
 (defn make-awesome-message []
   (let [base-msg (my-message-helper1 "awesome")
-        awsome-work (str "really " base-msg)]
+        awesome-work (str "really " base-msg)]
     (my-message-helper2 awesome-work)))
 
 (defn make-cool-message []
-  (let [base-msg (my-message-helper1 "cool"]
+  (let [base-msg (my-message-helper1 "cool")]
     (prn base-msg)
-    (my-message-helper2 base-msg))))
+    (my-message-helper2 base-msg)))
 ----
 
 Since you would need to call both functions separately, but always 
