@@ -1,0 +1,64 @@
+=== Using temporary files from Clojure
+
+////
+Author: Alan Busby @thebusby
+////
+
+===== Problem
+
+You want to use a temporary file.
+
+===== Solution
+
+Using Java's +java.io.File/createTempFile+ create a temporary file in the 
+default temporary-file directory of the JVM, with the provided prefix and 
+suffix. 
+
+[source,clojure]
+----
+(def my-temp-file (java.io.File/createTempFile "filename" ".txt"))
+----
+
+Get the full path and filename for the created temporary file.
+
+[source,clojure]
+----
+(.getAbsolutePath my-temp-file)
+----
+
+Write a line of text to the temporary file.
+
+[source,clojure]
+----
+(binding [*out* (clojure.java.io/writer my-temp-file)] 
+  (println "Example output."))
+----
+
+Mark the temporary file to be deleted automatically when the JVM exits normally.
+
+[source,clojure]
+----
+(.deleteOnExit my-temp-file)
+----
+
+Delete the temporary file immediately.
+
+[source,clojure]
+----
+(.delete my-temp-file)
+----
+
+Create a temporary directory.
+
+[source,clojure]
+----
+(def tmp-dir (doto (java.io.File/createTempFile "tmpdir" nil)
+                   (.delete)
+		   (.mkdir)))
+----
+
+===== Discussion
+
+Temporary files are an excellent mechanism to provide, and retrieve, 
+data from a subprocess which may not necessarily interact with Clojure 
+or the JVM particularly well.
