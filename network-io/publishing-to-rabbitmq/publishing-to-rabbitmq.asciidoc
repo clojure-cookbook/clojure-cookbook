@@ -120,5 +120,5 @@ To declare an exchange, use +langohr.exchange/fanout+, +langohr.exchange/topic+,
 
 
 ===== See Also
-See http://clojurecassandra.info[Langohr documentation] and
+See http://clojurerabbitmq.info[Langohr documentation] and
 http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn more.
