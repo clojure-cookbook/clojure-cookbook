@@ -40,7 +40,7 @@ Next, make sure that RabbitMQ is running and connect to it.
   (comment ...))
 ----
 
-AMQP 0-9-1 is a multi-channeled protocol. It can multiplex multiple
+AMQP 0-9-1 is a multi-channeled protocol. It multiplexes several
 lightweight channels over a single TCP connection. Next, lets
 open a channel we can use to publish messages:
 
