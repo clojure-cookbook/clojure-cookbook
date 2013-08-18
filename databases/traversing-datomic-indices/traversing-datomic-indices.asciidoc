@@ -10,12 +10,12 @@ You want to access Datomic indices directly.
 
 ===== Solution
 
-Use the datomic.api/datoms function to directly access the core
+Use the +datomic.api/datoms+ function to directly access the core
 datomic indices.
 
-To find the entities which have the provided attribute and value set.
-Note, this will only work for attributes where :db/index = true, or 
-:db/unique is not nil.
+To find the entities which have the provided attribute and value set. +
+Note, this will only work for attributes where +:db/index+ is true, or 
++:db/unique+ is not nil.
 
 [source,clojure]
 ----
@@ -35,7 +35,7 @@ To find the values for the provided entity and attribute.
                             provided-attribute))
 ----
 
-To find the entities who refer, via :db.type/ref, to the provided entity.
+To find the entities who refer, via +:db.type/ref+, to the provided entity.
 
 [source,clojure]
 ----
@@ -60,5 +60,5 @@ By accessing the Datomic indices directly, a number of steps can be skipped,
 and simple queries can often execute more than ten times faster that if they
 were provided in datalog.
 
-This technique is particularly valuable when creating your own primary key 
+This technique is particularly valuable when using your own primary key 
 for an entity, which could then safely be provided to external systems.
