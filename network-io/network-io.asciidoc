@@ -6,3 +6,5 @@ include::making-an-http-request/making-an-http-request.asciidoc[]
 include::rss/rss.asciidoc[]
 
 include::twitter-api/twitter-api.asciidoc[]
+
+include::ping/sending-a-ping-request.asciidoc[]
