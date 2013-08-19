@@ -13,7 +13,7 @@ Instead you'll use a Red-Black tree, a type of binary search tree that balances 
 Additionally, in order to make the API familiar to Clojure users, you will provide a way to manipulate this custom data structure using existing sequence functions such as map, filter et al.
 
 
-We start by defining helper functions which implement the Red-Black tree algorithm and invariants:
+Start by defining the helper functions in terms of which our Red Black Tree type will be implemented:
 
 [source,clojure]
 ----
@@ -69,7 +69,7 @@ We start by defining helper functions which implement the Red-Black tree algorit
     [:black a y b]))
 ----
 
-Now we implement our custom data type in terms of these functions:
+Next, write the protocols and data type which will act as delegates to the functions above:
 
 [source,clojure]
 ----
@@ -139,22 +139,22 @@ Now we implement our custom data type in terms of these functions:
 
 ----
 
-Now we're ready to use it:
+Finally, you can use the new data structure at the REPL:
 
 [source,clojure]
 ----
 ;; Load some data
-(def rb-tree (RedBlackTree. (reduce insert-val nil (range 10))))
+(def rb-tree (reduce insert (RedBlackTree. nil) (range 10)))
 
-;; Finding values
+;; Find specific values
 (find rb-tree 9)   ; 9
 (find rb-tree 100) ; nil
 
-;; Returning a seq of all values in a tree
+;; Get a seq of all values in the tree 
 (map value rb-tree) ; (3 1 0 2 5 4 7 6 8 9)  
 (map #(vec [(colour %) (value %)]) rb-tree) ; ([:black 3] [:black 1] [:black 0] [:black 2] [:black 5] [:black 4] [:red 7] [:black 6] [:black 8] [:red 9])
 
-;; Filter all even nodes
+;; Filter all even nodes in the tree
 (filter #(even? (value %)) rb-tree) ;([:black nil 0 nil] [:black nil 2 nil] [:black nil 4 nil] [:black nil 6 nil] [:black nil 8 [:red nil 9 nil]])
 ----
 
@@ -171,4 +171,4 @@ Haven't started this section yet though I intend to discuss these topics:
 ===== See Also
 
 * +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurrence of +match+.
-* http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] is a fantastic book for learning and mastering Regular Expression syntax.
+* http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent book on efficiently implementing data structtures in a functional setting. It uses ML and Haskell but its concepts are transferable to Clojure, as demonstrated in this recipe.
