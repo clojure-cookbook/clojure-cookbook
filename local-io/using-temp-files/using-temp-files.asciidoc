@@ -30,8 +30,9 @@ Write a line of text to the temporary file.
 
 [source,clojure]
 ----
-(binding [*out* (clojure.java.io/writer my-temp-file)] 
-  (println "Example output."))
+(with-open [file (clojure.java.io/writer my-temp-file)]
+  (binding [*out* file] 
+    (println "Example output.")))
 ----
 
 Mark the temporary file to be deleted automatically when the JVM exits normally.
