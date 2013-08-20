@@ -9,8 +9,8 @@ You want to connect your program to an SQL database.
 Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
 
 Add a dependency to your Leiningen project file for the +clojure.java.jdbc+
-library. You will also need to add a dependency on the JDBC library appropriate
-for the SQL database you are connecting to:
+library. You will also need to add a dependency for the JDBC library used
+with the RDBMS you are connecting to (e.g. MySQL):
 
 [source,clojure]
 ----
@@ -30,10 +30,7 @@ Require the necessary parts of the +clojure.java.jdbc+ library in your Clojure s
 ----
 
 Create a database specification containing the parameters for accessing the
-database. The specification is a simple Clojure map and includes such
-parameters as the driver class name, the subprotocol for a particular database
-type, the hostname, the port number, the database name, and the username and
-password.
+database:
 
 [source,clojure]
 ----
@@ -51,13 +48,13 @@ library's other functions which query and manipulate your database.
 [source,clojure]
 ----
 (jdbc/insert! db-spec :blocks_world
-  {:color :RED :shape "square" :size 1.4}
-  {:color :BLUE :shape "cone"  :size 2.0}
-  {:color :WHITE :shape "rectangle" :size 0.5})
-;; -> ({:generated_key 1} {:generated_key 2} {:generated_key 3})
+  {:color "RED" :shape "square" :size 1.4}
+  {:color "BLUE" :shape "cone"  :size 2.0}
+  {:color "WHITE" :shape "rectangle" :size 0.5})
+;; -> (nil nil nil)
 
 (jdbc/query db-spec (sql/select * :blocks_world (sql/where {:shape "cone"})))
-;; -> ({:color :BLUE :shape "cone"  :size 2.0})
+;; -> ({:size 2.0, :shape "cone", :color "BLUE"})
 ----
 
 ===== Discussion
@@ -69,6 +66,29 @@ library implement small DSLs to generate basic SQL and basic DDL.
 Because it relies upon Java JDBC, the +clojure.java.jdbc+ library is useable
 with many of the most popular SQL databases; including Apache Derby, HSQLDB,
 Microsoft SQL Server, MySQL, PostgreSQL, and SQLite.
+
+The parameters necessary to setup and access a data source are called the
+"database specification" (often abbreviated "db-spec") and are provided in a
+simple Clojure map. The specification usually includes such parameters as the
+driver class name, the subprotocol for a particular RDBMS type, the hostname,
+the port number, the database name, and the username and password.
+
+The +clojure.java.jdbc+ library also permits several other forms of data source
+specification, including Java URIs, already open connections, JNDI connections,
+and plain strings. For example, a complete URI string may be provided under the
++:connection-uri+ key:
+
+[source,clojure]
+----
+(def db-spec {:connection-uri "jdbc:mysql://localhost:3306/lotr_db?user=bilbo&password=secret"})
+----
+
+or provided directly as the database specification itself:
+
+[source,clojure]
+----
+(def db-spec "jdbc:mysql://bilbo:secret@localhost:3306/lotr_db")
+----
 
 Database records are represented as Clojure maps, with the table's column names
 used as keys. Retrieval of a set of database records produces a sequence of
@@ -85,9 +105,10 @@ maps which can then be processed with all the normal Clojure functions.
 ;; -> ({:name "ant", :id 11} {:name "dog", :id 14} {:name "elf", :id 15})
 ----
 
-Other Clojure libraries to access relational databases through JDBC exist.
-These may provide more sophisticated DSLs for the manipulation of SQL
-expresssions and results.
+There are other Clojure libraries to access relational databases and each
+provides a different abstraction and DSL for the manipulation of SQL data and
+expressions. The +clojure.java.jdbc+ library, however, covers a large portion
+of everyday database access needs.
 
 ===== See Also
 
@@ -96,6 +117,6 @@ expresssions and results.
 * See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
 * See <<sec_SQL-database-connection-pooling>> to learn more about connection pooling with +clojure.java.jdbc+.
 
-* See The +clojure.java.jdbc+ library GitHub site (https://github.com/clojure/java.jdbc)
-* See The Korma SQL site (http://sqlkorma.com/)
-* See the HoneySQL site (https://github.com/jkk/honeysql)
+* See the +clojure.java.jdbc+ library GitHub site (https://github.com/clojure/java.jdbc)
+* See the Korma SQL site (http://sqlkorma.com/) for an alternative SQL DSL.
+* See the HoneySQL site (https://github.com/jkk/honeysql) for another alternative SQL DSL.
