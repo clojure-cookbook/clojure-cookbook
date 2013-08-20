@@ -23,8 +23,8 @@ First, add Selmer to your project file:
                            [selmer "0.4.0"]])
 ----
 
-A Selmer template is simply an HTML file that contains special tags that will be populated with the
-dynamic content at runtime. A simple template might look as follows:
+A Selmer template is an HTML file with special tags that is populated with dynamic
+content at runtime. A simple template might look as follows:
 
 .src/views/templates/base.html
 [source, html]
@@ -33,13 +33,17 @@ dynamic content at runtime. A simple template might look as follows:
 <html lang="en">
   <body>
     <header>
+
       <h1>{{header}}</h1>
+
       <ul id="navigation">
+
         {% for item in nav-items %}
         <li>
             <a href="{{item.link}}">{{item.name}}</a>
         </li>
         {% endfor %}
+
       </ul>
     </header>
   </body>
@@ -61,7 +65,7 @@ The template can then be rendered by calling the +selmer.parser/render-file+ fun
 
 When +render-file+ runs it will populate the tags with the content provided.
 
-When the content is rendered we can apply filters to variables for additional post-processing.
+We can apply filters to variables for additional post-processing at runtime.
 Below, we use the +upper+ filter to convert our heading to upper case:
 
 [source, html]
@@ -76,13 +80,17 @@ if we wanted to define the header in a separate file we could do the following:
 [source, html]
 ----
 <header>
+
   <h1>{{header}}</h1>
+
   <ul id="navigation">
+
     {% for item in nav-items %}
     <li>
         <a href="{{item.link}}">{{item.name}}</a>
     </li>
     {% endfor %}
+
   </ul>
 </header>
 ----
@@ -93,7 +101,9 @@ if we wanted to define the header in a separate file we could do the following:
 <!DOCTYPE html>
 <html lang="en">
   <body>
+
     {% include "views/templates/header.html" %}
+
   </body>
 </html>
 ---- 
@@ -111,9 +121,12 @@ for the child template to override.
 <!DOCTYPE html>
 <html lang="en">
   <body>
+
     {% include "views/templates/header.html" %}
+
     {% block content %}
     {% endblock %}
+
   </body>
 </html>
 ---- 
@@ -125,9 +138,12 @@ content for the +content+ block:
 [source, html]
 ----
 {% extends "base.html" %}
+
 {% block content %}
+
 <h1>This is the home page of the site</h1>
 <p>some exciting content follows</p>
+
 {% endblock %}
 ---- 
 
@@ -141,7 +157,7 @@ evaluated when sercing a request.
 
 ====== Selmer Concepts
 
-Selmer includes two types of lements, these consists of variables and tags.
+Selmer includes two types of elements, these consists of variables and tags.
 
 Variables are used to render values from the context map on the page.
 The +{{+ and +}}+ are used to indicate the start and end of a variable.
