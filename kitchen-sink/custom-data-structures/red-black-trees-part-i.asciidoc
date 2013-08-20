@@ -98,9 +98,7 @@ For anyone who has ever had to implement a Red Black Tree - or at least attended
 
 The later two points are related as you'll see below.
 
-https://github.com/clojure/core.match[core.match] allows us to match on the shape of a data structure as well as perform structural binding at the same time. For example, the code below tries to match +a-vector+ against two clauses.
-
-The first matches a two-element array whereas the second matches a 3-element array. Given +a-vector+ has exactly three elements, it matches the second clause. But not only that, we also give the third element a binding, +z+, which we can use in the code handling that specific clause:
+https://github.com/clojure/core.match[core.match] allows us to match on the shape of a data structure as well as perform structural binding at the same time. For example, the code below tries to match +a-vector+ against two clauses:
 
 [source,clojure]
 ----
@@ -109,7 +107,9 @@ The first matches a two-element array whereas the second matches a 3-element arr
        [_ y] (str "Got y: " y)
        [_ _ z] (str "Got z: " z))
 ;; "Got z: 3"
-----       
+----
+
+The first matches a two-element array whereas the second matches a 3-element array. Given +a-vector+ has exactly three elements, it matches the second clause. But not only that, we also give the third element a binding, +z+, which we can use in the code handling that specific clause.
 
 This is why we represent nodes as vectors - it makes pattern matching them a breeze:
 
