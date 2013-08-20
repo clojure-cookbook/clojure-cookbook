@@ -1,0 +1,185 @@
+=== Implementing custom data structures: Red Black Trees - Part I
+
+// By Leonardo Borges (@leonardo_borges)
+
+===== Problem
+
+You need a way to perform fast, efficient in-memory searches across a large, random data set.
+
+This dataset may change over time during program execution.
+
+===== Solution
+
+At first, a binary search tree - or a binary search over a list - might seem like a good solution. However this only works on sorted data but from the problem statement, you know you'll need something better. In the case of a binary search tree, it could end up quite unbalanced and no more efficient than a linked list.
+
+Instead you'll use a Red-Black tree, a type of self-balancing binary search tree.
+
+Start by defining the +balance+ and +insert-val+ functions which are the core of our Red Black Tree:       
+
+[source,clojure]
+----
+(require '[clojure.core.match :refer [match]])
+
+(defn- balance
+  "Ensures the given sub-tree stays balanced by rearranging black nodes
+  which have at least one red child and one red grandchild"
+  [tree]
+  (match [tree]
+         [(:or [:black [:red [:red a x b] y c] z d]
+               [:black [:red a x [:red b y c]] z d]
+               [:black a x [:red [:red b y c] z d]]
+               [:black a x [:red b y [:red c z d]]])] [:red [:black a x b]
+                                                            y
+                                                            [:black c z d]]
+               :else tree))
+
+(defn- insert-val
+  "Inserts x in tree.
+  Returns a node with x and no children if tree is nil.
+
+  Returned tree is balanced. See also `balance`"
+  [tree x]
+  (let [ins (fn ins [tree]
+              (match tree
+                     nil [:red nil x nil]
+                     [color a y b] (cond
+                                    (< x y) (balance [color (ins a) y b])
+                                    (> x y) (balance [color a y (ins b)])
+                                    :else tree)))
+        [_ a y b] (ins tree)]
+    [:black a y b]))
+----
+
+Then, define a couple of helper function which will make dealing with our Red Black tree easier:
+
+[source,clojure]
+----
+(defn- is-member?
+  "Returns true if tree contains x"
+  [tree x]
+  (match tree
+         nil false
+         [_ a y b] (cond
+                    (< x y) (recur a x)
+                    (> x y) (recur b x)     
+                    :else true)))
+
+(defn- find-val
+  "Finds value x in tree"
+  [tree x]
+  (match tree
+         nil nil
+         [_ a y b] (cond
+                    (< x y) (recur a x)
+                    (> x y) (recur b x)
+                    :else x)))
+----
+
+Next, we can take it for a whirl:
+
+[source,clojure]
+----
+;; Load some data
+(def rb-tree (reduce insert-val nil (range 10)))
+
+;; Find specific values
+(find-val rb-tree 9)   ; 9
+(find-val rb-tree 100) ; nil
+----
+
+
+===== Discussions
+
+For anyone who has ever had to implement a Red Black Tree - or at least attended a class in Computer Science where the algorithm was tought - the implementation of +balance+ might seem extremely short. The reason for this is threefold: 
+
+* Our Red Black Tree is persistent: operations on it, such as insert and balance, are not destructive
+* +balance+ uses https://github.com/clojure/core.match[core.match], a pattern matching library for Clojure.
+* We represent nodes as vectors
+
+The later two points are related as you'll see below.
+
+https://github.com/clojure/core.match[core.match] allows us to match on the shape of a data structure as well as perform structural binding at the same time. For example, the code below tries to match +a-vector+ against two clauses.
+
+The first matches a two-element array whereas the second matches a 3-element array. Given +a-vector+ has exactly three elements, it matches the second clause. But not only that, we also give the third element a binding, +z+, which we can use in the code handling that specific clause:
+
+[source,clojure]
+----
+(def a-vector [1 2 3])
+(match a-vector
+       [_ y] (str "Got y: " y)
+       [_ _ z] (str "Got z: " z))
+;; "Got z: 3"
+----       
+
+This is why we represent nodes as vectors - it makes pattern matching them a breeze:
+
+[source,clojure]
+----
+(def rb-node [:red nil 3 [:black nil 4 nil]])
+(match rb-node
+       [:red left value right]   (str "Red node with value: " value)
+       [:black left value right] (str "Black node with value: " value))
+;; "Red node with value: 3"
+----
+
+All other functions simply take advantage of all the work +balance+ is doing and become a lot simpler.
+
+*A note on performance*
+
+One might suggest a simpler way to achieve this goal is to first load all data into a vector, sort it and use Java's +binarySearch+ method to search across the dataset. This would be the case had the problem statement not mentioned that the dataset can change between searches. 
+
+Instead of making any claims, I'll show how both solutions perform in a little benchmark. 
+
+The benchmark adds items to the existing tree - or vector - and attempts to find an element. The benchmark is executed three times in order to give us a sense of the average time elapsed.
+
+First, our Red Black Tree Implementation:
+
+[source,clojure]
+----
+(def rbtree (reduce insert-val nil (range 10)))
+(dotimes [_ 3]
+  (time
+   (dotimes [_ 400] 
+     (-> rbtree
+         (insert-val 500)
+         (insert-val 550)
+         (insert-val 200)                  
+         (find-val 200)))))
+
+;; "Elapsed time: 29.552 msecs"
+;; "Elapsed time: 22.656 msecs"
+;; "Elapsed time: 22.577 msecs"         
+----       
+
+Next, the solution using Java's +binarySearch+:
+
+[source,clojure]
+----
+(def vector (vec (range 1000 5000)))
+(dotimes [_ 3]
+  (time
+   (dotimes [_ 400] 
+     (let [coll (-> vector
+                    (conj 500)
+                    (conj 550)
+                    (conj 200)
+                    sort)]
+       (nth coll (java.util.Collections/binarySearch coll 200 compare))))))
+
+;; "Elapsed time: 351.09 msecs"
+;; "Elapsed time: 328.122 msecs"
+;; "Elapsed time: 361.52 msecs"
+----
+
+This is quite a difference. The second solution suffers from the nature of the data changing between each search, requiring us to sort the vector each time in order for the binary search to work.
+
+Our Red Black Tree on the other hand keeps itself balanced as each item is inserted so the cost of inserting new elements in negligible.
+
+One limitation of our data structure at the moment is that we can't use core clojure functions such as map and filter.
+
+In Part 2 we'll address this very issue.
+
+===== See Also
+* Implementing custom data structures: Red Black Trees - Part II (xref)
+
+* http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent book on efficiently implementing data structtures in a functional setting. It uses ML and Haskell but its concepts are transferable to Clojure, as demonstrated in this recipe.
