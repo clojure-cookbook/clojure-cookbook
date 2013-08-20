@@ -98,7 +98,7 @@ For anyone who has ever had to implement a Red Black Tree - or at least attended
 
 The later two points are related as you'll see below.
 
-https://github.com/clojure/core.match[core.match] allows us to match on the shape of a data structure as well as perform structural binding at the same time. For example, the code below tries to match +a-vector+ against two clauses:
+https://github.com/clojure/core.match[core.match] allows us to match on the shape and values of a data structure as well as perform structural binding at the same time. For example, the code below tries to match +a-vector+ against two clauses:
 
 [source,clojure]
 ----
