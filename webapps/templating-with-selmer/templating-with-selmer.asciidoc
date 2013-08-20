@@ -153,7 +153,7 @@ Selmer provides a powerful and familiar templating tool with many tags and filte
 It separates the view logic from presentation by design.
 
 Selmer is also performant as it compiles the templates and ensures that only the dynamic content needs to be
-evaluated when sercing a request.
+evaluated when serving a request.
 
 ====== Selmer Concepts
 
@@ -162,13 +162,13 @@ Selmer includes two types of elements, these consists of variables and tags.
 Variables are used to render values from the context map on the page.
 The +{{+ and +}}+ are used to indicate the start and end of a variable.
 
-In many cases you may wish to postprocess the value of a variable. For example, you might want to convert it to upper case,
+In many cases you may wish to post-process the value of a variable. For example, you might want to convert it to upper case,
 pluralize it, or parse it as a date. Variable filters are used for this purpose.
 
 Tags are used to add various functionality to the template such as looping and conditions. We already saw examples of 
 the +for+, +include+, and +extends+ tags above. The tags use +{%+ an +%}+ to define their content.
 
-The default tag characters might conflict with clientside frameworks such as AngularJS.
+The default tag characters might conflict with client-side frameworks such as AngularJS.
 In this case we can specify custom tags by passing a map containing any of the following keys to the parser:
 
 [source, clojure]
@@ -212,7 +212,7 @@ and display it on the page we could write the following filter:
 (add-filter! :markdown md-to-html-string)
 ---- 
 
-We can now use this filter in our templates to render Markdown content:
+We can now use this filter in our templates to render our Markdown content:
 
 [source, clojure]
 ----
