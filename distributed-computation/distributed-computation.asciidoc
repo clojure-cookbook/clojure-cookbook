@@ -10,3 +10,5 @@ include ::cascalog/etl/etl.asciidoc[]
 include ::cascalog/aggregating-large-files/aggregating-large-files.asciidoc[]
 
 include ::cascalog/checkpoint/checkpoint.asciidoc[]
+
+include ::cascalog/explain/explain.asciidoc[]
