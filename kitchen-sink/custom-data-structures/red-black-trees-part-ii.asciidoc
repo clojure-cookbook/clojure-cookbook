@@ -1,4 +1,4 @@
-=== Implementing custom data structures: Red Black Trees - Part I
+=== Implementing custom data structures: Red Black Trees - Part II
 
 // By Leonardo Borges (@leonardo_borges)
 
