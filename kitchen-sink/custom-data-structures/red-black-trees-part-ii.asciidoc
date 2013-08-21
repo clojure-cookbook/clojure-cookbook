@@ -200,7 +200,7 @@ any existing functions in the type being extended. Lucky for us, extended
 types are confined to the namespaces in which they are used, minimising 
 problems.
 
-This brings us to the +map+ function and what allows us to use it with our custom data structure. If you look under the hood, at the source of map, you'll see something like this - I omitted a lot of the implementation to highlight the core of what map is doing: 
+This brings us to the +map+ function and what allows us to use it with our custom data structure. If you look under the hood, at the source of +map+, you'll see something like this - I omitted a lot of the implementation to highlight the core of what map is doing: 
 
 [source,clojure]
 ----
