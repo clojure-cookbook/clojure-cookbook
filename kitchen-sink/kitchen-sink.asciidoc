@@ -8,3 +8,7 @@ include::deprecate-macro/deprecate-macro.asciidoc[]
 include::removing-duplicate-elements-from-a-collection/removing-duplicate-elements-from-a-collection.asciidoc[]
 
 include::tracing/tracing.asciidoc[]
+
+include::custom-data-structures/red-black-trees-part-i.asciidoc[]
+
+include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
