@@ -31,6 +31,8 @@ user> (sh "ls" "-l" "nosuchfile")
 {:exit 1, :out "", :err "ls: nosuchfile: No such file or directory\n"}
 ----
 
+===== Discussion
+
 If you're at the REPL, newline characters will be shown instead of
 actual linebreaks. To see human-friendly output instead, wrap the
 +sh+ command with a +println+. Here's the canonical cowsay example for +sh+,
@@ -81,8 +83,6 @@ user> (sh "printenv" "HOME" :env {"HOME" "/Users/dale"})
 user> (with-sh-env {"HOME" "/Users/dale"} (sh "printenv" "HOME"))
 {:exit 0, :out "/Users/dale\n", :err ""}
 ----
-
-===== Discussion
 
 Clojure provides great power with its inherent capabilities and its control
 over Java. Add the +sh+ command to your repertoire, and you can rule
