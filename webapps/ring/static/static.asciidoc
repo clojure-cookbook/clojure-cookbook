@@ -51,6 +51,8 @@ Often, you will want to bundle your static files with your application. In that 
 
 This will serve all files under a directory called `static` in your classpath. You can put the `static` directory under `resources/` in a Leiningen project and have your static files packaged with JAR files you generate from that project.
 
+You may want to wrap any file responses with `ring.middleware.file-info/wrap-file-info`. This Ring middleware checks the modification date and the type of the file, setting `Content-Type` and `Last-Modified` headers. `wrap-file-info` needs to wrap around `wrap-file` or `wrap-resource`.
+
 ===== See Also
 
 * <<sec_webapps_compojure_compojure>>
