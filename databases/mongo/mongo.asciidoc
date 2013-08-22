@@ -165,4 +165,4 @@ The basic find functions in `monger.collection` will work for simple queries, bu
 
 ===== See Also
 
-CongoMongo is another Clojure library for working with MongoDB that you can consider.
+* https://github.com/aboekhoff/congomongo[CongoMongo] is another Clojure library for working with MongoDB that you can consider.
