@@ -36,7 +36,7 @@ Creating new DOM nodes is easy with Dommy:
                 
 ----
 
-A couple quick explanations about what's going:
+Let's take a closer look at what's actually going on:
 
 * The first keyword in the list always describes the element, including it's classes and id, using css syntax.
 If no tag is specified, it defauts to div. Thus, in the first line +:#login-form.modal.another-class+ becomes
@@ -46,8 +46,8 @@ attribute map.
 * The remaining items in the vector are all treated as child nodes.
 
 Dommy also provides a library of idomatic, macro-assisted functions for DOM selection and manipulation. Using
-Dommy is simple, and integrates ClojureScript and it's own templating 
-system together smoothly, especially the +->+:
+Dommy is simple, and integrates ClojureScript and it's own templating system together smoothly, especially
+the +->+:
 
 [source, clojure]
 ----
@@ -115,9 +115,9 @@ combine the chaining of both DOM manipulation and object manipulation:
 ===== Discussion
 
 ClojureScript has a compilation step which converts Clojure into JavaScript. During compilation, ClojureScript
-macros examine your code and can re-write expressions that generate more efficient JavaScript upfront.
-
-Under the hood, Dommy makes liberal use of macros to be fast.
+macros examine your code and can re-write expressions that generate more efficient JavaScript upfront. Dommy 
+uses this macro magic under the hood to expand things out, making it's templating and DOM selection faster
+than what you can get in Javascript:
 
 [source, clojure]
 ----
@@ -125,13 +125,17 @@ Under the hood, Dommy makes liberal use of macros to be fast.
  [dommy.macros :only [sel sel1]])
 
 (sel1 :body) ; => document.body
- 
 (sel1 :#my-id) ; => document.getElementById("my-id")
- 
 (sel parent :.child) ; => [].slice.call(parent.getElementsByClassName("child"))
- 
 (sel ".c1, .c2") ; => [].slice.call(document.querySelector(".c1, .c2"))
 
+----
+[source, javascript]
+----
+$('body') // 15x slower than (sel1 :body)
+$('#my-id') // 7x slower than (sel1 :#my-id)
+$('.child', parent) // 2.5x slower than (sel parent :.child)
+$('.c1, .c2') // 1.2x slower than (sel ".c1, .c2")
 ----
 
 ===== See Also
