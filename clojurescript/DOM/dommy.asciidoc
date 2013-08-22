@@ -33,7 +33,7 @@ Creating new DOM nodes is easy with Dommy:
      [:input.password {:type "password"
                        :placeholder "password"}]
      [:button#login-submit-button]])
-                
+
 ----
 
 Let's take a closer look at what's actually going on:
@@ -61,10 +61,10 @@ the +->+:
     dommy/show!
     (dommy/listen! :mousedown (fn [e] (js/alert "Pwn!"))
                    :touchstart (fn [e] (js/alert "Phone Pwn!"))))
-                   
+
 (dommy/prepend! :#login-form [:input.email {:type "test" :placeholder "email"}])
 // here, :#login-form is sugar for (sel1 :#login-form)
-                   
+
 ----
 
 Unlike in jQuery, Dommy methods only work on a single DOM object at a time. But, with ClojureScript's built
@@ -94,30 +94,30 @@ combine the chaining of both DOM manipulation and object manipulation:
 ----
 (defprotocol PWidget
   (do-something! [this]))
- 
+
 (defrecord Widget [container data]
   dommy.templates/PElement
   (-elem [this] container)
   PWidget
   (do-something! [this]
      (do-stuff! data)))
- 
+
 (defn make-widget [data]
   (Widget. [:.widget data]))
- 
+
 (-> (make-widget “BIG DATA”)
     (dommy/add-class! :buzzword)
     do-something!
     (dommy/insert-after! (sel1 :.pre-widget-thing)))
 
 ----
-     
+
 ===== Discussion
 
 ClojureScript has a compilation step which converts Clojure into JavaScript. During compilation, ClojureScript
-macros examine your code and can re-write expressions that generate more efficient JavaScript upfront. Dommy 
-uses this macro magic under the hood to expand things out, making it's templating and DOM selection faster
-than what you can get in Javascript:
+macros examine your code and can re-write expressions that generate more efficient JavaScript upfront. Dommy
+uses this macro magic under the hood to do as much expansion as it can at compile-time, making it's templating
+and DOM selection faster than what you can get in Javascript:
 
 [source, clojure]
 ----
@@ -129,6 +129,11 @@ than what you can get in Javascript:
 (sel parent :.child) ; => [].slice.call(parent.getElementsByClassName("child"))
 (sel ".c1, .c2") ; => [].slice.call(document.querySelector(".c1, .c2"))
 
+(deftemplate example [datum]
+  [:li [:a {:href (str "#show/" (:key datum))}
+        [:div.class1.class2 {:id (str "item" (:key datum))}
+           [:span.anchor (:name datum)]]]])
+
 ----
 [source, javascript]
 ----
@@ -136,12 +141,26 @@ $('body') // 15x slower than (sel1 :body)
 $('#my-id') // 7x slower than (sel1 :#my-id)
 $('.child', parent) // 2.5x slower than (sel parent :.child)
 $('.c1, .c2') // 1.2x slower than (sel ".c1, .c2")
+
+$('li').append(
+  $('<a>').attr('href', '#show/' + datum.key)
+          .addClass('anchor')
+          .append( $('<div>').addClass('class1').addClass('class2')
+                             .attr('id', 'item' + datum.key)
+                             .append( $('<span>').text(datum.name) )))
+// 3.5x slower than (deftemplate example ...)
 ----
 
 ===== See Also
 
+* Examine Dommy in more depth and propose new changes by taking a look at
+https://github.com/Prismatic/dommy[the source on Gtihub].
 * Peruse this excellent blog post by Fogus on to understand exactly how the macro-compilation process works:
 http://blog.fogus.me/2012/04/25/the-clojurescript-compilation-pipeline/[The ClojureScript Compilation Pipeline]
+* For a more detailed look into Dommy's performant use of macros, check out the posts on
+http://blog.getprismatic.com/blog/2013/1/22/the-magic-of-macros-lighting-fast-templating-in-clojurescript[Templating]
+and http://blog.getprismatic.com/blog/2013/4/29/faster-better-dom-manipulation-with-dommy-and-clojurescript[DOM manipulation]
+on the Prisamtic blog.
 * Dommy isn't the only DOM manipulation library out there. Check out https://github.com/ibdknox/jayq[JayQ],
 https://github.com/ckirkendall/enfocus[Enfocus], or https://github.com/levand/domina[Domina] if Dommy doesn't
 do the trick for you.
