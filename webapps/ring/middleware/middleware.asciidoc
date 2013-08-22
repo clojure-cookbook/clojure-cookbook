@@ -77,7 +77,7 @@ a number of middlewares to add to your app, including one called `params` that
 does the same as the middleware we just wrote but better:
 
 [quote, Ring Documentation]
-----
+____
 **wrap-params**
 
 Middleware to parse urlencoded parameters from the query string and form
@@ -90,7 +90,7 @@ Takes an optional configuration map. Recognized keys are:
   :encoding - encoding to use for url-decoding. If not specified, uses
               the request character encoding, or "UTF-8" if no request
               character encoding is set.
-----
+____
 
 You are in no way limited to using one middleware.  Usually, you'll at
 least want to use the cookie, session, and params middleware.  One concise way to wrap your handler

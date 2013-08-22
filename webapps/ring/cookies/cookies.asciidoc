@@ -82,7 +82,7 @@ You can add other optional parameters to each cookie, along with `:value`. From 
 https://github.com/ring-clojure/ring/wiki/Cookies[Ring Cookie Documentation]:
 
 [quote, Ring Docs]
-----
+____
 As well as setting the value of the cookie, you can also set additional attributes:
 
 * `:domain` - restrict the cookie to a specific domain
@@ -91,4 +91,4 @@ As well as setting the value of the cookie, you can also set additional attribut
 * `:http-only` - restrict the cookie to HTTP if true (not accessible via e.g. JavaScript)
 * `:max-age` - the number of seconds until the cookie expires
 * `:expires` - a specific date and time the cookie expires
-----
+____
