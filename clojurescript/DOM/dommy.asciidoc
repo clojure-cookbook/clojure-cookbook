@@ -11,13 +11,13 @@ You want to create and manipulate  DOM nodes natively in ClojureScript
 
 ===== Solution
 
-Use https://github.com/Prismatic/dommy[Dommy], an open source project that provides fast, funtional DOM manipulation and templating.
+Use https://github.com/Prismatic/dommy[Dommy], an open source project that provides fast, funtional DOM
+manipulation and templating.
 
 Add the following dependency to your +project.clj+:
 
 [source, clojure]
 ----
-
 [prismatic/dommy "0.1.1"]
 
 ----
@@ -37,11 +37,17 @@ Creating new DOM nodes is easy with Dommy:
 ----
 
 A couple quick explanations about what's going:
-* The first keyword in the list always describes the element, including it's classes and id, using css syntax. If no tag is specified, it defauts to div. Thus, in the first line +:#login-form.modal.another-class+ becomes +<div id="loging-form" class="modal another-class">...</div>+
-* If the second item in the vector is a map literal, or it type-hinted with +:^attrs+, then it's treated as an attribute map.
+
+* The first keyword in the list always describes the element, including it's classes and id, using css syntax.
+If no tag is specified, it defauts to div. Thus, in the first line +:#login-form.modal.another-class+ becomes
++<div id="loging-form" class="modal another-class">...</div>+
+* If the second item in the vector is a map literal, or it type-hinted with +:^attrs+, then it's treated as an
+attribute map.
 * The remaining items in the vector are all treated as child nodes.
 
-Dommy also provides a library of idomatic, macro-assisted functions for DOM selection and manipulation. Using Dommy is simple, and integrates smoothly with the usage patterns of ClojureScript and it's own templating system, especially the +->+:
+Dommy also provides a library of idomatic, macro-assisted functions for DOM selection and manipulation. Using
+Dommy is simple, and integrates ClojureScript and it's own templating 
+system together smoothly, especially the +->+:
 
 [source, clojure]
 ----
@@ -61,7 +67,8 @@ Dommy also provides a library of idomatic, macro-assisted functions for DOM sele
                    
 ----
 
-Unlike in jQuery, Dommy methods only work on a single DOM object at a time. But, with ClojureScript's built in sequence processing functions, operating on many elements at once is even easier:
+Unlike in jQuery, Dommy methods only work on a single DOM object at a time. But, with ClojureScript's built
+in sequence processing functions, operating on many elements at once is even easier:
 
 [source, clojure]
 ----
@@ -79,7 +86,9 @@ Unlike in jQuery, Dommy methods only work on a single DOM object at a time. But,
 
 ----
 
-And, if you want Dommy to work on your own objects, all you have to do is implement the +PElement+ protocol. For each side-effect, Dommy retuns the original input, not the Dom node, which allows you to effortlessly combine the chaining of both DOM manipulation and object manipulation:
+And, if you want Dommy to work on your own objects, all you have to do is implement the +PElement+ protocol.
+For each side-effect, Dommy retuns the original input, not the Dom node, which allows you to effortlessly
+combine the chaining of both DOM manipulation and object manipulation:
 
 [source, clojure]
 ----
@@ -105,7 +114,8 @@ And, if you want Dommy to work on your own objects, all you have to do is implem
      
 ===== Discussion
 
-ClojureScript has a compilation step which converts Clojure into JavaScript. During compilation, ClojureScript macros examine your code and can re-write expressions that generate more efficient JavaScript upfront.
+ClojureScript has a compilation step which converts Clojure into JavaScript. During compilation, ClojureScript
+macros examine your code and can re-write expressions that generate more efficient JavaScript upfront.
 
 Under the hood, Dommy makes liberal use of macros to be fast.
 
@@ -126,5 +136,8 @@ Under the hood, Dommy makes liberal use of macros to be fast.
 
 ===== See Also
 
-* Peruse this excellent blog post by Fogus on to understand exactly how the macro-compilation process works: http://blog.fogus.me/2012/04/25/the-clojurescript-compilation-pipeline/[The ClojureScript Compilation Pipeline]
-* Dommy isn't the only DOM manipulation library out there. Check out https://github.com/ibdknox/jayq[JayQ], https://github.com/ckirkendall/enfocus[Enfocus], or https://github.com/levand/domina[Domina] if Dommy doesn't do the trick for you.
+* Peruse this excellent blog post by Fogus on to understand exactly how the macro-compilation process works:
+http://blog.fogus.me/2012/04/25/the-clojurescript-compilation-pipeline/[The ClojureScript Compilation Pipeline]
+* Dommy isn't the only DOM manipulation library out there. Check out https://github.com/ibdknox/jayq[JayQ],
+https://github.com/ckirkendall/enfocus[Enfocus], or https://github.com/levand/domina[Domina] if Dommy doesn't
+do the trick for you.
