@@ -5,6 +5,8 @@ include::ring/introduction/introduction.asciidoc[]
 
 include::ring/middleware/middleware.asciidoc[]
 
+include::ring/static/static.asciidoc[]
+
 include::ring/forms/forms.asciidoc[]
 
 include::ring/cookies/cookies.asciidoc[]
