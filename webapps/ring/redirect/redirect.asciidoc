@@ -1,0 +1,47 @@
+////
+:Author: Craig McDaniel
+:Email: cpmcdaniel@gmail.com
+////
+
+=== HTTP Redirect with Ring
+
+===== Problem
+
+You need to redirect the browser to another URL. 
+
+===== Solution
+
+To redirect a ring request, use the redirect function in the ring.util.response namespace.
+
+[source, clojure]
+----
+(ns redirect
+  (:require
+   [ring.adapter.jetty :as jetty]
+   [ring.util.response :as response]))
+
+(defn redirect-to-github
+  "A handler that redirects all requests"
+  [req]
+  (response/redirect "http://github.com/"))
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty redirect-to-github {:port 3000}))
+----
+
+===== Discussion
+
+The ring.util.response namespace contains a function for redirecting to a URL. This URL can be generated dynamically from the request map (using parameters from wrap-params, headers, etc.). Underneath, this function simply creates a response map with a 302 :status value and a "Location" header containing the URL to redirect to.
+
+According to the HTTP specification, if the response method is a POST, PUT, or DELETE, it should be assumed that the server received the request, and the client should issue a GET request to the URL in the Location header. This is an important caveat when writing REST services. Fortunately, the specification specifies a 307 status code, which should signal to clients that the request should be redirected to the new Location using the original method and body. To do this, simply return a response map in the handler function like so:
+
+[source, clojure]
+----
+(defn redirect-to-github
+  [req]
+  {:status 307
+   :headers {"Location" "http://github.com"}
+   :body ""})
+----
+
