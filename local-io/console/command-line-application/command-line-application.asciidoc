@@ -1,0 +1,64 @@
+=== Command Line Application
+
+// By Rohit Sachdeva (rsachdeva)
+
+===== Problem
+
+You want to build a simple interactive command line application. 
+
+===== Solution
+
+Use +clojure.java.io/read-line+ to read data at runtime on command line, +clojure.core/name+ to convert to a String or something similar to say +clojure.edn/read-string, finally process it and use +clojure.core/println+ to output it.
+Say you want to build an application to see if the entered name at runtime is in the Author's Club list. The application outputs if your name is in the list.
+
+[source,clojure]
+----
+(ns authors.core
+  (:require [clojure.string :as string]))
+
+(defn prompt [user-input]
+  (println user-input)
+  (read-line))
+
+(def authors #{"Alex" "Craig" "Rohit" "Ryan" "Stuart"})
+
+(defn -main []
+  (let [raw-input (prompt "Please enter your name to check if its in the Authors Club:")
+        requested-name  (string/capitalize (name (if (nil? raw-input) "" raw-input)))] 
+       (println "Your name" requested-name (if (contains? authors requested-name) "IS" "IS NOT")  "in the Authors Club")))  
+----
+
+===== Discussion
+
+A typical command line application is no different from a web application. We will break the parts to compare to a web application to explain this better. You could more easily start with a command line application to prototype core business logic and later convert it to web application as desired then.
+
++clojure.java.io/read-line+ is used to take input data in the +prompt+ function.
+The raw-inputs can be validated. For example if the user just pressed enter, it converts nil to a blank string, otherwise converts 
+input to String using the ++clojure.core/name+ function. This is similar to form validation in most web applications. 
+
+We use +clojure.string/capitalize+ to transform data for match comparison from the set in authors. We then check if 
+the name is in the set. This is similar to business domain processing in web applications.
+
+We output the result accordingly using +clojure.core/println+. 
+This is similar to HTML views in a typical web application.
+
+Here are outputs shown at runtime for the application for the use cases in which the name match is found or not found:
+
+[source,bash]
+----
+% lein run
+Please enter your name to check if its in the Authors Club:
+Ryan
+Your name Ryan IS in the Authors Club
+----
+
+[source,bash]
+----
+% lein run
+Please enter your name to check if its in the Authors Club:
+Andy
+Your name Andy IS NOT in the Authors Club
+----
+
+
+
