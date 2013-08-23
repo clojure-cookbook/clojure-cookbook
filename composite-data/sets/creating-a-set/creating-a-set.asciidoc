@@ -52,7 +52,7 @@ Alternatively, use +into+ with a set to create a new set.
 
 [TIP]
 .Set Construction Performance
-********************************************************************************
+====
 At the time of writing, the +into+ technique is about three times
 faster than +set+ for large collections of objects. Use it whenever
 you're working with large sets where performance is a concern.
@@ -68,7 +68,7 @@ user=> (time (dotimes [_ 100] (into #{} largeseq)))
 "Elapsed time: 1329.66 msecs"
 nil
 ----
-********************************************************************************
+====
 
 Create a sorted set with +sorted-set+.
 
