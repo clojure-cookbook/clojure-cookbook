@@ -10,3 +10,5 @@ include::text-search/text-search.asciidoc[]
 include::cassandra-with-cassaforte/cassandra-with-cassaforte.asciidoc[]
 
 include::mongo/mongo.asciidoc[]
+
+include::redis/redis.asciidoc[]
