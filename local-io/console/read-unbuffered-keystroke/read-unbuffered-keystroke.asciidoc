@@ -11,7 +11,7 @@ single, unbuffered keystroke from the console.
 
 ===== Solution
 
-Use +ConsoleReader+ from the JLine footnote:[https://github.com/jline/jline2];
+Use +ConsoleReader+ from the JLine footnote:[https://github.com/jline/jline2]
 library, a Java library for handling console input.
 
 JLine is similar to BSD editline and GNU readline. There are a few
