@@ -1,3 +1,5 @@
+// By Tom Hicks (@hickst), original submission by Simone Mosciatti (@siscia)
+
 === Connecting to an SQL Database
 
 ===== Problem
