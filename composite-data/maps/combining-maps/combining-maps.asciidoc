@@ -6,7 +6,7 @@ You have two or more maps you wish to combine to produce a single map.
 
 ===== Solution
 
-Use +merge+ to combine two maps when they share no keys.
+Use +merge+ to combine two or more maps with no keys in common.
 
 [source,clojure]
 ----
@@ -24,10 +24,12 @@ mapping is used in the result.
 [source,clojure]
 ----
 (def vote-count-AM   {"W.H.Harrison" 82, "J.K.Polk" 54, "M.Fillmore" 12, "U.S.Grant" 727})
+(def vote-count-NOON {"Z.Taylor" 77, "W.H.Harrison" 441, "J.K.Polk" 254})
 (def vote-count-PM   {"W.H.Harrison" 2360, "J.K.Polk" 554, "M.Fillmore" 1312})
 
-(merge vote-count-AM vote-count-PM)
-;; -> {"J.K.Polk" 554, "U.S.Grant" 727, "M.Fillmore" 1312, "W.H.Harrison" 2360}
+(merge vote-count-AM vote-count-NOON vote-count-PM)
+;; -> {"J.K.Polk" 554, "U.S.Grant" 727, "Z.Taylor" 77,
+;;     "M.Fillmore" 1312, "W.H.Harrison" 2360}
 ----
 
 Use +merge-with+ when you want to build up a resulting value for keys
@@ -99,14 +101,14 @@ You can even merge nested maps by recursively merging duplicate keys.
 
 Both +merge+ and +merge-with+ combine their argument maps from left to
 right, returning a new immutable map as a result. In the simple case
-of +merge+ the rightmost map "wins" for any shared keys.
+of +merge+ the rightmost map "wins" for any common keys.
 
 +merge-with+ facilitates powerful recipes for map combination by
 taking an additional function argument. You can imagine +merge-with+
 as +reduce+ for maps with common keys. The supplied merging function
 must take two arguments, and is called with the values for each pair
 of duplicate keys as the result map is computed. Mappings for unique
-keys remain as-is in the result.
+keys remain unchanged in the result.
 
 ===== See also
 
