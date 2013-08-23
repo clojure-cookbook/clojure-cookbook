@@ -27,7 +27,7 @@ Creating new DOM nodes is easy with Dommy:
 [source, clojure]
 ----
 (deftemplate login-form []
-  [:#login-form.modal.anohter-class
+  [:#login-form.modal.another-class
      [:input.username {:type "text"
                        :placeholder "username"}]
      [:input.password {:type "password"
