@@ -14,7 +14,7 @@ with the RDBMS you are connecting to (e.g. MySQL):
 
 [source,clojure]
 ----
-:dependencies [ ...
+:dependencies [ ; ...
                 [org.clojure/java.jdbc "0.3.0-alpha4"]
                 [mysql/mysql-connector-java "5.1.25"] ]
 ----
@@ -34,12 +34,11 @@ database:
 
 [source,clojure]
 ----
-(def db-spec {
-  :classname "com.mysql.jdbc.Driver"
-  :subprotocol "mysql"
-  :subname "//localhost:3306/lotr_db"
-  :user "bilbo"
-  :password "secret" })
+(def db-spec {:classname "com.mysql.jdbc.Driver"
+              :subprotocol "mysql"
+              :subname "//localhost:3306/lotr_db"
+              :user "bilbo"
+              :password "secret"})
 ----
 
 Pass the database specification as the first argument to several of the
@@ -48,9 +47,9 @@ library's other functions which query and manipulate your database.
 [source,clojure]
 ----
 (jdbc/insert! db-spec :blocks_world
-  {:color "RED" :shape "square" :size 1.4}
-  {:color "BLUE" :shape "cone"  :size 2.0}
-  {:color "WHITE" :shape "rectangle" :size 0.5})
+              {:color "RED" :shape "square" :size 1.4}
+              {:color "BLUE" :shape "cone"  :size 2.0}
+              {:color "WHITE" :shape "rectangle" :size 0.5})
 ;; -> (nil nil nil)
 
 (jdbc/query db-spec (sql/select * :blocks_world (sql/where {:shape "cone"})))
@@ -83,7 +82,7 @@ and plain strings. For example, a complete URI string may be provided under the
 (def db-spec {:connection-uri "jdbc:mysql://localhost:3306/lotr_db?user=bilbo&password=secret"})
 ----
 
-or provided directly as the database specification itself:
+Or provided directly as the database specification itself:
 
 [source,clojure]
 ----
@@ -101,7 +100,7 @@ maps which can then be processed with all the normal Clojure functions.
 ;;     {:name "dog" :id 14} {:name "fat" :id 16} {:name "elf" :id 15})
 
 (filter #(not (.endsWith (:name %) "at"))
-  (jdbc/query db-spec (sql/select * :abc_words)))
+        (jdbc/query db-spec (sql/select * :abc_words)))
 ;; -> ({:name "ant", :id 11} {:name "dog", :id 14} {:name "elf", :id 15})
 ----
 
@@ -117,6 +116,6 @@ of everyday database access needs.
 * See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
 * See <<sec_SQL-database-connection-pooling>> to learn more about connection pooling with +clojure.java.jdbc+.
 
-* See the +clojure.java.jdbc+ library GitHub site (https://github.com/clojure/java.jdbc)
-* See the Korma SQL site (http://sqlkorma.com/) for an alternative SQL DSL.
-* See the HoneySQL site (https://github.com/jkk/honeysql) for another alternative SQL DSL.
+* Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
+* See http://sqlkorma.com/[Korma SQL] for an alternative SQL DSL.
+* See  https://github.com/jkk/honeysql[HoneySQL] for another alternative SQL DSL.
