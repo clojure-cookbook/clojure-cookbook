@@ -89,7 +89,9 @@ places (just like the Dewey Decimal system.)
 [source,clojure]
 ----
 (format "%07.3f" 0.005)
-;; -> "000.005" ;; The Dewey Decimal sub-class for books on "Computer programming, programs & data"
+;; -> "000.005" ;; The Dewey Decimal sub-class for books on "Computer
+;;              ;; programming, programs & data"
+
 ----
 
 Visit http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Formatter.html[java.util.Formatter] to learn more about formatting strings.
