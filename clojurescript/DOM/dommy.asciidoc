@@ -22,30 +22,7 @@ Add the following dependency to your +project.clj+:
 
 ----
 
-Creating new DOM nodes is easy with Dommy:
-
-[source, clojure]
-----
-(deftemplate login-form []
-  [:#login-form.modal.another-class
-     [:input.username {:type "text"
-                       :placeholder "username"}]
-     [:input.password {:type "password"
-                       :placeholder "password"}]
-     [:button#login-submit-button]])
-
-----
-
-Let's take a closer look at what's actually going on:
-
-* The first keyword in the list always describes the element, including it's classes and id, using css syntax.
-If no tag is specified, it defauts to div. Thus, in the first line +:#login-form.modal.another-class+ becomes
-+<div id="loging-form" class="modal another-class">...</div>+
-* If the second item in the vector is a map literal, or it type-hinted with +:^attrs+, then it's treated as an
-attribute map.
-* The remaining items in the vector are all treated as child nodes.
-
-Dommy also provides a library of idomatic, macro-assisted functions for DOM selection and manipulation. Using
+Dommy provides a library of idomatic, macro-assisted functions for DOM selection and manipulation. Using
 Dommy is simple, and integrates ClojureScript and it's own templating system together smoothly, especially
 the +->+:
 
@@ -113,6 +90,27 @@ combine the chaining of both DOM manipulation and object manipulation:
 ----
 
 ===== Discussion
+
+Let's take a closer look at what's actually going on in the template below:
+
+[source, clojure]
+----
+(deftemplate login-form []
+  [:#login-form.modal.another-class
+     [:input.username {:type "text"
+                       :placeholder "username"}]
+     [:input.password {:type "password"
+                       :placeholder "password"}]
+     [:button#login-submit-button]])
+
+----
+
+* The first keyword in the list always describes the element, including it's classes and id, using css syntax.
+If no tag is specified, it defauts to div. Thus, in the first line +:#login-form.modal.another-class+ becomes
++<div id="loging-form" class="modal another-class">...</div>+
+* If the second item in the vector is a map literal, or it type-hinted with +:^attrs+, then it's treated as an
+attribute map.
+* The remaining items in the vector are all treated as child nodes.
 
 ClojureScript has a compilation step which converts Clojure into JavaScript. During compilation, ClojureScript
 macros examine your code and can re-write expressions that generate more efficient JavaScript upfront. Dommy
