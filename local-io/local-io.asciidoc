@@ -9,7 +9,7 @@ include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
 
 include::console/parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
 
-include::console/prompt-read/prompt-read.asciidoc[]
+include::console/command-line-application/command-line-application.asciidoc[]
 
 include::csv/read-write-csv/read-write-csv.asciidoc[]
 
