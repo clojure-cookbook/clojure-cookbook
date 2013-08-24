@@ -64,7 +64,9 @@ you can wrap them using +with-sh-dir+.
 ;; -> nil
 (sh "ls" :dir "/Users")
 ;; -> {:exit 0, :out "Guest\nShared\ndale\ntucker\n", :err ""}
-(with-sh-dir "/Users/tucker" (sh "do-backup.sh") (sh "du" "-sh" "."))
+(with-sh-dir "/Users/tucker" 
+  (sh "do-backup.sh") 
+  (sh "du" "-sh" "."))
 ;; -> {:exit 0, :out " 11G\t.\n", :err ""}
 ----
 
