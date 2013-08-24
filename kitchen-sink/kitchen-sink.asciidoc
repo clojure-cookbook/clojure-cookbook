@@ -12,3 +12,5 @@ include::tracing/tracing.asciidoc[]
 include::stream-processing/stream-processing.asciidoc[]
 
 include::default-data-reader/default-data-reader.asciidoc[]
+
+include::edn-record/edn-record.asciidoc[]
