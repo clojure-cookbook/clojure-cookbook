@@ -2,3 +2,4 @@
 == ClojureScript
 
 include::cljsbuild/cljsbuild.asciidoc[]
+include::DOM/dommy.asciidoc[]
