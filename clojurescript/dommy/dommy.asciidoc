@@ -129,7 +129,7 @@ Let's take a closer look at what's actually going on in the two templates from b
     [:buttom.remove-button "Clear list"])
 ----
 
-* The first keyword in each vector always describes the element tag, including it's classes and id, using css syntax.
+* The first keyword in each vector always describes the element tag, including its classes and id, using css syntax.
 If no tag is specified, it defauts to div. Thus, the +:#my-list.shopping-list+ becomes
 +<div id="my-list" class="shopping-list">...</div>+
 * If the second item in the vector is a map literal, or it type-hinted with +^:attrs+, then it's treated as an
@@ -142,7 +142,7 @@ as a flat list of child nodes.
 
 The reason you have to typehint when using +deftemplate+ is because Dommy relies on macros under the hood. In fact,
 Dommy uses macros everywhere to help the ClojureScript compiler generate the most efficient Javascript it can.
-This makes it's templating and DOM selection faster than what you can get in Javascript.
+This makes its templating and DOM selection faster than what you can get in Javascript.
 
 [source, clojure]
 ----
