@@ -12,3 +12,5 @@ include::cassandra-with-cassaforte/cassandra-with-cassaforte.asciidoc[]
 include::mongo/mongo.asciidoc[]
 
 include::traversing-datomic-indices/traversing-datomic-indices.asciidoc[]
+
+include::redis/redis.asciidoc[]
