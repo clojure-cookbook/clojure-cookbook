@@ -11,6 +11,8 @@ include::twitter-api/twitter-api.asciidoc[]
 
 include::ping/sending-a-ping-request.asciidoc[]
 
+include::publishing-to-rabbitmq/publishing-to-rabbitmq.asciidoc[]
+
 include::zmq-async/zmq-async.asciidoc[]
 
 include::websockets/websockets.asciidoc[]
