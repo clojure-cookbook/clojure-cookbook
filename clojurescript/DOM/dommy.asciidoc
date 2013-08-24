@@ -22,45 +22,88 @@ Add the following dependency to your +project.clj+:
 
 ----
 
-Dommy provides a library of idomatic, macro-assisted functions for DOM selection and manipulation. Using
-Dommy is simple, and integrates ClojureScript and it's own templating system together smoothly, especially
-the +->+:
+Dynamically generating DOM elements is simple with Dommy, and matches the excellent syntax of
+https://github.com/weavejester/hiccup[Hiccup], a library for server-side templating in Clojure.
 
 [source, clojure]
 ----
-(:use-macros
- [dommy.macros :only [sel sel1]])
-(:require
- [dommy.core :as dommy])
+(def +default-avatar-attrs+
+  {:style {:width "70px"
+           :height "70px"}})
 
-(-> (sel1 #login-submit-button)
-    (dommy/set-stlye! :width "100px")
-    dommy/show!
-    (dommy/listen! :mousedown (fn [e] (js/alert "Pwn!"))
-                   :touchstart (fn [e] (js/alert "Phone Pwn!"))))
-
-(dommy/prepend! :#login-form [:input.email {:type "test" :placeholder "email"}])
-// here, :#login-form is sugar for (sel1 :#login-form)
-
+(deftemplate avatar [user]
+  [:a.user-avatar {:href (:profile-url user)
+    [:img.user-avatar-image ^:attrs (assoc +default-avatar-attrs+ :src (:img-url user)]]
 ----
 
-Unlike in jQuery, Dommy methods only work on a single DOM object at a time. But, with ClojureScript's built
-in sequence processing functions, operating on many elements at once is even easier:
+Composing templates programmatically is simple too, giving you the ability to write much more
+functional and idiomatic code.
 
 [source, clojure]
 ----
-(:use-macros
- [dommy.macros :only [sel sel1]])
-(:require
- [dommy.core :as dommy])
+(deftemplate list-element [item]
+  [:li ^:text (:text item)])
 
+(deftemplate my-list [items]
+  [:#my-list.shopping-list
+    [:ul (map list-element items)]
+    [:buttom.remove-button "Clear list"])
+----
 
+To select for a DOM element, use either the +sel1+ function, which returns the first element matching a
+selector, or +sel+ which returns a +seq+ of all elements matching the selector. They take two arguments,
+the reference node and the selector. If you're just selecting from the +Document+ as a whole, you can omit
+the reference node.
+
+[source, clojure]
+----
+(sel (my-list some-items) :ul)
+(sel1 :#login-submit-button)
+----
+
+For manipulating DOM nodes, use any of the functions in +dommy.core+, depending on what kind of manipulation
+you want to do. If you're planning to do multiple changes at once to a single DOM node, make sure to use the
++->+ macro to keep things clean and organized.
+
+[source, clojure]
+----
+(-> (sel1 :#login-submit-button)
+    (dommy/set-style! :width "100px")
+    dommy/show!)
+----
+
+For event-listeners, Dommy provides some extra special syntactic sugar. For instance, if you want to listen to
+multiple events on a node, you can just list them both in the same call to +dommy/listen!+.
+
+[source, clojure]
+----
+(dommy/listen! (sel1 :button.pwn)
+               :mousedown (fn [e] (js/alert "Pwn!"))
+               :touchstart (fn [e] (js/alert "Phone Pwn!"))))
+----
+
+If you want to listen dynamically on a node that can get switched out dynamically, use Dommy's live-listener
+syntax. This requires that the reference node exist, but it checks for the existance of the child node when
+the event actually fires.
+
+[source, clojure]
+----
+(dommy/listen! [js/document :li.todo-list-item]
+               :click #(js/alert "Removed item"))
+----
+
+Unlike in jQuery, Dommy methods only work on a single DOM object at a time. So, if you want to operate on all
+DOM nodes of a given type (like what +sel+ returns) use ClojureScript's built-in sequence processing functions.
+Since many Dommy methods operate using side-effects, use +doseq+ or +doall+ to avoid getting bitten by Clojure's
+lazy sequences.
+
+[source, clojure]
+----
 (->> (sel [:ul.my-list :li])
      (sort-by #(-> % (sel1 :input.last-name) .-value))
      (filter #(-> % (sel1 :input.age) .-value int (>= 21)))
      (take 10)
      (doseq #(dommy/add-class! % :first-ten-adults)))
-
 ----
 
 And, if you want Dommy to work on your own objects, all you have to do is implement the +PElement+ protocol.
@@ -91,30 +134,42 @@ combine the chaining of both DOM manipulation and object manipulation:
 
 ===== Discussion
 
-Let's take a closer look at what's actually going on in the template below:
+Let's take a closer look at what's actually going on in the two templates from before.
 
 [source, clojure]
 ----
-(deftemplate login-form []
-  [:#login-form.modal.another-class
-     [:input.username {:type "text"
-                       :placeholder "username"}]
-     [:input.password {:type "password"
-                       :placeholder "password"}]
-     [:button#login-submit-button]])
+(def +default-avatar-attrs+
+  {:style {:width "70px"
+           :height "70px"}})
 
+(deftemplate avatar [user]
+  [:a.user-avatar {:href (:profile-url user)
+    [:img.user-avatar-image ^:attrs (assoc +default-avatar-attrs+ :src (:img-url user))]])
+
+(deftemplate list-element [item]
+  [:li ^:text (:text item)])
+
+(deftemplate my-list [items]
+  [:#my-list.shopping-list
+    [:ul (map list-element items)]
+    [:buttom.remove-button "Clear list"])
 ----
 
-* The first keyword in the list always describes the element, including it's classes and id, using css syntax.
-If no tag is specified, it defauts to div. Thus, in the first line +:#login-form.modal.another-class+ becomes
-+<div id="loging-form" class="modal another-class">...</div>+
-* If the second item in the vector is a map literal, or it type-hinted with +:^attrs+, then it's treated as an
+* The first keyword in each vector always describes the element tag, including it's classes and id, using css syntax.
+If no tag is specified, it defauts to div. Thus, the +:#my-list.shopping-list+ becomes
++<div id="my-list" class="shopping-list">...</div>+
+* If the second item in the vector is a map literal, or it type-hinted with +^:attrs+, then it's treated as an
 attribute map.
-* The remaining items in the vector are all treated as child nodes.
+* Any string literals (like +"Clear list"+ above, can simply be included in the vector. However, like with attributes,
+if you're generating the value dynamically, you must type-hint it with +^:text+.
+* The remaining items in the vector are all just recursively generated as child nodes.
++ Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
+as a flat list of child nodes.
 
-ClojureScript has a compilation step which converts Clojure into JavaScript. During compilation, ClojureScript
-macros examine your code and can re-write expressions that generate more efficient JavaScript upfront. Dommy
-uses this macro magic under the hood to do as much expansion as it can at compile-time, making it's templating
+The reason you have to typehint when using +deftemplate+ is because Dommy relies on macros under the hood. This allows
+it to run during ClojureScript's compilation step which converts Clojure into JavaScript. During compilation, these
+macros examine your code and can re-write expressions that generate more efficient JavaScript upfront. In fact, Dommy
+uses this macro magic to do as much expansion as it can at compile-time, making it's templating
 and DOM selection faster than what you can get in Javascript:
 
 [source, clojure]
