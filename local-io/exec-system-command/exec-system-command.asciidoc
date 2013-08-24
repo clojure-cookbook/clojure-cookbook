@@ -17,7 +17,7 @@ exit status, available via the :out, :err, and :exit keys respectively.
 ----
 (use '[clojure.java.shell :only [sh]])
 (sh "date")
-{:exit 0, :out "Sun Aug 18 09:35:56 EDT 2013\n", :err ""}
+;; -> {:exit 0, :out "Sun Aug 18 09:35:56 EDT 2013\n", :err ""}
 ----
 
 If your command requires options or arguments, simply add them to the
@@ -26,9 +26,9 @@ If your command requires options or arguments, simply add them to the
 [source,clojure]
 ----
 (sh "ls" "-l" "/etc/passwd")
-{:exit 0, :out "-rw-r--r--  1 root  wheel  4962 May 27 07:54 /etc/passwd\n", :err ""}
+;; -> {:exit 0, :out "-rw-r--r--  1 root  wheel  4962 May 27 07:54 /etc/passwd\n", :err ""}
 (sh "ls" "-l" "nosuchfile")
-{:exit 1, :out "", :err "ls: nosuchfile: No such file or directory\n"}
+;; -> {:exit 1, :out "", :err "ls: nosuchfile: No such file or directory\n"}
 ----
 
 ===== Discussion
@@ -50,7 +50,7 @@ in which we print only nicely formatted output:
                 ||----w |
                 ||     ||
 
-nil
+;; -> nil
 ----
 
 Sometimes you may want your command to be executed in a directory
@@ -61,11 +61,11 @@ you can wrap them using +with-sh-dir+.
 [source,clojure]
 ----
 (use 'clojure.java.shell)
-nil
+;; -> nil
 (sh "ls" :dir "/Users")
-{:exit 0, :out "Guest\nShared\ndale\ntucker\n", :err ""}
+;; -> {:exit 0, :out "Guest\nShared\ndale\ntucker\n", :err ""}
 (with-sh-dir "/Users/tucker" (sh "do-backup.sh") (sh "du" "-sh" "."))
-{:exit 0, :out " 11G\t.\n", :err ""}
+;; -> {:exit 0, :out " 11G\t.\n", :err ""}
 ----
 
 Similarly, you can override enviroment variables for +sh+ with
@@ -75,13 +75,13 @@ or group of commands.
 [source,clojure]
 ----
 (use 'clojure.java.shell)
-nil
+;; -> nil
 (sh "printenv" "HOME")
-{:exit 0, :out "/Users/tucker\n", :err ""}
+;; -> {:exit 0, :out "/Users/tucker\n", :err ""}
 (sh "printenv" "HOME" :env {"HOME" "/Users/dale"})
-{:exit 0, :out "/Users/dale\n", :err ""}
+;; -> {:exit 0, :out "/Users/dale\n", :err ""}
 (with-sh-env {"HOME" "/Users/dale"} (sh "printenv" "HOME"))
-{:exit 0, :out "/Users/dale\n", :err ""}
+;; -> {:exit 0, :out "/Users/dale\n", :err ""}
 ----
 
 Clojure provides great power with its inherent capabilities and its control
