@@ -106,32 +106,6 @@ lazy sequences.
      (doseq #(dommy/add-class! % :first-ten-adults)))
 ----
 
-And, if you want Dommy to work on your own objects, all you have to do is implement the +PElement+ protocol.
-For each side-effect, Dommy retuns the original input, not the Dom node, which allows you to effortlessly
-combine the chaining of both DOM manipulation and object manipulation:
-
-[source, clojure]
-----
-(defprotocol PWidget
-  (do-something! [this]))
-
-(defrecord Widget [container data]
-  dommy.templates/PElement
-  (-elem [this] container)
-  PWidget
-  (do-something! [this]
-     (do-stuff! data)))
-
-(defn make-widget [data]
-  (Widget. [:.widget data]))
-
-(-> (make-widget “BIG DATA”)
-    (dommy/add-class! :buzzword)
-    do-something!
-    (dommy/insert-after! (sel1 :.pre-widget-thing)))
-
-----
-
 ===== Discussion
 
 Let's take a closer look at what's actually going on in the two templates from before.
@@ -197,6 +171,33 @@ $('li').append(
                              .attr('id', 'item' + datum.key)
                              .append( $('<span>').text(datum.name) )))
 // 3.5x slower than (deftemplate example ...)
+----
+
+And, finally, Dommy is very extensible. If you have your own objects that you want to play nice with Dommy,
+all you have to do is implement the +PElement+ protocol. For each side-effect, Dommy retuns the original input,
+not the Dom node, which allows you to effortlessly combine the chaining of both DOM manipulation and object
+manipulation:
+
+[source, clojure]
+----
+(defprotocol PWidget
+  (do-something! [this]))
+
+(defrecord Widget [container data]
+  dommy.templates/PElement
+  (-elem [this] container)
+  PWidget
+  (do-something! [this]
+     (do-stuff! data)))
+
+(defn make-widget [data]
+  (Widget. [:.widget data]))
+
+(-> (make-widget “BIG DATA”)
+    (dommy/add-class! :buzzword)
+    do-something!
+    (dommy/insert-after! (sel1 :.pre-widget-thing)))
+
 ----
 
 ===== See Also
