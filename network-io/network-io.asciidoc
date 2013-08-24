@@ -3,6 +3,8 @@
 
 include::making-an-http-request/making-an-http-request.asciidoc[]
 
+include::async-http-requests/async-http-requests.asciidoc[]
+
 include::rss/rss.asciidoc[]
 
 include::twitter-api/twitter-api.asciidoc[]

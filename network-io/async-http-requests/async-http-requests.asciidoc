@@ -1,0 +1,51 @@
+=== Perform an asynchronous HTTP request
+
+////
+Author: Alan Busby @thebusby
+////
+
+===== Problem
+
+You want to perform an asynchronous HTTP request.
+
+===== Solution
+
+Using +HTTP-Kit+, http://http-kit.org/
+
+With a callback function.
+
+[source,clojure]
+----
+(org.httpkit.client/get "http://www.host.com/path"
+                        {:timeout      200 ;; ms
+                         :basic-auth   ["username" "password]
+              	         :query-params {:parameter "value"}}
+                        (fn [{:keys [status headers body error]}]
+                          (if error
+                            (binding [*out* *err*]
+              	              (println "Failed with, " error))
+                            (println body))))
+----
+
+With a Clojure promise.
+
+[source,clojure]
+----
+(let [{:keys [body error]} @(org.httpkit.client/post "http://www.host.com/path"
+                                                     {:form-params {:foo "bar"}})]
+  (if error
+    (binding [*out* *err*]
+      (println "Failed with, " error))
+    (println body)))
+----
+
+===== Discussion
+
+As the bulk of time spent performing HTTP requests is establishing the connection
+and awaiting the server's response, asynchronous requests enable your application
+to continue working while awaiting the delivery of data.
+
+In this vein HTTP-Kit provides both a highly concurrent web server, as well a
+powerful HTTP client. It offers both callbacks and promises for asynchronous
+requests, as well as persistent connections and alternate SSL Engines for dealing
+with unsigned SSL certificates.
