@@ -4,7 +4,7 @@
 
 ===== Problem
 
-You want to code a nursery rhyme to inspire your daughter to take up programming.
+You want to code a nursery rhyme to inspire your children to take up programming.
 
 ===== Solution
 
@@ -172,7 +172,7 @@ as a sequence and then applying transformations across that series is a simple,
 flexible and composable way of describing a problem.
 
 Music is a wonderful and moving thing. It's also incredibly well-suited to
-being modelled in a functional programming language. I hope your daughter agrees.
+being modelled in a functional programming language. I hope your children agree.
 
 ===== See also
 
