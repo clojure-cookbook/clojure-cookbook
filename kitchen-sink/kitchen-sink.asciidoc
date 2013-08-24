@@ -18,3 +18,5 @@ include::edn-record/edn-record.asciidoc[]
 include::custom-data-structures/red-black-trees-part-i.asciidoc[]
 
 include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
+
+include::lein-templates/lein-templates.asciidoc[]
