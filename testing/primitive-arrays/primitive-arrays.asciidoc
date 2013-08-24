@@ -83,3 +83,4 @@ If you're up to the challenge, you should keep these tips in mind:
 
 * Hiphip comes with a https://github.com/Prismatic/hiphip/blob/master/test/hiphip/type_impl_test.clj#L160[comprehensive suite of benchmarks] of its and Clojure's array operations for the main primitive types, including performance comparisons with hand-coded Java alternatives.
 * https://github.com/ztellman/vertigo[Vertigo] goes beyond simple arrays of primitives to full C-style structs, which may be a good choice if you need to manipulate structured data (i.e., not just sequences of ++double++s) with maximal performance.
+* TODO: cross reference with other performance recipes

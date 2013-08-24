@@ -2,3 +2,5 @@
 == Testing & Profiling
 
 include::unit-testing/unit-testing.asciidoc[]
+
+include::primitive-arrays/primitive-arrays.asciidoc[]
