@@ -2,4 +2,5 @@
 == ClojureScript
 
 include::cljsbuild/cljsbuild.asciidoc[]
-include::DOM/dommy.asciidoc[]
+
+include::dommy/dommy.asciidoc[]
