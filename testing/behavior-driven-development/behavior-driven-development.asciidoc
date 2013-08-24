@@ -1,0 +1,106 @@
+=== Behavior Driven Development
+
+===== Problem
+
+You want to test whole of your application at runtime with Behavior Driven Development approach.
+
+===== Solution
+
+Use cucumber. This takes a top down approach oof application testing. 
+There is a ++lein-cucumber++ leiningen plugin for running cucumber features.
+
+Add following in project.clj file
+
+[source,clojure]
+----
+
+:plugins [[lein-cucumber "1.0.2"]]
+
+----
+
+
+Here we have an application that allows to add authors to a Author's Club list and check if an Author exists in the list.
+
+[source,clojure]
+----
+
+(def authors (atom #{"Alex" "Craig" "Rohit" "Ryan" "Stuart"}))
+
+(defn name-exists? [requested-name]
+  (if (contains? @authors requested-name) true false))) 
+
+(defn add-a-name [requested-names]
+  (swap! authors union requested-names)) 
+----
+
+Now we want to test this application.
+
+Lets use cucumber feature steps for it. This is defined for example under 
+<your app>/features/authors.feature file:
+
+[source,clojure]
+----
+Feature: Authors
+  Author Club List check
+
+Scenario: in the list
+  Given I request name "Rohit"
+  Then I should see "Your name Rohit IS in the Authors Club"
+
+Scenario: not in the list
+  Given I request name "Andy"
+  Then I should see "Your name Andy IS NOT in the Authors Club"
+----
+
+These steps are implemented as described below. This is defined for example under 
+<your app>/features/step_definitions/author_steps.clj file:
+
+[source,clojure]
+----
+(use 'cucumber-crud.core)
+(use 'clojure.test)
+
+(def result (atom {}))
+
+(Given #"^I request name \"([^\"]*)\"$" [requested-name]
+  (reset! result (process-name requested-name)))
+
+(Then #"^I should see \"([^\"]*)\"$" [output-string]
+  (is (= @result output-string)))
+----
+
+Run the tests using
+
+[source,clojure]
+----
+lein cucumber
+----
+
+And you would see test output as
+
+[source,clojure]
+----
+Running cucumber...
+Looking for features in:  [features]
+Looking for glue in:  [features/step_definitions]
+..
+----
+
+===== Discussion
+
+The Behavior Driven Development takes the approach of testing the application as a whole, while unit testing tests each function.
+In this you define steps in simple readable sentences that any business user can easily understand. 
+
+The step implementations define the execution of the test.
+
+In the example given, we use +result+ to capture the output of a parameterized name passed to the step definition: Given I request name.
+The regular expressions \"([^\"]*)\" are used to match the variables passed in. Then we finally compare the expected result.
+
+This technique can provide ultimate coverage of tests, along with the unit tests.
+
+
+===== See Also
+
+* <<sec_unit_testing>>
+
+
