@@ -10,3 +10,5 @@ include::removing-duplicate-elements-from-a-collection/removing-duplicate-elemen
 include::tracing/tracing.asciidoc[]
 
 include::stream-processing/stream-processing.asciidoc[]
+
+include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
