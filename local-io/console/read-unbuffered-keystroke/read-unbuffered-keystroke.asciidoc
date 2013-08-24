@@ -34,13 +34,13 @@ as of this writing.
 
 ===== Discussion
 
-As in most languages, console IO in Java is buffered; +(flush)+
+As in most languages, console IO in Java is buffered; +flush+
 writes the initial prompt to the standard output stream. However,
 input is buffered as well by default. The JLine library provides a
 +ConsoleReader+ object, whose +readCharacter+ method lets you avoid the
 input buffering.
 
-Beware, however, of testing +(get-keystroke)+ at the REPL:
+Beware, however, of testing +show-keystroke+ at the REPL:
 
 [source,clojure]
 ----
