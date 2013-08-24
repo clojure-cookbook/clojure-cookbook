@@ -1,8 +1,8 @@
-=== Behaviour Driven Development
+=== Behavior Driven Development
 
 ===== Problem
 
-You want to test whole of your application at runtime with Behaviour Driven Development approach.
+You want to test whole of your application at runtime with Behavior Driven Development approach.
 
 ===== Solution
 
@@ -88,7 +88,7 @@ Looking for glue in:  [features/step_definitions]
 
 ===== Discussion
 
-The Behaviour Driven Development takes the approach of testing the application as a whole, while unit testing tests each function.
+The Behavior Driven Development takes the approach of testing the application as a whole, while unit testing tests each function.
 In this you define steps in simple readable sentences that any business user can easily understand. 
 
 The step implementations define the execution of the test.

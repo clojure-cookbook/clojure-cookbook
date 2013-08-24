@@ -3,4 +3,4 @@
 
 include::unit-testing/unit-testing.asciidoc[]
 
-include::behaviour-driven-development/behaviour-driven-development.asciidoc[]
+include::behavior-driven-development/behavior-driven-development.asciidoc[]
