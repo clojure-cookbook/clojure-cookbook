@@ -8,9 +8,6 @@
 
 You need to render a Markdown document.
 
-You need to make sure that the document is rendered the
-same way on both the server and the client.
-
 ===== Solution
 
 Include the +markdown-clj+ dependency in the project:
@@ -34,7 +31,6 @@ Use +markdown.core/md-to-html+ to read a Markdown document and generate HTML.
 Use +markdown.core/md-to-html-string+ to convert a string
 with Markdown content to its HTML representation:
 
-
 [source,clojure]
 ----
 (md-to-html-string "# This is a test\n\nsome code follows:\n```\n(defn foo [])\n```")
@@ -46,6 +42,22 @@ with Markdown content to its HTML representation:
 &#40;defn foo &#91;&#93;&#41;
 </pre>
 ----
+===== Discussion
+
+Markdown is a popular lightweight markup language that's easy to read and write and
+can be converted to structurally valid HTML.
+
+Since Markdown leaves many aspects of rendering the HTML open to interpretation it's
+not guaranteed that different parsers will produce the same representation.
+
+This can be a problem if you render a Markdown preview on the client using one
+parser and then later generate HTML on a server using a different parser.
+
+By virtue of compiling to both Clojure and ClojureScript +markdown-clj+ avoids this problem.
+With it you can use the same parser on both the server and the client and be guaranteed
+that the documents will be rendered consistently.
+
+Let's take a look at some more examples of using the library below.
 
 The code blocks can be annotated with the language hints, In this case it will the +pre+ tags
 will be decorated with a class compatible with the http://alexgorbatchev.com/SyntaxHighlighter/[SyntaxHighlighter].
@@ -73,8 +85,6 @@ It behaves equivalently to +md-t-html-string+:
 (.log js/console
   (md/mdToHtml "##This is a heading\nwith a paragraph following it"))
 ----
-  
-===== Discussion
 
 All of standard Markdown tags are supported with the exception of the reference style links due
 to the fact that the parser uses a single pass to generate the document.
@@ -138,7 +148,7 @@ Finally, we could provide a custom set of transformers to replace the built in o
 (markdown/md-to-html-string "#foo" :replacement-transformers [capitalize])
 ----
 
-====== See Also
+* See Also
 
 To see more on using +markdown-clj+ check out the https://github.com/yogthos/markdown-clj[markdown-clj] GitHub repository.
 
