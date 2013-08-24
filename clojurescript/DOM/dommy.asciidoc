@@ -160,7 +160,7 @@ If no tag is specified, it defauts to div. Thus, the +:#my-list.shopping-list+ b
 +<div id="my-list" class="shopping-list">...</div>+
 * If the second item in the vector is a map literal, or it type-hinted with +^:attrs+, then it's treated as an
 attribute map.
-* Any string literals (like +"Clear list"+ above, can simply be included in the vector. However, like with attributes,
+* Any string literals (like +"Clear list"+ above), can simply be included in the vector. However, like with attributes,
 if you're generating the value dynamically, you must type-hint it with +^:text+.
 * The remaining items in the vector are all just recursively generated as child nodes.
 + Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
