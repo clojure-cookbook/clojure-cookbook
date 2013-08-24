@@ -1,6 +1,7 @@
+[[sec_red_black_part_i]]
 === Implementing custom data structures: Red Black Trees - Part I
 
-// By Leonardo Borges (@leonardo_borges)
+// By Leonardo Borges (leonardoborges)
 
 ===== Problem
 
@@ -177,9 +178,9 @@ Our Red Black Tree on the other hand keeps itself balanced as each item is inser
 
 One limitation of our data structure at the moment is that we can't use core clojure functions such as map and filter.
 
-In Part 2 we'll address this very issue.
+In <<sec_red_black_part_ii>> we'll address this very issue.
 
 ===== See Also
-* Implementing custom data structures: Red Black Trees - Part II (xref)
+* <<sec_red_black_part_ii>>
 
 * http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent book on efficiently implementing data structtures in a functional setting. It uses ML and Haskell but its concepts are transferable to Clojure, as demonstrated in this recipe.
