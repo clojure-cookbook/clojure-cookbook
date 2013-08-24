@@ -2,3 +2,5 @@
 == ClojureScript
 
 include::cljsbuild/cljsbuild.asciidoc[]
+
+include::c2/c2.asciidoc[]
