@@ -42,3 +42,5 @@ include::parallelizing-file-processing-using-iota/parallelizing-file-processing-
 include::using-temp-files/using-temp-files.asciidoc[]
 
 include::deleting-directory-recursively/deleting-directory-recursively.asciidoc[]
+
+include::exec-system-command/exec-system-command.asciidoc[]
