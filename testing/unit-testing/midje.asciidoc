@@ -1,0 +1,179 @@
+=== Midje
+
+===== Problem
+
+You want to unit test a function which integrates with external dependencies such as http services or databases.
+
+===== Solution
+
+Use https://github.com/marick/Midje[Midje], a testing framework which provides ways to mock functions and return fakes.
+
+Include Midje as a dev dependency for your project.
+
+.project.clj
+[source,clojure]
+----
+(defproject example "1.0.0-SNAPSHOT"
+  :profiles {:dev {:dependencies [[midje "1.5.1"]]
+                   :plugins [[lein-midje "3.1.0"]}})
+----
+
+Lets take an example function which makes a http request.
+
+[source,clojure]
+----
+(ns com.example.core
+  (:require [clj-http.client :as http]))
+
+(defn fetch-data [id]
+  (let [response (http/get (str "http://localhost:5000/" id "/data"))]
+    (when (= (:status response) 200)
+      (:body response))))
+----
+
+To test the +fetch-data+ function, create a corresponding com.example.t-core namespace and define using midje/facts and midje/fact a test.
+
+[source,clojure]
+----
+(ns com.example.t-core
+  (:require
+    [com.example.core :refer :all]
+    [midje.sweet :refer :all]))
+
+(facts "about successful requests"
+  (fact "returns the response body")
+    (fetch-data 123) => ..body..
+    (provided
+      (http/get #"/123/data") => {:status 200 :body ..body..}))
+----
+
+===== Discussion
+
+In Midje +facts+ associate a description with a group of tests, while +fact+ maps to your test. Assertions in your +fact+ take the form of:
+
+[source,clojure]
+----
+;; actual => expected
+
+10 => 10 ; Passes
+10 => 11 ; Fails
+----
+
+Assertions behave a little differently than most testing frameworks. Within a +fact+ body every single assertion is checked irrelevant of if a previous one failed.
+
+Midje only provides mocks not stubs. All functions specified in the +provided+ body have to be called for the test to pass. Mocks use the same syntax as assertions but with a slightly different meaning:
+
+[source,clojure]
+----
+;; <function call and arguments to match against> => <return value of that function>
+
+(provided (+ 10 10) => 0)
+----
+
+It is important to note we are not calling the `(+ 10 10)` function here, we are setting up a pattern. Every function call occuring in our test is checked to see if it matches this pattern. If it does, we do not call the function but instead return 0. When defining our mocks with +provided+ there is a lot of flexibly on how we match mock functions against the real call. In our solution we used a regular expression:
+
+[source,clojure]
+----
+(http/get #"/123/data")
+----
+
+It will test that regex against the actual argument. The following calls would all match:
+
+[source,clojure]
+----
+(http/get "http://localhost:4001/123/data")
+(http/get "http://localhost:5001/123/data")
+----
+
+Midje provides lots of checker functions that you can use to match against the arguments of a mock.
+
+----
+;; Match against this mock when the argument is a list which contains 3 specific elements
+(provided
+  (http/get (contains [1,2,3])) => :result)
+
+;; Match against a single argument or any value
+(provided
+  (http/get anything) => :result)
+
+;; Match irrelevant of the number of arguments
+(provided
+  (http/get &) => :result)
+----
+
+From within a REPL you can investigate all of Midje's checkers:
+
+[source,clojure]
+----
+user> (use 'clojure.repl)
+user> (use 'midje.repl)
+user> (doc midje-checkers)
+----
+
+One common mistake with Midje's +provided+ is misunderstanding its scoping.
+Provided mocks only apply to the single closure above it. So in this example:
+
+[source,clojure]
+----
+(fact "returns status body"
+  (fetch-data 123) => ..body..
+  (println "test")
+  (provided
+    (http/get #"/123/data") => {:status 200 :body ..body..}))
+----
+
+The provided mock would only apply to the `(println "test")`. If you want provided to apply to all the previous closures use `do` to wrap them:
+
+[source,clojure]
+----
+(fact "returns status body"
+  (do
+    (fetch-data 123) => ..body..
+    (println "test"))
+  (provided
+    (http/get #"/123/data") => {:status 200 :body ..body..}))
+----
+
+In our solution we used +..body..+ which is something Midje refers to as a metaconstant.
+[source,clojure]
+----
+(fetch-data 123) => ..body..
+(provided
+  (http/get #"/123/data") => {:status 200 :body ..body..})
+----
+
+A metaconstant is any name that starts and ends with two dots. It has no properties other than identity. Think of it like a fake or placeholder were do not care about the actual value or we might be referencing something that does not exist yet. In our example we don't really care what +..body..+ is, we just care that it is the thing returned.
+
+Midje provides two ways to run your tests, through lein or through a REPL instance. Midje encourages you to run everything through the REPL. One very useful way to run your tests is with the autotest function. This continuously polls the filesystem looking for chances, when it detects these changes it will automatically rerun the relevant tests.
+
+[source,clojure]
+----
+user> (use 'clojure.repl)
+user> (use 'midje.repl)
+
+user> (autotest) ; Start auto-testing
+
+user> (autotest :pause)
+user> (autotest :resume)
+user> (autotest :stop)
+----
+
+There are many more things you can do from the REPL with Midje. You can pull up the docs from within the REPL
+
+[source,clojure]
+----
+user> (doc midje-repl)
+----
+
+If you want to run Midje through lein heres how:
+
+----
+# Run all your tests
+$ lein midje
+
+# Run a specific namespace
+$ lein midje com.example.t-core
+
+# Run a group of namespaces
+$ lein midje com.example.*
+----

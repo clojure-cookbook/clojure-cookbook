@@ -3,4 +3,6 @@
 
 include::unit-testing/unit-testing.asciidoc[]
 
+include::unit-testing/midje.asciidoc[]
+
 include::primitive-arrays/primitive-arrays.asciidoc[]
