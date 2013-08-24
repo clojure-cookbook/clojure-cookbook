@@ -20,18 +20,23 @@ Add following in project.clj file
 
 
 Here we have an application that allows to add authors to a Author's Club list and check if an Author exists in the list.
+We test the whole functionality in a Scenario (much like test cases but not limited to Single function) in Cucumber feature below. This leads to robust integration testing.
 
 [source,clojure]
 ----
 
 (ns cucumber-crud.core
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string]
+            [clojure.set :as set]))
 
-(def authors #{"Alex" "Craig" "Rohit" "Ryan" "Stuart"})
+(def authors (atom #{"Alex" "Craig" "Rohit" "Ryan" "Stuart"}))
 
-(defn process-name [raw-name]
+(defn find-name [raw-name]
   (let [requested-name (string/capitalize raw-name)]
-    (str "Your name " requested-name (if (contains? authors requested-name) " IS " " IS NOT ")  "in the Authors Club")))
+    (str "Your name " requested-name (if (contains? @authors requested-name) " IS " " IS NOT ")  "in the Authors Club")))
+
+(defn add-name [raw-name]
+  (swap! authors conj (string/capitalize raw-name)))
 ----
 
 Now we want to test this application.
@@ -42,14 +47,19 @@ Lets use cucumber feature steps for it. This is defined for example under
 [source,clojure]
 ----
 Feature: Authors
-  Author Club List check
+  Author Club List addition and check
 
-Scenario: in the list
-  Given I request name "Rohit"
-  Then I should see "Your name Rohit IS in the Authors Club"
+Scenario: add name and check in the list
+  Given I add name "Justin"
+  When I request name "Justin"
+  Then I should see "Your name Justin IS in the Authors Club"
 
 Scenario: not in the list
   Given I request name "Andy"
+  Then I should see "Your name Andy IS NOT in the Authors Club"
+
+Scenario: already in the list
+  Given I request name "Rohit"
   Then I should see "Your name Andy IS NOT in the Authors Club"
 ----
 
@@ -58,13 +68,16 @@ These steps are implemented as described below. This is defined for example unde
 
 [source,clojure]
 ----
-(use 'cucumber-crud.core)
-(use 'clojure.test)
+(require '[cucumber-crud.core :refer :all])
+(require '[clojure.test :refer :all])
 
 (def result (atom {}))
 
+(Given #"^I add name \"([^\"]*)\"$" [name]
+  (add-name name))
+
 (Given #"^I request name \"([^\"]*)\"$" [requested-name]
-  (reset! result (process-name requested-name)))
+  (reset! result (find-name requested-name)))
 
 (Then #"^I should see \"([^\"]*)\"$" [output-string]
   (is (= @result output-string)))
@@ -84,12 +97,13 @@ And you would see test output as
 Running cucumber...
 Looking for features in:  [features]
 Looking for glue in:  [features/step_definitions]
-..
+.....
 ----
 
 ===== Discussion
 
 The Behavior Driven Development takes the approach of testing the application as a whole, while unit testing tests each function.
+In the ++Scenario: add name and check in the list++ we are testing accross multiple functions to see the final result.
 In this you define steps in simple readable sentences that any business user can easily understand. 
 
 The step implementations define the execution of the test.
