@@ -3,8 +3,6 @@
 
 include::connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[]
 
-include::database-up-n-running/database-up-n-running.asciidoc[]
-
 include::text-search/text-search.asciidoc[]
 
 include::cassandra-with-cassaforte/cassandra-with-cassaforte.asciidoc[]
