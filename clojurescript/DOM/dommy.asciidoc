@@ -166,17 +166,12 @@ if you're generating the value dynamically, you must type-hint it with +^:text+.
 + Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
 as a flat list of child nodes.
 
-The reason you have to typehint when using +deftemplate+ is because Dommy relies on macros under the hood. This allows
-it to run during ClojureScript's compilation step which converts Clojure into JavaScript. During compilation, these
-macros examine your code and can re-write expressions that generate more efficient JavaScript upfront. In fact, Dommy
-uses this macro magic to do as much expansion as it can at compile-time, making it's templating
-and DOM selection faster than what you can get in Javascript:
+The reason you have to typehint when using +deftemplate+ is because Dommy relies on macros under the hood. In fact,
+Dommy uses macros everywhere to help the ClojureScript compiler generate the most efficient Javascript it can.
+This makes it's templating and DOM selection faster than what you can get in Javascript.
 
 [source, clojure]
 ----
-(:use-macros
- [dommy.macros :only [sel sel1]])
-
 (sel1 :body) ; => document.body
 (sel1 :#my-id) ; => document.getElementById("my-id")
 (sel parent :.child) ; => [].slice.call(parent.getElementsByClassName("child"))
