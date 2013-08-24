@@ -19,4 +19,6 @@ include::ring/compojure/compojure.asciidoc[]
 
 include::liberator/basic.asciidoc[]
 
-include::templatating-with-selmer/templating-with-selmer.asciidoc[]
+include::templating-with-selmer/templating-with-selmer.asciidoc[]
+
+include::markdown/markdown.asciidoc[]

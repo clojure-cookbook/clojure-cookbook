@@ -1,0 +1,64 @@
+=== Traversing Datomic Indices
+
+////
+Author: Alan Busby @thebusby
+////
+
+===== Problem
+
+You want to access Datomic indices directly.
+
+===== Solution
+
+Use the +datomic.api/datoms+ function to directly access the core
+datomic indices.
+
+To find the entities which have the provided attribute and value set. +
+Note, this will only work for attributes where +:db/index+ is true, or 
++:db/unique+ is not nil.
+
+[source,clojure]
+----
+(map :e (datomic.api/datoms (db datomic-connection)
+                            :avet
+                            provided-attributed
+                            provided-value))
+----
+
+To find the values for the provided entity and attribute.
+
+[source,clojure]
+----
+(map :v (datomic.api/datoms (db datomic-connection)
+                            :eavt
+                            provided-entity
+                            provided-attribute))
+----
+
+To find the entities who refer, via +:db.type/ref+, to the provided entity.
+
+[source,clojure]
+----
+(map :e (datomic.api/datoms (db datomic-connection)
+                            :vaet
+                            provided-entity))
+----
+
+Provided an indexed attribute and a value, find the entities with those 
+properties, and return the value of those entities for the wanted attribute.
+
+[source,clojure]
+----
+(let [db (datomic.api/db datomic-connection)]
+  (mapcat #(map :v (datomic.api/datoms db :eavt (:e %) wanted-attribute))
+          (datomic.api/datoms db :avet provided-attribute provided-value)))
+----
+
+===== Discussion
+
+By accessing the Datomic indices directly, a number of steps can be skipped,
+and simple queries can often execute more than ten times faster that if they
+were provided in datalog.
+
+This technique is particularly valuable when using your own primary key 
+for an entity, which could then safely be provided to external systems.

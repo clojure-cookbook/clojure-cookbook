@@ -1,0 +1,123 @@
+// By Tom Hicks (@hickst), original submission by Simone Mosciatti (@siscia)
+
+=== Connecting to an SQL Database
+
+===== Problem
+
+You want to connect your program to an SQL database.
+
+===== Solution
+
+Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
+
+Add a dependency to your Leiningen project file for the +clojure.java.jdbc+
+library. You will also need to add a dependency for the JDBC library used
+with the RDBMS you are connecting to (e.g. MySQL):
+
+[source,clojure]
+----
+:dependencies [ ; ...
+                [org.clojure/java.jdbc "0.3.0-alpha4"]
+                [mysql/mysql-connector-java "5.1.25"] ]
+----
+
+Require the necessary parts of the +clojure.java.jdbc+ library in your Clojure source code:
+
+[source,clojure]
+----
+(ns myproj.core
+  (:require [clojure.java.jdbc :as jdbc]
+            [clojure.java.jdbc.sql :as sql]))
+
+----
+
+Create a database specification containing the parameters for accessing the
+database:
+
+[source,clojure]
+----
+(def db-spec {:classname "com.mysql.jdbc.Driver"
+              :subprotocol "mysql"
+              :subname "//localhost:3306/lotr_db"
+              :user "bilbo"
+              :password "secret"})
+----
+
+Pass the database specification as the first argument to several of the
+library's other functions which query and manipulate your database.
+
+[source,clojure]
+----
+(jdbc/insert! db-spec :blocks_world
+              {:color "RED" :shape "square" :size 1.4}
+              {:color "BLUE" :shape "cone"  :size 2.0}
+              {:color "WHITE" :shape "rectangle" :size 0.5})
+;; -> (nil nil nil)
+
+(jdbc/query db-spec (sql/select * :blocks_world (sql/where {:shape "cone"})))
+;; -> ({:size 2.0, :shape "cone", :color "BLUE"})
+----
+
+===== Discussion
+
+The +clojure.java.jdbc+ library provides functions which wrap the basic
+capabilities of the Java JDBC specification. Additional namespaces in the
+library implement small DSLs to generate basic SQL and basic DDL.
+
+Because it relies upon Java JDBC, the +clojure.java.jdbc+ library is useable
+with many of the most popular SQL databases; including Apache Derby, HSQLDB,
+Microsoft SQL Server, MySQL, PostgreSQL, and SQLite.
+
+The parameters necessary to setup and access a data source are called the
+"database specification" (often abbreviated "db-spec") and are provided in a
+simple Clojure map. The specification usually includes such parameters as the
+driver class name, the subprotocol for a particular RDBMS type, the hostname,
+the port number, the database name, and the username and password.
+
+The +clojure.java.jdbc+ library also permits several other forms of data source
+specification, including Java URIs, already open connections, JNDI connections,
+and plain strings. For example, a complete URI string may be provided under the
++:connection-uri+ key:
+
+[source,clojure]
+----
+(def db-spec {:connection-uri "jdbc:mysql://localhost:3306/lotr_db?user=bilbo&password=secret"})
+----
+
+Or provided directly as the database specification itself:
+
+[source,clojure]
+----
+(def db-spec "jdbc:mysql://bilbo:secret@localhost:3306/lotr_db")
+----
+
+Database records are represented as Clojure maps, with the table's column names
+used as keys. Retrieval of a set of database records produces a sequence of
+maps which can then be processed with all the normal Clojure functions.
+
+[source,clojure]
+----
+(jdbc/query db-spec (sql/select * :abc_words))
+;; -> ({:name "ant" :id 11} {:name "bat" :id 12} {:name "cat" :id 13}
+;;     {:name "dog" :id 14} {:name "fat" :id 16} {:name "elf" :id 15})
+
+(filter #(not (.endsWith (:name %) "at"))
+        (jdbc/query db-spec (sql/select * :abc_words)))
+;; -> ({:name "ant", :id 11} {:name "dog", :id 14} {:name "elf", :id 15})
+----
+
+There are other Clojure libraries to access relational databases and each
+provides a different abstraction and DSL for the manipulation of SQL data and
+expressions. The +clojure.java.jdbc+ library, however, covers a large portion
+of everyday database access needs.
+
+===== See Also
+
+// TODO: link these when sections exist
+* See <<sec_querying-an-SQL-database>> to learn more about querying with +clojure.java.jdbc+.
+* See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
+* See <<sec_SQL-database-connection-pooling>> to learn more about connection pooling with +clojure.java.jdbc+.
+
+* Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
+* See http://sqlkorma.com/[Korma SQL] for an alternative SQL DSL.
+* See  https://github.com/jkk/honeysql[HoneySQL] for another alternative SQL DSL.

@@ -18,7 +18,7 @@ find that small set of very string-specific functions in the
 +clojure.string+ namespace.
 
 We suggest you "require as" the +clojure.string+ namespace when you
-need it. Blindly +:use+ing a namespace is always annoying, and often
+need it. Blindly ++:use++ing a namespace is always annoying, and often
 results in collisions/confusion. Prefixing everything with
 +clojure.string+ is also right-out.
 

@@ -1,0 +1,137 @@
+[[sec_edn_record]]
+=== Records as **edn** values
+
+===== Problem
+
+You want to use Clojure records as **edn** values, but the **edn** format doesn't support records.
+
+===== Solution
+
+You can use the **tagged** library to read and print records as **edn** tagged literal values.
+
+In the REPL:
+
+[source,clojure]
+----
+user> (in-ns 'my.ns)
+user> (require '[miner.tagged :as tag])
+user> (defrecord MyRecord [a])
+user> (defmethod print-method my.ns.MyRecord [this w] (tag/pr-tagged-record-on this w))
+user> (def mr42 (->MyRecord 42))
+user> (pr-str mr42)
+"#my.ns/MyRecord {:a 42}"
+user> (= mr42 (tag/read-string (pr-str mr42)))
+true
+----
+
+You can now successfully "round-trip" your records between +pr-str+ and +miner.tagged/read-string+
+using the tagged literal format.
+
+===== Discussion
+
+The **edn** format covers a useful subset of the Clojure datatypes with the notable exception of
+records.  On the Clojure side, the record notation is not supported by +clojure.edn/read+ or
++clojure.edn/read-string+.  However, the **edn** reader is extensible using tagged literals, and
+that's all you need to code a solution.  Just implement the appropriate +print-method+ and use a
+cognizant default data-reader, and you can print and read records as **edn** tagged literals.  The
+**tagged** library provides some handy support functions.
+
+Let's take a look at the source code from the **tagged** library on Github:
+
+https://github.com/miner/tagged
+
+[source,clojure]
+----
+(ns miner.tagged
+  (:refer-clojure :exclude [read read-string])
+  (:require [clojure.edn :as edn]
+            [clojure.string :as str]))
+
+;; adapted from "The Data-Reader's Guide to the Galaxy" talk at Clojure/West 2013
+
+;; Holder for unknown tags
+(defrecord TaggedValue [tag value]
+  Object 
+  (toString [x] (pr-str x)))
+
+(defn tag->factory
+  "Returns the map-style record factory for the `tag` symbol.  Returns nil if `tag` does not
+  refer to a record."
+  [tag]
+  (when (namespace tag)
+    (resolve (symbol (str (namespace tag) "/map->" (name tag))))))
+
+(defn tagged-default-reader 
+  "Default data-reader for reading an **edn** tagged literal as a Record.  If the tag corresponds to a
+  known Record class (tag my.ns/Rec for class my.ns.Rec), use that Record's map-style factory on
+  the given map value.  If the tag is unknown, use the generic miner.tagged.TaggedValue."  
+  [tag value]
+  (if-let [factory (and (map? value)
+                        (Character/isUpperCase ^Character (first (name tag)))
+                        (tag->factory tag))]
+    (factory value)
+    (->TaggedValue tag value)))
+
+(defn- record-name [rec-class]
+  "Returns the record's name as a String given the class `rec-class`."
+  (str/replace (pr-str rec-class) \_ \-))
+
+(defn- tag-string
+  "Returns the string representation of the tag corresponding to the given `record-class`."
+  [record-class]
+  (let [cname (record-name record-class)
+        dot (.lastIndexOf ^String cname ".")]
+    (when (pos? dot)
+      (str (subs cname 0 dot) "/" (subs cname (inc dot))))))
+
+(defn pr-tagged-record-on
+  "Prints the EDN tagged literal representation of the record `this` on the java.io.Writer `w`.
+  Useful for implementing a print-method on a record class.  For example:
+
+     (defmethod print-method my.ns.MyRecord [this w]
+       (miner.tagged/pr-tagged-record-on this w))"
+  [this ^java.io.Writer w]
+  (.write w "#")
+  (.write w ^String (tag-string (class this)))
+  (.write w " ")
+  (print-method (into {} this) w))
+
+(def default-tagged-read-options {:default #'tagged-default-reader})
+
+(defn read
+  "Like clojure.edn/read but the :default option is `tagged-default-reader`."
+  ([] (edn/read default-tagged-read-options *in*))
+  ([stream] (edn/read default-tagged-read-options stream))
+  ([options stream] (edn/read (merge default-tagged-read-options options) stream)))
+
+(defn read-string 
+  "Like clojure.edn/read-string but the :default option is `tagged-default-reader`."
+  ([s] (edn/read-string default-tagged-read-options s))
+  ([options s] (edn/read-string (merge default-tagged-read-options options) s)))
+
+----
+
+The "pr" printing functions, such as +pr+, +prn+ and +pr-str+, print in a way that can be read by
+the Clojure reader.  The +print-method+ multimethod is used to customize that printing.  You just
+need to specialize the +print-method+ for your particular record class as shown in the Solution.
+With a single call to the +pr-tagged-record-on+ function, you've implemented the printing of your
+record as tagged literal.
+
+As you can see in the source, the class of the record is converted into the appropriate tag string
+such that the class +my.ns.MyRecord+ has a tag +my.ns/MyRecord+.  The notation is only slightly
+different, but that's enough to conform to the **edn** format for tagged literals.
+
+In order to handle reading the tagged literal format, the library employs a customized :default
+data-reader.  This isn't strictly necessary as you could define a particular data-reader function
+for each record tag but it's convenient to handle all your record tags with a single default
+data-reader as implemented in +miner.tagged/read+.  For more information, see the +clojure.edn/read+
+documentation for the *opts* argument.
+
+The +tagged-default-reader+ implements the logic for looking up the *map* factory of the record
+class as indicated by the tag.  It uses that factory function to create the proper record from the
+literal map value.
+
+===== See Also
+
+* **edn** https://github.com/edn-format/edn
+* <<sec_default_data_reader>>
