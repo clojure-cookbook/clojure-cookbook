@@ -10,20 +10,13 @@ You want to use a temporary file.
 
 ===== Solution
 
-Using Java's +java.io.File/createTempFile+ create a temporary file in the 
-default temporary-file directory of the JVM, with the provided prefix and 
-suffix. 
+Use Java's +java.io.File/createTempFile+ to create a temporary file in the
+default temporary-file directory of the JVM, with the provided prefix and
+suffix.
 
 [source,clojure]
 ----
 (def my-temp-file (java.io.File/createTempFile "filename" ".txt"))
-----
-
-Get the full path and filename for the created temporary file.
-
-[source,clojure]
-----
-(.getAbsolutePath my-temp-file)
 ----
 
 Write a line of text to the temporary file.
@@ -33,6 +26,19 @@ Write a line of text to the temporary file.
 (with-open [file (clojure.java.io/writer my-temp-file)]
   (binding [*out* file] 
     (println "Example output.")))
+----
+
+===== Discussion
+
+Temporary files are an excellent mechanism to provide, and retrieve, 
+data from a subprocess which may not necessarily interact with Clojure 
+or the JVM particularly well.
+
+To get the full path and filename for the created temporary file.
+
+[source,clojure]
+----
+(.getAbsolutePath my-temp-file)
 ----
 
 Mark the temporary file to be deleted automatically when the JVM exits normally.
@@ -57,9 +63,3 @@ Create a temporary directory.
                    (.delete)
 		   (.mkdir)))
 ----
-
-===== Discussion
-
-Temporary files are an excellent mechanism to provide, and retrieve, 
-data from a subprocess which may not necessarily interact with Clojure 
-or the JVM particularly well.
