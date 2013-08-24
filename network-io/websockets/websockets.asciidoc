@@ -16,7 +16,7 @@ Use https://github.com/lynaghk/jetty7-websockets-async[jetty7-websockets-async].
 
 In your dependencies:
 
-[source, clojure]
+[source,clojure]
 ----
 [com.keminglabs/jetty7-websockets-async "0.1.0-SNAPSHOT"]
 ----

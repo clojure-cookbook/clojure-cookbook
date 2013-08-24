@@ -16,7 +16,7 @@ Use https://github.com/lynaghk/zmq-async[zmq-async].
 
 In your dependencies:
 
-[source, clojure]
+[source,clojure]
 ----
 [com.keminglabs/zmq-async "0.1.0-SNAPSHOT"]
 ----
