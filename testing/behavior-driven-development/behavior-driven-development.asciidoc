@@ -6,7 +6,7 @@ You want to test whole of your application at runtime with Behavior Driven Devel
 
 ===== Solution
 
-Use cucumber. This takes a top down approach oof application testing. 
+Use cucumber. This takes a top down approach of application testing. 
 There is a ++lein-cucumber++ leiningen plugin for running cucumber features.
 
 Add following in project.clj file
@@ -24,13 +24,14 @@ Here we have an application that allows to add authors to a Author's Club list a
 [source,clojure]
 ----
 
-(def authors (atom #{"Alex" "Craig" "Rohit" "Ryan" "Stuart"}))
+(ns cucumber-crud.core
+  (:require [clojure.string :as string]))
 
-(defn name-exists? [requested-name]
-  (if (contains? @authors requested-name) true false))) 
+(def authors #{"Alex" "Craig" "Rohit" "Ryan" "Stuart"})
 
-(defn add-a-name [requested-names]
-  (swap! authors union requested-names)) 
+(defn process-name [raw-name]
+  (let [requested-name (string/capitalize raw-name)]
+    (str "Your name " requested-name (if (contains? authors requested-name) " IS " " IS NOT ")  "in the Authors Club")))
 ----
 
 Now we want to test this application.
