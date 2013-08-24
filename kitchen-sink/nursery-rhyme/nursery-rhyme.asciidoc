@@ -1,0 +1,179 @@
+=== Nursery rhyme 
+
+// By Chris Ford (ctford)
+
+===== Problem
+
+You want to code a nursery rhyme to inspire your children to take up programming.
+
+===== Solution
+
+Use https://github.com/overtone/overtone[Overtone] to bring the song to life.
+
+Define the melody to "Row, row, row your boat" as a sequence of time/pitch pairs.
+
+[source,clojure]
+----
+(ns cookbook.core
+  (:use overtone.live))
+
+(defn note [timing pitch] {:time timing :pitch pitch})
+
+(def melody
+  (let [pitches
+         [0 0 0 1 2
+          ; Row, row, row your boat,
+          2 1 2 3 4
+          ; Gently down the stream,
+          7 7 7 4 4 4 2 2 2 0 0 0
+          ; (take 4 (repeat "merrily"))
+          4 3 2 1 0]
+          ; Life is but a dream!
+        durations
+         [1 1 2/3 1/3 1
+          2/3 1/3 2/3 1/3 2
+          1/3 1/3 1/3 1/3 1/3 1/3 1/3 1/3 1/3 1/3 1/3 1/3
+          2/3 1/3 2/3 1/3 2]
+        times (reductions + 0 durations)]
+      (map note times pitches)))
+
+----
+
+Convert the piece into specific key by transforming each note's pitch
+using a function that represents the key.
+
+[source,clojure]
+----
+(defn where [k f notes] (map #(update-in % [k] f) notes))
+
+(defn scale [intervals] (fn [degree] (apply + (take degree intervals))))
+(def major (scale [2 2 1 2 2 2 1]))
+
+(defn from [n] (partial + n))
+(def A (from 69))
+
+(->> melody
+  (where :pitch (comp A major)))
+
+----
+
+Convert the piece into a specific tempo by transforming each note's time
+using a function that represents the tempo.
+
+[source,clojure]
+----
+(defn bpm [beats] (fn [beat] (/ (* beat 60 1000) beats)))
+
+(->> melody
+  (where :time (comp (from (now)) (bpm 90))))
+
+----
+
+Define an instrument and use it to play the melody.
+
+The following example synthesized instrument is a simple sine wave,
+whose amplitude and duration is controlled by an envelope.
+
+[source,clojure]
+----
+(definst beep [freq 440]
+  (let [envelope (line 1 0 0.5 :action FREE)]
+    (* envelope (sin-osc freq))))
+
+(defn play [notes]
+  (doseq [{ms :time midi :pitch} notes]
+    (at ms (beep (midi->hz midi))))
+
+(->> melody 
+  (where :pitch (comp A major))
+  (where :time (comp (from (now)) (bpm 90)))
+  play)
+
+----
+
+If your nursery rhyme is a round, like "Row, row, row your boat", you can use it
+to accompany itself.
+
+[source,clojure]
+----
+(defn round [beats notes]
+  (concat notes (->> notes (where :time (from beats)))
+
+(->> melody 
+  (round 4)
+  (where :pitch (comp A major))
+  (where :time (comp (from (now)) (bpm 90)))
+  play)
+
+----
+
+===== Discussion
+
+A note is a sound of a particular pitch that occurs at a particular time.
+A song is a series of notes. We can therefore simply represent music in
+Clojure as a sequence of time/pitch pairs.
+
+This representation is structurally very similar to Western music notation,
+where each dot on a stave has a time and a pitch determined by its horizontal
+and vertical position. But unlike traditional music notation, our Clojure
+representation can be worked on by functional programming techniques. 
+
+Pieces of Western music, like "Row, row, row your boat" aren't composed of
+arbitary pitches. Within a given melody, the notes are typically confined to
+a subset of all possible pitches called a "scale".
+
+The approach taken here is to express the pitches by an integer denoting
+where they appear in the scale, called a "degree". So, for example, degree
++0+ signifies the first pitch of the scale and degree +4+ signifies the fifth
+note of the scale.
+
+This simplifies the description of the melody, because we don't have to
+worry about inadvertently specifying pitches that are outside our chosen
+scale. They also allow us to vary our chosen scale without having to rewrite
+the melody. 
+
+To work with degrees, we need a function that translates a degree into the
+actual pitch. Since "Row, row, row your boat" is in a major scale, we need
+a function that represents such a scale.
+
+We use the observation that in a major scale, there is a regular pattern of
+double and single spaces between adjacent pitches (known to musicians as
+tones and semi-tones). We define a function called +major+ that accepts a
+degree out outputs the number of semi-tones it represents. 
+
+Our pitches still aren't quite right, because they're relative to the
+lowest note of the piece. We need to establish a musical reference point
+that we will use to interpret our degrees.
+
+Concert A is conventionally used as a reference point by orchestras,
+so we use it as our musical zero. In other words, we will put
+"Row, row, row your boat" into A major. Now a degree of +0+ means "A".
+
+Note that we can simply compose together our functions for major and for A
+to arrive at a composite A major function.
+
+We need to do a similar transformation for time. Each note's time is
+expressed in beats, but we need it to be in milliseconds. We use
+the current system time as our temporal reference point, meaning that
+the piece will start from now (and not at the start of the Unix epoch!).
+
+"Row, row, row your boat" is a round, meaning it harmonizes if sung as an
+accompaniment to itself, offset by a particular number of beats. As an extra
+flourish, we produce a second version of the melody that starts four beats
+after the first.
+
+I encourage you to experiment with the tune, perhaps by varying the speed or
+using a different key (hint: a minor key has the following pattern of tones and
+semitones +[2 1 2 2 1 2 2 ]+).
+
+I also encourage you to think about how this approach to modelling a series of
+events can be applied to other domains. The idea of expressing a time-series
+as a sequence and then applying transformations across that series is a simple,
+flexible and composable way of describing a problem.
+
+Music is a wonderful and moving thing. It's also incredibly well-suited to
+being modelled in a functional programming language. I hope your children agree.
+
+===== See also
+
+* https://github.com/overtone/overtone[Overtone] is a music environment for Clojure.
