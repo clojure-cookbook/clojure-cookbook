@@ -3,12 +3,12 @@
 
 ===== Problem
 
-You want to communicate with other applications over RabbitMQ
+You want to communicate with other applications over http://rabbitmq.com[RabbitMQ]
 and need to publish messages from Clojure.
 
 ===== Solution
 
-Use Langohr, a small feature complete RabbitMQ client, to communicate
+Use http://clojurerabbitmq.info[Langohr], a small feature complete RabbitMQ client, to communicate
 with RabbitMQ.
 
 In order to successfully go through this recipe, you should have
