@@ -60,7 +60,7 @@ Scenario: not in the list
 
 Scenario: already in the list
   Given I request name "Rohit"
-  Then I should see "Your name Andy IS NOT in the Authors Club"
+  Then I should see "Your name Rohit IS in the Authors Club"
 ----
 
 These steps are implemented as described below. This is defined for example under 
