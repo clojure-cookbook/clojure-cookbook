@@ -13,7 +13,7 @@ with RabbitMQ.
 
 In order to successfully go through this recipe, you should have
 RabbitMQ installed. You can find details on how to install RabbitMQ
-here: http://TODO.
+here: http://www.rabbitmq.com/download.html.
 
 RabbitMQ is a multi-protocol broker. This chapter will only cover
 AMQP 0-9-1, RabbitMQ's original protocol.
@@ -120,7 +120,7 @@ To declare an exchange, use +langohr.exchange/fanout+, +langohr.exchange/topic+,
 
 ===== Discussion
 
-RabbitMQ is a messaging broker that implements multiple protocols (AMQP 0-9-1, MQTT, STOMP, AMQP 1.0).
+RabbitMQ supports AMQP 0-9-1, MQTT, STOMP, and AMQP 1.0.
 This recipe focuses on its original protocol, AMQP 0-9-1.
 
 So far we have demonstrated just enough functionality to publish messages to a fanout
