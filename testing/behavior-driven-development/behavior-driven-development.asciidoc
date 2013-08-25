@@ -29,7 +29,7 @@ We test the whole functionality in a Scenario (much like test cases but not limi
   (:require [clojure.string :as string]
             [clojure.set :as set]))
 
-(def authors (atom #{"Alex" "Craig" "Rohit" "Ryan" "Stuart"}))
+(def authors (atom #{"Alex" "Craig" "Luke" "Rohit" "Ryan" "Stuart"}))
 
 (defn find-name [raw-name]
   (let [requested-name (string/capitalize raw-name)]
@@ -52,15 +52,15 @@ Feature: Authors
 Scenario: add name and check in the list
   Given I add name "Justin"
   When I request name "Justin"
-  Then I should see "Your name Justin IS in the Authors Club"
+  Then I should get "Your name Justin IS in the Authors Club"
 
 Scenario: not in the list
   Given I request name "Andy"
-  Then I should see "Your name Andy IS NOT in the Authors Club"
+  Then I should get "Your name Andy IS NOT in the Authors Club"
 
 Scenario: already in the list
   Given I request name "Rohit"
-  Then I should see "Your name Rohit IS in the Authors Club"
+  Then I should get "Your name Rohit IS in the Authors Club"
 ----
 
 These steps are implemented as described below. This is defined for example under 
@@ -79,7 +79,7 @@ These steps are implemented as described below. This is defined for example unde
 (Given #"^I request name \"([^\"]*)\"$" [requested-name]
   (reset! result (find-name requested-name)))
 
-(Then #"^I should see \"([^\"]*)\"$" [output-string]
+(Then #"^I should get \"([^\"]*)\"$" [output-string]
   (is (= @result output-string)))
 ----
 
