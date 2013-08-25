@@ -134,7 +134,7 @@ be sure to add the +DataSources+ class to the imports of your namespace.
 ===== See Also
 
 // TODO: link these when sections exist
-* See link:/databases/connecting-to-an-SQL-database[connecting-to-an-SQL-database] to learn about basic database connections with +clojure.java.jdbc+.
+   * See link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[connecting-to-an-SQL-database] to learn about basic database connections with +clojure.java.jdbc+.
 * See <<connecting-to-an-SQL-database>> to learn about basic database connections with +clojure.java.jdbc+.
 
 * See <<sec_querying-an-SQL-database>> to learn more about querying with +clojure.java.jdbc+.
