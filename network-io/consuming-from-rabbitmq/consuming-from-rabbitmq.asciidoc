@@ -323,6 +323,12 @@ An example that rejects a message and re-queues it:
   (comment ...))
 ----
 
+RabbitMQ queues can also be mirrored between
+cluster nodes for high availability, have bounded
+length or expiration period for messages, and more.
+To learn more, see RabbitMQ and Langohr documentation
+sites.
+
 Key functions related to working with
 queues and consumers can be found in *langohr.queue*,
 *langohr.consumers*, and *langohr.basic* namespaces.
