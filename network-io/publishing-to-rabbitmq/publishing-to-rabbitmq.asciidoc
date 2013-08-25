@@ -163,10 +163,13 @@ They also have a name and attributes. It is possible to
 consumer messages on demand ("pull API") or set up a subscription
 (called *consumer*) to have messages pushed to the client.
 
+Key functions related to working with
+exchanges and publishing can be found in *langohr.exchange* and
+*langohr.basic* namespaces.
+
 Langohr is a feature complete RabbitMQ client that supports
 AMQP 0-9-1, RabbitMQ extensions to it and provides HTTP
-API client. Key functions related to working with
-exchanges can be found
+API client.
 
 ===== See Also
 See http://clojurerabbitmq.info[Langohr documentation] and
