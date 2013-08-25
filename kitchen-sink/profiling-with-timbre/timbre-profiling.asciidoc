@@ -50,7 +50,7 @@ Timbre outputs rich profiling information in a convenient table.
              :bench/no-arg-f     11       5μs      163μs      26μs      20μs       2 215μs
                 [Clock] Time                                                     100 14ms
               Accounted Time                                                     186 26ms
----
+----
 
 === Discussion
 
