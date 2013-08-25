@@ -139,5 +139,5 @@ be sure to add the +DataSources+ class to the imports of your namespace.
 * See <<sec_querying-an-SQL-database>> to learn more about querying with +clojure.java.jdbc+.
 * See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
 
-* See the +c3p0+ documentation[http://www.mchange.com/projects/c3p0/].
+* See the +c3p0+ http://www.mchange.com/projects/c3p0/[documentation].
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
