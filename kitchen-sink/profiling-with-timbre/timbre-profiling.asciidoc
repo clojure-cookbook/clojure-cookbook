@@ -11,7 +11,7 @@ Use https://github.com/ptaoussanis/timbre[Timbre]
 by inserting profiling macros into your code, without performance penalty in production.
 
 [source,clojure]
----
+----
 (ns cookbook.profiling-timbre
   (:require [taoensso.timbre.profiling :as p]))
 
@@ -31,7 +31,7 @@ by inserting profiling macros into your code, without performance penalty in pro
   (bench-me
     (fn ([] (p/p :bench/no-arg-f) 100)
         ([a] (p/p :bench/one-arg-f) +))))
----
+----
 
 Here we define a Clojure function `bench-me`, which is called with a
 higher-order function `f` which takes zero or one argument.
