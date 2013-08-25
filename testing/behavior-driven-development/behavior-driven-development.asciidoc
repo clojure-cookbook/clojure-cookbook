@@ -32,7 +32,7 @@ We test the whole functionality in a Scenario (much like test cases but not limi
 (def authors (atom #{}))
 
 (defn load-names [initial-names]
-  (reset! authors (set (map name (string/split initial-names #" ")))))
+  (reset! authors (set (map name (string/split initial-names #",")))))
 
 (defn find-name [raw-name]
   (let [requested-name (string/capitalize raw-name)]
@@ -53,7 +53,7 @@ Feature: Authors
   Author Club List addition and check
 
 Background:
-  Given Authors list is set up as "Alex Craig Luke Rohit Ryan Stuart"
+  Given Authors list is set up as "Alex,Craig,Luke,Rohit,Ryan,Stuart"
 
 Scenario: add name and check in the list
   When I add name "Justin"
