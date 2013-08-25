@@ -29,7 +29,10 @@ We test the whole functionality in a Scenario (much like test cases but not limi
   (:require [clojure.string :as string]
             [clojure.set :as set]))
 
-(def authors (atom #{"Alex" "Craig" "Luke" "Rohit" "Ryan" "Stuart"}))
+(def authors (atom #{}))
+
+(defn load-names [initial-names]
+  (reset! authors (set (map name (string/split initial-names #" ")))))
 
 (defn find-name [raw-name]
   (let [requested-name (string/capitalize raw-name)]
@@ -49,17 +52,20 @@ Lets use cucumber feature steps for it. This is defined for example under
 Feature: Authors
   Author Club List addition and check
 
+Background:
+  Given Authors list is set up as "Alex Craig Luke Rohit Ryan Stuart"
+
 Scenario: add name and check in the list
-  Given I add name "Justin"
-  When I request name "Justin"
+  When I add name "Justin"
+  And I request name "Justin"
   Then I should get "Your name Justin IS in the Authors Club"
 
 Scenario: not in the list
-  Given I request name "Andy"
+  When I request name "Andy"
   Then I should get "Your name Andy IS NOT in the Authors Club"
 
 Scenario: already in the list
-  Given I request name "Rohit"
+  When I request name "Rohit"
   Then I should get "Your name Rohit IS in the Authors Club"
 ----
 
@@ -73,10 +79,13 @@ These steps are implemented as described below. This is defined for example unde
 
 (def result (atom {}))
 
-(Given #"^I add name \"([^\"]*)\"$" [name]
+(Given #"^Authors list is set up as \"([^\"]*)\"$" [listed-names]
+  (load-names listed-names))
+
+(When #"^I add name \"([^\"]*)\"$" [name]
   (add-name name))
 
-(Given #"^I request name \"([^\"]*)\"$" [requested-name]
+(When #"^I request name \"([^\"]*)\"$" [requested-name]
   (reset! result (find-name requested-name)))
 
 (Then #"^I should get \"([^\"]*)\"$" [output-string]
@@ -97,7 +106,7 @@ And you would see test output as
 Running cucumber...
 Looking for features in:  [features]
 Looking for glue in:  [features/step_definitions]
-.....
+..........
 ----
 
 ===== Discussion
@@ -107,9 +116,11 @@ In the ++Scenario: add name and check in the list++ we are testing accross multi
 In this you define steps in simple readable sentences that any business user can easily understand. 
 
 The step implementations define the execution of the test.
-
 In the example given, we use +result+ to capture the output of a parameterized name passed to the step definition: Given I request name.
 The regular expressions \"([^\"]*)\" are used to match the variables passed in. Then we finally compare the expected result.
+
+The Steps are defined in Given, When and Then style.  We use Given for data set up, When for actions and Then for the result check.
+The Background is commonly used to extract common Given step. Setting up Scenrio data should be independent of Production data as in Unit testing.
 
 This technique can provide ultimate coverage of tests, along with the unit tests.
 
