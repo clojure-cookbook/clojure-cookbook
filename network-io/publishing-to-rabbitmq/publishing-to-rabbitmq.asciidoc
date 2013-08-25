@@ -165,8 +165,12 @@ consumer messages on demand ("pull API") or set up a subscription
 
 Langohr is a feature complete RabbitMQ client that supports
 AMQP 0-9-1, RabbitMQ extensions to it and provides HTTP
-API client.
+API client. Key functions related to working with
+exchanges can be found
 
 ===== See Also
 See http://clojurerabbitmq.info[Langohr documentation] and
 http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn more.
+
+Langohr http://reference.clojurerabbitmq.info[API reference] is also
+available.
