@@ -14,7 +14,9 @@ To gain this capability, first make sure you are using Leiningen >= 2.1.3.
 Then edit your +~/.lein/profiles.clj+ file. Add the following to the +:plugins+ vector of the +:user+ profile:
 
 [source,clojure]
+----
 [lein-try "0.3.0"]
+----
 
 Now you can experience nearly instant gratification with the library of your choice:
 
