@@ -48,22 +48,32 @@ REPLs (Read-Eval-Print Loop) are interactive prompts that evaluate
 expressions and print the result. The Bash prompt, +irb+, and the
 +python+ prompt are examples of REPLs.
 
-A Clojure REPL session is denoted by a monospace font with a prompt
-that includes the current namespace and a "+>+" symbol, indicating the
-point where you should type your code. Output and return values appear
-after the prompt.
+While Clojure REPLs are traditionally displayed as `user> ...`, our goal
+is for readers to be able to copy-paste all of the examples in a recipe 
+and see the indicated results. As such REPL sessions are indicated much
+the same way source-code is (with "normal" source code and comments for
+return value and +*out*+put.)
 
-// CONTRIBUTOR NOTE: there is currently no syntax highlighting for the
-// Clojure REPL that I know of. Maybe somebody could write a lexer for
-// Pygments?
+Feel free to omit the return value comment of a statement if it doesn't 
+fit (for example, a +def+).
 
+[source,clojure]
 ----
-user> (map str [4 5 6])
-("4" "5" "6")
-user> (println "Hello")
-Hello
-nil
-user> 
+;; Return values
+(map str [4 5 6])
+;; -> ("4" "5" "6")
+
+;; Return values with *out*put
+(println "Hello")
+;; -> nil
+;; *out*
+;; Hello
+
+;; Omitting return values...
+(def abc 123)
+
+abc
+;; -> 123
 ----
 
 === Console/Terminal Sessions
