@@ -70,7 +70,7 @@ Arguments: ([& args])
 
 Let's mention ways to integrate +lein try+ with a couple of other popular tools.
 
-You may wish to use +lein try+ with Emacs. Just set the +inferior-lisp-program+ var in your *scratch* buffer:
+You may wish to use +lein try+ with Emacs. Just set the +inferior-lisp-program+ var in your \*scratch\* buffer:
 
 [source,lisp]
 ----
@@ -95,7 +95,7 @@ If you never use ZSH pattern matching while starting Leiningen, you can make the
 alias "lein"="noglob lein"
 ----
 
-As befits a Clojure tool, +lein-try+ is an elegant way to make a task less laborious. Use it to summon powerful libraries from the net at your whim, *without having to set them up*, and enjoy a wizardly satisfaction from the sudden confluence of new abilities.
+As befits a Clojure tool, +lein-try+ is an elegant way to make a task less laborious. Use it to summon powerful libraries from the net at your whim, _without having to set them up_, and enjoy a wizardly satisfaction from the sudden confluence of new abilities.
 
 ===== See Also
 
