@@ -19,7 +19,7 @@ Then edit your +~/.lein/profiles.clj+ file. Add the following to the +:plugins+ 
 Now you can experience nearly instant gratification with the library of your choice:
 
 [source,console]
-====
+----
 $ lein try clj-time
 Retrieving clj-time/clj-time/0.6.0/clj-time-0.6.0.pom from clojars
 Retrieving clj-time/clj-time/0.6.0/clj-time-0.6.0.jar from clojars
@@ -33,7 +33,7 @@ Clojure 1.5.1
     Exit: Control+D or (exit) or (quit)
 
 user=> 
-====
+----
 
 ===== Discussion
 
@@ -42,16 +42,16 @@ Notice that we did not have to give a version number for the library in the exam
 Of course you can specify a library's version if you like. Just add the number afterward:
 
 [source,console]
-=====
+----
 $ lein try clj-time 0.5.1
 #...
 user=>
-=====
+----
 
 For a quick view of usage options, invoke +lein help try+:
 
 [source,console]
-====
+----
 $ lein help try
 Launch REPL with specified dependencies available.
 
@@ -64,7 +64,7 @@ Launch REPL with specified dependencies available.
   NOTE: lein-try does not require []
 
 Arguments: ([& args])
-====
+----
 
 Now let's mention some ways to integrate +lein try+ with a couple of other popular tools.
 
