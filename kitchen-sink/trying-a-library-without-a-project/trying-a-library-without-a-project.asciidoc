@@ -14,13 +14,11 @@ To gain this capability, first make sure you are using Leiningen >= 2.1.3.
 Then edit your +~/.lein/profiles.clj+ file. Add the following to the +:plugins+ vector of the +:user+ profile:
 
 [source,clojure]
-====
 [lein-try "0.3.0"]
-====
 
-Now you can have immediate gratification with the library of your choice:
+Now you can experience nearly instant gratification with the library of your choice:
 
-[source,clojure]
+[source,console]
 ====
 $ lein try clj-time
 Retrieving clj-time/clj-time/0.6.0/clj-time-0.6.0.pom from clojars
@@ -43,7 +41,7 @@ Notice that we did not have to give a version number for the library in the exam
 
 Of course you can specify a library's version if you like. Just add the number afterward:
 
-[source,clojure]
+[source,console]
 =====
 $ lein try clj-time 0.5.1
 #...
@@ -52,7 +50,7 @@ user=>
 
 For a quick view of usage options, invoke +lein help try+:
 
-[source,clojure]
+[source,console]
 ====
 $ lein help try
 Launch REPL with specified dependencies available.
@@ -72,10 +70,8 @@ Now let's mention some ways to integrate +lein try+ with a couple of other popul
 
 You may wish to use +lein try+ with Emacs. How? Just set the +inferior-lisp-program+ var in your +*scratch*+ buffer:
 
-[source,]
-====
+[source,lisp]
 (setq inferior-lisp-program "lein try tentacles")
-====
 
 Then launch +M-x inferior-lisp+.
 
@@ -83,17 +79,13 @@ Are you a ZSH user? You may have an issue typing +[..]+ in your +lein try+ invoc
 
 Fortunately, you can work around this by temporarily shutting off [] pattern matching in ZSH. Simply put +noglob+ in front of +lein+:
 
-[source,]
-====
-noglob lein try [io.rkn/conformity "0.2.1"] [com.datomic/datomic-free "0.8.4020.26"]
-====
+[source,console]
+% noglob lein try [io.rkn/conformity "0.2.1"] [com.datomic/datomic-free "0.8.4020.26"]
 
 If you never use [] pattern matching, you can make the problem go away permanently by setting up an alias with +noglob+ in your .zshrc file. The +noglob+ option will then be used every time you call +lein+.
 
-[source,]
-====
+[source,sh]
 alias "lein"="noglob lein"
-====
 
 (conclusion)
 
