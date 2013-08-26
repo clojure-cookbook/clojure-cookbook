@@ -88,7 +88,7 @@ Fortunately, you can work around this by temporarily shutting off pattern matchi
 % noglob lein try [io.rkn/conformity "0.2.1"] [com.datomic/datomic-free "0.8.4020.26"]
 ----
 
-If you never use ZSH pattern matching while starting Leiningen, you can solve the problem more permanently by setting up an alias with +noglob+ in your .zshrc file. Afterward, the +noglob+ option will be used every time you call +lein+.
+If you never use ZSH pattern matching while starting Leiningen, you can avoid the problem by setting up an alias with +noglob+ in your .zshrc file. Afterward, the +noglob+ option will be used every time you call +lein+.
 
 [source,sh]
 ----
