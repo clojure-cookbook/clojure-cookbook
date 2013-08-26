@@ -70,7 +70,7 @@ Arguments: ([& args])
 
 Let's mention ways to integrate +lein try+ with a couple of other popular tools.
 
-You may wish to use +lein try+ with Emacs. Just set the +inferior-lisp-program+ var in your \*scratch\* buffer:
+You may wish to use +lein try+ with Emacs. Just set the +inferior-lisp-program+ var in your \*scratch* buffer:
 
 [source,lisp]
 ----
