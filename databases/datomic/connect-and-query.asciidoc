@@ -4,13 +4,13 @@
 
 ===== Problem
 
-You want to connect to a datomic database and query it. 
+You want to connect to a Datomic database and query it. 
 
 ===== Solution
 
 For datomic-free, check out its latest version at
 http://clojars.org/com.datomic/datomic-free[Clojars] and for
-datomic-pro, go to http://www.datomic.com[the datomic website],
+datomic-pro, go to http://www.datomic.com[the Datomic website],
 download the .zip file and run +maven-install+, as below.
 
 [source,console]
@@ -24,8 +24,7 @@ Installing datomic-pro-0.8.4122 in local maven repository...
 $ 
 ----
 
-Now, assuming that you are using lein, add datomic as a dependency in
-your project.clj.
+Add Datomic to your project's dependencies:
 
 [source,clojure]
 ----
@@ -39,22 +38,18 @@ Finally, go to a REPL and do the actual query.
 
 [source,console]
 ----
-$ lein repl
-...
-data.server> (ns user)
-nil
-user>  (require '(datomic [api :as d]))
-nil
-user> (def uri "datomic:free://localhost:4334/people")
-nil
-user> (d/q '[:find ?phone ?search :where [_ :nsa-data/phone ?phone] [_ :google-data/last-search ?search] [(re-find #"bomb" ?search)]] (-> uri d/connect d/db)) 
-#{["3425-2314" "pressure cooker bomb"]}
+(require '(datomic [api :as d]))
+(def uri "datomic:free://localhost:4334/people")
+(d/q '[:find ?phone ?search
+          :where [_ :nsa-data/phone ?phone]
+                    [_ :google-data/last-search ?search]
+                    [(re-find #"bomb" ?search)]]
+         (-> uri d/connect d/db)) 
+;=> #{["3425-2314" "pressure cooker bomb"]}
 user>
 ----
 
 ===== Discussion
-
-====== Editions
 
 There are two editions of Datomic: *free*, which supports connecting
 to databases with memory and local storage backends, and *pro*, which
@@ -69,8 +64,6 @@ from the first piece of information after *datomic:*. In this case,
 they are memory, disk and DynamoDB. You can use datomic-free for the
 first two and you'd need datomic-pro for the last.
 
-====== Databases
-
 Instead of sending the query to a connection, on Datomic you query a
 value of the database, which in the example you get from calling
 *d/db* after *d/connect*.
@@ -83,15 +76,16 @@ in the REPL.
 (->> uri d/connect d/db seq (into {}))
 ----
 
-The core of the database consists of tuples with the values 'entity', 'attribute',
+The core of the database consists of data with four values: 'entity', 'attribute',
 'value' and 'transaction'. The attributes must be predefined in a
-schema and will be stored in a datum as a reference to its schema entry.
+schema and will be stored in the datum as a reference to its schema entry.
 
-To transact facts you need to provide a temporary id for reference,
-which you can generate using the *tempid* function and which will be
-later replaced by an internal id.
+To add facts to Datomic you must transact a vector of maps, each of
+which is related to an entity and must contain its id. Even when
+creating a new entity, you must generate a temporary id, which will be
+later replaced, to reference it inside the transaction.
 
-The example below shows how two entities will turn into tuples.
+The example below shows how two entities will turn into data.
 
 [source,clojure]
 ----
@@ -111,7 +105,7 @@ The example below shows how two entities will turn into tuples.
        #Datum{:e 17592186045419 :a 67 :v 17592186045418 :tx 13194139534313 :added true}]
 ----
 
-You can also use the query function against a vector of tuples, like below.
+You can also use the query function against a vector of data, like below.
 
 [source,clojure]
 ----
@@ -123,10 +117,12 @@ You can also use the query function against a vector of tuples, like below.
 ;=> #{[:steak]}
 ----
 
-On Datalog, the queries...
+These queries were made in a language called Datalog. You can find
+more about it in http://www.learndatalogtoday.org/[Learn Datalog
+Today]. 
 
 ===== See Also
 
 // TODO: Link these when recipes exist
-* Create and populate a datomic database
+* Create and populate a Datomic database
 * Save schema and seed data on resources
