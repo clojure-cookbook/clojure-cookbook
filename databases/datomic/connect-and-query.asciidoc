@@ -54,7 +54,7 @@ user>
 
 ===== Discussion
 
-===== On the types of databases
+====== Editions
 
 There are two editions of Datomic: *free*, which supports connecting
 to databases with memory and local storage backends, and *pro*, which
@@ -69,18 +69,61 @@ from the first piece of information after *datomic:*. In this case,
 they are memory, disk and DynamoDB. You can use datomic-free for the
 first two and you'd need datomic-pro for the last.
 
-===== Connections and stuff
+====== Databases
 
-Keep in mind that you abstract away the connection and do the query
-against the database itself, which is why you need to call d/db after
-d/connect.
+Instead of sending the query to a connection, on Datomic you query a
+value of the database, which in the example you get from calling
+*d/db* after *d/connect*.
 
-This particular query returns the phone number and the last search of
-a person whose last search contained the word 'bomb'. It's a good
-example of how you can augment with your own code the search itself.
+It is a lazy sequence and you can force its evaluation and print it
+in the REPL.
 
+[source,clojure]
+----
+(->> uri d/connect d/db seq (into {}))
+----
 
-===== Datalog queries
+The core of the database consists of tuples with the values 'entity', 'attribute',
+'value' and 'transaction'. The attributes must be predefined in a
+schema and will be stored in a datum as a reference to its schema entry.
+
+To transact facts you need to provide a temporary id for reference,
+which you can generate using the *tempid* function and which will be
+later replaced by an internal id.
+
+The example below shows how two entities will turn into tuples.
+
+[source,clojure]
+----
+(let [hal (d/tempid :db.part/user)
+        falstaff (d/tempid :db.part/user)]
+ (->> [{:db/id hal 
+         :trivia/nickname "Prince Hal"
+         :personal/name "Henry V"}
+       {:db/id falstaff 
+         :personal/name "Falstaff"
+         :personal/friend hal}]
+       (d/transact connection)
+       deref :tx-data))
+;=> [#Datum{:e 17592186045418 :a 66 :v "Prince Hal"   :tx 13194139534313 :added true}
+       #Datum{:e 17592186045418 :a 65 :v "Henry V"      :tx 13194139534313 :added true}
+       #Datum{:e 17592186045419 :a 65 :v "Falstaff"     :tx 13194139534313 :added true}
+       #Datum{:e 17592186045419 :a 67 :v 17592186045418 :tx 13194139534313 :added true}]
+----
+
+You can also use the query function against a vector of tuples, like below.
+
+[source,clojure]
+----
+(d/q '[:find ?food
+         :in [[?food ?tastiness ?kind]]
+         :where [(= :yummy ?tastiness)]
+                [(= :meat  ?kind)]]
+       [[:steak :yummy :meat] [:ketchup :yucky :vegetable] [:spam :yucky :meat]])
+;=> #{[:steak]}
+----
+
+On Datalog, the queries...
 
 ===== See Also
 
