@@ -70,7 +70,7 @@ Arguments: ([& args])
 
 Now let's mention some ways to integrate +lein try+ with a couple of other popular tools.
 
-You may wish to use +lein try+ with Emacs. How? Just set the +inferior-lisp-program+ var in your +*scratch*+ buffer:
+You may wish to use +lein try+ with Emacs. How? Just set the +inferior-lisp-program+ var in your *scratch* buffer:
 
 [source,lisp]
 (setq inferior-lisp-program "lein try tentacles")
@@ -79,12 +79,12 @@ Then launch +M-x inferior-lisp+.
 
 Are you a ZSH user? You may have an issue typing +[..]+ in your +lein try+ invocation, since ZSH will try to match the +[..]+ pattern and foil your attempt to use a vector in the call.
 
-Fortunately, you can work around this by temporarily shutting off [] pattern matching in ZSH. Simply put +noglob+ in front of +lein+:
+Fortunately, you can work around this by temporarily shutting off +[]+ pattern matching in ZSH. Simply put +noglob+ in front of +lein+:
 
 [source,console]
 % noglob lein try [io.rkn/conformity "0.2.1"] [com.datomic/datomic-free "0.8.4020.26"]
 
-If you never use [] pattern matching, you can make the problem go away permanently by setting up an alias with +noglob+ in your .zshrc file. The +noglob+ option will then be used every time you call +lein+.
+If you never use +[]+ pattern matching, you can make the problem go away permanently by setting up an alias with +noglob+ in your .zshrc file. The +noglob+ option will then be used every time you call +lein+.
 
 [source,sh]
 alias "lein"="noglob lein"
