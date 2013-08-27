@@ -12,6 +12,7 @@ Given a collection of maps, such as those returned by +clojure.java.jdbc+ querie
 
 Use the +clj-pdf+ library to easily create the report. Say we have a vector containing the employee records as seen below:
 
+[source, clojure]
 ----
 ;;data
 (def employees
@@ -27,6 +28,7 @@ Use the +clj-pdf+ library to easily create the report. Say we have a vector cont
 
 We first create a template for rendering each record using the +clj-pdf.core/template+ macro:
 
+[source, clojure]
 ----
 ;;template
 (def employee-template
@@ -43,6 +45,7 @@ The +$+ in the template above is used to indicate the anchors for the dynamic co
 
 Calling the template with the employee data produces the following output:
 
+[source, clojure]
 ----
 (employee-template employees)
 
@@ -59,6 +62,7 @@ Calling the template with the employee data produces the following output:
 
 We can now call +clj-pdf.core/pdf+ to create the PDF using this data:
 
+[source, clojure]
 ----
 (pdf [{:title "Employee Table"} (employee-template employees)] "employees.pdf")
 ----
@@ -69,16 +73,21 @@ The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+ libraries. The
 
 A document is represented by a vector containing a map of metadata followed by the content. The content can in turn consist of strings, vectors or collections of vectors. For example, a simple document might look as follows:
 
+[source, clojure]
 ----
 (pdf [{:title "My Document"} "some text"] "document.pdf")
 ----
 
 Collections of elements will be automatically expanded:
 
+[source, clojure]
 ----
 (pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
 ----
+
 the above is equivalent to
+
+[source, clojure]
 ----
 (pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
 ----
@@ -86,6 +95,7 @@ the above is equivalent to
 Each element such as a paragraph, a phrase, or a list is represented by a vector starting with keyword
 identifying the element type:
 
+[source, clojure]
 ----
 [:heading "Lorem Ipsum"]
 [:line]
@@ -102,6 +112,7 @@ identifying the element type:
 
 Elements can have optional styling metadata
 
+[source, clojure]
 ----
 [:paragraph {:style :bold} "this text is bold"]
 
@@ -115,6 +126,7 @@ Elements can have optional styling metadata
 The content of each element can consist of other elements, any style applied to the parent element
 will be inherited by the child elements:
 
+[source, clojure]
 ----
 [:paragraph "some content"]
 
@@ -125,6 +137,8 @@ will be inherited by the child elements:
 ----
 
 child elements can augment or override the parent style
+
+[source, clojure]
 ---- 
 [:paragraph
 {:style :bold :size 10 :family :halvetica :color [0 255 221]}
@@ -135,6 +149,7 @@ child elements can augment or override the parent style
 
 Images can be embedded in the document using the +:image+ element. Image content can be one of +java.net.URL+, +java.awt.Image+, a byte array, a base64 string, or a string representing URL or a file. Images larger than the page margins will automatically be scaled to fit.
 
+[source, clojure]
 ----
 [:image 
   {:align      :center
@@ -147,6 +162,7 @@ Images can be embedded in the document using the +:image+ element. Image content
 
 The library also has support for bar charts, pie charts, line series and time series charts:
 
+[source, clojure]
 ----
 [:chart {:type "bar-chart" :title "Bar Chart" :x-label "Items" :y-label "Quality"} 
  [2 "Foo"] [4 "Bar"] [10 "Baz"]]
@@ -165,3 +181,7 @@ The library also has support for bar charts, pie charts, line series and time se
         :y-label "progress"}
  ["Occurances" ["01/11" 200] ["02/12" 400] ["05/12" 350] ["11/13" 600]]]  
 ----
+
+===== See Also
+
+To see more on using clj-pdf library, see the https://github.com/yogthos/clj-pdf[clj-pdf] GitHub repository.

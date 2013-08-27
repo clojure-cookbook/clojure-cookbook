@@ -1,0 +1,106 @@
+=== Working with Redis
+
+// By Jason Webb (bigjason)
+
+===== Problem
+
+You want to work with data in Redis.
+
+===== Solution
+
+Use Carmine to connect to and interact with Redis.
+
+[NOTE]
+To use this recipe you should first install Redis and have it running locally.
+You can find details on how to install Redis here: http://redis.io/download.  If
+you are on windows you will want to look here:
+https://github.com/dmajkic/redis/downloads.
+
+First add Carmine to your project.
+
+.project.clj
+[source,clojure]
+----
+(defproject redis-example "1.0.0-SNAPSHOT"
+              :dependencies [[com.taoensso/carmine "2.2.0"]])
+----
+
+To use Carmine  pull in the +carmine+ namespace and define a connection spec.
+It is also helpful to wrap +wcar+ in a macro that passes the connection spec for
+you:
+
+[source,clojure]
+----
+(ns redis-example.core
+  (:require [taoensso.carmine :as car :refer (wcar)]))
+
+(def server-connection {:pool {:max-active 8}
+                        :spec {:host     "localhost"
+                               :port     6379
+                               ;;:password ""
+                               :timeout  4000}})
+
+(defmacro wcar* [& body] `(car/wcar server-connection ~@body))
+----
+
+Carmine supports all of the Redis commands and the names (basically) match the
+Redis documentation. So now use the +wcar*+ macro to send the Redis commands you
+know and love:
+
+[source,clojure]
+----
+(wcar* (car/set "Nick" "Nack"))
+;; -> "OK"
+(wcar* (car/get "Nick"))
+;; -> "Nack"
+(wcar* (car/hset "founder" "name" "Tim"))
+;; -> 0
+(wcar* (car/hset "founder" "age" 59))
+;; -> 0
+(wcar* (car/hgetall "founder"))
+;; -> [name Tim age 59]
+----
+
+Passing in multiple commands will pipeline them and return the results together
+as a vector:
+
+[source,clojure]
+----
+(wcar* (car/set "paddywhacks" 0)
+       (car/incr "paddywhacks")
+       (car/get "paddywhacks"))
+;; -> ["OK" 1 "1"]
+----
+
+===== Discussion
+
+Redis describes itself as a *data structure server*.  With data structures
+similar to the core data structures in Clojure, they make a natural pairing for
+a wide range of problems. Its speed and key/value nature make it especially
+useful for caching and memoization.
+
+A word about serialization.  Serialization is handled by Nippy.  The
+documentation describes how to handle more complex cases and custom data types
+but in general you don't have to do anything special at all.  It is automatic
+and extremely powerful.  Simply pass a map, list or other structure as the value
+and Carmine will Serialize/De-serialize it:
+
+[source,clojure]
+----
+(wcar* (car/set "some-key" {:event "An Event", :timestamp (new java.util.Date)})
+       (car/get "some-key"))
+;; -> [OK {:event An Event, :timestamp #inst "2013-08-18T21:31:33.993-00:00"}]
+----
+
+Carmine is by no means the only Redis client for Clojure, but it is actively
+developed and fully featured.  It includes (among other things): serialization,
+a message queue, distributed locks, a Ring session store and even an
+implementation of DynamoDB (which is alpha at time of writing).  These features
+are outside the scope of this recipe, but well documented and straightforward to
+use.  Consult the Carmine repository (linked below) for more information.
+
+===== See Also
+
+* See https://github.com/ptaoussanis/carmine for more information about Carmine.
+* See http://redis.io/commands for a complete list of Redis commands.
+* See https://github.com/ptaoussanis/nippy for information about Serialization.

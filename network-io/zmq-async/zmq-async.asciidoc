@@ -1,0 +1,87 @@
+////
+:Author: Kevin J. Lynagh
+:Email: kevin@keminglabs.com
+////
+
+=== Using ZeroMQ via core.async
+
+===== Problem
+
+You want to use ZeroMQ sockets in a thread safe way via core.async.
+
+===== Solution
+
+Use https://github.com/lynaghk/zmq-async[zmq-async].
+
+In your dependencies:
+
+[source,clojure]
+----
+[com.keminglabs/zmq-async "0.1.0-SNAPSHOT"]
+----
+
+Your system should have ZeroMQ 3.2 installed:
+
+[source,console]
+----
+brew install zeromq
+----
+
+or
+
+[source,console]
+----
+apt-get install libzmq3
+----
+
+Here's a simple ping-pong between two core.async go blocks communicating via a ZeroMQ in-process socket:
+
+[source,clojure]
+----
+(require '[com.keminglabs.zmq-async.core :refer [register-socket!]]
+         '[clojure.core.async :refer [>! <! go chan sliding-buffer close!]])
+
+(let [n 3, addr "inproc://ping-pong"
+      [s-in s-out c-in c-out] (repeatedly 4 #(chan (sliding-buffer 64)))]
+
+  (register-socket! {:in s-in :out s-out :socket-type :rep
+                     :configurator (fn [socket] (.bind socket addr))})
+  (register-socket! {:in c-in :out c-out :socket-type :req
+                     :configurator (fn [socket] (.connect socket addr))})
+
+  (go (dotimes [_ n]
+        (println (String. (<! s-out)))
+        (>! s-in "pong"))
+    (close! s-in))
+
+  (go (dotimes [_ n]
+        (>! c-in "ping")
+        (println (String. (<! c-out))))
+    (close! c-in)))
+----
+
+===== Discussion
+
+ZeroMQ is a message-oriented socket system that supports many communication styles (request/reply, , &c.) on top of many transport layers (intra-process, inter-process, inter-machine via tcp, &c.) with bindings to many languages.
+ZeroMQ sockets are a great substrate upon which to build service-oriented architectures.
+ZeroMQ sockets have less overhead than HTTP and are architecturally more flexible---supporting publish/subscribe, fan-out, and other topologies in addition to request/reply.
+
+However, ZeroMQ sockets are not thread safe---concurrent usage typically requires explicit locking or dedicated threads and queues.
+The zmq-async library handles all of that for you, creating ZeroMQ socket on your behalf and giving you access to them via thread safe core.async channels.
+
+The zmq-async library provides one function, `register-socket!`, which associates a ZeroMQ socket with core.async channel(s) `in` (into which you can write strings or byte arrays) and/or `out` (whence byte arrays).
+Writing a Clojure collection of strings and/or byte arrays sends a multipart message; received multipart messages are put on core.async channels as a vector of byte arrays.
+
+The `register-socket!` function can be given an already created ZeroMQ socket, but typically you would have the library create a socket for you by passing the `socket-type` and a `configurator`.
+The configurator is a function that is passed the raw ZeroMQ socket object.
+This function is run on the socket after it is created to connect/bind addresses, set pubsub subscriptions, and otherwise configure the socket.
+
+WARNING: The implicit context supporting `register-socket!` can only handle one incoming/outgoing message at a time.
+If you need sockets to work in parallel (i.e., you don't want to miss a small control message just because you're slurping in a 10GB message on another socket), then you'll need multiple zmq-async contexts.
+
+
+===== See Also
+
+* Rich Hickey's http://www.youtube.com/watch?v=ROor6_NGIWU[Language of the System] talk, wherein he outlines the benefits of queues
+* The http://zguide.zeromq.org/[ZeroMQ guide] for architectural patterns and advice
+

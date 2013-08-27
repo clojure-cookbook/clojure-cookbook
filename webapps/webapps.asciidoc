@@ -5,6 +5,8 @@ include::ring/introduction/introduction.asciidoc[]
 
 include::ring/middleware/middleware.asciidoc[]
 
+include::ring/static/static.asciidoc[]
+
 include::ring/forms/forms.asciidoc[]
 
 include::ring/cookies/cookies.asciidoc[]
@@ -16,3 +18,7 @@ include::ring/headers/headers.asciidoc[]
 include::ring/compojure/compojure.asciidoc[]
 
 include::liberator/basic.asciidoc[]
+
+include::templating-with-selmer/templating-with-selmer.asciidoc[]
+
+include::markdown/markdown.asciidoc[]
