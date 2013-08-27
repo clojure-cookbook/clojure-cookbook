@@ -86,6 +86,9 @@ or group of commands.
 ;; -> {:exit 0, :out "/Users/dale\n", :err ""}
 ----
 
+[NOTE]
+You should be aware that +sh+ is implemented using +future+, and your program will block upon dereferencing a +future+ before it has completed, unless you use the variant of +deref+ that takes a timeout.
+
 Clojure provides great power with its inherent capabilities and its control
 over Java. Add the +sh+ command to your repertoire, and you can rule
 the entire kingdom of your system from Clojure, firing off programs
@@ -96,4 +99,6 @@ Network IO & Web Services.
 
 ===== See Also
 
-SSH (xref)
+* +clojure.core/future+
+* +clojure.core/deref+
+* SSH (xref)
