@@ -8,5 +8,3 @@ include::deprecate-macro/deprecate-macro.asciidoc[]
 include::removing-duplicate-elements-from-a-collection/removing-duplicate-elements-from-a-collection.asciidoc[]
 
 include::tracing/tracing.asciidoc[]
-
-include::trying-a-library-without-a-project/trying-a-library-without-a-project.asciidoc[]
