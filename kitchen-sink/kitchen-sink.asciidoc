@@ -20,3 +20,7 @@ include::custom-data-structures/red-black-trees-part-i.asciidoc[]
 include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
 
 include::lein-templates/lein-templates.asciidoc[]
+
+include::protocols/polymorphism-with-protocols.asciidoc[]
+
+include::protocols/extend-built-in.asciidoc[]
