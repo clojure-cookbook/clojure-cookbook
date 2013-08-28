@@ -1,10 +1,10 @@
 === Connect to a Datomic database
 
-==== Problem
+===== Problem
 
 You need to connect to a Datomic database.
 
-==== Solution
+===== Solution
 
 Connect to an in-memory database:
 
@@ -40,7 +40,7 @@ Use the connection to transact data:
 (d/transact (d/connect uri) [...])
 ----
 
-==== Discussions
+===== Discussions
 
 In the solution, we also show how to create a database, as we're dealing with an in-memory database.
 It is not necessary to call create-database if the database already exists, but it is safe to do so.
@@ -57,7 +57,7 @@ disposing resources associated with the connection.
 Connections are thread-safe, and are cached by URI internally, so there is no need to pool connections
 yourself. There is no performance overhead for creating many connections to the same URI.
 
-===== Storage Services
+====== Storage Services
 
 Datomic transactor processes have a limit on the number of concurrently connected peer processes.
 Datomic Free has a limit of 2 peers per transactor.
@@ -66,19 +66,19 @@ Datomic Pro licenses can be purchased to enable support for 5 to 30 peers.
 There are several options for Datomic storage services; three are built-in and the rest use external
 services. External storage services are only available with Datomic Pro.
 
-====== Built-in storage:
+====== Built-in storage options
 
 * In local memory: +"datomic:mem://[db-name]"+
-* Free, for use with Datomic Free, subject to the 2-peer limit: +"datomic:free://[db-name]"+
-* Dev, for use with Datomic Pro, subject to the licensed peer limit: +"datomic:dev://[db-name]"+
+* Free, for use with Datomic Free, subject to the 2-peer limit: +"datomic:free://host[:port]/[db-name]"+
+* Dev, for use with Datomic Pro, subject to the licensed peer limit: +"datomic:dev://host[:port]/[db-name]"+
 
 Free and Dev can also be configured to use alternate ports for storage:
 
-+"datomic:free://localhost:4334/[db-name]?h2-port=[port]&amp;h2-web-port=[port]"+
++"datomic:free://host[:port]/[db-name]?h2-port=[port]&amp;h2-web-port=[port]"+
 
 By default, these ports will be 1 and 2 more than the transactor port, respectively.
 
-====== External storage services:
+====== External storage service options
 
 * DynamoDB: +"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"+"
 * Riak: +"datomic:riak://host[:port]/bucket/dbname[?interface=http|protobuf]"+ (default is protobuf)
