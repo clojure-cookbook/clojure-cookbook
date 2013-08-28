@@ -1,6 +1,6 @@
-include::primitive-data/primitive-data.asciidoc[]
-
 include::basics/basics.asciidoc[]
+
+include::primitive-data/primitive-data.asciidoc[]
 
 include::composite-data/composite-data.asciidoc[]
 
