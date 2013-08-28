@@ -114,12 +114,17 @@ It doesn't look so different from before. We only replaced the previous function
 (map value rb-tree) 
 ;; (3 1 0 2 5 4 7 6 8 9)  
 
+
+;; Get a seq of vectors representing each node's colour and value
 (map #(vec [(colour %) (value %)]) rb-tree) 
-;; ([:black 3] [:black 1] [:black 0] [:black 2] [:black 5] [:black 4] [:red 7] [:black 6] [:black 8] [:red 9])
+;; ([:black 3] [:black 1] [:black 0] [:black 2] [:black 5] [:black 4] 
+;;  [:red 7] [:black 6] [:black 8] [:red 9])
+
 
 ;; Filter all even nodes in the tree
 (filter #(even? (value %)) rb-tree) 
-;;([:black nil 0 nil] [:black nil 2 nil] [:black nil 4 nil] [:black nil 6 nil] [:black nil 8 [:red nil 9 nil]])
+;;([:black nil 0 nil] [:black nil 2 nil] [:black nil 4 nil] [:black nil 6 nil] 
+;; [:black nil 8 [:red nil 9 nil]])
 ----
 
 
@@ -149,7 +154,6 @@ To make pulling information out of a node more idiomatic, we created a protocol 
   (colour [this])
   (left   [this])
   (right  [this]))
-;; 3
 ----
 
 This protocol isn't useful on its own. We need a type to implement it in order for it to do its job. Normally, you would implement a protocol in a new type or record. But we already have a type that represents our node beatifully, +clojure.lang.PersistentVector+, so we simply extend the protocol to it:
