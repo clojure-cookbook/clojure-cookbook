@@ -15,7 +15,14 @@ At first, a binary search tree - or a binary search over a list - might seem lik
 
 Instead you'll use a Red-Black tree, a type of self-balancing binary search tree.
 
-Start by defining the +balance+ and +insert-val+ functions which are the core of our Red Black Tree:       
+Before you get started, make sure you add https://github.com/clojure/core.match[core.match] as a dependency to your project:
+
+[source,clojure]
+----
+[org.clojure/core.match "0.2.0-rc5"]
+----
+
+Now, define the +balance+ and +insert-val+ functions which are the core of our Red Black Tree:       
 
 [source,clojure]
 ----
@@ -51,7 +58,7 @@ Start by defining the +balance+ and +insert-val+ functions which are the core of
     [:black a y b]))
 ----
 
-Then, define a couple of helper function which will make dealing with our Red Black tree easier:
+Then, define a couple of helper functions which will make dealing with our Red Black tree easier:
 
 [source,clojure]
 ----
@@ -176,7 +183,7 @@ This is quite a difference. The second solution suffers from the nature of the d
 
 Our Red Black Tree on the other hand keeps itself balanced as each item is inserted so the cost of inserting new elements in negligible.
 
-One limitation of our data structure at the moment is that we can't use core clojure functions such as map and filter.
+One limitation of our data structure at the moment is that we can't use core clojure functions such as +map+ and +filter+.
 
 In <<sec_red_black_part_ii>> we'll address this very issue.
 
@@ -185,4 +192,4 @@ In <<sec_red_black_part_ii>> we'll address this very issue.
 
 * See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red Black Trees on Wikipedia] for a more traditional take on this interesting data structure.
 
-* For the functional approach used in this recipce, http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent source. It deals with how to efficiently implement data structures in a functional setting. The author chose to use ML and Haskell but its concepts are transferable to Clojure, as demonstrated above.
+* For the functional approach used in this recipce, the book http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent source. It deals with how to efficiently implement data structures in a functional setting. The author chose to use ML and Haskell but its concepts are transferable to Clojure, as demonstrated above.
