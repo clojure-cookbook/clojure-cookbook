@@ -13,15 +13,15 @@ In the REPL:
 
 [source,clojure]
 ----
-user> (in-ns 'my.ns)
-user> (require '[miner.tagged :as tag])
-user> (defrecord MyRecord [a])
-user> (defmethod print-method my.ns.MyRecord [this w] (tag/pr-tagged-record-on this w))
-user> (def mr42 (->MyRecord 42))
-user> (pr-str mr42)
-"#my.ns/MyRecord {:a 42}"
-user> (= mr42 (tag/read-string (pr-str mr42)))
-true
+(in-ns 'my.ns)
+(require '[miner.tagged :as tag])
+(defrecord MyRecord [a])
+(defmethod print-method my.ns.MyRecord [this w] (tag/pr-tagged-record-on this w))
+(def mr42 (->MyRecord 42))
+(pr-str mr42)
+;; -> "#my.ns/MyRecord {:a 42}"
+(= mr42 (tag/read-string (pr-str mr42)))
+;; -> true
 ----
 
 You can now successfully "round-trip" your records between +pr-str+ and +miner.tagged/read-string+
