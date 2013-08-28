@@ -1,0 +1,128 @@
+=== Connect to and query a Datomic database
+
+// By Konrad Scorciapino (konr)
+
+===== Problem
+
+You want to connect to a Datomic database and query it. 
+
+===== Solution
+
+For datomic-free, check out its latest version at
+http://clojars.org/com.datomic/datomic-free[Clojars] and for
+datomic-pro, go to http://www.datomic.com[the Datomic website],
+download the .zip file and run +maven-install+, as below.
+
+[source,console]
+----
+$ unzip datomic-pro-0.8.4122.zip 
+...
+$ cd datomic-pro-0.8.4122 
+$ bin/maven-install 
+Installing datomic-pro-0.8.4122 in local maven repository...
+...
+$ 
+----
+
+Add Datomic to your project's dependencies:
+
+[source,clojure]
+----
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                        ...
+                       [com.datomic/datomic-free "0.8.4020.26"]]
+----
+
+
+Finally, go to a REPL and do the actual query.
+
+[source,console]
+----
+(require '(datomic [api :as d]))
+(def uri "datomic:free://localhost:4334/people")
+(d/q '[:find ?phone ?search
+          :where [_ :nsa-data/phone ?phone]
+                    [_ :google-data/last-search ?search]
+                    [(re-find #"bomb" ?search)]]
+         (-> uri d/connect d/db)) 
+;=> #{["3425-2314" "pressure cooker bomb"]}
+user>
+----
+
+===== Discussion
+
+There are two editions of Datomic: *free*, which supports connecting
+to databases with memory and local storage backends, and *pro*, which
+supports all the others.
+
+1. datomic:mem://colors
+2. datomic:free://localhost:4334/colors
+3. datomic:ddb://us-east-1/datomic/colors
+
+These are three sample Datomic URIs, and you can deduce their backends
+from the first piece of information after *datomic:*. In this case,
+they are memory, disk and DynamoDB. You can use datomic-free for the
+first two and you'd need datomic-pro for the last.
+
+Instead of sending the query to a connection, on Datomic you query a
+value of the database, which in the example you get from calling
+*d/db* after *d/connect*.
+
+It is a lazy sequence and you can force its evaluation and print it
+in the REPL.
+
+[source,clojure]
+----
+(->> uri d/connect d/db seq (into {}))
+----
+
+The core of the database consists of data with four values: 'entity', 'attribute',
+'value' and 'transaction'. The attributes must be predefined in a
+schema and will be stored in the datum as a reference to its schema entry.
+
+To add facts to Datomic you must transact a vector of maps, each of
+which is related to an entity and must contain its id. Even when
+creating a new entity, you must generate a temporary id, which will be
+later replaced, to reference it inside the transaction.
+
+The example below shows how two entities will turn into data.
+
+[source,clojure]
+----
+(let [hal (d/tempid :db.part/user)
+        falstaff (d/tempid :db.part/user)]
+ (->> [{:db/id hal 
+         :trivia/nickname "Prince Hal"
+         :personal/name "Henry V"}
+       {:db/id falstaff 
+         :personal/name "Falstaff"
+         :personal/friend hal}]
+       (d/transact connection)
+       deref :tx-data))
+;=> [#Datum{:e 17592186045418 :a 66 :v "Prince Hal"   :tx 13194139534313 :added true}
+       #Datum{:e 17592186045418 :a 65 :v "Henry V"      :tx 13194139534313 :added true}
+       #Datum{:e 17592186045419 :a 65 :v "Falstaff"     :tx 13194139534313 :added true}
+       #Datum{:e 17592186045419 :a 67 :v 17592186045418 :tx 13194139534313 :added true}]
+----
+
+You can also use the query function against a vector of data, like below.
+
+[source,clojure]
+----
+(d/q '[:find ?food
+         :in [[?food ?tastiness ?kind]]
+         :where [(= :yummy ?tastiness)]
+                [(= :meat  ?kind)]]
+       [[:steak :yummy :meat] [:ketchup :yucky :vegetable] [:spam :yucky :meat]])
+;=> #{[:steak]}
+----
+
+These queries were made in a language called Datalog. You can find
+more about it in http://www.learndatalogtoday.org/[Learn Datalog
+Today]. 
+
+===== See Also
+
+// TODO: Link these when recipes exist
+* Create and populate a Datomic database
+* Save schema and seed data on resources
