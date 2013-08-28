@@ -6,7 +6,7 @@
 
 ==== Problem
 
-Create a skeleton web application with the common boilerplate initialized.
+Create a typical Ring/Compojure web application.
 
 ==== Solution
 
@@ -24,18 +24,6 @@ You can start the application in development mode by running:
 
 ----
 lein ring server
-----
-
-The application can be packaged as a standalone +jar+ using:
-
-----
-lein ring uberjar
-----
-
-To package for deployment as a a +war+ use:
-
-----
-lein ring uberwar
 ----
 
 ===== Discussion
@@ -89,6 +77,19 @@ Any miscelaneous helpers will be found under the +<app_name>.views.util+ namespa
 When a database profile is selected the +<app_name>.models.db+ and +<app_name>.models.schema+
 namespaces will be created. The +schema+ namespace is reserved for table definitions, while the +db+
 namespace houses the functions dealing with the application model.
+
+
+The application can be packaged as a standalone +jar+ using:
+
+----
+lein ring uberjar
+----
+
+To package for deployment as a a +war+ use:
+
+----
+lein ring uberwar
+----
 
 ====== See Also
 
