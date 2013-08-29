@@ -216,10 +216,3 @@ description above, or to a variable that itself either maps to a
 function or is unbound. In the latter case, the interpreter will return
 `nil`, indicating that even though the expression used proper LC 
 syntax, it could not be evaluated successfully.
-
-As a general note about writing interpreters, interpreting your 
-language in terms of another high-level language (like Clojure) instead
-of choosing a lower-level target (for example, assembly) allows you to
-implement your language faster, but may cost you in terms of execution 
-speed since you generally can't optimize interpreted code in the same 
-way as a compiler.
