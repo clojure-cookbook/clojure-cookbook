@@ -1,0 +1,164 @@
+=== Browser Testing
+
+===== Problem
+
+You want to run browser-based tests.
+
+===== Solution
+
+Use Selenium WebDriver via the clj-webdriver library. This will allow us to use +clojure.test+ to test your application's behavior in actual browser environments.
+
+Use the following project.clj:
+
+[source,clojure]
+----
+(defproject browser-testing "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.5.1"]]
+  :profiles {:dev {:dependencies [[clj-webdriver "0.6.0"]]}}
+  :test-selectors {:default (complement :browser)
+                   :browser :browser})
+----
+
+Use the following example test file:
+
+[source,clojure]
+----
+(ns browser-testing.core-test
+  (:use clojure.test)
+  (:require [clj-webdriver.taxi :as t]))
+
+(defn selenium-fixture
+  [& browsers]
+  (fn [test]
+    (doseq [browser browsers]
+      (println (str "\n[ Testing " browser " ]"))
+      (t/set-driver! {:browser browser})
+      (test)
+      (t/quit))))
+
+(use-fixtures :once (selenium-fixture :firefox :htmlunit))
+
+(deftest ^:browser test-clojure
+  (t/to "http://clojure.org")
+  (is (= (t/title) "Clojure - home"))
+  (is (= (t/current-url) "http://example.com")))
+
+(deftest ^:browser test-google
+  (t/to "https://google.com")
+  (is (= (t/title) "Google"))
+  (is (= (t/current-url) "https://www.google.com/")))
+----
+
+Run the test on the command line:
+
+[source,console]
+----
+$ lein test :browser
+
+lein test browser-testing.core-test
+
+[ Testing :firefox ]
+
+lein test :only browser-testing.core-test/test-clojure
+
+FAIL in (test-clojure) (core_test.clj:19)
+expected: (= (t/current-url) "http://example.com")
+  actual: (not (= "http://clojure.org/" "http://example.com"))
+
+[ Testing :htmlunit ]
+
+lein test :only browser-testing.core-test/test-clojure
+
+FAIL in (test-clojure) (core_test.clj:19)
+expected: (= (t/current-url) "http://example.com")
+  actual: (not (= "http://clojure.org/" "http://example.com"))
+
+Ran 4 tests containing 8 assertions.
+2 failures, 0 errors.
+Tests failed.
+----
+
+==== Discussion
+
+Testing applications in the browser 
+
+Manual browser testing 
+
+// TODO: Do we need to include lein try instructions?
+
+Before we dive into testing, let's experiment with clj-webdriver at a REPL. Start up a REPL with clj-webdriver:
+
+[source,console]
+----
+$ lein try clj-webdriver "0.6.0"
+nREPL server started on port 61843
+REPL-y 0.1.10
+Clojure 1.5.1
+    Exit: Control+D or (exit) or (quit)
+Commands: (user/help)
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+          (user/sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs "ns-here" "name-here")
+----
+
+Require the +clj-webdriver.taxi+ namespace:
+
+[source,clojure]
+----
+user=> (require '[clj-webdriver.taxi :as t])
+nil
+----
+
+Select a browser by choosing the WebDriver implementation. You'll need to have the browser installed, and the respective WebDriver implementations may require additional setup or configuration, depending on your platform. See the Selenium documentation for more information. 
+
+[source,clojure]
+----
+user=> (t/set-driver! {:browser :firefox})
+#clj_webdriver.driver.Driver{:webdriver #<Title: , URL: about:blank, Browser: firefox, Version: 21.0, JS Enabled: true, Native Events Enabled: false, Object: FirefoxDriver: firefox on MAC (a6fe269e-fee6-c041-42de-e4eed6594f34)>, :capabilities nil, :cache-spec {:cache nil}, :actions #<Actions org.openqa.selenium.interactions.Actions@655fd43>}
+----
+
+This will open the browser you picked, ready to receive commands. Let's try a few.
+
+[source,clojure]
+----
+user=> (t/to "http://clojure.org")
+#clj_webdriver.driver.Driver{:webdriver #<Title: Clojure - home, URL: http://clojure.org/, Browser: firefox, Version: 21.0, JS Enabled: true, Native Events Enabled: false, Object: FirefoxDriver: firefox on MAC (a6fe269e-fee6-c041-42de-e4eed6594f34)>, :capabilities nil, :cache-spec {:cache nil}, :actions #<Actions org.openqa.selenium.interactions.Actions@655fd43>}
+user=> (t/current-url)
+"http://clojure.org/"
+user=> (t/title)
+"Clojure - home"
+----
+
+When we're finished, we can close the browser from the REPL.
+
+[source,clojure]
+----
+user=> (t/quit)
+nil
+----
+
+Our tests will use these functions to start up and run against the browser. To save ourselves some work, we'll set up the browser startup and teardown using a +clojure.test+ fixture.
+
++clojure.test/use-fixtures+ allows you to run fixtures around each individual test or once around the namespace's test run as a whole. We'll use the latter, as restarting the browser for each test will be far too slow. 
+
+The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ functions to start up a browser for each of the keywords it's provided and run the namespace's tests inside that browser. 
+
+[source,clojure]
+----
+(defn selenium-fixture
+  [& browsers]
+  (fn [test]
+    (doseq [browser browsers]
+      (t/set-driver! {:browser browser})
+      (test)
+      (t/quit))))
+
+(use-fixtures :once (selenium-fixture :firefox :htmlunit))
+----
+
+It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. We'll need to guard against this when we write our tests by returning to a common state at the end of each test. For example, we might log out of the application or return to a certain top-level page.
