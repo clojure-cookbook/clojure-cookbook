@@ -69,7 +69,7 @@ Clojure also comes with http://clojure.org/java_interop#Java%20Interop-Arrays[bu
   (amap xs i ret (aset ret i (inc (aget xs i)))))
 ----
 
-Working with primitive arrays in Cloure isn't for the faint of heart: if you don't get *everything* right, you can easily end up with code that's both much uglier and also no faster (or even slower) than the straightforward sequence version.  The biggest issue to watch out for is reflection, which can easily bring you from 100x faster to 10x slower with one small typo or missing type hint.  
+Working with primitive arrays in Clojure isn't for the faint of heart: if you don't get *everything* right, you can easily end up with code that's both much uglier and also no faster (or even slower) than the straightforward sequence version.  The biggest issue to watch out for is reflection, which can easily bring you from 100x faster to 10x slower with one small typo or missing type hint.  
 
 If you're up to the challenge, you should keep these tips in mind:
  
