@@ -13,13 +13,10 @@ Use Ryan Neufeld's +lein-try+ to launch the REPL. Library dependencies will be m
 To gain this capability, first make sure you are using Leiningen >= 2.1.3.
 Then edit your +~/.lein/profiles.clj+ file. Add +[lein-try "0.3.0"]+ to the +:plugins+ vector of the +:user+ profile:
 
+.~/.lein/profiles.clj
 [source,clojure]
 ----
-;; ~/.lein/profiles.clj
-
-{:user {:plugins [[lein-difftest "2.0.0"]
-                  [lein-swank "1.4.4"]
-                  [lein-try "0.3.0"]]}}
+{:user {:plugins [[lein-try "0.3.0"]]}}
 ----
 
 Now you can experience nearly instant gratification with the library of your choice:
