@@ -70,7 +70,7 @@ Midje only provides mocks not stubs. All functions specified in the +provided+ b
 (provided (+ 10 10) => 0)
 ----
 
-It is important to note we are not calling the `(+ 10 10)` function here, we are setting up a pattern. Every function call occuring in our test is checked to see if it matches this pattern. If it does, we do not call the function but instead return 0. When defining our mocks with +provided+ there is a lot of flexibly on how we match mock functions against the real call. In our solution we used a regular expression:
+It is important to note we are not calling the `(+ 10 10)` function here, we are setting up a pattern. Every function call occurring in our test is checked to see if it matches this pattern. If it does, we do not call the function but instead return 0. When defining our mocks with +provided+ there is a lot of flexibly on how we match mock functions against the real call. In our solution we used a regular expression:
 
 [source,clojure]
 ----
@@ -169,7 +169,7 @@ There are many more things you can do from the REPL with Midje. You can pull up 
 user> (doc midje-repl)
 ----
 
-If you want to run Midje through lein heres how:
+If you want to run Midje through lein here's how:
 
 ----
 # Run all your tests
