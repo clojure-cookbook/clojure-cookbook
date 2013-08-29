@@ -88,11 +88,15 @@ It will test that regex against the actual argument. The following calls would a
 Midje provides lots of checker functions that you can use to match against the arguments of a mock.
 
 ----
-;; Match against this mock when the argument is a list which contains 3 specific elements
+;; Match when the argument is a list which contains 1
 (provided
   (http/get (contains [1])) => :result)
 
-;; Match against a single argument or any value
+;; Match when custom fn called with argument returns true
+(provided
+  (http/get (as-checker (fn [x] (x == 10)))) => :result)
+
+;; Match against a single argument of any value
 (provided
   (http/get anything) => :result)
 
