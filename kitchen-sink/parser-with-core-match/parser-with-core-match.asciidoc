@@ -59,8 +59,6 @@ expression represented as maps of maps.
 
 ===== Discussion
 
-Let's take this apart line-by-line and examine what each one does. 
-
 The first match pattern, `[(var :guard symbol?)]`, matches the variable 
 case, binding the matched expression to `var`. The special `:guard` 
 form applies applies the predicate `symbol?` to `var`, and the right-
@@ -71,10 +69,10 @@ footnote:[The match pattern for `fn` could (and should) include a guard
 on the `arg` to ensure that it's a symbol, but we elide it here for 
 brevity.].  Note the special `([...] :seq)` syntax for matching over 
 lists, which we use to represent a `fn` expression. Also notice that to
-match on the literal `fn`, we had to quote it in the match line. 
+match on the literal `fn`, we had to quote it in the match pattern. 
 Interestingly, since the `body` expression should also be accepted by 
 this parser, we make a recursive call, `(simple-clojure-parser body)` 
-in the right-hand side of the match line.
+in the right-hand side of the match pattern.
 
 For the third, so-called "application" pattern, we again match on a list
 using the `([...] :seq)` syntax. Like the body of the `fn` expression,
@@ -110,7 +108,7 @@ expressions of our Clojure subset:
 Notice how much more code we had to write in order to express the same
 properties about a `fn` expression? Not only did the non-`match` 
 version require more code, but the `if` test doesn't resemble the 
-structure of the expression the way the `match` line does. Plus, 
+structure of the expression the way the `match` pattern does. Plus, 
 `match` binds the matched input to the variable names in the match 
 pattern automatically, saving us from having to `let`-bind them 
 ourselves or repeatedly write the same list access code (as we did with
