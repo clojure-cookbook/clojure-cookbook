@@ -7,9 +7,6 @@
 You want to prototype another language and host it in Clojure to take
 advantage of its libraries and runtime and not have to write your own.
 
-//// Maybe this goes in the discussion
-////
-
 For this interpreter, we'll use the simplified Clojure language 
 described in a previous recipe, "Make a Parser for Clojure Expressions
 Using `core.match`, which we'll call LC for "Limited Clojure." You can 
