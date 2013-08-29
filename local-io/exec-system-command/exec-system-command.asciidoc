@@ -118,3 +118,4 @@ Network IO & Web Services.
 
 * +clojure.core/future+
 * SSH (xref)
+* See Anthony Grimes's interface to Java process APIs at https://github.com/Raynes/conch[Raynes/conch] for another approach to shelling out in Clojure.
