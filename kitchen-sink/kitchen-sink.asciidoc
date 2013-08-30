@@ -24,3 +24,6 @@ include::lein-templates/lein-templates.asciidoc[]
 include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
 
 include::trying-a-library-without-a-project/trying-a-library-without-a-project.asciidoc[]
+
+include::resource-to-sequence/resource-to-sequence.asciidoc[]
+

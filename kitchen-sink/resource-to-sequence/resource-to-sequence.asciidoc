@@ -1,0 +1,93 @@
+=== Resource to sequence 
+// by Gerrit Jansen van Vuuren (gerritjvv)
+
+===== Problem
+
+You have a resource that you want to access as a sequence, but you do not want to keep a connection open and close it only when the whole sequence have been read
+thus potentially leaking the connection.
+
+===== Solution
+
+The solution is simple and here we'll embed it as a pattern (monad) with some simple constructs:
+
+1. A select function
+2. The initial position
+
+The select function takes a single argument which is the last index position of data returned, and returns a snapshot of the data from the position
+to N amount of rows (here N is up to the function itself).
+
+The initial position depends on the context that this pattern is used in, it can be 0, 1, 10 etc. 
+
+
+
+[source,clojure]
+----
+
+(defn buffered-select [f-select init-pos]
+    "Creates a lazy sequence of messages for this datasource"
+    (letfn [  
+            (m-seq [buff pos] 
+                 (if-let [buff2 (if (empty? buff) (f-select pos) buff)]
+                    (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))
+           ]
+         (m-seq nil init-pos)))
+
+----
+
+To use 
+
+This is a simple example in where we use a infinite resource
+
+[source,clojure]
+----
+
+
+(defn select [pos] (range pos))
+
+(def l (buffered-select select 1))
+
+(take 20 l)
+
+
+----
+
+
+===== Discussion
+
+The use for this pattern applies directly to database queries and network io, and more generally to all resources that are accessed using
+a connection.
+
+The select function connects, queries and closes a connection, then returns a sequence. The sequence can then be consumed by the using code
+and after the buffer has been consumed the select function is called again. To the user of the function it appears as if the sequence is 
+one huge sequence over which higher order functions like map filter partition can be applied.
+
+
+Lets take paging in a db query as an example
+
+We assume we have a function, that queries a database from a starting index to a max amount.
+
+[source,clojure]
+----
+(defn query [q from & {:keys [max] :or {max 100} }]
+          (comment here we query to database starting from and up to max and return the results in a vector, we also close the connection)
+          )
+----
+
+
+Lets then assume we have a user table called "users" and we want to page through all of the users presenting the query "select * from users" as an pageable sequence.
+
+We can use the buffered-select like below:
+
+[source,clojure]
+----
+
+(defn users (buffered-select (fn [from] (query "select * users" from) ) 0))
+
+;lets assume each row contains the name keyword, we can map on :name and get the first 10 users
+
+(take 10 (map :name users))
+
+----
+
+
+
