@@ -13,6 +13,8 @@ include::ping/sending-a-ping-request.asciidoc[]
 
 include::publishing-to-rabbitmq/publishing-to-rabbitmq.asciidoc[]
 
+include::consuming-from-rabbitmq/consuming-from-rabbitmq.asciidoc[]
+
 include::zmq-async/zmq-async.asciidoc[]
 
 include::websockets/websockets.asciidoc[]
