@@ -99,10 +99,6 @@ Midje provides lots of checker functions that you can use to match against the a
 ;; Match against a single argument of any value
 (provided
   (http/get anything) => :result)
-
-;; Match irrelevant of the number of arguments
-(provided
-  (http/get &) => :result)
 ----
 
 From within a REPL you can investigate all of Midje's checkers:
