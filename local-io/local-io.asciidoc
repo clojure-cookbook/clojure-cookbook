@@ -31,6 +31,8 @@ include::read-write-files/read-write-files.asciidoc[]
 
 include::handle-binary-files/handle-binary-files.asciidoc[]
 
+include::random-access-files/random-access-files.asciidoc[]
+
 include::read-write-gzip/read-write-gzip.asciidoc[]
 
 include::xml/read-write-xml/read-write-xml.asciidoc[]
