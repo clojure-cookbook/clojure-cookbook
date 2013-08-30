@@ -21,7 +21,7 @@ a development configuration file that would hold settings for database and http 
 
 In your project.clj, specify core namespace of your application:
 
-.config/development.clj
+.project.clj
 [source,clojure]
 ----
 (defproject my-app "0.1.0-SNAPSHOT"
@@ -31,7 +31,7 @@ In your project.clj, specify core namespace of your application:
 
 In core of your application, write an entrypoint function that will load your config:
 
-.config/development.clj
+.src/my_app/core.clj
 [source,clojure]
 ----
 (ns my-app.core
