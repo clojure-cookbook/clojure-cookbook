@@ -22,3 +22,5 @@ include::liberator/basic.asciidoc[]
 include::templating-with-selmer/templating-with-selmer.asciidoc[]
 
 include::markdown/markdown.asciidoc[]
+
+include::luminus/luminus.asciidoc[]
