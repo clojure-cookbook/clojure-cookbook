@@ -1,14 +1,17 @@
+[[sec_core_match_interpreter]]
 === Write an Interpreter to Simulate Another Language
 
 // By Chris Frisz (cjfrisz)
 
 ===== Problem
 
+// TODO: Add core.match lein-try command.
+
 You want to prototype another language and host it in Clojure to take
 advantage of its libraries and runtime and not have to write your own.
 
 For this interpreter, we'll use the simplified Clojure language 
-described in a previous recipe, "Make a Parser for Clojure Expressions
+described in a previous recipe, <<sec_core_match_parser>>.
 Using `core.match`, which we'll call LC for "Limited Clojure." You can 
 read a full description of the syntax of LC in the previous recipe, but 
 here's a summary of the expressions in the language:

@@ -1,3 +1,4 @@
+[[sec_core_match_parser]]
 === Make a Parser for Clojure Expressions Using `core.match`
 
 // By Chris Frisz (cfrisz)
@@ -115,6 +116,6 @@ ourselves or repeatedly write the same list access code (as we did with
 `nth` in `parse-fn` above). Needless to say, the `match` is much easier
 to read and maintain.
 
-We'll return to this parser in another recipe explaining how to write
+We'll return to this parser in <<sec_core_match_interpreter>> explaining how to write
 an interpreter for this language. Readers that already recognize the
 language will find it completely unsurprising.
