@@ -1,3 +1,5 @@
+//TODO: Edit for style (first vs. second person, less conversational)
+
 === Type Checking Higher-order functions with core.typed
 
 === Problem
