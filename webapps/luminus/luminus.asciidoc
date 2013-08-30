@@ -6,6 +6,10 @@
 
 ==== Problem
 
+// RN: The big value proposition here is that Luminus gives a fast path to
+// getting a ring/compojure app created and running quickly. Where possible,
+// rely on other recipes to explain Luminus-stack tech.
+
 Create a typical Ring/Compojure web application.
 
 ==== Solution
@@ -33,6 +37,8 @@ creating common Ring/Compojure applications.
 
 The template generates a handler for your application, adds +lein-ring+ hooks for it in the
 +project.cjs+, provides a default logging configuration and sets up the default routes for the application.
+
+// TODO(RN): Re-think how we enumerate and explain profiles.
 
 We can add additional functionality by specifying profiles when creating the application.
 Below we can see examples of initializing the application with a default configurations for
