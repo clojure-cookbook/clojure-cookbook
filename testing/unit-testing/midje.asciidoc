@@ -87,6 +87,7 @@ It will test that regex against the actual argument. The following calls would a
 
 Midje provides lots of checker functions that you can use to match against the arguments of a mock.
 
+[source,clojure]
 ----
 ;; Match when the argument is a list which contains 1
 (provided
