@@ -1,0 +1,71 @@
+=== Making Clojure application configurable
+
+===== Problem
+
+You want to have an application that supports several configuration files depending on environment (development,
+production, staging, test and so on).
+
+===== Solution
+
+Use Clojure files with nested hash maps for configuration.
+
+For example, you'd like to have database and http server settings in your configuration file. For that, define
+a development configuration file that would hold settings for database and http server:
+
+.config/development.clj
+[source,clojure]
+----
+{:database {:host "dbhost"}
+ :http     {:host "localhost" :port 8080}}
+----
+
+In your project.clj, specify core namespace of your application:
+
+.config/development.clj
+[source,clojure]
+----
+(defproject my-app "0.1.0-SNAPSHOT"
+  :main my-app.core
+  :dependencies [[org.clojure/clojure "1.5.1"]])
+----
+
+In core of your application, write an entrypoint function that will load your config:
+
+.config/development.clj
+[source,clojure]
+----
+(ns my-app.core
+  (:gen-class))
+
+(declare settings)
+
+(defn -main
+  [& args]
+  (defonce settings (-> args
+                        first
+                        slurp
+                        load-string)))
+----
+
+You can run your application by passing path to configuration file:
+
+----
+lein run ./config/development.clj
+----
+
+Now, in your app you can use access settings to configure your database and http server:
+
+[source,clojure]
+----
+(get-in settings [:database :host])
+;; => "dbhost"
+----
+
+===== Discussion
+
+You can have more than one configuration file, and since it's written in Clojure, you can use
+all advantages of the language to generate a config.
+
+Try to avoid complex logic in configuration files, better place to handle it is your application.
+Keep them as simple as possible so that anyone using an application could make his own config without
+much effort.
