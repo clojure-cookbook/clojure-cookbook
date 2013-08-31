@@ -2,11 +2,11 @@
 
 === Manipulating an SQL Database
 
-===== Problem
+==== Problem
 
 You want your program to manipulate tables and records in an SQL database.
 
-===== Solution
+==== Solution
 
 Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
 
@@ -83,7 +83,7 @@ statement and then execute it with the +db-do-commands+ function.
 ;; -> (0)
 ----
 
-===== Discussion
+==== Discussion
 
 The +clojure.java.jdbc+ library provides functions which wrap the basic
 capabilities of the Java JDBC specification. Additional namespaces in the
@@ -93,7 +93,7 @@ The +clojure.java.jdbc.ddl/create-table+ function generates the DDL
 needed to create a table. The arguments are a table name and a
 vector for each column specification.
 
-====== Inserting and Updating Records
+===== Inserting and Updating Records
 
 Records may be inserted into a table in a variety of ways. In addition to the
 vector method illustrated above, the +clojure.java.jdbc/insert!+ function can
@@ -121,7 +121,7 @@ values for those columns:
 ;; -> (1 1)
 ----
 
-====== Transactions
+===== Transactions
 
 You can perform multiple operations in a database transaction to ensure that
 they are all performed atomically. The +db-transaction+ macro creates a
@@ -182,7 +182,7 @@ the +clojure.java.jdbc/is-rollback-only+ function.
 ;; -> 11
 ----
 
-====== Reading and Processing Rows
+===== Reading and Processing Rows
 
 Database records are returned from queries as Clojure maps, with the table's
 column names used as keys. Retrieval of a set of database records produces a
@@ -210,7 +210,7 @@ directly to the +select+ function:
 ;; -> ({:grade 1.4, :name "Tomato"})
 ----
 
-===== See Also
+==== See Also
 
 * See link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting to an SQL Database] to learn about basic database connections with +clojure.java.jdbc+.
 * See link:/databases/SQL-database-connection-pooling/SQL-database-connection-pooling.asciidoc[Connecting to an SQL Database with a Connection Pool] to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
