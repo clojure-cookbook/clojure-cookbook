@@ -62,8 +62,8 @@ expression represented as maps of maps.
 
 The first match pattern, `[(var :guard symbol?)]`, matches the variable 
 case, binding the matched expression to `var`. The special `:guard` 
-form applies applies the predicate `symbol?` to `var`, and the right-
-hand side of the match executes only if `symbol?` returns `true`.
+form applies the predicate `symbol?` to `var`, and the right- hand side
+of the match executes only if `symbol?` returns `true`.
 
 The second pattern, `[(['fn [arg] body] :seq)]`, matches the `fn` case
 footnote:[The match pattern for `fn` could (and should) include a guard
