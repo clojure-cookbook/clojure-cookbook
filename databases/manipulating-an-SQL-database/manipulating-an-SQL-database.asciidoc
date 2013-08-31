@@ -1,0 +1,220 @@
+// Author: Tom Hicks after documentation by Sean Corfield and Stephen Gilardi.
+
+=== Manipulating an SQL Database
+
+===== Problem
+
+You want your program to manipulate tables and records in an SQL database.
+
+===== Solution
+
+Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
+
+The previous recipe
+link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting
+to an SQL Database] describes how to setup your project to use the
++clojure.java.jdbc+ library.
+
+Follow that recipe to ensure that you have added the necessary library
+dependencies to your Leiningen project file, required the necessary namespaces
+of the +clojure.java.jdbc+ library, and created a database specification for
+the database you intend to access. If so, your source code should look
+something like this:
+
+[source,clojure]
+----
+(ns myproj.core
+  (:require [clojure.java.jdbc :as jdbc]
+            [clojure.java.jdbc.sql :as sql]
+            [clojure.java.jdbc.ddl :as ddl]))
+
+(def db-spec ...)
+----
+
+To create a new table, use the +create-table+ function to generate the
+necessary DDL statement, then pass the statement into the +db-do-commands+
+function to execute it.
+
+[source,clojure]
+----
+(jdbc/db-do-commands db-spec
+  (ddl/create-table :fruit
+    [:name "varchar(16)" "PRIMARY KEY"]
+    [:appearance "varchar(32)"]
+    [:cost :int "NOT NULL"]
+    [:unit "varchar(16)"]
+    [:grade :real]))
+;; -> (0)
+----
+
+Insert complete records into a table using the +insert!+ function, providing a
+vector of the column values for each row. Be sure to provide the column values
+in the order in which the columns were declared in the table:
+
+[source,clojure]
+----
+(jdbc/insert! db-spec :fruit
+  nil ; column names omitted
+  ["Red Delicious" "dark red" 20 "bushel" 8.2]
+  ["Plantain" "mild spotting" 48 "stalk" 7.4]
+  ["Kiwi/Gooseberry" "fresh"  35 "crate" 9.1]
+  ["Plum" "ripe" 12 "carton" 8.4])
+;; -> (1 1 1 1)
+----
+
+Generate the SQL for a query with the +clojure.java.jdbc.sql/select+
+function, then pass the result to the +query+ function for execution:
+
+[source,clojure]
+----
+(jdbc/query db-spec
+  (sql/select * :fruit (sql/where {:appearance "ripe"})))
+;; -> ({:grade 8.4, :unit "carton", :cost 12, :appearance "ripe", :name "Plum"})
+----
+
+If you no longer need a particular table, use the
++clojure.java.jdbc.ddl/drop-table+ function to generate the correct DDL
+statement and then execute it with the +db-do-commands+ function:
+
+[source,clojure]
+----
+(jdbc/db-do-commands db-spec (ddl/drop-table :fruit))
+;; -> (0)
+----
+
+===== Discussion
+
+The +clojure.java.jdbc+ library provides functions which wrap the basic
+capabilities of the Java JDBC specification. Additional namespaces in the
+library implement small DSLs to generate basic SQL and basic DDL.
+
+The +clojure.java.jdbc.ddl/create-table+ function generates the DDL
+needed to create a table. The arguments are a table name and a
+vector for each column specification.
+
+=== Inserting Records
+
+Records may be inserted into a table in a variety of ways. In addition to the
+vector method illustrated above, the +clojure.java.jdbc/insert!+ function can
+accept one or more maps with column names as keys:
+
+[source,clojure]
+----
+(jdbc/insert! db-spec :fruit
+  {:name "Banana" :appearance "spotting" :cost 35}
+  {:name "Tomato" :appearance "rotten" :cost 10 :grade 1.4}
+  {:name "Peach" :appearance "fresh" :cost 37 :unit "pallet"})
+;; -> (nil nil nil)
+----
+
+If you want to insert rows but only specify some columns' values, you can use
++insert!+ and provide a vector of column names followed by vectors containing
+values for those columns:
+
+[source,clojure]
+----
+(jdbc/insert! db-spec :fruit
+  [:name :cost]
+  ["Mango" 84]
+  ["Kumquat" 77])
+;; -> (1 1)
+----
+
+=== Updating Records
+
+
+=== Transactions
+
+You can perform multiple operations in a database transaction to ensure that
+they are all performed atomically. The +db-transaction+ macro creates a
+transaction-aware connection, from the database specification, that should
+then be used for the duration of the transaction:
+
+[source,clojure]
+----
+;; insert two new fruits atomically
+(jdbc/db-transaction [trans-conn db-spec]
+  (jdbc/insert! trans-conn :fruit {:name "Fig" :cost 12})
+  (jdbc/insert! trans-conn :fruit {:name "Date" :cost 14}) )
+;; -> (nil)
+----
+
+If an exception is thrown, the transaction is rolled back:
+
+[source,clojure]
+----
+(count (jdbc/query db-spec (sql/select * :fruit)))
+;; -> 11
+
+(jdbc/db-transaction [trans-conn db-spec]
+  (jdbc/insert! trans-conn :fruit
+    [:name :cost]
+    ["Grape" 86]
+    ["Pear" 86])
+  ;; At this point the insert! call is complete, but the transaction
+  ;; is not. An exception will cause the transaction to roll back,
+  ;; leaving the database unchanged.
+  (throw (Exception. "sql-test-exception")))
+;; -> Exception sql-test-exception...
+
+(count (jdbc/query db-spec (sql/select * :fruit)))
+;; -> 11
+----
+
+Transactions can be explicitly set to rollback with the
++clojure.java.jdbc/db-set-rollback-only!+ function. This setting can be unset
+with the +clojure.java.jdbc/db-unset-rollback-only!+ function, and tested with
+the +clojure.java.jdbc/is-rollback-only+ function.
+
+[source,clojure]
+----
+(count (jdbc/query db-spec (sql/select * :fruit)))
+;; -> 11
+
+(jdbc/db-transaction [trans-conn db-spec]
+  (println "is-rollback-only:" (jdbc/db-is-rollback-only trans-conn))
+  (jdbc/db-set-rollback-only! trans-conn)
+  (jdbc/insert! trans-conn :fruit {:name "Pear" :cost 69})
+  (println "is-rollback-only:" (jdbc/db-is-rollback-only trans-conn)) )
+;; -> is-rollback-only: false
+;;    is-rollback-only: true
+;;    nil
+
+(count (jdbc/query db-spec (sql/select * :fruit)))
+;; -> 11
+----
+
+=== Reading and Processing Rows
+
+Database records are returned from queries as Clojure maps, with the table's
+column names used as keys. Retrieval of a set of database records produces a
+sequence of maps which can then be processed with all the normal Clojure
+functions. This example queries all records in the fruit table to gather
+the name and grade of low quality fruit:
+
+[source,clojure]
+----
+(map (juxt :name :grade)
+     (filter #(let [g (:grade %)] (and g (< g 3.0)))
+             (jdbc/query db-spec (sql/select * :fruit))))
+;; -> (["Tomato" 1.4])
+----
+
+You may also provide a vector containing an SQL query string and optional arguments
+directly to the +select+ function:
+
+[source,clojure]
+----
+(defn find-low-quality [acceptable]
+  (jdbc/query db-spec ["select name, grade from fruit where grade < ?" acceptable]))
+
+(find-low-quality 3.0)
+;; -> ({:grade 1.4, :name "Tomato"})
+----
+
+===== See Also
+
+* See link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting to an SQL Database] to learn about basic database connections with +clojure.java.jdbc+.
+* See link:/databases/SQL-database-connection-pooling/SQL-database-connection-pooling.asciidoc[Connecting to an SQL Database with a Connection Pool] to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
+
+* Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.

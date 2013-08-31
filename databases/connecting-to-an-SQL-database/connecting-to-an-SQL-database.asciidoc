@@ -113,10 +113,8 @@ of everyday database access needs.
 
 ===== See Also
 
-// TODO: link these when sections exist
-* See <<sec_querying-an-SQL-database>> to learn more about querying with +clojure.java.jdbc+.
-* See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
-* See <<sec_SQL-database-connection-pooling>> to learn more about connection pooling with +clojure.java.jdbc+.
+* See link:/databases/manipulating-an-SQL-database/manipulating-an-SQL-database.asciidoc[Manipulating an SQL Database] to learn about using +clojure.java.jdbc+ to interact with an SQL database.
+* See link:/databases/SQL-database-connection-pooling/SQL-database-connection-pooling.asciidoc[Connecting to an SQL Database with a Connection Pool] to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
 
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
 * See http://sqlkorma.com/[Korma SQL] for an alternative SQL DSL.

@@ -133,10 +133,8 @@ be sure to add the +DataSources+ class to the imports of your namespace.
 
 ===== See Also
 
-// TODO: link these when sections exist
-* See link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[connecting-to-an-SQL-database] to learn about basic database connections with +clojure.java.jdbc+.
-* See <<sec_querying-an-SQL-database>> to learn more about querying with +clojure.java.jdbc+.
-* See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
+* See link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting to an SQL Database] to learn about basic database connections with +clojure.java.jdbc+.
+* See link:/databases/manipulating-an-SQL-database/manipulating-an-SQL-database.asciidoc[Manipulating an SQL Database] to learn about using +clojure.java.jdbc+ to interact with an SQL database.
 
 * See the +c3p0+ http://www.mchange.com/projects/c3p0/[documentation].
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
