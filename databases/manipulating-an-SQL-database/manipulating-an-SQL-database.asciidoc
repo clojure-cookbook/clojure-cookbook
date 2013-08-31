@@ -55,7 +55,7 @@ in the order in which the columns were declared in the table.
   nil ; column names omitted
   ["Red Delicious" "dark red" 20 "bushel" 8.2]
   ["Plantain" "mild spotting" 48 "stalk" 7.4]
-  ["Kiwi/Gooseberry" "fresh"  35 "crate" 9.1]
+  ["Kiwifruit" "fresh"  35 "crate" 9.1]
   ["Plum" "ripe" 12 "carton" 8.4])
 ;; -> (1 1 1 1)
 ----
@@ -150,6 +150,7 @@ If an exception is thrown, the transaction is rolled back:
 
 [source,clojure]
 ----
+;; query how many items the table has now:
 (count (jdbc/query db-spec (sql/select * :fruit)))
 ;; -> 11
 
@@ -164,6 +165,7 @@ If an exception is thrown, the transaction is rolled back:
   (throw (Exception. "sql-test-exception")))
 ;; -> Exception sql-test-exception...
 
+;; the table still has the same number of items:
 (count (jdbc/query db-spec (sql/select * :fruit)))
 ;; -> 11
 ----
@@ -176,8 +178,8 @@ Transactions can be explicitly set to rollback with the
 [source,clojure]
 ----
 ;; query how many items the table has now:
-(count (jdbc/query db-spec (sql/select * :fruit)))
-;; -> 11
+(jdbc/query db-spec ["select count(*) as 'count' from fruit"])
+;; -> ({:count 11})
 
 (jdbc/db-transaction [trans-conn db-spec]
   (println "is-rollback-only:" (jdbc/db-is-rollback-only trans-conn))
@@ -189,8 +191,8 @@ Transactions can be explicitly set to rollback with the
 ;;    nil
 
 ;; the table still has the same number of items:
-(count (jdbc/query db-spec (sql/select * :fruit)))
-;; -> 11
+(jdbc/query db-spec ["select count(*) as 'count' from fruit"])
+;; -> ({:count 11})
 ----
 
 ===== Reading and Processing Records
@@ -240,6 +242,55 @@ passing a quality threshold value directly to the SQL statement:
 (find-low-quality 3.0)
 ;; -> ({:grade 1.4, :name "Tomato"})
 ----
+
+The +jdbc/query+ function has several optional keyword parameters which control
+how it constructs the returned result set. The +:result-set-fn+ parameter
+specifies a function which is applied to the entire result set (a lazy
+sequence) before it is returned. The default argument is the +doall+ function.
+
+[source,clojure]
+----
+(defn hi-lo [rs] [(first rs) (last rs)])
+
+(jdbc/query db-spec ["select * from fruit order by cost desc"] :result-set-fn hi-lo)
+;; -> [{:grade nil, :unit nil, :cost 77, :appearance nil, :name "Kumquat"}
+;;     {:grade 1.4, :unit nil, :cost 10, :appearance "rotten", :name "Tomato"}]
+----
+
+The +:row-fn+ parameter specifies a function which is applied to each result
+row as the result is constructed. The default argument is the +identity+
+function.
+
+[source,clojure]
+----
+(defn add-tax [row] (assoc row :tax (* 0.08 (row :cost))))
+
+(jdbc/query db-spec ["select name,cost from fruit where cost = 12"] :row-fn add-tax)
+;; -> ({:tax 0.96, :cost 12, :name "Fig"} {:tax 0.96, :cost 12, :name "Plum"})
+----
+
+The boolean +:as-arrays?+ parameter tells whether to return the results as a
+set of vectors or not. The default argument value is +false+.
+
+[source,clojure]
+----
+(jdbc/query db-spec
+  ["select name,cost,grade from fruit where appearance = 'spotting'"] :as-arrays? true)
+;; -> ([:name :cost :grade] ["Banana" 35 nil] ["Mango" 75 7.0])
+----
+
+Finally, the +:identifiers+ parameter takes a function which is applied to each
+column name in the result set. The default argument is the +sql/lower-case+
+function, which currently lowercases the table's column names before they are
+converted to keywords. If your application needs to perform some different
+conversion of column names, provide an alternate function using this keyword
+parameter.
+
+The +clojure.java.jdbc+ library is a good choice for quick and easy access to
+most popular relational databases. Its use of Clojure's vectors and maps to
+represent records blends well with Clojure's emphasis on data-oriented
+programming. Novice users of SQL can conveniently utilize the provided DSLs
+while expert users can more directly construct and execute complex SQL statements.
 
 ==== See Also
 
