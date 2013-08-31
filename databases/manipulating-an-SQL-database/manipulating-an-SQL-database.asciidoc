@@ -13,12 +13,10 @@ Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
 The previous recipe
 link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting
 to an SQL Database] describes how to setup your project to use the
-+clojure.java.jdbc+ library.
-
-Follow that recipe to ensure that you have added the necessary library
++clojure.java.jdbc+ library. Follow that recipe to ensure that you have added the necessary library
 dependencies to your Leiningen project file, required the necessary namespaces
 of the +clojure.java.jdbc+ library, and created a database specification for
-the database you intend to access. If so, your source code should look
+the database you intend to access. When ready, your source code should look
 something like this:
 
 [source,clojure]
@@ -63,8 +61,8 @@ in the order in which the columns were declared in the table.
 ;; -> (1 1 1 1)
 ----
 
-Generate the SQL for a query with the +clojure.java.jdbc.sql/select+
-function, then pass the result to the +query+ function for execution.
+Generate the SQL for a query with the +clojure.java.jdbc.sql/select+ function,
+then pass the result to the +clojure.java.jdbc/query+ function for execution.
 
 [source,clojure]
 ----
@@ -74,7 +72,7 @@ function, then pass the result to the +query+ function for execution.
 ----
 
 If you no longer need a particular table, use the
-+clojure.java.jdbc.ddl/drop-table+ function to generate the correct DDL
++clojure.java.jdbc.ddl/drop-table+ function to generate the appropriate DDL
 statement and then execute it with the +db-do-commands+ function.
 
 [source,clojure]
@@ -121,12 +119,24 @@ values for those columns:
 ;; -> (1 1)
 ----
 
+To update existing records, use the +clojure.java.jdbc/update!+ function,
+providing a map of column names to new values. The optional
+++clojure.java.jdbc.sql/where+ clause can be used to specify which rows are to
+be updated.
+
+[source,clojure]
+----
+(jdbc/update! db-spec :fruit
+  {:grade 7.0 :appearance "spotting" :cost 75} (sql/where {:name "Mango"}))
+;; -> (1)
+----
+
 ===== Transactions
 
 You can perform multiple operations in a database transaction to ensure that
 they are all performed atomically. The +db-transaction+ macro creates a
-transaction-aware connection, from the database specification, that should
-then be used for the duration of the transaction:
+transaction-aware connection from the database specification. Use the
+transaction-aware connection for the duration of the transaction:
 
 [source,clojure]
 ----
@@ -166,6 +176,7 @@ the +clojure.java.jdbc/is-rollback-only+ function.
 
 [source,clojure]
 ----
+;; query how many items the table has now:
 (count (jdbc/query db-spec (sql/select * :fruit)))
 ;; -> 11
 
@@ -178,17 +189,18 @@ the +clojure.java.jdbc/is-rollback-only+ function.
 ;;    is-rollback-only: true
 ;;    nil
 
+;; the table still has the same number of items:
 (count (jdbc/query db-spec (sql/select * :fruit)))
 ;; -> 11
 ----
 
-===== Reading and Processing Rows
+===== Reading and Processing Records
 
 Database records are returned from queries as Clojure maps, with the table's
 column names used as keys. Retrieval of a set of database records produces a
 sequence of maps which can then be processed with all the normal Clojure
-functions. This example queries all records in the fruit table to gather
-the name and grade of low quality fruit:
+functions. Here, we query all the records in the fruit table, gathering the
+name and grade of low quality fruit:
 
 [source,clojure]
 ----
@@ -198,8 +210,28 @@ the name and grade of low quality fruit:
 ;; -> (["Tomato" 1.4])
 ----
 
-You may also provide a vector containing an SQL query string and optional arguments
-directly to the +select+ function:
+The example above uses the SQL DSL provided by the +clojure.java.jdbc.sql+
+namespace. The DSL implements a simple abstraction over the generation of SQL
+statements. At present, it provides some basic mechanisms for selects, joins,
+where clauses, and order-by clauses.
+
+[source,clojure]
+----
+(defn our-fruits-from-area [zipcode]
+  (jdbc/query db-spec
+    (sql/select [:f.name :s.name] {:fruit :f}
+      (sql/join {:supplier :s} {:s.supplies :f.name})
+      (sql/where {:s.zip zipcode})
+      (sql/order-by :f.name) )))
+
+(our-fruits-from-area 85711)
+;; -> ({:name_2 "Desert Fruits", :name "Kumquat"})
+----
+
+The use of the SQL DSL is entirely optional. For more direct control, a vector
+containing an SQL query string and arguments can be passed to the +query+
+function. The following function also finds low quality fruit, but does it by
+passing a quality threshold value directly to the SQL statement:
 
 [source,clojure]
 ----
