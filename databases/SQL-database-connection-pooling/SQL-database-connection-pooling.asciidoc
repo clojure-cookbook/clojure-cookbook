@@ -6,10 +6,10 @@ You would like to connect to an SQL database efficiently using a connection pool
 
 ===== Solution
 
-Use the +c3p0+ connection and statement pooling library to wrap your
-JDBC-based drivers, creating a pooled data source. The pooled data source is
-then usable by the +clojure.java.jdbc+ library, as described in the
-link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[connecting-to-an-SQL-database] recipe.
+Use the +c3p0+ connection and statement pooling library to wrap your JDBC-based
+drivers, creating a pooled data source. The pooled data source is then usable
+by the +clojure.java.jdbc+ library, as described in the
+link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting to an SQL Database] recipe.
 
 Add a dependency to your Leiningen project file for the +c3p0+ library. You
 will also need to add dependencies for the +clojure.java.jdbc+ library and the
@@ -85,7 +85,7 @@ library's other functions which query and manipulate your database.
 (jdbc/insert! pooled-db-spec :players
               {:name "Bilbo" :type "hobbit"} {:name "Galadriel" :type "elf"}
               {:name "Frodo" :type "hobbit"} {:name "Ori" :type "dwarf"})
-;; -> (nil nil nil)
+;; -> (nil nil nil nil)
 
 (jdbc/query pooled-db-spec (sql/select * :players (sql/where {:type "hobbit"})))
 ;; -> ({:type "hobbit", :name "Bilbo"} {:type "hobbit", :name "Frodo"})
