@@ -10,9 +10,9 @@ You want your Clojure program to manipulate tables and records in an SQL databas
 
 Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
 
-The previous recipe
+The previous recipe,
 link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting
-to an SQL Database] describes how to setup your project to use the
+to an SQL Database], describes how to prepare your project to use the
 +clojure.java.jdbc+ library. Follow that recipe to ensure that you have added the necessary library
 dependencies to your Leiningen project file, required the necessary namespaces
 of the +clojure.java.jdbc+ library, and created a database specification for
@@ -31,8 +31,7 @@ something like this:
 
 To create a new table, use the +ddl/create-table+ function to generate the
 necessary DDL statement, then pass the statement into the +jdbc/db-do-commands+
-function to execute it. At the time of this writing, table-level specifications
-are not yet supported.
+function to execute it.
 
 [source,clojure]
 ----
@@ -61,8 +60,8 @@ in the order in which the columns were declared in the table.
 ;; -> (1 1 1 1)
 ----
 
-Generate the SQL for a query with the +sql/select+ function,
-then pass the result to the +jdbc/query+ function for execution.
+To query the database, generate the SQL for the query with the +sql/select+
+function, then pass the result to the +jdbc/query+ function for execution.
 
 [source,clojure]
 ----
@@ -71,9 +70,9 @@ then pass the result to the +jdbc/query+ function for execution.
 ;; -> ({:grade 8.4, :unit "carton", :cost 12, :appearance "ripe", :name "Plum"})
 ----
 
-If you no longer need a particular table, use the
-+ddl/drop-table+ function to generate the appropriate DDL
-statement and then execute it with the +jdbc/db-do-commands+ function.
+If you no longer need a particular table, use the +ddl/drop-table+ function to
+generate the appropriate DDL statement and then execute it with the
++jdbc/db-do-commands+ function.
 
 [source,clojure]
 ----
@@ -84,18 +83,19 @@ statement and then execute it with the +jdbc/db-do-commands+ function.
 ==== Discussion
 
 The +clojure.java.jdbc+ library provides functions which wrap the basic
-capabilities of the Java JDBC specification. Additional namespaces in the
-library implement small DSLs to generate basic SQL and basic DDL.
+capabilities of the Java JDBC specification. The additional
++clojure.java.jdbc.sql+ and +clojure.java.jdbc.ddl+ namespaces implement small
+DSLs to generate basic SQL DML and DDL statements.
 
-The +ddl/create-table+ function generates the DDL
-needed to create a table. The arguments are a table name and a
-vector for each column specification.
+The +ddl/create-table+ function generates the DDL needed to create a table. The
+arguments are a table name and a vector for each column specification. At the
+time of this writing, table-level specifications are not yet supported.
 
 ===== Inserting and Updating Records
 
 Records may be inserted into a table in a variety of ways. In addition to the
-vector method illustrated above, the +jdbc/insert!+ function can
-accept one or more maps with column names as keys:
+vector method illustrated above, the +jdbc/insert!+ function can accept one or
+more maps with column names as keys:
 
 [source,clojure]
 ----
@@ -107,8 +107,8 @@ accept one or more maps with column names as keys:
 ----
 
 If you want to insert rows but only specify some columns' values, you can use
-+jdbc/insert!+ and provide a vector of column names followed by vectors containing
-values for those columns:
++jdbc/insert!+ and provide a vector of column names followed by one or more
+vectors containing values for those columns:
 
 [source,clojure]
 ----
@@ -120,8 +120,8 @@ values for those columns:
 ----
 
 To update existing records, use the +jdbc/update!+ function, providing a map of
-column names to new values. The optional +sql/where+ clause can be used to
-specify which rows are to be updated.
+column names to new values. The optional +sql/where+ clause controls which
+rows will be updated.
 
 [source,clojure]
 ----
@@ -132,9 +132,9 @@ specify which rows are to be updated.
 
 ===== Transactions
 
-You can perform multiple operations in a database transaction to ensure that
-they are all performed atomically. The +jdbc/db-transaction+ macro creates a
-transaction-aware connection from the database specification. Use the
+You can perform multiple operations within a database transaction to ensure
+that they are all performed atomically. The +jdbc/db-transaction+ macro creates
+a transaction-aware connection from the database specification. Use the
 transaction-aware connection for the duration of the transaction:
 
 [source,clojure]
