@@ -1,4 +1,4 @@
-// Author: Tom Hicks after documentation by Sean Corfield and Stephen Gilardi.
+// Author: Tom Hicks, after documentation by Sean Corfield and Stephen Gilardi.
 
 === Manipulating an SQL Database
 
@@ -132,9 +132,9 @@ rows will be updated.
 
 ===== Transactions
 
-You can perform multiple operations within a database transaction to ensure
-that they are all performed atomically. The +jdbc/db-transaction+ macro creates
-a transaction-aware connection from the database specification. Use the
+Database transactions are available to ensure that multiple operations are
+performed atomically (i.e. all or none). The +jdbc/db-transaction+ macro
+creates a transaction-aware connection from the database specification. Use the
 transaction-aware connection for the duration of the transaction:
 
 [source,clojure]
@@ -269,8 +269,8 @@ function.
 ;; -> ({:tax 0.96, :cost 12, :name "Fig"} {:tax 0.96, :cost 12, :name "Plum"})
 ----
 
-The boolean +:as-arrays?+ parameter tells whether to return the results as a
-set of vectors or not. The default argument value is +false+.
+The boolean +:as-arrays?+ parameter indicates whether to return the results as
+a set of vectors or not. The default argument value is +false+.
 
 [source,clojure]
 ----

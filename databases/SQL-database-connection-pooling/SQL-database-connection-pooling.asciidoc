@@ -95,7 +95,7 @@ library's other functions which query and manipulate your database.
 
 As shown above, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
-pooled by the +c3p0+, or other, pooling libraries.
+pooled by the +c3p0+, or other, pooling library.
 
 The +c3p0+ library wraps existing JDBC classes to allow the creation of
 efficient data sources. It can adapt traditional unpooled drivers and
