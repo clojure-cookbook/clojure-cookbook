@@ -4,7 +4,7 @@
 
 ==== Problem
 
-You want your program to manipulate tables and records in an SQL database.
+You want your Clojure program to manipulate tables and records in an SQL database.
 
 ==== Solution
 
@@ -29,8 +29,8 @@ something like this:
 (def db-spec ...)
 ----
 
-To create a new table, use the +create-table+ function to generate the
-necessary DDL statement, then pass the statement into the +db-do-commands+
+To create a new table, use the +ddl/create-table+ function to generate the
+necessary DDL statement, then pass the statement into the +jdbc/db-do-commands+
 function to execute it. At the time of this writing, table-level specifications
 are not yet supported.
 
@@ -46,7 +46,7 @@ are not yet supported.
 ;; -> (0)
 ----
 
-Insert complete records into a table using the +insert!+ function, providing a
+Insert complete records into a table using the +jdbc/insert!+ function, providing a
 vector of the column values for each row. Be sure to provide the column values
 in the order in which the columns were declared in the table.
 
@@ -61,8 +61,8 @@ in the order in which the columns were declared in the table.
 ;; -> (1 1 1 1)
 ----
 
-Generate the SQL for a query with the +clojure.java.jdbc.sql/select+ function,
-then pass the result to the +clojure.java.jdbc/query+ function for execution.
+Generate the SQL for a query with the +sql/select+ function,
+then pass the result to the +jdbc/query+ function for execution.
 
 [source,clojure]
 ----
@@ -72,8 +72,8 @@ then pass the result to the +clojure.java.jdbc/query+ function for execution.
 ----
 
 If you no longer need a particular table, use the
-+clojure.java.jdbc.ddl/drop-table+ function to generate the appropriate DDL
-statement and then execute it with the +db-do-commands+ function.
++ddl/drop-table+ function to generate the appropriate DDL
+statement and then execute it with the +jdbc/db-do-commands+ function.
 
 [source,clojure]
 ----
@@ -87,14 +87,14 @@ The +clojure.java.jdbc+ library provides functions which wrap the basic
 capabilities of the Java JDBC specification. Additional namespaces in the
 library implement small DSLs to generate basic SQL and basic DDL.
 
-The +clojure.java.jdbc.ddl/create-table+ function generates the DDL
+The +ddl/create-table+ function generates the DDL
 needed to create a table. The arguments are a table name and a
 vector for each column specification.
 
 ===== Inserting and Updating Records
 
 Records may be inserted into a table in a variety of ways. In addition to the
-vector method illustrated above, the +clojure.java.jdbc/insert!+ function can
+vector method illustrated above, the +jdbc/insert!+ function can
 accept one or more maps with column names as keys:
 
 [source,clojure]
@@ -107,7 +107,7 @@ accept one or more maps with column names as keys:
 ----
 
 If you want to insert rows but only specify some columns' values, you can use
-+insert!+ and provide a vector of column names followed by vectors containing
++jdbc/insert!+ and provide a vector of column names followed by vectors containing
 values for those columns:
 
 [source,clojure]
@@ -119,10 +119,9 @@ values for those columns:
 ;; -> (1 1)
 ----
 
-To update existing records, use the +clojure.java.jdbc/update!+ function,
-providing a map of column names to new values. The optional
-++clojure.java.jdbc.sql/where+ clause can be used to specify which rows are to
-be updated.
+To update existing records, use the +jdbc/update!+ function, providing a map of
+column names to new values. The optional +sql/where+ clause can be used to
+specify which rows are to be updated.
 
 [source,clojure]
 ----
@@ -134,7 +133,7 @@ be updated.
 ===== Transactions
 
 You can perform multiple operations in a database transaction to ensure that
-they are all performed atomically. The +db-transaction+ macro creates a
+they are all performed atomically. The +jdbc/db-transaction+ macro creates a
 transaction-aware connection from the database specification. Use the
 transaction-aware connection for the duration of the transaction:
 
@@ -170,9 +169,9 @@ If an exception is thrown, the transaction is rolled back:
 ----
 
 Transactions can be explicitly set to rollback with the
-+clojure.java.jdbc/db-set-rollback-only!+ function. This setting can be unset
-with the +clojure.java.jdbc/db-unset-rollback-only!+ function, and tested with
-the +clojure.java.jdbc/is-rollback-only+ function.
++jdbc/db-set-rollback-only!+ function. This setting can be unset with the
++jdbc/db-unset-rollback-only!+ function, and tested with the
++jdbc/is-rollback-only+ function.
 
 [source,clojure]
 ----
