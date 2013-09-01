@@ -176,6 +176,7 @@ You can implement missing steps with the snippets below:
   (throw (cucumber.runtime.PendingException.)))
 ----
 
+Also while we are using here ++(require '[clojure.test :refer :all])++ we could also use ++[midje.sweet :refer :all]++ another popular library for step implementation. Cucumber gives the functionality to run as an integrated runtime enviornment more as the app would run in the real world. This is especially true when you are interacting with real resources (say database, web services) in your application.
 
 ===== See Also
 
