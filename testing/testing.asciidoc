@@ -3,7 +3,10 @@
 
 include::unit-testing/unit-testing.asciidoc[]
 
+include::unit-testing/midje.asciidoc[]
+
 include::behavior-driven-development/behavior-driven-development.asciidoc[]
+
 
 include::primitive-arrays/primitive-arrays.asciidoc[]
 

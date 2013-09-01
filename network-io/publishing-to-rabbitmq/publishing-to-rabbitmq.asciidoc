@@ -3,17 +3,17 @@
 
 ===== Problem
 
-You want to communicate with other applications over RabbitMQ
+You want to communicate with other applications over http://rabbitmq.com[RabbitMQ]
 and need to publish messages from Clojure.
 
 ===== Solution
 
-Use Langohr, a small feature complete RabbitMQ client, to communicate
+Use http://clojurerabbitmq.info[Langohr], a small feature complete RabbitMQ client, to communicate
 with RabbitMQ.
 
 In order to successfully go through this recipe, you should have
 RabbitMQ installed. You can find details on how to install RabbitMQ
-here: http://TODO.
+here: http://www.rabbitmq.com/download.html.
 
 RabbitMQ is a multi-protocol broker. This chapter will only cover
 AMQP 0-9-1, RabbitMQ's original protocol.
@@ -118,7 +118,62 @@ To declare an exchange, use +langohr.exchange/fanout+, +langohr.exchange/topic+,
 ----
 
 
+===== Discussion
+
+RabbitMQ supports AMQP 0-9-1, MQTT, STOMP, and AMQP 1.0.
+This recipe focuses on its original protocol, AMQP 0-9-1.
+
+So far we have demonstrated just enough functionality to publish messages to a fanout
+exchange. We will briefly cover other types, queues and how routing happens with RabbitMQ's
+model.
+
+An *exchange* accepts messages from a producer application and routes
+them to message queues. They can be thought of as the
+"mailboxes". Unlike some other messaging middleware products and
+protocols, in AMQP 0-9-1, messages are *not* published directly to
+queues.  Messages are published to exchanges that route them to
+queue(s) using rules called *bindings*.
+
+There are multiple exchange types, each with its own routing
+semantics. Custom exchange types can be created to deal with
+sophisticated routing scenarios (e.g. routing based on content or geolocation
+data) or just for convenience.
+
+A *binding* is an association between a queue and an exchange. A queue
+must be bound to at least one exchange in order to receive messages
+from publishers.
+
+Exchanges have several attributes associated with them:
+
+ * Name
+ * Type (direct, fanout, topic, headers or some custom type)
+ * Durability (should it survive broker restarts?)
+ * Whether the exchange is auto-deleted when no longer used
+ * Custom metadata (sometimes known as *x-arguments*)
+
+There are four built-in exchange types in RabbitMQ:
+
+ * Direct
+ * Fanout
+ * Topic
+ * Headers
+
+Unlike exchanges, queues in RabbitMQ are all of the same kind.
+They also have a name and attributes. It is possible to
+consumer messages on demand ("pull API") or set up a subscription
+(called *consumer*) to have messages pushed to the client.
+
+Key functions related to working with
+exchanges and publishing can be found in *langohr.exchange* and
+*langohr.basic* namespaces.
+
+Langohr is a feature complete RabbitMQ client that supports
+AMQP 0-9-1, RabbitMQ extensions to it and provides HTTP
+API client.
 
 ===== See Also
 See http://clojurerabbitmq.info[Langohr documentation] and
 http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn more.
+
+Langohr http://reference.clojurerabbitmq.info[API reference] is also
+available.
