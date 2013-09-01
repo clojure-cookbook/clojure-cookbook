@@ -44,8 +44,9 @@ We test the whole functionality in a Scenario (much like test cases but not limi
 
 Now we want to test this application.
 
-Lets use cucumber feature steps for it. This is defined for example under 
-<your app>/features/authors.feature file:
+Lets use cucumber feature for it. This is defined by default under the root directory of your leiningen project.
+It has the extension as ++features++.
+For example  <your app root>/features/authors.feature file:
 
 [source,clojure]
 ----
@@ -69,8 +70,8 @@ Scenario: already in the list
   Then I should get "Your name Rohit IS in the Authors Club"
 ----
 
-These steps are implemented as described below. This is defined for example under 
-<your app>/features/step_definitions/author_steps.clj file:
+These steps are implemented as described below. This is defined under the features diectory by default.
+For example <your app root>/features/step_definitions/author_steps.clj file:
 
 [source,clojure]
 ----
