@@ -45,7 +45,7 @@ We test the whole functionality in a Scenario (much like test cases but not limi
 Now we want to test this application.
 
 Lets use cucumber feature for it. This is defined by default under the root directory of your leiningen project.
-It has the extension as ++features++.
+File has the extension as ++feature++.
 For example  <your app root>/features/authors.feature file:
 
 [source,clojure]
