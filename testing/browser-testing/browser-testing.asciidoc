@@ -80,13 +80,13 @@ Tests failed.
 
 ==== Discussion
 
-Testing applications in the browser 
+// Testing applications in the browser
 
-Manual browser testing 
+// Manual browser testing
 
 // TODO: Do we need to include lein try instructions?
 
-Before we dive into testing, let's experiment with clj-webdriver at a REPL. Start up a REPL with clj-webdriver:
+Before you dive into testing, you can experiment with clj-webdriver at a REPL. Start up a REPL with clj-webdriver:
 
 [source,console]
 ----
@@ -114,7 +114,7 @@ user=> (require '[clj-webdriver.taxi :as t])
 nil
 ----
 
-Select a browser by choosing the WebDriver implementation. You'll need to have the browser installed, and the respective WebDriver implementations may require additional setup or configuration, depending on your platform. See the Selenium documentation for more information. 
+You'll need to have the browser installed, and the respective WebDriver implementations may require additional setup or configuration, depending on your platform. See the Selenium documentation for more information. Select a browser by choosing the WebDriver implementation:
 
 [source,clojure]
 ----
@@ -122,7 +122,7 @@ user=> (t/set-driver! {:browser :firefox})
 #clj_webdriver.driver.Driver{:webdriver #<Title: , URL: about:blank, Browser: firefox, Version: 21.0, JS Enabled: true, Native Events Enabled: false, Object: FirefoxDriver: firefox on MAC (a6fe269e-fee6-c041-42de-e4eed6594f34)>, :capabilities nil, :cache-spec {:cache nil}, :actions #<Actions org.openqa.selenium.interactions.Actions@655fd43>}
 ----
 
-This will open the browser you picked, ready to receive commands. Let's try a few.
+This will open the browser you picked, ready to receive commands. Try a few basic functions:
 
 [source,clojure]
 ----
@@ -134,7 +134,7 @@ user=> (t/title)
 "Clojure - home"
 ----
 
-When we're finished, we can close the browser from the REPL.
+When you're finished, close the browser from the REPL:
 
 [source,clojure]
 ----
@@ -142,9 +142,9 @@ user=> (t/quit)
 nil
 ----
 
-Our tests will use these functions to start up and run against the browser. To save ourselves some work, we'll set up the browser startup and teardown using a +clojure.test+ fixture.
+Your tests will use these functions to start up and run against the browser. To save yourself some work, you should set up the browser startup and teardown using a +clojure.test+ fixture.
 
-+clojure.test/use-fixtures+ allows you to run fixtures around each individual test or once around the namespace's test run as a whole. We'll use the latter, as restarting the browser for each test will be far too slow. 
++clojure.test/use-fixtures+ allows you to run fixtures around each individual test or once around the namespace's test run as a whole. Use the latter, as restarting the browser for each test will be far too slow. 
 
 The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ functions to start up a browser for each of the keywords it's provided and run the namespace's tests inside that browser. 
 
@@ -161,4 +161,4 @@ The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ fu
 (use-fixtures :once (selenium-fixture :firefox :htmlunit))
 ----
 
-It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. We'll need to guard against this when we write our tests by returning to a common state at the end of each test. For example, we might log out of the application or return to a certain top-level page.
+It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. You'll need to guard against this when you write your tests by returning to a common state at the end of each test. For example, you might log out of the application or return to a certain top-level page.
