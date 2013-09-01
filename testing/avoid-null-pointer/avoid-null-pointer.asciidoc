@@ -1,0 +1,164 @@
+//TODO: Edit for style (first vs. second person, less conversational)
+
+== Avoiding Null-Pointer Exceptions with core.typed
+
+=== Problem
+
+We want to verify that our code handles `nil` correctly,
+eliminating potential null-pointer exceptions.
+
+=== Solution
+
+We use core.typed, an optional type system for Clojure, to check our namespace
+for misuses of `nil`.
+
+[source,console]
+-----
+(ns book.correct-nil
+  (:require [clojure.core.typed :refer [ann] :as t]))
+
+(ann handle-number [(U nil Number) -> Number])
+(defn handle-number [a]
+  (+ a 20))
+-----
+
+We annotate `handle-number`, a function taking either a number or `nil`, and returning a number.
+
+The current definition is unsafe, as `+` can only handle numbers, and core.typed complains after type checking is run,
+via `t/check-ns`.
+
+[source,clojure]
+----
+book.correct-nil> (t/check-ns)
+Type Error (book.correct-nil:6:3) Static method clojure.lang.Numbers/add could not be applied to arguments:
+
+
+Domains:
+        t/AnyInteger t/AnyInteger
+        Number Number
+
+Arguments:
+        (U Number nil) (Value 20)
+
+Ranges:
+        t/AnyInteger
+        Number
+
+with expected type:
+        Number
+
+in: (clojure.lang.Numbers/add a 20)
+in: (clojure.lang.Numbers/add a 20)
+
+
+ExceptionInfo Type Checker: Found 1 error  clojure.core/ex-info (core.clj:4327)
+----
+
+Let's protect the call to `+` with `when`.
+
+[source,clojure]
+----
+(ns book.correct-nil2
+  (:require [clojure.core.typed :refer [ann] :as t]))
+
+(ann handle-number [(U nil Number) -> Number])
+(defn handle-number [a]
+  (when a
+    (+ a 20)))
+----
+
+And type check the new code:
+
+[source,clojure]
+----
+book.correct-nil> (t/check-ns)
+Type Error (book.correct-nil2:5) Expected type: Number
+Actual: (U Number nil)
+in: (if a (clojure.lang.Numbers/add a 20) nil)
+
+
+Type Error (book.correct-nil2:5:1) Expected type: (Fn [(U Number nil) -> Number])
+Actual: (Fn [(U Number nil) -> (U Number nil) :filters {:then (& (is Number 0) (! (U nil false) 0)), :else tt}])
+in: (def handle-number (fn* ([a] (if a # nil))))
+
+
+ExceptionInfo Type Checker: Found 2 errors  clojure.core/ex-info (core.clj:4327)
+----
+
+Whoops, now `handle-number` could return `nil`: `when` returns `nil` if the test is a false value,
+which is a possibility if `a` could be `nil`.
+This conflicts with our annotation: we claimed it was a function of
+`[(U nil Number) -> Number]`. The first error shows this: expected a `Number`, found a
+`(U nil Number)`.
+
+Ok, let's say we would rather return `0` if we get a `nil` argument.
+
+[source,clojure]
+-----
+(ns book.correct-nil3
+  (:require [clojure.core.typed :refer [ann] :as t]))
+
+(ann handle-number [(U nil Number) -> Number])
+(defn handle-number [a]
+  (if a
+    (+ a 20)
+    0))
+-----
+
+There's no way `nil` could be accidentally introduced or leaked from this code, eliminating
+the possibility of null-pointer exceptions.
+
+What does core.typed think?
+
+[source,clojure]
+----
+book.correct-nil> (t/check-ns)
+:ok
+----
+
+=== Discussion
+
+core.typed is designed to avoid all misuses of `nil` or `null` in typed code. 
+To achieve this, the concepts of the null-pointer and reference types are separated.
+This is unlike Java, where a type like `java.lang.Number` implies a "nullable" type.
+
+In core.typed, our reference types are implicitly non-nullable.
+We can then use _union types_ to express nullable types. For example, a `java.lang.Number`
+in core.typed syntax is non-nullable, and the union type `(U nil java.lang.Number)`
+expresses the equivalent to a nullable `java.lang.Number` (the latter is closest to what
+`java.lang.Number` implies in Java type syntax).
+
+This separation of concepts allows core.typed to throw a _type error_ on any potential
+misuse of `nil`. We saw our solution above throw a type error when type checking the
+equivalent expression of `(+ nil 20)`.
+
+To better understand core.typed type errors, it is useful to note that some functions
+have _inline_ definitions. core.typed fully expands all code before type checking,
+so it is common to see calls to the Java method `clojure.lang.Numbers/add` in type
+errors when user code invokes `clojure.core/+`.
+
+It is also common to see _ordered intersection function types_ in type errors.
+Our first type error claims that the arguments `(U Number nil)` and `(Value 20)`
+are not under either of the ordered intersection function domains, listed under
+"Domains". Notice two "Ranges" are provided, which correspond to the listed domains.
+
+The full type of `clojure.lang.Numbers/add` is:
+
+[source,clojure]
+----
+(Fn [t/AnyInteger t/AnyInteger -> t/AnyInteger]
+    [Number Number -> Number])
+----
+
+Briefly, the function is "ordered" because we try and match the argument types with each arity
+until one matches. Read more about function types on the core.typed 
+https://github.com/clojure/core.typed/wiki/Types#functions(wiki).
+
+Core type aliases are documented in the core.typed API reference. For example, here is 
+the entry for 
+http://clojure.github.io/core.typed/#clojure.core.typed/AnyInteger(clojure.core.typed/AnyInteger).
+
+=== See also
+
+https://github.com/clojure/core.typed(core.typed Home)
+http://clojure.github.io/core.typed/(core.typed API Reference)

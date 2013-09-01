@@ -64,8 +64,8 @@ you can wrap them using +with-sh-dir+.
 ;; -> nil
 (sh "ls" :dir "/Users")
 ;; -> {:exit 0, :out "Guest\nShared\ndale\ntucker\n", :err ""}
-(with-sh-dir "/Users/tucker" 
-  (sh "do-backup.sh") 
+(with-sh-dir "/Users/tucker"
+  (sh "do-backup.sh")
   (sh "du" "-sh" "."))
 ;; -> {:exit 0, :out " 11G\t.\n", :err ""}
 ----
@@ -87,7 +87,24 @@ or group of commands.
 ----
 
 [NOTE]
-You should be aware that +sh+ is implemented using +future+, and your program will block upon dereferencing a +future+ before it has completed, unless you use the variant of +deref+ that takes a timeout.
+If your program hangs after it does its work, be aware that +sh+ is implemented using +future+. A +future+ will launch a separate thread which, even after realization, will linger in the JVM for about 60 seconds.
+
+[source,clojure]
+----
+;; I hang for about a minute after printing.
+(require '[clojure.java.shell :as shell])
+(println (shell/sh "uptime"))
+----
+
+The fix is simple; add +(shutdown-agents)+ or +(System/exit <exit-status>)+ to your program. Either will effectively cause it to shut down without the wait.
+
+[source,clojure]
+----
+;; I exit quickly after printing.
+(require '[clojure.java.shell :as shell])
+(println (shell/sh "uptime"))
+(System/exit 0)
+----
 
 Clojure provides great power with its inherent capabilities and its control
 over Java. Add the +sh+ command to your repertoire, and you can rule
@@ -100,5 +117,5 @@ Network IO & Web Services.
 ===== See Also
 
 * +clojure.core/future+
-* +clojure.core/deref+
 * SSH (xref)
+* See Anthony Grimes's interface to Java process APIs at https://github.com/Raynes/conch[Raynes/conch] for another approach to shelling out in Clojure.

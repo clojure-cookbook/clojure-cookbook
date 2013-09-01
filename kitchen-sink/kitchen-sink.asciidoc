@@ -3,6 +3,10 @@
 
 include::creating-reusable-functions-with-fn-arguments/creating-reusable-functions-with-fn-arguments.asciidoc[]
 
+include::parser-with-core-match/parser-with-core-match.asciidoc[]
+
+include::interpreter/interpreter.asciidoc[]
+
 include::deprecate-macro/deprecate-macro.asciidoc[]
 
 include::removing-duplicate-elements-from-a-collection/removing-duplicate-elements-from-a-collection.asciidoc[]
@@ -20,5 +24,7 @@ include::custom-data-structures/red-black-trees-part-i.asciidoc[]
 include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
 
 include::lein-templates/lein-templates.asciidoc[]
+
+include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
 
 include::trying-a-library-without-a-project/trying-a-library-without-a-project.asciidoc[]

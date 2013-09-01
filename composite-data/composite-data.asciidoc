@@ -48,6 +48,8 @@ include::maps/creating-a-map/creating-a-map.asciidoc[]
 
 include::maps/retrieving-keys/retrieving-keys.asciidoc[]
 
+include::maps/retrieving-multiple-keys/retrieving-multiple-keys.asciidoc[]
+
 include::maps/setting-keys/setting-keys.asciidoc[]
 
 include::maps/using-composites-as-keys/using-composites-as-keys.asciidoc[]

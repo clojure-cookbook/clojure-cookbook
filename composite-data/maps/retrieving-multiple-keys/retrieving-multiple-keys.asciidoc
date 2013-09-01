@@ -1,0 +1,104 @@
+[[sec_retrieving_multiple_keys]]
+=== Retrieving multiple keys from a map simultaneously
+
+===== Problem
+
+You want to get the values of several keys in a map in one go.
+
+===== Solution
+
+Before we start, define a map from which you wish to pick values:
+
+[source,clojure]
+----
+(def character {:name "Galdalf"
+				:race "Maiar"
+				:culture "Wizards"
+				:gender "Male"
+				:weapon "Wizard Staff"})
+----
+
+There are mainly two ways you can go about solving this problem. The first is more
+likely to be seen in the wild as it uses the all too familiar functions +vals+ and +select-keys+.
+
+
+[source,clojure]
+----
+(vals (select-keys character [:name :culture :weapon]))
+;; ("Wizard Staff" "Wizards" "Galdalf")
+----
+
+The second way uses +juxt+ and yields the same results for most use cases while also
+being more concise:
+
+[source,clojure]
+----
+((juxt :name :culture :weapon) character)
+;; ["Galdalf" "Wizards" "Wizard Staff"]
+----
+
+
+===== Discussion
+
+Now you might be thinking when to choose one approach over the other.
+
+In most cases it won't matter as both approaches return the same _sequence_ of values. The difference lies in the details.
+
+As you can see above, the result of getting the list of values by using +vals+ doesn't guarantee any type of ordering. This might or might not be a problem depending on what you intend to do with the values. Also note that it returns a _sequence_, whereas +juxt+ returns a _vector_.
+
+It's also interesting to note that +select-keys+ receives a sequence of keys.
+
++juxt+ on the other hand returns the values in the order in which they were provided the function. To see why that is we need to understand how +juxt+ works.
+
+Being a variadic function, +juxt+ accepts one or more arguments. These arguments have to be functions - which is very convenient to us since keywords can be used as functions in Clojure.
+
+Let these functions be +f1+, +f2+ ... +fN+.
+
+The result is itself another variadic function which, when called, returns a vector of the results of applying +f1+, +f2+ ... +fN+ to its arguments, one by one.
+
+A few examples might illustrate this better than I can explain:
+
+[source,clojure]
+----
+;
+; Check how vectors and lists respond to various sequence predicates
+;
+((juxt seq? sequential? vector? list?) [1 2 3 4])
+;; [false true true false]
+
+((juxt seq? sequential? vector? list?) '(1 2 3 4))
+;; [true true false true]
+
+
+;
+; Sort a vectors of maps by composite key
+;
+(sort-by (juxt :last :first) [{:first "Frodo" :last "Baggins"}
+							  {:first "Bilbo" :last "Baggins"}
+							  {:first "Samwise" :last "Gamgee"}
+							  {:first "Meriadoc" :last "Brandybuck"}])
+;; ({:last "Baggins", :first "Bilbo"} {:last "Baggins", :first "Frodo"}
+;;  {:last "Brandybuck", :first "Meriadoc"} {:last "Gamgee", :first "Samwise"})
+----
+
+Put another way, our previous example, where we pulled out information about our character:
+
+[source,clojure]
+----
+((juxt :name :culture :weapon) character)
+;; ["Galdalf" "Wizards" "Wizard Staff"]
+----
+
+Is simply short for:
+
+[source,clojure]
+----
+[(:name character) (:culture character) (:weapon character)]
+;; ["Galdalf" "Wizards" "Wizard Staff"]
+----
+
++juxt+ is one of those functions that you just got to have up your sleeve. You will not use it often, but when the scenario presents itself, you'll be glad you know about it.
+
+===== See also
+
+* Retrieving Keys
