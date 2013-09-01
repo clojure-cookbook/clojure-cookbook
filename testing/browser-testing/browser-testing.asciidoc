@@ -6,14 +6,13 @@ You want to run browser-based tests.
 
 ===== Solution
 
-Use Selenium WebDriver via the clj-webdriver library. This will allow us to use +clojure.test+ to test your application's behavior in actual browser environments.
+Use Selenium WebDriver via the clj-webdriver library. This will allow you to use clojure.test to test your application's behavior in actual browser environments.
 
 Use the following project.clj:
 
 [source,clojure]
 ----
 (defproject browser-testing "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.5.1"]]
   :profiles {:dev {:dependencies [[clj-webdriver "0.6.0"]]}}
   :test-selectors {:default (complement :browser)
                    :browser :browser})
@@ -80,13 +79,17 @@ Tests failed.
 
 ==== Discussion
 
-// Testing applications in the browser
+Browser tests verify that your application behaves as expected in your targeted browsers. They test the appearance and behavior of your application as rendered in the browser itself. 
 
-// Manual browser testing
+Manually testing applications in a browser is a tedious and repetitive task. The amount of time and effort required for a complete test run can be unwieldy for even a moderately sized project. Automating browser tests ensures they are run consistently and relatively quickly, resulting in reproducible errors and more frequent test runs. However, automated tests lack the visual inspection by a human inherent to manual tests. For example, a manual test could easily catch a positioning error that an automated test would likely miss if it were not explicitly tested for.
 
-// TODO: Do we need to include lein try instructions?
+To write browser tests in Clojure, use the clj-webdriver library with your preferred test framework, such as clojure.test. clj-webdriver provides a clean Clojure interface to Selenium WebDriver, a tool used to control and automate browser actions.
+
+// TODO: Should we provide links to more information on clj-webdriver (e.g. API docs) or Selenium WebDriver?
 
 Before you dive into testing, you can experiment with clj-webdriver at a REPL. Start up a REPL with clj-webdriver:
+
+// TODO: Do we need to include lein try instructions?
 
 [source,console]
 ----
@@ -162,3 +165,27 @@ The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ fu
 ----
 
 It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. You'll need to guard against this when you write your tests by returning to a common state at the end of each test. For example, you might log out of the application or return to a certain top-level page.
+
+Before you begin writing tests, modify your project.clj to include the following:
+
+[source,clojure]
+----
+(defproject browser-testing "0.1.0-SNAPSHOT"
+  :profiles {:dev {:dependencies [[clj-webdriver "0.6.0"]]}}
+  :test-selectors {:default (complement :browser)
+                   :browser :browser})
+----
+
+This adds +clj-webdriver+ as a dev dependency. It also sets up a Leiningen test selector named +:browser+. Test selectors let you run groups of tests independently. This prevents slower browser tests from impacting the faster, more frequently run unit and lower-level integration tests. 
+
+In this case, you've added a new selector and modified the default. The new +:browser+ selector will only match tests that have been annotated with a +:browser+ metadata key. The default selector will now exclude any tests with such an annotation. 
+
+With the fixture and test selectors in place, you can begin writing your tests. Start with something simple:
+
+[source,clojure]
+----
+(deftest ^:browser test-clojure
+  (t/to "http://clojure.org")
+  (is (= (t/title) "Clojure - home"))
+  (is (= (t/current-url) "http://example.com")))
+----
