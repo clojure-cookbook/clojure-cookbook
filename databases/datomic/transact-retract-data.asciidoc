@@ -1,0 +1,12 @@
+=== Remove data from your Datomic database
+
+===== Problem
+
+You need to remove data from your Datomic database.
+
+===== Solution
+
+===== Discussions
+
+===== See Also
+

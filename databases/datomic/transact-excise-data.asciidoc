@@ -1,0 +1,12 @@
+=== Permanently remove data from a Datomic database
+
+===== Problem
+
+You need to permanently remove data to your Datomic database.
+
+===== Solution
+
+===== Discussions
+
+===== See Also
+
