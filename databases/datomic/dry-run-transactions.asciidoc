@@ -1,5 +1,7 @@
 === Dry-run transactions in a Datomic database without actually committing them
 
+// Author: Robert Stuttaford robert@cognician.com
+
 ===== Problem
 
 You want to test a transaction prior to committing it using Datalog or the entity API.

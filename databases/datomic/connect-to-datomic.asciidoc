@@ -1,5 +1,7 @@
 === Connect to a Datomic database
 
+// Author: Robert Stuttaford robert@cognician.com
+
 ===== Problem
 
 You need to connect to a Datomic database.

@@ -1,5 +1,7 @@
 === Write data to Datomic with Transactions
 
+// Author: Robert Stuttaford robert@cognician.com
+
 ===== Problem
 
 You need to add data to your Datomic database.

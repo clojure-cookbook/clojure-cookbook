@@ -1,5 +1,7 @@
 === Write data to Datomic with Transactions, ensuring consistency
 
+// Author: Robert Stuttaford robert@cognician.com
+
 ===== Problem
 
 You need to add data that requires consistency to your Datomic database.

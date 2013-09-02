@@ -1,5 +1,7 @@
 === Define schema for a Datomic database
 
+// Author: Robert Stuttaford robert@cognician.com
+
 ===== Problem
 
 You need to define how your data will be modelled in Datomic. For example, you might need to model 
@@ -103,7 +105,7 @@ Partitions are useful for optimising how indexes sort data, which is useful for 
 Schema entities require that at least +:db/ident+, +:db/valueType+ and +:db/cardinality+ are present.
 
 Aside from schema, Datomic does not enforce how attributes are combined for any given entity. Datomic 
-only enforces  that only defined schema can be used, as well as enforcing their type and uniqueness 
+only enforces that only defined schema can be used, as well as enforcing their type and uniqueness 
 constraints. 
 
 Use namespaces in schema +:db/ident+ values to help classify entities. Datomic doesn't do 
@@ -113,12 +115,10 @@ There are several options for +:db/valueType+:
 
 .+:db/valueType+ options
 |=======================
-|:db.type/keyword|:db.type/string|
-|:db.type/boolean|:db.type/long|
-|:db.type/bigint|:db.type/float|
-|:db.type/double|:db.type/bigdec|
-|:db.type/ref|:db.type/instant|
-|:db.type/uuid|:db.type/uri|
+|:db.type/keyword|:db.type/string|:db.type/long
+|:db.type/boolean|:db.type/bigint|:db.type/float
+|:db.type/double|:db.type/bigdec|:db.type/instant
+|:db.type/ref|:db.type/uuid|:db.type/uri
 |:db.type/bytes||
 |=======================
 
