@@ -74,7 +74,7 @@ Some helper functions and setup are required, paste the below code into your rep
                 (clojure.java.jdbc/with-connection spec
                         (clojure.java.jdbc/transaction (clojure.java.jdbc/do-commands "truncate table users")))
 
-		;insert 1000 records
+                ;insert 1000 records
                 (clojure.java.jdbc/with-connection spec
                         (clojure.java.jdbc/transaction
                                (dotimes [id 1000]
