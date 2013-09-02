@@ -46,7 +46,7 @@ function that takes an endpoint as its sole argument:
 By default Elastisch will use the HTTP endpoint at *http://localhost:9200*.
 
 
-## Indexing
+===== Indexing
 
 Before data can be searched over, it needs to be indexed. Indexing is
 the process of scanning the text and building a list of search terms
