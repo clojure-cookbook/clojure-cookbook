@@ -1,5 +1,6 @@
 // Author: Tom Hicks, after documentation by Sean Corfield and Stephen Gilardi.
 
+[[Manipulating an SQL Database]]
 === Manipulating an SQL Database
 
 ==== Problem
@@ -10,13 +11,12 @@ You want your Clojure program to manipulate tables and records in an SQL databas
 
 Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
 
-The previous recipe,
-link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting
-to an SQL Database], describes how to prepare your project to use the
-+clojure.java.jdbc+ library. Follow that recipe to ensure that you have added the necessary library
-dependencies to your Leiningen project file, required the necessary namespaces
-of the +clojure.java.jdbc+ library, and created a database specification for
-the database you intend to access. When ready, your source code should look
+The previous recipe, <<Connecting to an SQL Database>>, describes how to
+prepare your project to use the +clojure.java.jdbc+ library. Follow that recipe
+to ensure that you have added the necessary library dependencies to your
+Leiningen project file, required the necessary namespaces of the
++clojure.java.jdbc+ library, and created a database specification for the
+database you intend to access. When ready, your source code should look
 something like this:
 
 [source,clojure]
@@ -294,7 +294,7 @@ while expert users can more directly construct and execute complex SQL statement
 
 ==== See Also
 
-* See link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[Connecting to an SQL Database] to learn about basic database connections with +clojure.java.jdbc+.
-* See link:/databases/SQL-database-connection-pooling/SQL-database-connection-pooling.asciidoc[Connecting to an SQL Database with a Connection Pool] to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
+* See <<Connecting to an SQL Database>> to learn about basic database connections with +clojure.java.jdbc+.
+* See <<Connecting to an SQL Database with a Connection Pool>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
 
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.

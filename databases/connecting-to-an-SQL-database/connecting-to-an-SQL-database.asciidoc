@@ -1,5 +1,6 @@
-// By Tom Hicks (@hickst), original submission by Simone Mosciatti (@siscia)
+// By Tom Hicks (@hickst). Original submission by Simone Mosciatti (@siscia)
 
+[[Connecting to an SQL Database]]
 === Connecting to an SQL Database
 
 ===== Problem
@@ -114,8 +115,8 @@ of everyday database access needs.
 
 ===== See Also
 
-* See link:/databases/manipulating-an-SQL-database/manipulating-an-SQL-database.asciidoc[Manipulating an SQL Database] to learn about using +clojure.java.jdbc+ to interact with an SQL database.
-* See link:/databases/SQL-database-connection-pooling/SQL-database-connection-pooling.asciidoc[Connecting to an SQL Database with a Connection Pool] to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
+* See <<Manipulating an SQL Database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
+* See <<Connecting to an SQL Database with a Connection Pool>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
 
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
 * See http://sqlkorma.com/[Korma SQL] for an alternative SQL DSL.
