@@ -176,7 +176,16 @@ You can implement missing steps with the snippets below:
   (throw (cucumber.runtime.PendingException.)))
 ----
 
-Also while we are using here ++(require '[clojure.test :refer :all])++ we could also use ++[midje.sweet :refer :all]++ another popular library for step implementation. Cucumber gives the functionality to run as an integrated runtime enviornment more as the app would run in the real world. This is especially true when you are interacting with real resources (say database, web services) in your application.
+If you want to run a single feature when you have multiple features you could do as an example:
+
+[source,clojure]
+----
+lein cucumber features/authors.feature --glue features/step_definitions/
+----
+
+The other features will not run and this could be handy when you are having several feature files.
+
+Also while we are using here ++(require '[clojure.test :refer :all])++ we could also use ++[midje.sweet :refer :all]++ another popular library for step implementation. Cucumber gives the functionality to run as an integrated runtime enviornment more as the app would run in the real world. 
 
 ===== See Also
 
