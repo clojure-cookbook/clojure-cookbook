@@ -12,10 +12,10 @@ Before we start, define a map from which you wish to pick values:
 [source,clojure]
 ----
 (def character {:name "Galdalf"
-				:race "Maiar"
-				:culture "Wizards"
-				:gender "Male"
-				:weapon "Wizard Staff"})
+                :race "Maiar"
+                :culture "Wizards"
+                :gender "Male"
+                :weapon "Wizard Staff"})
 ----
 
 There are mainly two ways you can go about solving this problem. The first is more
@@ -71,12 +71,12 @@ A few examples might illustrate this better than I can explain:
 
 
 ;
-; Sort a vectors of maps by composite key
+; Sort a vector of maps by composite key
 ;
 (sort-by (juxt :last :first) [{:first "Frodo" :last "Baggins"}
-							  {:first "Bilbo" :last "Baggins"}
-							  {:first "Samwise" :last "Gamgee"}
-							  {:first "Meriadoc" :last "Brandybuck"}])
+                              {:first "Bilbo" :last "Baggins"}
+                              {:first "Samwise" :last "Gamgee"}
+                              {:first "Meriadoc" :last "Brandybuck"}])
 ;; ({:last "Baggins", :first "Bilbo"} {:last "Baggins", :first "Frodo"}
 ;;  {:last "Brandybuck", :first "Meriadoc"} {:last "Gamgee", :first "Samwise"})
 ----
