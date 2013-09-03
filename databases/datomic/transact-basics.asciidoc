@@ -1,0 +1,96 @@
+=== Write data to Datomic with Transactions
+
+// Author: Robert Stuttaford robert@cognician.com
+
+===== Problem
+
+You need to add data to your Datomic database.
+
+===== Solution
+
+Use a Datomic connection to transact data:
+
+[source,clojure]
+----
+(require '[datomic.api :as d])
+
+(def tx-data [{:db/id #db/id[:db.part/user] 
+               :user/email "fowler@acm.org"
+               :user/name "Martin Fowler" 
+               :user/roles #{:user.roles/author :user.roles/editor}}])
+
+(d/transact conn tx-data)
+----
+
+===== Discussions
+
+This map-based syntax for representing the data expands to a series of +:db/add+ statements. This transaction is identical to the previous one:
+
+[source,clojure]
+----
+(def tx-data2 (let [new-id #db/id[:db.part/user]]
+                [[:db/add new-id :user/email "fowler@acm.org"]
+                 [:db/add new-id :user/name "Martin Fowler"]
+                 [:db/add new-id :user/roles #{:user.roles/author :user.roles/editor}]]))
+
+(d/transact conn tx-data2)
+----
+
+Of course, you can provide statements like these yourself, as well using the map syntax in the Solution, or any mix of the two.
+
+You will note that I use the +#db/id+ tagged reader literal in lieu of an actual value. Any IDs for new entities are assigned temporary, negative ID values, which can be used to model relationships within the transaction, and upon successfully completing the transaction, all the temporary IDs are assigned in-storage positive ID values.
+
+It is also possible to do so with the +d/tempid+ function:
+
+[source,clojure]
+----
+(def new-id (d/tempid :db.part/user))
+
+new-id
+;; -> #db/id[:db.part/user -1000075]
+
+(def tx-data3 [{:db/id new-id 
+                :user/email "fowler@acm.org"
+                :user/name "Martin Fowler" 
+                :user/roles #{:user.roles/author :user.roles/editor}}])
+
+(def tx-result @(d/transact conn tx-data3))
+----
+
+The +#db/id+ tagged literal is useful when you store transaction data using the EDN format, which is most often the case with schema definitions. You should use +d/tempid+ in your code, as the +#db/id+ literal will evaluate once at _compile time_, which means that any code that expects the ID value to change from one execution to the next will fail, because it'll only ever have one value.
+
+When the transaction completes, you get a completed future. If you prefer to transact asynchronously, you can also use +d/transact-async+ instead, which will return its future immediately. In this case, as with all futures, when you dereference it, it will block until the transaction completes. Either way, dereferencing the future returns a map, with four keys:
+
+* +:db-before+: the value of the database just before the transaction was committed.
+* +:db-after+: the value of the database just after the transaction was committed.
+* +:tx-data+: a vector of all the datoms that were transacted.
+* +:tempids+: a mapping of the temporary ids to the in-storage ids, one per temporary id in the transaction.
+
+You can use the +:db-after+ database to query the database directly after the transaction:
+
+[source,clojure]
+----
+(def db-after-tx (:db-after tx-result))
+
+(d/q '[:find ?name :in $ ?email :where 
+       [?entity :user/email ?email]
+       [?entity :user/name ?name]]
+     db-after-tx
+     "fowler@acm.org")
+;; -> #{["Martin Fowler"]}
+----
+
+You can use the +:tempids+ map to find the in-storage ids for any new entities you care about, much like you would when retrieving the last insert ID in SQL databases.
+
+Use +resolve-tempid+ to do this:
+
+[source,clojure]
+----
+(def actual-id (d/resolve-tempid db-after-tx (:tempids tx-result) new-id))
+
+actual-id
+;; -> 17592186045421
+----
+
+===== See Also
+

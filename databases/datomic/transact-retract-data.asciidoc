@@ -1,0 +1,14 @@
+=== Remove data from your Datomic database
+
+// Author: Robert Stuttaford robert@cognician.com
+
+===== Problem
+
+You need to remove data from your Datomic database.
+
+===== Solution
+
+===== Discussions
+
+===== See Also
+

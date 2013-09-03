@@ -1,0 +1,14 @@
+=== Transact data with relationships into a Datomic database
+
+// Author: Robert Stuttaford robert@cognician.com
+
+===== Problem
+
+You need to add multiple related entities to your Datomic database in a single transaction.
+
+===== Solution
+
+===== Discussions
+
+===== See Also
+

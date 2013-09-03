@@ -1,0 +1,105 @@
+=== Connect to a Datomic database
+
+// Author: Robert Stuttaford robert@cognician.com
+
+===== Problem
+
+You need to connect to a Datomic database.
+
+===== Solution
+
+Connect to an in-memory database:
+
+[source,clojure]
+----
+(require '[datomic.api :as d])
+
+(def uri "datomic:mem://sample-database")
+
+(d/create-database uri)
+;; -> true
+
+(def conn (d/connect uri))
+
+conn
+;; -> #<LocalConnection datomic.peer.LocalConnection@49384d99>
+----
+
+Use the connection to get a database value to query:
+
+[source,clojure]
+----
+(def db (d/db (d/connect uri)))
+
+db
+;; -> datomic.db.Db@7b7fea26
+----
+
+Use the connection to transact data:
+
+[source,clojure]
+----
+(d/transact (d/connect uri) [...])
+----
+
+===== Discussions
+
+In the solution, we also show how to create a database, as we're dealing with an in-memory database.
+It is not necessary to call create-database if the database already exists, but it is safe to do so.
+
+When connecting to a database that isn't in memory, it is necessary for the relevant transactor and 
+storage service to be running.
+
+The return value of +d/connect+ is used when querying a database value or when transacting data.
+
+It is also used when reading the transaction log or consuming the transaction report queue, or when 
+performing administrative tasks such as requesting an indexing job, garbage collecting storage, and 
+disposing resources associated with the connection.
+
+Connections are thread-safe, and are cached by URI internally, so there is no need to pool connections
+yourself. There is no performance overhead for creating many connections to the same URI.
+
+====== Storage Services
+
+Datomic transactor processes have a limit on the number of concurrently connected peer processes.
+Datomic Free has a limit of 2 peers per transactor.
+Datomic Pro licenses can be purchased to enable support for 5 to 30 peers.
+
+There are several options for Datomic storage services; three are built-in and the rest use external
+services. External storage services are only available with Datomic Pro.
+
+====== Built-in storage options
+
+* In local memory: +"datomic:mem://[db-name]"+
+* Free, for use with Datomic Free, subject to the 2-peer limit: +"datomic:free://host[:port]/[db-name]"+
+* Dev, for use with Datomic Pro, subject to the licensed peer limit: +"datomic:dev://host[:port]/[db-name]"+
+
+Free and Dev can also be configured to use alternate ports for storage:
+
++"datomic:free://host[:port]/[db-name]?h2-port=[port]&amp;h2-web-port=[port]"+
+
+By default, these ports will be 1 and 2 more than the transactor port, respectively.
+
+====== External storage service options
+
+* DynamoDB: +"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"+"
+* Riak: +"datomic:riak://host[:port]/bucket/dbname[?interface=http|protobuf]"+ (default is protobuf)
+* Couchbase: +"datomic:couchbase://host/bucket/dbname[?password=xxx]"+
+* Infinispan: +"datomic:inf://[cluster-member-host:port]/[db-name]"+
+* SQL: +"datomic:sql://[db-name][?jdbc-url]"+
+
+For SQL storage services, the map format can be used instead of the string format. This is useful
+when specifying objects that can't be embedded in URI strings, like DataSources. The format for the
+SQL map is:
+
+[source,clojure]
+----
+{:protocol :sql                         ;; keyword or string
+ :db-name "[db-name]"                   ;; keyword or string
+ :data-source aDataSourceObject
+  ;; OR
+ :factory aCallableReturningConnection}
+----
+
+==== See Also
+
