@@ -12,3 +12,5 @@ include::mongo/mongo.asciidoc[]
 include::traversing-datomic-indices/traversing-datomic-indices.asciidoc[]
 
 include::redis/redis.asciidoc[]
+
+include::korma/korma.asciidoc[]
