@@ -1,3 +1,4 @@
+[[Connecting to an SQL Database with a Connection Pool]]
 === Connecting to an SQL Database with a Connection Pool
 
 ===== Problem
@@ -6,10 +7,10 @@ You would like to connect to an SQL database efficiently using a connection pool
 
 ===== Solution
 
-Use the +c3p0+ connection and statement pooling library to wrap your
-JDBC-based drivers, creating a pooled data source. The pooled data source is
-then usable by the +clojure.java.jdbc+ library, as described in the
-link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[connecting-to-an-SQL-database] recipe.
+Use the +c3p0+ connection and statement pooling library to wrap your JDBC-based
+drivers, creating a pooled data source. The pooled data source is then usable
+by the +clojure.java.jdbc+ library, as described in the
+<<Connecting to an SQL Database>> recipe.
 
 Add a dependency to your Leiningen project file for the +c3p0+ library. You
 will also need to add dependencies for the +clojure.java.jdbc+ library and the
@@ -85,7 +86,7 @@ library's other functions which query and manipulate your database.
 (jdbc/insert! pooled-db-spec :players
               {:name "Bilbo" :type "hobbit"} {:name "Galadriel" :type "elf"}
               {:name "Frodo" :type "hobbit"} {:name "Ori" :type "dwarf"})
-;; -> (nil nil nil)
+;; -> (nil nil nil nil)
 
 (jdbc/query pooled-db-spec (sql/select * :players (sql/where {:type "hobbit"})))
 ;; -> ({:type "hobbit", :name "Bilbo"} {:type "hobbit", :name "Frodo"})
@@ -95,7 +96,7 @@ library's other functions which query and manipulate your database.
 
 As shown above, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
-pooled by the +c3p0+, or other, pooling libraries.
+pooled by the +c3p0+, or other, pooling library.
 
 The +c3p0+ library wraps existing JDBC classes to allow the creation of
 efficient data sources. It can adapt traditional unpooled drivers and
@@ -133,10 +134,8 @@ be sure to add the +DataSources+ class to the imports of your namespace.
 
 ===== See Also
 
-// TODO: link these when sections exist
-* See link:/databases/connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[connecting-to-an-SQL-database] to learn about basic database connections with +clojure.java.jdbc+.
-* See <<sec_querying-an-SQL-database>> to learn more about querying with +clojure.java.jdbc+.
-* See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
+* See <<Connecting to an SQL Database>> to learn about basic database connections with +clojure.java.jdbc+.
+* See <<Manipulating an SQL Database>>to learn about using +clojure.java.jdbc+ to interact with an SQL database.
 
 * See the +c3p0+ http://www.mchange.com/projects/c3p0/[documentation].
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
