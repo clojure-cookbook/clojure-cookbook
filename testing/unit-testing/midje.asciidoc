@@ -65,7 +65,7 @@ Midje only provides mocks not stubs. All functions specified in the +provided+ b
 
 [source,clojure]
 ----
-;; <function call and arguments to match against> => <return value of that function>
+;; <function call & arguments to match> => <return value of function>
 
 (provided (+ 10 10) => 0)
 ----
@@ -87,6 +87,7 @@ It will test that regex against the actual argument. The following calls would a
 
 Midje provides lots of checker functions that you can use to match against the arguments of a mock.
 
+[source,clojure]
 ----
 ;; Match when the argument is a list which contains 1
 (provided
