@@ -1,3 +1,7 @@
+////
+:Author: David McNeil
+////
+
 [[polymorphism_with_protocols]]
 
 === Polymorphism With Protocols

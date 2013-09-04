@@ -1,3 +1,7 @@
+////
+:Author: David McNeil
+////
+
 [[extend_built_in]]
 
 === Extending a Built-in Type
