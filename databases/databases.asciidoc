@@ -16,3 +16,5 @@ include::mongo/mongo.asciidoc[]
 include::traversing-datomic-indices/traversing-datomic-indices.asciidoc[]
 
 include::redis/redis.asciidoc[]
+
+include::indexing-with-elasticsearch/indexing-with-elasticsearch.asciidoc[]
