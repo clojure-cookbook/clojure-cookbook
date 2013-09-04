@@ -32,8 +32,8 @@ Next, define a databse connection. Korma uses to create pooled connections.
              :password "secret"}))
 ----
 
-Next, we will need to define our entities. Entities represent individual
-tables in our database. Here we'll define an entity for blog posts:
+Next, you will need to define your entities. Entities represent individual
+tables in your database. Here you'll define an entity for blog posts:
 
 [source,clojure]
 ----
@@ -42,8 +42,8 @@ tables in our database. Here we'll define an entity for blog posts:
 (defentity posts)
 ----
 
-When only a single connection is defined it will be used by default and we
-don't have to pass it in explicitly. We can use +insert+ to add records to
+When only a single connection is defined it will be used by default and you
+don't have to pass it in explicitly. You can use +insert+ to add records to
 the database. Each record is represented by a map. The names of the keys
 in the map must match the names of the columns in the database.
 
@@ -54,7 +54,7 @@ in the map must match the names of the columns in the database.
 ----
 
 
-We can then query the data using +select+. If the query is successful a
+You can then query the data using +select+. If the query is successful a
 sequence of maps will be returned. Each map will contain keys representing
 the column names.
 
@@ -64,7 +64,7 @@ the column names.
 (select posts (limit 1))
 ----
 
-We can also update existing records using +update+:
+You can also update existing records using +update+:
 
 [source,clojure]
 ----
@@ -85,13 +85,12 @@ Deleting records is done using +delete+:
 
 Korma provides a simple and intuitive way to construct SQL queries from Clojure.
 The advantage of using Korma is that the queries are written as regular code instead
-of SQL strings. We can easily compose queries together and abstract common operations.
+of SQL strings. You can easily compose queries together and abstract common operations.
 
-Korma provides many additional features in addition to those we saw above. Let's examine
+Korma provides many additional features in addition to those you saw above. Let's examine
 some of these below.
 
-While Korma provides helpers for most common databases, we can also define one by
-specifying the driver and the protocol directly:
+While Korma provides helpers for most common databases, you can also define one by specifying the driver and the protocol directly:
 
 [source,clojure]
 ----
@@ -100,7 +99,7 @@ specifying the driver and the protocol directly:
          :classname   "org.h2.Driver"})
 ----
 
-When defining entities we can pass in a number of options. These include
+When defining entities you can pass in a number of options. These include
 +table+ to specify the table name directly, +entity-fields+ for default
 fields to be selected:
 
@@ -111,7 +110,7 @@ fields to be selected:
   (entity-fields :id :name))
 ----
 
-We can also define entity relations using the +has-one+, +has-many+, +belongs-to+
+You can also define entity relations using the +has-one+, +has-many+, +belongs-to+
 and +many-to-many+:
 
 [source,clojure]
@@ -122,7 +121,7 @@ and +many-to-many+:
   ;; "customers.id = address.customers_id"
   (has-one address)
   (has-many phone)
-  ;; we can override the default foreign key
+  ;; you can override the default foreign key
   ;; name by using :fk as seen below
   (belongs-to billable {:fk :cust_id)
   (many-tomany orders :customer_orders))
@@ -150,7 +149,7 @@ such as +aggregate+, +join+, +order+, +group+ and +having+:
   (having {:cnt [> 1]}))
 ----
 
-We can inclue results from other related entities using the +with+ clause:
+You can inclue results from other related entities using the +with+ clause:
 
 [source,clojure]
 ----
@@ -200,9 +199,7 @@ SQL functions can be called using +sqlfn+ followed by the name and optional para
   (where {:registered [<= (sqlfn now)]}))
 ----
 
-We can make transactions
-
-When something can't be expressed in Korma we can use raw queries :
+When something can't be expressed in Korma you can use raw queries :
 
 [source,clojure]
 ----
