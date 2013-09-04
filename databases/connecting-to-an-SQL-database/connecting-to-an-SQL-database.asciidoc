@@ -1,5 +1,6 @@
-// By Tom Hicks (@hickst), original submission by Simone Mosciatti (@siscia)
+// By Tom Hicks (@hickst). Original submission by Simone Mosciatti (@siscia)
 
+[[Connecting to an SQL Database]]
 === Connecting to an SQL Database
 
 ===== Problem
@@ -61,14 +62,15 @@ library's other functions which query and manipulate your database.
 ===== Discussion
 
 The +clojure.java.jdbc+ library provides functions which wrap the basic
-capabilities of the Java JDBC specification. Additional namespaces in the
-library implement small DSLs to generate basic SQL and basic DDL.
+capabilities of the Java JDBC specification. The additional
++clojure.java.jdbc.sql+ and +clojure.java.jdbc.ddl+ namespaces implement small
+DSLs to generate basic SQL DML and DDL statements.
 
 Because it relies upon Java JDBC, the +clojure.java.jdbc+ library is useable
 with many of the most popular SQL databases; including Apache Derby, HSQLDB,
 Microsoft SQL Server, MySQL, PostgreSQL, and SQLite.
 
-The parameters necessary to setup and access a data source are called the
+The parameters necessary to set up and access a data source are called the
 "database specification" (often abbreviated "db-spec") and are provided in a
 simple Clojure map. The specification usually includes such parameters as the
 driver class name, the subprotocol for a particular RDBMS type, the hostname,
@@ -113,10 +115,8 @@ of everyday database access needs.
 
 ===== See Also
 
-// TODO: link these when sections exist
-* See <<sec_querying-an-SQL-database>> to learn more about querying with +clojure.java.jdbc+.
-* See <<sec_using-SQL-database-DDL>> to learn more about manipulating DDL with +clojure.java.jdbc+.
-* See <<sec_SQL-database-connection-pooling>> to learn more about connection pooling with +clojure.java.jdbc+.
+* See <<Manipulating an SQL Database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
+* See <<Connecting to an SQL Database with a Connection Pool>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
 
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
 * See http://sqlkorma.com/[Korma SQL] for an alternative SQL DSL.

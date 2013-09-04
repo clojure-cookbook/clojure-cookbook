@@ -28,8 +28,9 @@ Consider the following (highly contrived) example:
 
 ===== Solution
 
-Modify the `my-message-helper` function to take an extra argument (which we 
-assume is a `fn`) and apply it to the value that needs the specific work.
+Modify the `my-message-helper` function to take an extra argument 
+(assumed to be a `fn`) and apply it to the value that needs the 
+specific work.
 
 [source, clojure]
 ----
@@ -39,12 +40,12 @@ assume is a `fn`) and apply it to the value that needs the specific work.
 
 (defn make-awesome-message []
   ; too few arguments to my-message-helper!
-  ; we'll fix it in the next step
+  ; you'll fix it in the next step
   (my-message-helper "awesome"))
 
 (defn make-cool-message []
-  ; too few arguments to my-message-helper
-  ; we'll fix it in the next step
+  ; too few arguments to my-message-helper!
+  ; you'll fix it in the next step
   (my-message-helper "cool"))
 ----
 
@@ -74,12 +75,12 @@ piece of work to be done in `my-message-helper` and pass that as an argument.
 
 ===== Discussion
 
-Even though our two functions, `make-awesome-message` and `make-cool-message`,
-did different work, we reused the common work done in `my-message-helper`. 
+Even though the two functions, `make-awesome-message` and `make-cool-message`,
+did different work, the common work was reused in `my-message-helper`. 
 
-The astute reader may notice that for this example we could simply `let`-bind 
+The astute reader may notice that for this example one could simply `let`-bind 
 the result of `my-message-helper` and do the work of the `extra-fn` within the
-context of our two main functions: 
+context of the two main functions: 
 
 [source, clojure]
 ----
@@ -135,9 +136,9 @@ functions:
 
 Since you would need to call both functions separately, but always 
 together, you would create more opportunities for errors if you accidentally 
-called one and not the other. We call this sort of artificial, error-prone 
-separation a "bad abstraction," and it highlights the benefits of the solution
-using functions as arguments.
+called one and not the other. This sort of artificial, error-prone 
+separation is called a __bad abstraction__, and it highlights the 
+benefits of the solution using functions as arguments.
 
 As an alternative to the function argument, you could pass a flag to 
 `my-message-helper` that tells it who called it, and perform the caller-
@@ -182,7 +183,7 @@ the string "mega " to the message:
   (my-message-helper "rad" 'make-rad-message))
 ----
 
-Notice that you had to add the definition for `make-rad-message` _and_ modify 
+Notice that you had to add the definition for `make-rad-message` __and__ modify 
 the definition of `my-message-helper` to include a new `case` clause. Now 
 consider if you used function arguments to `my-message-helper` as before:
 
