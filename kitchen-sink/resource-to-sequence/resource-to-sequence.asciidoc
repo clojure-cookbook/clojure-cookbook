@@ -1,0 +1,202 @@
+=== Resource to sequence 
+// by Gerrit Jansen van Vuuren (gerritjvv)
+
+===== Problem
+
+You have a resource that you want to access as a sequence, but you do not want to keep a connection open and close it only when the whole sequence have been read
+thus potentially leaking the connection.
+
+===== Solution
+
+The solution is simple.
+
+1. A select function
+2. The initial position
+
+The select function takes a single argument which is the last index position of data returned, and returns a snapshot of the data from the position
+to N amount of rows (here N is up to the function itself).
+
+The initial position depends on the context that this pattern is used in, it can be 0, 1, 10 etc. 
+
+
+
+[source,clojure]
+----
+
+(defn buffered-select [f-select init-pos]
+    "Creates a lazy sequence of messages for this datasource"
+    (letfn [  
+            (m-seq [buff pos] 
+                 (if-let [buff2 (if (empty? buff) (f-select pos) buff)]
+                    (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))
+           ]
+         (m-seq nil init-pos)))
+
+----
+
+You can explore the usage of this recipe by going through a simple database paging example.
+
+To run the example you'll need to use leinigen and add the following dependencies to your project.clj file.
+
+1. [org.clojure/java.jdbc "0.3.0-alpha4"]
+2. [org.hsqldb/hsqldb "2.3.0"]
+
+
+Some helper functions and setup are required, paste the below code into your repl.
+
+[source,clojure]
+----
+
+(require 'clojure.java.jdbc)
+(defn load-example []
+
+                (def spec  {:classname "org.hsqldb.jdbcDriver"
+                          :subprotocol "hsqldb"
+                          :subname "mem;sql.syntax_ora=true;create=true"
+                          :user "sa"
+                          :password ""
+                          })
+
+                ;create the database table
+                (clojure.java.jdbc/with-connection spec
+                         (clojure.java.jdbc/transaction
+                               (try
+                                   (do
+                                     (clojure.java.jdbc/create-table
+                                      "users"
+                                      [:id "BIGINT" "NOT NULL" "PRIMARY KEY"]
+                                      [:name "VARCHAR(20)" "NOT NULL"]
+                                      [:age "BIGINT" "NOT NULL"])
+                                     (clojure.java.jdbc/do-commands "CREATE INDEX users_index1 ON users(id,name)"))
+
+                                    (catch Exception e (prn " ignore errors") ))))
+                ;truncate all previous data
+                (clojure.java.jdbc/with-connection spec
+                        (clojure.java.jdbc/transaction (clojure.java.jdbc/do-commands "truncate table users")))
+
+                ;insert 1000 records
+                (clojure.java.jdbc/with-connection spec
+                        (clojure.java.jdbc/transaction
+                               (dotimes [id 1000]
+                                      (clojure.java.jdbc/insert-values
+                                             :users
+                                             [:id :name :age]
+                                             [id (str id "-name") 20]))))
+
+
+                ;helper function that does a query
+                (defn do-query [q max]
+                     (clojure.java.jdbc/with-connection spec
+                        (clojure.java.jdbc/transaction
+                          (clojure.java.jdbc/with-query-results rs [q]
+                                  (vec (take max rs))))))
+
+
+               ;the db state with helper closures
+               {:spec spec
+                :query   (fn [from max]
+                          (clojure.java.jdbc/with-connection spec
+                           (clojure.java.jdbc/transaction
+                            (clojure.java.jdbc/with-query-results rs [
+                              (str "select * from (select id,name,age, ROWNUM() rnum from (select id,name,age from users order by id asc) a where ROWNUM() <= "
+                              (+ from max)
+                              ") WHERE rnum >= " from)]
+                              (vec (take max rs))
+                            ))))
+
+               })
+
+----
+
+The aim of this example is to show how you can use this recipe to select from the users table as if it was a single sequence without
+having to care about closing connections when pulling the data.
+
+[source,clojure]
+----
+(use 'clojure.pprint)
+
+(defn buffered-select [f-select init-pos]
+    "Creates a lazy sequence of messages for this datasource"
+    (letfn [
+            (m-seq [buff pos]
+                 (if-let [buff2 (if (empty? buff) (f-select pos) buff)]
+                    (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))
+           ]
+         (m-seq nil init-pos)))
+
+
+(def db (load-example))
+
+;normally you'd make the max argument much bigger for performance reasons,
+;here its set to 5 to show how connecting and quering is done.
+(defn select [pos] ((:query db) pos 5 ) )
+
+;the start pos is 1 because in sql the position 0 is 1.
+(def users (buffered-select select 1))
+
+(pprint (take 20 users))
+
+;; ->  {:rnum 20, :age 20, :name "25-name", :id 25})
+
+;; -> ({:rnum 1, :age 20, :name "0-name", :id 0}
+;; ->  {:rnum 2, :age 20, :name "1-name", :id 1}
+;; ->  {:rnum 3, :age 20, :name "2-name", :id 2}
+;; ->  {:rnum 4, :age 20, :name "3-name", :id 3}
+;; ->  {:rnum 5, :age 20, :name "4-name", :id 4}
+;; ->  {:rnum 6, :age 20, :name "5-name", :id 5}
+;; ->  {:rnum 7, :age 20, :name "6-name", :id 6}
+;; ->  {:rnum 8, :age 20, :name "7-name", :id 7}
+;; ->  {:rnum 9, :age 20, :name "8-name", :id 8}
+;; ->  {:rnum 10, :age 20, :name "9-name", :id 9}
+;; ->  {:rnum 11, :age 20, :name "10-name", :id 10}
+;; ->  {:rnum 12, :age 20, :name "11-name", :id 11}
+;; ->  {:rnum 13, :age 20, :name "12-name", :id 12}
+;; ->  {:rnum 14, :age 20, :name "13-name", :id 13}
+;; ->  {:rnum 15, :age 20, :name "14-name", :id 14}
+;; ->  {:rnum 16, :age 20, :name "15-name", :id 15}
+;; ->  {:rnum 17, :age 20, :name "16-name", :id 16}
+;; ->  {:rnum 18, :age 20, :name "17-name", :id 17}
+;; ->  {:rnum 19, :age 20, :name "18-name", :id 18}
+;; ->  {:rnum 20, :age 20, :name "19-name", :id 19})
+
+;print the name of the first 30 users
+(pprint (take 10 (map :name users)))
+
+;; -> ("0-name"
+;; ->  "1-name"
+;; ->  "2-name"
+;; ->  "3-name"
+;; ->  "4-name"
+;; ->  "5-name"
+;; ->  "6-name"
+;; ->  "7-name"
+;; ->  "8-name"
+;; ->  "9-name")
+
+
+----
+
+
+===== Discussion
+
+The solution showed is a simple pattern (monad) with simple constructs, and its usage applies directly to database queries and network io, 
+and more generally to all resources that are accessed using a connection.
+
+The select function connects, queries and closes a connection, then returns a sequence. The sequence can then be consumed by the using code
+and after the buffer has been consumed the select function is called again. To the user of the function it appears as if the sequence is 
+one huge sequence over which higher order functions like map filter partition can be applied.
+
+
+The pattern also helps unroll the typical pattern:
+
+[source,clojure]
+----
+(with-open [resource get-resource]  (do-work-on-resource resource) ) 
+----
+
+where work must be done inside the scope of another function and cannot be pulled, to something more pull orientated and functional:
+
+[source,clojure]
+----
+ (do-work-unit (get-resource))
+----
