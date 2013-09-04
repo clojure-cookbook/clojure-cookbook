@@ -102,8 +102,8 @@ the environment hash-map or else report the variable as being unbound:
     :else (throw (Exception. (str "invalid expression: " expr)))))
 ----
 
-Next, change the `fn` line to create a closure (don't worry; we'll 
-cover what a closure is in the discussion):
+Next, change the `fn` line to create a closure (don't worry; closures
+will be covered in the discussion):
 
 [source, clojure]
 ----
@@ -133,6 +133,23 @@ to the value of the operand:
     [([operator operand] :seq)] ((lc-interpret operator env) 
                                   (lc-interpret operand env))
     :else (throw (Exception. (str "invalid expression: " expr)))))
+
+(lc-interpret 'a {})
+;; -> {:unbond-var a}
+
+(lc-interpret 'a {'a {:unbound-var 'x}})
+;; -> {:unbound-var 'x}
+
+;; 'a maps to a `fn', so this returns an opaque `fn' reference
+(lc-interpret 'a {'a (fn [val] (lc-interpret 'b {}))})
+;; -> #<user$eval3964$fn__3965 user$eval3964$fn__3965@59c7d395>
+
+;; like the example above this maps to an opaque `fn' reference
+(lc-interpret '(fn [x] x) {})
+;; -> #<user$eva3897$fn__3904 user$eval3904$fn__3905@7077092>
+
+(lc-interpret '((fn [x] x) a) {})
+;; -> {:unbound-var a}
 ----
 
 ===== Discussion
