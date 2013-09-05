@@ -48,7 +48,7 @@ used by pallet to describe what we want on the server.
 [source, clojure]
 ----
 (ns deployer.groups.deployer
-    "Node defintions for deployer"
+    "Node definitions for deployer"
     (:require
      [pallet.api :refer [group-spec server-spec node-spec plan-fn]]
      [pallet.crate.automated-admin-user :refer [automated-admin-user]]
@@ -64,7 +64,6 @@ used by pallet to describe what we want on the server.
  (server-spec
   :extends                            ; <1>
   [(java/server-spec {})
-   (runit/server-spec {})
    (app-deploy/server-spec
     {:app-root "/opt/jenkins"         ; <2>
      :artifacts
@@ -100,7 +99,7 @@ $ lein pallet up --phases install,configure,deploy
 
 Jenkins will now be running on port 8080.
 
-You can redploy your application with:
+You can redeploy your application with:
 
 [source,console]
 ----
@@ -111,7 +110,7 @@ $ lein pallet up --phases deploy
 
 You have many choices of where to run a server; on EC2 or other cloud, on a VPS host, or on some dedicated machine. Using http://palletops.com/[Pallet], you can deploy to any of these environments using the same code.
 
-There are also many process supervision frameworks to choose from.  We haveusedhttp://smarden.org/runit/[runit] which is the default for the +app-deploy+ crate, but you can use +upstart+ or +initd+,
+There are also many process supervision frameworks to choose from.  We have used http://smarden.org/runit/[runit] which is the default for the +app-deploy+ crate, but you can use +upstart+ or +initd+,
 for example.
 
 ===== See Also
