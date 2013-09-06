@@ -1,0 +1,164 @@
+=== Extract Transform Load
+
+===== Problem
+
+You need to change the format of large amounts of data from json lists to csv for
+later processing. For example:
+
+Input:
+[source,json]
+----
+{"name": "Clojure Programming", "authors": ["Chas Emerick", "Brian Carper", "Christophe Grand"]}
+{"name": "The Joy of Clojure", "authors": ["Michael Fogus", "Chris Houser"]}
+----
+
+Output:
+[source,tsv]
+----
+Chas Emerick,Brian Carper,Christophe Grand
+Michael Fogus,Chris Houser
+----
+
+===== Solution
+
+Cascalog allows you to write distributed processing jobs that can run locally for
+small jobs or on a Hadoop cluster for larger jobs.
+
+Add the following to the dependencies vector of your project.clj:
+[source,clojure]
+----
+[cascalog "1.10.2"]
+[org.clojure/data.json "0.2.2"]
+[clojure-csv/clojure-csv "2.0.1"]
+----
+
+Then add this query to your project:
+[source,clojure]
+----
+(ns cookbook.etl
+  (:require [cascalog.api :refer :all]
+            [clojure.data.json :as json]
+            [clojure-csv.core :as csv]))
+
+(defmain Main [in out & args]
+  (?<-
+    (hfs-textline out :sinkmode :replace)
+    [?out-csv]
+    ((hfs-textline in) ?in-json)
+    (json/read-str ?in-json :> ?book-map)
+    (get ?book-map "authors" :> ?authors)
+    (csv/write-csv ?authors :> ?out-csv)))
+----
+
+Then execute it locally
+[source,terminal]
+$ lein run -m cookbook.etl.Main <in-path> <out-path>
+
+or execute it over your Hadoop cluster
+[source,terminal]
+----
+$ lein uberjar
+$ hadoop jar target/cookbook-standalone.jar cookbook.etl.Main <in-path> <out-path>
+----
+
+===== Discussion
+
+While it would be easy to write a script that converted json to csv,
+it would be a lot of work to convert the script to run across many
+computers. Writing the transform script using Cascalog allows it to
+run in local mode or distributed mode with almost no modification.
+
+Cascalog defines a DSL based on Datalog, the same query language that
+backs Datomic. It might be a little weird at first, but you will be
+thinking in Datalog in no time. The Cascalog github page has a wiki
+full of all the documentation you will need to learn how to write your
+own Cascalog queries. Now we'll look at each part of the query to
+understand what happens where.
+
+[source,clojure]
+(defmain Main [in out & args]
+
+In this recipe, the data flows through the functions roughly in order.
+The first line uses the +defmain+ macro (from Cascalog) to define a
+class with a main function which lets you run the query over
+Hadoop. In this case the class with a main function is called +Main+,
+but that is not required. +defmain+ allows you to create several
+Hadoop enabled queries in the same file.
+
+[source,clojure]
+(?<-
+
+Inside the +Main+ function is a Cascalog operator +?<-+ that defines
+and executes a query. This operator takes an output tap, a result
+vector and a series of logic predicates.
+
+[source,clojure]
+(hfs-textline out :sinkmode :replace)
+
+This line is the destination, the place the output will be written.
+We are defining a location, called a "tap" in Cascalog. The same
+functions are used to create input and output taps. In this case, we
+are using +hfs-textline+, but many other taps exist. You can even
+write your own.
+
+:TIP Use ":sinkmode :replace" in your output tap and Cascalog will
+replace any existing output. This helps while you are rerunning the
+query to debug it.  Otherwise you will have to remove the output file
+every time you want to rerun.
+
+[source,clojure]
+[?out-csv]
+
+This is a list of all the logic variables that should be returned from
+this query. In this case, these are the logic variables that will be
+dumped into the output location. Cascalog knows these are special
+logic variables because their names begin with a "?" or a "!"
+
+:WARNING When thinking about logic variables, it helps to think of
+them as containing all possible valid values. As you add predicates
+you either introduce new logic variables which are hopefully linked to
+existing variables, or you add constraints to existing logic
+variables.
+
+[source,clojure]
+((hfs-textline in) ?in-json)
+
+This line defines the input tap. The json data structures will be read
+in one line at a time from the location specified by +in+. Each line
+will be stored into the +?in-json+ logic var, which will flow through
+the rest of the logic predicates.
+
+[source,clojure]
+(json/read-str ?in-json ?book-map)
+
++read-str+ parses the json string found in +?in-json+ into a hash-map,
+which is stored into +?book-map+.
+
+[source,clojure]
+(get ?book-map "authors" ?authors)
+
+Now you pull the authors out of the map and store the vector into its
+own logic variable.
+
+[source,clojure]
+(csv/write-csv ?authors ?out-csv)))
+
+Finally, you convert the vector of authors into valid csv using the
++write-csv+ function. Since this line produces values for the
++?out-csv+ logic variable, which is named in the output line earlier,
+the query will produce output.
+
+Cascalog is a great tool for building ETL (Extract Transform Load)
+piplines. It allows you to spend more time thinking about your data
+and less time thinking about the mechanics of reading files,
+distributing work or managing dependencies. When writing your own ETL
+pipelines, it might help to follow this process:
+
+* Finalize the input format(s)
+* Finalize the output format(s)
+* Start working from the input format, keeping track of the current
+  format for each step.
+
+===== See Also
+
+* core.logic - A logic programming library for Clojure
