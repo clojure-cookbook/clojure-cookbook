@@ -1,0 +1,229 @@
+////
+:Author: Tom White
+:Email: tom@sixdozen.com
+////
+
+
+=== Using JavaScript Libraries from ClojureScript
+
+===== Problem
+
+You want to use an existing JavaScript library from ClojureScript as painlessly as possible.
+
+===== Solution
+
+Use https://github.com/dribnet/mrhyde[mrhyde] to map between JavaScript and ClojureScript datatypes.
+
+As an example, let's assume you wanted to use the rickshaw library which provides simple framework
+for drawing charts of time series data on a web page. Naturally, you'd rather not worry about JavaScript
+semantics, but instead hope to simply declaratively generate charts from ClojureScript datatypes.
+
+We'll use the 
+http://code.shutterstock.com/rickshaw/tutorial/introduction.html#example_07[fanciest example] from
+the rickshaw documentation here and adapt it to ClojureScript using mrhyde.
+
+The *JavaScript* for this example is reprinted verbatim below.
+
+[source, javascript]
+----
+var palette = new Rickshaw.Color.Palette();
+
+var graph = new Rickshaw.Graph( {
+        element: document.querySelector("#chart"),
+        width: 540,
+        height: 240,
+        renderer: 'line',
+        series: [
+                {
+                        name: "Northeast",
+                        data: [ { x: -1893456000, y: 25868573 }, { x: -1577923200, y: 29662053 }, { x: -1262304000, y: 34427091 }, { x: -946771200, y: 35976777 }, { x: -631152000, y: 39477986 }, { x: -315619200, y: 44677819 }, { x: 0, y: 49040703 }, { x: 315532800, y: 49135283 }, { x: 631152000, y: 50809229 }, { x: 946684800, y: 53594378 }, { x: 1262304000, y: 55317240 } ],
+                        color: palette.color()
+                },
+                {
+                        name: "Midwest",
+                        data: [ { x: -1893456000, y: 29888542 }, { x: -1577923200, y: 34019792 }, { x: -1262304000, y: 38594100 }, { x: -946771200, y: 40143332 }, { x: -631152000, y: 44460762 }, { x: -315619200, y: 51619139 }, { x: 0, y: 56571663 }, { x: 315532800, y: 58865670 }, { x: 631152000, y: 59668632 }, { x: 946684800, y: 64392776 }, { x: 1262304000, y: 66927001 } ],
+                        color: palette.color()
+                },
+                {
+                        name: "South",
+                        data: [ { x: -1893456000, y: 29389330 }, { x: -1577923200, y: 33125803 }, { x: -1262304000, y: 37857633 }, { x: -946771200, y: 41665901 }, { x: -631152000, y: 47197088 }, { x: -315619200, y: 54973113 }, { x: 0, y: 62795367 }, { x: 315532800, y: 75372362 }, { x: 631152000, y: 85445930 }, { x: 946684800, y: 100236820 }, { x: 1262304000, y: 114555744 } ],
+                        color: palette.color()
+                },
+                {
+                        name: "West",
+                        data: [ { x: -1893456000, y: 7082086 }, { x: -1577923200, y: 9213920 }, { x: -1262304000, y: 12323836 }, { x: -946771200, y: 14379119 }, { x: -631152000, y: 20189962 }, { x: -315619200, y: 28053104 }, { x: 0, y: 34804193 }, { x: 315532800, y: 43172490 }, { x: 631152000, y: 52786082 }, { x: 946684800, y: 63197932 }, { x: 1262304000, y: 71945553 } ],
+                        color: palette.color()
+                }
+        ]
+} );
+
+var x_axis = new Rickshaw.Graph.Axis.Time( { graph: graph } );
+
+var y_axis = new Rickshaw.Graph.Axis.Y( {
+        graph: graph,
+        orientation: 'left',
+        tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+        element: document.getElementById('y_axis'),
+} );
+
+var legend = new Rickshaw.Graph.Legend( {
+        element: document.querySelector('#legend'),
+        graph: graph
+} );
+
+var offsetForm = document.getElementById('offset_form');
+
+offsetForm.addEventListener('change', function(e) {
+        var offsetMode = e.target.value;
+
+        if (offsetMode == 'lines') {
+                graph.setRenderer('line');
+                graph.offset = 'zero';
+        } else {
+                graph.setRenderer('stack');
+                graph.offset = offsetMode;
+        }       
+        graph.render();
+
+}, false);
+
+graph.render();
+----
+
+In your dependencies:
+
+[source, clojure]
+----
+[net.drib/mrhyde "0.5.2"]
+----
+
+Then compile the following ClojureScript file and replace the script reference in the enclosing HTML page.
+You will also to include the https://github.com/dribnet/ArrayLike.js[ArrayLike.js polyfill] *before* the JavaScript libraries you want to use from
+ClojureScript.
+
+[source,clojure]
+----
+(ns rickshaw.example07
+  (:require [mrhyde.core :as mrhyde]
+            [mrhyde.extend-js]))
+
+(mrhyde/bootstrap)
+
+(def Rickshaw (this-as ct (:Rickshaw ct)))
+
+(def document js/document)
+
+(def palette (Rickshaw.Color.Palette.))
+
+(def graph (Rickshaw.Graph. {
+  :element (-> document (.querySelector "#chart"))
+  :width 780
+  :height 500
+  :renderer "line"
+  :series [
+    { :name "Northeast"
+      :data [ { :x -1893456000 :y 25868573 } { :x -1577923200 :y 29662053 } { :x -1262304000 :y 34427091 } { :x -946771200 :y 35976777 } { :x -631152000 :y 39477986 } { :x -315619200 :y 44677819 } { :x 0 :y 49040703 } { :x 315532800 :y 49135283 } { :x 631152000 :y 50809229 } { :x 946684800 :y 53594378 } { :x 1262304000 :y 55317240 } ]
+      :color (-> palette .color)
+    }
+    { :name "Midwest"
+      :data [ { :x -1893456000 :y 29888542 } { :x -1577923200 :y 34019792 } { :x -1262304000 :y 38594100 } { :x -946771200 :y 40143332 } { :x -631152000 :y 44460762 } { :x -315619200 :y 51619139 } { :x 0 :y 56571663 } { :x 315532800 :y 58865670 } { :x 631152000 :y 59668632 } { :x 946684800 :y 64392776 } { :x 1262304000 :y 66927001 } ]
+      :color (-> palette .color)
+    }
+    { :name "South"
+      :data [ { :x -1893456000 :y 29389330 } { :x -1577923200 :y 33125803 } { :x -1262304000 :y 37857633 } { :x -946771200 :y 41665901 } { :x -631152000 :y 47197088 } { :x -315619200 :y 54973113 } { :x 0 :y 62795367 } { :x 315532800 :y 75372362 } { :x 631152000 :y 85445930 } { :x 946684800 :y 100236820 } { :x 1262304000 :y 114555744 } ]
+      :color (-> palette .color)
+    }
+    { :name "West"
+      :data [ { :x -1893456000 :y 7082086 } { :x -1577923200 :y 9213920 } { :x -1262304000 :y 12323836 } { :x -946771200 :y 14379119 } { :x -631152000 :y 20189962 } { :x -315619200 :y 28053104 } { :x 0 :y 34804193 } { :x 315532800 :y 43172490 } { :x 631152000 :y 52786082 } { :x 946684800 :y 63197932 } { :x 1262304000 :y 71945553 } ]
+      :color (-> palette .color)
+    }]}))
+
+(def x_axis
+  (Rickshaw.Graph.Axis.Time. { :graph graph }))
+
+(def y_axis
+  (Rickshaw.Graph.Axis.Y. {
+    :graph graph
+    :orientation "left"
+    :tickFormat (get-in Rickshaw [:Fixtures :Number :formatKMBT])
+    :element (-> document (.getElementById "y_axis"))}))
+
+(def legend
+  (Rickshaw.Graph.Legend. {
+    :element (-> document (.querySelector "#legend"))
+    :graph graph}))
+
+(def offsetForm 
+  (-> document (.getElementById "offset_form")))
+
+(-> offsetForm (.addEventListener "change" (fn [e]
+  (let [offsetMode (get-in e [:target :value])]
+    (if (= offsetMode "lines") 
+      (do
+        (-> graph (.setRenderer "line"))
+        (assoc! graph :offset "zero"))
+      ; else
+      (do
+        (-> graph (.setRenderer "stack"))
+        (assoc! graph :offset offsetMode))))
+  (-> graph (.render))) false))
+
+(-> graph .render)
+----
+
+http://s.trokes.org/dribnet/6209254[See it running live here]
+
+===== Discussion
+
+mrhyde is a library that modifies the core ClojureScript datatypes so that JavaScript
+libraries can use them natively. After running the bootstrap method,
+ClojureScript vectors can be accessed from JavaScript
+as if they were native JavaScript arrays, and ClojureScript maps can be accessed
+from JavaScript as if they were native JavaScript objects. Though this adds some
+overhead to ClojureScript datatype creation, it can greatly simplify many
+interop scenarios.
+
+So for example in the line
+
+[source, clojure]
+----
+(Rickshaw.Graph.Axis.Time. { :graph graph })
+----
+
+we are passing a native ClojureScript map to a Rickshaw constructor
+which expects a JavaScript object. Elsewhere we have more complicated
+datatypes such as a map containing a vector containing a map which are
+handed directly to Rickshaw functions which interpret the data as
+an object containing an array containing an object.
+
+Additionally by also requiring mrhyde.extend-js (taken nearly directly from
+http://keminglabs.com/blog/angular-cljs-mobile-weather-app/[Kevin Lynagh's project])
+we get interop in the other
+direction, allowing ClojureScript to access JavaScript object more idomatically.
+
+In this example it means we can replace the following two interop heavy lines of code:
+
+[source, clojure]
+----
+(-> Rickshaw .-Fixtures .-Number .-formatKMBT)
+;...
+(aset graph "offset" offsetMode)
+----
+
+with the much more clojure idomatic
+
+[source, clojure]
+----
+(get-in Rickshaw [:Fixtures :Number :formatKMBT])
+;...
+(assoc! graph :offset offsetMode)
+----
+
+TIP: When adapting a JavaScript example like this, you don't have to do it all at once. Start with a working
+JavaScript example and then start replacing it bottom to top with ClojureScript that references the JavaScript
+objects directly. When you have replaced the entire JavaScript source, you'll be ready to make
+similar ClojureScript examples from scratch.
+
+===== See Also
+
+* tbd
