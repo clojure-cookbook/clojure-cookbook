@@ -41,7 +41,7 @@ function that takes an endpoint as its sole argument:
 (defn -main
   [& args]
   (esr/connect! "http://127.0.0.1:9200"))
-====
+----
 
 By default Elastisch will use the HTTP endpoint at *http://localhost:9200*.
 
