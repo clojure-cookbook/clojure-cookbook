@@ -1,0 +1,237 @@
+////
+:Author: Tom White
+:Email: tom@sixdozen.com
+////
+
+
+=== Boids Simulation
+
+===== Problem
+
+You want to run and visualize a boids simulation using SVG and CSS.
+
+===== Solution
+
+Use https://github.com/dribnet/strokes[strokes] to use D3 from ClojureScript.
+
+In your dependencies:
+
+[source, clojure]
+----
+[net.drib/strokes "0.5.0"]
+----
+
+Before we look at the whole version, let's look at a minimal viabale solution to see the
+core bits of creating objects and animating them in a web page.
+
+[source,clojure]
+----
+(ns boids
+  (:require [strokes :refer [d3 timer category10]]))
+
+(strokes/bootstrap)
+
+(def width 960)
+(def height 500)
+
+(def boids (atom [
+  {:id "a" :x 200 :y 200}
+  {:id "b" :x 200 :y 300}
+  {:id "c" :x 300 :y 200}
+  {:id "d" :x 400 :y 300}
+  {:id "f" :x 500 :y 300}]))
+
+(def colorfn (category10))
+
+(def svg (-> d3 (.select "body") (.append "svg")
+      (.attr {:width width :height height})))
+
+(defn draw-boids []
+  (let [circles (-> svg (.selectAll "circle") (.data @boids))]
+    (-> circles (.enter)
+      (.append "circle")
+      (.style "fill" #(colorfn %2)))
+
+    (-> circles
+      (.attr {:transform #(str "translate(" (:x %) "," (:y %) ")")
+              :r 10}))))
+
+(defn update-one-boid [b]
+  (let [brownianize #(+ % -3 (rand-int 7))
+        newx (brownianize (:x b))
+        newy (brownianize (:y b))]
+    (merge b {:x newx :y newy})))
+
+(defn update-boids []
+  (swap! boids #(mapv update-one-boid %)))
+
+(timer (fn []
+  (update-boids)
+  (draw-boids)
+  false))
+----
+
+http://s.trokes.org/dribnet/6460749[Live demo here]
+
+===== Discussion
+
+https://github.com/dribnet/strokes[strokes] is a library which provides idomatic
+use of http://d3js.org/[D3.js] from ClojureScript. Here we put 5 objects in a
+vector wrapped by an atom to represent our boids, and then use D3's timer
+function to repeatedly update and rerender these objects. Before we get too
+distracted by the logic of intelligent boids, it's useful to see how short
+the code is when the boids are simply circles moving randomly on the screen.
+
+The main update logic of our model happens in update-one-boid, which takes a boid
+as input and returns the same boid with an updated position. The draw-boids function
+then simply takes whatever boids are in the atom and renders each at the correct position.
+
+Let's close with the full version - which has the same basic structure, but also
+includes all of the logic needed to run a full boids simulation. This version was
+adapted from Sean Luke's excellent java based http://cs.gmu.edu/~eclab/projects/mason/[mason simulation library]
+and is written with some glaring inefficiencies to make it easier to understand.
+
+http://s.trokes.org/dribnet/6460753[live demo here.]
+
+[source, clojure]
+----
+(ns boids
+  (:require [strokes :refer [d3 timer]]))
+
+(strokes/bootstrap)
+
+(def width 960)
+(def height 500)
+
+(def settings { :randomness    4.0
+                :neighborhood 80.0
+                :momentum      1.0
+                :avoidance     8.0
+                :cohesion      1.0
+                :consistency   0.4
+                :jump          3.0
+                :dead-prop     0.25 })
+
+(defn rand-range [low high]
+  (+ low (rand (- high low))))
+
+(defn newboid []
+  {:id (gensym "boid-") 
+   :loc [(rand-int width) (rand-int height)] 
+   :lastd (mapv #(rand-range -1 1) (range 2))
+   :dead (< (rand) (:dead-prop settings))})
+
+(def boids (atom (vec (take 40 (repeatedly newboid)))))
+
+(def colorfn (strokes/category20c))
+
+(def svg (-> d3 (.select "body") (.append "svg")
+      (.attr {:width width :height height})))
+
+(defn orientation [b]
+  (let [[dx dy] (:lastd b)]
+    (if (and (zero? dx) (zero? dy))
+      0
+      (Math/atan2 dy dx))))
+
+(defn angle-to-svg [a]
+  (/ (* 180 a) Math/PI))
+
+(defn boid-transform [b]
+  (let [[x y] (:loc b)]
+    (str "translate(" x "," y ") "
+         "rotate (" (-> b orientation angle-to-svg) ")")))
+
+(defn draw-boids []
+  (let [shapes (-> svg (.selectAll "polygon") (.data @boids))]
+    (-> shapes (.enter)
+      (.append "polygon")
+      (.attr "points" "20,0 0,10 -10,0 0,-10")
+      (.style "fill" #(if (:dead %1) "black" (colorfn %2))))
+    (-> shapes
+      (.attr {:transform boid-transform}))))
+
+(defn momentum [b]
+  (:lastd b))
+
+(defn randomness [b]
+  (let [s 0.05
+        x (rand-range -1.0 1.0)
+        y (rand-range -1.0 1.0)
+        l (Math/sqrt (+ (* x x) (* y y)))]
+    [(/ (* s x) l) (/ (* s y) l)]))
+
+(defn avoidance [b nbrs]
+  (let [pos (:loc b)
+        dxys (mapv #(mapv - pos (:loc %)) nbrs)
+        lensquared (mapv (fn [[x y]] (+ (* x x) (* y y))) dxys)
+        xys (mapv (fn [[dx dy] l]
+                    (let [denom (+ (* l l) 1)] [(/ dx denom) (/ dy denom)]))
+                  dxys lensquared)
+        v (reduce #(mapv + % %2) [0 0] xys)
+        ct (if (empty? nbrs) 1 (count nbrs))]
+    (mapv #(/ (* 9000 %) ct) v)))
+
+(defn cohesion [b nbrs]
+  (let [pos (:loc b)
+        dxys (mapv #(mapv - pos (:loc %)) nbrs)
+        v (reduce #(mapv + % %2) [0 0] dxys)
+        ct (if (empty? nbrs) 1 (count nbrs))]
+    (mapv #(/ (/ % -100) ct) v)))
+
+(defn consistency [b nbrs]
+  (let [pos (:loc b)
+        dxys (mapv momentum nbrs)
+        v (reduce #(mapv + % %2) [0 0] dxys)
+        ct (if (empty? nbrs) 1 (count nbrs))]
+    (mapv #(/ % ct) v)))
+
+(defn wrap [[x y]]
+  [(mod x width) (mod y height)])
+
+(defn is-near? [pos r b]
+  (let [dv  (mapv - pos (:loc b))
+        md  (reduce + (mapv Math/abs dv))]
+    ; are we already outside the bounding box (or coincident)
+    (if (or (> md r) (zero? md))
+      false
+      (let [[x y] dv
+            l (Math/sqrt (+ (* x x) (* y y)))]
+        (< l r)))))
+
+(defn neighbors-of [b]
+  (filter (partial is-near? (:loc b) (:neighborhood settings)) @boids))
+
+(defn update-one-boid [b]
+  (if (:dead b)
+    b
+    (let [loc (:loc b)
+          neighbors (neighbors-of b)
+          live-neighbors (remove :dead neighbors)
+          ran (mapv #(* % (:randomness  settings)) (randomness b))
+          mom (mapv #(* % (:momentum    settings)) (momentum b))
+          avd (mapv #(* % (:avoidance   settings)) (avoidance b neighbors))
+          coh (mapv #(* % (:cohesion    settings)) (cohesion b live-neighbors))
+          con (mapv #(* % (:consistency settings)) (consistency b live-neighbors))
+          [dx dy] (mapv + ran mom avd coh con)
+          dis (Math/sqrt (+ (* dx dx) (* dy dy)))
+          jump (:jump settings)
+          nowd (if (> dis 0)
+                  (map #(* (/ % dis) jump) [dx dy])
+                  [0 0])
+          lastd (mapv #(+ (* 0.7 %) (* 0.3 %2)) (momentum b) nowd)
+          loc (mapv + loc lastd)]
+      (merge b {:loc (wrap loc) :lastd lastd}))))
+
+(defn update-boids []
+  (swap! boids #(mapv update-one-boid %)))
+
+(timer (fn []
+  (update-boids)
+  (draw-boids)
+  false))
+----
+
+===== See Also
+
+* http://en.wikipedia.org/wiki/Boids[Boids]
