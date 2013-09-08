@@ -28,7 +28,7 @@ $ cd my-website-template-by-firstname-lastname
 
 Create a new project file template:
 
-.src/leiningen/new/my_website_template/project.clj
+.src/leiningen/new/my_website_template_by_firstname_lastname/project.clj
 [source,clojure]
 ----
 (defproject {{ns-name}} "0.1.0"
@@ -54,7 +54,7 @@ Next, open up the template definition  and add +project.clj+ to
 the list of files to be generated. Modify the default logic to
 expose a sanitized namespace string:
 
-.src/leiningen/new/my_website_template.clj
+.src/leiningen/new/my_website_template_by_firstname_lastname.clj
 [source,clojure]
 ----
 (ns leiningen.new.my-website-template-by-firstname-lastname
@@ -76,7 +76,7 @@ expose a sanitized namespace string:
 A good template gives users a basic skeleton on which to build. Create
 a new file with some barebones web server logic:
 
-.src/leiningen/new/my_website_template/site.clj
+.src/leiningen/new/my_website_template_by_firstname_lastname/site.clj
 [source,clojure]
 ----
 (ns {{ns-name}}.site
@@ -95,7 +95,7 @@ a new file with some barebones web server logic:
 Go back to the project file template and make +my-website.site+ the
 core runnable namespace for the project:
 
-.src/leiningen/new/my_website_template/project.clj
+.src/leiningen/new/my_website_template_by_firstname_lastname/project.clj
 [source,clojure]
 ----
   :main {{ns-name}}.site
@@ -103,7 +103,7 @@ core runnable namespace for the project:
 
 Head back to your template definition and change
 
-.src/leiningen/new/my_website_template.clj
+.src/leiningen/new/my_website_template_by_firstname_lastname.clj
 [source,clojure]
 ----
 ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)]
@@ -111,7 +111,7 @@ Head back to your template definition and change
 
 to
 
-.src/leiningen/new/my_website_template.clj
+.src/leiningen/new/my_website_template_by_firstname_lastname.clj
 [source,clojure]
 ----
 ["src/{{sanitized}}/site.clj" (render "site.clj" data)]
@@ -190,7 +190,7 @@ and rendering them in the context of a named set of strings. The
 `renderer` function creates a function that looks for mustache
 templates in a place determined by the name of your template. In this
 case it will look for templates in
-+src/leiningen/new/my_website_template/+.
++src/leiningen/new/my_website_template_by_firstname_lastname/+.
 
 [source,clojure]
 ----
