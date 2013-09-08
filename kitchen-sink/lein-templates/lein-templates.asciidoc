@@ -11,12 +11,13 @@ software.
 
 ===== Solution
 
-Leiningen templates provide exactly this functionality. We'll explore
-this by creating a template that lets Clojure programmers create a
-simple website.
+Leiningen templates give Clojure programmers an easy way to
+automatically generate customized project boilerplate with a single
+shell command. We'll explore them by creating a template for a simple
+web service.
 
-Generate a new template with `lein new ...`. Use your own name here
-because you'll be publishing this template to Clojars:
+First, generate a new template with `lein new ...`. Use your own name
+here because you'll be publishing this template to Clojars:
 
 [source,console]
 ----
@@ -39,9 +40,8 @@ Create a new project file template:
 ----
 
 Since you are creating a template for a web service, you'll want
-Clojure's `ring` and `ring-jetty-adapter` to be available be default
-in all projects created with this template, so add them to the
-+:dependencies+ section:
+Clojure's `ring` and `ring-jetty-adapter` to be available by default,
+so add them to the +:dependencies+ section:
 
 [source,clojure]
 ----
@@ -50,7 +50,7 @@ in all projects created with this template, so add them to the
                  [ring/ring-jetty-adapter "1.2.0"]]
 ----
 
-Then, open up the template definition  and add +project.clj+ to
+Next, open up the template definition  and add +project.clj+ to
 the list of files to be generated. Modify the default logic to
 expose a sanitized namespace string:
 
@@ -73,8 +73,8 @@ expose a sanitized namespace string:
              ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)])))
 ----
 
-Next you'll create add a starting point for users of our template.
-Create a new file with some barebones web server logic:
+A good template gives users a basic skeleton on which to build. Create
+a new file with some barebones web server logic:
 
 .src/leiningen/new/my_website_template/site.clj
 [source,clojure]
@@ -93,15 +93,13 @@ Create a new file with some barebones web server logic:
 ----
 
 Go back to the project file template and make +my-website.site+ the
-core runnable namespace for the project by adding:
+core runnable namespace for the project:
 
 .src/leiningen/new/my_website_template/project.clj
 [source,clojure]
 ----
   :main {{ns-name}}.site
 ----
-
-to the project map.
 
 Head back to your template definition and change
 
@@ -155,7 +153,7 @@ Leiningen uses Clojars as a well known source of templates. When you
 pass a template name to +lein new+, it first looks for a template by
 name in the local Maven repository. If it doesn't find it there it
 will look for an appropriately named template on +clojars.org+. If it
-finds one there it will download the template and use it to create the
+finds one it will download the template and use it to create the
 new project. The result is an almost magic-seeming project creation
 interface which lends itself extremely well to getting Clojure
 programmers going with new technology very quickly.
@@ -173,7 +171,7 @@ some of the tools available to the template developer.
 ----
 
 We first declare a namespace that matches the template name and
-require in some useful functions provided by leiningen for template
+require some useful functions provided by Leiningen for template
 development. +leiningen.new.templates+ contains a variety of other
 functions you may find useful, and is worth reviewing before you
 develop your own templates - problems you encounter during development
@@ -201,7 +199,7 @@ case it will look for templates in
   [name]
 ----
 
-Continuing the spirit of "convention over configuration", leiningen
+Continuing the spirit of "convention over configuration", Leiningen
 will search this namespace for a function with the same name as your
 template. You may execute arbitrary Clojure code in this function,
 which means you can make project generation arbitrarily sophisticated.
@@ -214,10 +212,9 @@ which means you can make project generation arbitrarily sophisticated.
 ----
 
 This is the data our renderer will use to create your new project
-files from the templates your provide. In this case we make the
-project name, the namespace that will result from that name, and a
-sanitized path based on that name available to all of our template
-files.
+files from the templates your provide. In this case we give our
+templates access to the project name, the namespace that will result
+from that name and a sanitized path based on that name..
 
 [source,clojure]
 ----
@@ -226,12 +223,11 @@ files.
              ["src/{{sanitized}}/site.clj" (render "site.clj" data)])))
 ----
 
-Finally, we pass +->files+ (read "to files") a list of
-filename/content tuples. The filename determins where in the new
+Finally, we pass the +->files+ (pronounces "to files") function a list
+of filename/content tuples. The filename determines where in the new
 project a file will end up. Content is generated using the +render+
-function we defined earlier. +render+ accepts a path to the template
-file relative to the expected template directory and the key/value map
-we created above.
+function we defined earlier. +render+ accepts a relative path to the
+template file and the key/value map we created above.
 
 Mustache templates are very simple, implementing nothing more than
 simple key substition. For example, the following snippet is used to
@@ -245,7 +241,7 @@ generate the +ns+ statement for our new project's main file,
     (:require [ring.adapter.jetty :refer [run-jetty]]))
 ----
 
-====== Conclusion
+===== Conclusion
 
 Leiningen templates are a powerful tool for saving Clojure developers
 from the drudgery of project setup. More importantly, they are an
