@@ -4,36 +4,19 @@
 
 ===== Problem
 
-A generic Clojure project requires very little boilerplate, so by
-default +lein+ just creates a minimal project file, a core code file,
-a core test file and a few text files that encourage good behavior.
-
-The domain you work in, however, may require you to create very similar
-projects with some regularity. Whether you work for a consulting shop
-and do lots of greenfield Clojure work, or work at a large company
-creating many small services, you'll probably develop a core set of
-dependencies and support files that you always want around. Open
-source projects like Storm or Cascalog generally require a few
-non-standard libraries, and can help their users come up to speed by
-providing a starting point containing useful examples.
-
-If you find yourself in any of these situations you'll eventually want
-a simple way to create projects with a specific set of boilerplate so
-that you can avoid tediously configuring project after project the
-same way.
+You regularly create new, similar projects and want an easy way to
+generate customized boilerplate. Or, you work on an open source
+project and want to give users an easy way to get started with your
+software.
 
 ===== Solution
 
-Leiningen templates provide exactly this functionality. Publishing a
-template to Clojars enables +lein+ users to create customized projects
-with one simple command. We'll explore this by creating a template
-that lets Clojure programmers create a simple website.
+Leiningen templates provide exactly this functionality. We'll explore
+this by creating a template that lets Clojure programmers create a
+simple website.
 
-To create your leiningen template, you'll first use a template designed
-for creating templates. Replace firstname-lastname with your actual
-first name and last name, or some other token that will be globally
-unique - if you intend to publish your template to clojars, it must
-have a globally unique name:
+Generate a new template with `lein new ...`. Use your own name here
+because you'll be publishing this template to Clojars:
 
 [source,console]
 ----
@@ -42,10 +25,9 @@ Generating fresh 'lein new' template project.
 $ cd my-website-template-by-firstname-lastname
 ----
 
-Create a new file called
-+src/leiningen/new/my_website_template/project.clj+ and add a project
-file template:
+Create a new project file template:
 
+.src/leiningen/new/my_website_template/project.clj
 [source,clojure]
 ----
 (defproject {{ns-name}} "0.1.0"
@@ -56,8 +38,10 @@ file template:
   :dependencies [[org.clojure/clojure "1.5.1"]])
 ----
 
-add two new dependencies to this project file, making your +:dependencies+
-section look like this:
+Since you are creating a template for a web service, you'll want
+Clojure's `ring` and `ring-jetty-adapter` to be available be default
+in all projects created with this template, so add them to the
++:dependencies+ section:
 
 [source,clojure]
 ----
@@ -66,11 +50,11 @@ section look like this:
                  [ring/ring-jetty-adapter "1.2.0"]]
 ----
 
-Then, open up the template definition at
-+src/leiningen/new/my_website_template.clj+ and add +project.clj+ to
-the list of files to be generated. We also modify the default logic to
+Then, open up the template definition  and add +project.clj+ to
+the list of files to be generated. Modify the default logic to
 expose a sanitized namespace string:
 
+.src/leiningen/new/my_website_template.clj
 [source,clojure]
 ----
 (ns leiningen.new.my-website-template-by-firstname-lastname
@@ -89,11 +73,10 @@ expose a sanitized namespace string:
              ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)])))
 ----
 
-Next we'll create add a starting point for users of our template.
-Create a new files called
-+src/leiningen/new/my_website_template/site.clj+ and add the following
-content:
+Next you'll create add a starting point for users of our template.
+Create a new file with some barebones web server logic:
 
+.src/leiningen/new/my_website_template/site.clj
 [source,clojure]
 ----
 (ns {{ns-name}}.site
@@ -109,10 +92,10 @@ content:
   (run-jetty handler {:port 3000}))
 ----
 
-Go back to +src/leiningen/new/my_website_template/project.clj+ and
-make +my-website.site+ the core runnable namespace for the project by
-adding:
+Go back to the project file template and make +my-website.site+ the
+core runnable namespace for the project by adding:
 
+.src/leiningen/new/my_website_template/project.clj
 [source,clojure]
 ----
   :main {{ns-name}}.site
@@ -120,8 +103,9 @@ adding:
 
 to the project map.
 
-Head back to +src/leiningen/new/my_website_template.clj+ and change
+Head back to your template definition and change
 
+.src/leiningen/new/my_website_template.clj
 [source,clojure]
 ----
 ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)]
@@ -129,6 +113,7 @@ Head back to +src/leiningen/new/my_website_template.clj+ and change
 
 to
 
+.src/leiningen/new/my_website_template.clj
 [source,clojure]
 ----
 ["src/{{sanitized}}/site.clj" (render "site.clj" data)]
@@ -147,7 +132,7 @@ $ lein run
 2013-08-22 16:41:43.379:INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:3000
 ----
 
-To make the template available to other users we'll need to publish it
+To make the template available to other users you'll need to publish it
 to Clojars. Head to http://clojars.org[clojars.org] to create a
 Clojars account and then deploy from the template project root:
 
