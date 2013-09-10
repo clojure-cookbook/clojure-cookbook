@@ -185,7 +185,7 @@ The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ fu
 (use-fixtures :once (selenium-fixture :firefox :chrome))
 ----
 
-It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. You'll need to guard against this when you write your tests by returning to a common state at the end of each test. For example, you might log out of the application or return to a certain top-level page.
+It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. Depending on your application's specific behavior, you may need to guard against this when you write your tests by beginning from a common browser state for each test. For example, you might delete all cookies or return to a certain top-level page. If this is necessary, you may find it useful to write this common reset behavior as an +:each+ fixture.
 
 Before you begin writing tests, modify your project.clj to include the following:
 
