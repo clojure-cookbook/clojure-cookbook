@@ -168,7 +168,7 @@ nil
 
 Your tests will use these functions to start up and run against the browser. To save yourself some work, you should set up the browser startup and teardown using a +clojure.test+ fixture.
 
-+clojure.test/use-fixtures+ allows you to run fixtures around each individual test or once around the namespace's test run as a whole. Use the latter, as restarting the browser for each test will be far too slow. 
++clojure.test/use-fixtures+ allows you to run functions around each individual test or once around the namespace's test run as a whole. Use the latter, as restarting the browser for each test will be far too slow. 
 
 The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ functions to start up a browser for each of the keywords it's provided and run the namespace's tests inside that browser. 
 
