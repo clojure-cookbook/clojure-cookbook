@@ -130,7 +130,7 @@ user=> (require '[clj-webdriver.taxi :as t])
 nil
 ----
 
-You'll need to have the browser installed, and the respective WebDriver implementations may require additional setup or configuration, depending on your platform. See the Selenium documentation for more information. Select a browser by choosing the WebDriver implementation:
+Select a browser by choosing the WebDriver implementation:
 
 [source,clojure]
 ----
