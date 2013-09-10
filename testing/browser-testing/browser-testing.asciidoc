@@ -46,7 +46,7 @@ Use the following example test file:
   (t/to "http://clojure.org")
 
   (is (= (t/title) "Clojure - home"))
-  (is (= (t/current-url) "http://example.com")))
+  (is (= (t/current-url) "http://example.com/")))
 
 (deftest ^:browser test-clojure-download
   (t/to "http://clojure.org")
@@ -69,19 +69,21 @@ lein test browser-testing.core-test
 
 lein test :only browser-testing.core-test/test-clojure
 
-FAIL in (test-clojure) (core_test.clj:19)
-expected: (= (t/current-url) "http://example.com")
-  actual: (not (= "http://clojure.org/" "http://example.com"))
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
+  actual: (not (= "http://clojure.org/" "http://example.com/"))
 
-[ Testing :htmlunit ]
+[ Testing :chrome ]
+Starting ChromeDriver (v2.3) on port 42116
+objc[69115]: Object 0x1277bb0 of class NSThread autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug
 
 lein test :only browser-testing.core-test/test-clojure
 
-FAIL in (test-clojure) (core_test.clj:19)
-expected: (= (t/current-url) "http://example.com")
-  actual: (not (= "http://clojure.org/" "http://example.com"))
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
+  actual: (not (= "http://clojure.org/" "http://example.com/"))
 
-Ran 4 tests containing 8 assertions.
+Ran 4 tests containing 10 assertions.
 2 failures, 0 errors.
 Tests failed.
 ----
@@ -180,7 +182,7 @@ The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ fu
       (test)
       (t/quit))))
 
-(use-fixtures :once (selenium-fixture :firefox :htmlunit))
+(use-fixtures :once (selenium-fixture :firefox :chrome))
 ----
 
 It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. You'll need to guard against this when you write your tests by returning to a common state at the end of each test. For example, you might log out of the application or return to a certain top-level page.
@@ -224,24 +226,26 @@ lein test browser-testing.core-test
 
 lein test :only browser-testing.core-test/test-clojure
 
-FAIL in (test-clojure) (core_test.clj:19)
-expected: (= (t/current-url) "http://example.com")
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
   actual: (not (= "http://clojure.org/" "http://example.com/"))
 
-[ Testing :htmlunit ]
+[ Testing :chrome ]
+Starting ChromeDriver (v2.3) on port 42116
+objc[69115]: Object 0x1277bb0 of class NSThread autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug
 
 lein test :only browser-testing.core-test/test-clojure
 
-FAIL in (test-clojure) (core_test.clj:19)
-expected: (= (t/current-url) "http://example.com")
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
   actual: (not (= "http://clojure.org/" "http://example.com/"))
 
-Ran 2 tests containing 4 assertions.
+Ran 4 tests containing 10 assertions.
 2 failures, 0 errors.
 Tests failed.
 ----
 
-Clearly, this test is bound to fail - replace +http://example.com/+ with +http://clojure.org/+ and your test will pass.
+Clearly, this test was bound to fail - replace +http://example.com/+ with +http://clojure.org/+ and it will pass.
 
 This test is pretty basic. In many real tests, you'll load a URL, perform an action, and verify that the application behaved as expected. Write another test that interacts with the page:
 
