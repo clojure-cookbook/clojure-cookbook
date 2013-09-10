@@ -249,7 +249,7 @@ Tests failed.
 
 Clearly, this test was bound to fail - replace +http://example.com/+ with +http://clojure.org/+ and it will pass.
 
-This test is very basic. In most real tests, you'll load a URL, perform an action, and verify that the application behaved as expected. Write another test that interacts with the page:
+This test is very basic. In most real tests, you'll load a URL, interact with the page, and verify that the application behaved as expected. Write another test that interacts with the page:
 
 [source,clojure]
 ----
