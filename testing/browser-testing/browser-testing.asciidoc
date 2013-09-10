@@ -138,7 +138,7 @@ user=> (t/set-driver! {:browser :firefox})
 #clj_webdriver.driver.Driver{:webdriver #<Title: , URL: about:blank, Browser: firefox, Version: 21.0, JS Enabled: true, Native Events Enabled: false, Object: FirefoxDriver: firefox on MAC (a6fe269e-fee6-c041-42de-e4eed6594f34)>, :capabilities nil, :cache-spec {:cache nil}, :actions #<Actions org.openqa.selenium.interactions.Actions@655fd43>}
 ----
 
-This will open the browser you picked, ready to receive commands. Load a URL, verify the browser loaded the URL you requested, and read the page's title:
+This will open the browser you picked, ready to receive commands. Try a few functions from the +clj-webdriver.taxi+ namespace:
 
 [source,clojure]
 ----
