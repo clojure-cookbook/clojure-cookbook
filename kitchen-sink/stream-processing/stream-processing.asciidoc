@@ -227,7 +227,7 @@ for the Kestrel queueing system.
 Every time a user takes an action in our system we need to determine
 whether every other user in the system will be interested in it. Given
 a simple interest system like Twitter, where users express interest in
-a single way (ie, user follows) we could simply look at the follower list
+a single way (i.e., user follows) we could simply look at the follower list
 of the user who took the action and update feeds accordingly. In a
 more complex system, however, interest might be expressed by having
 liked the item the action was taken against, following a collection
