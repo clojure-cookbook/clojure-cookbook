@@ -63,24 +63,25 @@ used by pallet to describe what we want on the server.
  deployer-server
  (server-spec
   :extends                            ; <1>
-  [(java/server-spec {})
+  [(java/server-spec {})              ; <2>
+   (runit/server-spec {})             ; <3>
    (app-deploy/server-spec
-    {:app-root "/opt/jenkins"         ; <2>
+    {:app-root "/opt/jenkins"         ; <4>
      :artifacts
      {:from-maven-repo
       [{:coord '[org.jenkins-ci.main/jenkins-war "1.529" :extension "war"]
         :path "jenkins.war"}]}
-     :repositories {"jenkins"          ; <3>
+     :repositories {"jenkins"         ; <5>
                     {:url "http://repo.jenkins-ci.org/public"}}
-     :run-command "java -jar /opt/jenkins/jenkins.war"})
-   (runit/server-spec {})]))           ; <4>
+     :run-command "java -jar /opt/jenkins/jenkins.war"})]))
 ...
 ----
 
  1. extends allows you to compose other +sever-spec+ definitions
- 2. the +:app-root+ determines the root directory for the deployment artifacts
- 3. your project uberjar will be found by looking in a specific repository
- 4. ensures runit is installed
+ 3. ensures java is installed
+ 3. ensures runit is installed
+ 4. the +:app-root+ determines the root directory for the deployment artifacts
+ 5. your project uberjar will be found by looking in a specific repository
 
 Now we have the server described, we need to tell Pallet the
 credentials we want to use on EC2:
