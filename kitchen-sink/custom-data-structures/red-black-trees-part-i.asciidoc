@@ -192,4 +192,4 @@ In <<sec_red_black_part_ii>> we'll address this very issue.
 
 * See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red Black Trees on Wikipedia] for a more traditional take on this interesting data structure.
 
-* For the functional approach used in this recipce, the book http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent source. It deals with how to efficiently implement data structures in a functional setting. The author chose to use ML and Haskell but its concepts are transferable to Clojure, as demonstrated above.
+* For the functional approach used in this recipe, the book http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent source. It deals with how to efficiently implement data structures in a functional setting. The author chose to use ML and Haskell but its concepts are transferable to Clojure, as demonstrated above.

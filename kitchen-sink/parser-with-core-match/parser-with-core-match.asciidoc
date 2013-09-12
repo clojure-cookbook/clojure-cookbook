@@ -72,7 +72,7 @@ for brevity.].  Note the special `([...] :seq)` syntax for matching
 over lists, used here to represent a `fn` expression. Also notice 
 that to match on the literal `fn`, it had to be quoted in the match 
 pattern.  Interestingly, since the `body` expression should also be 
-accepted by this parser, it makes a self-recurdive call,
+accepted by this parser, it makes a self-recursive call,
 `(simple-clojure-parser body)`, in the right-hand side of the match 
 pattern.
 
