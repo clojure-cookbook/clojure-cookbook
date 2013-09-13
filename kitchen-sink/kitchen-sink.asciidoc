@@ -34,3 +34,5 @@ include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 include::extend-built-in/extend-built-in.asciidoc[]
 
 include::profiling-with-timbre/profiling-with-timbre.asciidoc[]
+
+include::resource-to-sequence/resource-to-sequence.asciidoc[]
