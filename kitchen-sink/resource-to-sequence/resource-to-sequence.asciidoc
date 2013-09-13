@@ -22,7 +22,6 @@ The initial position depends on the context that this pattern is used in, it can
 
 [source,clojure]
 ----
-
 (defn buffered-select [f-select init-pos]
     "Creates a lazy sequence of messages for this datasource"
     (letfn [  
@@ -31,7 +30,6 @@ The initial position depends on the context that this pattern is used in, it can
                     (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))
            ]
          (m-seq nil init-pos)))
-
 ----
 
 You can explore the usage of this recipe by going through a simple file reading example.
@@ -66,16 +64,14 @@ You can explore the usage of this recipe by going through a simple file reading 
 
 (def db (load-example))
 
-;normally you'd make the max argument much bigger for performance reasons,
-;here its set to 5 to show how connecting and quering is done.
+;;normally you'd make the max argument much bigger for performance reasons,
+;;here its set to 5 to show how connecting and quering is done.
 (defn select [pos] ((:bytes db) pos 5 ) )
 
 (def bts (buffered-select select 0))
 
 (pprint (take 20 bts))
 ;; -> (0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19)
-
-
 ----
 
 
