@@ -2,11 +2,11 @@
 
 // By Osbert Feng (osbert)
 
-==== Problem
+===== Problem
 
 You need to parse RSS data.
 
-==== Solution
+===== Solution
 
 Use +feedparser-clj.core/parse-feed+ to parse RSS data from a URL.
 
@@ -25,7 +25,7 @@ Use +feedparser-clj.core/parse-feed+ to parse RSS data from a URL.
 ;; -> {:authors [...] :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} {:link ... }] ... }
 ----
 
-==== Discussion
+===== Discussion
 
 +feedparser-clj+ is a wrapper around the Java ROME library which
 capable of processing a variety of RSS and Atom versions.
@@ -40,7 +40,7 @@ ROME returns a com.sun.syndication.feed.synd.SyndFeedImpl
 object under the covers, but it is generally preferred to return
 Clojure maps (or records) instead of Java objects.
 
-===== Lazy Pagination
+====== Lazy Pagination
 
 Some RSS feeds will have +<link rel="next">+ elements that indicate
 that the returned list is incomplete and more entries can be retrieved

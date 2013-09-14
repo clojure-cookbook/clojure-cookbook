@@ -1,0 +1,37 @@
+=== Deleting a directory recursively
+
+////
+Author: Alan Busby @thebusby
+////
+
+===== Problem
+
+You want to delete a directory, and all the files and directories it contains.
+
+===== Solution
+
+Use +java.io.File+ to identify directories, list their contents, and to then
+delete them when possible.
+
+[source,clojure]
+----
+(defn delete-all [path-str]
+ (let [dir (java.io.File. path-str)
+       del #(if-not (.delete %)
+              (throw (Exception. (str "Unable to delete: "
+                                      (.getAbsolutePath %)))))]
+   (doseq [file (.listFiles dir)]
+     (if (.isDirectory file)
+       (delete-all (.getAbsolutePath file))
+       (del file)))
+   (del dir)))
+----
+
+===== Discussion
+
+A directory must be empty before it can be deleted, hence the contents of each
+directory is deleted before finally deleting the directory itself.
+
+It is important to remember that +java.io.File/delete+ may return false if it
+is unable to delete the file. This could be caused by file permissions, mount
+properties, etc; and in that case you'll need to determine what to do.

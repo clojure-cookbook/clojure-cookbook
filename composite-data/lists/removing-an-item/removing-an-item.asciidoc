@@ -1,4 +1,4 @@
-==== "Removing" an item from a list
+=== "Removing" an item from a list
 
 ===== Problem
 

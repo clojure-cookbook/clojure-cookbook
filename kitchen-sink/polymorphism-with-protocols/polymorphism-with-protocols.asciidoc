@@ -1,0 +1,69 @@
+////
+:Author: David McNeil
+////
+
+[[polymorphism_with_protocols]]
+
+=== Polymorphism With Protocols
+
+===== Problem
+
+You want to create a polymorphic function that dispatches at native Java speeds.
+
+===== Solution
+
+Define the function signatures as part of a protocol.
+
+[source,clojure]
+----
+(defprotocol Animal
+  "Functions for dealing with animals."
+  (get-species [animal])
+  (speak [animal n]))
+----
+
+Define a type and implement the protocol.
+
+[source,clojure]
+----
+(deftype Dog []
+  Animal
+  (get-species [dog] :dog)
+  (speak [dog n] (clojure.string/join " " (repeat n "arf"))))
+----
+
+Create a Dog and invoke the protocol functions on it.
+
+[source,clojure]
+----
+(get-species (Dog.))
+;; -> :dog
+
+(speak (Dog.) 3)
+;; -> "arf arf arf"
+----
+
+Create another type and implement the protocol differently.
+
+[source,clojure]
+----
+(deftype Cat [breed]
+  Animal
+  (get-species [cat] (keyword (str breed "-cat")))
+  (speak [cat n] (str "me" (reduce str (repeat n "o")) "w")))
+----
+
+Create a Cat and invoke the protocol functions.
+
+[source,clojure]
+----
+(get-species (Cat. "minx"))
+;; -> :minx-cat
+
+(speak (Cat. "minx") 5)
+;; -> "meooooow"
+----
+
+===== Discussion
+
+Using protocols and types in this way is useful for functions that have alternate implementations based on the type of the target. For performance critical code this approach is superior to a more ad-hoc approach using maps and multi-methods because when the functions are called they are dispatched using the native Java polymorphic dispatch which is highly optimized in the JVM. However, this approach gives up some of the flexibility afforded by multi-methods. Specifically, only the type of the first argument to each function can be used to dispatch the call.

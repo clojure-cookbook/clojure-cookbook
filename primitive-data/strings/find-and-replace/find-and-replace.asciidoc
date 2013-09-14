@@ -1,5 +1,5 @@
 [[sec_primitives_strings_find_replace]]
-==== Performing Find and Replace on Strings
+=== Performing Find and Replace on Strings
 
 ===== Problem
 

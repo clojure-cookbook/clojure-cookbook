@@ -1,0 +1,106 @@
+////
+:Author: Adam Bard
+:Email: adam@adambard.com
+////
+
+=== Storing Sessions with Ring
+
+===== Problem
+
+You need to store secure data about a logged-in user.
+
+===== Solution
+
+Use `ring.middleware.session.wrap-session` to add sessions to your app.
+
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [ring.adapter.jetty :as jetty]
+    [ring.middleware.session :refer [wrap-session]]
+    [ring.middleware.params :refer [wrap-params]]))
+
+(def LOGIN_FORM
+  (str
+    "<html>"
+    "  <form action='' method='post'>"
+    "    Username: <input type='text' name='username'><br/>"
+    "    Password: <input type='text' name='password'><br/>"
+    "    <input type='submit' value='Log In'>"
+    "  </form>"
+    "</html>"))
+
+(defn show-form []
+  {:body LOGIN_FORM
+   :status 200 })
+
+(defn show-name
+  "A response showing that we know the user's name"
+  [name session]
+  {:body (str "Hello, " name)
+   :status 200
+   :session session })
+
+(defn do-login
+  "Checks the submitted form data and updates the session if necessary"
+  [params session]
+  (if (and (= (params "username") "jim")
+           (= (params "password") "password"))
+    (assoc session :user "jim")
+    session))
+
+
+(defn handler
+  "Log a user in, or not"
+  [{session :session params :form-params :as req}]
+  (let [session (do-login params session)
+        username (:user session)]
+
+    (if username
+      (show-name username session)
+      (show-form))))
+
+(def wrapped-handler
+  (-> handler
+      wrap-session
+      wrap-params))
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty wrapped-handler {:port 3000}))
+----
+
+===== Discussion
+
+https://github.com/ring-clojure/ring/wiki/Sessions[Ring's session middleware]
+works just like cookies: get them from the `:session` request map,
+and set them by including a `:session` key in the response map. Whatever
+you pass to `:session` is up to you, but usually you'll want to use a map
+to store keys and values.
+
+Behind the scenes, Ring sets a cookie called `ring-session`, which contains a unique
+ID identifying the session. When a request comes in, the session middleware gets the
+session ID from the request, then reads the value of the session from some session store.
+
+Which session store the middleware uses is configurable. The default is to use an in-memory session
+store, which is useful for development but has the side effect of losing sessions whenever
+you restart the app. Ring includes an encrypted cookie store as well, which *is* persistent,
+ and you can get third-party libs for many popular storages, including
+https://github.com/killme2008/ring-session-memcached[memcached] and
+https://github.com/wuzhe/clj-redis-session[Redis]. You can write your own, too.
+
+You can set your store by passing an options map with a `:store` parameter to `wrap-session`.
+
+[source, clojure]
+----
+(wrap-session handler {:store (my-store)}))
+----
+
+To set the value of `:session`, just pass it along with your response. If you don't
+need the session changed, you can leave `:session` out of your response. If you want to actually clear the
+session, you'll need to pass `nil` as your session on your response.
+
+
+
+

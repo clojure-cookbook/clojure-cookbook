@@ -1,4 +1,4 @@
-==== Creating a Map
+=== Creating a Map
 
 ===== Problem
 

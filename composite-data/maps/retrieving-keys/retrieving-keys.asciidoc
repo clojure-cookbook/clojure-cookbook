@@ -1,4 +1,4 @@
-==== Retrieving keys from a map
+=== Retrieving keys from a map
 
 ===== Problem
 

@@ -1,0 +1,272 @@
+////
+:Author: Matthew Maravillas
+:Email: maravillas@gmail.com
+////
+
+=== Browser Testing
+
+===== Problem
+
+You want to run browser-based tests.
+
+===== Solution
+
+Use Selenium WebDriver via the clj-webdriver library. This will allow you to use clojure.test to test your application's behavior in actual browser environments.
+
+Use the following project.clj:
+
+[source,clojure]
+----
+(defproject browser-testing "0.1.0-SNAPSHOT"
+  :profiles {:dev {:dependencies [[clj-webdriver "0.6.0"]]}}
+  :test-selectors {:default (complement :browser)
+                   :browser :browser})
+----
+
+Use the following example test file:
+
+[source,clojure]
+----
+(ns browser-testing.core-test
+  (:use clojure.test)
+  (:require [clj-webdriver.taxi :as t]))
+
+(defn selenium-fixture
+  [& browsers]
+  (fn [test]
+    (doseq [browser browsers]
+      (println (str "\n[ Testing " browser " ]"))
+      (t/set-driver! {:browser browser})
+      (test)
+      (t/quit))))
+
+(use-fixtures :once (selenium-fixture :firefox :chrome))
+
+(deftest ^:browser test-clojure
+  (t/to "http://clojure.org")
+
+  (is (= (t/title) "Clojure - home"))
+  (is (= (t/current-url) "http://example.com/")))
+
+(deftest ^:browser test-clojure-download
+  (t/to "http://clojure.org")
+  (t/click {:xpath "//div[@class='menu']/*/a[text()='Download']"})
+
+  (is (= (t/title) "Clojure - downloads"))
+  (is (= (t/current-url) "http://clojure.org/downloads"))
+  (is (re-find #"Rich Hickey" (t/text {:id "foot"}))))
+----
+
+Run the test on the command line:
+
+[source,console]
+----
+$ lein test :browser
+
+lein test browser-testing.core-test
+
+[ Testing :firefox ]
+
+lein test :only browser-testing.core-test/test-clojure
+
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
+  actual: (not (= "http://clojure.org/" "http://example.com/"))
+
+[ Testing :chrome ]
+Starting ChromeDriver (v2.3) on port 42116
+objc[69115]: Object 0x1277bb0 of class NSThread autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug
+
+lein test :only browser-testing.core-test/test-clojure
+
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
+  actual: (not (= "http://clojure.org/" "http://example.com/"))
+
+Ran 4 tests containing 10 assertions.
+2 failures, 0 errors.
+Tests failed.
+----
+
+===== Discussion
+
+Browser tests verify that your application behaves as expected in your targeted browsers. They test the appearance and behavior of your application as rendered in the browser itself. 
+
+Manually testing applications in a browser is a tedious and repetitive task. The amount of time and effort required for a complete test run can be unwieldy for even a moderately sized project. Automating browser tests ensures they are run consistently and relatively quickly, resulting in reproducible errors and more frequent test runs. However, automated tests lack the visual inspection by a human inherent to manual tests. For example, a manual test could easily catch a positioning error that an automated test would likely miss if it were not explicitly tested for.
+
+To write browser tests in Clojure, use the clj-webdriver library with your preferred test framework, such as clojure.test. clj-webdriver provides a clean Clojure interface to Selenium WebDriver, a tool used to control and automate browser actions.
+
+Some additional configuration may be required to use Selenium WebDriver or clj-webdriver with your browsers of choice. See the Selenium WebDriver documentation at http://code.google.com/p/selenium and the clj-webdriver documentation at http://github.com/semperos/clj-webdriver.
+
+// TODO: Are these URLs appropriate? Do they need to be asciidoc formatted in some way?
+
+Before you dive into testing, you can experiment with clj-webdriver at a REPL. Start up a REPL with clj-webdriver:
+
+// TODO: Do we need to include lein try instructions?
+
+[source,console]
+----
+$ lein try clj-webdriver "0.6.0"
+nREPL server started on port 61843
+REPL-y 0.1.10
+Clojure 1.5.1
+    Exit: Control+D or (exit) or (quit)
+Commands: (user/help)
+    Docs: (doc function-name-here)
+          (find-doc "part-of-name-here")
+  Source: (source function-name-here)
+          (user/sourcery function-name-here)
+ Javadoc: (javadoc java-object-or-class-here)
+Examples from clojuredocs.org: [clojuredocs or cdoc]
+          (user/clojuredocs name-here)
+          (user/clojuredocs "ns-here" "name-here")
+----
+
+Require the +clj-webdriver.taxi+ namespace:
+
+[source,clojure]
+----
+user=> (require '[clj-webdriver.taxi :as t])
+nil
+----
+
+Select a browser by choosing the WebDriver implementation:
+
+[source,clojure]
+----
+user=> (t/set-driver! {:browser :firefox})
+#clj_webdriver.driver.Driver{:webdriver #<Title: , URL: about:blank, Browser: firefox, Version: 21.0, JS Enabled: true, Native Events Enabled: false, Object: FirefoxDriver: firefox on MAC (a6fe269e-fee6-c041-42de-e4eed6594f34)>, :capabilities nil, :cache-spec {:cache nil}, :actions #<Actions org.openqa.selenium.interactions.Actions@655fd43>}
+----
+
+This will open the browser you picked, ready to receive commands. Try a few functions from the +clj-webdriver.taxi+ namespace:
+
+[source,clojure]
+----
+user=> (t/to "http://clojure.org/")
+#clj_webdriver.driver.Driver{:webdriver #<Title: Clojure - home, URL: http://clojure.org/, Browser: firefox, Version: 21.0, JS Enabled: true, Native Events Enabled: false, Object: FirefoxDriver: firefox on MAC (a6fe269e-fee6-c041-42de-e4eed6594f34)>, :capabilities nil, :cache-spec {:cache nil}, :actions #<Actions org.openqa.selenium.interactions.Actions@655fd43>}
+user=> (t/current-url)
+"http://clojure.org/"
+user=> (t/title)
+"Clojure - home"
+user=> (t/click {:xpath "//div[@class='menu']/*/a[text()='Download']"})
+nil
+user=> (t/current-url)
+"http://clojure.org/downloads"
+user=> (t/title)
+"Clojure - downloads"
+user=> (t/text {:id "foot"})
+"Copyright 2008-2012 Rich Hickey"
+----
+
+When you're finished, close the browser from the REPL:
+
+[source,clojure]
+----
+user=> (t/quit)
+nil
+----
+
+Your tests will use these functions to start up and run against the browser. To save yourself some work, you should set up the browser startup and teardown using a +clojure.test+ fixture.
+
++clojure.test/use-fixtures+ allows you to run functions around each individual test or once around the namespace's test run as a whole. Use the latter, as restarting the browser for each test will be far too slow. 
+
+The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+ functions to start up a browser for each of the keywords it's provided and run the namespace's tests inside that browser. 
+
+[source,clojure]
+----
+(defn selenium-fixture
+  [& browsers]
+  (fn [test]
+    (doseq [browser browsers]
+      (t/set-driver! {:browser browser})
+      (test)
+      (t/quit))))
+
+(use-fixtures :once (selenium-fixture :firefox :chrome))
+----
+
+It's important to note that using a +:once+ fixture means the state of the browser will persist between tests. Depending on your particular application's behavior, you may need to guard against this when you write your tests by beginning from a common browser state for each test. For example, you might delete all cookies or return to a certain top-level page. If this is necessary, you may find it useful to write this common reset behavior as an +:each+ fixture.
+
+Before you begin writing tests, modify your project.clj to include the following:
+
+[source,clojure]
+----
+(defproject browser-testing "0.1.0-SNAPSHOT"
+  :profiles {:dev {:dependencies [[clj-webdriver "0.6.0"]]}}
+  :test-selectors {:default (complement :browser)
+                   :browser :browser})
+----
+
+This adds +clj-webdriver+ as a dev dependency. It also sets up a Leiningen test selector named +:browser+.
+
+Test selectors let you run groups of tests independently. This prevents slower browser tests from impacting the faster, more frequently run unit and lower level integration tests.
+
+In this case, you've added a new selector and modified the default. The new +:browser+ selector will only match tests that have been annotated with a +:browser+ metadata key. The default selector will now exclude any tests with this annotation.
+
+With the fixture and test selectors in place, you can begin writing your tests. Start with something simple:
+
+[source,clojure]
+----
+(deftest ^:browser test-clojure
+  (t/to "http://clojure.org/")
+
+  (is (= (t/title) "Clojure - home"))
+  (is (= (t/current-url) "http://example.com/")))
+----
+
+Note the +^:browser+ metadata attached to the test. This test is annotated as a browser test, and will only run when that test selector is chosen.
+
+In this test, as in the REPL experiment, you navigate to a URL and check its title and URL. Run this test at the command line, passing the additional test selector argument to +lein test+:
+
+[source,console]
+----
+$ lein test :browser
+
+lein test browser-testing.core-test
+
+[ Testing :firefox ]
+
+lein test :only browser-testing.core-test/test-clojure
+
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
+  actual: (not (= "http://clojure.org/" "http://example.com/"))
+
+[ Testing :chrome ]
+Starting ChromeDriver (v2.3) on port 42116
+objc[69115]: Object 0x1277bb0 of class NSThread autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug
+
+lein test :only browser-testing.core-test/test-clojure
+
+FAIL in (test-clojure) (core_test.clj:20)
+expected: (= (t/current-url) "http://example.com/")
+  actual: (not (= "http://clojure.org/" "http://example.com/"))
+
+Ran 4 tests containing 10 assertions.
+2 failures, 0 errors.
+Tests failed.
+----
+
+Clearly, this test was bound to fail - replace +http://example.com/+ with +http://clojure.org/+ and it will pass.
+
+This test is very basic. In most real tests, you'll load a URL, interact with the page, and verify that the application behaved as expected. Write another test that interacts with the page:
+
+[source,clojure]
+----
+(deftest ^:browser test-clojure-download
+  (t/to "http://clojure.org")
+  (t/click {:xpath "//div[@class='menu']/*/a[text()='Download']"})
+
+  (is (= (t/title) "Clojure - downloads"))
+  (is (= (t/current-url) "http://clojure.org/downloads"))
+  (is (re-find #"Rich Hickey" (t/text {:id "foot"}))))
+----
+
+In this test, after loading the URL, the browser is directed to click on an anchor located with an XPath selector. To verify that the expected page has loaded, the test compares the title and URL as in the first test. Lastly, it finds the text content of the +#foot+ element containing the copyright and verifies that the text includes the expected name.
+
+clj-webdriver provides many other capabilities for interacting with your application. For more information, see the clj-webdriver API documentation.
+
+===== See also
+
+* https://github.com/semperos/clj-webdriver[clj-webdriver]
+* https://code.google.com/p/selenium[Selenium]

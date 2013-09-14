@@ -1,0 +1,179 @@
+=== Publish to RabbitMQ
+// By Michael Klishin (michaelklishin)
+
+===== Problem
+
+You want to communicate with other applications over http://rabbitmq.com[RabbitMQ]
+and need to publish messages from Clojure.
+
+===== Solution
+
+Use http://clojurerabbitmq.info[Langohr], a small feature complete RabbitMQ client, to communicate
+with RabbitMQ.
+
+In order to successfully go through this recipe, you should have
+RabbitMQ installed. You can find details on how to install RabbitMQ
+here: http://www.rabbitmq.com/download.html.
+
+RabbitMQ is a multi-protocol broker. This chapter will only cover
+AMQP 0-9-1, RabbitMQ's original protocol.
+
+
+Include Langohr into your project file:
+
+.project.clj
+[source,clojure]
+----
+(defproject langohr-example "1.0.0-SNAPSHOT"
+              :dependencies [[com.novemberain/langohr "1.4.1"]])
+----
+
+Next, make sure that RabbitMQ is running and connect to it.
+
+[source,clojure]
+----
+(ns langohr.example
+  (:require [langohr.core :as rmq]))
+
+;; Will connect to a RabbitMQ cluster node on localhost:5672
+(let [conn (rmq/connect {:hostname "localhost"})]
+  (comment ...))
+----
+
+AMQP 0-9-1 is a multi-channeled protocol. It multiplexes several
+lightweight channels over a single TCP connection. Next, lets
+open a channel we can use to publish messages:
+
+[source,clojure]
+----
+(ns langohr.example
+  (:require [langohr.core    :as rmq]
+            [langohr.channel :as lch]))
+
+;; Connect and open a channel that will be used to interact
+;; with RabbitMQ
+(let [conn (rmq/connect {:hostname "localhost"})
+      ch   (lch/open conn)]
+  (comment ...))
+----
+
+Having a channel open, you can declare or use existing exchanges.
+Exchanges are like post offices: when a message is published to an exchange,
+the exchange will route the message to one or more queues.
+
+Exchanges, queues and routing rules (called bindings) are defined by applications.
+
+RabbitMQ provides a number of pre-defined exchanges. Next, let's publish a
+message "hello" to an exchange named "amq.fanout". For that, we need to use
++langohr.basic/publish+:
+
+[source,clojure]
+----
+(ns langohr.example
+  (:require [langohr.core     :as rmq]
+            [langohr.channel  :as lch]
+            [langohr.basic    :as lb]))
+
+(let [conn (rmq/connect {:hostname "localhost"})
+      ch   (lch/open conn)
+      x    "amq.fanout"]
+  (lb/publish ch x "" "hello"))
+----
+
+Third argument to +langohr.basic/publish+ is called *routing key*. It's a piece
+of metadata that exchanges use to route the message.
+Different exchanges have different routing rules. Fanout exchanges, like the
+one we use in the example above, route a copy of a message to every queue
+bound to them.
+
+Messages can have properties associated with them, for example, content type
+or message type. They are passed as keyword arguments to +langohr.basic/publish+:
+
+[source,clojure]
+----
+(ns langohr.example
+  (:require [langohr.core     :as rmq]
+            [langohr.channel  :as lch]
+            [langohr.basic    :as lb]))
+
+(let [conn (rmq/connect {:hostname "localhost"})
+      ch   (lch/open conn)
+      x    "amq.fanout"]
+  (lb/publish ch x "" "hello" :content-type "text/plain" :type "logs.info"))
+----
+
+To declare an exchange, use +langohr.exchange/fanout+, +langohr.exchange/topic+, +langohr.exchange/direct+,
++langohr.exchange/headers+, and +langohr.exchange/declare+ functions:
+
+[source,clojure]
+----
+(ns langohr.example
+  (:require [langohr.core     :as rmq]
+                [langohr.channel  :as lch]
+                [langohr.exchange :as lx]))
+
+(let [conn (rmq/connect {:hostname "localhost"})
+      ch   (lch/open conn)]
+  (lx/fanout ch "events" :durable true))
+----
+
+
+===== Discussion
+
+RabbitMQ supports AMQP 0-9-1, MQTT, STOMP, and AMQP 1.0.
+This recipe focuses on its original protocol, AMQP 0-9-1.
+
+So far we have demonstrated just enough functionality to publish messages to a fanout
+exchange. We will briefly cover other types, queues and how routing happens with RabbitMQ's
+model.
+
+An *exchange* accepts messages from a producer application and routes
+them to message queues. They can be thought of as the
+"mailboxes". Unlike some other messaging middleware products and
+protocols, in AMQP 0-9-1, messages are *not* published directly to
+queues.  Messages are published to exchanges that route them to
+queue(s) using rules called *bindings*.
+
+There are multiple exchange types, each with its own routing
+semantics. Custom exchange types can be created to deal with
+sophisticated routing scenarios (e.g. routing based on content or geolocation
+data) or just for convenience.
+
+A *binding* is an association between a queue and an exchange. A queue
+must be bound to at least one exchange in order to receive messages
+from publishers.
+
+Exchanges have several attributes associated with them:
+
+ * Name
+ * Type (direct, fanout, topic, headers or some custom type)
+ * Durability (should it survive broker restarts?)
+ * Whether the exchange is auto-deleted when no longer used
+ * Custom metadata (sometimes known as *x-arguments*)
+
+There are four built-in exchange types in RabbitMQ:
+
+ * Direct
+ * Fanout
+ * Topic
+ * Headers
+
+Unlike exchanges, queues in RabbitMQ are all of the same kind.
+They also have a name and attributes. It is possible to
+consumer messages on demand ("pull API") or set up a subscription
+(called *consumer*) to have messages pushed to the client.
+
+Key functions related to working with
+exchanges and publishing can be found in *langohr.exchange* and
+*langohr.basic* namespaces.
+
+Langohr is a feature complete RabbitMQ client that supports
+AMQP 0-9-1, RabbitMQ extensions to it and provides HTTP
+API client.
+
+===== See Also
+See http://clojurerabbitmq.info[Langohr documentation] and
+http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn more.
+
+Langohr http://reference.clojurerabbitmq.info[API reference] is also
+available.

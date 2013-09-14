@@ -1,4 +1,4 @@
-==== Adding and removing items
+=== Adding and removing items
 
 ===== Problem
 

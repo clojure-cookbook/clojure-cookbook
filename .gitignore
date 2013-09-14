@@ -1,2 +1,9 @@
 target
 .build
+*~
+Gemfile*
+Guardfile
+bin
+.bundle
+*.html
+*.css

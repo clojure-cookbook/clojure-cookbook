@@ -1,5 +1,5 @@
 [[sec_primitives_strings_re_matches]]
-==== Pulling Values Out of a String Using Regular Expressions
+=== Pulling Values Out of a String Using Regular Expressions
 
 ===== Problem
 

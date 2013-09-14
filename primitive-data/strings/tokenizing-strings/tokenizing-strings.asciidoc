@@ -1,4 +1,4 @@
-==== Splitting a string into parts
+=== Splitting a string into parts
 
 ===== Problem
 

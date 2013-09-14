@@ -1,5 +1,5 @@
 [[sec_primitives_math_type_hinting]]
-==== Alleviating Performance Problems With Type Hinting
+=== Alleviating Performance Problems With Type Hinting
 
 ===== Problem
 

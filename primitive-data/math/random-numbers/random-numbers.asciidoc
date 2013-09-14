@@ -1,4 +1,4 @@
-==== Generating Random Numbers
+=== Generating Random Numbers
 
 ===== Problem
 

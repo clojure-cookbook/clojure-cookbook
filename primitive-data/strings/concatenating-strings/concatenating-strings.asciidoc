@@ -1,5 +1,5 @@
 [[sec_primitives_building_strings_from_parts]]
-==== Building a string from parts
+=== Building a string from parts
 
 ===== Problem
 
@@ -48,7 +48,7 @@ the next. When provided +nil+ or invoked without arguments +str+ will
 return the identity value for strings, the empty string.
 
 When it comes to string concatenation Clojure takes a fairly hands-off
-approach. There is nothing string-specific about +(apply str ...)+, it
+approach. There is nothing string-specific about `(apply str ...)`, it
 is merely the higher-order function +apply+ being used to emulate
 calling +str+ with a variable number of arguments.
 

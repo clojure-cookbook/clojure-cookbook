@@ -1,4 +1,20 @@
 [[ch_databases]]
 == Databases
 
-include::databases/databases-up-n-running/databases-up-n-running.asciidoc[]
+include::connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[]
+
+include::SQL-database-connection-pooling/SQL-database-connection-pooling.asciidoc[]
+
+include::manipulating-an-SQL-database/manipulating-an-SQL-database.asciidoc[]
+
+include::text-search/text-search.asciidoc[]
+
+include::cassandra-with-cassaforte/cassandra-with-cassaforte.asciidoc[]
+
+include::mongo/mongo.asciidoc[]
+
+include::traversing-datomic-indices/traversing-datomic-indices.asciidoc[]
+
+include::redis/redis.asciidoc[]
+
+include::indexing-with-elasticsearch/indexing-with-elasticsearch.asciidoc[]

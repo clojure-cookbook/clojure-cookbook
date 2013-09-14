@@ -1,4 +1,4 @@
-==== Comparing Dates
+=== Comparing Dates
 
 ===== Problem
 

@@ -1,6 +1,8 @@
-= Primitive Data
+== Primitive Data
 
-== Strings & Characters
+////////////////////
+Strings & Characters
+////////////////////
 
 include::strings/introduction/introduction.asciidoc[]
 
@@ -26,7 +28,9 @@ include::strings/tokenizing-strings/tokenizing-strings.asciidoc[]
 
 include::strings/inflecting-strings/inflecting-strings.asciidoc[]
 
-== Numbers
+///////
+Numbers
+///////
 
 include::math/absolute-precision/absolute-precision.asciidoc[]
 
@@ -54,7 +58,9 @@ include::math/currency/currency.asciidoc[]
 
 include::math/uuids/uuids.asciidoc[]
 
-== Dates
+/////
+Dates
+/////
 
 include::dates/current-date/current-date.asciidoc[]
 
@@ -73,3 +79,7 @@ include::dates/date-ranges/date-ranges.asciidoc[]
 include::dates/relative-times/relative-times.asciidoc[]
 
 include::dates/working-with-time-zones-and-leap-years/working-with-time-zones-and-leap-years.asciidoc[]
+
+include::dates/converting-from-unix-time/converting-from-unix-time.asciidoc[]
+
+include::dates/converting-to-unix-time/converting-to-unix-time.asciidoc[]

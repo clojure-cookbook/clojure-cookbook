@@ -1,4 +1,4 @@
-==== Running Clojure Programs
+=== Running Clojure Programs
 
 // by John Cromartie (jcromartie)
 

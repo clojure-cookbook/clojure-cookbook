@@ -1,4 +1,4 @@
-==== Truncating and Rounding Numbers
+=== Truncating and Rounding Numbers
 
 ===== Problem
 

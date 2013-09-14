@@ -1,0 +1,164 @@
+=== Working with Redis
+
+// By Jason Webb (bigjason)
+
+===== Problem
+
+You want to work with data in Redis.
+
+===== Solution
+
+Use Carmine to connect to and interact with Redis.
+
+[NOTE]
+To use this recipe you should first install Redis and have it running locally. You can find
+details on how to install  Redis at http://redis.io/download[the official Redis download page].  If
+you are on windows you will want to look at https://github.com/MSOpenTech/redis[the Microsoft Open
+Tech Github Redis project].
+
+First add Carmine to your project.
+
+.project.clj
+[source,clojure]
+----
+(defproject redis-example "1.0.0-SNAPSHOT"
+              :dependencies [[com.taoensso/carmine "2.2.0"]])
+----
+
+To use Carmine pull in the +carmine+ namespace and define a connection spec.
+
+[source,clojure]
+----
+(ns redis-example.core
+  (:require [taoensso.carmine :as car :refer (wcar)]))
+
+(def server-connection {:pool {:max-active 8}
+                        :spec {:host     "localhost"
+                               :port     6379
+                               ;;:password ""
+                               :timeout  4000}})
+----
+
+Carmine supports all of the Redis commands and the names (basically) match the Redis documentation.
+So use +wcar+ and the connection specification +server-connection+ to send all the Redis commands
+you know and love:
+
+[source,clojure]
+----
+(wcar server-connection (car/set "Nick" "Nack"))
+;; -> "OK"
+(wcar server-connection (car/get "Nick"))
+;; -> "Nack"
+(wcar server-connection (car/hset "founder" "name" "Tim"))
+;; -> 0
+(wcar server-connection (car/hset "founder" "age" 59))
+;; -> 0
+(wcar server-connection (car/hgetall "founder"))
+;; -> [name Tim age 59]
+----
+
+Passing in multiple commands will pipeline them and return the results together as a vector:
+
+[source,clojure]
+----
+(wcar server-connection (car/set "paddywhacks" 0)
+                        (car/incr "paddywhacks")
+                        (car/get "paddywhacks"))
+;; -> ["OK" 1 "1"]
+----
+
+===== Discussion
+
+Redis describes itself as a *data structure server*.  With data structures similar to the core data
+structures in Clojure, they make a natural pairing for a wide range of problems. Its speed and
+key/value nature make it especially useful for caching and memoization applications (more on that
+later).
+
+You can remove some boiler plate by wrapping the call to +wcar+ in a macro that passes the
+connection specification for you:
+
+[source,clojure]
+----
+(defmacro wcar* [& body] `(car/wcar server-connection ~@body))
+
+(wcar* (car/set "Nick" "Nack"))
+;; -> "OK"
+(wcar* (car/get "Nick"))
+;; -> "Nack"
+----
+
+Serialization is handled automatically and for most cases just works.  Simply pass in the data you
+want to store and Carmine will automatically serialize/de-serialize it for you:
+
+[source,clojure]
+----
+(wcar* (car/set "some-key" {:event "An Event", :timestamp (new java.util.Date)})
+       (car/get "some-key"))
+;; -> [OK {:event An Event, :timestamp #inst "2013-08-18T21:31:33.993-00:00"}]
+----
+
+This works great as long as you stick to core Clojure data types. However if you need to support
+storing custom data types you will need to deal with the underlying serialization library Nippy. For
+more information see https://github.com/ptaoussanis/nippy[the Nippy Github project].
+
+Redis is great to use as a memoization storage backend.  Obviously there are some serious trade-offs
+to consider when weighing against an in memory solution,  such as the +memoize+ function included in
+Clojure core.  But for the right situation it can be an incredible boost.  Consider for example
+memoizing a function that hits an external web service to fetch the current weather.  With minimal
+effort multiple servers can share the latest data and even have stale data automatically expire and
+refresh.  The following is an example for just such a situation:
+
+[source,clojure]
+----
+(defn redis-memoize
+  "Convert a function to one that is memoized using Redis as storage."
+  [key-prefix ttl-seconds connection-spec f]
+  (fn [& args]
+    (let [key-name [key-prefix args]]
+      (if-let [found-result (wcar connection-spec (car/get key-name))]
+        found-result
+        (let [new-result (apply f args)]
+          (wcar connection-spec (car/set key-name new-result)
+                                (car/expire key-name ttl-seconds))
+          new-result)))))
+----
+
+This makes a couple assumptions worth noting.  First it assumes that the arguments for the function
+being memoized are supported by Nippy (see serialization above).  Second it assumes that the
+memoized data should be expired after a specified number of seconds.  To use +redis-memoize+ simply
+pass in a function.  The following is a highly contrived example that uses the +server-connection+
+defined above:
+
+[source,clojure]
+----
+(defn square [x]
+  (printf "Ran square for: %s\n" x)
+  (* x x))
+
+(def redis-squared
+  (redis-memoize "squared" 10 server-connection square))
+
+(redis-squared 99)
+;; -> Ran square for: 99
+;; -> 9801
+(redis-squared 99)
+;; -> 9801
+----
+
+Carmine is a great Redis client for Clojure. It is actively developed and fully featured.  It
+includes (among other things): serialization, a message queue, distributed locks, a Ring session
+store and even an implementation of DynamoDB (which is alpha at time of writing).  Many of these
+features are outside the scope of this recipe, but are well documented and straightforward to use.
+Consult https://github.com/ptaoussanis/carmine[the Carmine Github project] for more information.
+
+===== See Also
+
+* https://github.com/ptaoussanis/carmine[The Carmine Github project] for more information about
+  Carmine.
+* http://redis.io/commands[The official Redis documentation] for a complete list of Redis
+  commands.
+* https://github.com/ptaoussanis/nippy[The Nippy Github project] for information about
+  Serialization.
+* http://clojuredocs.org/clojure_core/clojure.core/memoize[The Clojure core documentation] for
+  documentation of the +memoize+ function.
+

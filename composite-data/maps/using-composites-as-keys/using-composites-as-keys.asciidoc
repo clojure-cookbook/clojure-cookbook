@@ -1,4 +1,4 @@
-==== Using composite values as map keys
+=== Using composite values as map keys
 
 ===== Problem
 

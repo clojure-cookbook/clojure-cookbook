@@ -1,0 +1,63 @@
+=== Memory-map a file
+
+////
+Author: Alan Busby @thebusby
+////
+
+===== Problem
+
+You want to memory-map a file.
+
+===== Solution
+
+Use the +clj-mmap+ library, https://github.com/thebusby/clj-mmap
+
+Import the library.
+
+[source,clojure]
+----
+(ns io-with-clj-mmap
+  (:require [clj-mmap :as mmap]))
+----
+
+Read the first and last N bytes of a text file.
+
+[source,clojure]
+----
+(with-open [file (mmap/get-mmap "/path/to/file/file.txt")]
+  (let [n-bytes       10
+        file-size     (.size file)        
+        first-n-bytes (mmap/get-bytes file 0 n-bytes)
+        last-n-bytes  (mmap/get-bytes file (- file-size n-bytes) n-bytes)]
+    [(String. first-n-bytes "UTF-8")
+     (String. last-n-bytes  "UTF-8")]))
+----
+
+Overwrite the first N bytes of a text file.
+
+[source,clojure]
+----
+(with-open [file (mmap/get-mmap "/path/to/file/file.txt")]
+  (let [bytes-to-write (.getBytes "New text goes here" "UTF-8")
+        file-size      (.size file)]
+    (if (> file-size
+           (alength bytes-to-write))
+      (mmap/put-bytes file bytes-to-write 0))))
+----
+
+===== Discussion
+
+Memory-mapping, or 'mmap' per the POSIX standard, is a method to 
+leverage the operating system's virtual memory to perform file IO.
+By mapping the file into the applications memory space, copying
+between buffers is reduced, and I/O performance is increased.
+
+Memory-mapped files are especially useful when working with large files, 
+structured binary data, or text files where Java's String overhead may be
+unwelcome.
+
+While Clojure makes it simple to work with Java's NIO primitives directly,
+NIO makes working with files larger than 2GB especially difficult. clj-mmap 
+wraps this nastiness, but at the same time doesn't expose all the features 
+that NIO does.
+

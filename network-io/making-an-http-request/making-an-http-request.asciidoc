@@ -1,4 +1,4 @@
-==== Making HTTP Requests
+=== Making HTTP Requests
 
 // By John Cromartie (jcromartie)
 
