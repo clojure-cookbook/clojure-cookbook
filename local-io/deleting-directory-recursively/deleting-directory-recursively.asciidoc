@@ -15,7 +15,7 @@ delete them when possible.
 
 [source,clojure]
 ----
-(defn delele-all [path-str]
+(defn delete-all [path-str]
  (let [dir (java.io.File. path-str)
        del #(if-not (.delete %)
               (throw (Exception. (str "Unable to delete: "
