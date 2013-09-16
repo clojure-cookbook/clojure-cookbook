@@ -69,7 +69,7 @@ that one might see in an online marketplace:
 ----
 
 Next, open +src/feeds/bolts/clj+. Add a bolt that accepts a
-user and an event and produces a tuple of (user, event) for each user
+user and an event and produces a tuple of +(user, event)+ for each user
 in the system:
 
 [source,clojure]
@@ -100,7 +100,7 @@ and only if the user is following the user who triggered the event:
               (ack! collector tuple)))))
 ----
 
-Then add a bolt that accepts a user and an event and stores the event
+Finally, add a bolt that accepts a user and an event and stores the event
 in a hash of sets like +{:user1 #{event1 event2} :user2 #{event1 event2}}+ -
 these are the activity streams we'll present to users.
 
@@ -143,8 +143,8 @@ You'll also need to update the +:require+ statement in that file:
             [backtype.storm [clojure :refer [topology spout-spec bolt-spec]] [config :refer :all]])
 ----
 
-Finally, run the topology again. Feeds will be printed to the console
-by the final bolts in the topology:
+Run the topology again. Feeds will be printed to the console by the
+final bolts in the topology:
 
 [source,console]
 $ lein run -m feeds.topology/run!
@@ -157,8 +157,8 @@ uses Clojure's macros to extend the language to the domain of stream
 processing. Storm's stream processing abstraction consists of 4 core
 primitives:
 
-- *tuples* are dynamically typed lists of values, with support for
-   providing names for values
+- *tuples* are dynamically typed lists of values that allow
+   programmers to provide names for values
 - *spouts* produce tuples, often by reading from a distributed
    queue
 - *bolts* accept tuples as input and produce new tuples - these
@@ -211,11 +211,11 @@ usually this will be a connection to a database or distributed queue.
 
 This call to +spout+ creates an instance of a spout with the given
 implementation of +nextTuple+. This implementation simply sleeps for
-one second and then uses +emit-spout!+ to emit a tuple consisting of a
-random event from the list above. +nextTuple+ will be called
-repeatedly in a tight loop, so if you create a spout that polls an
-external resource you may need to provide your own backoff algorithm
-to avoid excess load on that resource.
+one second and then uses +emit-spout!+ to emit a one element tuple
+consisting of a random event from the list above. +nextTuple+ will be
+called repeatedly in a tight loop, so if you create a spout that polls
+an external resource you may need to provide your own backoff
+algorithm to avoid excess load on that resource.
 
 We can also implement the spout's +ack+ method to implement a
 "reliable" spout that will provide message processing guarantees. For
@@ -227,13 +227,13 @@ for the Kestrel queueing system.
 Every time a user takes an action in our system we need to determine
 whether every other user in the system will be interested in it. Given
 a simple interest system like Twitter, where users express interest in
-a single way (user follows) we could simply look at the follower list
+a single way (i.e., user follows) we could simply look at the follower list
 of the user who took the action and update feeds accordingly. In a
 more complex system, however, interest might be expressed by having
-liked the item the action was taken against, by following a collection
-that the item has been added to or by following the seller of the
+liked the item the action was taken against, following a collection
+that the item has been added to or following the seller of the
 item. In this world we need to consider a variety of factors for each
-user in the system for each event and determine whether the event
+user in the system for every event and determine whether the event
 should be added to that user's feed.
 
 Our first bolt starts this process by generating a tuple of +(user, event)+
@@ -255,8 +255,8 @@ first parameter will be bound to the input tuple, and may be
 destructured as a map or a vector.
 
 The body of this bolt iterates through a list of users in the system
-and emits a tuple for each of them. The last line of the body +ack!+s
-this tuple, which allows Storm to track message processing and restart
+and emits a tuple for each of them. The last line of the body calls +ack!+
+on this tuple, which allows Storm to track message processing and restart
 processing when appropriate.
 
 ====== follow-bolt
@@ -297,7 +297,7 @@ provides the actual bolt definition inside a call to +bolt+:
               (ack! collector tuple)))))
 ----
 
-Note that the tuple argument is inside the bolts definition of
+Note that the tuple argument is inside the bolt's definition of
 +execute+ in this case, and may be destructured as usual. In cases
 where the event's user is not following the user in the tuple, we do
 not emit a new tuple and simply acknowledge that we received our
@@ -335,14 +335,15 @@ received for the given user:
               (ack! collector tuple))))
 ----
 
-In this case we simply print the current feeds every time we receive a
-new event, but in the real world we would save out to a durable
-datastore or a cache that could efficiently serve the feeds to our
-users.
+Our toy topology simply prints the current feeds every time it
+receives a new event, but in the real world we would persist feeds to
+a durable datastore or a cache that could efficiently serve the feeds
+to our users.
 
 Note that this design can be easily extended to support event
-digesting - rather than storing each event separately we could add an
-incoming event to other similar events for our user's convenience.
+digesting - rather than storing each event separately we could
+aggregate an incoming event with other similar events for our user's
+convenience.
 
 As currently described, this system has one enormous flaw. By default,
 storm tuples are delivered to exactly one instance of each bolt, and
@@ -350,9 +351,7 @@ the number of instances in existence is not defined in the bolt
 implementation. If the topology operator adds more than one
 +feed-bolt+ we may have events for the same user delivered to
 different bolt instances, giving each bolt a different feed for the
-same user. This may not be a problem if we're simply saving feeds out
-to an external service, but if we'd like to do in-memory event
-digesting this is enormously problematic.
+same user.
 
 Happily, this flaw is addressed by the Storm's support for *stream
 grouping*, which we define in the Storm topology definition.
@@ -360,7 +359,7 @@ grouping*, which we define in the Storm topology definition.
 ====== topology
 
 The topology definition is where the rubber meets the road. Spouts are
-wired to bolts are wired to other bolts, and the flow of tuples
+wired to bolts which are wired to other bolts, and the flow of tuples
 between them can be configured to give useful properties to the
 computation. It is also where we define the component-level
 parallelism of the topology, which provides a rough sketch of the true
@@ -400,9 +399,9 @@ Bolt definitions get a bit more complicated:
 
 As with the spout spec we provide a name for this bolt and specify its
 parallelism. In addition, bolts require us to specify a *stream grouping*,
-which defines (a) which component the bolt receives tuples
-from and (b) how the system chooses which instance of the bolt to send
-tuples to. In both of these cases we specify :shuffle:, which means
+which defines (a) from which component the bolt receives tuples
+and (b) how the system chooses which in-memory instance of the bolt to send
+tuples to. In both of these cases we specify +:shuffle:+, which means
 tuples from "events" will be sent to a random instance of
 +active-user-bolt+ and tuples from "active users" will be sent to a
 random instance of +follow-bolt+.
@@ -422,14 +421,14 @@ of multiple field values when determining which bolt instance should
 process a given tuple.
 
 Storm also supports stream groupings that send tuples to all instances
-and groupings that let the bolt that produces a tuple determine
+and groupings that let the bolt producing a tuple determine
 where to send it. Combined with the groupings we've already seen these
 provide an enormous amount of flexibility in determining how data
 flows through your topology.
 
 Each of these component specifications supports a parallelism option.
-Because we have not specified the physical hardware upon which this
-topology will run, these hints cannot be used to determine the true
+Because the topology does not specify the physical hardware upon which
+it will run, these hints cannot be used to determine the true
 parallelism of the system, but they are used by the cluster to
 determine how many in-memory instances of the specified components to
 create.
@@ -478,7 +477,7 @@ as we can see in +src/feeds/TopologySubmitter.clj+:
 
 This file uses Clojure's Java interop to generate a Java class with a
 +main+ method. Because our project's +project.clj+ file specifies that
-this file should be Ahead Of Time compiled, when we use +lein uberjar+
+this file should be ahead-of-time compiled, when we use +lein uberjar+
 to build a JAR suitable for submission to our cluster this file will
 be compiled to look like a normal Java classfile. We can upload this
 JAR to the machine running Storm's *Nimbus* daemon and submit it for
@@ -502,7 +501,7 @@ Storm's wiki.
 ====== Conclusion
 
 We've only touched on a fraction of the functionality Storm has to
-offer. Built in Distributed Remote Procedure calls allow users to
+offer. Built in Distributed Remote Procedure Calls allow users to
 harness the power of a the Storm cluster to make synchronous requests
 that trigger a flurry of activity across hundreds or thousands of
 machines. Guaranteed data processing semantics allow users to build
