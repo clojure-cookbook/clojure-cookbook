@@ -1,0 +1,96 @@
+=== Subscribe to MQTT Broker
+// By Sandeep Nangia (nangia)
+
+===== Problem
+
+The previous recipe describes how to publish messages to a 
+http://mqtt.org[MQTT] broker. The problem solved here is to subscribe to the 
+MQTT messages being published by another client.
+
+===== Solution
+
+You use https://github.com/clojurewerkz/machine_head[Machine_Head], a clojure
+library built on top of http://www.eclipse.org/paho/[Paho]. As in previous
+recipe, you need to have a working broker implementation. In this receipe,
+http://mosquitto.org/[Mosquitto] will be used for illustration.
+
+First, you need to define the dependencies.
+
+.project.clj
+[source,clojure]
+----
+(ns mqttsubscriber.core
+  (:require [clojurewerkz.machine-head.client :as mh]))
+
+(defproject mqttclojure "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 [clojurewerkz/machine_head "1.0.0-beta1"]]
+  :repositories {"eclipse-paho" 
+                 {:url "https://repo.eclipse.org/content/groups/paho/"
+                  :snapshots false
+                  :releases {:checksum :fail}}}
+  :main mqttsubscriber.core)
+----
+
+Here's the code for the subscribing to MQTT.
+
+.core.clj
+[source,clojure]
+----
+(defn message-handler [topic meta payload]
+  (let [p (apply str (map char payload))]
+    (println "received " p "on topic " topic)))
+  
+
+(defn connect-and-subscribe [broker-addr topics]
+  (let [qosvec (vec (repeat (count topics) 2));all with same qos
+        conn-sub (mh/connect broker-addr (mh/generate-id))]
+    (if (mh/connected? conn-sub)
+      (do 
+        (mh/subscribe-with-qos conn-sub topics qosvec message-handler)
+        (Thread/sleep 15000)
+        (mh/disconnect conn-sub)))))
+
+(defn -main[] 
+  (connect-and-subscribe "tcp://test.mosquitto.org:1883"
+                       ["SNControlNetwork/devices/device1"]))
+----
+
+===== Discussion
+
+For more description regarding MQTT protocol, see previous recipe for publishing to
+MQTT broker. 
+
+The above code first defines a callback handler 'message-handler' that is called
+whenever a message arrives from the broker.
+The 'connect-and-subscribe' method connects using 'connect' method from 
+Machine_Head library. It then checks if the connection has been established
+using 'connected?' function and then calls 'subscribe-with-qos' function
+to establish the call back handler for the topics of interest. 'topics' is 
+a vector of the topics you are interested in. It then waits for some time
+and then disconnects.
+
+Finally, the '-main' function calls the function 'connect-and-subscribe' with
+the broker address (here TCP/IP port 1883 for test.mosquitto.org is used
+for illustration) and a vector of  topics you are interested in.  
+
+You can test out this subscription recipe with the recipe for publication of messages shown earlier. Run this code first and then start the publisher and you 
+should be able to see the payload from the publisher.
+
+While the above code fragment just prints the incoming messages, you could 
+potentially use the messages in some other way e.g. triggering some actions based
+on an alarm that the code has received.
+
+
+===== See Also
+
+* The details on MQTT protocol at http://mqtt.org/
+* https://github.com/clojurewerkz/machine_head[Machine_Head] library
+* Eclipse Paho library at http://www.eclipse.org/paho/
+* Mosquitto, an open source (BSD licensed) message broker that implements MQTT 
+protocol at http://mosquitto.org/
+* http://www.redbooks.ibm.com/abstracts/sg248054.html[Building Smarter Planet 
+Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM Redbooks publication] 
+* http://mqtt.org/tag/ted-talks[Ted talks by the two inventors of MQTT
+ protocol]
+* http://blip.tv/eclipse-videos/getting-started-with-mqtt-2-6392905[Getting started with MQTT]
