@@ -22,7 +22,7 @@ mvn install:install-file -Durl=file:repo -DgroupId=local -DartifactId=mqttclient
 Once this is done one can refer to this library in your project file.
 
 .project.clj
-[source,lisp]
+[source,clojure]
 ----
 (defproject mqttclojure "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.4.0"]
@@ -34,7 +34,7 @@ Once this is done one can refer to this library in your project file.
 Next we make sure that we add the appropriate imports where we use this library.
 
 .publisher.clj
-[source,lisp]
+[source,clojure]
 ----
 (ns mqttclojure.core)
 (import '(org.eclipse.paho.client.mqttv3 MqttClient MqttConnectOptions MqttMessage 
@@ -44,7 +44,7 @@ Next we make sure that we add the appropriate imports where we use this library.
 Now we define a few variables that we will use to publish to the queue. 
 
 .publisher.clj
-[source,lisp]
+[source,clojure]
 ----
 ;;; some useful definitions
 (def mqtt-server-address "tcp://test.mosquitto.org:1883")
@@ -58,7 +58,7 @@ Now we define a few variables that we will use to publish to the queue.
 
 With these definitions in place, we can now create the client and then publish messages to it.
 
-[source,lisp]
+[source,clojure]
 ----
 
 (defn mqttcallback []
@@ -87,7 +87,7 @@ With these definitions in place, we can now create the client and then publish m
 
 And lest we forget, we need to close the client once we are done with it.
 
-[source,lisp]
+[source,clojure]
 ----
 (.disconnect subclient)
 ----

@@ -21,7 +21,7 @@ mvn install:install-file -Durl=file:repo -DgroupId=local -DartifactId=mqttclient
 Once this is done one can refer to this library in your project file.
 
 .project.clj
-[source,lisp]
+[source,clojure]
 ----
 (defproject mqttclojure "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.4.0"]
@@ -33,7 +33,7 @@ Once this is done one can refer to this library in your project file.
 Next we make sure that we add the appropriate imports where we use this library.
 
 .publisher.clj
-[source,lisp]
+[source,clojure]
 ----
 (ns mqttclojure.core)
 
@@ -44,7 +44,7 @@ Next we make sure that we add the appropriate imports where we use this library.
 Now we define a few variables and supporting functions that we will use to publish to the queue. 
 
 .publisher.clj
-[source,lisp]
+[source,clojure]
 ----
 (def pubclientid "SNPublisher01")
 (def topic-string "SNInterestingChannel/Channel1")
@@ -68,7 +68,7 @@ Now we define a few variables and supporting functions that we will use to publi
 
 With these definitions out the place, we can now create the client and then publish messages to it.
 
-[source,lisp]
+[source,clojure]
 ----
       
 (def pubclient (make-client-and-connect mqtt-server-address pubclientid))
@@ -80,7 +80,7 @@ With these definitions out the place, we can now create the client and then publ
 We can call publish-msg as many times as required and then disconnect with the broker. The code to disconnect is below.
 
 
-[source,lisp]
+[source,clojure]
 ----
 (.disconnect pubclient)
 ----
