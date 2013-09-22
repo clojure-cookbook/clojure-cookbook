@@ -1,0 +1,109 @@
+=== Subscribe to MQTT Broker
+// By Sandeep Nangia (nangia)
+
+===== Problem
+
+The previous recipe describes how we can publish messages to a http://mqtt.org[MQTT] broker. The problem solved here is to subscribe to the messages being published by another client.
+
+===== Solution
+
+Use http://www.eclipse.org/paho/[Paho], a Java library to communicate with MQTT servers. Again we assume that you have an existing MQTT broker implementation available. In this recipe, we are going to use the test broker provided at 'tcp://test.mosquitto.org:1883'.
+
+As described in the previous recipe, we need to install the 
+mqtt-client-0.4.0.jar in local Maven repository, if you have not already done so.
+
+[source,shell]
+--------
+mvn install:install-file -Durl=file:repo -DgroupId=local -DartifactId=mqttclient \
+	-Dversion=0.4 -Dpackaging=jar -Dfile=./mqtt-client-0.4.0.jar
+--------
+
+
+Once this is done one can refer to this library in your project file.
+
+.project.clj
+[source,lisp]
+----
+(defproject mqttclojure "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 [local/mqttclient "0.4"]]
+  :repositories {"project" "file:repo"})
+
+----
+
+Next we make sure that we add the appropriate imports where we use this library.
+
+.publisher.clj
+[source,lisp]
+----
+(ns mqttclojure.core)
+(import '(org.eclipse.paho.client.mqttv3 MqttClient MqttConnectOptions MqttMessage 
+    MqttCallback MqttConnectOptions))
+----
+
+Now we define a few variables that we will use to publish to the queue. 
+
+.publisher.clj
+[source,lisp]
+----
+;;; some useful definitions
+(def mqtt-server-address "tcp://test.mosquitto.org:1883")
+
+(def sub-clientid "SNSubscriber01")
+(def topic-string "SNInterestingChannel/Channel1")
+(def keepaliveinterval 20)
+(def qos 0)
+
+----
+
+With these definitions in place, we can now create the client and then publish messages to it.
+
+[source,lisp]
+----
+
+(defn mqttcallback []
+  (reify MqttCallback
+    (messageArrived [_ topic msg] 
+      (println "msg arrived:" msg ))
+    (deliveryComplete [_ token] 
+      (println "delivery complete"))
+    (connectionLost [_ cause]
+      (print "connection lost" ))))
+
+(defn make-sub-client[mqtt-server-address sub-clientid]
+  (let [subclient (MqttClient. mqtt-server-address sub-clientid)
+        connectionOptions (MqttConnectOptions. )]
+    (.setCallback subclient (mqttcallback))
+    (doto connectionOptions
+      (.setCleanSession true)
+      (.setKeepAliveInterval keepaliveinterval))
+    (doto subclient
+      (.connect connectionOptions)
+      (.subscribe topic-string qos))
+    subclient))
+
+(def subclient (make-sub-client mqtt-server-address sub-clientid))
+------
+
+And lest we forget, we need to close the client once we are done with it.
+
+[source,lisp]
+----
+(.disconnect subclient)
+----
+
+
+
+===== Discussion
+
+The above code fragment first implements the 'MqttCallback' interface from the Paho library. It defines a function 'make-sub-client' that establishes connection with the broker, and establishes the call back mechanism when messages are received. This is used in the definition of 'subclient'. This code can be seen to work with the publisher code in the previous recipe as we are using the same broker and channel used in the previous example. Every client needs to have a unique id, so the client id has to be different.
+
+While the above code fragment just prints the incoming messages, we could potentially use it in any other way we wish (e.g. triggering some actions based on an alarm that we might have received).
+
+
+===== See Also
+
+* The details on MQTT protocol at http://mqtt.org/
+* Eclipse Paho library at http://www.eclipse.org/paho/
+* Mosquitto, an open source (BSD licensed) message broker that implements MQTT protocol at http://mosquitto.org/
+* http://mosquitto.org/[Building Smarter Planet Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM Redbooks publication] 
