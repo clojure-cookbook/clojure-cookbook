@@ -1,0 +1,54 @@
+[[sec_cascalog_emr]] === Running a Cascalog Job On EMR
+
+===== Problem
+
+You have a large amount of data to process, but you don't have a
+Hadoop cluster.
+
+===== Solution
+
+Amazon's EMR (Elastic MapReduce) provides on-demand Hadoop
+clusters. You'll need an Amazon web services account to use EMR.
+
+First, write the Cascalog job as you normally would. The rest of the
+recipes in this chapter can help you with that part.
+
+Then, package the job into an uberjar.
+
+[source,terminal] ---- $ lein uberjar ----
+
+Your uberjar can be found at
+`target/<project-name>-<version>-standalone.jar`.
+
+Upload your jar, along with the input data, to Amazon S3. You can
+upload files through the web console found at
+https://console.aws.amazon.com/s3/home, or through any number of other
+tools.
+
+Go to https://console.aws.amazon.com/elasticmapreduce/ to setup your
+job flow.
+
+Select `New Job Flow`.
+
+Choose the `Custom Jar` option.
+
+Next, fill in the jar information. `Jar Location` is the S3 path to
+which you uploaded your jar. `Jar Arguments` are all the arguments
+you'd normally pass when executing your jar. First, pass the fully
+qualified name of the class you want to
+execute. +clojurebook.cascalog.emr.Main+ for example. Than pass any
+arguments your job expects. For example, you probably need at least an
+input and output argument. Note that in an EMR job you'll be reading
+from and writing so S3.
+
+Retrieve your results from S3. You can setup a logging path to help with
+debugging if your job doesn't complete like you expect.
+
+===== Discussion
+
+Amazon's EMR is a great solution if you have big Cascalog jobs, but
+you don't have them very often. Maintaining your own Hadoop cluster
+can be a fair amount of time and money. If you can keep the cluster
+busy, it is a great investment. If you only need it a couple times a
+month, you might be better off using EMR for on-demand Hadoop
+clusters.
