@@ -143,6 +143,9 @@ You'll also need to update the +:require+ statement in that file:
             [backtype.storm [clojure :refer [topology spout-spec bolt-spec]] [config :refer :all]])
 ----
 
+Now delete the old stormy-topology function, and change the +run!+
+function to point to the new +topology+ function you just defined.
+
 Run the topology again. Feeds will be printed to the console by the
 final bolts in the topology:
 
@@ -393,7 +396,7 @@ Bolt definitions get a bit more complicated:
 
 [source,clojure]
 ----
-    "active users" (bolt-spec {"spout" :shuffle} active-user-bolt :p 2)
+    "active users" (bolt-spec {"events" :shuffle} active-user-bolt :p 2)
     "follows" (bolt-spec {"active users" :shuffle} follow-bolt :p 2)
 ----
 
