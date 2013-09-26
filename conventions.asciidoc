@@ -5,9 +5,6 @@
 Being a book full of solutions, you'll find no shortage of Clojure source code
 in the book. Clojure source code appears in a monospace font, like this:
 
-
-Clojure source code appears in monospaced font, like this:
-
 [source,clojure]
 ----
 (defn add
@@ -15,9 +12,7 @@ Clojure source code appears in monospaced font, like this:
   (+ x y))
 ----
 
-Seeing that _REPL-driven Development_ is in vogue at present, it follows that
-this be a REPL-driven book. As such, nearly every recipe in this book is
-designed to be run at a Clojure REPL. When a Clojure expression is evaluated
+When a Clojure expression is evaluated
 for a return value, that value is denoted with a comment followed by an arrow,
 much like it would appear on the command line:
 
@@ -56,16 +51,18 @@ line of output.
 
 === REPL Sessions
 
-REPLs (Read-Eval-Print Loops) are interactive prompts that evaluate
-expressions and print their results. The Bash prompt, +irb+, and the
-+python+ prompt are examples of REPLs.
+Seeing that _REPL-driven Development_ is in vogue at present, it follows that
+this be a REPL-driven book.  REPLs (Read-Eval-Print Loops) are interactive
+prompts that evaluate expressions and print their results. The Bash prompt,
++irb+, and the +python+ prompt are examples of REPLs.  Nearly every recipe in
+this book is designed to be run at a Clojure REPL.
 
-While Clojure REPLs are traditionally displayed as `user> ...`, our goal
-is for readers to be able to type or copy-paste all of the examples in a recipe
-and see the indicated results. As such REPL sessions are indicated much the
-same way source-code is (with "normal" source code and comments for return
-value and +*out*+put.)
-
+While Clojure REPLs are traditionally displayed as `user> ...`, this book aims
+for readers to be able to copy-paste all of the examples in a recipe
+and see the indicated results. As such, samples omit `user>` and comment-out
+any output to make things easier. This is especially helpful if you're
+following along on a computer; You can blindly copy-paste code samples without
+worrying about trying to run non-code.
 
 === Console/Terminal Sessions
 
@@ -73,8 +70,8 @@ Console sessions (e.g. shell commands) are denoted by monospace font,
 with lines beginning with a dollar sign (+$+) indicating a shell
 prompt. Output is printed without a leading "+$+".
 
-A backslash (+\+) at the end of a command line indicates a single
-command that continues on the next line.
+A backslash (+\+) at the end of a command indicates to the console that the
+command continues on the next line.
 
 [source,console]
 ----
@@ -84,8 +81,9 @@ Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
 
 .Our Golden Boy, lein-try
 ****
+// TODO: Clean the "Clojure chose ..." sentence up, it's kind of odd-sounding.
 Clojure is not known for its extensive standard library. Unlike languages like
-Perl or Ruby, Clojure's standard libraries are comparatively small. Clojure
+Perl or Ruby, Clojure's standard library is comparatively small; Clojure
 chose _simplicity_ and _power_ instead. As such, Clojure is a language full of
 libraries, not built-ins (well, except for Java...)
 
@@ -104,7 +102,7 @@ then edit your user profile to look like so:
 {:user {:plugins [[io.rkn/lein-try "RELEASE"]]}}
 ----
 
-Now, inside of a project or out, you can use the +lein+ command to launch a
+Now, inside of a project or out, you can use the +lein try+ command to launch a
 REPL with access to whichever library you please.
 
 [source,console]
@@ -119,3 +117,18 @@ that uses third-party libraries.
 ****
 
 // TODO: Typesetting Conventions section a la Perl Cookbook
+=== Typesetting Conventions
+
+The following typographic conventions are used in this book:
+
+// TODO: Do we want to even use bold? It seems like right now it is used for
+//       what italics should be.
+// *Bold*::
+//   is used exclusively for command-line switches. This allows one to distinguish
+//   for example, between the -w warnings switch and the -w filetest operator.
+_Italic_::
+  is used for URLs, pathnames, and programs. New terms are also italicized when
+  they first appear in the text.
++Constant Width+::
+  is used for function and method names and their arguments; in examples to
+  show both input and output; and in regular text to show literal code.
