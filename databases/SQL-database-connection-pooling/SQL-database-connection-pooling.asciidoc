@@ -37,7 +37,7 @@ in your +project.clj+ file, and import the +c3p0+ classes you intend to use:
   (:import com.mchange.v2.c3p0.ComboPooledDataSource))
 ----
  
-For *BoneCP*, add
+If you prefer to use *BoneCP*, add
 
 [source,clojure]
 ----
@@ -148,7 +148,7 @@ efficient data sources. It can adapt traditional unpooled drivers and
 data sources by augmenting them with transparent pooling of +Connection+
 and +PreparedStatment+ instances.
 
-While there are several ways to create data sources both the libraries,
+While the libraries offer several ways to create data sources,
 most users will find the examples provided here to be the easiest.
 
 Both libraries have several dozen configuration parameters which control
