@@ -1,0 +1,194 @@
+=== Behavior Driven Development
+
+===== Problem
+
+You want to test whole of your application at runtime with Behavior Driven Development approach.
+
+===== Solution
+
+Use cucumber. This takes a top down approach of application testing. 
+There is a ++lein-cucumber++ leiningen plugin for running cucumber features.
+
+Add following in project.clj file
+
+[source,clojure]
+----
+
+:plugins [[lein-cucumber "1.0.2"]]
+
+----
+
+
+Here we have an application that allows to add authors to a Author's Club list and check if an Author exists in the list.
+We test the whole functionality in a Scenario (much like test cases but not limited to Single function) in Cucumber feature below. This leads to robust integration testing.
+
+[source,clojure]
+----
+
+(ns cucumber-crud.core
+  (:require [clojure.string :as string]
+            [clojure.set :as set]))
+
+; this could be your database
+(def authors (atom #{}))
+
+;Create
+(defn load-names [initial-names]
+  (reset! authors (set (map name (string/split initial-names #",")))))
+
+(defn add-name [raw-name]
+  (swap! authors conj (string/capitalize raw-name)))
+
+;Delete
+(defn remove-name [raw-name]
+  (reset! authors (set (remove raw-name @authors))))
+
+;Read
+(defn find-name [raw-name]
+  (let [requested-name (string/capitalize raw-name)]
+    (str "Your name " requested-name (if (contains? @authors requested-name) " IS " " IS NOT ")  "in the Authors Club")))
+
+----
+
+Now we want to test this application.
+
+Lets use cucumber feature for it. This is defined by default under the root directory of your leiningen project.
+File has the extension as ++feature++.
+For example  <your app root>/features/authors.feature file:
+
+[source,clojure]
+----
+Feature: Authors
+  Author Club List operations
+
+Background:
+  Given Authors list is set up as "Alex,Craig,Luke,Rohit,Ryan,Stuart"
+
+Scenario: add name and check in the list
+  When I add name "Justin"
+  And I request name "Justin"
+  Then I should get "Your name Justin IS in the Authors Club"
+
+Scenario: delete name and check in the list
+  When I delete name "Craig"
+  And I request name "Craig"
+  Then I should get "Your name Craig IS NOT in the Authors Club"
+
+Scenario: add, delete name and check in the list added, removed, existing
+  When I add name "Justin"
+  And I delete name "Craig"
+  When I request name "Craig"
+  Then I should get "Your name Craig IS NOT in the Authors Club"
+  When I request name "Justin"
+  Then I should get "Your name Justin IS in the Authors Club"
+  When I request name "Ryan"
+  Then I should get "Your name Ryan IS in the Authors Club"
+----
+
+These steps are implemented as described below. This is defined under the features diectory by default.
+For example <your app root>/features/step_definitions/author_steps.clj file:
+
+[source,clojure]
+----
+(require '[cucumber-crud.core :refer :all])
+(require '[clojure.test :refer :all])
+
+(def result (atom {}))
+
+(Given #"^Authors list is set up as \"([^\"]*)\"$" [listed-names]
+  (load-names listed-names))
+
+(When #"^I add name \"([^\"]*)\"$" [name]
+  (add-name name))
+                                
+(When #"^I delete name \"([^\"]*)\"$" [name]
+  (remove-name name))
+                                    
+(When #"^I request name \"([^\"]*)\"$" [requested-name]
+  (reset! result (find-name requested-name)))
+
+(Then #"^I should get \"([^\"]*)\"$" [output-string]
+  (is (= @result output-string)))
+----
+
+Run the tests using
+
+[source,clojure]
+----
+lein cucumber
+----
+
+And you would see test output as
+
+[source,clojure]
+----
+Running cucumber...
+Looking for features in:  [features]
+Looking for glue in:  [features/step_definitions]
+..........
+----
+
+===== Discussion
+
+The Behavior Driven Development takes the approach of testing the application as a whole, while unit testing tests each function.
+In the ++Scenarios++ we are testing accross multiple functions to see the final result.
+In this you define steps in simple readable sentences that any business user can easily understand. 
+
+The step implementations define the execution of the test.
+In the example given, we use +result+ to capture the last output of a name passed to the step definition: Given I request name.
+The regular expressions \"([^\"]*)\" are used to match the variables passed in. Then we finally compare the expected result.
+
+The Steps are defined in Given, When and Then style.  We use Given for data set up, When for actions and Then for the result check.
+The Background is commonly used to extract common Given step. Setting up Scenrio data should be independent of Production data as in Unit testing.
+
+This technique can provide ultimate coverage of tests, along with the unit tests.
+
+Lets see some failures conditions. If a step is not exactly the way you expect, then you would get something like:
+
+[source,clojure]
+----
+lein cucumber
+Running cucumber...
+Looking for features in:  [features]
+Looking for glue in:  [features/step_definitions]
+..............
+FAIL in clojure.lang.PersistentList$EmptyList@1 (author_steps.clj:19)
+expected: (= (clojure.core/deref result) output-string)
+  actual: (not (= "Your name Justin IS in the Authors Club" "Your name Justin IS NOT in the Authors Club"))
+----
+
+Also if you say add a new step and it is not defined, you would get something to tell you how to get started implementing the step.
+The ++U++ in the output implies undefined step.
+
+[source,clojure]
+----
+lein cucumber
+Running cucumber...
+Looking for features in:  [features]
+Looking for glue in:  [features/step_definitions]
+.....U--..U------
+
+
+You can implement missing steps with the snippets below:
+
+(When #"^I delete name \"([^\"]*)\"$" [arg1]
+  (comment  Express the Regexp above with the code you wish you had  )
+  (throw (cucumber.runtime.PendingException.)))
+----
+
+If you want to run a single feature when you have multiple features you could do as an example:
+
+[source,clojure]
+----
+lein cucumber features/authors.feature --glue features/step_definitions/
+----
+
+The other features will not run and this could be handy when you are having several feature files.
+
+Also while we are using here ++(require '[clojure.test :refer :all])++ we could also use ++[midje.sweet :refer :all]++ another popular library for step implementation. Cucumber gives the functionality to run as an integrated runtime enviornment more as the app would run in the real world. 
+
+===== See Also
+
+* <<sec_unit_testing>>
+
+
