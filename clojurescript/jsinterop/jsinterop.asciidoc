@@ -176,7 +176,7 @@ http://s.trokes.org/dribnet/6209254[See it running live here]
 ===== Discussion
 
 mrhyde is a library that modifies the core ClojureScript datatypes so that JavaScript
-libraries can use them natively. After running the bootstrap method,
+libraries can use them natively. After running the bootstrap function,
 ClojureScript vectors can be accessed from JavaScript
 as if they were native JavaScript arrays, and ClojureScript maps can be accessed
 from JavaScript as if they were native JavaScript objects. Though this adds some
