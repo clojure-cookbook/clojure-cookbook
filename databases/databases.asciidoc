@@ -18,3 +18,5 @@ include::traversing-datomic-indices/traversing-datomic-indices.asciidoc[]
 include::redis/redis.asciidoc[]
 
 include::indexing-with-elasticsearch/indexing-with-elasticsearch.asciidoc[]
+
+include::korma/korma.asciidoc[]
