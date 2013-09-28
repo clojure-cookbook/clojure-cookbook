@@ -70,9 +70,9 @@ namespace.
 
 [source,clojure]
 ----
-=> (require '[clj-time.core :as timec])
+(require '[clj-time.core :as timec])
 
-user=> (timec/now)
+(timec/now)
 ;; -> #<DateTime 2013-04-06T14:35:15.453Z>
 ----
 
@@ -82,9 +82,9 @@ timezone when using +clj-time+ that can be done with the
 
 [source,clojure]
 ----
-=> (require '[clj-time.local :as timel])
+(require '[clj-time.local :as timel])
 
-user=> (timel/local-now)
+(timel/local-now)
 ;; -> #<DateTime 2013-04-06T09:35:20.141-05:00>
 ----
 
