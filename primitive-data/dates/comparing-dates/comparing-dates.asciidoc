@@ -30,7 +30,7 @@ You can compare Java Dates using the +compare+ function.
 ===== Discussion
 
 Why not just compare dates using Clojure's built-in comparison
-operators (+<=+, +>+, etc.)? The problem with these operators is that
+operators (+$$<=$$+, +>+, etc.)? The problem with these operators is that
 they utilize +clojure.lang.Numbers+ and attempt to coerce their
 arguments to numerical types.
 
