@@ -15,7 +15,7 @@ representing the present time and date.
 (defn now []
   (java.util.Date.))
 
-(now)  
+(now)
 ;; -> #inst "2013-04-06T14:33:45.740-00:00"
 
 ;; A few seconds later...
@@ -55,6 +55,38 @@ https://github.com/hugoduncan/criterium[criterium] library if
 benchmarking is what you're after. Additionally, you shouldn't try to
 use +currentTimeMillis+ as some sort of unique value - UUIDs do
 a much better job of this.
+
+If you are familiar with the Java ecosystem, you may have heard of
+http://www.joda.org/joda-time/[Joda-Time] a Java date and time API.
+Clojure has a library https://github.com/clj-time/clj-time[clj-time]
+that provides a Clojure friendly API to Joda-Time, allowing you to
+take advantage of the functionality that Joda-Time gives over normal
+Java +Date+ objects.
+
+If you decide to use +clj-time+ to work with +DateTime+s objects from
+Joda-Time instead of dealing with +Date+ objects which Java provides,
++clj-time+ provides the +now+ function located in the +clj-time.core+
+namespace.
+
+[source,clojure]
+----
+=> (require '[clj-time.core :as timec])
+
+user=> (timec/now)
+#<DateTime 2013-04-06T14:35:15.453Z>
+----
+
+If you need to get the current date and time in the local
+timezone when using +clj-time+ that can be done with the
++local-now+ function found in the +clj-time.local+ namespace.
+
+[source,clojure]
+----
+=> (require '[clj-time.local :as timel])
+
+user=> (timel/local-now)
+#<DateTime 2013-04-06T09:35:20.141-05:00>
+----
 
 ===== See Also
 
