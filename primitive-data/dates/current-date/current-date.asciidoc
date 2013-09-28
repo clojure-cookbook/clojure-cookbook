@@ -73,7 +73,7 @@ namespace.
 => (require '[clj-time.core :as timec])
 
 user=> (timec/now)
-#<DateTime 2013-04-06T14:35:15.453Z>
+;; -> #<DateTime 2013-04-06T14:35:15.453Z>
 ----
 
 If you need to get the current date and time in the local
@@ -85,7 +85,7 @@ timezone when using +clj-time+ that can be done with the
 => (require '[clj-time.local :as timel])
 
 user=> (timel/local-now)
-#<DateTime 2013-04-06T09:35:20.141-05:00>
+;; -> #<DateTime 2013-04-06T09:35:20.141-05:00>
 ----
 
 ===== See Also
