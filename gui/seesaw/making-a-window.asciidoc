@@ -1,0 +1,87 @@
+==== Making a Window
+
+// By John Walker
+
+==== Problem
+
+You want to make a window with trivial content.
+
+==== Solution
+
+The +Seesaw+ library is the best method of dealing with GUI's in Clojure. Since +Seesaw+ is based on +Swing+, it is necessary to make an initial call to +native!+ for styling frames to the host desktop or window environment.
+
+[source,clojure]
+----
+(ns example.seesaw
+(:require [seesaw.core :refer [frame native! pack! show!]]))
+
+(native!)
+;; -> nil
+----
+
+Use +frame+ to create a frame.
+
+[source,clojure]
+----
+(frame :title "Police" :content "Cool text!")
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame6,0,19,0x0,invalid,hidden,layout=java.awt.BorderLayout,title=Police,resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+Although a frame has been created, nothing appeared. In order to actually display the frame, you must make a call to +show!+.
+
+[source,clojure]
+----
+(def f (frame :title "Police" :content "Cool text!"))
+
+(show! f)
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame7,-5,-25,1376x798,layout=java.awt.BorderLayout,title=Police,resizable,iconified,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,5,25,1366x768,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+More complicated examples of GUI's in seesaw should have a call to +pack!+, which assigns width and height properties according to its content.  Without such a call, you might have difficulty even finding the window being displayed.
+
+[source,clojure]
+----
+(-> f pack! show!)
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame7,-5,-25,78x45,layout=java.awt.BorderLayout,title=Police,resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,5,25,68x15,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+You can change anything in the frame using +config!+.
+
+[source,clojure]
+----
+(config! f :content "Blue skies")
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523[frame7,0,0,1366x768,hidden,layout=java.awt.BorderLayout,title=Blue skies,resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,rootPane=javax.swing.JRootPane[,0,0,1366x768,layout=javax.swing.JRootPane$RootLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+Note that the text is now "Blue skies," but that the window is too small to display the entire string. Follow up with a call to +pack!+.
+
+==== Discussion
+Since +Seesaw+ is operating on a +Swing+ objects, it is possible to operate on interfaces regularly created for Java applications. This implies that interface design can be done with conventional tools, and that +Seesaw+ can be used for acting on interfaces rather than designing them.
+
++config!+ modifies properties in a widget, given a series of keywords (representing the properties) and the new values following each one. It is fairly versatile in the sense that it can modify multiple widgets. For example:
+[source,clojure]
+----
+(config! f :title "The Weather":content "Sunny in Colorado. A lot of text goes in here.")
+(pack! f)
+
+;; or if you have a button that is a child element of f
+
+(config! b :enabled? true :selected? true :text "Press me")
+(pack! f)
+
+;; or if you have multiple buttons that are children of f
+
+(config! [b1 b2 b3 b4] :enabled? true :selected? true :text "Press me (or don't!)")
+(pack! f)
+----
+
+You can consider +show!+ to be shorthand for
+
+[source,clojure]
+----
+(config! f :visible? true)
+----
+
+thus, it is not necessary to call +show!+ after updating a frame. But you should always make a call to +pack!+.
+
+You can learn more about seesaw at https://github.com/daveray/seesaw.
