@@ -5,7 +5,7 @@
 
 ==== Problem
 
-You want to create and display a GUI window with scrollable content.
+You want to create and display a GUI window.
 
 ==== Solution
 
@@ -30,8 +30,6 @@ Seesaw with the +native!+ function:
 ;; => nil
 ----
 
-===== Creating the Window
-
 To create our window object, we use +frame+ (which, under the covers, makes a
 +JFrame+ Swing object):
 
@@ -49,25 +47,29 @@ To create our window object, we use +frame+ (which, under the covers, makes a
 ----
 
 Although a frame has been created, nothing appears. In order to
-actually display the frame, you must use +show!+:
+actually display the frame, we must use +show!+:
 
 [source,clojure]
 ----
 (def f (frame :title "Lyrical Clojure"))
 
 (show! f)
-;; => #<JFrame$Tag$a79ba523 [...]
+;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
 image:gui/seesaw/window-only.png["",width=150]
 
+==== Discussion
+
+Having created the window, we can set its size, add content, and add scrollbars, as follows.
+
 ===== Adding Content
-You can change properties of the frame using +config!+:
+We can change properties of the frame using +config!+:
 
 [source,clojure]
 ----
 (config! f :content "Actual content!")
-;; => #<JFrame$Tag$a79ba523 [...]
+;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
 ===== Sizing the Window
@@ -77,7 +79,7 @@ We could have specified the size of the window at time of creation:
 [source,clojure]
 ----
 (def f (frame :title "Lyrical Clojure" :width 300 :height 150))
-;; => #<JFrame$Tag$a79ba523 [...]
+;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
 However, it is common to instead call +pack!+ on the resulting frame
@@ -87,7 +89,7 @@ content:
 [source,clojure]
 ----
 (-> f pack! show!)
-;; => #<JFrame$Tag$a79ba523 [...]
+;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
 image:gui/seesaw/content.png["",width=150]
@@ -110,7 +112,7 @@ Adding a bit more text gives us something too big to fit in the current window:
 [source,clojure]
 ----
 (config! f :content sonnet-text)
-;; => #<JFrame$Tag$a79ba523 [...]
+;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
 image:gui/seesaw/no-longer-yours.png["",width=150]
@@ -138,9 +140,7 @@ Shakespeare's original).
 
 Like most of the Seesaw functions which create widgets, there are
 several more options to +text+, which are best learned about by
-studying the API documentation (http://daveray.github.io/seesaw/).
-
-==== Discussion
+studying the http://daveray.github.io/seesaw/[API documentation].
 
 As is always the case in Clojure, the Seesaw library functions return
 Java objects, which can be operated upon directly using Java methods;
