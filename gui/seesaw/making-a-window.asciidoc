@@ -133,7 +133,8 @@ The +:multi-line?+ option to the +text+ function selects +JTextArea+
 as the underlying object, rather than +JTextField+ (+JTextArea+ is
 used for multiline text; +JTextField+ is for single-line text fields).
 +:editable?+ specifies that we don't want allow users to edit the text
-(since it is doubtful they wil improve upon Shakespeare's original).
+(since it is, perhaps, doubtful that they would improve upon
+Shakespeare's original).
 
 Like most of the Seesaw functions which create widgets, there are
 several more options to +text+, which are best learned about by
