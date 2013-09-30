@@ -1,0 +1,99 @@
+=== Publish to MQTT Broker
+// By Sandeep Nangia (nangia)
+
+===== Problem
+
+http://mqtt.org[MQTT] is an extremely lightweight publish/subscribe messaging protocol. It is useful for connections where bandwidth is at premium. Thus it is a good protocol to use for machine to machine communication e.g. for scenarios like Internet of Things. You want to publish some messages to some devices using MQTT protocol.
+
+===== Solution
+
+Use http://www.eclipse.org/paho/[Paho], a Java library to communicate with a MQTT broker. In order to communicate via MQTT, you need to have an existing MQTT broker implementation. Example implementations are http://mosquitto.org/[Mosquitto], Websphere, RabbitMQ amongst others. In this recipe, we are going to use the test broker provided at tcp://test.mosquitto.org:1883.
+
+First thing needed is that you need to build the Paho library which is available at git://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.java.git using Maven. Once you have this built you would have mqtt-client-0.4.0.jar (0.4 for the current version). The next step is to install this into local Maven repository. This can be done by the following command:
+
+[source,shell]
+--------
+mvn install:install-file -Durl=file:repo -DgroupId=local -DartifactId=mqttclient \
+	-Dversion=0.4 -Dpackaging=jar -Dfile=./mqtt-client-0.4.0.jar
+--------
+
+
+Once this is done one can refer to this library in your project file.
+
+.project.clj
+[source,clojure]
+----
+(defproject mqttclojure "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 [local/mqttclient "0.4"]]
+  :repositories {"project" "file:repo"})
+
+----
+
+Next we make sure that we add the appropriate imports where we use this library.
+
+.publisher.clj
+[source,clojure]
+----
+(ns mqttclojure.core)
+
+(import '(org.eclipse.paho.client.mqttv3 MqttClient MqttConnectOptions MqttMessage))
+
+----
+
+Now we define a few variables and supporting functions that we will use to publish to the queue. 
+
+.publisher.clj
+[source,clojure]
+----
+(def pubclientid "SNPublisher01")
+(def topic-string "SNInterestingChannel/Channel1")
+(def keepaliveinterval 200)
+(def qos 0)
+(def msgtosend "Hello from Sandeep4")
+
+(defn make-client-and-connect [serveraddr clientid]
+  (let [client (MqttClient. serveraddr clientid)]
+    (.connect client)
+    client))
+
+(defn publish-msg [client topic-string msgtosend keepaliveinternal qos]
+  (let [topic (.getTopic client topic-string)
+        msg   (MqttMessage. (.getBytes msgtosend))
+        _ (do (.setQos msg qos) true)
+        token (.publish topic msg)]
+    (do
+      (.waitForCompletion token keepaliveinternal))))
+----
+
+With these definitions out the place, we can now create the client and then publish messages to it.
+
+[source,clojure]
+----
+      
+(def pubclient (make-client-and-connect mqtt-server-address pubclientid))
+
+(dotimes [n 5]
+  (publish-msg pubclient topic-string (str msgtosend n) keepaliveinterval qos))
+----
+
+We can call publish-msg as many times as required and then disconnect with the broker. The code to disconnect is below.
+
+
+[source,clojure]
+----
+(.disconnect pubclient)
+----
+
+
+===== Discussion
+
+In the above code fragment, we have connected to a test server provided at location 'tcp://test.mosquitto.org' at port 1883. Every client needs to have a unique id and in this case we have used 'SNPublisher01' as the unique id. We first define a function 'make-client-and-connect' that creates an instance of 'MqttClient' and connects to it. The function 'publish-msg' extracts the topic instance and then waits for completion until a time out specified in 'keepaliveinterval'. The final task is to disconnect from the client.
+
+
+===== See Also
+
+* The details on MQTT protocol at http://mqtt.org/
+* Eclipse Paho library at http://www.eclipse.org/paho/
+* Mosquitto, an open source (BSD licensed) message broker that implements MQTT protocol at http://mosquitto.org/
+* http://mosquitto.org/[Building Smarter Planet Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM Redbooks publication] 
