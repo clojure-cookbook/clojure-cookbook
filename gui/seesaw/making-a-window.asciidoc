@@ -150,14 +150,14 @@ comes at the cost of a somewhat higher burden on programmers, who must
 navigate not only the Seesaw API but, frequently, some aspects of the
 underlying Swing API as well.
 
-===== See Also
-
 Seesaw supports a wide variety of GUI tasks -- creation of menus,
 display of text and images, scroll bars, radio buttons, check boxes,
 multi-paned windows, drag-and-drop, and much more. In addition to the
 dozen or so books which have been written about Swing, one could easily
-write an entire book on Seesaw. This recipe simply serves as a
-starting point for further investigation of the Seesaw library:
+write an entire book on Seesaw. This recipe merely serves as a
+starting point for further investigation of the Seesaw library.
+
+===== See Also
 
 * https://github.com/daveray/seesaw[The Seesaw project on GitHub].
 * J. Elliott et. al., "Java Swing, 2nd Ed.", O'Reilly Media.
