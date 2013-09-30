@@ -1,10 +1,11 @@
-==== Making a GUI Window
+==== Making a GUI Window with Scrollable Text
 
-// By John Walker, with extensive modifications by John Jacobsen (@eigenhombre)
+// Originally by John Walker, this version has extensive modifications
+// by John Jacobsen (@eigenhombre)
 
 ==== Problem
 
-You want to make a GUI window with scrollable content.
+You want to create and display a GUI window with scrollable content.
 
 ==== Solution
 
@@ -21,25 +22,30 @@ Seesaw with the +native!+ function:
 
 [source,clojure]
 ----
-(ns example.seesaw
-  (:require [seesaw.core :refer [frame native! pack! show!]]))
+(ns simplegui.core 
+  (:require [seesaw.core :refer [native! frame show! config!
+                                 pack! text scrollable]]))
 
 (native!)
 ;; => nil
 ----
+
+===== Creating the Window
 
 To create our window object, we use +frame+ (which, under the covers, makes a
 +JFrame+ Swing object):
 
 [source,clojure]
 ----
-(frame :title "Cooking with Clojure" :content "Hello World")
+(frame :title "Lyrical Clojure" :content "Hello World")
 ;; => #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523
-;; [frame6,0,19,0x0,invalid,hidden,layout=java.awt.BorderLayout,title=Police,
-;; resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,
-;; rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,layout=javax.swing.JRootPane$RootLayout,
-;; alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],
-;; rootPaneCheckingEnabled=true]>
+;; [frame0,0,22,0x0,invalid,hidden,layout=java.awt.BorderLayout,
+;; title=Lyrical Clojure,resizable,normal,
+;; defaultCloseOperation=HIDE_ON_CLOSE,
+;; rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,
+;; layout=javax.swing.JRootPane$RootLayout,
+;; alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,
+;; minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
 ----
 
 Although a frame has been created, nothing appears. In order to
@@ -47,18 +53,36 @@ actually display the frame, you must use +show!+:
 
 [source,clojure]
 ----
-(def f (frame :title "Cooking with Clojure"))
+(def f (frame :title "Lyrical Clojure"))
 
 (show! f)
-;; => #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523
-;; [frame6,0,19,0x0,invalid,hidden,layout=java.awt.BorderLayout,title=Police,
-;; resizable,normal,defaultCloseOperation=HIDE_ON_CLOSE,
-;; rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,layout=javax.swing.JRootPane$RootLayout,
-;; alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],
-;; rootPaneCheckingEnabled=true]>
+;; => #<JFrame$Tag$a79ba523 [...]
 ----
 
-More complicated examples of GUI's in seesaw should have a call to +pack!+, which assigns width and height properties according to its content.  Without such a call, you might have difficulty even finding the window being displayed.
+image:gui/seesaw/window-only.png["",width=150]
+
+===== Adding Content
+You can change properties of the frame using +config!+:
+
+[source,clojure]
+----
+(config! f :content "Actual content!")
+;; => #<JFrame$Tag$a79ba523 [...]
+----
+
+===== Sizing the Window
+
+We could have specified the size of the window at time of creation:
+
+[source,clojure]
+----
+(def f (frame :title "Lyrical Clojure" :width 300 :height 150))
+;; => #<JFrame$Tag$a79ba523 [...]
+----
+
+However, it is common to instead call +pack!+ on the resulting frame
+object; this assigns width and height properties according to its
+content:
 
 [source,clojure]
 ----
@@ -66,59 +90,64 @@ More complicated examples of GUI's in seesaw should have a call to +pack!+, whic
 ;; => #<JFrame$Tag$a79ba523 [...]
 ----
 
-You can change anything in the frame using +config!+.
+image:gui/seesaw/content.png["",width=150]
+
+===== Adding Scrollable Content
+
+Let's add some text, in the form of an excerpt from the sonnets of Shakespeare, to our window:
 
 [source,clojure]
 ----
-(config! f :content "Blue skies")
-;; => #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523
-;; [frame7,0,0,1366x768,hidden,layout=java.awt.BorderLayout,title=Blue skies,resizable,
-;; normal,defaultCloseOperation=HIDE_ON_CLOSE,
-;; rootPane=javax.swing.JRootPane[,0,0,1366x768,layout=javax.swing.JRootPane$RootLayout,
-;; alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,minimumSize=,preferredSize=],
-;; rootPaneCheckingEnabled=true]>
+(def sonnet-text (->> "http://www.gutenberg.org/cache/epub/1041/pg1041.txt"
+                      slurp
+                      (drop 20000)
+                      (take 4000)
+                      (apply str)))
 ----
 
-Note that the text is now "Blue skies," but that the window is too small to display the entire string. Follow up with a call to +pack!+.
+Adding a bit more text gives us something too big to fit in the current window:
+
+[source,clojure]
+----
+(config! f :content sonnet-text)
+;; => #<JFrame$Tag$a79ba523 [...]
+----
+
+image:gui/seesaw/no-longer-yours.png["",width=150]
+
+Normally, one would call +pack!+ again to adjust the window size to
+the new content. However, our content is longer than can comfortably
+fit on most screens, so we set the size explicitly and add scrollbars:
+
+[source,clojure]
+----
+(.setSize f 400 400)
+(config! f :content (scrollable (text :multi-line? true
+                                      :text sonnet-text
+                                      :editable? false)))
+----
+
+image:gui/seesaw/sonnets.png["",width=420]
+
+The +:multi-line?+ option to the +text+ function selects +JTextArea+
+as the underlying object, rather than +JTextField+ (+JTextArea+ is
+used for multiline text; +JTextField+ is for single-line text fields).
++:editable?+ specifies that we don't want allow users to edit the text
+(since it is doubtful they wil improve upon Shakespeare's original).
+
+Like most of the Seesaw functions which create widgets, there are
+several more options to +text+, which are best learned about by
+studying the API documentation (http://daveray.github.io/seesaw/).
 
 ==== Discussion
 
-Since Seesaw is operating on a Swing objects, it is possible to
-operate on interfaces regularly created for Java applications. This
-implies that interface design can be done with conventional tools, and
-that Seesaw can be used for acting on interfaces rather than designing
-them.
-
-+config!+ modifies properties in a widget, given a series of keywords
-(representing the properties) and the new values following each one.
-It is fairly versatile in the sense that it can modify multiple
-widgets. For example: 
-
-[source,clojure]
-----
-(config! f :title "The Weather":content "Sunny in Colorado. A lot of text goes in here.")
-(pack! f)
-
-;; or if you have a button that is a child element of f
-
-(config! b :enabled? true :selected? true :text "Press me")
-(pack! f)
-
-;; or if you have multiple buttons that are children of f
-
-(config! [b1 b2 b3 b4] :enabled? true :selected? true :text "Press me (or don't!)")
-(pack! f)
-----
-
-You can consider +show!+ to be shorthand for
-
-[source,clojure]
-----
-(config! f :visible? true)
-----
-
-thus, it is not necessary to call +show!+ after updating a frame. But
-you should always make a call to +pack!+.
+As is always the case in Clojure, the Seesaw library functions return
+Java objects, which can be operated upon directly using Java methods;
+for example, our use of the +.setSize+ method of the +JFrame+ object
+returned by +frame+. This interoperability provides great power, but
+comes at the cost of a somewhat higher burden on programmers, who must
+navigate not only the Seesaw API but, frequently, some aspects of the
+underlying Swing API as well.
 
 ===== See Also
 
@@ -130,3 +159,4 @@ write an entire book on Seesaw. This recipe simply serves as a
 starting point for further investigation of the Seesaw library:
 
 * https://github.com/daveray/seesaw[The Seesaw project on GitHub].
+* J. Elliott et. al., "Java Swing, 2nd Ed.", O'Reilly Media.
