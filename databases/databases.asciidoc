@@ -23,8 +23,6 @@ include::datomic/transact-relations.asciidoc[]
 
 include::datomic/transact-retract-data.asciidoc[]
 
-include::datomic/transact-excise-data.asciidoc[]
-
 include::datomic/transact-with-consistency.asciidoc[]
 
 include::datomic/dry-run-transactions.asciidoc[]
