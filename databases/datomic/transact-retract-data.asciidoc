@@ -8,7 +8,81 @@ You need to remove data from your Datomic database.
 
 ===== Solution
 
+To remove a value for an attribute, you should use the +:db/retract+ operation in transactions.
+
+First, some setup. Use the Schema recipe to construct and prepare a database with the schema we need, and then populate the database with some data about Barney Rubble.
+
+With the resulting database, get a hold of Barney's entity ID, and verify that he has an email address:
+
+[source,clojure]
+----
+(def new-id (d/tempid :db.part/user))
+
+(def tx-result @(d/transact conn
+                            [{:db/id new-id
+                              :user/name "Barney Rubble"
+                              :user/email "barney@rubble.me"}]))
+
+(def after-tx-db (:db-after tx-result))
+
+(def barney-id (d/resolve-tempid after-tx-db
+                                 (:tempids tx-result)
+                                 new-id))
+
+barney-id
+;; -> 17592186045421
+
+(d/q '[:find ?email :in $ ?entity-id :where
+       [?entity-id :user/email ?email]]
+     after-tx-db
+     barney-id)
+;; -> #{["barney@rubble.me"]}
+----
+
+Now retract Barney's email address:
+
+[source,clojure]
+----
+(def retract-tx-result @(d/transact conn [[:db/retract barney-id :user/email "barney@rubble.me"]]))
+
+(def after-retract-db (:db-after retract-tx-result))
+
+(d/q '[:find ?email :in $ ?entity-id :where
+       [?entity-id :user/email ?email]]
+     after-retract-db
+     barney-id)
+;; -> #{}
+----
+
+To retract entire entities, use the +:db.fn/retractEntity+ built-in transactor function:
+
+[source,clojure]
+----
+(def retract-entity-tx-result @(d/transact conn [[:db.fn/retractEntity barney-id]]))
+
+(def after-retract-entity-db (:db-after retract-entity-tx-result))
+
+(d/q '[:find ?entity-id :in $ ?name :where
+       [?entity-id :user/name ?name]]
+     after-retract-entity-db
+     "Barney Rubble")
+;; -> #{}
+----
+
 ===== Discussions
+
+When using +:db/retract+, you provide the value to retract so that in the case of cardinality-many attributes, it's clear which value to retract from the set of values for that attribute. Regardless of the cardinality, if you provide a value that isn't in storage, nothing will be retracted. This means that you have to know what _value_ you want to retract; you can't simply retract everything for an attribute by only providing the entity id and the attribute.
+
+If you retract values for an attribute that does _not_ use +:db/noHistory+, you will be able to query past database values to find past values for the attribute.
+
+If you retract values for an attribute that uses +:db/noHistory+, that data will be _permanently deleted_. 
+
+When using +:db.fn/retractEntity+, all attribute values for all the attributes on that entity will be retracted, as will all +:db/ref+ attributes that have the entity as a value. Any component entities of the entity being retracted will be themselves be recursively retracted.
+
+You'll find that the actual entity id itself is not retracted, but that it will have no attributes associated with it. This is because once an entity is created, it can not be retracted. Removing all the attributes and references to the entity has the same effect as though it had been permanently removed, though!
+
+If you need to permanently remove data due to legal concerns or because the data in question falls outside of your domain-specified retention period, use Excision to remove the data permanently.
 
 ===== See Also
 
+* Excision
