@@ -56,17 +56,9 @@ benchmarking is what you're after. Additionally, you shouldn't try to
 use +currentTimeMillis+ as some sort of unique value - UUIDs do
 a much better job of this.
 
-If you are familiar with the Java ecosystem, you may have heard of
-http://www.joda.org/joda-time/[Joda-Time] a Java date and time API.
-Clojure has a library https://github.com/clj-time/clj-time[clj-time]
-that provides a Clojure friendly API to Joda-Time, allowing you to
-take advantage of the functionality that Joda-Time gives over normal
-Java +Date+ objects.
-
-If you decide to use +clj-time+ to work with +DateTime+s objects from
-Joda-Time instead of dealing with +Date+ objects which Java provides,
-+clj-time+ provides the +now+ function located in the +clj-time.core+
-namespace.
+If you decide you would rather use
+https://github.com/clj-time/clj-time[clj-time] to work with dates, it
+provides the a function +clj-time.core/now+ to get the current +DateTime+.
 
 [source,clojure]
 ----
@@ -76,9 +68,8 @@ namespace.
 ;; -> #<DateTime 2013-04-06T14:35:15.453Z>
 ----
 
-If you need to get the current date and time in the local
-timezone when using +clj-time+ that can be done with the
-+local-now+ function found in the +clj-time.local+ namespace.
+Use +clj-time.local/local-now+ to retrieve a +DateTime+ instance for
+the present scoped to your machine's local time zone.
 
 [source,clojure]
 ----
