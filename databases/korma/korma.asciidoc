@@ -1,6 +1,6 @@
-=== Working with SQL Korma
+=== Working with Korma for SQL
 
-// by Dmitri Sotnikov
+// by Dmitri Sotnikov, Chris Allen
 
 // TODO: Early merged this so @callen could submit feedback
 //
@@ -19,49 +19,83 @@ You want to work with data stored in a relational database without writing SQL b
 
 ===== Solution
 
-Use SQL Korma as a DSL for generating SQL queries.
+Use Korma as a DSL for generating SQL queries and traversing relationships.
 
-First, add Korma along with the databse driver to your `project.clj` file:
+First, fire up a fresh Leiningen project with Korma (the SQL library) and H2 (the SQL database) as dependencies.
+
+[source,bash]
+----
+lein new learn-korma
+----
+
+Then the project.clj with the appropriate dependencies:
 
 [source,clojure]
 ----
-(defproject couch-time "1.0.0"
+
+(defproject learn-korma "0.0.1-doesnt-matter-youre-not-shipping-this"
+  :description "Doesn't matter"
+  :url "http://uss-who-cares.com/"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [korma "0.3.0-RC5"]
-                 [org.postgresql/postgresql "9.2-1002-jdbc4"]])
+                 [com.h2database/h2 "1.3.173"]])
+
 ----
 
-Next, define a databse connection. Korma uses to create pooled connections.
+Next, define a database connection. Korma uses c3p0 to create pooled connections.
 
 [source,clojure]
 ----
-(use 'korma.db)
+
+(require '[korma.db :refer :all])
 
 (defdb db
-  (postgres {:db "mydb"
-             :user "admin"
-             :password "secret"}))
+  (h2 {:db "resources/db/posts.db"
+       :naming {:keys clojure.string/lower-case
+                ;; set map keys to lower and fields to upper-case
+                :fields clojure.string/upper-case}}))
+
 ----
 
-Next, you will need to define your entities. Entities represent individual
-tables in your database. Here you'll define an entity for blog posts:
+Next, you will need to define and create your entities. Entities represent
+individual tables in your database. Here you'll define an entity for blog posts:
 
 [source,clojure]
 ----
-(use 'korma.core)
 
-(defentity posts)
+(require '[korma.core :refer :all])
+
+(defentity posts
+  (pk :id)
+  ;; Upper-case table names by default in H2. We handled it for the columns->keys earlier with naming.
+  (table :POSTS))
+
+(def create-posts (str "CREATE TABLE posts (id INT IDENTITY, title VARCHAR(255), content VARCHAR(255), created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP());"))
+
+;; Korma function to exec raw SQL, should only be used where strictly necessary.
+(exec-raw create-posts)
+
 ----
+
+Normally you'd use a proper migration library for your schema, but we're
+keeping it simple for the sake of demonstration.
 
 When only a single connection is defined it will be used by default and you
 don't have to pass it in explicitly. You can use +insert+ to add records to
 the database. Each record is represented by a map. The names of the keys
 in the map must match the names of the columns in the database.
 
+We're using +entity-fields+ to define which fields we want to retrieve by
+default in select queries that don't have fields specified.
+
 [source,clojure]
 ----
+
 (insert posts
   (values {:title "First post" :content "blah blah blah"}))
+
 ----
 
 
@@ -72,24 +106,30 @@ the column names.
 
 [source,clojure]
 ----
+
 (select posts (limit 1))
+
 ----
 
 You can also update existing records using +update+:
 
 [source,clojure]
 ----
+
 (update posts
   (set-fields {:title "Best Post"})
   (where {:title "First post"}))
+
 ----
 
 Deleting records is done using +delete+:
 
 [source,clojure]
 ----
+
 (delete posts
   (where {:title "Best Post"}))
+
 ----
 
 ===== Discussion
@@ -105,47 +145,139 @@ While Korma provides helpers for most common databases, you can also define one 
 
 [source,clojure]
 ----
+
+(require '[korma.core :refer :all])
+
 (def db {:subprotocol "h2"
-         :subname     "records.db"
-         :classname   "org.h2.Driver"})
+         :subname     "./resources/db/records.db"
+         :classname   "org.h2.Driver"
+         :naming {:keys clojure.string/lower-case
+                  :fields clojure.string/upper-case}})
+
 ----
 
 When defining entities you can pass in a number of options. These include
 +table+ to specify the table name directly, +entity-fields+ for default
 fields to be selected:
 
-[source,clojure]
-----
-(defentity customers
-  (table :customers_table)
-  (entity-fields :id :name))
-----
-
 You can also define entity relations using the +has-one+, +has-many+, +belongs-to+
 and +many-to-many+:
 
 [source,clojure]
 ----
-(defentity customers
-  ;; by default assumed id as a primary key
+
+(defentity orders
+  ;; order is a reserved name in korma and H2.
+  (database db)
+  (table :ORDERS))
+
+(defentity billable
+  (database db)
+  (table :BILLABLE))
+
+;; forward declaring customer so address can refer to it before it exists
+(declare customer)
+
+(defentity address
+  (database db)
+  (table :ADDRESS))
+
+(defentity phone
+  (database db)
+  ;; WHO WAS
+  (table :PHONE))
+
+(defentity customer
+  ;; specify which database directly, using the one you defined earlier
+  (database db)
+
+  (table :CUSTOMER)
+
+  ;; By default assumed id as a primary key
   ;; produces query:
-  ;; "customers.id = address.customers_id"
+  ;; "customer.id = address.customer_id"
   (has-one address)
   (has-many phone)
-  ;; you can override the default foreign key
+
+  ;; You can override the default foreign key
   ;; name by using :fk as seen below
-  (belongs-to billable {:fk :cust_id)
-  (many-tomany orders :customer_orders))
+  (belongs-to billable {:fk :CUST_ID})
+  (many-to-many orders :CUSTOMER_ORDERS))
+
+
+(def create-orders (str "CREATE TABLE orders (id INT IDENTITY, billable_id INT);"))
+
+(def create-billable (str "CREATE TABLE billable (id INT IDENTITY, cust_id INT, item VARCHAR(255));"))
+
+(def create-address (str "CREATE TABLE address (id INT IDENTITY, customer_id INT, addy VARCHAR(255));"))
+
+(def create-phone (str "CREATE TABLE phone (id INT IDENTITY, customer_id INT, phone VARCHAR(255));"))
+
+(def create-customer (str "CREATE TABLE customer (id INT IDENTITY, name VARCHAR(255), tentacles BOOLEAN);"))
+
+(doseq [mah-sql [create-orders create-billable create-address create-phone create-customer]]
+  ;; doseq is used when you want to perform a side-effecting function on each element of a seq
+  ;; The implication when you see "do" is that you're doing something for side-effects
+  ;; Also exec-raw allows you to pass an explicit database parameter.
+  (exec-raw db mah-sql))
+
+;; doseq just returns nil when it's done. It's still an expression just like everything
+;; else in Clojure despite being ostensibly for side effects.
+
 ----
 
 Korma also allows us to create subselects
 
 [source,clojure]
 ----
+
 (defentity sub-customers
-  (table (subselect customers
-           (where :orders_pending))
+  (table (subselect customer
+           (where :ORDERS_PENDING))
          :customersWithOrders))
+
+----
+
+Creating test data for the upcoming queries:
+
+[source,clojure]
+----
+
+;; You can insert multiple rows at a time by passing a vector to "values"
+(insert customer
+        (values [{:name "Dmitri"  :tentacles false}
+                 {:name "Chris"   :tentacles false}
+                 {:name "Brandy"  :tentacles false}
+                 {:name "Cthulhu" :tentacles true}]))
+
+(def dmitri  (first (select customer
+                    (where {:name "Dmitri"}))))
+(def chris   (first (select customer
+                    (where {:name "Chris"}))))
+(def brandy  (first (select customer
+                    (where {:name "Brandy"}))))
+(def cthulhu (first (select customer
+                    (where {:name "Cthulhu"}))))
+
+;; Do not proceed unless you have values for each example customer.
+(doseq [x [dmitri chris brandy cthulhu]]
+  ;; You can do this with a (doall (map ...)) by wrapping it in
+  ;; an fn, but you don't want to.
+  (assert x x))
+
+(insert billable
+        (values {:cust_id (:ID brandy) :item "Chainsaw for cutting down trees in the backyard"}))
+(insert billable
+        (values {:cust_id (:ID dmitri) :item "Caviar"}))
+(insert billable
+        (values {:cust_id (:ID chris) :item "Bottles of whiskey for bribery"}))
+(insert address
+        (values {:customer_id (:ID chris) :addy "San Francisco!"}))
+(insert address
+        (values {:customer_id (:ID dmitri) :addy "Elsewhere"}))
+(insert address
+        (values {:customer_id (:ID brandy) :addy "San Francisco!"}))
+
 ----
 
 Selection queries define all the common relational operations
@@ -153,19 +285,20 @@ such as +aggregate+, +join+, +order+, +group+ and +having+:
 
 [source,clojure]
 ----
-(select customers
-  (join address)
-  (group :id :ASC)
-  (group :address_id)
-  (having {:cnt [> 1]}))
+
+(select customer
+  (group :tentacles :id))
+
 ----
 
-You can inclue results from other related entities using the +with+ clause:
+You can include results from other related entities using the +with+ clause:
 
 [source,clojure]
 ----
-(select customers
+
+(select customer
   (with address))
+
 ----
 
 Korma also allows doing manual joins as can be seen below:
