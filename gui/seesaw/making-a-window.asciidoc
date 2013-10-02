@@ -30,7 +30,7 @@ Seesaw with the +native!+ function:
 ;; => nil
 ----
 
-To create our window object, we use +frame+ (which, under the covers, makes a
+To create your window object, use +frame+ (which, under the covers, makes a
 +JFrame+ Swing object):
 
 [source,clojure]
@@ -47,7 +47,7 @@ To create our window object, we use +frame+ (which, under the covers, makes a
 ----
 
 Although a frame has been created, nothing appears. In order to
-actually display the frame, we must use +show!+:
+actually display the frame, use +show!+:
 
 [source,clojure]
 ----
@@ -61,10 +61,10 @@ image:gui/seesaw/window-only.png["",width=150]
 
 ==== Discussion
 
-Having created the window, we can set its size, add content, and add scrollbars, as follows.
+Having created the window, you can set its size, add content, and add scrollbars, as follows.
 
 ===== Adding Content
-We can change properties of the frame using +config!+:
+You can change properties of the frame using +config!+:
 
 [source,clojure]
 ----
@@ -74,7 +74,7 @@ We can change properties of the frame using +config!+:
 
 ===== Sizing the Window
 
-We could have specified the size of the window at time of creation:
+You can also specify the size of the window at time of creation:
 
 [source,clojure]
 ----
@@ -96,7 +96,7 @@ image:gui/seesaw/content.png["",width=150]
 
 ===== Adding Scrollable Content
 
-Let's add some text, in the form of an excerpt from the sonnets of Shakespeare, to our window:
+Now add some text, in the form of an excerpt from the sonnets of Shakespeare, to your window:
 
 [source,clojure]
 ----
@@ -107,7 +107,7 @@ Let's add some text, in the form of an excerpt from the sonnets of Shakespeare, 
                       (apply str)))
 ----
 
-Adding a bit more text gives us something too big to fit in the current window:
+This content is too big to fit in the current window:
 
 [source,clojure]
 ----
@@ -118,8 +118,8 @@ Adding a bit more text gives us something too big to fit in the current window:
 image:gui/seesaw/no-longer-yours.png["",width=150]
 
 Normally, one would call +pack!+ again to adjust the window size to
-the new content. However, our content is longer than can comfortably
-fit on most screens, so we set the size explicitly and add scrollbars:
+the new content. However, the content will not fit comfortably on most
+screens, so set the size explicitly and add scrollbars:
 
 [source,clojure]
 ----
@@ -134,7 +134,7 @@ image:gui/seesaw/sonnets.png["",width=420]
 The +:multi-line?+ option to the +text+ function selects +JTextArea+
 as the underlying object, rather than +JTextField+ (+JTextArea+ is
 used for multiline text; +JTextField+ is for single-line text fields).
-+:editable?+ specifies that we don't want allow users to edit the text
++:editable?+ specifies that you don't want allow users to edit the text
 (since it is, perhaps, doubtful that they would improve upon
 Shakespeare's original).
 
