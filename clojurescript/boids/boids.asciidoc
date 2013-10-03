@@ -1,10 +1,10 @@
+[au="Tom White"]
+=== Boids Simulation
+
 ////
 :Author: Tom White
 :Email: tom@sixdozen.com
 ////
-
-
-=== Boids Simulation
 
 ===== Problem
 
@@ -116,8 +116,8 @@ http://s.trokes.org/dribnet/6460753[live demo here.]
   (+ low (rand (- high low))))
 
 (defn newboid []
-  {:id (gensym "boid-") 
-   :loc [(rand-int width) (rand-int height)] 
+  {:id (gensym "boid-")
+   :loc [(rand-int width) (rand-int height)]
    :lastd (mapv #(rand-range -1 1) (range 2))
    :dead (< (rand) (:dead-prop settings))})
 
