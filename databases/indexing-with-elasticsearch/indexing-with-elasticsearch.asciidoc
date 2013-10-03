@@ -17,7 +17,7 @@ http://www.elasticsearch.org/download/[on elasticsearch.org].
 
 ElasticSearch supports multiple transports (e.g. HTTP, native Netty-based
 transport, Memcached, etc). Elastisch supports HTTP and native transports.
-This chapter will use HTTP transport client for examples and explain how
+This recipe will use HTTP transport client for examples and explain how
 to switch to the native transport in the Discussion section.
 
 
@@ -65,7 +65,7 @@ Next we will take a look at each stage in more detail.
 
 ====== Creating an Index With HTTP Client
 
-ElasticSearch provides support for multiple indexes. Indexes can be thought of as databases in a DBMS. 
+ElasticSearch provides support for multiple indexes. Indexes can be thought of as databases in a DBMS.
 
 To create an index, use the *clojurewerkz.elastisch.rest.index/create* function:
 

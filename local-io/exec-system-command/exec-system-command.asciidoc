@@ -111,8 +111,7 @@ over Java. Add the +sh+ command to your repertoire, and you can rule
 the entire kingdom of your system from Clojure, firing off programs
 written in any language.
 
-To rule the world outside your system as well, see the chapter on
-Network IO & Web Services.
+To rule the world outside your system as well, see [[ch_network_io]].
 
 ===== See Also
 

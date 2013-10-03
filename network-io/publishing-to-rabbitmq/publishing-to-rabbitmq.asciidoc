@@ -15,7 +15,7 @@ In order to successfully go through this recipe, you should have
 RabbitMQ installed. You can find details on how to install RabbitMQ
 here: http://www.rabbitmq.com/download.html.
 
-RabbitMQ is a multi-protocol broker. This chapter will only cover
+RabbitMQ is a multi-protocol broker. This recipe will only cover
 AMQP 0-9-1, RabbitMQ's original protocol.
 
 
