@@ -2,13 +2,13 @@
 
 // Author: Robert Stuttaford robert@cognician.com
 
-===== Problem
+==== Problem
 
 You need to add multiple related entities to your Datomic database in a single transaction.
 
-===== Solution
+==== Solution
 
-===== Discussions
+==== Discussions
 
-===== See Also
+==== See Also
 

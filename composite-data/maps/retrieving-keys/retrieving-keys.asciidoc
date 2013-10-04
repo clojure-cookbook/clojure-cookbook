@@ -1,10 +1,10 @@
 === Retrieving keys from a map
 
-===== Problem
+==== Problem
 
 You want to get the value stored at a particular key in a map.
 
-===== Solution
+==== Solution
 
 As with sets, there are several ways to retrieve keys by values.
 
@@ -107,7 +107,7 @@ example, indices of vectors.
 ;; -> "Bard"
 ----
 
-===== Discussion
+==== Discussion
 
 Which technique of the three discussed above is the best to use? All
 have identical semantics, but in idiomatic Clojure they convey
@@ -188,6 +188,6 @@ throw an exception if used at all with a list or a sequence.
 
 ****
 
-===== See also
+==== See also
 
 * Maps as sequences

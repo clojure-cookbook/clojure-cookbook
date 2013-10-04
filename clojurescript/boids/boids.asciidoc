@@ -6,11 +6,11 @@
 :Email: tom@sixdozen.com
 ////
 
-===== Problem
+==== Problem
 
 You want to run and visualize a boids simulation using SVG and CSS.
 
-===== Solution
+==== Solution
 
 Use https://github.com/dribnet/strokes[strokes] to use D3 from ClojureScript.
 
@@ -73,7 +73,7 @@ core bits of creating objects and animating them in a web page.
 
 http://s.trokes.org/dribnet/6460749[Live demo here]
 
-===== Discussion
+==== Discussion
 
 https://github.com/dribnet/strokes[strokes] is a library which provides idomatic
 use of http://d3js.org/[D3.js] from ClojureScript. Here we put 5 objects in a
@@ -232,6 +232,6 @@ http://s.trokes.org/dribnet/6460753[live demo here.]
   false))
 ----
 
-===== See Also
+==== See Also
 
 * http://en.wikipedia.org/wiki/Boids[Boids]

@@ -4,12 +4,12 @@
 Author: John Jacobsen @eigenhombre http://eigenhombre.com john@mail.npxdesigns.com
 ////
 
-===== Problem
+==== Problem
 
 Console input is normally buffered by lines; you want to read a
 single, unbuffered keystroke from the console.
 
-===== Solution
+==== Solution
 
 Use +ConsoleReader+ from the JLine footnote:[https://github.com/jline/jline2]
 library, a Java library for handling console input.
@@ -32,7 +32,7 @@ as of this writing.
     (println (format "Got %d ('%c')!" keyint (char keyint)))))
 ----
 
-===== Discussion
+==== Discussion
 
 As in most languages, console IO in Java is buffered; +flush+
 writes the initial prompt to the standard output stream. However,
@@ -65,7 +65,7 @@ user=>
 
 ----
 
-===== See Also
+==== See Also
 
 If you want a richer terminal-based interface similar to what
 the C curses library provides, the

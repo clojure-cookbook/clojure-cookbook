@@ -1,11 +1,11 @@
 === "Removing" an item from a vector
 
-===== Problem
+==== Problem
 
 You want to remove an item from a vector, obtaining a new vector
 without the item.
 
-===== Solution
+==== Solution
 
 To efficiently remove an item from the end of a vector, use the +pop+
 function, which takes a vector and returns a new vector without the
@@ -42,7 +42,7 @@ an end index to +subvec+ as well:
 ;; -> [:b :c]
 ----
 
-===== Discussion
+==== Discussion
 
 Because +subvec+ exploits the internal representation of a vector to
 create a sub-vector that shares internal structure with the original,
@@ -59,7 +59,7 @@ Of course, you can convert any sequence back into a concrete vector
 using +vec+ or +into []+, but this can be an expensive operation for
 large vectors.
 
-===== See also
+==== See also
 
 * Removing an item from a list (xref)
 * Removing items from a sequence (xref)

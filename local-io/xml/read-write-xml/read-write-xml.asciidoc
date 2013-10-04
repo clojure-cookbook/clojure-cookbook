@@ -2,11 +2,11 @@
 
 // By Stefan Karlsson (zclj)
 
-===== Problem
+==== Problem
 
 You need to read or write XML data.
 
-===== Solution
+==== Solution
 Use +clojure.xml/parse+ to get a map representing the structure of an XML-file.
 
 [source,clojure]
@@ -32,7 +32,7 @@ Use +spit+ in combination with +clojure.xml/emit+ to write a structure that repr
 ----
 The +with-out-str+ macro returns the string created by its body.
 
-===== Discussion
+==== Discussion
 To work with XML you can handle it as any other map. Here is an example of a function that, given an id and a file, will parse the file for nodes with an attribute id that is equal to the argument.
 [source,clojure]
 ----
@@ -65,7 +65,7 @@ There are a lot more you can do with the xml zipper so check out the documentati
 
 If you have control of how the data is stored you might consider to use JSON which maps really well to Clojure data structures, see <<sec_local_io_json>> for more information. One other alternative to consider is to directly persist Clojure data structures to a file, see <<sec_local_io_clojure_data_to_disk>>
 
-===== See also
+==== See also
 * See <<sec_local-io_read_write_files>> for more information of how to write to files.
 
 * See the documentation for https://github.com/clojure/data.zip[+clojure.data.zip+]

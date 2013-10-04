@@ -2,7 +2,7 @@
 
 // by Travis Vachon (travis)
 
-===== Problem
+==== Problem
 
 Streams are a dominant metaphor for presenting information to users of
 the modern internet. Used on sites like Facebook and Twitter and mobile
@@ -24,7 +24,7 @@ Hadoop is for batch computation. In this section we'll build a simple
 activity stream processing system that can be easily extended to solve
 real world problems.
 
-===== Solution
+==== Solution
 
 First create a new storm project using +lein+:
 
@@ -153,7 +153,7 @@ final bolts in the topology:
 $ lein run -m feeds.topology/run!
 
 
-===== Discussion
+==== Discussion
 
 Storm's Clojure DSL doesn't look like standard Clojure - instead, it
 uses Clojure's macros to extend the language to the domain of stream
@@ -174,7 +174,7 @@ primitives:
 We'll review the components of our system to give a better picture of
 how these primitives work together.
 
-====== event-spout
+===== event-spout
 
 [source,clojure]
 ----
@@ -225,7 +225,7 @@ We can also implement the spout's +ack+ method to implement a
 more information on reliable spouts, see Storm's spout implementation
 for the Kestrel queueing system.
 
-====== active-user-bolt
+===== active-user-bolt
 
 Every time a user takes an action in our system we need to determine
 whether every other user in the system will be interested in it. Given
@@ -262,7 +262,7 @@ and emits a tuple for each of them. The last line of the body calls +ack!+
 on this tuple, which allows Storm to track message processing and restart
 processing when appropriate.
 
-====== follow-bolt
+===== follow-bolt
 
 The next bolt is a *prepared bolt*, that is, one that maintains
 in-memory state. In many cases this would mean maintaining a
@@ -320,7 +320,7 @@ determining the makeup of a user's feed and their relative weights
 would be trivial - indeed, production experience with just such a
 system was, in the opinion of the authors, delightful.
 
-====== feed-bolt
+===== feed-bolt
 
 Our final bolt aggregates events into feeds. Since it only receives
 (+user+, +event+) tuples that the "scoring system" has approved it
@@ -359,7 +359,7 @@ same user.
 Happily, this flaw is addressed by the Storm's support for *stream
 grouping*, which we define in the Storm topology definition.
 
-====== topology
+===== topology
 
 The topology definition is where the rubber meets the road. Spouts are
 wired to bolts which are wired to other bolts, and the flow of tuples
@@ -436,7 +436,7 @@ parallelism of the system, but they are used by the cluster to
 determine how many in-memory instances of the specified components to
 create.
 
-====== deployment
+===== deployment
 
 The real magic of Storm comes out in deployment. Storm gives us the
 tools us to build small, independent components that make no
@@ -501,7 +501,7 @@ The full details of setting up and running a Storm cluster are out of
 the scope of this recipe, but they are documented extensively on
 Storm's wiki.
 
-====== Conclusion
+===== Conclusion
 
 We've only touched on a fraction of the functionality Storm has to
 offer. Built in Distributed Remote Procedure Calls allow users to
@@ -524,7 +524,7 @@ majority of the code in a well written Storm topology's codebase is
 focused on the problem at hand. The result is concise, maintainable
 code and happy programmers.
 
-===== See also
+==== See also
 
 * http://storm-project.net/[Storm's website]
 * https://github.com/travis/lein-storm-project-template[the Storm project template]

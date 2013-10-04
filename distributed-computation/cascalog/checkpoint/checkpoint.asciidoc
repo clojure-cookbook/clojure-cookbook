@@ -1,12 +1,12 @@
 === Checkpointing Cascalog Jobs
 
-===== Problem
+==== Problem
 
 Your long running Cascalog jobs throw errors, then need to be
 completely restarted. You waste time waiting for steps to rerun when
 the problem was later in the workflow.
 
-===== Solution
+==== Solution
 
 Cascalog Checkpoint is an excellent library that provides the ability
 to add checkpoints to your Cascalog job. If a step fails, the job is
@@ -38,7 +38,7 @@ Then use cascalog-checkpoint's workflow macro to setup your job.
                      out-path))))
 ----
 
-===== Discussion
+==== Discussion
 
 Cascalog jobs often take hours to run. There are few things more
 frustrating than a typo in the last step breaking a job that has been

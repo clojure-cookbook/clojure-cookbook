@@ -1,10 +1,10 @@
 === Performing Bitwise Operations
 
-===== Problem
+==== Problem
 
 You need to perform bitwise operations on numbers.
 
-===== Solution
+==== Solution
 
 Bitwise operations aren't quite as useful in Clojure as they are in
 systems languages like C or C\++, but the techniques learned in those
@@ -42,7 +42,7 @@ number of binary flags into a single value.
 (able-to? read-only :global-write) ;; -> false
 ----
 
-===== See Also
+==== See Also
 
 Clojure provides a full complement of bitwise operations in its core
 library. This includes 'and', 'or', their negations and shifts, to name a few.

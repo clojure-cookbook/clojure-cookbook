@@ -1,12 +1,12 @@
 === Publish to RabbitMQ
 // By Michael Klishin (michaelklishin)
 
-===== Problem
+==== Problem
 
 You want to communicate with other applications over http://rabbitmq.com[RabbitMQ]
 and need to publish messages from Clojure.
 
-===== Solution
+==== Solution
 
 Use http://clojurerabbitmq.info[Langohr], a small feature complete RabbitMQ client, to communicate
 with RabbitMQ.
@@ -118,7 +118,7 @@ To declare an exchange, use +langohr.exchange/fanout+, +langohr.exchange/topic+,
 ----
 
 
-===== Discussion
+==== Discussion
 
 RabbitMQ supports AMQP 0-9-1, MQTT, STOMP, and AMQP 1.0.
 This recipe focuses on its original protocol, AMQP 0-9-1.
@@ -171,7 +171,7 @@ Langohr is a feature complete RabbitMQ client that supports
 AMQP 0-9-1, RabbitMQ extensions to it and provides HTTP
 API client.
 
-===== See Also
+==== See Also
 See http://clojurerabbitmq.info[Langohr documentation] and
 http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn more.
 

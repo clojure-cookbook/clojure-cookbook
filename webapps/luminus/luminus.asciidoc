@@ -4,7 +4,7 @@
 
 // By Dmitri Sotnikov
 
-===== Problem
+==== Problem
 
 // RN: The big value proposition here is that Luminus gives a fast path to
 // getting a ring/compojure app created and running quickly. Where possible,
@@ -12,7 +12,7 @@
 
 Create a typical Ring/Compojure web application.
 
-===== Solution
+==== Solution
 
 Use the +luminus+ template when creating a new project.
 
@@ -30,7 +30,7 @@ You can start the application in development mode by running:
 lein ring server
 ----
 
-===== Discussion
+==== Discussion
 
 Luminus provides a set of libraries and standard boilerplate for
 creating common Ring/Compojure applications.
@@ -97,6 +97,6 @@ To package for deployment as a a +war+ use:
 lein ring uberwar
 ----
 
-===== See Also
+==== See Also
 
 * To see more details on using Luminus, visit the http://www.luminusweb.net/[Luminus] project page.

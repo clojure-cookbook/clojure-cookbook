@@ -2,11 +2,11 @@
 
 // Author: Robert Stuttaford robert@cognician.com
 
-===== Problem
+==== Problem
 
 You want to test a transaction prior to committing it using Datalog or the entity API.
 
-===== Solution
+==== Solution
 
 Build your transaction as usual, but instead of calling +d/transact+ or +d/transact-async+, use +d/with+ to produce an in-memory database that includes the changes your transaction provides.
 
@@ -69,9 +69,9 @@ Now, compare the value of Fred's name in the current database with that of Fred'
 
 As you can see, the database at +current-db+ remains unaffected by this transaction, but the database at +db-after-tx+ now displays the new value.
 
-===== Discussions
+==== Discussions
 
 Databases produced by +d/with+ can be used with any of the other API functions that accept a database, including +d/with+ itself. This means that you can layer multiple transactions on top of each other without first having to commit them to the transactor!
 
-===== See Also
+==== See Also
 

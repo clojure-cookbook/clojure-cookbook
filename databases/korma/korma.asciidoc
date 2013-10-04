@@ -13,11 +13,11 @@
 // * Are all of these samples actually runnable? Where possible we're striving
 //   for REPL-ability of recipes, and I wasn't sure if all of these samples were.
 
-===== Problem
+==== Problem
 
 You want to work with data stored in a relational database without writing SQL by hand.
 
-===== Solution
+==== Solution
 
 Use SQL Korma as a DSL for generating SQL queries.
 
@@ -92,7 +92,7 @@ Deleting records is done using +delete+:
   (where {:title "Best Post"}))
 ----
 
-===== Discussion
+==== Discussion
 
 Korma provides a simple and intuitive way to construct SQL queries from Clojure.
 The advantage of using Korma is that the queries are written as regular code instead
@@ -218,6 +218,6 @@ When something can't be expressed in Korma you can use raw queries :
 ----
 
 
-===== See Also
+==== See Also
 
 * For more information see the official http://sqlkorma.com/docs[project] page.

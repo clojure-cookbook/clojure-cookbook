@@ -1,10 +1,10 @@
 === Working with Time Zones
 
-===== Problem
+==== Problem
 
 You need to gracefully handle times and dates in a number of time zones.
 
-===== Solution
+==== Solution
 
 The JVM's built-in time and date classes don't work well with the notion
 of time zones. For one, +Date+ treats every value as UTC, and +Calendar+ is
@@ -35,7 +35,7 @@ australia-bday
 ;; -> 0
 ----
 
-===== Discussion
+==== Discussion
 
 Unlike Java built-ins, clj-time knows a lot about time zones.
 http://joda-time.sourceforge.net/[Joda Time], the library clj-time
@@ -79,7 +79,7 @@ including +local-now+ for getting a time in the local time zone, and
 +to-local-date-time+, which shifts the perspective of a time to the
 local time zone.
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_dates_time_between>>
 

@@ -1,10 +1,10 @@
 === Combining Maps
 
-===== Problem
+==== Problem
 
 You have two or more maps you wish to combine to produce a single map.
 
-===== Solution
+==== Solution
 
 Use +merge+ to combine two or more maps with no keys in common.
 
@@ -97,7 +97,7 @@ You can even merge nested maps by recursively merging duplicate keys.
   (apply merge-with deep-merge maps))
 ----
 
-===== Discussion
+==== Discussion
 
 Both +merge+ and +merge-with+ combine their argument maps from left to
 right, returning a new immutable map as a result. In the simple case
@@ -110,7 +110,7 @@ must take two arguments, and is called with the values for each pair
 of duplicate keys as the result map is computed. Mappings for unique
 keys remain unchanged in the result.
 
-===== See also
+==== See also
 
 * See <<sec_composite_data_maps_setting_keys>> to learn more about manipulating maps.
 * See <<sec_composite_data_maps_multiple_values>> for information on

@@ -1,11 +1,11 @@
 [[sec_primitives_math_type_hinting]]
 === Alleviating Performance Problems With Type Hinting
 
-===== Problem
+==== Problem
 
 You have functions that get called very often, and you want to optimize performance for those methods.
 
-===== Solution
+==== Solution
 
 One of the easiest ways to increase performance for a given function
 is to eliminate Java reflection. Enable +*warn-on-reflection*+ to
@@ -75,7 +75,7 @@ functions return value.
 ;; Look Ma, no reflection warnings!
 ----
 
-===== Discussion
+==== Discussion
 
 In highly performant code it is often the case that you'll choose to
 fall back to Java for increased performance. There is an impedance

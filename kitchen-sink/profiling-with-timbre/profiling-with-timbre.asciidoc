@@ -2,12 +2,12 @@
 
 === Simple Profiling with Timbre
 
-===== Problem
+==== Problem
 
 You want fine-grained statistics on the running time and invocation counts
 of your code.
 
-===== Solution
+==== Solution
 
 Use https://github.com/ptaoussanis/timbre[Timbre]
 by inserting profiling macros into your code, without performance penalty in production.
@@ -54,7 +54,7 @@ Timbre outputs rich profiling information in a convenient table.
               Accounted Time                                                     186 26ms
 ----
 
-===== Discussion
+==== Discussion
 
 Profiling with Timbre is a great solution for Clojure-only profiling.
 Standard JVM profiling tools like YourKit and JVisualVM provide more comprehensive
@@ -77,6 +77,6 @@ penalty for code involving `taoensso.timbre.profiling/p` if tracing is not enabl
 This means you can leave tracing code in production, which is useful if you want to
 profile the same code later, or if the profiling comments make your code clearer.
 
-===== See also
+==== See also
 
 https://github.com/ptaoussanis/timbre#profiling(Profiling with Timbre)

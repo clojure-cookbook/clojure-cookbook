@@ -2,12 +2,12 @@
 
 // By John Cromartie (jcromartie)
 
-===== Problem
+==== Problem
 
 You have a sequence of elements and want to remove any duplicates,
 while possibly preserving the order of elements.
 
-===== Solution
+==== Solution
 
 Use `set` to coerce a collection into a hash set, containing only
 distinct values.
@@ -27,7 +27,7 @@ unique values in a collection in the order they appear.
 ;; -> (:a :g :b)
 ----
 
-===== Discussion
+==== Discussion
 
 Since the `set` function consumes the entire sequence passed to it,
 you cannot use it to filter an infinite sequence. `distinct`, on the
@@ -57,6 +57,6 @@ There are also performance trade-offs to finding distinct elements in
 a collection. Using `distinct` is by far the slowest, while simply
 calling `set` is about 2X faster.
 
-===== See Also
+==== See Also
 
 * See <<sec_composite_creating_sets>> for more information on creating sets.

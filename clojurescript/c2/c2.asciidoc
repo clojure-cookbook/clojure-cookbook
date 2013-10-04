@@ -6,11 +6,11 @@
 
 === Visualizing Data with C2
 
-===== Problem
+==== Problem
 
 You want to visualize data with HTML or SVG and CSS.
 
-===== Solution
+==== Solution
 
 Use https://github.com/lynaghk/c2[C2] to draw, e.g., a bar chart.
 
@@ -43,7 +43,7 @@ Then in a ClojureScript file associated with an HTML page containing a `<div id=
 ----
 
 
-===== Discussion
+==== Discussion
 
 C2 is a D3-inspired data visualization library for Clojure and ClojureScript.
 As with D3, the core idea is to build declarative mappings from your data to HTML or SVG markup.
@@ -59,7 +59,7 @@ Since C2 visualizations are just functions that output Hiccup representations of
 TIP: Just because C2's ClojureScript Hiccup renderer allows you to inline CSS properties directly as maps doesn't mean you should put all of your styling there.
 Keep the inline styles limited to the visual encodings you are making from the data (`left`/`top` in a scatterplot, `width` in a bar chart, `color` in a choropleth) and neatly place style-related CSS in full stylesheets.
 
-===== See Also
+==== See Also
 
 * The extensive http://d3js.org/[D3.js] gallery for what's possible with HTML/SVG + CSS
 * Any book by Stephen Few for practical tips on visualizing data

@@ -1,10 +1,10 @@
 === Adding and removing items
 
-===== Problem
+==== Problem
 
 You want to obtain a new set with items added or removed.
 
-===== Solution
+==== Solution
 
 The +conj+ function supports sets, just as it does lists, vectors and
 maps. Use it to add an item or items to a set: just pass it the set
@@ -31,7 +31,7 @@ specific to sets. It takes a set and one or more keys to remove.
 ;; -> #{:a}
 ----
 
-===== Discussion
+==== Discussion
 
 Since sets are unordered, there is no concept of "where" items are
 added or removed; either a set contains an item, or it doesn't.
@@ -54,7 +54,7 @@ _not_ contained in another set. These are typically a far more natural
 expression of set operations than many calls to +conj+ or +disj+, or
 invoking them with large numbers of arguments.
 
-===== See also
+==== See also
 
 * Adding items to lists (xref)
 * Adding items to vectors (xref)

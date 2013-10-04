@@ -4,11 +4,11 @@
 Author: Alan Busby @thebusby
 ////
 
-===== Problem
+==== Problem
 
 You want to create an executable jar.
 
-===== Solution
+==== Solution
 
 Using +Leiningen+ to create an "uberjar", https://github.com/technomancy/leiningen
 
@@ -62,7 +62,7 @@ Executed with the following args;
 4
 ----
 
-===== Discussion
+==== Discussion
 
 Executable jar files provide an excellent method to package a program so
 it can be provided to users, called by cronjobs, or combined with other

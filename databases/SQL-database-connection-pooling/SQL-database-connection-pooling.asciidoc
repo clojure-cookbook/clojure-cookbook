@@ -1,11 +1,11 @@
 [[Connecting to an SQL Database with a Connection Pool]]
 === Connecting to an SQL Database with a Connection Pool
 
-===== Problem
+==== Problem
 
 You would like to connect to an SQL database efficiently using a connection pool.
 
-===== Solution
+==== Solution
 
 Use the +c3p0+ connection and statement pooling library to wrap your JDBC-based
 drivers, creating a pooled data source. The pooled data source is then usable
@@ -92,7 +92,7 @@ library's other functions which query and manipulate your database.
 ;; -> ({:type "hobbit", :name "Bilbo"} {:type "hobbit", :name "Frodo"})
 ----
 
-===== Discussion
+==== Discussion
 
 As shown above, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
@@ -132,7 +132,7 @@ be sure to add the +DataSources+ class to the imports of your namespace.
 ;; -> nil
 ----
 
-===== See Also
+==== See Also
 
 * See <<Connecting to an SQL Database>> to learn about basic database connections with +clojure.java.jdbc+.
 * See <<Manipulating an SQL Database>>to learn about using +clojure.java.jdbc+ to interact with an SQL database.

@@ -1,11 +1,11 @@
 [[sec_retrieving_multiple_keys]]
 === Retrieving multiple keys from a map simultaneously
 
-===== Problem
+==== Problem
 
 You want to get the values of several keys in a map in one go.
 
-===== Solution
+==== Solution
 
 Before we start, define a map from which you wish to pick values:
 
@@ -38,7 +38,7 @@ being more concise:
 ----
 
 
-===== Discussion
+==== Discussion
 
 Now you might be thinking when to choose one approach over the other.
 
@@ -99,6 +99,6 @@ Is simply short for:
 
 +juxt+ is one of those functions that you just got to have up your sleeve. You will not use it often, but when the scenario presents itself, you'll be glad you know about it.
 
-===== See also
+==== See also
 
 * Retrieving Keys

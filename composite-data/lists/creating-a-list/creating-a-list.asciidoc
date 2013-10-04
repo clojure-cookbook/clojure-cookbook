@@ -1,10 +1,10 @@
 === Creating a list
 
-===== Problem
+==== Problem
 
 You want to create a list data structure in your source code.
 
-===== Solution
+==== Solution
 
 There are two basic ways to specifically construct a list (a
 +clojure.lang.PersistentList+.)
@@ -28,7 +28,7 @@ variadic number of arguments and constructs a list from them.
 ;; -> (1 :2 "3")
 ----
 
-===== Discussion
+==== Discussion
 
 Typically, between these two approaches, using the +list+ function is
 the better choice. The problem with constructing quoted lists is that
@@ -53,7 +53,7 @@ That said, +'()+ is the idiomatic way to create an empty list - it is
 more terse, and the concern about evaling its contents is
 irrelevant when it's empty.
 
-===== See Also
+==== See Also
 
 - (xref) Creating a vector
 

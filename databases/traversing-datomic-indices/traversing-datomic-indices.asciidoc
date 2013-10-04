@@ -4,11 +4,11 @@
 Author: Alan Busby @thebusby
 ////
 
-===== Problem
+==== Problem
 
 You want to access Datomic indices directly.
 
-===== Solution
+==== Solution
 
 Use the +datomic.api/datoms+ function to directly access the core
 datomic indices.
@@ -54,7 +54,7 @@ properties, and return the value of those entities for the wanted attribute.
           (datomic.api/datoms db :avet provided-attribute provided-value)))
 ----
 
-===== Discussion
+==== Discussion
 
 By accessing the Datomic indices directly, a number of steps can be skipped,
 and simple queries can often execute more than ten times faster that if they

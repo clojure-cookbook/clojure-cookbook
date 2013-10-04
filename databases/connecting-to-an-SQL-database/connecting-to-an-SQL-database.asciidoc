@@ -3,11 +3,11 @@
 [[Connecting to an SQL Database]]
 === Connecting to an SQL Database
 
-===== Problem
+==== Problem
 
 You want to connect your program to an SQL database.
 
-===== Solution
+==== Solution
 
 Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
 
@@ -59,7 +59,7 @@ library's other functions which query and manipulate your database.
 ;; -> ({:size 2.0, :shape "cone", :color "BLUE"})
 ----
 
-===== Discussion
+==== Discussion
 
 The +clojure.java.jdbc+ library provides functions which wrap the basic
 capabilities of the Java JDBC specification. The additional
@@ -113,7 +113,7 @@ provides a different abstraction and DSL for the manipulation of SQL data and
 expressions. The +clojure.java.jdbc+ library, however, covers a large portion
 of everyday database access needs.
 
-===== See Also
+==== See Also
 
 * See <<Manipulating an SQL Database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
 * See <<Connecting to an SQL Database with a Connection Pool>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.

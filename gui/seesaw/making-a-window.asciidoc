@@ -63,7 +63,7 @@ image:gui/seesaw/window-only.png["",width=150]
 
 Having created the window, you can set its size, add content, and add scrollbars, as follows.
 
-===== Adding Content
+==== Adding Content
 You can change properties of the frame using +config!+:
 
 [source,clojure]
@@ -72,7 +72,7 @@ You can change properties of the frame using +config!+:
 ;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
-===== Sizing the Window
+==== Sizing the Window
 
 You can also specify the size of the window at time of creation:
 
@@ -94,7 +94,7 @@ content:
 
 image:gui/seesaw/content.png["",width=150]
 
-===== Adding Scrollable Content
+==== Adding Scrollable Content
 
 Now add some text, in the form of an excerpt from the sonnets of Shakespeare, to your window:
 
@@ -157,7 +157,7 @@ dozen or so books which have been written about Swing, one could easily
 write an entire book on Seesaw. This recipe merely serves as a
 starting point for further investigation of the Seesaw library.
 
-===== See Also
+==== See Also
 
 * https://github.com/daveray/seesaw[The Seesaw project on GitHub].
 * J. Elliott et. al., "Java Swing, 2nd Ed.", O'Reilly Media.

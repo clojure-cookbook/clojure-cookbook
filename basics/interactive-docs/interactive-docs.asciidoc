@@ -2,11 +2,11 @@
 
 // By John Cromartie (jcromartie)
 
-===== Problem
+==== Problem
 
 From a REPL, you want to read documentation for a function.
 
-===== Solution
+==== Solution
 
 Print the documentation for a function at the REPL with the +doc+ macro.
 
@@ -52,7 +52,7 @@ Macro
   called.
 ----
 
-===== Discussion
+==== Discussion
 
 Clojure supports inline documentation of functions (more about that
 later), along with other metadata, which allows you to introspect

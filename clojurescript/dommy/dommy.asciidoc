@@ -5,11 +5,11 @@
 
 === DOM manipulation and client side templating in ClojureScript
 
-===== Problem
+==== Problem
 
 You want to create and manipulate  DOM nodes natively in ClojureScript
 
-===== Solution
+==== Solution
 
 Use https://github.com/Prismatic/dommy[Dommy], an open source project that provides fast, functional DOM
 manipulation and templating.
@@ -106,7 +106,7 @@ lazy sequences.
      (doseq #(dommy/add-class! % :first-ten-adults)))
 ----
 
-===== Discussion
+==== Discussion
 
 Let's take a closer look at what's actually going on in the two templates from before.
 
@@ -200,7 +200,7 @@ manipulation:
 
 ----
 
-===== See Also
+==== See Also
 
 * Examine Dommy in more depth and propose new changes by taking a look at
 https://github.com/Prismatic/dommy[the source on Gtihub].

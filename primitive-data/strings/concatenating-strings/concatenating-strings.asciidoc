@@ -1,12 +1,12 @@
 [[sec_primitives_building_strings_from_parts]]
 === Building a string from parts
 
-===== Problem
+==== Problem
 
 You have multiple strings, values or collections that you need to
 combine into one string.
 
-===== Solution
+==== Solution
 
 Use the +str+ function to concatenate strings and/or values.
 
@@ -39,7 +39,7 @@ single string.
 ;; -> "#! /bin/bash\ndu -a ./ | sort -n -r\n"
 ----
 
-===== Discussion
+==== Discussion
 
 Clojure's +str+ is like a good Unix tool; It has one job, and it does it
 well. When provided with one or more argument, +str+ invokes Java's

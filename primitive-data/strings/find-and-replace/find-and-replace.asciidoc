@@ -1,11 +1,11 @@
 [[sec_primitives_strings_find_replace]]
 === Performing Find and Replace on Strings
 
-===== Problem
+==== Problem
 
 You need to modify portions of a string that match some well-defined pattern.
 
-===== Solution
+==== Solution
 
 The versatile +clojure.string/replace+ is the function you should
 reach for when you need to selectively replace portions of a string.
@@ -43,7 +43,7 @@ literals (+#"..."+) to specify a pattern as a regular expression.
 ;;     [#1337](https://github.com/next/big-thing/issues/1337 we should be set to release!"
 ----
 
-===== Discussions
+==== Discussions
 
 As far as string functions go, +replace+ is one of the more powerful and most complex ones. The majority of this complexity arises from the varying +match+ and +replacement+ types it can operate with.
 
@@ -73,7 +73,7 @@ to produce regexps that are both difficult to interpret and at a high
 risk of being incorrect. We suggest you use regular expressions
 sparingly, and only if you fully understand their syntax.
 
-===== See Also
+==== See Also
 
 * +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurrence of +match+.
 * http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] is a fantastic book for learning and mastering Regular Expression syntax.

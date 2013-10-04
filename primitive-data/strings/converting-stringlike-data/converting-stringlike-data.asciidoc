@@ -1,11 +1,11 @@
 === Converting between strings, symbols, and keywords
 
-===== Problem
+==== Problem
 
 You have a string, a symbol, or a keyword, and you'd like to convert it into a
 different one of these string-like data types.
 
-===== Solution
+==== Solution
 
 To convert from a string to a symbol, use the +symbol+ function.
 
@@ -56,7 +56,7 @@ You'll need an intermediate step through +name+, to go from keyword to symbol.
 ----
 
 
-===== Discussion
+==== Discussion
 
 The primary conversion functions here are +str+, +keyword+, and +symbol+ - each
 named for the data type they return. One of these, +symbol+, is a bit more

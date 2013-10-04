@@ -1,11 +1,11 @@
 [[sec_default_data_reader]]
 === Default Data-Reader
 
-===== Problem
+==== Problem
 
 You want to read **edn** data that might have unknown tagged literals.
 
-===== Solution
+==== Solution
 
 Use the :default option with +clojure.edn/read+ on a stream or +clojure.edn/read-string+
 on a string. 
@@ -21,7 +21,7 @@ on a string.
 ;; -> #user.TaggedValue{:tag my.example/unknown, :value 42}
 ----
 
-===== Discussion
+==== Discussion
 
 The **edn** format defines a print representation for a significant subset of Clojure datatypes and
 offers extensiblibilty through tagged literals.  The best way to read **edn** data is to use
@@ -69,7 +69,7 @@ behavior rather than an "opts" argument.  For example, the `*default-data-reader
 the core functions deal with unknown tags.  See also, `*data-readers*` and `*read-eval*` for more
 information.  For reading data, it's generally better to use the **edn** variants.
 
-===== See Also
+==== See Also
 
 * **edn** https://github.com/edn-format/edn
 * <<sec_edn_record>>

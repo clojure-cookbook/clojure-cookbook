@@ -1,12 +1,12 @@
 === Consuming from RabbitMQ
 // By Michael Klishin (michaelklishin)
 
-===== Problem
+==== Problem
 
 You want to communicate with other applications over http://rabbitmq.com[RabbitMQ]
 and need to consume messages from Clojure.
 
-===== Solution
+==== Solution
 
 Use http://clojurerabbitmq.info[Langohr], a small feature complete RabbitMQ client, to communicate
 with RabbitMQ.
@@ -185,7 +185,7 @@ be more convenient in your case, there is a version that does that,
 *langohr.consumers/blocking-subscribe*.
 
 
-===== Discussion
+==== Discussion
 
 So far we have demonstrated just enough functionality to consume messages
 from a queue. Consumed messages need to be acknowledged. That can happen
@@ -337,7 +337,7 @@ Langohr is a feature complete RabbitMQ client that supports
 AMQP 0-9-1, RabbitMQ extensions to it and provides HTTP
 API client.
 
-===== See Also
+==== See Also
 See http://clojurerabbitmq.info[Langohr documentation] and
 http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn more.
 

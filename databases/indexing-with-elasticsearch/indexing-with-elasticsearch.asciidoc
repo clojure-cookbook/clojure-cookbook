@@ -1,12 +1,12 @@
 === Indexing Data with ElasticSearch
 // By Michael Klishin (michaelklishin)
 
-===== Problem
+==== Problem
 
 You want to index data to be searchable using  http://elasticsearch.org[ElasticSearch]
 from Clojure.
 
-===== Solution
+==== Solution
 
 Use http://clojureelasticsearch.info[Elastisch], a minimalistic feature complete ElasticSearch client,
 to work with ElasticSearch.
@@ -46,7 +46,7 @@ function that takes an endpoint as its sole argument:
 By default Elastisch will use the HTTP endpoint at *http://localhost:9200*.
 
 
-====== Indexing
+===== Indexing
 
 Before data can be searched over, it needs to be indexed. Indexing is
 the process of scanning the text and building a list of search terms
@@ -63,7 +63,7 @@ The process of indexing involves a few steps:
 Next we will take a look at each stage in more detail.
 
 
-====== Creating an Index With HTTP Client
+===== Creating an Index With HTTP Client
 
 ElasticSearch provides support for multiple indexes. Indexes can be thought of as databases in a DBMS.
 
@@ -92,7 +92,7 @@ http://clojureelasticsearch/articles/indexing.html[Elastisch
 documentation on indexing] for more details.
 
 
-====== Creating a Mapping With HTTP Client
+===== Creating a Mapping With HTTP Client
 
 Mappings define which fields in documents are indexed, if/how they are
 tokenized, analyzed and so on. Each index in ElasticSearch may have
@@ -130,7 +130,7 @@ so on.
 
 
 
-====== Indexing documents
+===== Indexing documents
 
 To add a document to an index, use the
 *clojurewerkz.elastisch.rest.document/create* function. This will
@@ -171,7 +171,7 @@ cause document id to be generated automatically:
 ----
 
 
-===== Discussion
+==== Discussion
 
 Before documents can be searched, they need to be
 *indexed*. Indexing is a process of taking a document with one or
@@ -308,7 +308,7 @@ passed as a positional argument:
 ----
 
 
-====== Defining Fields
+===== Defining Fields
 
 Settings are passed as maps where keys are names (strings or keywords)
 and values are maps of the actual settings. In this example, the only
@@ -410,7 +410,7 @@ recipe. http://clojureelasticsearch.info/articles/indexing.html[Elastisch
 documentation] will go into much more detail on various aspects
 related to indexing.
 
-===== See Also
+==== See Also
 
 * See http://clojureelasticsearch.info[Elastisch documentation] and
 http://www.elasticsearch.org/guide/[ElasticSearch documentation] to learn more.

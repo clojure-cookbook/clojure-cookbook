@@ -2,11 +2,11 @@
 
 // by Clinton Dreisbach (cndreisbach)
 
-===== Problem
+==== Problem
 
 You want to work with data stored in MongoDB.
 
-===== Solution
+==== Solution
 
 Use Monger to connect to MongoDB and search or manipulate the data. Monger is a Clojure wrapper around the Java MongoDB driver.
 
@@ -70,7 +70,7 @@ Once you are connected, you can insert and query documents easily.
 ;; -> {:_id #<ObjectId 520...>, :state "WY", :name "Sarah LaRue"}
 ----
 
-===== Discussion
+==== Discussion
 
 MongoDB, especially with Monger, can be a natural choice for storing Clojure data. It stores data as BSON (binary JSON), which maps well to Clojure's own vectors and maps.
 
@@ -163,6 +163,6 @@ The basic find functions in `monger.collection` will work for simple queries, bu
                   {:name #"^S"}]}))
 ----
 
-===== See Also
+==== See Also
 
 * https://github.com/aboekhoff/congomongo[CongoMongo] is another Clojure library for working with MongoDB that you can consider.

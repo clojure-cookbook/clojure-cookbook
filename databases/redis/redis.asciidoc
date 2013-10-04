@@ -2,11 +2,11 @@
 
 // By Jason Webb (bigjason)
 
-===== Problem
+==== Problem
 
 You want to work with data in Redis.
 
-===== Solution
+==== Solution
 
 Use Carmine to connect to and interact with Redis.
 
@@ -67,7 +67,7 @@ Passing in multiple commands will pipeline them and return the results together 
 ;; -> ["OK" 1 "1"]
 ----
 
-===== Discussion
+==== Discussion
 
 Redis describes itself as a *data structure server*.  With data structures similar to the core data
 structures in Clojure, they make a natural pairing for a wide range of problems. Its speed and
@@ -151,7 +151,7 @@ store and even an implementation of DynamoDB (which is alpha at time of writing)
 features are outside the scope of this recipe, but are well documented and straightforward to use.
 Consult https://github.com/ptaoussanis/carmine[the Carmine Github project] for more information.
 
-===== See Also
+==== See Also
 
 * https://github.com/ptaoussanis/carmine[The Carmine Github project] for more information about
   Carmine.

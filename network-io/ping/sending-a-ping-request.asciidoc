@@ -2,11 +2,11 @@
 
 // By Jason Webb (bigjason)
 
-===== Problem
+==== Problem
 
 You want to ping an IP address to check availability.
 
-===== Solution
+==== Solution
 
 Use the java +java.net/InetAddress+ class to test if the address +isReachable+.
 
@@ -16,7 +16,7 @@ Use the java +java.net/InetAddress+ class to test if the address +isReachable+.
 ;; -> true
 ----
 
-===== Discussion
+==== Discussion
 
 Using +isReachable+ works great if the correct permissions can be obtained.  On
 a typical Unix like implementation you will need to start your Clojure instance with
@@ -42,6 +42,6 @@ can be used for this.
 ;; -> {:result true, :time 187.255}
 ----
 
-===== See Also
+==== See Also
 
 * See the http://docs.oracle.com/javase/1.5.0/docs/api/java/net/InetAddress.html#isReachable(int)[InetAddress/isReachable documentation] for more details.

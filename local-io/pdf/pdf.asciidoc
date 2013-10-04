@@ -4,11 +4,11 @@
 
 //Author: Dmitri Sotnikov
 
-===== Problem
+==== Problem
 
 Given a collection of maps, such as those returned by +clojure.java.jdbc+ queries, you need to generate a formatted PDF report.
 
-===== Solution
+==== Solution
 
 Use the +clj-pdf+ library to easily create the report. Say we have a vector containing the employee records as seen below:
 
@@ -67,7 +67,7 @@ We can now call +clj-pdf.core/pdf+ to create the PDF using this data:
 (pdf [{:title "Employee Table"} (employee-template employees)] "employees.pdf")
 ----
 
-===== Discussion
+==== Discussion
 
 The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+ libraries. The syntax is inspired by the popular +Hiccup+ HTML templating engine.
 
@@ -182,6 +182,6 @@ The library also has support for bar charts, pie charts, line series and time se
  ["Occurances" ["01/11" 200] ["02/12" 400] ["05/12" 350] ["11/13" 600]]]  
 ----
 
-===== See Also
+==== See Also
 
 To see more on using clj-pdf library, see the https://github.com/yogthos/clj-pdf[clj-pdf] GitHub repository.

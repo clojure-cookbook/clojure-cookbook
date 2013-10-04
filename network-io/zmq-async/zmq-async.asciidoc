@@ -5,11 +5,11 @@
 
 === Using ZeroMQ via core.async
 
-===== Problem
+==== Problem
 
 You want to use ZeroMQ sockets in a thread safe way via core.async.
 
-===== Solution
+==== Solution
 
 Use https://github.com/lynaghk/zmq-async[zmq-async].
 
@@ -60,7 +60,7 @@ Here's a simple ping-pong between two core.async go blocks communicating via a Z
     (close! c-in)))
 ----
 
-===== Discussion
+==== Discussion
 
 ZeroMQ is a message-oriented socket system that supports many communication styles (request/reply, , &c.) on top of many transport layers (intra-process, inter-process, inter-machine via tcp, &c.) with bindings to many languages.
 ZeroMQ sockets are a great substrate upon which to build service-oriented architectures.
@@ -80,7 +80,7 @@ WARNING: The implicit context supporting `register-socket!` can only handle one 
 If you need sockets to work in parallel (i.e., you don't want to miss a small control message just because you're slurping in a 10GB message on another socket), then you'll need multiple zmq-async contexts.
 
 
-===== See Also
+==== See Also
 
 * Rich Hickey's http://www.youtube.com/watch?v=ROor6_NGIWU[Language of the System] talk, wherein he outlines the benefits of queues
 * The http://zguide.zeromq.org/[ZeroMQ guide] for architectural patterns and advice

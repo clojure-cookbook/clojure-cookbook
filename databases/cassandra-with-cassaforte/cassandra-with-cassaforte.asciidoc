@@ -1,11 +1,11 @@
 === Access Cassandra
 // By Oleksandr Petrov (ifesdjeen)
 
-===== Problem
+==== Problem
 
 You want to work with data stored in Cassandra.
 
-===== Solution
+==== Solution
 
 Use Cassaforte for connecting to Cassandra cluster and work with the records in the database.
 
@@ -79,7 +79,7 @@ Alternatively, if you want to retrieve information about a single person, by giv
 (select "users" (where :name "Alex"))
 ----
 
-===== Discussion
+==== Discussion
 
 Cassandra is often referred as one of implementations of ideas in the Dynamo Paper. It's a key-value data store, and it's not aware of any relationships between tables and data points. Cassandra is a distributed data store and designed to be highly available. For that, it replicates data within the cluster. The data is stored redundantly on multiple nodes. In case one node fails, data is still available for retrieval from a different node or multiple nodes.
 
@@ -158,5 +158,5 @@ You can increment and decrement counters by using +increment-by+ and +decrement-
         (where :name "Robert"))
 ----
 
-===== See Also
+==== See Also
 See the http://clojurecassandra.info[Cassaforte documentation guides] for more details.

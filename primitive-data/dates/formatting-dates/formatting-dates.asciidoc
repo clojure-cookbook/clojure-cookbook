@@ -1,11 +1,11 @@
 [[sec_primitives_dates_formatting_dates]]
 === Formatting Dates using clj-time
 
-===== Problem
+==== Problem
 
 You need to print dates or times in a particular format.
 
-===== Solution
+==== Solution
 
 While it is possible to format Java Date-like instances (+Date+,
 +Calendar+ and +Timestamp+) with +clojure.core/format+', we suggest
@@ -28,7 +28,7 @@ custom or built-in to output a date/time as a string.
 ;; -> "Apr 6, 2013 at 04:54"
 ----
 
-===== Discussion
+==== Discussion
 
 It is certainly possible to format pure Java dates and times, but in
 our experience it often isn't worth the hassle; the syntax is ugly,
@@ -83,7 +83,7 @@ Joda Time instances into other formats.
 ;; -> 1365267761585
 ----
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_dates_parsing_dates>> for more detailing
   information on +formatter+ and +formatters+.

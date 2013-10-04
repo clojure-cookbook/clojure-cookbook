@@ -1,11 +1,11 @@
 [[sec_primitives_dates_reader_literal]]
 === Representing Dates as Literals
 
-===== Problem
+==== Problem
 
 You need represent instances of time in a readable and serializable form.
 
-===== Solution
+==== Solution
 
 Use Clojure's +#inst+ literals in source to represent fixed points in
 time.
@@ -38,7 +38,7 @@ to reify instant literal strings into Date objects.
 In the above example +remote-server-receive-date+ emulates a
 communications channel upon which you may receive edn data.
 
-===== Discussion
+==== Discussion
 
 Since Clojure 1.4 instants in time have been represented via
 the +#inst+ reader literal. This means dates are no longer represented

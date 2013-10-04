@@ -3,13 +3,13 @@
 
 // By Leonardo Borges (leonardoborges)
 
-===== Problem
+==== Problem
 
 You need a way to perform fast, efficient in-memory searches across a large, random data set.
 
 This dataset may change over time during program execution.
 
-===== Solution
+==== Solution
 
 At first, a binary search tree - or a binary search over a list - might seem like a good solution. However this only works on sorted data but from the problem statement, you know you'll need something better. In the case of a binary search tree, it could end up quite unbalanced and no more efficient than a linked list.
 
@@ -96,7 +96,7 @@ Next, we can take it for a whirl:
 ----
 
 
-===== Discussions
+==== Discussions
 
 For anyone who has ever had to implement a Red Black Tree - or at least attended a class in Computer Science where the algorithm was tought - the implementation of +balance+ might seem extremely short. The reason for this is threefold: 
 
@@ -187,7 +187,7 @@ One limitation of our data structure at the moment is that we can't use core clo
 
 In <<sec_red_black_part_ii>> we'll address this very issue.
 
-===== See Also
+==== See Also
 * <<sec_red_black_part_ii>>
 
 * See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red Black Trees on Wikipedia] for a more traditional take on this interesting data structure.

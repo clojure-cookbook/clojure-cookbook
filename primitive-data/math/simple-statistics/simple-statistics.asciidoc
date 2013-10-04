@@ -1,11 +1,11 @@
 === Statistics on Collections of Numbers
 
-===== Problem
+==== Problem
 
 You need to calculate simple statistics like mean, median, mode and standard
 deviation on a collection of numbers.
 
-===== Solution
+==== Solution
 
 Find the _mean_ (average) of a collection by dividing its total by the +count+ of the collection.
 
@@ -109,7 +109,7 @@ Find the sample _standard deviation_ by completing the following steps:
 ;; -> 1.4142135623730951
 ----
 
-===== Discussion
+==== Discussion
 
 Both +mean+ and +median+ are fairly easy to reproduce in Clojure, but
 +mode+ requires a bit more effort. +mode+ is a little different than
@@ -147,7 +147,7 @@ number of elements minus one. The result of +32/8+ is +4+.
 sample of a larger population. If we have the complete population (_population_
 standard deviation), we should divide by +total+ instead of +(- total 1)+.
 
-===== See Also
+==== See Also
 
 * See the Wikipedia article on
 http://en.wikipedia.org/wiki/Standard_deviation[Standard deviation] for more

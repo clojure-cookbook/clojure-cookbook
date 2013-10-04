@@ -1,11 +1,11 @@
 === Retrieving Dates Relative to One Another
 
-===== Problem
+==== Problem
 
 You need to calculate a time relative to some another time a la
 http://rubyonrails.org/[Ruby on Rails]' +2.days.from_now+.
 
-===== Solution
+==== Solution
 
 Because relative time is such a complex beast, we suggest you use
 https://github.com/clj-time/clj-time[clj-time] for calculating
@@ -48,7 +48,7 @@ The +clj-time.core+ functions +from-now+ and +ago+ are just sugar over
 ;; -> #<DateTime 2051-12-25T00:00:00.000Z>
 ----
 
-===== Discussion
+==== Discussion
 
 Despite how difficult dates and times can sometimes be in Java,
 clj-time manages to expose a joyful syntax for adding and

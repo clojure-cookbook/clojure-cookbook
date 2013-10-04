@@ -1,10 +1,10 @@
 === Midje
 
-===== Problem
+==== Problem
 
 You want to unit test a function which integrates with external dependencies such as http services or databases.
 
-===== Solution
+==== Solution
 
 Use https://github.com/marick/Midje[Midje], a testing framework which provides ways to mock functions and return fakes.
 
@@ -47,7 +47,7 @@ To test the +fetch-data+ function, create a corresponding com.example.t-core nam
       (http/get #"/123/data") => {:status 200 :body ..body..}))
 ----
 
-===== Discussion
+==== Discussion
 
 In Midje +facts+ associate a description with a group of tests, while +fact+ maps to your test. Assertions in your +fact+ take the form of:
 

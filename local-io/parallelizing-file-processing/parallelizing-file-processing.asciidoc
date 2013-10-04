@@ -4,12 +4,12 @@
 Author: Edmund Jackson @edmundjackson
 ////
 
-===== Problem
+==== Problem
 
 You want to transform a text file, line-by-line but using all cores and
 without loading it into memory.
 
-===== Solution
+==== Solution
 
 A quick win using +pmap+ over +file-seq+
 
@@ -40,7 +40,7 @@ A quick win using +pmap+ over +file-seq+
 (pmap-file example-row-fn "input.txt" "output.txt")
 ----
 
-===== Discussion
+==== Discussion
 
 The idea is to use +pmap+ to map over the sequence of file rows in
 parallel.  However, you then need to pass each processed row through

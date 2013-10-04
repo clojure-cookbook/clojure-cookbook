@@ -2,12 +2,12 @@
 
 // Author: Robert Stuttaford robert@cognician.com
 
-===== Problem
+==== Problem
 
 You need to define how your data will be modelled in Datomic. For example, you might need to model 
 users and user groups, and relate the two in some way.
 
-===== Solution
+==== Solution
 
 Define user schema attributes. Users have:
 
@@ -92,7 +92,7 @@ Transact the schema into the database.
 ;;     :tempids {-... ..., ...}}
 ----
 
-===== Discussions
+==== Discussions
 
 Datomic schema is represented as Clojure data, and is added to the database in a transaction, just 
 like any other data we would store. The +:db.install/_attribute :db.part/db+ key/value is used by 
@@ -114,13 +114,13 @@ anything specific with namespaces, and so using them is optional.
 There are several options for +:db/valueType+:
 
 .+:db/valueType+ options
-|=======================
+|===================
 |:db.type/keyword|:db.type/string|:db.type/long
 |:db.type/boolean|:db.type/bigint|:db.type/float
 |:db.type/double|:db.type/bigdec|:db.type/instant
 |:db.type/ref|:db.type/uuid|:db.type/uri
 |:db.type/bytes||
-|=======================
+|===================
 
 See http://docs.datomic.com/schema.html for an exhaustive listing of their semantics.
 
@@ -162,5 +162,5 @@ By default, Datomic stores all past values of attributes. If you do not wish to 
 a particular attribute, use +:db/noHistory true+ to have Datomic discard previous values. Using this 
 attribute is much like using a traditional update-in-place database.
 
-===== See Also
+==== See Also
 

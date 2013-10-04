@@ -3,7 +3,7 @@
 
 // By Chris Frisz (cjfrisz)
 
-===== Problem
+==== Problem
 
 // TODO: Add core.match lein-try command.
 
@@ -45,7 +45,7 @@ argument to a `fn`. Consider a few examples:
 ;; -> 5
 ----
 
-===== Solution
+==== Solution
 
 Start from the parser in the previous recipe, again using core.match.
 Note that the function name is changed to `lc-interpret` to match its
@@ -152,7 +152,7 @@ to the value of the operand:
 ;; -> {:unbound-var a}
 ----
 
-===== Discussion
+==== Discussion
 
 You should first note the new `env` argument used for the variable
 environment. As explained briefly in the solution above, it maps 

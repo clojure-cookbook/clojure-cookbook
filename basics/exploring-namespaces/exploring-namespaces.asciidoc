@@ -2,11 +2,11 @@
 
 // By John Cromartie
 
-===== Problem
+==== Problem
 
 You want to know what namespaces are loaded, and what public vars are available inside them.
 
-===== Solution
+==== Solution
 
 Use +loaded-libs+ to obtain the set of currently-loaded namespaces. e.g., from a REPL:
 
@@ -40,7 +40,7 @@ Use +ns-publics+ to obtain a mapping of symbols to public vars in a namespace.
 ;;     parse-timestamp #'clojure.instant/parse-timestamp}
 ----
 
-===== Discussion
+==== Discussion
 
 Namespaces in Clojure are dynamic mappings of symbols to vars. A
 namespace is not available until it is +require+'ed by something else,

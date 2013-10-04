@@ -1,10 +1,10 @@
 === Performing trigonometry
 
-===== Problem
+==== Problem
 
 You need to implement mathematical functions that require trigonometry.
 
-===== Solution
+==== Solution
 
 All of the trigonometric functions are accessible via +java.util.Math+,
 which is available as +Math+. Use them like you would any other
@@ -50,7 +50,7 @@ convert degrees to radians.
 ;; -> 2139.42827188432
 ----
 
-===== Discussion
+==== Discussion
 
 It may be surprising to some that Clojure doesn't have its own internal
 math namespace, but why re-invent the wheel? Despite its tainted
@@ -64,6 +64,6 @@ and roots. A full list of methods is available in the
 http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[java.util.Math
 javadocs].
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_math_type_hinting>> for information on improving performance of heavy math.

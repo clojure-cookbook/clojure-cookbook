@@ -1,12 +1,12 @@
 === Resource to sequence 
 // by Gerrit Jansen van Vuuren (gerritjvv)
 
-===== Problem
+==== Problem
 
 You have a resource that you want to access as a sequence, but you do not want to keep a connection open and close it only when the whole sequence have been read
 thus potentially leaking the connection.
 
-===== Solution
+==== Solution
 
 The solution is simple.
 
@@ -75,7 +75,7 @@ You can explore the usage of this recipe by going through a simple file reading 
 ----
 
 
-===== Discussion
+==== Discussion
 
 The solution showed is a simple pattern (monad) with simple constructs, and its usage applies directly to database queries and network io, 
 and more generally to all resources that are accessed using a connection or resource interface (as shown in the example).

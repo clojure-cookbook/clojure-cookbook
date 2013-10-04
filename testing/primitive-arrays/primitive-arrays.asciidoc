@@ -1,11 +1,11 @@
 [[sec_primitives_strings_find_replace]]
 === Fast Math with Primitive Java Arrays
 
-===== Problem
+==== Problem
 
 You need to perform fast numerical operations over significant amounts of data.
 
-===== Solution
+==== Solution
 
 Primitive Java arrays are the canonical way to store large collections of numbers compactly, and do math over them quickly (often 100x faster than Clojure sequences).
 
@@ -48,7 +48,7 @@ For faster +reduce+-like operations, Hiphip provides the +areduce+ and +asum+ ma
 ----
 
 
-===== Discussions
+==== Discussions
 
 Almost all of the time, Clojure's beautiful sequence abstraction is all you need to get the job done.  The above +dot-product+ can be written succinctly in ordinary Clojure, and this is what you should always try first.
 
@@ -79,7 +79,7 @@ If you're up to the challenge, you should keep these tips in mind:
 * If you want your array code to go https://github.com/technomancy/leiningen/wiki/Faster#tiered-compilation[fast under Leiningen], you probably want to add the following to your project.clj: +:jvm-opts ^:replace []+.
 
 
-===== See Also
+==== See Also
 
 * Hiphip comes with a https://github.com/Prismatic/hiphip/blob/master/test/hiphip/type_impl_test.clj#L160[comprehensive suite of benchmarks] of its and Clojure's array operations for the main primitive types, including performance comparisons with hand-coded Java alternatives.
 * https://github.com/ztellman/vertigo[Vertigo] goes beyond simple arrays of primitives to full C-style structs, which may be a good choice if you need to manipulate structured data (i.e., not just sequences of ++double++s) with maximal performance.

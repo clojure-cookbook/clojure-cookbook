@@ -2,11 +2,11 @@
 
 // By Mark Whelan (mrwhelan)
 
-===== Problem
+==== Problem
 
 You want to try a library in the REPL without having to create an unwanted project in Leiningen.
 
-===== Solution
+==== Solution
 
 Use Ryan Neufeld's +lein-try+ to launch the REPL. Library dependencies will be met automatically.
 
@@ -38,7 +38,7 @@ Clojure 1.5.1
 user=>
 ----
 
-===== Discussion
+==== Discussion
 
 Notice that we did not have to give a version number for the library in the example. Leiningen with +lein try+ will grab the most recent version.
 
@@ -98,7 +98,7 @@ alias "lein"="noglob lein"
 
 As befits a Clojure tool, +lein-try+ is an elegant way to make a task less laborious. Use it to summon powerful libraries from the net at your whim, _without having to set them up_, and enjoy a wizardly satisfaction from the sudden confluence of new abilities.
 
-===== See Also
+==== See Also
 
 * Leiningen (xref)
 * Managing Projects (xref)

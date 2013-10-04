@@ -1,11 +1,11 @@
 === Generate an Infinite Lazy Sequence of Gregorian Calendar Dates
 
-===== Problem
+==== Problem
 
 You would like to generate a lazy sequence of Gregorian calendar dates (or
 times) beginning on a specific date and time.
 
-===== Solution
+==== Solution
 
 You can use Java's +java.util.GregorianCalendar+ class coupled with
 Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
@@ -31,7 +31,7 @@ and +drop+ functions are then used to select the last two days of February.
 ----
 
 
-===== Discussion
+==== Discussion
 
 Clojure has no date type of its own but, by default, relies on its
 ability to easily interoperate with Java (but see the +clj-time+ library
@@ -133,7 +133,7 @@ the year 2000 and then select the last Sunday of that year:
 ;; -> "Sun 12/31/2000"
 ----
 
-===== See also
+==== See also
 
 * See <<sec_primitives_dates_current_date>> for information on using
   +java.util.Date+ from Clojure.

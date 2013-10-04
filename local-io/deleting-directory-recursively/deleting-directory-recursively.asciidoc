@@ -4,11 +4,11 @@
 Author: Alan Busby @thebusby
 ////
 
-===== Problem
+==== Problem
 
 You want to delete a directory, and all the files and directories it contains.
 
-===== Solution
+==== Solution
 
 Use +java.io.File+ to identify directories, list their contents, and to then
 delete them when possible.
@@ -27,7 +27,7 @@ delete them when possible.
    (del dir)))
 ----
 
-===== Discussion
+==== Discussion
 
 A directory must be empty before it can be deleted, hence the contents of each
 directory is deleted before finally deleting the directory itself.

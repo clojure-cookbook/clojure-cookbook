@@ -5,11 +5,11 @@
 
 === Browser Testing
 
-===== Problem
+==== Problem
 
 You want to run browser-based tests.
 
-===== Solution
+==== Solution
 
 Use Selenium WebDriver via the clj-webdriver library. This will allow you to use clojure.test to test your application's behavior in actual browser environments.
 
@@ -88,7 +88,7 @@ Ran 4 tests containing 10 assertions.
 Tests failed.
 ----
 
-===== Discussion
+==== Discussion
 
 Browser tests verify that your application behaves as expected in your targeted browsers. They test the appearance and behavior of your application as rendered in the browser itself. 
 
@@ -266,7 +266,7 @@ In this test, after loading the URL, the browser is directed to click on an anch
 
 clj-webdriver provides many other capabilities for interacting with your application. For more information, see the clj-webdriver API documentation.
 
-===== See also
+==== See also
 
 * https://github.com/semperos/clj-webdriver[clj-webdriver]
 * https://code.google.com/p/selenium[Selenium]

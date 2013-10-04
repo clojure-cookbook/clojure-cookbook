@@ -3,7 +3,7 @@
 
 // By Chris Frisz (cfrisz)
 
-===== Problem
+==== Problem
 
 You want to parse Clojure expressions, say, from the input to a macro,
 into a different representation (like maps).
@@ -23,7 +23,7 @@ You can represent this language by the following grammar:
        | (fn [var] Expr)
        | (Expr Expr)
 
-===== Solution
+==== Solution
 
 Use `core.match` to pattern match over the input and return the 
 expression represented as maps of maps. 
@@ -58,7 +58,7 @@ expression represented as maps of maps.
 ;; -> Exception invalid expression: (fn [x y] x)
 ----
 
-===== Discussion
+==== Discussion
 
 The first match pattern, `[(var :guard symbol?)]`, matches the variable 
 case, binding the matched expression to `var`. The special `:guard` 

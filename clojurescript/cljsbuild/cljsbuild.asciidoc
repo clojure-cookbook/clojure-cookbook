@@ -5,11 +5,11 @@
 
 === Getting set up with lein-cljsbuild
 
-===== Problem
+==== Problem
 
 You want to compile ClojureScript to Javascript easily.
 
-===== Solution
+==== Solution
 
 Use https://github.com/emezeske/lein-cljsbuild[lein-cljsbuild], a
 Leiningen plugin for compiling ClojureScript applications.
@@ -35,7 +35,7 @@ $ lein cljsbuild once
 
 The compiler will output to target/cljsbuild-main.js
 
-===== Discussion
+==== Discussion
 
 https://github.com/emezeske/lein-cljsbuild[lein-cljsbuild] is a
 Leiningen plugin for compiling ClojureScript. The first time it is
@@ -88,7 +88,7 @@ options. This should go in project.clj.
 
 ----
 
-===== See Also
+==== See Also
 
 * See the https://github.com/emezeske/lein-cljsbuild[lein-cljsbuild] GitHub repository for more commands.
 * https://github.com/emezeske/lein-cljsbuild/blob/0.3.2/sample.project.clj[This

@@ -1,11 +1,11 @@
 [[sec_current_date]]
 === Obtaining the Current Date and Time
 
-===== Problem
+==== Problem
 
 You need to obtain the current date or time.
 
-===== Solution
+==== Solution
 
 Use Java's +java.util.Date+ constructor to create a +Date+ instance
 representing the present time and date.
@@ -35,7 +35,7 @@ If you're more interested in the current Unix timestamp, use
 ;; -> 1365260157013
 ----
 
-===== Discussion
+==== Discussion
 
 It doesn't make much sense for Clojure to re-implement or wrap the
 JVM's backing time and date functionality. As such the norm is to use
@@ -79,7 +79,7 @@ the present scoped to your machine's local time zone.
 ;; -> #<DateTime 2013-04-06T09:35:20.141-05:00>
 ----
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_dates_reader_literal>> for more information on the
   +#inst+ reader literal.

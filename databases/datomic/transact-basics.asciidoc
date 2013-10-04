@@ -2,11 +2,11 @@
 
 // Author: Robert Stuttaford robert@cognician.com
 
-===== Problem
+==== Problem
 
 You need to add data to your Datomic database.
 
-===== Solution
+==== Solution
 
 Use a Datomic connection to transact data:
 
@@ -22,7 +22,7 @@ Use a Datomic connection to transact data:
 (d/transact conn tx-data)
 ----
 
-===== Discussions
+==== Discussions
 
 This map-based syntax for representing the data expands to a series of +:db/add+ statements. This transaction is identical to the previous one:
 
@@ -92,5 +92,5 @@ actual-id
 ;; -> 17592186045421
 ----
 
-===== See Also
+==== See Also
 

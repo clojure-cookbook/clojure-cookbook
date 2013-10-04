@@ -6,11 +6,11 @@
 
 === Creating a websocket server
 
-===== Problem
+==== Problem
 
 You want to use websockets to setup a message-oriented, bidirectional socket between two servers or a server and web browser.
 
-===== Solution
+==== Solution
 
 Use https://github.com/lynaghk/jetty7-websockets-async[jetty7-websockets-async].
 
@@ -49,7 +49,7 @@ Here's a websocket handler running side-by-side with a standard Ring HTTP handle
 ----
 
 
-===== Discussion
+==== Discussion
 
 As you'd expect from its name, the `jetty7-websockets-async` library allows you to use Jetty 7 to speak websockets---both as a client and as a server.
 The API for both cases is symmetric; you create a core.async channel and then register it with a path on a Jetty server or connect it to a remote address (or both!).

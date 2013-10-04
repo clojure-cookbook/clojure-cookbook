@@ -1,10 +1,10 @@
 === Splitting a string into parts
 
-===== Problem
+==== Problem
 
 You need to split a string into a number of parts.
 
-===== Solution
+==== Solution
 
 Use +clojure.string/split+ to tokenize a string into a vector of tokens. +split+ takes two arguments, a string to tokenize and a regular expression to split on.
 
@@ -17,7 +17,7 @@ Use +clojure.string/split+ to tokenize a string into a vector of tokens. +split+
 ;; -> ["Spaces" "Newlines"]
 ----
 
-===== Discussion
+==== Discussion
 
 In addition to just naively splitting on a regular expression +split+
 allows you to control how many (or how few) times to split the

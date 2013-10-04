@@ -4,12 +4,12 @@
 Author: Edmund Jackson @edmundjackson
 ////
 
-===== Problem
+==== Problem
 
 You want to use reducers on a file to realize parallel processing
 without loading the file into memory.
 
-===== Solution
+==== Solution
 
 Use the +Iota+ library, https://github.com/thebusby/iota
 
@@ -47,7 +47,7 @@ Demonstration of a word count
        (r/fold add-maps)))
 ----
 
-===== Discussion
+==== Discussion
 
 Under the hood iota memory maps the file to prevent it having to be
 loaded into core which allows you to process huge files.  Furthermore by

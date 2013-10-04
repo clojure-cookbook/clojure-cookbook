@@ -1,10 +1,10 @@
 === Generating Ranges of Dates and Times
 
-===== Problem
+==== Problem
 
 You need to generate a lazy sequence covering a range of dates and/or times.
 
-===== Solution
+==== Solution
 
 This problem has no _easy_ solution in Java, nor does it have one in
 Clojure - third-party libraries included. It is possible to use
@@ -44,7 +44,7 @@ This is how you can use the +time-range+ function:
 ;; -> 12
 ----
 
-===== Discussion
+==== Discussion
 
 While there is no ready-made, out-of-the-box +time-range+ solution in
 Clojure, it is trivial to construct such a function with purely lazy

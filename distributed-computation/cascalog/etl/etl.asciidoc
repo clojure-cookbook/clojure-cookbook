@@ -1,6 +1,6 @@
 === Extract Transform Load
 
-===== Problem
+==== Problem
 
 You need to change the format of large amounts of data from json lists to csv for
 later processing. For example:
@@ -19,7 +19,7 @@ Chas Emerick,Brian Carper,Christophe Grand
 Michael Fogus,Chris Houser
 ----
 
-===== Solution
+==== Solution
 
 Cascalog allows you to write distributed processing jobs that can run locally for
 small jobs or on a Hadoop cluster for larger jobs.
@@ -61,7 +61,7 @@ $ lein uberjar
 $ hadoop jar target/cookbook-standalone.jar cookbook.etl.Main <in-path> <out-path>
 ----
 
-===== Discussion
+==== Discussion
 
 While it would be easy to write a script that converted json to csv,
 it would be a lot of work to convert the script to run across many
@@ -175,6 +175,6 @@ pipelines, it might help to follow this process:
 * Start working from the input format, keeping track of the current
   format for each step.
 
-===== See Also
+==== See Also
 
 * core.logic - A logic programming library for Clojure
