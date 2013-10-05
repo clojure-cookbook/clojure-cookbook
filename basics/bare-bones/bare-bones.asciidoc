@@ -1,6 +1,6 @@
 === Bare-Bones Clojure
 
-// By John Cromartie (jcromartie)
+au="John Cromartie"
 
 ==== Problem
 
@@ -39,7 +39,9 @@ Let's dissect the +java+ invocation here a bit.
 This sets the Java classpath to include Clojure (and only Clojure, in
 this example). A full explanation of the classpath is beyond the scope
 of this recipe, but suffice to say it is a list of places where Java
-should look to load classes.
+should look to load classes. A full discussion of Classpaths on the
+JVM can be found at
+http://docs.oracle.com/javase/tutorial/essential/environment/paths.html
 
 ----
 clojure.main
