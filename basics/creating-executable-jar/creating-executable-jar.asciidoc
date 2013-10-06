@@ -1,10 +1,5 @@
+[au="Alan Busby"]
 === Create an executable jar file
-
-////
-Author: Alan Busby @thebusby
-////
-
-=au "Alan Busby"
 
 ==== Problem
 

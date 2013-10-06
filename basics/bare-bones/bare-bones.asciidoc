@@ -1,6 +1,5 @@
+[au="John Cromartie"]
 === Bare-Bones Clojure
-
-au="John Cromartie"
 
 ==== Problem
 
