@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Converting Between Characters and Integers
 
 ==== Problem

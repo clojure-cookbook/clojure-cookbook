@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Statistics on Collections of Numbers
 
 ==== Problem

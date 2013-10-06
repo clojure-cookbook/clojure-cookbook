@@ -1,3 +1,4 @@
+[au="Tom Hicks"]
 === Combining Maps
 
 ==== Problem

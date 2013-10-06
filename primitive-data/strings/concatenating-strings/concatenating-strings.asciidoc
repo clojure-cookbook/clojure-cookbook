@@ -1,4 +1,5 @@
 [[sec_primitives_building_strings_from_parts]]
+[au="Ryan Neufeld"]
 === Building a string from parts
 
 ==== Problem

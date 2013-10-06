@@ -1,3 +1,4 @@
+[au="Luke VanderHart"]
 === Using composite values as map keys
 
 ==== Problem

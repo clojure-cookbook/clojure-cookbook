@@ -1,6 +1,5 @@
+[au="Stefan Karlsson"]
 === Converting Strings to numbers
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 

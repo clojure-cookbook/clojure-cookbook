@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Generating Ranges of Dates and Times
 
 ==== Problem

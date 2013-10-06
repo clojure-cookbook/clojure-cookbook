@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Inputting and Outputting Integers With Different Bases
 
 ==== Problem

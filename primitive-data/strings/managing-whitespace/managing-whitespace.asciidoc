@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Cleaning up whitespace in a string
 
 ==== Problem

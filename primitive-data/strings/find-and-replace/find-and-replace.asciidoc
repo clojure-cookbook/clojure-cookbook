@@ -1,4 +1,5 @@
 [[sec_primitives_strings_find_replace]]
+[au="Ryan Neufeld"]
 === Performing Find and Replace on Strings
 
 ==== Problem

@@ -1,3 +1,4 @@
+[au="Tom Hicks"]
 === Generate an Infinite Lazy Sequence of Gregorian Calendar Dates
 
 ==== Problem

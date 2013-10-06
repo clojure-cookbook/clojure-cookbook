@@ -1,4 +1,5 @@
 [[sec_primitives_math_type_hinting]]
+[au="Ryan Neufeld"]
 === Alleviating Performance Problems With Type Hinting
 
 ==== Problem

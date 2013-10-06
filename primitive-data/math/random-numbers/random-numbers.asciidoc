@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Generating Random Numbers
 
 ==== Problem

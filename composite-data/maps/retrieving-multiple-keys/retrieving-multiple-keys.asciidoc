@@ -1,4 +1,5 @@
 [[sec_retrieving_multiple_keys]]
+[au="Leonardo Borges"]
 === Retrieving multiple keys from a map simultaneously
 
 ==== Problem

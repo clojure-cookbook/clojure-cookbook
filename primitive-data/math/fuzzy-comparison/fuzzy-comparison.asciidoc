@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Performing Fuzzy Comparison
 
 ==== Problem

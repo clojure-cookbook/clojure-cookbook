@@ -1,4 +1,5 @@
 [[sec_primitives_math_arbitrary_precision]]
+[au="Ryan Neufeld"]
 === Maintaining Accuracy with Extremely Large/Small Numbers
 
 ==== Problem

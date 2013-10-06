@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Truncating and Rounding Numbers
 
 ==== Problem

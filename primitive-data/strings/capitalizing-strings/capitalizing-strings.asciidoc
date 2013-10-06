@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Changing the capitalization of a string
 
 ==== Problem

@@ -1,4 +1,5 @@
 [[sec_primitives_dates_formatting_dates]]
+[au="Ryan Neufeld"]
 === Formatting Dates using clj-time
 
 ==== Problem

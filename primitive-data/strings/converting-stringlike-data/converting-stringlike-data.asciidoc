@@ -1,3 +1,4 @@
+[au="Colin Jones"]
 === Converting between strings, symbols, and keywords
 
 ==== Problem

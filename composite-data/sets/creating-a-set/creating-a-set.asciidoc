@@ -1,4 +1,5 @@
 [[sec_composite_creating_sets]]
+[au="Luke VanderHart"]
 === Creating a Set
 
 ==== Problem

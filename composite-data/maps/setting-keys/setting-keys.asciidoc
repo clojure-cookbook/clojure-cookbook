@@ -1,3 +1,4 @@
+[au="Luke VanderHart"]
 === Setting keys in a map
 
 ==== Problem

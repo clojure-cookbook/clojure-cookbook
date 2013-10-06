@@ -1,3 +1,4 @@
+[au="Ryan Neufeld"]
 === Pluralizing Strings From a Quantity
 
 ==== Problem

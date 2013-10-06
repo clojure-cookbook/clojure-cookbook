@@ -1,4 +1,5 @@
 [[sec_primitives_strings_seq_of_chars]]
+[au="Ryan Neufeld"]
 === Treating a String as a Sequence of Characters
 
 ==== Problem

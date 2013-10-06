@@ -1,8 +1,5 @@
-//////////////////////////////////////////
-Authored by:
-Steven Proctor
-//////////////////////////////////////////
 [[sec_date_from_unix_timestamp]]
+[au="Steven Proctor"]
 === Converting a Unix timestamp to a Date
 
 ==== Problem
