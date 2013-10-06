@@ -3,33 +3,42 @@
 
 ===== Problem
 
-You want to publish some messages using MQTT protocol.
+You want to communicate with devices that are part of "Internet of Things". You
+want to "publish" messages to such devices.
 
 ===== Solution
 
 You use https://github.com/clojurewerkz/machine_head[Machine Head],
-a Clojure library that is a thin layer over
-http://www.eclipse.org/paho/[Paho], a Java library to communicate with a MQTT
-broker. In order to communicate via MQTT, you need to have an existing MQTT 
-broker implementation. Example implementations are 
-http://mosquitto.org/[Mosquitto], Websphere, 
-http://www.rabbitmq.com/mqtt.html[RabbitMQ] amongst others. In this recipe, 
-you are going to use the test broker provided at tcp://test.mosquitto.org:1883.
+a Clojure library to perform Machine to Machine (M2M) communication via http://mqtt.org/[MQTT] protocol. 
+MQTT protocol requires an existing MQTT broker with which all devices (or machines) will 
+communicate by either publishing messages to or subscribing messages on specific
+"topics". In this reciple, you are going to publish messages to http://mosquitto.org/[Mosquitto] as the MQTT broker. 
 
-Here is the project file with appropriate dependencies.
+Add this to your dependencies. 
 
-.project.clj
 [source,clojure]
 ----
-(defproject mqttpublisher "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                 [clojurewerkz/machine_head "1.0.0-beta1"]]
-  :main mqttpublisher.core)
+[clojurewerkz/machine_head "1.0.0-beta1"]
 ----
 
-And here is the 'core.clj' with the code for publishing MQTT messages.
+It is assumed that you have a working
+internet connection and the test MQTT broker (Mosquitto) is up and running and
+accepting connections at port 1883 at tcp://test.mosquitto.org. Or 
+alternatively, you setup Mosquitto as mentioned in its http://mqtt.org/wiki/doku.php/mosquitto_message_broker[installation instructions]. 
 
-.core.clj
+Every client that connects to the broker needs to have a unique client id. This can be generated either using +generate-id+ method or you can choose some other
+unique string.
+
+Here's how you connect to the broker. You call the method +connect+ which accepts
+the broker address and client id and returns the connection +conn+. You can check
+if the connection is successful with +connected?+ method and then call upon
+the +publish+ method to publish messages (a few times) to the broker. The +publish+ method
+accepts the connection, topic string, payload, QoS value and  +retained+ as parameters. The QoS 
+value of 2 corresponds to "exactly once" delivery. +retained+ value of false instructs
+the broker not to retain messages (more on this later). 
+
+Finally, you use +disconnect+ method to disconnect from the broker.
+
 [source,clojure]
 ----
 (ns mqttpublisher.core
@@ -48,55 +57,69 @@ And here is the 'core.clj' with the code for publishing MQTT messages.
 
 (defn -main[] 
   (connect-and-publish "tcp://test.mosquitto.org:1883" (mh/generate-id)
-                       "SNControlNetwork/devices/device1"))
+                       "SNControlNetwork/Florida/device1"))
 ----
 
+Now call the +-main+ method to establish connection and publish messages in REPL 
+or run it using 'lein run'.
+
+
+[source,clojure]
+----
+(-main)
+----
 
 ===== Discussion
 
-http://mqtt.org[MQTT] is an open, extremely lightweight publish/subscribe 
-messaging protocol. It is useful for connections where bandwidth is at premium and/or connections are unreliable e.g. for machine to machine (M2M) communication. 
+http://mqtt.org[MQTT] is an open, lightweight publish/subscribe 
+messaging protocol. It is useful for connections where bandwidth is at premium and/or connections are unreliable. 
 While AMQP protocol excels at various scenarios for business messaging,
 MQTT is usually the choice for smaller payloads and last mile connectivity (think 
-"Internet of things")
-as it is simple to implement in hardware.
+"Internet of things") as it is simple to implement in hardware. MQTT protocol has 
+the following properties which make it good for constrained networks:
 
-The protocol defines three possible QoS values 0, 1 and 2 correspond to "fire and 
+   * Internally the protocol compresses into bit-wise headers and variable length fields. The smallest possible packet size is a mere 2 bytes.
+   * "No-polling" required. Asynchronous bidirectional “push” delivery of messages.
+   * Supports always-connected and sometimes-connected models 
+   * Designed for devices with limited resources like battery operated 8 bit controllers.
+   * Tested with low bandwidth networks like VSAT and GPRS
+
+The protocol defines three possible QoS values 0, 1 and 2 corresponding to "fire and 
 forget", "at least once", "exactly once" qualities of service. QoS parameters 1 and 2
 require persistent storage on the client so as to save the message until
 acknowledgement arrives. In the above recipe, the default persistence
-implementation provided by the library.
+implementation provided by the library is used.
 
-In the above code, a function +connect-and-publish+ establishes thme connection
-with the broker using +connect+ function. It then checks if connection is 
-established  with +connected?+ and then publishes a payload 5 times in 
-succession and then disconnects. 
-
-In the +-main+ function, the broker address for a test server
- (i.e. 'test.mosquitto.org' at TCP/IP port 1883) is provided and
- a unique client address generated using 
-+generate-id+. The payload is sent to a topic 'SNControl/devices/device1' which
-is the typical way topics are hierarchically defined. 
-
-The above code publishes message using +retained+ as false. In case +retained+ is set
-as true the broker will remember the last known good message of the topic.
+MQTT also has a concept of retention of messages. If you were to set
++retained+ as +true+, the broker will remember the last known good message on the topic.
 So when the subscribers connect, they are given the last known
 good message by the broker and they do not have to wait to receive the first
 message. 
+
+In this recipe, you communicated with http://mosquitto.org[Mosquitto]. Other
+implementations of MQTT broker are Websphere and  
+http://www.rabbitmq.com/mqtt.html[RabbitMQ].
+
+The topics are usually defined with the separator '/' defining hierarchies. As an example, the sensor devices of a particular domain 'SNControl' might be publishing their
+values to 'SNControl/Florida/device1', 'SNControl/Florida/device2', and so on. While
+the devices in domain 'RKNControl' might publish their values to 'RKNControl/Washington/device1', etc. Naming the topics in this way helps in subscribing to multiple
+topics based on wild cards (as we shall see in the next recipe).
+
 
 
 ===== See Also
 
 * The details on MQTT protocol at http://mqtt.org/
-* https://github.com/clojurewerkz/machine_head[Machine_Head] library
-* http://clojuremqtt.info/[Machine Head Documentation]
-* Eclipse Paho library at http://www.eclipse.org/paho/
+* http://clojuremqtt.info/[Machine Head Documentation] of the https://github.com/clojurewerkz/machine_head[Machine_Head] library
+* http://www.eclipse.org/paho/[Eclipse Paho library], the Java library, that
+Machine Head uses under the hood to communicate using MQTT. 
 * Mosquitto, an open source message broker that implements MQTT 
 protocol at http://mosquitto.org/
 * http://www.redbooks.ibm.com/abstracts/sg248054.html[Building Smarter Planet 
 Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM Redbooks publication] explains MQTT in more details. 
-* http://www.youtube.com/watch?v=s9nrm8q5eGg[A Humourous and Informative TED talk by Andy Stanford-Clark, one of the inventors of MQTT, on the potential uses of MQTT]
-* http://blip.tv/eclipse-videos/getting-started-with-mqtt-2-6392905[Getting started with MQTT]
+* The http://www.youtube.com/watch?v=s9nrm8q5eGg[TED talk] by Andy Stanford-Clark, one of the inventors of MQTT, is a humourous
+and informative session on how MQTT can be used.
+
 
 
 

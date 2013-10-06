@@ -4,30 +4,35 @@
 ===== Problem
 
 The previous recipe describes how to publish messages to a 
-http://mqtt.org[MQTT] broker. The problem solved here is to subscribe to the 
+http://mqtt.org[MQTT] broker. The problem
+dealt here is to subscribe to the 
 MQTT messages being published by another client.
 
 ===== Solution
 
-You use https://github.com/clojurewerkz/machine_head[Machine_Head], a clojure
+You use https://github.com/clojurewerkz/machine_head[Machine Head], a Clojure
 library built on top of http://www.eclipse.org/paho/[Paho]. As in previous
 recipe, you need to have a working broker implementation. In this receipe,
 http://mosquitto.org/[Mosquitto] will be used for illustration.
 
-First, you need to define the dependencies.
 
-.project.clj
+Add this to your dependencies. 
+
 [source,clojure]
 ----
-(defproject mqttsubscriber "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                 [clojurewerkz/machine_head "1.0.0-beta1"]]
-  :main mqttsubscriber.core)
+[clojurewerkz/machine_head "1.0.0-beta1"]
 ----
 
-Here's the code for the subscribing to MQTT.
+You first define callback handler +message-handler+ that is called
+whenever a message arrives from the broker. To connect to the broker,
+use the +connect+ method from Machine Head library providing it the broker address
+and client id (generated using +generate-id+). Check that the connection
+has been established using +connected?+ method. The +subscribe-with-qos+ method
+needs to be provided as parameters the connection, vector of topics to subscribe 
+to, a vector corresponding to QoS parameters to use and a message handler (defined earlier). Of course, your internet must be working for the connections and 
+subscriptions to work.
 
-.core.clj
+
 [source,clojure]
 ----
 (ns mqttsubscriber.core
@@ -51,24 +56,35 @@ Here's the code for the subscribing to MQTT.
                        ["SNControlNetwork/devices/device1"]))
 ----
 
+Now call the +-main+ method to establish connection and subscribe to messages in REPL 
+or run it using 'lein run'.
+
+
+[source,clojure]
+----
+(-main)
+----
+
 ===== Discussion
 
 For more description regarding MQTT protocol, see previous recipe for publishing to
-MQTT broker. 
+MQTT broker. Note that zero, one or many subscribers can potentially connect to a topic. 
 
-The above code first defines a callback handler +message-handler+ that is called
-whenever a message arrives from the broker.
-The +connect-and-subscribe+ method connects using +connect+ method from 
-Machine Head library. It then checks if the connection has been established
-using +connected?+ function and then calls +subscribe-with-qos+ function
-to establish the call back handler for the topics of interest. +topics+ is 
-a vector of the topics you are interested in. It then waits for some time
-and then disconnects.
+While subscribing to messages, wild cards can be used in topic names. This allows
+subscription to multiple topics. This is how wild cards are used:
 
-Finally, the +-main+ function calls the function +connect-and-subscribe+ with
-the broker address (here TCP/IP port 1883 for test.mosquitto.org is used
-for illustration) and a vector of  topics you are interested in.  
+* / is used as a separator.
+* + is the single-level wild-card and can appear anywhere in the string.
+* # is a multilevel wild card needs to appear at the end of the string.
 
+For example, these subscriptions are possible:
+
+* "SNControl/#" : any device under "SNControl/Florida". So "SNControl/Florida/device1/sensor1", "SNControl/Florida/device1/sensor2" and "SNControl/California/device1" will all match.
+* "SNControl/+/device1" : any "device1" in states under domain "SNControl". So "SNControl/Florida/device1" and "SNControl/California/device1" will match.
+*  "SNControl/\+/+/sensor1" will match "SNControl/Florida/device1/sensor1" and 
+"SNControl/Florida/device2/sensor1"
+
+ 
 You can test out this subscription recipe with the recipe for publication of messages shown earlier. Run this code first and then start the publisher and you 
 should be able to see the payload from the publisher.
 
@@ -80,12 +96,13 @@ on an alarm that the code has received.
 ===== See Also
 
 * The details on MQTT protocol at http://mqtt.org/
-* https://github.com/clojurewerkz/machine_head[Machine_Head] library
-* http://clojuremqtt.info/[Machine Head Documentation]
-* Eclipse Paho library at http://www.eclipse.org/paho/
+* http://clojuremqtt.info/[Machine Head Documentation] of the https://github.com/clojurewerkz/machine_head[Machine_Head] library
+* http://www.eclipse.org/paho/[Eclipse Paho library], the Java library, that
+Machine Head uses under the hood to communicate using MQTT. 
 * Mosquitto, an open source message broker that implements MQTT 
 protocol at http://mosquitto.org/
 * http://www.redbooks.ibm.com/abstracts/sg248054.html[Building Smarter Planet 
 Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM Redbooks publication] explains MQTT in more details. 
-* http://www.youtube.com/watch?v=s9nrm8q5eGg[A Humourous and Informative TED talk by Andy Stanford-Clark, one of the inventors of MQTT, on the potential uses of MQTT]
-* http://blip.tv/eclipse-videos/getting-started-with-mqtt-2-6392905[Getting started with MQTT]
+* The http://www.youtube.com/watch?v=s9nrm8q5eGg[TED talk] by Andy Stanford-Clark, one of the inventors of MQTT, is a humourous
+and informative session on how MQTT can be used.
+
