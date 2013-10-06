@@ -1,6 +1,5 @@
+[au="John Cromartie"]
 === Exploring Namespaces
-
-// By John Cromartie
 
 ==== Problem
 

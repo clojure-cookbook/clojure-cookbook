@@ -1,7 +1,5 @@
-////
-:Author: Simone Mosciatti
-:Email: simone@mweb.biz
-////
+[au="Simone Mosciatti"]
+=== Push library on Clojars
 
 ////
 TODO: This recipe needs improvement
@@ -13,8 +11,6 @@ TODO: This recipe needs improvement
 See http://github.com/clojure-cookbook/clojure-cookbook/issues/90
 ////
 
-
-=== Push library on Clojars
 
 ==== Problem
 After that you build your own library in clojure you want to make it public so that everybody can use it and simply add it to their dependencies.

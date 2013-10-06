@@ -1,8 +1,5 @@
+[au="Edmund Jackson"]
 === Using Reducers with Files
-
-////
-Author: Edmund Jackson @edmundjackson
-////
 
 ==== Problem
 

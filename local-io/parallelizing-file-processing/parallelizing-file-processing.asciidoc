@@ -1,8 +1,5 @@
+[au="Edmund Jackson"]
 === Parallelizing File Processing
-
-////
-Author: Edmund Jackson @edmundjackson
-////
 
 ==== Problem
 

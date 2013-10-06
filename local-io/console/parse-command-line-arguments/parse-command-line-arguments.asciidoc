@@ -1,8 +1,5 @@
+[au="Nicolas Bessi"]
 === Parse command line arguments
-
-////
-Author: Nicolas Bessi @nbessi
-////
 
 ==== Problem
 

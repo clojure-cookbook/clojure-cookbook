@@ -1,6 +1,5 @@
+[au="Robert Stuttaford"]
 === Dry-run transactions in a Datomic database without actually committing them
-
-// Author: Robert Stuttaford robert@cognician.com
 
 ==== Problem
 

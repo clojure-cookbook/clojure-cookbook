@@ -1,8 +1,5 @@
+[au="Alan Busby"]
 === Deleting a directory recursively
-
-////
-Author: Alan Busby @thebusby
-////
 
 ==== Problem
 

@@ -1,7 +1,6 @@
 [[sec_red_black_part_i]]
+[au="Leonardo Borges"]
 === Implementing custom data structures: Red Black Trees - Part I
-
-// By Leonardo Borges (leonardoborges)
 
 ==== Problem
 
@@ -22,7 +21,7 @@ Before you get started, make sure you add https://github.com/clojure/core.match[
 [org.clojure/core.match "0.2.0-rc5"]
 ----
 
-Now, define the +balance+ and +insert-val+ functions which are the core of our Red Black Tree:       
+Now, define the +balance+ and +insert-val+ functions which are the core of our Red Black Tree:
 
 [source,clojure]
 ----
@@ -69,7 +68,7 @@ Then, define a couple of helper functions which will make dealing with our Red B
          nil false
          [_ a y b] (cond
                     (< x y) (recur a x)
-                    (> x y) (recur b x)     
+                    (> x y) (recur b x)
                     :else true)))
 
 (defn- find-val
@@ -98,7 +97,7 @@ Next, we can take it for a whirl:
 
 ==== Discussions
 
-For anyone who has ever had to implement a Red Black Tree - or at least attended a class in Computer Science where the algorithm was tought - the implementation of +balance+ might seem extremely short. The reason for this is threefold: 
+For anyone who has ever had to implement a Red Black Tree - or at least attended a class in Computer Science where the algorithm was tought - the implementation of +balance+ might seem extremely short. The reason for this is threefold:
 
 * Our Red Black Tree is persistent: operations on it, such as insert and balance, are not destructive
 * +balance+ uses https://github.com/clojure/core.match[core.match], a pattern matching library for Clojure.
@@ -134,9 +133,9 @@ All other functions simply take advantage of all the work +balance+ is doing and
 
 *A note on performance*
 
-One might suggest a simpler way to achieve this goal is to first load all data into a vector, sort it and use Java's +binarySearch+ method to search across the dataset. This would be the case had the problem statement not mentioned that the dataset can change between searches. 
+One might suggest a simpler way to achieve this goal is to first load all data into a vector, sort it and use Java's +binarySearch+ method to search across the dataset. This would be the case had the problem statement not mentioned that the dataset can change between searches.
 
-Instead of making any claims, I'll show how both solutions perform in a little benchmark. 
+Instead of making any claims, I'll show how both solutions perform in a little benchmark.
 
 The benchmark adds items to the existing tree - or vector - and attempts to find an element. The benchmark is executed three times in order to give us a sense of the average time elapsed.
 
@@ -147,17 +146,17 @@ First, our Red Black Tree Implementation:
 (def rbtree (reduce insert-val nil (range 10)))
 (dotimes [_ 3]
   (time
-   (dotimes [_ 400] 
+   (dotimes [_ 400]
      (-> rbtree
          (insert-val 500)
          (insert-val 550)
-         (insert-val 200)                  
+         (insert-val 200)
          (find-val 200)))))
 
 ;; "Elapsed time: 29.552 msecs"
 ;; "Elapsed time: 22.656 msecs"
-;; "Elapsed time: 22.577 msecs"         
-----       
+;; "Elapsed time: 22.577 msecs"
+----
 
 Next, the solution using Java's +binarySearch+:
 
@@ -166,7 +165,7 @@ Next, the solution using Java's +binarySearch+:
 (def vector (vec (range 1000 5000)))
 (dotimes [_ 3]
   (time
-   (dotimes [_ 400] 
+   (dotimes [_ 400]
      (let [coll (-> vector
                     (conj 500)
                     (conj 550)

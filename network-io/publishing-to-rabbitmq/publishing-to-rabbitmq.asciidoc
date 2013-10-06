@@ -1,5 +1,5 @@
+[au="Michael Klishin"]
 === Publish to RabbitMQ
-// By Michael Klishin (michaelklishin)
 
 ==== Problem
 

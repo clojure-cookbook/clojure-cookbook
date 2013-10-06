@@ -1,8 +1,5 @@
 [[sec_local_io_get_local_resource]]
-
-// Author: John Jacobsen (eigenhombre) (with help from John Cromartie
-// (jcromartie) and Alex P (ifesdjeen))
-
+[au="John Jacobsen", au2="John Cromartie", au3="Alex Petrov"]
 === Including and Accessing Resource Files in a Clojure Project
 
 ==== Problem

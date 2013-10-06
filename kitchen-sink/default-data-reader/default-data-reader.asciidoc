@@ -1,4 +1,5 @@
 [[sec_default_data_reader]]
+[au="Steve Miner"]
 === Default Data-Reader
 
 ==== Problem
@@ -8,7 +9,7 @@ You want to read **edn** data that might have unknown tagged literals.
 ==== Solution
 
 Use the :default option with +clojure.edn/read+ on a stream or +clojure.edn/read-string+
-on a string. 
+on a string.
 
 [source,clojure]
 ----
@@ -32,7 +33,7 @@ The +:readers+ key in the *opts* map extends support to literal tags beyond the 
 pre-defined by +clojure.core/default-data-readers+.  In order to handle unknown keys, you can
 associate your own default data-reader function with the +:default+ key.  Your function will be
 called with the unknown tag and value anytime no data-reader is found for a tag.  If no default is
-given, the unknown tag will cause an exception.  
+given, the unknown tag will cause an exception.
 
 For many applications, reading an unknown tag is an error so an exception would be appropriate.
 However, there are other situations where a program needs to preserve the "unknowns," perhaps for a

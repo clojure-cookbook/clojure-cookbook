@@ -1,3 +1,4 @@
+[au="Alex Robbins"]
 === Checkpointing Cascalog Jobs
 
 ==== Problem

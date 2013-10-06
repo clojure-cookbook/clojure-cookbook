@@ -1,8 +1,4 @@
-////
-:Author: Kevin J. Lynagh
-:Email: kevin@keminglabs.com
-////
-
+[au="Kevin J. Lynagh"]
 === Using ZeroMQ via core.async
 
 ==== Problem

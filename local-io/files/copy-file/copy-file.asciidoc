@@ -1,6 +1,5 @@
+[au="Stefan Karlsson"]
 === Copy a file
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 

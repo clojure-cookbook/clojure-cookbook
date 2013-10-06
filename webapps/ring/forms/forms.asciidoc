@@ -1,8 +1,4 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
+[au="Adam Bard"]
 === Handling form data with Ring
 
 ==== Problem

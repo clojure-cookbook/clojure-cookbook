@@ -1,8 +1,4 @@
-////
-:Author: Ian Davis, Aria Haghighi
-:Email: ian@getprismatic.com, aria@getprismatic.com
-////
-
+[au="Ian Davis", au2="Aria Haghighi"]
 === DOM manipulation and client side templating in ClojureScript
 
 ==== Problem
@@ -19,7 +15,6 @@ Add the following dependency to your +project.clj+:
 [source, clojure]
 ----
 [prismatic/dommy "0.1.1"]
-
 ----
 
 Dynamically generating DOM elements is simple with Dommy, and matches the excellent syntax of

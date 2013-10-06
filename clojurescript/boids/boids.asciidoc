@@ -1,11 +1,6 @@
 [au="Tom White"]
 === Boids Simulation
 
-////
-:Author: Tom White
-:Email: tom@sixdozen.com
-////
-
 ==== Problem
 
 You want to run and visualize a boids simulation using SVG and CSS.

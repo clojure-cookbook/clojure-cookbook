@@ -1,6 +1,5 @@
+[au="Robert Stuttaford"]
 === Transact data with relationships into a Datomic database
-
-// Author: Robert Stuttaford robert@cognician.com
 
 ==== Problem
 

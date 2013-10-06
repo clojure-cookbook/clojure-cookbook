@@ -1,8 +1,5 @@
+[au="Alan Busby"]
 === Writing to stdout and stderr
-
-////
-Author: Alan Busby @thebusby
-////
 
 ==== Problem
 

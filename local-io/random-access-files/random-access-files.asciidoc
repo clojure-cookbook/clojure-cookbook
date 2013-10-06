@@ -1,8 +1,6 @@
 [[sec_local-random-access-files]]
-
+[au="John Jacobsen"]
 === Read or Write Files At Arbitrary Positions
-
-// By John Jacobsen (eigenhombre)
 
 ==== Problem
 

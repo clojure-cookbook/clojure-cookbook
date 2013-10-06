@@ -1,6 +1,5 @@
+[au="John Cromartie"]
 === Reading and Writing Compressed Files
-
-// By John Cromartie (jcromartie)
 
 ==== Problem
 

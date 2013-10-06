@@ -1,8 +1,5 @@
+[au="Alan Busby"]
 === Memory-map a file
-
-////
-Author: Alan Busby @thebusby
-////
 
 ==== Problem
 

@@ -1,8 +1,5 @@
+[au="Alan Busby"]
 === Traversing Datomic Indices
-
-////
-Author: Alan Busby @thebusby
-////
 
 ==== Problem
 

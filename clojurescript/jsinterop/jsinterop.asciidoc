@@ -1,9 +1,4 @@
-////
-:Author: Tom White
-:Email: tom@sixdozen.com
-////
-
-
+[au="Tom White"]
 === Using JavaScript Libraries from ClojureScript
 
 ==== Problem

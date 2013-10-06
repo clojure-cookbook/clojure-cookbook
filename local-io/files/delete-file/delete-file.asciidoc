@@ -1,6 +1,5 @@
+[au="Stefan Karlsson"]
 === Delete a file
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 

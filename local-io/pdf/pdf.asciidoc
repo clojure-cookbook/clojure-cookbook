@@ -1,8 +1,6 @@
 [[sec_local_io_pdf]]
-
+[au="Dmitri Sotnikov"]
 === Generating a PDF report
-
-//Author: Dmitri Sotnikov
 
 ==== Problem
 

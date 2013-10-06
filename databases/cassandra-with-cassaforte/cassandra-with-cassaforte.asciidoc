@@ -1,5 +1,5 @@
+[au="Alex Petrov"]
 === Access Cassandra
-// By Oleksandr Petrov (ifesdjeen)
 
 ==== Problem
 

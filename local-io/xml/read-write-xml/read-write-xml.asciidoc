@@ -1,6 +1,5 @@
+[au="Stefan Karlsson"]
 === Work with XML data
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 

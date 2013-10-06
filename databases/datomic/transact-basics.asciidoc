@@ -1,6 +1,5 @@
+[au="Robert Stuttaford"]
 === Write data to Datomic with Transactions
-
-// Author: Robert Stuttaford robert@cognician.com
 
 ==== Problem
 
@@ -14,9 +13,9 @@ Use a Datomic connection to transact data:
 ----
 (require '[datomic.api :as d])
 
-(def tx-data [{:db/id #db/id[:db.part/user] 
+(def tx-data [{:db/id #db/id[:db.part/user]
                :user/email "fowler@acm.org"
-               :user/name "Martin Fowler" 
+               :user/name "Martin Fowler"
                :user/roles #{:user.roles/author :user.roles/editor}}])
 
 (d/transact conn tx-data)
@@ -49,9 +48,9 @@ It is also possible to do so with the +d/tempid+ function:
 new-id
 ;; -> #db/id[:db.part/user -1000075]
 
-(def tx-data3 [{:db/id new-id 
+(def tx-data3 [{:db/id new-id
                 :user/email "fowler@acm.org"
-                :user/name "Martin Fowler" 
+                :user/name "Martin Fowler"
                 :user/roles #{:user.roles/author :user.roles/editor}}])
 
 (def tx-result @(d/transact conn tx-data3))
@@ -72,7 +71,7 @@ You can use the +:db-after+ database to query the database directly after the tr
 ----
 (def db-after-tx (:db-after tx-result))
 
-(d/q '[:find ?name :in $ ?email :where 
+(d/q '[:find ?name :in $ ?email :where
        [?entity :user/email ?email]
        [?entity :user/name ?name]]
      db-after-tx

@@ -1,6 +1,5 @@
+[au="John Cromartie"]
 === Removing Duplicate Elements From a Collection
-
-// By John Cromartie (jcromartie)
 
 ==== Problem
 

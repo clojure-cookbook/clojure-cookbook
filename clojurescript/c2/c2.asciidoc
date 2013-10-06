@@ -1,9 +1,4 @@
-////
-:Author: Kevin J. Lynagh
-:Email: kevin@keminglabs.com
-////
-
-
+[au="Kevin Lynagh"]
 === Visualizing Data with C2
 
 ==== Problem

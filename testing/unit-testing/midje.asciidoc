@@ -1,3 +1,4 @@
+[au="Joseph Wilk"]
 === Midje
 
 ==== Problem

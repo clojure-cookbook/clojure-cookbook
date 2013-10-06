@@ -1,8 +1,4 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
+[au="Adam Bard"]
 === Request and Response headers in Ring
 
 ==== Problem

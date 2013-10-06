@@ -1,6 +1,5 @@
-// By Tom Hicks (@hickst). Original submission by Simone Mosciatti (@siscia)
-
 [[Connecting to an SQL Database]]
+[au="Tom Hicks", au2="Simone Mosciatti"]
 === Connecting to an SQL Database
 
 ==== Problem

@@ -1,3 +1,4 @@
+[au="Alex Robbins"]
 === Explaining a Cascalog Query
 
 ==== Problem

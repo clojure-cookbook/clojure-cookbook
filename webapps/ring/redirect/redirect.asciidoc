@@ -1,8 +1,4 @@
-////
-:Author: Craig McDaniel
-:Email: cpmcdaniel@gmail.com
-////
-
+[au="Craig McDaniel"]
 === HTTP Redirect with Ring
 
 ==== Problem

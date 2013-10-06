@@ -1,6 +1,5 @@
+[au="Clinton Dreisbach"]
 === Working with MongoDB
-
-// by Clinton Dreisbach (cndreisbach)
 
 ==== Problem
 

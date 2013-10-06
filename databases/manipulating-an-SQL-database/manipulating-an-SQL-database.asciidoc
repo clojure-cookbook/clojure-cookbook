@@ -1,7 +1,7 @@
-// Author: Tom Hicks, after documentation by Sean Corfield and Stephen Gilardi.
-
 [[Manipulating an SQL Database]]
+[au="Tom Hicks"]
 === Manipulating an SQL Database
+// Made after documentation by Sean Corfield and Stephen Gilardi.
 
 ==== Problem
 

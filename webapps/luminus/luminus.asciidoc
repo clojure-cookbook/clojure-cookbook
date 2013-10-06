@@ -1,8 +1,6 @@
 [[sec_webapps__luminus]]
-
+[au="Dmitri Sotnikov"]
 === Luminus
-
-// By Dmitri Sotnikov
 
 ==== Problem
 

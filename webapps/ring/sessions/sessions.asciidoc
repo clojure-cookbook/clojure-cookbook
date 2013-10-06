@@ -1,8 +1,4 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
+[au="Adam Bard"]
 === Storing Sessions with Ring
 
 ==== Problem

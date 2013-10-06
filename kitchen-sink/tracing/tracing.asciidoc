@@ -1,6 +1,5 @@
+[au="Stefan Karlsson"]
 === Tracing code
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 

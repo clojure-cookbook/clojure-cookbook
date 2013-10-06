@@ -1,8 +1,4 @@
-////
-:Author: Eric Normand
-:Email: ericwnormand@gmail.com
-////
-
+[au="Eric Normand"]
 === Getting set up with Liberator
 
 ==== Problem

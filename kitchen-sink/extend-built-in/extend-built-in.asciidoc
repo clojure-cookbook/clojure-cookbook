@@ -1,9 +1,5 @@
-////
-:Author: David McNeil
-////
-
 [[extend_built_in]]
-
+[au="David McNeil"]
 === Extending a Built-in Type
 
 ==== Problem
@@ -60,7 +56,7 @@ If you already had functions to use, then it would make sense to use +extend+ in
 
 (defn second-word [s]
   (second (clojure.string/split s #" ")))
-  
+
 (extend String
   Person
   {:first-name first-word

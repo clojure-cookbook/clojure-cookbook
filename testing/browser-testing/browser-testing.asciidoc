@@ -1,8 +1,4 @@
-////
-:Author: Matthew Maravillas
-:Email: maravillas@gmail.com
-////
-
+[au="Matthew Maravillas"]
 === Browser Testing
 
 ==== Problem

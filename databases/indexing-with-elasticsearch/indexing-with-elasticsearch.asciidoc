@@ -1,5 +1,5 @@
+[au="Michael Klishin"]
 === Indexing Data with ElasticSearch
-// By Michael Klishin (michaelklishin)
 
 ==== Problem
 

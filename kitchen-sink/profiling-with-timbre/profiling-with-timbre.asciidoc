@@ -1,6 +1,6 @@
-//TODO: Edit for style (first vs. second person, less conversational)
-
+[au="Ambrose Bonnaire-Sergeant"]
 === Simple Profiling with Timbre
+//TODO: Edit for style (first vs. second person, less conversational)
 
 ==== Problem
 
@@ -19,9 +19,9 @@ by inserting profiling macros into your code, without performance penalty in pro
 
 (defn bench-me [f]
   (p/p :bench/bench-me
-    (let [_ (p/p :bench/sleep 
+    (let [_ (p/p :bench/sleep
               (Thread/sleep 10))
-          n (p/p :bench/call-f-once 
+          n (p/p :bench/call-f-once
               (f))
           _ (p/p :bench/call-f-10-times-outer
               (dotimes [_ 10]

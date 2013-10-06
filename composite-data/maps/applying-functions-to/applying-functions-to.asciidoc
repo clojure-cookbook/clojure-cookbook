@@ -106,8 +106,8 @@ It's also possible to define +map-kv+ using +reduce-kv+:
 
 Which could be used in this example:
 
-----    
-(map-kv {:one 1 :two 2 :three 3} #(vector (-> %1 str (subs 1)) (inc %2)))    
+----
+(map-kv {:one 1 :two 2 :three 3} #(vector (-> %1 str (subs 1)) (inc %2)))
 ----
 
 ==== See also

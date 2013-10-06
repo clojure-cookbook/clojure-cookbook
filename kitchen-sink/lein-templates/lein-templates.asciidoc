@@ -1,6 +1,5 @@
+[au="Travis Vachon"]
 === Creating custom project templates
-
-// by Travis Vachon (travis)
 
 ==== Problem
 

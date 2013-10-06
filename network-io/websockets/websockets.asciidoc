@@ -1,9 +1,4 @@
-////
-:Author: Kevin J. Lynagh
-:Email: kevin@keminglabs.com
-////
-
-
+[au="Kevin J. Lynagh"]
 === Creating a websocket server
 
 ==== Problem

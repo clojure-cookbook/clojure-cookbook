@@ -1,6 +1,5 @@
+[au="John Touron"]
 === Determining if a collection holds one of several values
-
-// By John Touron (jwtouron)
 
 ==== Problem
 

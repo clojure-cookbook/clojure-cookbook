@@ -1,6 +1,5 @@
+[au="Clinton Dreisbach"]
 === Serving Static Files with Ring
-
-// by Clinton Dreisbach (cndreisbach)
 
 ==== Problem
 

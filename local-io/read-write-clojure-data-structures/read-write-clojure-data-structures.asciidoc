@@ -1,7 +1,6 @@
 [[sec_local_io_clojure_data_to_disk]]
+[au="John Cromartie"]
 === Reading and Writing Clojure Data
-
-// By John Cromartie (jcromartie)
 
 ==== Problem
 

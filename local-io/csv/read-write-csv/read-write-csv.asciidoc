@@ -1,6 +1,5 @@
+[au="Jason Whitlark"]
 === Work with CSV data
-
-// By Jason Whitlark (jwhitlark)
 
 ==== Problem
 

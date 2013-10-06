@@ -1,6 +1,5 @@
+[au="Tobias Bayer"]
 === Read property file
-
-// By Tobias Bayer (codebrickie)
 
 ==== Problem
 

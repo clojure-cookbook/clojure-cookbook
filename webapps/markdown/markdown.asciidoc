@@ -1,8 +1,6 @@
 [[sec_webapps__markdown]]
-
+[au="Dmitri Sotnikov"]
 === Rendering Markdown documents
-
-// By Dmitri Sotnikov
 
 ==== Problem
 

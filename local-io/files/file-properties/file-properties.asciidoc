@@ -1,6 +1,5 @@
+[au="Stefan Karlsson"]
 === File properties
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 

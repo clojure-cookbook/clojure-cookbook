@@ -1,3 +1,4 @@
+[au="Tom Hicks"]
 [[Connecting to an SQL Database with a Connection Pool]]
 === Connecting to an SQL Database with a Connection Pool
 

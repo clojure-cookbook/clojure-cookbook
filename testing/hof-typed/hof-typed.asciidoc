@@ -1,6 +1,6 @@
-//TODO: Edit for style (first vs. second person, less conversational)
-
+[au="Ambrose Bonnaire-Sergeant"]
 === Type Checking Higher-order functions with core.typed
+//TODO: Edit for style (first vs. second person, less conversational)
 
 === Problem
 

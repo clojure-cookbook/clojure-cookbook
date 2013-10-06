@@ -1,10 +1,5 @@
 [[sec_webapps_compojure_compojure]]
-
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
+[au="Adam Bard"]
 === Routing requests with Compojure
 
 ==== Problem

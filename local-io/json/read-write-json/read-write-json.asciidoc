@@ -1,7 +1,6 @@
 [[sec_local_io_json]]
+[au="Stefan Karlsson"]
 === Work with JSON data
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 

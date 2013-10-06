@@ -1,7 +1,6 @@
 [[sec_local-io_read_write_files]]
+[au="Stefan Karlsson"]
 === Reading and writing files
-
-// By Stefan Karlsson (zclj)
 
 ==== Problem
 
