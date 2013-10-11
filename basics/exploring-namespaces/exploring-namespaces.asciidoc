@@ -10,6 +10,7 @@ You want to know what namespaces are loaded, and what public vars are available 
 
 Use +loaded-libs+ to obtain the set of currently-loaded namespaces. e.g., from a REPL:
 
+[source,console]
 ----
 user=> (pprint (loaded-libs))
 #{clojure.core.protocols clojure.instant clojure.java.browse
@@ -19,6 +20,7 @@ user=> (pprint (loaded-libs))
 
 Use +dir+ from a REPL to print the public vars in a namespace.
 
+[source,console]
 ----
 user=> (dir clojure.instant)
 parse-timestamp
