@@ -1,6 +1,7 @@
 [[sec_adding_to_a_list]]
-[au="Luke VanderHart"]
 === "Adding" an item to a list
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

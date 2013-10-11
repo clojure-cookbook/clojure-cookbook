@@ -1,5 +1,6 @@
-[au="Ambrose Bonnaire-Sergeant"]
 === Simple Profiling with Timbre
+[role="byline"]
+by Ambrose Bonnaire-Sergeant
 //TODO: Edit for style (first vs. second person, less conversational)
 
 ==== Problem

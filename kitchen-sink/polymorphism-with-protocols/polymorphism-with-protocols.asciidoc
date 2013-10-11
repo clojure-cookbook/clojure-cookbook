@@ -1,6 +1,7 @@
 [[polymorphism_with_protocols]]
-[au="David McNeil"]
 === Polymorphism With Protocols
+[role="byline"]
+by David McNeil
 
 ==== Problem
 

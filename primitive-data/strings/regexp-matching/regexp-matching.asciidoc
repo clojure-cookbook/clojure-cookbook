@@ -1,6 +1,7 @@
 [[sec_primitives_strings_re_find]]
-[au="Ryan Neufeld"]
 === Searching a String by Pattern
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

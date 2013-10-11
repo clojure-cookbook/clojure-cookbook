@@ -1,5 +1,6 @@
-[au="Alan Busby"]
 === Using temporary files from Clojure
+[role="byline"]
+by Alan Busby
 
 ==== Problem
 

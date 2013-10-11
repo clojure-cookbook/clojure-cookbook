@@ -1,5 +1,6 @@
-[au="Alan Busby"]
 === Perform an asynchronous HTTP request
+[role="byline"]
+by Alan Busby
 
 ==== Problem
 

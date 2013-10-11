@@ -1,5 +1,6 @@
-[au="Jason Whitlark"]
 === Work with CSV data
+[role="byline"]
+by Jason Whitlark
 
 ==== Problem
 

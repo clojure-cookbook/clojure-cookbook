@@ -1,6 +1,7 @@
 [[sec_local-io_handle_binary_files]]
-[au="John Jacobsen"]
 === Write or Read Binary Files
+[role="byline"]
+by John Jacobsen
 
 ==== Problem
 

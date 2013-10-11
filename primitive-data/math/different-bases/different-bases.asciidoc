@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Inputting and Outputting Integers With Different Bases
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

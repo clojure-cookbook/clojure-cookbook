@@ -1,5 +1,6 @@
-[au="Ambrose Bonnaire-Sergeant"]
 === Avoiding Null-Pointer Exceptions with core.typed
+[role="byline"]
+by Ambrose Bonnaire-Sergeant
 //TODO: Edit for style (first vs. second person, less conversational)
 
 ==== Problem

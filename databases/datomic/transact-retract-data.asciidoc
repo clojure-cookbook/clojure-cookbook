@@ -1,5 +1,6 @@
-[au="Robert Stuttaford"]
 === Remove data from your Datomic database
+[role="byline"]
+by Robert Stuttaford
 
 ==== Problem
 

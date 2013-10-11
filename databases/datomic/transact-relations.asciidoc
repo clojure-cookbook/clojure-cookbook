@@ -1,5 +1,6 @@
-[au="Robert Stuttaford"]
 === Transact data with relationships into a Datomic database
+[role="byline"]
+by Robert Stuttaford
 
 ==== Problem
 

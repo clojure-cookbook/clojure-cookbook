@@ -1,5 +1,6 @@
-[au="Dmitri Sotnikov"]
 === Working with SQL Korma
+[role="byline"]
+by Dmitri Sotnikov
 
 // TODO: Early merged this so @callen could submit feedback
 //

@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Comparing Dates
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="John Jacobsen"]
 === Read a single keystroke from the console
+[role="byline"]
+by John Jacobsen
 
 ==== Problem
 

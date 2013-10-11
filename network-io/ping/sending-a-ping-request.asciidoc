@@ -1,5 +1,6 @@
-[au="Jason Webb"]
 === Sending a Ping Request
+[role="byline"]
+by Jason Webb
 
 ==== Problem
 

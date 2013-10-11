@@ -1,5 +1,6 @@
-[au="Simone Mosciatti"]
 === Push library on Clojars
+[role="byline"]
+by Simone Mosciatti
 
 ////
 TODO: This recipe needs improvement

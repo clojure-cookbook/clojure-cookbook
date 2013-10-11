@@ -1,5 +1,6 @@
-[au="Adam Bard"]
 === Request and Response headers in Ring
+[role="byline"]
+by Adam Bard
 
 ==== Problem
 

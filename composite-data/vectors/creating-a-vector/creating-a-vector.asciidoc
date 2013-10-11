@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Creating a vector
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

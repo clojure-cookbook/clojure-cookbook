@@ -1,6 +1,7 @@
 [[sec_webapps_ring_introduction]]
-[au="Adam Bard"]
 === Introduction to Ring
+[role="byline"]
+by Adam Bard
 
 ==== Problem
 

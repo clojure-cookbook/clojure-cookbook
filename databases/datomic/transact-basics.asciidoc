@@ -1,5 +1,6 @@
-[au="Robert Stuttaford"]
 === Write data to Datomic with Transactions
+[role="byline"]
+by Robert Stuttaford
 
 ==== Problem
 

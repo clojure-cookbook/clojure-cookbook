@@ -1,5 +1,6 @@
-[au="Osbert Feng"]
 === Full text search
+[role="byline"]
+by Osbert Feng
 
 ==== Problem
 

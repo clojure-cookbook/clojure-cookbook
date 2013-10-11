@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Adding and removing items
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="Tom White"]
 === Using JavaScript Libraries from ClojureScript
+[role="byline"]
+by Tom White
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Generating Ranges of Dates and Times
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

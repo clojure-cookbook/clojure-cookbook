@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Retrieving keys from a map
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

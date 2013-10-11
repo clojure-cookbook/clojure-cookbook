@@ -1,5 +1,6 @@
-[au="Travis Vachon"]
 === Creating custom project templates
+[role="byline"]
+by Travis Vachon
 
 ==== Problem
 

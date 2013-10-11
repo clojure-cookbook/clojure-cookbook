@@ -1,5 +1,6 @@
-[au="Joseph Wilk"]
 === Midje
+[role="byline"]
+by Joseph Wilk
 
 ==== Problem
 

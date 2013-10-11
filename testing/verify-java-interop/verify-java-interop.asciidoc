@@ -1,5 +1,6 @@
-[au="Ambrose Bonnaire-Sergeant"]
 === Verify Java interop with core.typed
+[role="byline"]
+by Ambrose Bonnaire-Sergeant
 // TODO: Adjust sample style to fit conventions
 
 ==== Problem

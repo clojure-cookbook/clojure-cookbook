@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Statistics on Collections of Numbers
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

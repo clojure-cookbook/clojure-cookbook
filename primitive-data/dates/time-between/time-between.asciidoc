@@ -1,6 +1,7 @@
 [[sec_primitives_dates_time_between]]
-[au="Ryan Neufeld"]
 === Calculating the Length of a Time Interval
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

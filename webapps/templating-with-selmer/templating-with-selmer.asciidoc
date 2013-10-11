@@ -1,6 +1,7 @@
 [[sec_webapps_templatating_with_selmer]]
-[au="Dmitri Sotnikov"]
 === Creating templates for web applications with Selmer
+[role="byline"]
+by Dmitri Sotnikov
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="Tobias Bayer"]
 === Using the Twitter API
+[role="byline"]
+by Tobias Bayer
 
 ==== Problem
 

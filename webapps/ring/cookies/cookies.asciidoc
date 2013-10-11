@@ -1,5 +1,6 @@
-[au="Adam Bard"]
 === Handling Cookies with Ring
+[role="byline"]
+by Adam Bard
 
 ==== Problem
 

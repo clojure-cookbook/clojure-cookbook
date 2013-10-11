@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Working with Currency
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

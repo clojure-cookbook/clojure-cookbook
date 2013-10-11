@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Maps as Sequences & Sequences as Maps
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

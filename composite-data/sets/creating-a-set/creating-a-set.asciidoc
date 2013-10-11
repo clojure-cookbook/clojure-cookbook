@@ -1,6 +1,7 @@
 [[sec_composite_creating_sets]]
-[au="Luke VanderHart"]
 === Creating a Set
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Creating a list from an existing data structure
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

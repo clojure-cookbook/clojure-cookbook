@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Splitting a string into parts
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

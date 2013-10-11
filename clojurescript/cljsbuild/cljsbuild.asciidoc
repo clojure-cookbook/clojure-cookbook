@@ -1,5 +1,6 @@
-[au="Eric Normand"]
 === Getting set up with lein-cljsbuild
+[role="byline"]
+by Eric Normand
 
 ==== Problem
 

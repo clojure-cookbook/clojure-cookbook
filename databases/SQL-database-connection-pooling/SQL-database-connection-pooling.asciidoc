@@ -1,6 +1,7 @@
-[au="Tom Hicks"]
 [[sec_db_connecting_with_a_connection_pooling]]
 === Connecting to an SQL Database with a Connection Pool
+[role="byline"]
+by Tom Hicks
 
 ==== Problem
 

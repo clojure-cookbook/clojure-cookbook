@@ -1,6 +1,7 @@
 [[sec_local-io_read_write_files]]
-[au="Stefan Karlsson"]
 === Reading and writing files
+[role="byline"]
+by Stefan Karlsson
 
 ==== Problem
 

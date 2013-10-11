@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === "Removing" an item from a vector
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

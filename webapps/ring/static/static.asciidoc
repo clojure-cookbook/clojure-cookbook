@@ -1,5 +1,6 @@
-[au="Clinton Dreisbach"]
 === Serving Static Files with Ring
+[role="byline"]
+by Clinton Dreisbach
 
 ==== Problem
 

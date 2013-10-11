@@ -1,5 +1,6 @@
-[au="Edmund Jackson"]
 === Using Reducers with Files
+[role="byline"]
+by Edmund Jackson
 
 ==== Problem
 

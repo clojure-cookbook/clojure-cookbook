@@ -1,5 +1,6 @@
-[au="John Cromartie"]
 === Interactive Documentation
+[role="byline"]
+by John Cromartie
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="John Cromartie"]
 === Running Clojure Programs
+[role="byline"]
+by John Cromartie
 
 ==== Problem
 

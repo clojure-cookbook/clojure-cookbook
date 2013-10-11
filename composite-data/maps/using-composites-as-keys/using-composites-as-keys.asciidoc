@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Using composite values as map keys
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="Michael Klishin"]
 === Consuming from RabbitMQ
+[role="byline"]
+by Michael Klishin
 
 ==== Problem
 

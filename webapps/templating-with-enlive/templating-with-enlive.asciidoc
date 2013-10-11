@@ -1,5 +1,6 @@
-[au="Alex Petrov"]
 === Creating templates for web applications with enlive
+[role="byline"]
+by Alex Petrov
 
 ==== Problem
 

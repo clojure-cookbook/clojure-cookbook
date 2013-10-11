@@ -1,5 +1,6 @@
-[au="Matthew Maravillas"]
 === Browser Testing
+[role="byline"]
+by Matthew Maravillas
 
 ==== Problem
 

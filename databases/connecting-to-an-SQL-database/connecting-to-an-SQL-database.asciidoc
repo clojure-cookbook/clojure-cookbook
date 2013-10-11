@@ -1,6 +1,7 @@
 [[sec_db_connecting_to_a_sql_database]]
-[au="Tom Hicks", au2="Simone Mosciatti"]
 === Connecting to an SQL Database
+[role="byline"]
+by Tom Hicks, originally submitted by Simone Mosciatti
 
 ==== Problem
 

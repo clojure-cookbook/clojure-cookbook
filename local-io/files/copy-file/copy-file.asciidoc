@@ -1,5 +1,6 @@
-[au="Stefan Karlsson"]
 === Copy a file
+[role="byline"]
+by Stefan Karlsson
 
 ==== Problem
 

@@ -1,6 +1,7 @@
 [[sec_webapps_compojure_compojure]]
-[au="Adam Bard"]
 === Routing requests with Compojure
+[role="byline"]
+by Adam Bard
 
 ==== Problem
 

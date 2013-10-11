@@ -1,5 +1,6 @@
-[au="Robert Stuttaford"]
 === Dry-run transactions in a Datomic database without actually committing them
+[role="byline"]
+by Robert Stuttaford
 
 ==== Problem
 

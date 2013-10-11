@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Getting the value at an index
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

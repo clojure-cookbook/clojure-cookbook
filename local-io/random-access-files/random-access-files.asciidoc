@@ -1,6 +1,7 @@
 [[sec_local-random-access-files]]
-[au="John Jacobsen"]
 === Read or Write Files At Arbitrary Positions
+[role="byline"]
+by John Jacobsen
 
 ==== Problem
 

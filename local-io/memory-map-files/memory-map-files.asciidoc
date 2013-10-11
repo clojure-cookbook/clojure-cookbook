@@ -1,5 +1,6 @@
-[au="Alan Busby"]
 === Memory-map a file
+[role="byline"]
+by Alan Busby
 
 ==== Problem
 

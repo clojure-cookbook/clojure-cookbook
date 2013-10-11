@@ -1,6 +1,7 @@
 [[sec_current_date]]
-[au="Ryan Neufeld"]
 === Obtaining the Current Date and Time
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

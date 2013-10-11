@@ -1,5 +1,6 @@
-[au="Mark Whelan"]
 === Executing a System Command
+[role="byline"]
+by Mark Whelan
 
 ==== Problem
 

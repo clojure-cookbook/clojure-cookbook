@@ -1,6 +1,7 @@
 [[sec_local_io_json]]
-[au="Stefan Karlsson"]
 === Work with JSON data
+[role="byline"]
+by Stefan Karlsson
 
 ==== Problem
 

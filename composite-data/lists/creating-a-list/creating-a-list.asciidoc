@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Creating a list
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

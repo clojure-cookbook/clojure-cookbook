@@ -1,5 +1,6 @@
-[au="Craig McDaniel"]
 === HTTP Redirect with Ring
+[role="byline"]
+by Craig McDaniel
 
 ==== Problem
 

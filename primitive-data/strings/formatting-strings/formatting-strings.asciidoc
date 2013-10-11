@@ -1,6 +1,7 @@
 [[sec_primitives_strings_formatting_strings]]
-[au="Ryan Neufeld"]
 === Formatting strings
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

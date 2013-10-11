@@ -1,6 +1,7 @@
 [[sec_db_manipulating_a_sql_database]]
-[au="Tom Hicks"]
 === Manipulating an SQL Database
+[role="byline"]
+by Tom Hicks
 // Made after documentation by Sean Corfield and Stephen Gilardi.
 
 ==== Problem

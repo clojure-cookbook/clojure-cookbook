@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Using set operations
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

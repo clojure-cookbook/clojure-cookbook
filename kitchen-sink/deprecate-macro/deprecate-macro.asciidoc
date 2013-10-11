@@ -1,5 +1,6 @@
-[au="Michael Fogus"]
 === Using macros to simplify API deprecations
+[role="byline"]
+by Michael Fogus
 
 ==== Problem
 

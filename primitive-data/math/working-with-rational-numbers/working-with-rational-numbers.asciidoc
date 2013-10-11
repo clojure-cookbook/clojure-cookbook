@@ -1,6 +1,7 @@
 [[sec_primitives_rational_numbers]]
-[au="Ryan Neufeld"]
 === Working With Rational Numbers
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

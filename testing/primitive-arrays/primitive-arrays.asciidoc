@@ -1,6 +1,7 @@
 [[sec_primitives_strings_find_replace]]
-[au="Jason Wolfe"]
 === Fast Math with Primitive Java Arrays
+[role="byline"]
+by Jason Wolfe
 
 ==== Problem
 

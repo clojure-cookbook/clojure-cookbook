@@ -1,5 +1,6 @@
-[au="Alan Busby"]
 === Create an executable jar file
+[role="byline"]
+by Alan Busby
 
 ==== Problem
 

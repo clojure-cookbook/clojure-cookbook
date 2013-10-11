@@ -1,5 +1,6 @@
-[au="Travis Vachon"]
 === Building a simple activity feed system
+[role="byline"]
+by Travis Vachon
 
 ==== Problem
 

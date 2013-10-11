@@ -1,6 +1,7 @@
 [[sec_primitives_dates_parsing_dates]]
-[au="Ryan Neufeld"]
 === Parsing Date and Times using clj-time
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

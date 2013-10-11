@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Working with Time Zones
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

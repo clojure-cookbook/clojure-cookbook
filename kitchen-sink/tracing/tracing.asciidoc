@@ -1,5 +1,6 @@
-[au="Stefan Karlsson"]
 === Tracing code
+[role="byline"]
+by Stefan Karlsson
 
 ==== Problem
 

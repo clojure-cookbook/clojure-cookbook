@@ -1,5 +1,6 @@
-[au="Stefan Karlsson"]
 === Work with XML data
+[role="byline"]
+by Stefan Karlsson
 
 ==== Problem
 

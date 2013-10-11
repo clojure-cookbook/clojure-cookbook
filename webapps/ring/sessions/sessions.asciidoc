@@ -1,5 +1,6 @@
-[au="Adam Bard"]
 === Storing Sessions with Ring
+[role="byline"]
+by Adam Bard
 
 ==== Problem
 

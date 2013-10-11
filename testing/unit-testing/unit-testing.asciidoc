@@ -1,5 +1,6 @@
-[au="Daniel Gregoire"]
 === Unit Testing
+[role="byline"]
+by Daniel Gregoire
 
 ==== Problem
 

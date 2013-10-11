@@ -1,5 +1,6 @@
-[au="Kevin Lynagh"]
 === Visualizing Data with C2
+[role="byline"]
+by Kevin Lynagh
 
 ==== Problem
 

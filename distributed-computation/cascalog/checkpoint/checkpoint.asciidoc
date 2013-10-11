@@ -1,5 +1,6 @@
-[au="Alex Robbins"]
 === Checkpointing Cascalog Jobs
+[role="byline"]
+by Alex Robbins
 
 ==== Problem
 

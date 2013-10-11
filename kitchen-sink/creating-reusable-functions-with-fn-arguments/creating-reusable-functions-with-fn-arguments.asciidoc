@@ -1,5 +1,6 @@
-[au="Chris Frisz"]
 === Make a Function Reusable by Passing a `fn` as an Argument
+[role="byline"]
+by Chris Frisz
 
 ==== Problem
 

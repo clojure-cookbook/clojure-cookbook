@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Retrieving Dates Relative to One Another
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

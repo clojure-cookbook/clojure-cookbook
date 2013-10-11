@@ -1,5 +1,6 @@
-[au="Eric Normand"]
 === Getting set up with Liberator
+[role="byline"]
+by Eric Normand
 
 ==== Problem
 

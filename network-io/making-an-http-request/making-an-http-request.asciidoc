@@ -1,5 +1,6 @@
-[au="John Cromartie"]
 === Making HTTP Requests
+[role="byline"]
+by John Cromartie
 
 ==== Problem
 

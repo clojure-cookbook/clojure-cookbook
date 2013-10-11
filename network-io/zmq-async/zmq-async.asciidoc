@@ -1,5 +1,6 @@
-[au="Kevin J. Lynagh"]
 === Using ZeroMQ via core.async
+[role="byline"]
+by Kevin J. Lynagh
 
 ==== Problem
 

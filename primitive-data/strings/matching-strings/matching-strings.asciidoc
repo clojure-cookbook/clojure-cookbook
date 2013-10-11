@@ -1,6 +1,7 @@
 [[sec_primitives_strings_re_matches]]
-[au="Ryan Neufeld"]
 === Pulling Values Out of a String Using Regular Expressions
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

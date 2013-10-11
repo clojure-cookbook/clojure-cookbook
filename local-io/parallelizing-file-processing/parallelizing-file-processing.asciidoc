@@ -1,5 +1,6 @@
-[au="Edmund Jackson"]
 === Parallelizing File Processing
+[role="byline"]
+by Edmund Jackson
 
 ==== Problem
 

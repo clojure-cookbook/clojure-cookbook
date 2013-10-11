@@ -1,6 +1,7 @@
-[au="Alex Robbins"]
 [[sec_aggregating_large_files]]
 === Aggregating Large Files
+[role="byline"]
+by Alex Robbins
 
 ==== Problem
 

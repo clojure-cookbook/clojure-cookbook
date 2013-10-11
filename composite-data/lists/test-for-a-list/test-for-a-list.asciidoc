@@ -1,5 +1,6 @@
-[au="Steve Miner"]
 === Test for a list
+[role="byline"]
+by Steve Miner
 
 ==== Problem
 

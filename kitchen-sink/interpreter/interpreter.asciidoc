@@ -1,6 +1,7 @@
 [[sec_core_match_interpreter]]
-[au="Chris Frisz"]
 === Write an Interpreter to Simulate Another Language
+[role="byline"]
+by Chris Frisz
 
 ==== Problem
 

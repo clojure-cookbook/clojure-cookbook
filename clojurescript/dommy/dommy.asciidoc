@@ -1,5 +1,6 @@
-[au="Ian Davis", au2="Aria Haghighi"]
 === DOM manipulation and client side templating in ClojureScript
+[role="byline"]
+by Ian Davis, Aria Haghighi
 
 ==== Problem
 

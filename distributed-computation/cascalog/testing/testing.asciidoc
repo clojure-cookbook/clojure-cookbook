@@ -1,5 +1,6 @@
-[au="Alex Robbins"]
 === Testing Your Cascalog Workflows
+[role="byline"]
+by Alex Robbins
 
 ==== Problem
 

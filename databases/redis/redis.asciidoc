@@ -1,5 +1,6 @@
-[au="Jason Webb"]
 === Working with Redis
+[role="byline"]
+by Jason Webb
 
 ==== Problem
 

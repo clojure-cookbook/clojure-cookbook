@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Parsing numbers
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

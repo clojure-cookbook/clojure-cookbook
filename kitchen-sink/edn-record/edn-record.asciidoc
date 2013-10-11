@@ -1,6 +1,7 @@
 [[sec_edn_record]]
-[au="Steve Miner"]
 === Records as **edn** values
+[role="byline"]
+by Steve Miner
 
 ==== Problem
 

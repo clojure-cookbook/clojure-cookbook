@@ -1,5 +1,6 @@
-[au="Alex Petrov"]
 === Access Cassandra
+[role="byline"]
+by Alex Petrov
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Creating a Map
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

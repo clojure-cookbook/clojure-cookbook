@@ -1,5 +1,6 @@
-[au="Alex Robbins"]
 === Explaining a Cascalog Query
+[role="byline"]
+by Alex Robbins
 
 ==== Problem
 

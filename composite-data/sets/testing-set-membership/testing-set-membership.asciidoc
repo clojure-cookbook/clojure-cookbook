@@ -1,5 +1,6 @@
-[au="Luke VanderHart"]
 === Testing set membership
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

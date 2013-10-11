@@ -1,5 +1,6 @@
-[au="Kevin J. Lynagh"]
 === Creating a websocket server
+[role="byline"]
+by Kevin J. Lynagh
 
 ==== Problem
 

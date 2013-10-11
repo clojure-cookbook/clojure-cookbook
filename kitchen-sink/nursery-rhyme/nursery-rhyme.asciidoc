@@ -1,5 +1,6 @@
-[au="Chris Ford"]
 === Nursery rhyme
+[role="byline"]
+by Chris Ford
 
 ==== Problem
 

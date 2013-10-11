@@ -1,6 +1,7 @@
 [[sec_default_data_reader]]
-[au="Steve Miner"]
 === Default Data-Reader
+[role="byline"]
+by Steve Miner
 
 ==== Problem
 

@@ -1,6 +1,7 @@
 [[sec_primitives_dates_reader_literal]]
-[au="Ryan Neufeld"]
 === Representing Dates as Literals
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

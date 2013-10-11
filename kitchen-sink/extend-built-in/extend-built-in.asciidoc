@@ -1,6 +1,7 @@
 [[extend_built_in]]
-[au="David McNeil"]
 === Extending a Built-in Type
+[role="byline"]
+by David McNeil
 
 ==== Problem
 

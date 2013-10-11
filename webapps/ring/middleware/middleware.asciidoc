@@ -1,5 +1,6 @@
-[au="Adam Bard"]
 === Ring Middleware
+[role="byline"]
+by Adam Bard
 
 ==== Problem
 

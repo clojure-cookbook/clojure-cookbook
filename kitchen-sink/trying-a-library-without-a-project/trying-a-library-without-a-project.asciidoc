@@ -1,5 +1,6 @@
-[au="Mark Whelan"]
 === Trying a Library Without a Project
+[role="byline"]
+by Mark Whelan
 
 ==== Problem
 

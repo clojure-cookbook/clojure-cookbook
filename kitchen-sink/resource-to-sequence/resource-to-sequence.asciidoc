@@ -1,5 +1,6 @@
-[au="Gerrit Jansen van Vuuren"]
 === Resource to sequence
+[role="byline"]
+by Gerrit Jansen van Vuuren
 
 ==== Problem
 

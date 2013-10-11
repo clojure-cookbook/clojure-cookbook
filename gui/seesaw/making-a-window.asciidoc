@@ -1,6 +1,6 @@
-[au="John Jacobsen", au2="John Walker"]
 === Making a GUI Window with Scrollable Text
-// Originally by John Walker, this version has extensive modifications
+[role="byline"]
+by John Jacobsen, originally submitted by John Walker
 
 ==== Problem
 

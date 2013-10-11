@@ -1,5 +1,6 @@
-[au="John Cromartie"]
 === Reading and Writing Compressed Files
+[role="byline"]
+by John Cromartie
 
 ==== Problem
 

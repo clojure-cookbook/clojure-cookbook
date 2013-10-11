@@ -1,6 +1,7 @@
 [[sec_adding_to_a_vector]]
-[au="Luke VanderHart"]
 === "Adding" an item to a vector
+[role="byline"]
+by Luke VanderHart
 
 ==== Problem
 

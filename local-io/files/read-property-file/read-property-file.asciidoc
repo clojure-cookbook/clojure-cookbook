@@ -1,5 +1,6 @@
-[au="Tobias Bayer"]
 === Read property file
+[role="byline"]
+by Tobias Bayer
 
 ==== Problem
 

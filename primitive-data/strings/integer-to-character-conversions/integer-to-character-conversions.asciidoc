@@ -1,5 +1,6 @@
-[au="Ryan Neufeld"]
 === Converting Between Characters and Integers
+[role="byline"]
+by Ryan Neufeld
 
 ==== Problem
 

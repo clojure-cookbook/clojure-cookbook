@@ -1,6 +1,7 @@
 [[sec_red_black_part_ii]]
-[au="Leonardo Borges"]
 === Implementing custom data structures: Red Black Trees - Part II
+[role="byline"]
+by Leonardo Borges
 
 ==== Problem
 

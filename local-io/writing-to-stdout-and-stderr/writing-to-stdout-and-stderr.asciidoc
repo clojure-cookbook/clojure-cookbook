@@ -1,5 +1,6 @@
-[au="Alan Busby"]
 === Writing to stdout and stderr
+[role="byline"]
+by Alan Busby
 
 ==== Problem
 

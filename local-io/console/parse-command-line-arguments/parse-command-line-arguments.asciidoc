@@ -1,5 +1,6 @@
-[au="Nicolas Bessi"]
 === Parse command line arguments
+[role="byline"]
+by Nicolas Bessi
 
 ==== Problem
 

@@ -1,5 +1,6 @@
-[au="Adam Bard"]
 === Handling form data with Ring
+[role="byline"]
+by Adam Bard
 
 ==== Problem
 
