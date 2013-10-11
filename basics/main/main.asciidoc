@@ -13,12 +13,16 @@ Run a file full of Clojure expressions by passing the filename as an
 argument to +clojure.main+:
 
 [source,console]
+----
 $ java -cp clojure.jar clojure.main my_clojure_program.clj
+----
 
 Load and run the +-main+ function in a namespace with the +-m+/+--main+ option.
 
 [source,console]
+----
 $ java -cp clojure.jar:src clojure.main --main my.namespace.core
+----
 
 ==== Discussion
 
