@@ -18,7 +18,7 @@ In your dependencies:
 [net.drib/strokes "0.5.0"]
 ----
 
-Before we look at the whole version, let's look at a minimal viabale solution to see the
+Before we look at the whole version, let's look at a minimal viable solution to see the
 core bits of creating objects and animating them in a web page.
 
 [source,clojure]
@@ -72,10 +72,10 @@ http://s.trokes.org/dribnet/6460749[Live demo here]
 
 ==== Discussion
 
-https://github.com/dribnet/strokes[strokes] is a library which provides idomatic
+https://github.com/dribnet/strokes[strokes] is a library which provides idiomatic
 use of http://d3js.org/[D3.js] from ClojureScript. Here we put 5 objects in a
 vector wrapped by an atom to represent our boids, and then use D3's timer
-function to repeatedly update and rerender these objects. Before we get too
+function to repeatedly update and re-render these objects. Before we get too
 distracted by the logic of intelligent boids, it's useful to see how short
 the code is when the boids are simply circles moving randomly on the screen.
 

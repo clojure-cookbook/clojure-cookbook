@@ -75,7 +75,7 @@ executable jars contain metadata indicating which class contains the
 +main+ method as a +Main-Class+ tag in its internal manifest file.
 
 A Leiningen uberjar is a jar file that contains not only your program,
-but all the dependnecies bundled in as well. When Leiningen builds an
+but all the dependencies bundled in as well. When Leiningen builds an
 uberjar, it can detect from the +:main+ entry in +project.clj+ that
 your program supplies a +main+ function, and writes an appropriate
 manifest that will ensure that the emitted jar file is executable.

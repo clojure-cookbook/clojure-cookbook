@@ -462,7 +462,7 @@ A simple deployment strategy is built into the Storm library:
 specify the number of *workers* it will use to execute the
 components of our topology and submit the topology itself, at which
 point it begins polling the +nextTuple+ methods of the topology's
-spouts. As spouts emit tuples, they are propogated through the system
+spouts. As spouts emit tuples, they are propagated through the system
 to complete the topology's computation.
 
 Submitting the topology to a configured cluster is nearly as simple,

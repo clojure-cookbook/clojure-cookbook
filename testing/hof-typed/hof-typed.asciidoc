@@ -97,7 +97,7 @@ ExceptionInfo Type Checker: Found 1 error  clojure.core/ex-info (core.clj:4327)
 -----
 
 Note we wrap the faulty `((hash-of? + number?))` in a `fn` because 
-as of writing core.typed evalutates code before it type checks it.
+as of writing core.typed evaluates code before it type checks it.
 Otherwise `((hash-of? + number?))` returns the usual Clojure runtime error
 for mismatched parameters:
 

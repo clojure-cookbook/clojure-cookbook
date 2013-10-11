@@ -36,7 +36,7 @@ Java library that wraps Hadoop, providing a flow-based plumbing
 abstraction. The query graph in the dot file will have different
 Cascading elements as nodes.
 
-The +explain+ function here is analagous to the +EXPLAIN+ command in
+The +explain+ function here is analogous to the +EXPLAIN+ command in
 many SQL implementations. +explain+ causes Cascalog to print out the
 query plan. Just like the output from a SQL +EXPLAIN+, you might have
 to work to understand exactly what you are seeing.

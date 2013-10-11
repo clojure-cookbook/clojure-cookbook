@@ -167,7 +167,7 @@ Finally, you convert the vector of authors into valid csv using the
 the query will produce output.
 
 Cascalog is a great tool for building ETL (Extract Transform Load)
-piplines. It allows you to spend more time thinking about your data
+pipeline. It allows you to spend more time thinking about your data
 and less time thinking about the mechanics of reading files,
 distributing work or managing dependencies. When writing your own ETL
 pipelines, it might help to follow this process:

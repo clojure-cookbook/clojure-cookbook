@@ -160,7 +160,7 @@ such as +aggregate+, +join+, +order+, +group+ and +having+:
   (having {:cnt [> 1]}))
 ----
 
-You can inclue results from other related entities using the +with+ clause:
+You can include results from other related entities using the +with+ clause:
 
 [source,clojure]
 ----
@@ -186,7 +186,7 @@ Korma also allows doing manual joins as can be seen below:
               (where {:current true}))]}))
 ----
 
-Korma queries are comoposalbe
+Korma queries are composable
 
 [source,clojure]
 ----
