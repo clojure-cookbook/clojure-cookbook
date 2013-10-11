@@ -1,6 +1,7 @@
+=== Boids Simulation
+
 [role="byline"]
 by Tom White
-=== Boids Simulation
 
 ==== Problem
 
