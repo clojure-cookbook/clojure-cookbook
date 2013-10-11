@@ -1,15 +1,16 @@
 === Interactive Documentation
+[role="byline"]
+by John Cromartie
 
-// By John Cromartie (jcromartie)
-
-===== Problem
+==== Problem
 
 From a REPL, you want to read documentation for a function.
 
-===== Solution
+==== Solution
 
 Print the documentation for a function at the REPL with the +doc+ macro.
 
+[source,console]
 ----
 user=> (doc conj)
  -------------------------
@@ -22,6 +23,7 @@ clojure.core/conj
 
 Print the source code for a function at the REPL with the +source+ macro.
 
+[source,console]
 ----
 user=> (source reverse)
 (defn reverse
@@ -34,6 +36,7 @@ user=> (source reverse)
 
 Find functions with documentation matching a given regular expression using +find-doc+.
 
+[source,console]
 ----
 user=> (find-doc #"defmacro")
  -------------------------
@@ -52,7 +55,7 @@ Macro
   called.
 ----
 
-===== Discussion
+==== Discussion
 
 Clojure supports inline documentation of functions (more about that
 later), along with other metadata, which allows you to introspect
@@ -63,6 +66,7 @@ You can peek under the hood at almost everything in Clojure at any
 time. The next example may be a bit mind-expanding if you're not used
 to this level of introspection at runtime:
 
+[source,console]
 ----
 user=> (source source)
 (defmacro source
@@ -81,9 +85,12 @@ evaluating +(source clojure.repl/source-fn)+.
 
 In most REPL implementations +clojure.repl+ macros like +source+ and +doc+ are
 only referred into the +user+ namespace. This means as soon as you switch into
-another namespace the unqualified +clojure.repl+ macros will no longer be available.
-You can get around this by namespacing the macros (+clojure.repl/doc+ instead of +doc+,) or, for extended use, by +use+'ing the namespace 
+another namespace the unqualified +clojure.repl+ macros will no longer be
+available.  You can get around this by namespacing the macros
+(+clojure.repl/doc+ instead of +doc+,) or, for extended use, by +use+'ing the
+namespace
 
+[source,console]
 ----
 user=> (ns foo)
 foo=> (doc +)

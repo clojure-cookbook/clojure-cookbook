@@ -1,15 +1,12 @@
-////
-:Author: Ian Davis, Aria Haghighi
-:Email: ian@getprismatic.com, aria@getprismatic.com
-////
-
 === DOM manipulation and client side templating in ClojureScript
+[role="byline"]
+by Ian Davis, Aria Haghighi
 
-===== Problem
+==== Problem
 
 You want to create and manipulate  DOM nodes natively in ClojureScript
 
-===== Solution
+==== Solution
 
 Use https://github.com/Prismatic/dommy[Dommy], an open source project that provides fast, functional DOM
 manipulation and templating.
@@ -19,7 +16,6 @@ Add the following dependency to your +project.clj+:
 [source, clojure]
 ----
 [prismatic/dommy "0.1.1"]
-
 ----
 
 Dynamically generating DOM elements is simple with Dommy, and matches the excellent syntax of
@@ -106,7 +102,7 @@ lazy sequences.
      (doseq #(dommy/add-class! % :first-ten-adults)))
 ----
 
-===== Discussion
+==== Discussion
 
 Let's take a closer look at what's actually going on in the two templates from before.
 
@@ -137,7 +133,7 @@ attribute map.
 * Any string literals (like +"Clear list"+ above), can simply be included in the vector. However, like with attributes,
 if you're generating the value dynamically, you must type-hint it with +^:text+.
 * The remaining items in the vector are all just recursively generated as child nodes.
-+ Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
+* Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
 as a flat list of child nodes.
 
 The reason you have to typehint when using +deftemplate+ is because Dommy relies on macros under the hood. In fact,
@@ -200,7 +196,7 @@ manipulation:
 
 ----
 
-===== See Also
+==== See Also
 
 * Examine Dommy in more depth and propose new changes by taking a look at
 https://github.com/Prismatic/dommy[the source on Gtihub].

@@ -1,11 +1,13 @@
 === Creating a Map
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to create an association which maps keys to values. You
 possibly want to maintain a specific ordering of keys.
 
-===== Solution
+==== Solution
 
 Use map literals (curly braces) with alternating keys and values to
 create simple maps.
@@ -64,7 +66,7 @@ Use +sorted-map-by+ to create a sorted map using a custom comparator.
 ;; -> {"pigs" 14, "horses" 2, "manatees" 3, "elephants" 1}
 ----
 
-===== Discussion
+==== Discussion
 
 Clojure maps can have one of three distinct concrete implementations.
 
@@ -92,7 +94,7 @@ map once it reaches a certain size. The inverse is not true; using
 +dissoc+ on a hash map will not yield an array map, even if it becomes
 very small.
 
-===== See also
+==== See also
 
 * Creating a set (x-ref)
 * Comparators

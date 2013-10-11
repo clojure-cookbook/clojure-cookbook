@@ -1,15 +1,12 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
 === Handling form data with Ring
+[role="byline"]
+by Adam Bard
 
-===== Problem
+==== Problem
 
 You want your app to accept user input
 
-===== Solution
+==== Solution
 
 Use `ring.middleware.params.wrap-params` to add parameters to incoming request maps.
 
@@ -52,7 +49,7 @@ Use `ring.middleware.params.wrap-params` to add parameters to incoming request m
   (jetty/run-jetty (wrap-params handler) {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 `wrap-params` is a Ring middleware that handles the retrieval of querystring
 and form parameters from raw requests. It adds three keys to the request:

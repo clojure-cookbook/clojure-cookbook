@@ -1,11 +1,13 @@
 [[sec_current_date]]
 === Obtaining the Current Date and Time
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to obtain the current date or time.
 
-===== Solution
+==== Solution
 
 Use Java's +java.util.Date+ constructor to create a +Date+ instance
 representing the present time and date.
@@ -15,7 +17,7 @@ representing the present time and date.
 (defn now []
   (java.util.Date.))
 
-(now)  
+(now)
 ;; -> #inst "2013-04-06T14:33:45.740-00:00"
 
 ;; A few seconds later...
@@ -35,7 +37,7 @@ If you're more interested in the current Unix timestamp, use
 ;; -> 1365260157013
 ----
 
-===== Discussion
+==== Discussion
 
 It doesn't make much sense for Clojure to re-implement or wrap the
 JVM's backing time and date functionality. As such the norm is to use
@@ -56,7 +58,30 @@ benchmarking is what you're after. Additionally, you shouldn't try to
 use +currentTimeMillis+ as some sort of unique value - UUIDs do
 a much better job of this.
 
-===== See Also
+If you decide you would rather use
+https://github.com/clj-time/clj-time[clj-time] to work with dates, it
+provides the a function +clj-time.core/now+ to get the current +DateTime+.
+
+[source,clojure]
+----
+(require '[clj-time.core :as timec])
+
+(timec/now)
+;; -> #<DateTime 2013-04-06T14:35:15.453Z>
+----
+
+Use +clj-time.local/local-now+ to retrieve a +DateTime+ instance for
+the present scoped to your machine's local time zone.
+
+[source,clojure]
+----
+(require '[clj-time.local :as timel])
+
+(timel/local-now)
+;; -> #<DateTime 2013-04-06T09:35:20.141-05:00>
+----
+
+==== See Also
 
 * See <<sec_primitives_dates_reader_literal>> for more information on the
   +#inst+ reader literal.

@@ -1,15 +1,12 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
 === Ring Middleware
+[role="byline"]
+by Adam Bard
 
-===== Problem
+==== Problem
 
 Ring gives you query strings, but you'd really rather work with a parsed map.
 
-===== Solution
+==== Solution
 
 Since Ring works with regular Clojure data and functions, you can easily define
 middleware as functions-returning-functions. Define a middleware that modifies
@@ -49,7 +46,7 @@ before passing it on to the handler:
   (jetty/run-jetty (wrap-query handler) {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 Since Ring handlers operate on regular Clojure maps, it's very easy to write middleware
 that wraps a handler. Here, we write a middleware that modifies the request

@@ -1,7 +1,6 @@
-////
-:Author: Simone Mosciatti
-:Email: simone@mweb.biz
-////
+=== Push library on Clojars
+[role="byline"]
+by Simone Mosciatti
 
 ////
 TODO: This recipe needs improvement
@@ -14,12 +13,10 @@ See http://github.com/clojure-cookbook/clojure-cookbook/issues/90
 ////
 
 
-=== Push library on Clojars
-
-===== Problem
+==== Problem
 After that you build your own library in clojure you want to make it public so that everybody can use it and simply add it to their dependencies.
 
-===== Solution
+==== Solution
 
 In order to push some code in clojars you need to have a clojars account, just go to clojars.org and register.
 

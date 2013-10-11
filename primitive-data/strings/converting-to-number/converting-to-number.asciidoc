@@ -1,12 +1,12 @@
 === Converting Strings to numbers
+[role="byline"]
+by Stefan Karlsson
 
-// By Stefan Karlsson (zclj)
-
-===== Problem
+==== Problem
 
 You need to convert strings to numbers.
 
-===== Solution
+==== Solution
 
 Using +read-string+ to convert a string to a number is very straight forward.
 
@@ -37,7 +37,7 @@ For cases when you may want to have more control and flexibility of the conversi
 ;; -> (42 -1 1337 1.5 3.14 -5.55 "some text")
 ----
 
-===== Discussion
+==== Discussion
 Note that +read-string+, while simple and straight forward, can execute code (controlled by *read-eval*), and should therefor be used only with trusted sources.
 
 A function like +to-number+ can be very useful when reading CSV files that contains numbers.

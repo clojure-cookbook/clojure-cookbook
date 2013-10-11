@@ -1,11 +1,13 @@
 [[sec_primitives_strings_seq_of_chars]]
 === Treating a String as a Sequence of Characters
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to work with the individual characters in a string.
 
-===== Solution
+==== Solution
 
 Use +seq+ on a string to expose the sequence of characters representing it.
 
@@ -39,7 +41,7 @@ coerce a string into a sequence of characters.
 ----
 
 
-===== Discussion
+==== Discussion
 
 In Computer Science "string" literally means "sequence of characters"
 and Clojure treats strings exactly as such. Because Clojure strings
@@ -60,6 +62,6 @@ collapse them into a string.
 ;; -> "Hello, world!"
 ----
 
-===== See Also
+==== See Also
 
 * Concatenation strings sections

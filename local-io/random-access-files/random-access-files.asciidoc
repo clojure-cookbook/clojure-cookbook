@@ -1,15 +1,14 @@
 [[sec_local-random-access-files]]
-
 === Read or Write Files At Arbitrary Positions
+[role="byline"]
+by John Jacobsen
 
-// By John Jacobsen (eigenhombre)
-
-===== Problem
+==== Problem
 
 You want to read data from a file, or write data to it, at various
 locations, rather than sequentially.
 
-===== Solution
+==== Solution
 
 To open a (potentially very large) file for random access, use Java's
 +RandomAccessFile+, and +seek+ to the location you desire. Then, use
@@ -56,7 +55,7 @@ the appropriate +read+ method.
 ;;=> 1234
 ----
 
-===== Discussion
+==== Discussion
 
 Files written in this way are populated by zeros by default and may be
 treated as "sparse files" by the JVM implementation and the underlying
@@ -79,7 +78,7 @@ $ od -Ad -tx4 /tmp/longfile
 (Java integers are big-endian by default. This means that the highest
 order bytes are stored at the lowest addresses.)
 
-===== See Also
+==== See Also
 
 * See <<sec_local_io_clojure_data_to_disk>> for information and reading entire files.
 * http://docs.oracle.com/javase/7/docs/api/java/io/RandomAccessFile.html[java.io.RandomAccessFile] documentation

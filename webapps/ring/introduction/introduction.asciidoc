@@ -1,17 +1,13 @@
 [[sec_webapps_ring_introduction]]
-
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
 === Introduction to Ring
+[role="byline"]
+by Adam Bard
 
-===== Problem
+==== Problem
 
 You need to write an HTTP service with clojure
 
-===== Solution
+==== Solution
 
 Clojure has no built-in HTTP server, but the de-facto standard is Ring.
 
@@ -33,7 +29,7 @@ Clojure has no built-in HTTP server, but the de-facto standard is Ring.
   (jetty/run-jetty handler {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 https://github.com/ring-clojure/ring[Ring] is the basis for web
 applications in clojure. It provides a low-level and straightforward request-

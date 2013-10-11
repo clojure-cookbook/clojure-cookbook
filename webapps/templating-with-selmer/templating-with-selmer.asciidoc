@@ -1,15 +1,14 @@
 [[sec_webapps_templatating_with_selmer]]
-
 === Creating templates for web applications with Selmer
+[role="byline"]
+by Dmitri Sotnikov
 
-//Author: Dmitri Sotnikov
-
-===== Problem
+==== Problem
 
 You want to create server side page templates using syntax similar to Django and Jinja. You want to be able
 to insert dynamic content and use template inheritance to structure the templates.
 
-===== Solution
+==== Solution
 
 Use Selmer to create your template and call it with a context map containing the dynamic content.
 
@@ -147,7 +146,7 @@ content for the +content+ block:
 {% endblock %}
 ---- 
 
-===== Discussion
+==== Discussion
 
 Selmer provides a powerful and familiar templating tool with many tags and filters for easily acomplishing many common tasks.
 It separates the view logic from presentation by design.
@@ -155,7 +154,7 @@ It separates the view logic from presentation by design.
 Selmer is also performant as it compiles the templates and ensures that only the dynamic content needs to be
 evaluated when serving a request.
 
-====== Selmer Concepts
+===== Selmer Concepts
 
 Selmer includes two types of elements, these consists of variables and tags.
 
@@ -194,7 +193,7 @@ If we wanted to use +[+ and +]+ as our opening and closing tags, we could call t
 
 The +render+ function works just like +render-file+, except that it accepts the template content as a string.
 
-====== Defining Filters
+===== Defining Filters
 
 Selmer provides a rich set of filters that allow decorating the dynamic content. Some of the filters include +capitalize+,
 +pluralize+, +hash+, +length+, +sort+ and many others.
@@ -233,7 +232,7 @@ as follows:
 (add-filter! :markdown (fn [s] [:safe (md-to-html-string s)]))
 ---- 
 
-====== Defining Tags
+===== Defining Tags
 
 Again, we can define custom tags in addition to those already present in the library. This is done by calling the
 +selmer.parser/add-tag!+ function.
@@ -253,7 +252,7 @@ Let's say we wish to add a tag that will capitalize its contents. We could do th
 (render "{% uppercase %}foo {{bar}} baz{% enduppercase %}" {:bar "injected"})
 ----
 
-====== Inheritance
+===== Inheritance
 
 We already saw some examples of template inheritance above. Each template can extend a single template and include
 any number of templates in its content.
@@ -261,7 +260,7 @@ any number of templates in its content.
 The templates can extend templates that themselves extend other templates. In this case the blocks found in the outermost
 child will override any other blocks with the same name.
 
-====== See Also
+===== See Also
 
 To see more on using Selmer as a templating engine, see the https://github.com/yogthos/Selmer[Selmer] GitHub repository.
 

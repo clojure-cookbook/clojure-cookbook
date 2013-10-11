@@ -1,11 +1,13 @@
 === Creating a list from an existing data structure
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You have an existing sequential data structure which you would like to
 convert into a list as its concrete data type.
 
-===== Solution
+==== Solution
 
 The easiest solution is: don't. Having a concrete list provides little
 or no advantage over simply using the sequence abstraction directly on
@@ -35,7 +37,7 @@ collection.
 ;; -> (5 4 3 2 1)
 ----
 
-===== Discussion
+==== Discussion
 
 These two approaches are both viable choices. However, what actually
 happens in each case is very different.

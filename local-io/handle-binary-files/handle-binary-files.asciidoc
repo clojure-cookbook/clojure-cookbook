@@ -1,19 +1,18 @@
 [[sec_local-io_handle_binary_files]]
-
 === Write or Read Binary Files
+[role="byline"]
+by John Jacobsen
 
-// By John Jacobsen (eigenhombre)
-
-===== Problem
+==== Problem
 
 You need to read or write some binary data.
 
-===== Solution
+==== Solution
 
 Use Java's `BufferedInputStream` / `BufferedOutputStream` and
 ByteBuffers, or Clojure libraries which wrap them.
 
-===== Discusion
+==== Discusion
 
 While reading and writing text files (e.g. via `slurp` and `spit`) are
 easy in pure Clojure, writing binary data requires a little more Java interop.
@@ -117,7 +116,7 @@ Note that for both writing and reading, the `flip` operation on the
 ByteBuffers resets the position to the beginning of the buffer to
 prepare it for reading, and writing, respectively.  
 
-===== See Also
+==== See Also
 
 - For more details on ByteBuffers, which play a key role in Java's NIO
 library, see the Java NIO documentation, or Ron Hitchens, __Java NIO__

@@ -1,11 +1,13 @@
 [[sec_primitives_strings_formatting_strings]]
 === Formatting strings
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to insert values into a string, formatting how those values appear in the string.
 
-===== Solution
+==== Solution
 
 The quickest method for formatting values into a string with the +str+ function.
 
@@ -53,7 +55,7 @@ For greater control over how values are printed use the +format+ function.
 <1> The +0+ flag indicates to pad a digit ("+d+") with zeroes (three, in this case.)
 <2> The +-+ flag indicates to left justify the string ("+s+") by 10 characters.
 
-===== Discussion
+==== Discussion
 
 When it comes to inserting values into a string you have two very
 different options. You could use +str+, which is great for a quick
@@ -97,7 +99,7 @@ places (just like the Dewey Decimal system.)
 Visit http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Formatter.html[java.util.Formatter] to learn more about formatting strings.
 **** 
 
-===== See Also
+==== See Also
 
 * <<sec_primitives_building_strings_from_parts>>
 * See <<sec_primitives_dates_formatting_dates>> for more detailed information on using +format+ with dates.

@@ -1,11 +1,12 @@
 === Using the Twitter API
-// By Tobias Bayer (codebrickie)
+[role="byline"]
+by Tobias Bayer
 
-===== Problem
+==== Problem
 
 You want to connect to Twitter and use its API.
 
-===== Solution
+==== Solution
 
 There is a wrapper for the Twitter API based on http.async.client.
 
@@ -38,7 +39,7 @@ Define your keys and secrets and send the status update request to Twitter:
 ----
 	
 
-===== Discussion
+==== Discussion
 
 ++twitter-api++ offers more than just sending status updates.
 The structure of function calls basically remains the same. ++twitter-api++ functions take the credentials and request parameters as arguments.
@@ -75,5 +76,5 @@ Now request the user stream and provide your callback:
 ;; -> #<ByteArrayOutputStream {"created_at":"Mon Jul 15 08:08:45 +0000 2013","id":356686762585755648,"id_str":"356686762585755648","text":"Morning everyone."...
 ----
 
-===== See Also
+==== See Also
 See the https://github.com/adamwynne/twitter-api[twitter-api documentation] for more details.

@@ -1,16 +1,12 @@
-////
-:Author: Tom White
-:Email: tom@sixdozen.com
-////
-
-
 === Using JavaScript Libraries from ClojureScript
+[role="byline"]
+by Tom White
 
-===== Problem
+==== Problem
 
 You want to use an existing JavaScript library from ClojureScript as painlessly as possible.
 
-===== Solution
+==== Solution
 
 Use https://github.com/dribnet/mrhyde[mrhyde] to map between JavaScript and ClojureScript datatypes.
 
@@ -173,10 +169,10 @@ ClojureScript.
 
 http://s.trokes.org/dribnet/6209254[See it running live here]
 
-===== Discussion
+==== Discussion
 
 mrhyde is a library that modifies the core ClojureScript datatypes so that JavaScript
-libraries can use them natively. After running the bootstrap method,
+libraries can use them natively. After running the bootstrap function,
 ClojureScript vectors can be accessed from JavaScript
 as if they were native JavaScript arrays, and ClojureScript maps can be accessed
 from JavaScript as if they were native JavaScript objects. Though this adds some
@@ -224,6 +220,6 @@ JavaScript example and then start replacing it bottom to top with ClojureScript 
 objects directly. When you have replaced the entire JavaScript source, you'll be ready to make
 similar ClojureScript examples from scratch.
 
-===== See Also
+==== See Also
 
 * tbd

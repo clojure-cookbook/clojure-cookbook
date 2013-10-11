@@ -1,11 +1,13 @@
 === Creating a vector
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to create a vector data structure either as a literal, or
 from an existing data structure.
 
-===== Solution
+==== Solution
 
 By far, the easiest way to create a vector is using the literal vector
 notation of square brackets. However, it is also possible to use the
@@ -40,7 +42,7 @@ the second.
 ;; -> [1 :2 "3"]
 ----
 
-===== Discussion
+==== Discussion
 
 There is rarely any reason to use the +vector+ function over the
 literal vector syntax. Unlike lists, vectors are not evaluated as
@@ -54,7 +56,7 @@ speed things up. If you're converting large collections and speed
 matters, consider using +into+. Otherwise, +vec+ is usually more
 readable.
 
-===== See also
+==== See also
 
 * Creating a list (xref)
 * Creating a list from an existing collection (xref)

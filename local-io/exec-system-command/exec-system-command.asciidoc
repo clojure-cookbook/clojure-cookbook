@@ -1,13 +1,13 @@
 === Executing a System Command
+[role="byline"]
+by Mark Whelan
 
-// By Mark Whelan (mrwhelan)
-
-===== Problem
+==== Problem
 
 You want to send a command to the underlying operating system
 and get its output.
 
-===== Solution
+==== Solution
 
 Use +clojure.java.shell/sh+ to run a command on your local system.
 It will return a map containing the command's output, any error, and the
@@ -31,7 +31,7 @@ If your command requires options or arguments, simply add them to the
 ;; -> {:exit 1, :out "", :err "ls: nosuchfile: No such file or directory\n"}
 ----
 
-===== Discussion
+==== Discussion
 
 If you're at the REPL, newline characters will be shown instead of
 actual linebreaks. To see human-friendly output instead, wrap the
@@ -111,10 +111,9 @@ over Java. Add the +sh+ command to your repertoire, and you can rule
 the entire kingdom of your system from Clojure, firing off programs
 written in any language.
 
-To rule the world outside your system as well, see the chapter on
-Network IO & Web Services.
+To rule the world outside your system as well, see <<ch_network_io>>.
 
-===== See Also
+==== See Also
 
 * +clojure.core/future+
 * SSH (xref)

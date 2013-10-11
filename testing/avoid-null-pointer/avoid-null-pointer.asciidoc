@@ -1,13 +1,14 @@
+=== Avoiding Null-Pointer Exceptions with core.typed
+[role="byline"]
+by Ambrose Bonnaire-Sergeant
 //TODO: Edit for style (first vs. second person, less conversational)
 
-== Avoiding Null-Pointer Exceptions with core.typed
-
-=== Problem
+==== Problem
 
 We want to verify that our code handles `nil` correctly,
 eliminating potential null-pointer exceptions.
 
-=== Solution
+==== Solution
 
 We use core.typed, an optional type system for Clojure, to check our namespace
 for misuses of `nil`.
@@ -158,7 +159,7 @@ Core type aliases are documented in the core.typed API reference. For example, h
 the entry for 
 http://clojure.github.io/core.typed/#clojure.core.typed/AnyInteger(clojure.core.typed/AnyInteger).
 
-=== See also
+==== See also
 
 https://github.com/clojure/core.typed(core.typed Home)
 http://clojure.github.io/core.typed/(core.typed API Reference)

@@ -1,13 +1,13 @@
 [[sec_red_black_part_ii]]
 === Implementing custom data structures: Red Black Trees - Part II
+[role="byline"]
+by Leonardo Borges
 
-// By Leonardo Borges (leonardoborges)
-
-===== Problem
+==== Problem
 
 You wish to use clojure core sequence functions such as +map+ and +filter+ on a custom data structure
 
-===== Solution
+==== Solution
 
 In <<sec_red_black_part_i>> of this recipe you implemented all the functions necessary for creating an efficient Red Black Tree. 
 
@@ -128,7 +128,7 @@ It doesn't look so different from before. We only replaced the previous function
 ----
 
 
-===== Discussions
+==== Discussions
 
 In <<sec_red_black_part_i>> we decided to represent tree nodes as 4-element vectors. However they are not nice to work with as you need to remember which index represents which piece of information:
 
@@ -283,6 +283,6 @@ clojure.lang.ISeq
 
 The other interface functions have straightforward implementations.
 
-===== See Also
+==== See Also
 
 * <<sec_red_black_part_i>>

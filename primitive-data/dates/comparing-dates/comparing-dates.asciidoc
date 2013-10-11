@@ -1,10 +1,12 @@
 === Comparing Dates
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to compare one date to another, or you need to sort a sequence of dates.
 
-===== Solution
+==== Solution
 
 You can compare Java Dates using the +compare+ function.
 
@@ -27,10 +29,10 @@ You can compare Java Dates using the +compare+ function.
 ;; -> 0
 ----
 
-===== Discussion
+==== Discussion
 
 Why not just compare dates using Clojure's built-in comparison
-operators (+<=+, +>+, etc.)? The problem with these operators is that
+operators (+$$<=$$+, +>+, etc.)? The problem with these operators is that
 they utilize +clojure.lang.Numbers+ and attempt to coerce their
 arguments to numerical types.
 

@@ -1,11 +1,13 @@
 [[sec_primitives_strings_re_matches]]
 === Pulling Values Out of a String Using Regular Expressions
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to extract portions of a string matching a given pattern.
 
-===== Solution
+==== Solution
 
 Use +re-seq+ with a regular expression pattern and string to retrieve a sequence of successive matches.
 
@@ -32,7 +34,7 @@ vector for each total match.
 (mentions "So long, @earth, and thanks for all the #fish. #goodbyes")
 ;; -> (["@earth" "@" "earth"] ["#fish" "#" "fish"] ["#goodbyes" "#" "goodbyes"])
 ----
-===== Discussion
+==== Discussion
 
 Provided a simple pattern (one without matching groups), +re-seq+
 will return a flat sequence of matches. Fully expressing the power of Clojure, this is a
@@ -73,7 +75,7 @@ principle of pure functions. We highly suggest you prefer +re-seq+
 over +re-matcher+ and +re-find+ unless you have a really good reason
 not too.
 
-===== See Also
+==== See Also
 
 * <<sec_primitives_strings_re_find>> for testing a string for the
   presence of a pattern.

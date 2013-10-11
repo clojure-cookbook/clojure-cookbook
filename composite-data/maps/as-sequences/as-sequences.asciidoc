@@ -1,11 +1,13 @@
 === Maps as Sequences & Sequences as Maps
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 * You want to view a map as a sequence of entries
 * You want to create a map by joining a sequence of entries
 
-===== Solution
+==== Solution
 
 To obtain a sequence view of a map, simply call +seq+ on it. Note that
 most sequence-processing functions call +seq+ on their arguments
@@ -57,7 +59,7 @@ If one of these sequences passed to zipmap is shorter than the other,
 the extra values will be ignored, and the output map will only contain
 entries up to the length of the shortest sequence.
 
-===== Discussion
+==== Discussion
 
 When obtaining a sequence view of a _hash map_, the map entries will
 be returned in an arbitrary or undefined order. Conveniently, this
@@ -105,6 +107,6 @@ functions on map entries when processing maps as sequences, since they
 preserve the semantic of key/value pairs, making the code easier to
 read.
 
-===== See also
+==== See also
 
 * Mapping over the keys or values of a map

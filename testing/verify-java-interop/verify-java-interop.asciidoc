@@ -1,13 +1,16 @@
-== Verify Java interop with core.typed
+=== Verify Java interop with core.typed
+[role="byline"]
+by Ambrose Bonnaire-Sergeant
+// TODO: Adjust sample style to fit conventions
 
-=== Problem
+==== Problem
 
 Java provides a vast ecosystem that is a major draw for Clojure developers,
 however it can be often be complex to use large, cumbersome Java APIs from
 Clojure.
 We want to verify that we are using Java libraries safely and unambiguously.
 
-=== Solution
+==== Solution
 
 We use core.typed to type check our Java interop calls.
 
@@ -18,7 +21,7 @@ Using the dot constructor for creating new Files is a bit annoying, so let's
 wrap it in a Clojure function that takes a string: `new-file`.
 
 [source,clojure]
----
+----
 (ns book.java-interop1
   (:require [clojure.core.typed :refer [ann] :as t])
   (:import (java.io File)))
@@ -26,21 +29,21 @@ wrap it in a Clojure function that takes a string: `new-file`.
 (ann new-file [String -> File])
 (defn new-file [s]
   (File. s))
----
+----
 
 Setting `*warn-on-reflection*` when compiling this namespace will tell us that we
 have a reflection call to the `java.io.File` constructor. core.typed will tell
 us the same information, except in the form of a type error.
 
 [source,clojure]
----
+----
 book.java-interop1> (t/check-ns)
 ExceptionInfo Internal Error (book.java-interop1:6) Unresolved constructor invocation java.io.File.
 
 Hint: add type hints.
 
 in: (new java.io.File s)  clojure.core/ex-info (core.clj:4327)
----
+----
 
 Let's add a type hint to call the `public File(String pathname)` constructor 
 (http://docs.oracle.com/javase/6/docs/api/java/io/File.html#File(java.lang.String)[Javadoc]).
@@ -59,10 +62,10 @@ Let's add a type hint to call the `public File(String pathname)` constructor
 This satisfies core.typed.
 
 [source,clojure]
----
+----
 book.java-interop1> (t/check-ns)
 :ok
----
+----
 
 File has a second single-argument constructor: `public File(URI uri)`.
 Let's enhance `new-file` to support URI's or String's.
@@ -101,7 +104,7 @@ Let's wrap a method from java.io.File. `parent` is a thin wrapper over the File 
 There are no reflective calls here, so what does core.typed think?
 
 [source,clojure]
----
+----
 book.java-interop4> (t/check-ns)
 Type Error (book.java-interop4:7:3) Return type of instance method java.io.File/getParent is (U java.lang.String nil), expected java.lang.Stri
 ng.
@@ -136,7 +139,7 @@ If core.typed is too pessimistic with nilable return types, we can override part
 `clojure.core.typed/non-nil-return`.
 
 [source,clojure]
----
+----
 (ns book.java-interop5
   (:require [clojure.core.typed :refer [ann] :as t])
   (:import (java.io File)))
@@ -146,14 +149,14 @@ If core.typed is too pessimistic with nilable return types, we can override part
 (ann file-name [File -> String])
 (defn file-name [^File f]
   (.getName f))
----
+----
 
 This type checks successfully.
 
 Note that as of writing, core.typed does not enforce static type overrides
 at runtime, so use `non-nil-return` and similar features with caution.
 
-=== Discussion
+==== Discussion
 
 While `java.io.File` is a relatively small API, we can see even from this
 small example that Java interop is fraught with danger. 
@@ -183,10 +186,10 @@ to guess what the reflection might resolve to at runtime.
 This simple rule usually results in faster, more explicit code, often desirable in
 larger code bases.
 
-=== See also
+==== See also
 
-http://clojure.github.io/core.typed/#clojure.core.typed/non-nil-return[non-nil-return]
-http://clojure.github.io/core.typed/#clojure.core.typed/nilable-param[nilable-param]
-http://clojure.github.io/core.typed/#clojure.core.typed/override-method[override-method]
-http://clojure.github.io/core.typed/#clojure.core.typed/override-constructor[override-constructor]
-http://clojure.github.io/core.typed/#clojure.core.typed/method-type[method-type]
+* http://clojure.github.io/core.typed/#clojure.core.typed/non-nil-return[non-nil-return]
+* http://clojure.github.io/core.typed/#clojure.core.typed/nilable-param[nilable-param]
+* http://clojure.github.io/core.typed/#clojure.core.typed/override-method[override-method]
+* http://clojure.github.io/core.typed/#clojure.core.typed/override-constructor[override-constructor]
+* http://clojure.github.io/core.typed/#clojure.core.typed/method-type[method-type]

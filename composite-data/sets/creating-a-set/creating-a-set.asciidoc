@@ -1,12 +1,14 @@
 [[sec_composite_creating_sets]]
 === Creating a Set
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to create an unordered collection of _distinct_ objects,
 which can be tested for membership quickly.
 
-===== Solution
+==== Solution
 
 Use a set literal to create a set of objects.
 
@@ -81,7 +83,7 @@ Create a sorted set with +sorted-set+.
 ;; -> #{\space \a \b \c \d \e \f \g \h \i \j \k \l \m \n \o \p \q \r \s \t \u \v \w \x \y \z}
 ----
 
-===== Discussion
+==== Discussion
 
 Sets are very useful data structures. They are commonly used when you
 have a collection of values but you are only concerned with the
@@ -132,7 +134,7 @@ require some degree of memory overhead. Sorted sets, based on a
 balanced red-black binary tree, are more memory-efficient but slower
 for lookup and insertion.
 
-===== See also
+==== See also
 
 * Creating a vector (xref)
 * Adding elements to a set (xref)

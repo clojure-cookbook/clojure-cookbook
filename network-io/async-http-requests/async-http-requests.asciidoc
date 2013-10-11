@@ -1,14 +1,12 @@
 === Perform an asynchronous HTTP request
+[role="byline"]
+by Alan Busby
 
-////
-Author: Alan Busby @thebusby
-////
-
-===== Problem
+==== Problem
 
 You want to perform an asynchronous HTTP request.
 
-===== Solution
+==== Solution
 
 Using +HTTP-Kit+, http://http-kit.org/
 
@@ -39,7 +37,7 @@ With a Clojure promise.
     (println body)))
 ----
 
-===== Discussion
+==== Discussion
 
 As the bulk of time spent performing HTTP requests is establishing the connection
 and awaiting the server's response, asynchronous requests enable your application

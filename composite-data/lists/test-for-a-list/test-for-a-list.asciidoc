@@ -1,10 +1,12 @@
 === Test for a list
+[role="byline"]
+by Steve Miner
 
-===== Problem
+==== Problem
 
 You want to test if a value is a list.
 
-===== Solution
+==== Solution
 
 The +list?+ function may seem like the obvious choice, but in most cases it's better to use the more
 general +seq?+ function as your test.
@@ -33,7 +35,7 @@ general +seq?+ function as your test.
 ;; -> true
 ----
 
-===== Discussion
+==== Discussion
 
 The +list?+ function specifically tests if the argument implements +clojure.lang.IPersistentList+,
 but in most cases you really want to know if the value is a *seq* (implements +clojure.lang.ISeq+),
@@ -44,7 +46,7 @@ abstraction, you don't need to worry about the details of those concrete impleme
 
 It's almost always better to use +seq?+ instead of +list?+.
 
-===== See Also
+==== See Also
 
 * <<sec_adding_to_a_list>>
 

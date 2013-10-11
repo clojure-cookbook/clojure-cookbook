@@ -1,13 +1,13 @@
 [[sec_local_io_json]]
 === Work with JSON data
+[role="byline"]
+by Stefan Karlsson
 
-// By Stefan Karlsson (zclj)
-
-===== Problem
+==== Problem
 
 You need to read or write JSON data.
 
-===== Solution
+==== Solution
 
 Use +clojure.data.json/read+ to read JSON from a java.io.Reader.
 
@@ -68,7 +68,7 @@ To apply a function to each value, use the +:value-fn+ option. Your value functi
 ;; -> "{\"age\":32,\"name\":\"Stefan\",\"height\":174.0}"
 ----
 
-===== Discussion
+==== Discussion
 Reading JSON with +read-str+ will not yield the same Clojure data that was written by +write-str+. If you write a map and then read it, you will lose the keywords. You can solve this by using the +:key-fn+. Use the +keyword+ function to get more idiomatic data. 
 
 [source,clojure]

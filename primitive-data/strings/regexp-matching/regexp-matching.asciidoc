@@ -1,11 +1,13 @@
 [[sec_primitives_strings_re_find]]
 === Searching a String by Pattern
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to test a string to see if parts of it match a pattern.
 
-===== Solution
+==== Solution
 
 To check for the presence of a pattern inside a string, use +re-find+.
 
@@ -19,7 +21,7 @@ To check for the presence of a pattern inside a string, use +re-find+.
 ;; -> nil
 ----
 
-===== Discussion
+==== Discussion
 
 +re-find+ is quite handy for quickly testing a string for the presence
 of a pattern. It takes a regular expression pattern and a string, then
@@ -44,7 +46,7 @@ only if the *entire* string matches the pattern.
 ;; -> "justLetters"
 ----
 
-===== See Also
+==== See Also
 
 * <<sec_primitives_strings_re_matches>> for information on extracting
   values from a string using regular expressions.

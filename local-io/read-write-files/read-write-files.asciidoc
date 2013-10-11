@@ -1,13 +1,13 @@
 [[sec_local-io_read_write_files]]
 === Reading and writing files
+[role="byline"]
+by Stefan Karlsson
 
-// By Stefan Karlsson (zclj)
-
-===== Problem
+==== Problem
 
 You need to read or write a file.
 
-===== Solution
+==== Solution
 
 Write a string to a file with +spit+.
 
@@ -59,7 +59,7 @@ To write a large amount of data to a file, use a +java.io.Writer+.
     (.newLine w)))
 ----
 
-===== Discussion
+==== Discussion
 
 When using +:append+, text will be appended to the end of the
 file. Use newlines at the end of each line by appending +"\n"+ to the

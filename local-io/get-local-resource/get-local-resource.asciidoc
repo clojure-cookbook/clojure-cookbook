@@ -1,15 +1,13 @@
 [[sec_local_io_get_local_resource]]
-
-// Author: John Jacobsen (eigenhombre) (with help from John Cromartie
-// (jcromartie) and Alex P (ifesdjeen))
-
 === Including and Accessing Resource Files in a Clojure Project
+[role="byline"]
+by John Jacobsen with help from John Cromartie and Alex Petrov
 
-===== Problem
+==== Problem
 
 You want to include resource files in your project and access them.
 
-===== Solution
+==== Solution
 
 Places resource files in the +resources/+ directory at the top level
 of your project.
@@ -39,7 +37,7 @@ Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.i
 ;; -> (Lisp Python Clojure)
 ----
 
-===== Discussion
+==== Discussion
 
 Resources are loaded via the classpath. Leiningen puts the
 +resources/+ directory on the classpath automatically; when packaged,

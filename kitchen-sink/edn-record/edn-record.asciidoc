@@ -1,11 +1,13 @@
 [[sec_edn_record]]
 === Records as **edn** values
+[role="byline"]
+by Steve Miner
 
-===== Problem
+==== Problem
 
 You want to use Clojure records as **edn** values, but the **edn** format doesn't support records.
 
-===== Solution
+==== Solution
 
 You can use the **tagged** library to read and print records as **edn** tagged literal values.
 
@@ -27,7 +29,7 @@ In the REPL:
 You can now successfully "round-trip" your records between +pr-str+ and +miner.tagged/read-string+
 using the tagged literal format.
 
-===== Discussion
+==== Discussion
 
 The **edn** format covers a useful subset of the Clojure datatypes with the notable exception of
 records.  On the Clojure side, the record notation is not supported by +clojure.edn/read+ or
@@ -131,7 +133,7 @@ The +tagged-default-reader+ implements the logic for looking up the *map* factor
 class as indicated by the tag.  It uses that factory function to create the proper record from the
 literal map value.
 
-===== See Also
+==== See Also
 
 * **edn** https://github.com/edn-format/edn
 * <<sec_default_data_reader>>

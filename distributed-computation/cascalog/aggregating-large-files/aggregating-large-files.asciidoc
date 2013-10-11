@@ -1,7 +1,9 @@
 [[sec_aggregating_large_files]]
 === Aggregating Large Files
+[role="byline"]
+by Alex Robbins
 
-===== Problem
+==== Problem
 
 You need to generate aggregate statistics from terabytes of log
 files. For example:
@@ -29,7 +31,7 @@ Output aggregate statistics:
 }
 ----
 
-===== Solution
+==== Solution
 
 Cascalog allows you to write distributed processing jobs that run
 locally or on a Hadoop cluster.
@@ -80,7 +82,7 @@ $ lein uberjar
 $ hadoop jar target/cookbook-standalone.jar cookbook.aggregation.Main <in-path> <out-path>
 ----
 
-===== Discussion
+==== Discussion
 
 Cascalog makes it easy to quickly generate aggregate
 statistics. Aggregate statistics can be tricky on some MapReduce

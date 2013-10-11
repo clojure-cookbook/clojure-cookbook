@@ -1,13 +1,15 @@
 === Using set operations
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You would like to obtain the union, intersection or difference of two
 sets.
 
 Or, you want to test if one set is a subset or superset of another.
 
-===== Solution
+==== Solution
 
 All these functions are available in the +clojure.set+ namespace,
 which is built in to Clojure.
@@ -66,7 +68,7 @@ first set is a _superset_ of the second.
 As you may have noticed, +superset?+ is actually identical to
 +subset?+, only with the order of the arguments reversed.
 
-===== Discussion
+==== Discussion
 
 In general, you should try to use these set manipulation functions
 wherever they are applicable. Sets represent a sizable portion of the

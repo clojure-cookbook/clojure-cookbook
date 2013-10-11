@@ -1,10 +1,12 @@
 === Explaining a Cascalog Query
+[role="byline"]
+by Alex Robbins
 
-===== Problem
+==== Problem
 
 Your Cascalog job runs very slowly and you aren't sure why.
 
-===== Solution
+==== Solution
 
 Use the explain function to print out a DOT file of your query.
 [source,clojure]
@@ -27,7 +29,7 @@ $ dot -Tpng -oslow-query.png slow-query.dot
 Now open slow-query.png in your web browser to see a diagram of your
 query.
 
-===== Discussion
+==== Discussion
 
 Cascalog workflows compile into Cascading workflows. Cascading is a
 Java library that wraps Hadoop, providing a flow-based plumbing
@@ -66,6 +68,6 @@ reduce work as possible during the map phase using aggregators, and
 then make sure that the remaining reduce work isn't all piling up into
 a small number of reducers.
 
-===== See Also
+==== See Also
 
 * <<sec_aggregating_large_files>>

@@ -1,11 +1,13 @@
 === Pluralizing Strings From a Quantity
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to pluralize a word given some quantity, such as "0 eggs" or
 "1 chicken."
 
-===== Solution
+==== Solution
 
 When you need to perform Ruby on Rails-style pluralization use Roman Scherer's
 https://github.com/r0man/inflections-clj[inflections] library.
@@ -36,7 +38,7 @@ your own pluralization as an optional third argument to +pluralize+.
 ;; -> "3 boxen"
 ----
 
-===== Discussion
+==== Discussion
 
 When it comes to user-facing text, inflection is key. Humanizing the
 output of your programs or websites goes a long way to building a
@@ -90,7 +92,7 @@ inflections also has support for inflections like +camelize+,
 ;; -> "42nd"
 ----
 
-===== See Also
+==== See Also
 
 * See
   https://github.com/r0man/inflections-clj/blob/master/src/inflections/core.clj[inflections

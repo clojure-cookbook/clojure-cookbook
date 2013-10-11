@@ -1,10 +1,12 @@
 === Working with Currency
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to manipulate values that represent currency.
 
-===== Solution
+==== Solution
 
 Use the https://github.com/clojurewerkz/money[Money] library for
 representing, manipulating and storing values in monetary units.
@@ -36,7 +38,7 @@ two
 ;; -> #<Money USD 8.00>
 ----
 
-===== Discussion
+==== Discussion
 
 Working with currency is serious business. Never trust built-in
 numerical types with handling currency - especially floating point

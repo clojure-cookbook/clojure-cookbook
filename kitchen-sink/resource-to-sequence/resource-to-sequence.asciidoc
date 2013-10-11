@@ -1,12 +1,13 @@
-=== Resource to sequence 
-// by Gerrit Jansen van Vuuren (gerritjvv)
+=== Resource to sequence
+[role="byline"]
+by Gerrit Jansen van Vuuren
 
-===== Problem
+==== Problem
 
 You have a resource that you want to access as a sequence, but you do not want to keep a connection open and close it only when the whole sequence have been read
 thus potentially leaking the connection.
 
-===== Solution
+==== Solution
 
 The solution is simple.
 
@@ -16,7 +17,7 @@ The solution is simple.
 The select function takes a single argument which is the last index position of data returned, and returns a snapshot of the data from the position
 to N amount of rows (here N is up to the function itself).
 
-The initial position depends on the context that this pattern is used in, it can be 0, 1, 10 etc. 
+The initial position depends on the context that this pattern is used in, it can be 0, 1, 10 etc.
 
 
 
@@ -24,8 +25,8 @@ The initial position depends on the context that this pattern is used in, it can
 ----
 (defn buffered-select [f-select init-pos]
     "Creates a lazy sequence of messages for this datasource"
-    (letfn [  
-            (m-seq [buff pos] 
+    (letfn [
+            (m-seq [buff pos]
                  (if-let [buff2 (if (empty? buff) (f-select pos) buff)]
                     (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))
            ]
@@ -75,13 +76,13 @@ You can explore the usage of this recipe by going through a simple file reading 
 ----
 
 
-===== Discussion
+==== Discussion
 
-The solution showed is a simple pattern (monad) with simple constructs, and its usage applies directly to database queries and network io, 
+The solution showed is a simple pattern (monad) with simple constructs, and its usage applies directly to database queries and network io,
 and more generally to all resources that are accessed using a connection or resource interface (as shown in the example).
 
-The select function connects (opens a file), queries (sees to the position and reads max amount of bytes) and closes a connection (closes the file), then returns a sequence. 
-The sequence can then be consumed by the using code and after the buffer has been consumed the select function is called again. To the user of the function it appears as if the sequence is 
+The select function connects (opens a file), queries (sees to the position and reads max amount of bytes) and closes a connection (closes the file), then returns a sequence.
+The sequence can then be consumed by the using code and after the buffer has been consumed the select function is called again. To the user of the function it appears as if the sequence is
 one huge sequence over which higher order functions like map filter partition can be applied.
 
 The pattern also helps unroll the typical with-open pattern; where work must be done inside the scope of another function and cannot be pulled, to something more pull orientated and functional.

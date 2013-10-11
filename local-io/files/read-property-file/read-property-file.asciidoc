@@ -1,12 +1,12 @@
 === Read property file
+[role="byline"]
+by Tobias Bayer
 
-// By Tobias Bayer (codebrickie)
-
-===== Problem
+==== Problem
 
 You need to read a property file and access its key-value pairs.
 
-===== Solution
+==== Solution
 
 Propertea is a library that offers simple access to property files.
 
@@ -43,7 +43,7 @@ Read the property file and access its key-value pairs.
 ;; -> "green"
 ----
 
-===== Discussion
+==== Discussion
 The basic +read-properties+ function treats all property values as strings. You can force parsing to other types by specifying the type for a property.
 
 .other.properties
@@ -89,5 +89,5 @@ You can also be strict on required properties. If an expected property is missin
 (def props (read-properties "other.properties" :required [:otherkey]))
 ;; -> java.lang.RuntimeException: (:otherkey) are required ...
 ----
-===== See Also
+==== See Also
 See the https://github.com/jaycfields/propertea[propertea documentation] for more details.

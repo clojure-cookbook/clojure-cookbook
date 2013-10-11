@@ -1,6 +1,8 @@
 === Using composite values as map keys
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You'd like to use a value that isn't a simple primitive type as a
 lookup key in a map. For example:
@@ -8,7 +10,7 @@ lookup key in a map. For example:
 * You'd like to use geographic or cartesian coordinates as map keys.
 * You'd like to associate values with functions.
 
-===== Solution
+==== Solution
 
 Because of its robust identity semantics on composite values, Clojure
 fully supports using any immutable value as a map key. More
@@ -72,7 +74,7 @@ with the weights applied:
      (apply f args)))
 ----
 
-===== Discussion
+==== Discussion
 
 A more traditional way to model the chess game would be with a
 two-dimensional array, or, in Clojure's case, with a vector of
@@ -96,6 +98,6 @@ functions are. More importantly, it is possible to store multiple
 different sets of weights, and switch between different weight schemes
 dynamically at runtime.
 
-===== See also
+==== See also
 
 * Retrieving keys from maps

@@ -1,0 +1,77 @@
+=== Dry-run transactions in a Datomic database without actually committing them
+[role="byline"]
+by Robert Stuttaford
+
+==== Problem
+
+You want to test a transaction prior to committing it using Datalog or the entity API.
+
+==== Solution
+
+Build your transaction as usual, but instead of calling +d/transact+ or +d/transact-async+, use +d/with+ to produce an in-memory database that includes the changes your transaction provides.
+
+First, some setup. Use the Schema recipe to construct and prepare a database with the schema we need, and then populate the database with some data about Fred Flintstone, and get a hold of Fred's entity ID:
+
+[source,clojure]
+----
+
+(def new-id (d/tempid :db.part/user))
+
+(def tx-result @(d/transact conn
+                            [{:db/id new-id
+                              :user/name "fred flintston"
+                              :user/email "fred@flintstones.me"}]))
+
+(def fred-id (d/resolve-tempid (:db-after tx-result)
+                               (:tempids tx-result)
+                               new-id))
+
+fred-id
+;; -> 17592186045421
+----
+
+Oops, it looks like you need to tidy Fred's name up. Prepare a transaction to do that:
+
+[source,clojure]
+----
+(def fix-fred-tx [[:db/add fred-id :user/name "Fred Flintstone"]])
+----
+
+Now, prepare an in-memory database with this new transaction applied. First, get the current database value to use as a basis, then create the in-memory database, and finally grab the +:db-after+ value so that you can test that the name is all fixed up:
+
+[source,clojure]
+----
+(def current-db (d/db conn))
+
+(def with-tx-result (d/with current-db fix-fred-tx))
+
+(def db-after-tx (:db-after with-tx-result))
+----
+
+Now, compare the value of Fred's name in the current database with that of Fred's name in your in-memory database:
+
+[source,clojure]
+----
+(d/q '[:find ?name :in $ ?email :where 
+       [?entity :user/email ?email]
+       [?entity :user/name ?name]]
+     db-after-tx
+     "fred@flintstones.me")
+;; -> #{["Fred Flintstone"]}
+
+(d/q '[:find ?name :in $ ?email :where 
+       [?entity :user/email ?email]
+       [?entity :user/name ?name]]
+     current-db
+     "fred@flintstones.me")
+;; -> #{["fred flintston"]}
+----
+
+As you can see, the database at +current-db+ remains unaffected by this transaction, but the database at +db-after-tx+ now displays the new value.
+
+==== Discussions
+
+Databases produced by +d/with+ can be used with any of the other API functions that accept a database, including +d/with+ itself. This means that you can layer multiple transactions on top of each other without first having to commit them to the transactor!
+
+==== See Also
+

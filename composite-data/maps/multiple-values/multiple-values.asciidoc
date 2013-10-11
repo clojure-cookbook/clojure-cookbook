@@ -1,6 +1,8 @@
 === Keeping multiple values for a key
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 Normally, maps are strictly one value per key; if you +assoc+ an
 existing key, the old value is replaced.
@@ -12,7 +14,7 @@ is no such capability built in to Clojure.
 So, how would you design a multimap data structure, backed by a normal
 map?
 
-===== Solution
+==== Solution
 
 [source,clojure]
 ----
@@ -101,7 +103,7 @@ And, of course, corresponding unit tests (using +clojure.test+.)
     (is (= #{:v1 :v2} (get-all (insert (insert {} :k :v1) :k :v2) :k)))))
 ----
 
-===== Discussion
+==== Discussion
 
 First, this code defines a protocol to implement the set of functions
 that comprise the multimap behavior. A protocol is a great choice in
@@ -173,7 +175,7 @@ user. Then, all the code has to do is check if a set has the
 +::multi-value+ metadata to know whether it's a set containing values,
 or is itself a value.
 
-===== See also
+==== See also
 
 * Using a protocol to extend an existing interface
 

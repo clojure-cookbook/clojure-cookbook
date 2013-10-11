@@ -1,12 +1,12 @@
 === Serving Static Files with Ring
+[role="byline"]
+by Clinton Dreisbach
 
-// by Clinton Dreisbach (cndreisbach)
-
-===== Problem
+==== Problem
 
 You want to serve static files through your Ring application.
 
-===== Solution
+==== Solution
 
 Use `ring.middleware.file/wrap-file`.
 
@@ -19,7 +19,7 @@ Use `ring.middleware.file/wrap-file`.
   (wrap-file handler "/var/webapps/public"))
 ----
 
-===== Discussion
+==== Discussion
 
 `wrap-file` wraps another web request handler, so that you will serve a static file if one exists and call the handler if the requested file does not exist.
 
@@ -53,7 +53,7 @@ This will serve all files under a directory called `static` in your classpath. Y
 
 You may want to wrap any file responses with `ring.middleware.file-info/wrap-file-info`. This Ring middleware checks the modification date and the type of the file, setting `Content-Type` and `Last-Modified` headers. `wrap-file-info` needs to wrap around `wrap-file` or `wrap-resource`.
 
-===== See Also
+==== See Also
 
 * <<sec_webapps_compojure_compojure>>
 * <<sec_local_io_get_local_resource>>

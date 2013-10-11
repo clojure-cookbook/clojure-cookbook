@@ -1,15 +1,13 @@
 === Parse command line arguments
+[role="byline"]
+by Nicolas Bessi
 
-////
-Author: Nicolas Bessi @nbessi
-////
-
-===== Problem
+==== Problem
 
 You want your command line tool to be able to receive input arguments,
 parse and validate them.
 
-===== Solution
+==== Solution
 
 Use +org.clojure/tools.cli+ https://github.com/clojure/tools.cli
 library that replaces the +clojure.contrib/command-line+.
@@ -44,11 +42,11 @@ library that replaces the +clojure.contrib/command-line+.
     (do-the-stuff opts, args)))
 ----
 
-===== Discussion
+==== Discussion
 Writing command line tools or being able to add arguments to
 an application/Web app is a must have.
 
-Clojure store all command line arguments into +*command-line-args*+ list built-in.
+Clojure store all command line arguments into *+command-line-args+* list built-in.
 When using the Leiningen +run+ command, arguments are passed to main function
 defined in your project manifest.
 

@@ -1,12 +1,12 @@
 === Reading and Writing Compressed Files
+[role="byline"]
+by John Cromartie
 
-// By John Cromartie (jcromartie)
-
-===== Problem
+==== Problem
 
 You want to read or write a file compressed with Gzip (i.e. a +.gz+ file).
 
-===== Solution
+==== Solution
 
 Wrap a normal input stream with +java.util.zip.GZIPInputStream+ to
 get uncompressed data.
@@ -32,7 +32,7 @@ compress data as it is written.
     (println "This will be compressed on disk.")))
 ----
 
-===== Discussion
+==== Discussion
 
 Gzip, based on the DEFLATE algorithm, is a common compression format
 on Unix-like systems, and is used extensively for compression on the
@@ -57,7 +57,7 @@ By binding an output stream to +pass:[*out*]+ we can use +println+,
 +pr+, etc. to output small amounts of data at a time to the stream,
 which will be compressed on disk when the stream is closed.
 
-===== See Also
+==== See Also
 
 // TODO: Does not exist yet?
 * <<sec_local_io_read_write_zip>>

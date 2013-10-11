@@ -1,10 +1,12 @@
 === Converting Between Characters and Integers
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to convert characters to their respective code points (integer values) or vice versa.
 
-===== Solution
+==== Solution
 
 Use the +int+ function to coerce a character to its integer value.
 
@@ -36,10 +38,10 @@ Use the +char+ function to coerce an integer (or any other number type) back int
 ;; -> "secret messages"
 ----
 
-===== Discussion
+==== Discussion
 
 Converting between characters and integers is a simple matter in Clojure; merely use the +int+ and +char+ functions to coerce characters between their numerical and character forms.
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string.

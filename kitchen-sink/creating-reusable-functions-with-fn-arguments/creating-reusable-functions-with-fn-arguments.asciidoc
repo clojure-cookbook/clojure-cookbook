@@ -1,8 +1,8 @@
 === Make a Function Reusable by Passing a `fn` as an Argument
+[role="byline"]
+by Chris Frisz
 
-// By Chris Frisz (cjfrisz)
-
-===== Problem
+==== Problem
 
 You want to reuse a single function in two different sections of your code, but
 each caller needs that function to do something slightly different in one 
@@ -26,7 +26,7 @@ Consider the following (highly contrived) example:
   (my-message-helper "cool"))
 ----
 
-===== Solution
+==== Solution
 
 Modify the `my-message-helper` function to take an extra argument 
 (assumed to be a `fn`) and apply it to the value that needs the 
@@ -73,7 +73,7 @@ piece of work to be done in `my-message-helper` and pass that as an argument.
 ;; "super cool"
 ----
 
-===== Discussion
+==== Discussion
 
 Even though the two functions, `make-awesome-message` and `make-cool-message`,
 did different work, the common work was reused in `my-message-helper`. 

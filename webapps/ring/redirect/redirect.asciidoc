@@ -1,15 +1,12 @@
-////
-:Author: Craig McDaniel
-:Email: cpmcdaniel@gmail.com
-////
-
 === HTTP Redirect with Ring
+[role="byline"]
+by Craig McDaniel
 
-===== Problem
+==== Problem
 
 You need to redirect the browser to another URL. 
 
-===== Solution
+==== Solution
 
 To redirect a ring request, use the +redirect+ function in the +ring.util.response+ namespace.
 
@@ -30,7 +27,7 @@ To redirect a ring request, use the +redirect+ function in the +ring.util.respon
   (jetty/run-jetty redirect-to-github {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 The +ring.util.response+ namespace contains a function for redirecting to a URL. This URL can be generated dynamically from the request map (using parameters from wrap-params, headers, etc.). Underneath, this function simply creates a response map with a 302 +:status+ value and a "Location" header containing the URL to redirect to.
 

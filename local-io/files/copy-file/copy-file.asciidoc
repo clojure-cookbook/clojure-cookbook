@@ -1,12 +1,12 @@
 === Copy a file
+[role="byline"]
+by Stefan Karlsson
 
-// By Stefan Karlsson (zclj)
-
-===== Problem
+==== Problem
 
 You need to copy a file.
 
-===== Solution
+==== Solution
 
 Use +clojure.java.io/copy+ to make a copy of a file.
 
@@ -40,7 +40,7 @@ If required, an encoding can be specified by the +:encoding+ option.
 (clojure.java.io/copy "some text" (clojure.java.io/file "./str-test.txt") :encoding "UTF-8")
 ----
 
-===== Discussion
+==== Discussion
 Note that if the file already exists, it will be overwritten. If that is not what you want, you can put together a "safe" copy function that will catch any exceptions and optionally overwrite.
 [source,clojure]
 ----

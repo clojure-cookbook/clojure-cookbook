@@ -1,16 +1,13 @@
-////
-:Author: David McNeil
-////
-
 [[extend_built_in]]
-
 === Extending a Built-in Type
+[role="byline"]
+by David McNeil
 
-===== Problem
+==== Problem
 
 You need to extend one of the built-in types with your own functions.
 
-===== Solution
+==== Solution
 
 Suppose for example you would like to add domain specific functions to the core +java.lang.String+ type. In this example, we will add a +first-name+ and +last-name+ function to +String+.
 
@@ -45,7 +42,7 @@ Now we can invoke our functions on Strings.
 ;; -> "smith"
 ----
 
-===== Discussion
+==== Discussion
 
 Use this approach instead of a multi-method when you want to tap into the higher performance dispatching of protocols. Note that protocol functions dispatch on the type of the first parameter.
 
@@ -60,7 +57,7 @@ If you already had functions to use, then it would make sense to use +extend+ in
 
 (defn second-word [s]
   (second (clojure.string/split s #" ")))
-  
+
 (extend String
   Person
   {:first-name first-word

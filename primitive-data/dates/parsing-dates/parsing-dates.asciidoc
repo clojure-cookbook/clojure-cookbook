@@ -1,11 +1,13 @@
 [[sec_primitives_dates_parsing_dates]]
 === Parsing Date and Times using clj-time
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to parse dates from a string.
 
-===== Solution
+==== Solution
 
 Working directly with Java's date and time classes is like pulling
 teeth. We suggest using
@@ -35,7 +37,7 @@ strings into +DateTime+ objects.
 ;; -> #<DateTime 2013-04-06T16:13:49.060Z>
 ----
 
-===== Discussion
+==== Discussion
 
 clj-time's +formatter+ function is a powerful little function that
 takes a date/time format string and returns an object capable of
@@ -61,7 +63,7 @@ argument. You can use +clj-time.core/time-zone-for-offset+ or
 +clj-time.core/time-zone-for-id+ to receive a +DateTimeZone+ object to
 pass to +formatter+.
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_dates_formatting_dates>> for information on how
   to use formatters to _un_parse strings.

@@ -1,14 +1,12 @@
 === Using temporary files from Clojure
+[role="byline"]
+by Alan Busby
 
-////
-Author: Alan Busby @thebusby
-////
-
-===== Problem
+==== Problem
 
 You want to use a temporary file.
 
-===== Solution
+==== Solution
 
 Use Java's +java.io.File/createTempFile+ to create a temporary file in the
 default temporary-file directory of the JVM, with the provided prefix and
@@ -28,7 +26,7 @@ Write a line of text to the temporary file.
     (println "Example output.")))
 ----
 
-===== Discussion
+==== Discussion
 
 Temporary files are an excellent mechanism to provide, and retrieve, 
 data from a subprocess which may not necessarily interact with Clojure 

@@ -1,10 +1,12 @@
 === Testing set membership
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to check if an item is a member of a set.
 
-===== Solution
+==== Solution
 
 The easiest way to check a single item is with the +contains?+
 function, which takes a set and an item and returns true if the item
@@ -60,7 +62,7 @@ do with maps: thus, the following is equivalent to having used +get+:
 ----
 
 
-===== Discussion
+==== Discussion
 
 The choice between +contains?+ and +get+ is mainly an aesthetic one.
 However, if your set might contain +nil+ as an actual value you care
@@ -95,7 +97,7 @@ This example is contrived. However, using sets as a predicate function
 is an extremely useful technique that that pops up quite frequently in
 most Clojure projects.
 
-===== See also
+==== See also
 
 * Checking if a key is present in a map (xref)
 * Using set operations (xref)

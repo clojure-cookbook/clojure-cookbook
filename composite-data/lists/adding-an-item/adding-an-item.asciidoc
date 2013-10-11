@@ -1,13 +1,15 @@
 [[sec_adding_to_a_list]]
 === "Adding" an item to a list
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to add an item to a list; or, putting it in functional terms,
 you want to derive a new list from an existing list which contains an
 additional item.
 
-===== Solution
+==== Solution
 
 Use the +conj+ function. +conj+ is used to add an item or items to a
 logical collection, and is polymorphic, meaning it works on multiple
@@ -27,7 +29,7 @@ Adding multiple items at once:
 ;; -> (5 4 1 2 3)
 ----
 
-===== Discussion
+==== Discussion
 
 The behavior of +conj+ may vary slightly depending on the concrete
 type. It always "adds" an item to an immutable collection by returning
@@ -67,7 +69,7 @@ item prepended to the beginning no matter what the collection type is.
 
 ****
 
-===== See Also
+==== See Also
 
 * <<sec_adding_to_a_vector>>
 

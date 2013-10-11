@@ -1,14 +1,12 @@
 === Memory-map a file
+[role="byline"]
+by Alan Busby
 
-////
-Author: Alan Busby @thebusby
-////
-
-===== Problem
+==== Problem
 
 You want to memory-map a file.
 
-===== Solution
+==== Solution
 
 Use the +clj-mmap+ library, https://github.com/thebusby/clj-mmap
 
@@ -45,7 +43,7 @@ Overwrite the first N bytes of a text file.
       (mmap/put-bytes file bytes-to-write 0))))
 ----
 
-===== Discussion
+==== Discussion
 
 Memory-mapping, or 'mmap' per the POSIX standard, is a method to 
 leverage the operating system's virtual memory to perform file IO.

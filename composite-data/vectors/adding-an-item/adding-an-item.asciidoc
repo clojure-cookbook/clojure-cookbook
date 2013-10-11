@@ -1,12 +1,14 @@
 [[sec_adding_to_a_vector]]
 === "Adding" an item to a vector
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to add an item to a vector, yielding a new vector containing
 the item.
 
-===== Solution
+==== Solution
 
 When used on a vector, the +conj+ function returns a vector with one
 or more items appended to the end.
@@ -20,7 +22,7 @@ or more items appended to the end.
 ;; -> [1 2 3 4 5]
 ----
 
-===== Discussion
+==== Discussion
 
 Vectors do not support adding new items anywhere aside from the end - if
 you need to insert an item in the middle, you will have to use a

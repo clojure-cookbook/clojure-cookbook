@@ -1,10 +1,12 @@
 === Cleaning up whitespace in a string
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to clean up the whitespace in a string.
 
-===== Solution
+==== Solution
 
 Use the +clojure.string/trim+ function to remove all of the whitespace
 at the beginning and end of a string.
@@ -29,7 +31,7 @@ To manage whitespace _inside_ a string we need to get more creative. Use
 ;; -> "Line 1\nLine 2"
 ----
 
-===== Discussion
+==== Discussion
 
 What constitutes whitespace in Clojure? The answer depends on the
 function, some are more liberal than others, but you can safely assume
@@ -65,7 +67,7 @@ or right hand side of a string use +clojure.string/triml+ or
 ;; -> "\t\t* Second-level bullet."
 ----
 
-===== See Also
+==== See Also
 
 * Primitives section (composing strings) for adding whitespace to a
 string, particularly justification.

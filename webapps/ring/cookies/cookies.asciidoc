@@ -1,15 +1,12 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
 === Handling Cookies with Ring
+[role="byline"]
+by Adam Bard
 
-===== Problem
+==== Problem
 
 Your web application needs to remember a user's name with a cookie.
 
-===== Solution
+==== Solution
 
 Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your requests:
 
@@ -58,7 +55,7 @@ Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your
   (jetty/run-jetty wrapped-handler {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 In this example, we used the `wrap-cookies` and `wrap-params` middlewares included
 with ring-core. We show the user a form on first view for them to enter their name.

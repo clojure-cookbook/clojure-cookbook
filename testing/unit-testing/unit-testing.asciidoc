@@ -1,10 +1,12 @@
 === Unit Testing
+[role="byline"]
+by Daniel Gregoire
 
-===== Problem
+==== Problem
 
 You want to test individual units of Clojure code.
 
-===== Solution
+==== Solution
 
 Clojure includes a unit testing framework in its +clojure.test+ namespace. It provides ways to name tests, make assertions, report results and orchestrate test suites. Let's take an example function that capitalizes string values in a map:
 
@@ -65,7 +67,7 @@ Ran 1 tests containing 2 assertions.
 {:type :summary, :pass 1, :test 1, :error 0, :fail 1}
 ----
 
-===== Discussion
+==== Discussion
 
 The example above only scratches the surface of what +clojure.test+ provides for unit testing, so let's take a bottom-up look at its other features. First, you can improve reporting when an assertion fails by providing a second argument that explains what the assertion is intended to test:
 

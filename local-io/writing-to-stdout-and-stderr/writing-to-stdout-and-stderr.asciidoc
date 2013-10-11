@@ -1,14 +1,12 @@
 === Writing to stdout and stderr
+[role="byline"]
+by Alan Busby
 
-////
-Author: Alan Busby @thebusby
-////
-
-===== Problem
+==== Problem
 
 You want to write to stdout and stderr.
 
-===== Solution
+==== Solution
 
 To stdout,
 
@@ -25,7 +23,7 @@ To stderr,
   (println "This text will be printed to stderr."))
 ----
 
-===== Discussion
+==== Discussion
 
 In Clojure `*in*`, `*out*`, and `*err*` are bound to stdin, stdout, and stderr.
 Using the +binding+ function all output normally sent to stdout can be sent to

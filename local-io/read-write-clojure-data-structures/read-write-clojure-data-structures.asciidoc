@@ -1,13 +1,13 @@
 [[sec_local_io_clojure_data_to_disk]]
 === Reading and Writing Clojure Data
+[role="byline"]
+by John Cromartie
 
-// By John Cromartie (jcromartie)
-
-===== Problem
+==== Problem
 
 You need to store and retrieve Clojure data structures on disk.
 
-===== Solution
+==== Solution
 
 Use +pr-str+ and +spit+ to serialize small amounts of data.
 
@@ -42,7 +42,7 @@ Use +read+ to efficiently read large data structures from a stream.
     (read r)))
 ----
 
-===== Discussion
+==== Discussion
 
 // This is very similar to local-io/read-write-files, I am trying to
 // harmonize the differences --JC

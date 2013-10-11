@@ -1,14 +1,14 @@
 === Full text search
+[role="byline"]
+by Osbert Feng
 
-// By Osbert Feng (osbert)
-
-===== Problem
+==== Problem
 
 You want to support flexible full text search over a dataset. For
 example, return all people that have "Clojure" in their job
 descriptions in the "United States".
 
-===== Solution
+==== Solution
 
 Use +clucy+, a Clojure wrapper for Lucene.
 
@@ -28,7 +28,7 @@ Use +clucy+, a Clojure wrapper for Lucene.
 ;; -> ({:name "Alice", :location "North Carolina, United States", :description "Clojure expert"})
 ----
 
-===== Discussion
+==== Discussion
 
 Lucene is a Java library for information retrieval. To use Lucene, you
 generate documents and index them for later retrieval. Documents

@@ -1,15 +1,12 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
 === Storing Sessions with Ring
+[role="byline"]
+by Adam Bard
 
-===== Problem
+==== Problem
 
 You need to store secure data about a logged-in user.
 
-===== Solution
+==== Solution
 
 Use `ring.middleware.session.wrap-session` to add sessions to your app.
 
@@ -71,7 +68,7 @@ Use `ring.middleware.session.wrap-session` to add sessions to your app.
   (jetty/run-jetty wrapped-handler {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 https://github.com/ring-clojure/ring/wiki/Sessions[Ring's session middleware]
 works just like cookies: get them from the `:session` request map,

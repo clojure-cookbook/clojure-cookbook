@@ -1,15 +1,12 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
 === Request and Response headers in Ring
+[role="byline"]
+by Adam Bard
 
-===== Problem
+==== Problem
 
 You need to manipulate request or response headers.
 
-===== Solution
+==== Solution
 
 [source, clojure]
 ----
@@ -31,7 +28,7 @@ You need to manipulate request or response headers.
   (jetty/run-jetty user-agent-as-json {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 Ring passes request headers as a `:headers` parameter in the request map, and
 accepts a `:headers` parameter in reponse maps as well.

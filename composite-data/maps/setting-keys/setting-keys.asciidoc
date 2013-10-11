@@ -1,10 +1,12 @@
 === Setting keys in a map
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to "change" a map by adding, setting or removing keys.
 
-===== Solution
+==== Solution
 
 The most basic way to change a map is using the +assoc+
 function. Given a map and any number of additional key/value pairs as
@@ -74,7 +76,7 @@ the same, it uses the +`+`+ function to add the values together.
 ;; -> {2010 153, 2011 231, 2012 404, 2013 104}
 ----
 
-===== Discussion
+==== Discussion
 
 It's fairly common to have maps contained in other maps. If it is
 necessary to update a deeply nested value, nested calls to +assoc+
@@ -174,6 +176,6 @@ arguments, and how they can be combined arbitrarily deeply. In this
 case, what starts with a single call to +swap!+ ends up also updating
 a map and conjoining to a vector in the same form.
 
-===== See also
+==== See also
 
 * Maps as sequences (xref)
