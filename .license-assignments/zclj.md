@@ -1,4 +1,4 @@
-By placing this file I, Stefan Karlsson, hereby grant you (O’Reilly Media, Inc), and your
+By placing this file I hereby grant you (O’Reilly Media, Inc), and your
 successors, assigns, and sublicensees, a non-exclusive license to
 copy, reproduce, print, publish, distribute, translate, and otherwise
 use all work, code, or works of authorship produced and contributed to
