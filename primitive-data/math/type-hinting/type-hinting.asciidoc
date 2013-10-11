@@ -9,7 +9,7 @@ You have functions that get called very often, and you want to optimize performa
 ==== Solution
 
 One of the easiest ways to increase performance for a given function
-is to eliminate Java reflection. Enable +*warn-on-reflection*+ to
+is to eliminate Java reflection. Enable *+warn-on-reflection+* to
 diagnose excessive reflection.
 
 [source,clojure]
@@ -96,8 +96,8 @@ types wrong your methods may not work properly; improperly hinted
 functions may throw a type-cast exception.
 
 What about when you have a *sequence* of values, all of a uniform type? Clojure
-provides a number of special hints for these cases, namely +`^`ints+, +`^`floats+
-+`^`longs+ and +`^`doubles+. Hinting these types will allow you to pass
+provides a number of special hints for these cases, namely `^`++ints++, `^`++floats++
+`^`++longs++ and `^`++doubles++. Hinting these types will allow you to pass
 whole arrays as arguments to Java functions and not provoke reflection
 for sequences.
 
@@ -109,7 +109,7 @@ isn't without a cost, of course, as Clojure needs to check on every
 operation to make sure you aren't overflowing containers. If you need
 even more to-the-metal performance and happen to have nerves of steel
 yourself, then you may want to look at unchecked math. Setting
-+*unchecked-math*+ to true will disable this safety, causing addition,
+*+unchecked-math+* to true will disable this safety, causing addition,
 subtraction, multiplication, division and +inc+/+dec+ to occur without
 overflow checks. This in effect reverts numeric behavior to a C-like
 state where it is possible to overflow a positive integer to a
@@ -135,8 +135,8 @@ negative one.
 ;; "Elapsed time: 346.0 msecs"
 ----
 
-+*unchecked-math*+ isn't absolute, however; it is possible for boxed
+*+unchecked-math+* isn't absolute, however; it is possible for boxed
 types to sneak into your operation, forcing checked math to occur.
-Combine +*unchecked-math*+ with type hinting to ensure your maths are
+Combine *+unchecked-math+* with type hinting to ensure your maths are
 truly unchecked. Do so at your own risk, of course.
 ****

@@ -1,4 +1,5 @@
-[au="Tom White"]
+[role="byline"]
+by Tom White
 === Boids Simulation
 
 ==== Problem

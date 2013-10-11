@@ -1,4 +1,4 @@
-[[Manipulating an SQL Database]]
+[[sec_db_manipulating_a_sql_database]]
 [au="Tom Hicks"]
 === Manipulating an SQL Database
 // Made after documentation by Sean Corfield and Stephen Gilardi.
@@ -11,7 +11,7 @@ You want your Clojure program to manipulate tables and records in an SQL databas
 
 Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
 
-The previous recipe, <<Connecting to an SQL Database>>, describes how to
+The previous recipe, <<sec_db_connecting_to_a_sql_database>>, describes how to
 prepare your project to use the +clojure.java.jdbc+ library. Follow that recipe
 to ensure that you have added the necessary library dependencies to your
 Leiningen project file, required the necessary namespaces of the
@@ -294,7 +294,7 @@ while expert users can more directly construct and execute complex SQL statement
 
 ==== See Also
 
-* See <<Connecting to an SQL Database>> to learn about basic database connections with +clojure.java.jdbc+.
-* See <<Connecting to an SQL Database with a Connection Pool>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
+* See <<sec_db_connecting_to_a_sql_database>> to learn about basic database connections with +clojure.java.jdbc+.
+* See <<sec_db_connecting_with_a_connection_pooling>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
 
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.

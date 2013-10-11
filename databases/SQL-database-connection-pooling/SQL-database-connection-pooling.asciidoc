@@ -1,5 +1,5 @@
 [au="Tom Hicks"]
-[[Connecting to an SQL Database with a Connection Pool]]
+[[sec_db_connecting_with_a_connection_pooling]]
 === Connecting to an SQL Database with a Connection Pool
 
 ==== Problem
@@ -11,7 +11,7 @@ You would like to connect to an SQL database efficiently using a connection pool
 Use the +c3p0+ connection and statement pooling library to wrap your JDBC-based
 drivers, creating a pooled data source. The pooled data source is then usable
 by the +clojure.java.jdbc+ library, as described in the
-<<Connecting to an SQL Database>> recipe.
+<<sec_db_connecting_to_a_sql_database>> recipe.
 
 Add a dependency to your Leiningen project file for the +c3p0+ library. You
 will also need to add dependencies for the +clojure.java.jdbc+ library and the
@@ -135,8 +135,8 @@ be sure to add the +DataSources+ class to the imports of your namespace.
 
 ==== See Also
 
-* See <<Connecting to an SQL Database>> to learn about basic database connections with +clojure.java.jdbc+.
-* See <<Manipulating an SQL Database>>to learn about using +clojure.java.jdbc+ to interact with an SQL database.
+* See <<sec_db_connecting_to_a_sql_database>> to learn about basic database connections with +clojure.java.jdbc+.
+* See <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
 
 * See the +c3p0+ http://www.mchange.com/projects/c3p0/[documentation].
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.

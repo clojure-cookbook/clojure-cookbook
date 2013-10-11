@@ -132,7 +132,7 @@ attribute map.
 * Any string literals (like +"Clear list"+ above), can simply be included in the vector. However, like with attributes,
 if you're generating the value dynamically, you must type-hint it with +^:text+.
 * The remaining items in the vector are all just recursively generated as child nodes.
-+ Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
+* Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
 as a flat list of child nodes.
 
 The reason you have to typehint when using +deftemplate+ is because Dommy relies on macros under the hood. In fact,

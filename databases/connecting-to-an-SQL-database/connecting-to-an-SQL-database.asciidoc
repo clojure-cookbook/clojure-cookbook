@@ -1,4 +1,4 @@
-[[Connecting to an SQL Database]]
+[[sec_db_connecting_to_a_sql_database]]
 [au="Tom Hicks", au2="Simone Mosciatti"]
 === Connecting to an SQL Database
 
@@ -114,8 +114,8 @@ of everyday database access needs.
 
 ==== See Also
 
-* See <<Manipulating an SQL Database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
-* See <<Connecting to an SQL Database with a Connection Pool>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
+* See <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
+* See <<sec_db_connecting_with_a_connection_pooling>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
 
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
 * See http://sqlkorma.com/[Korma SQL] for an alternative SQL DSL.
