@@ -1,3 +1,4 @@
+[[sec_composite_retrieving_keys_map]]
 === Retrieving keys from a map
 [role="byline"]
 by Luke VanderHart

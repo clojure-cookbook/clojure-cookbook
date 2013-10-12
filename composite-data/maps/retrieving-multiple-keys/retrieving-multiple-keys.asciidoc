@@ -5,102 +5,91 @@ by Leonardo Borges
 
 ==== Problem
 
-You want to get the values of several keys in a map in one go.
+You want to retrieve multiple values from a map at one time.
 
 ==== Solution
 
-Before we start, define a map from which you wish to pick values:
+Use +vals+ and +select-keys+ when the order of returned values is not
+important.
 
 [source,clojure]
 ----
-(def character {:name "Galdalf"
-                :race "Maiar"
-                :culture "Wizards"
-                :gender "Male"
-                :weapon "Wizard Staff"})
+;; How many red and green beans are there?
+(def beans {:red 10
+            :blue 3
+            :green 1})
+
+(reduce + (vals (select-keys beans [:red :green])))
+;; -> 11
 ----
 
-There are mainly two ways you can go about solving this problem. The first is more
-likely to be seen in the wild as it uses the all too familiar functions +vals+ and +select-keys+.
-
+Use +juxt+ when order matters.
 
 [source,clojure]
 ----
-(vals (select-keys character [:name :culture :weapon]))
-;; ("Wizard Staff" "Wizards" "Galdalf")
+;; What are the red and green bean totals?
+((juxt :red :green) beans)
+;; -> [10 1]
 ----
-
-The second way uses +juxt+ and yields the same results for most use cases while also
-being more concise:
-
-[source,clojure]
-----
-((juxt :name :culture :weapon) character)
-;; ["Galdalf" "Wizards" "Wizard Staff"]
-----
-
 
 ==== Discussion
 
-Now you might be thinking when to choose one approach over the other.
++juxt+ and the combination of +vals+ and +select-keys+ are both apt
+tools for retrieving multiple keys from a map. There are subtleties to
+their behavior that are important to understand.  
 
-In most cases it won't matter as both approaches return the same _sequence_ of values. The difference lies in the details.
+At first glance the +juxt+ approach seems to be the clear winner of
+the two. The +juxt+ approach only goes so far; the approach falls
+apart when any of the keys you wish to retrieve is not a keyword (more
+specifically, not a *function*.) This is because +juxt+ merely
+_juxtaposes_ the return values of multiple functions. Since keywords
+are functions, it's possible to +juxt+ them and retrieve a
+strongly-ordered list of values.
 
-As you can see above, the result of getting the list of values by using +vals+ doesn't guarantee any type of ordering. This might or might not be a problem depending on what you intend to do with the values. Also note that it returns a _sequence_, whereas +juxt+ returns a _vector_.
-
-It's also interesting to note that +select-keys+ receives a sequence of keys.
-
-+juxt+ on the other hand returns the values in the order in which they were provided the function. To see why that is we need to understand how +juxt+ works.
-
-Being a variadic function, +juxt+ accepts one or more arguments. These arguments have to be functions - which is very convenient to us since keywords can be used as functions in Clojure.
-
-Let these functions be +f1+, +f2+ ... +fN+.
-
-The result is itself another variadic function which, when called, returns a vector of the results of applying +f1+, +f2+ ... +fN+ to its arguments, one by one.
-
-A few examples might illustrate this better than I can explain:
+If the keys in the +beans+ map were strings, it would not be possible
+to retrieve their values with +juxt+.
 
 [source,clojure]
 ----
-;
-; Check how vectors and lists respond to various sequence predicates
-;
-((juxt seq? sequential? vector? list?) [1 2 3 4])
-;; [false true true false]
-
-((juxt seq? sequential? vector? list?) '(1 2 3 4))
-;; [true true false true]
-
-
-;
-; Sort a vector of maps by composite key
-;
-(sort-by (juxt :last :first) [{:first "Frodo" :last "Baggins"}
-                              {:first "Bilbo" :last "Baggins"}
-                              {:first "Samwise" :last "Gamgee"}
-                              {:first "Meriadoc" :last "Brandybuck"}])
-;; ({:last "Baggins", :first "Bilbo"} {:last "Baggins", :first "Frodo"}
-;;  {:last "Brandybuck", :first "Meriadoc"} {:last "Gamgee", :first "Samwise"})
+((juxt "a" "b") beans)
+;; -> ClassCastException java.lang.String cannot be cast to clojure.lang.IFn ...
 ----
 
-Put another way, our previous example, where we pulled out information about our character:
++select-keys+, on the other hand, *is* capable of pulling values for
+any number of arbitrary keys. The +select-keys+ function takes a map
+and sequence of keys and returns a new map populated with *only* those
+keys.
 
 [source,clojure]
 ----
-((juxt :name :culture :weapon) character)
-;; ["Galdalf" "Wizards" "Wizard Staff"]
+(def weird-map {"a" 1, {:foo :bar} :baz, 13 31})
+
+(select-keys weird-map
+             ["a" {:foo :bar}])
+;; -> {{:foo :bar} :baz, "a" 1}
+
+(vals {{:foo :bar} :baz, "a" 1})
+;; -> (1 :baz)
 ----
 
-Is simply short for:
+Since maps are not ordered, it is *not* safe to assume that the
+ordering of keys and values is identical (even if you stumble upon an
+example where it is.) In cases where you're pulling multiple values
+from non-keyword maps it is probably easiest to wrap that interaction
+up via +juxt+.
 
 [source,clojure]
 ----
-[(:name character) (:culture character) (:weapon character)]
-;; ["Galdalf" "Wizards" "Wizard Staff"]
+(def a-str-then-foo-bar-map
+  (juxt #(get % "a")
+        #(get % {:foo :bar})))
+
+(a-str-then-foo-bar-map weird-map)
+;; -> [1 :baz]
 ----
 
-+juxt+ is one of those functions that you just got to have up your sleeve. You will not use it often, but when the scenario presents itself, you'll be glad you know about it.
+You'll avoid weird maps now, won't you?
 
 ==== See also
 
-* Retrieving Keys
+* <<sec_composite_retrieving_keys_map>>
