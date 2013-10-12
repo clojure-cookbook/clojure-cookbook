@@ -21,7 +21,7 @@ JDBC library used with the RDBMS you are connecting to (e.g. MySQL):
 :dependencies [ ; ...
                 [org.clojure/java.jdbc "0.3.0-alpha4"]
                 [mysql/mysql-connector-java "5.1.25"]
-                [com.jolbox/bonecp "]
+                [com.jolbox/bonecp "0.7.1.RELEASE"]
 ----
 
 in your +project.clj+ file, and import the +BoneCP+ classes you intend to use:
@@ -45,7 +45,9 @@ database:
               :subname "//localhost:3306/lotr_db"
               :user "bilbo"
               :password "secret"
-              :max-pool-size 14})
+              :init-pool-size 4
+              :max-pool-size 20
+              :partitions 2})
 ----
 
 Define a function (for convenience) which uses the parameters in the database
@@ -111,9 +113,7 @@ configuration parameters have built-in defaults. Parameters may be specified
 to control such facets as the min, max, and initial pool size; the number of
 idle connections; the age of connections; transaction handling; the use of
 +PreparedStatement+ pooling; and if, when, and how pooled connections are
-tested. Note that the idle time and pool size parameters are shown in the
-example function above for illustration: they could have been omitted and
-allowed to take their default values.
+tested.
 
 Pooled data resources (threads and database connections) may be released by
 calling the +close+ method on the +BoneCPDataSource+ class of the 
