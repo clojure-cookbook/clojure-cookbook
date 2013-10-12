@@ -98,7 +98,7 @@ Next, we can take it for a whirl:
 
 ==== Discussions
 
-For anyone who has ever had to implement a Red Black Tree - or at least attended a class in Computer Science where the algorithm was tought - the implementation of +balance+ might seem extremely short. The reason for this is threefold:
+For anyone who has ever had to implement a Red Black Tree - or at least attended a class in Computer Science where the algorithm was taught - the implementation of +balance+ might seem extremely short. The reason for this is threefold:
 
 * Our Red Black Tree is persistent: operations on it, such as insert and balance, are not destructive
 * +balance+ uses https://github.com/clojure/core.match[core.match], a pattern matching library for Clojure.

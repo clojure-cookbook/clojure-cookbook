@@ -156,7 +156,7 @@ To make pulling information out of a node more idiomatic, we created a protocol 
   (right  [this]))
 ----
 
-This protocol isn't useful on its own. We need a type to implement it in order for it to do its job. Normally, you would implement a protocol in a new type or record. But we already have a type that represents our node beatifully, +clojure.lang.PersistentVector+, so we simply extend the protocol to it:
+This protocol isn't useful on its own. We need a type to implement it in order for it to do its job. Normally, you would implement a protocol in a new type or record. But we already have a type that represents our node beautifully, +clojure.lang.PersistentVector+, so we simply extend the protocol to it:
 
 [source,clojure]
 ----
@@ -187,7 +187,7 @@ This makes standard Clojure vectors behave like tree nodes, as you can see below
 ;; 3  
 ----
 
-The code is shorter and expresses its intent clearly. As an added bonus, we get to use these functions in higher level sequence operations suchs as +map+:
+The code is shorter and expresses its intent clearly. As an added bonus, we get to use these functions in higher level sequence operations such as +map+:
 
 [source,clojure]
 ----

@@ -70,7 +70,7 @@ you can wrap them using +with-sh-dir+.
 ;; -> {:exit 0, :out " 11G\t.\n", :err ""}
 ----
 
-Similarly, you can override enviroment variables for +sh+ with
+Similarly, you can override environment variables for +sh+ with
 the :env option and a map, or use +with-sh-env+ and a map to wrap a command
 or group of commands.
 

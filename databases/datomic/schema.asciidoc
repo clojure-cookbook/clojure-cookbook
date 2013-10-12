@@ -135,7 +135,7 @@ attribute, +:db/ident+. Datomic allows you to use a shorthand for defining and q
 by proving the enum entity's +db/ident+ value directly instead of the enum entity's +:db/id+ value.
 
 
-Attributes with +:db/valueType :db.type/ref+ and +:db/unqiue+ values are implicitly indexed, as 
+Attributes with +:db/valueType :db.type/ref+ and +:db/unique+ values are implicitly indexed, as 
 though you had added +:db/index true+ to their definitions.
 
 It is also possible to use Lucene full-text indexing on string attributes, using +:db/fulltext true+ 

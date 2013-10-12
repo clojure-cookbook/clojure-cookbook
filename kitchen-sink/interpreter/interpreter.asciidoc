@@ -200,7 +200,7 @@ This is probably clearer from an example:
 ;; -> 8
 ----
 
-In the above example, the variable `x` in the `fn` expreesion had the
+In the above example, the variable `x` in the `fn` expression had the
 value 5 even though `x` was not bound inside the `fn` expression
 itself. Rather, the value for `x` was ``inherited'' from the `let`
 expression. That is, the `fn` expression _closed over_ the value for x.
