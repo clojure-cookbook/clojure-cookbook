@@ -66,7 +66,7 @@ You can explore the usage of this recipe by going through a simple file reading 
 (def db (load-example))
 
 ;;normally you'd make the max argument much bigger for performance reasons,
-;;here its set to 5 to show how connecting and quering is done.
+;;here its set to 5 to show how connecting and querying is done.
 (defn select [pos] ((:bytes db) pos 5 ) )
 
 (def bts (buffered-select select 0))

@@ -89,7 +89,7 @@ All of standard Markdown tags are supported with the exception of the reference 
 to the fact that the parser uses a single pass to generate the document.
 
 The +markdown.core/md-to-html+ processes the input line by line and the entirety of the content
-does not need to be stored in memory when processing. On the otheer hand both +md-to-html-string+ and +mdToHTML+ 
+does not need to be stored in memory when processing. On the other hand both +md-to-html-string+ and +mdToHTML+ 
 functions load the entire contents into memory.
 
 The parser accepts additional formatting options. These include +:heading-anchors+, +:code-style+,

@@ -31,7 +31,7 @@ You need to manipulate request or response headers.
 ==== Discussion
 
 Ring passes request headers as a `:headers` parameter in the request map, and
-accepts a `:headers` parameter in reponse maps as well.
+accepts a `:headers` parameter in response maps as well.
 Headers are
 http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[as in HTTP].
 

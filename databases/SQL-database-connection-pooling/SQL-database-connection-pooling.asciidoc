@@ -103,7 +103,7 @@ pooled by the +c3p0+, or other, pooling library.
 The +c3p0+ library wraps existing JDBC classes to allow the creation of
 efficient data sources. It can adapt traditional unpooled drivers and
 data sources by augmenting them with transparent pooling of +Connection+
-and +PreparedStatment+ instances.
+and +PreparedStatement+ instances.
 
 While there are several ways to create data sources with the +c3p0+ library,
 most users will find the +ComboPooledDataSource+ class to be the easiest.

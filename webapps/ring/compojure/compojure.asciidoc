@@ -78,7 +78,7 @@ and pass them to a function:
 
 It is important to realize that compojure works on top of Ring. Your views
 should still return Ring response maps (although Compojure will wrap strings
-you return with a basic 200 reponse).
+you return with a basic 200 response).
 
 Compojure provides a few other helpful tools:
 http://weavejester.github.io/compojure/compojure.route.html[`compojure.routes`],

@@ -79,7 +79,7 @@ multiple events on a node, you can just list them both in the same call to +domm
 ----
 
 If you want to listen dynamically on a node that can get switched out dynamically, use Dommy's live-listener
-syntax. This requires that the reference node exist, but it checks for the existance of the child node when
+syntax. This requires that the reference node exist, but it checks for the existence of the child node when
 the event actually fires.
 
 [source, clojure]
@@ -126,7 +126,7 @@ Let's take a closer look at what's actually going on in the two templates from b
 ----
 
 * The first keyword in each vector always describes the element tag, including its classes and id, using css syntax.
-If no tag is specified, it defauts to div. Thus, the +:#my-list.shopping-list+ becomes
+If no tag is specified, it defaults to div. Thus, the +:#my-list.shopping-list+ becomes
 +<div id="my-list" class="shopping-list">...</div>+
 * If the second item in the vector is a map literal, or it type-hinted with +^:attrs+, then it's treated as an
 attribute map.
@@ -170,8 +170,8 @@ $('li').append(
 ----
 
 And, finally, Dommy is very extensible. If you have your own objects that you want to play nice with Dommy,
-all you have to do is implement the +PElement+ protocol. For each side-effect, Dommy retuns the original input,
-not the Dom node, which allows you to effortlessly combine the chaining of both DOM manipulation and object
+all you have to do is implement the +PElement+ protocol. For each side-effect, Dommy returns the original input,
+not the DOM node, which allows you to effortlessly combine the chaining of both DOM manipulation and object
 manipulation:
 
 [source, clojure]
@@ -199,13 +199,13 @@ manipulation:
 ==== See Also
 
 * Examine Dommy in more depth and propose new changes by taking a look at
-https://github.com/Prismatic/dommy[the source on Gtihub].
+https://github.com/Prismatic/dommy[the source on GitHub].
 * Peruse this excellent blog post by Fogus on to understand exactly how the macro-compilation process works:
 http://blog.fogus.me/2012/04/25/the-clojurescript-compilation-pipeline/[The ClojureScript Compilation Pipeline]
 * For a more detailed look into Dommy's performant use of macros, check out the posts on
 http://blog.getprismatic.com/blog/2013/1/22/the-magic-of-macros-lighting-fast-templating-in-clojurescript[Templating]
 and http://blog.getprismatic.com/blog/2013/4/29/faster-better-dom-manipulation-with-dommy-and-clojurescript[DOM manipulation]
-on the Prisamtic blog.
+on the Prismatic blog.
 * Dommy isn't the only DOM manipulation library out there. Check out https://github.com/ibdknox/jayq[JayQ],
 https://github.com/ckirkendall/enfocus[Enfocus], or https://github.com/levand/domina[Domina] if Dommy doesn't
 do the trick for you.

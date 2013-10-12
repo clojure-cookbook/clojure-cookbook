@@ -119,7 +119,7 @@ and vertical position. But unlike traditional music notation, our Clojure
 representation can be worked on by functional programming techniques.
 
 Pieces of Western music, like "Row, row, row your boat" aren't composed of
-arbitary pitches. Within a given melody, the notes are typically confined to
+arbitrary pitches. Within a given melody, the notes are typically confined to
 a subset of all possible pitches called a "scale".
 
 The approach taken here is to express the pitches by an integer denoting
