@@ -5,7 +5,9 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to work precisely with numbers, especially those that are very large or very small.
+You need to work precisely with numbers, especially those that are
+very large or very small, without the imprecision implied by using
+floating-point representations such as +double+ values.
 
 ==== Solution
 
