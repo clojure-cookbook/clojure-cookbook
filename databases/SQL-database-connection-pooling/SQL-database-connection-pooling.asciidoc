@@ -7,37 +7,14 @@ You would like to connect to an SQL database efficiently using a connection pool
 
 ===== Solution
 
-Use the +c3p0+ or +BoneCP+ connection and statement pooling library to wrap your JDBC-based
+Use the +BoneCP+ connection and statement pooling library to wrap your JDBC-based
 drivers, creating a pooled data source. The pooled data source is then usable
 by the +clojure.java.jdbc+ library, as described in the
 <<Connecting to an SQL Database>> recipe.
 
-
-Add a dependency to your Leiningen project file for the +c3p0+ or +BoneCP+ library. You
+Add a dependency to your Leiningen project file for the +BoneCP+ library. You
 will also need to add dependencies for the +clojure.java.jdbc+ library and the
 JDBC library used with the RDBMS you are connecting to (e.g. MySQL):
-
-For *cp30*, add
-
-[source,clojure]
-----
-:dependencies [ ; ...
-                [org.clojure/java.jdbc "0.3.0-alpha4"]
-                [mysql/mysql-connector-java "5.1.25"]
-                [com.mchange/c3p0 "0.9.2.1"] ]
-----
-
-in your +project.clj+ file, and import the +c3p0+ classes you intend to use:
-
-[source,clojure]
-----
-(ns myproj.core
-  (:require [clojure.java.jdbc :as jdbc]
-            [clojure.java.jdbc.sql :as sql])
-  (:import com.mchange.v2.c3p0.ComboPooledDataSource))
-----
- 
-If you prefer to use *BoneCP*, add
 
 [source,clojure]
 ----
@@ -73,29 +50,6 @@ database:
 
 Define a function (for convenience) which uses the parameters in the database
 specification map to create a pooled data source.
-
-For +c3p0+ this function will be
-
-[source,clojure]
-----
-(defn pooled-datasource [db-spec]
-  (let [ {:keys [classname subprotocol subname user password
-                 init-pool-size max-pool-size idle-time]} db-spec
-         cpds (doto (ComboPooledDataSource.)
-                (.setDriverClass classname)
-                (.setJdbcUrl (str "jdbc:" subprotocol ":" subname))
-                (.setUser user)
-                (.setPassword password)
-                (.setInitialPoolSize (or init-pool-size 7))
-                (.setMaxPoolSize (or max-pool-size 11))
-                ;; always expire excess connections after 30 minutes of inactivity:
-                (.setMaxIdleTimeExcessConnections (* 60 30))
-                ;; expire connections after inactivity (default 60 minutes):
-                (.setMaxIdleTime (* 60 (or idle-time 60))) )]
-    {:datasource cpds} ))
-----
-
-while for +BoneCP+ it will be
 
 [source,clojure]
 ----
@@ -141,17 +95,17 @@ library's other functions which query and manipulate your database.
 
 As shown above, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
-pooled by the +c3p0+, +BoneCP+ or other pooling library.
+pooled by the +BoneCP+ or other pooling library.
 
-The +c3p0+ and +BoneCP+ libraries wrap existing JDBC classes to allow the creation of
+The +BoneCP+ library wraps existing JDBC classes to allow the creation of
 efficient data sources. It can adapt traditional unpooled drivers and
 data sources by augmenting them with transparent pooling of +Connection+
 and +PreparedStatment+ instances.
 
-While the libraries offer several ways to create data sources,
+While the library offers several ways to create data sources,
 most users will find the examples provided here to be the easiest.
 
-Both libraries have several dozen configuration parameters which control
++BoneCP+ offers several dozen configuration parameters which control
 the operation of the data source and its connections. Luckily, most of these
 configuration parameters have built-in defaults. Parameters may be specified
 to control such facets as the min, max, and initial pool size; the number of
@@ -162,18 +116,13 @@ example function above for illustration: they could have been omitted and
 allowed to take their default values.
 
 Pooled data resources (threads and database connections) may be released by
-calling a static +destroy+ method on the +DataSources+ class of the 
-library, passing in the pooled data source object. Attempting to reuse the
-pooled data source after it is closed will result in an SQL exception.
-Most applications will not need to call the +destroy+ method but, if you do,
-be sure to add the +DataSources+ class to the imports of your namespace.
+calling the +close+ method on the +BoneCPDataSource+ class of the 
+library. Attempting to reuse the pooled data source after it is closed will result 
+in an SQL exception.
 
 [source,clojure]
 ----
-(ns myproj.core ; ...
-  (:import [com.mchange.v2.c3p0 ComboPooledDataSource DataSources]))
-...
-(DataSources/destroy (:datasource pooled-db-spec))
+(.close pooled-db-spec)
 ;; -> nil
 ----
 
@@ -181,7 +130,5 @@ be sure to add the +DataSources+ class to the imports of your namespace.
 
 * See <<Connecting to an SQL Database>> to learn about basic database connections with +clojure.java.jdbc+.
 * See <<Manipulating an SQL Database>>to learn about using +clojure.java.jdbc+ to interact with an SQL database.
-
-* See the +c3p0+ http://www.mchange.com/projects/c3p0/[documentation].
 * See the +BoneCP+ http://jolbox.com/index.html?page=http://jolbox.com/configuration.html[documentation].
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
