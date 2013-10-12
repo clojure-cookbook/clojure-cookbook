@@ -1,6 +1,41 @@
+[[sec_composite_combining_maps]]
 === Combining Maps
 [role="byline"]
 by Tom Hicks
+
+// TODO: Rebalance recipe and/or integrate Luke's merge discussion:
+
+// Another common way to update a map is to merge it with another
+// one. Clojure supports this with the +merge+ function, which takes any
+// number of maps, and returns a map containing all the keys and values
+// in a single map. The maps are merged in argument order from left to
+// right, so if a key is present in more than one of the maps, the value
+// used will be the one in the final map to contain the key.
+//
+// [source,clojure]
+// ----
+// (def public {:name "Bruce Wayne", :occupation "Playboy"})
+// (def secret {:training "Ninja" :occupation "Vigilante"})
+// (def batman (merge public secret))
+// ;; -> {:name "Bruce Wayne" :occupation "Vigilante" :training "Ninja"}
+// ----
+//
+// Sometimes, when merging maps which have the same key, it is possible
+// to be smarter about combining them instead of doing a simple overwrite
+// as +merge+ does. The +merge-with+ function allows you to specify a
+// two-argument function that will be called with both values, with the
+// result used as the final value in the resulting map.
+//
+// For example, the following example merges two maps, and if a key is
+// the same, it uses the +`+`+ function to add the values together.
+//
+// [source,clojure]
+// ----
+// (def print-sales {2010 153, 2011 206, 2012 321})
+// (def ebook-sales {2011 25, 2012 83, 2013 104})
+// (def total-sales (merge-with + print-sales ebook-sales))
+// ;; -> {2010 153, 2011 231, 2012 404, 2013 104}
+// ----
 
 ==== Problem
 
