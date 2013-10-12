@@ -1,0 +1,119 @@
+////
+:Author: Hugo Duncan
+:Email: hugo@hugoduncan.org
+////
+
+=== Deploy your Clojure Application
+
+(((Embedded jetty)))
+(((jenkins)))
+
+===== Problem
+
+You have a clojure application, containing a +main+, and packaged with +lein uberjar+. You want to deploy your clojure application to a server, and run it under process supervision.
+
+===== Solution
+
+Use http://palletops.com/[Pallet] to deploy your application to EC2
+(or elsewhere), using http://smarden.org/runit/[runit] to supervise the server
+process.
+
+To demonstrate this, we're going to deploy
+http://jenkins-ci.org/[jenkins] using its embedded jetty server.
+
+To get started you create a new project with leiningen, using the +pallet+ template:
+
+[source,console]
+----
+$ lein new pallet deployer
+----
+
+Add the +app-deploy-crate+, +java-crate+ and +runit-crate+ to your +:dependencies+ in
+the generated +project.clj+ file.  Pallet crates are jar files that
+contain functions for installing, configuring and running a specific
+library or application.
+
+[source, clojure]
+----
+:dependencies [...
+               [com.palletops/app-deploy-crate "0.8.0-alpha.3"]
+               [com.palletops/java-crate "0.8.0-beta.5"]
+               [com.palletops/runit-crate "0.8.0-alpha.1"]
+               ...]
+----
+
+We will require these crates in the definition of the +server-spec+
+used by pallet to describe what we want on the server.
+
+[source, clojure]
+----
+(ns deployer.groups.deployer
+    "Node definitions for deployer"
+    (:require
+     [pallet.api :refer [group-spec server-spec node-spec plan-fn]]
+     [pallet.crate.automated-admin-user :refer [automated-admin-user]]
+     [pallet.crate.app-deploy :as app-deploy]
+     [pallet.crate.java :as java]
+     [pallet.crate.runit :as runit]))
+
+...
+
+(def
+ ^{:doc "Define a server spec for deployer"}
+ deployer-server
+ (server-spec
+  :extends                            ; <1>
+  [(java/server-spec {})              ; <2>
+   (runit/server-spec {})             ; <3>
+   (app-deploy/server-spec
+    {:app-root "/opt/jenkins"         ; <4>
+     :artifacts
+     {:from-maven-repo
+      [{:coord '[org.jenkins-ci.main/jenkins-war "1.529" :extension "war"]
+        :path "jenkins.war"}]}
+     :repositories {"jenkins"         ; <5>
+                    {:url "http://repo.jenkins-ci.org/public"}}
+     :run-command "java -jar /opt/jenkins/jenkins.war"})]))
+...
+----
+
+ 1. extends allows you to compose other +sever-spec+ definitions
+ 3. ensures java is installed
+ 3. ensures runit is installed
+ 4. the +:app-root+ determines the root directory for the deployment artifacts
+ 5. your project uberjar will be found by looking in a specific repository
+
+Now we have the server described, we need to tell Pallet the
+credentials we want to use on EC2:
+
+[source,console]
+----
+$ lein pallet add-service aws aws-ec2 "your-aws-key" "your-aws-secret-key"
+----
+
+Deploy jenkins on a new ec2 node:
+
+[source,console]
+----
+$ lein pallet up --phases install,configure,deploy
+----
+
+Jenkins will now be running on port 8080.
+
+You can redeploy your application with:
+
+[source,console]
+----
+$ lein pallet up --phases deploy
+----
+
+===== Discussion
+
+You have many choices of where to run a server; on EC2 or other cloud, on a VPS host, or on some dedicated machine. Using http://palletops.com/[Pallet], you can deploy to any of these environments using the same code.
+
+There are also many process supervision frameworks to choose from.  We have used http://smarden.org/runit/[runit] which is the default for the +app-deploy+ crate, but you can use +upstart+ or +initd+,
+for example.
+
+===== See Also
+
+* <<sec_using_chef_puppet>> on using chef or puppet to deploy

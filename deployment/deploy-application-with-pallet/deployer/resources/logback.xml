@@ -1,0 +1,104 @@
+<configuration scan="true" scanPeriod="1 seconds" debug="false">
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+  </appender>
+
+  <appender name="COMPUTEFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/jclouds-compute.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/old/jclouds-compute.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>3</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="WIREFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/jclouds-wire.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/old/jclouds-wire.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>3</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="PALLETFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/pallet.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/old/pallet.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>3</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="VMFESTFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/vmfest.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/old/vmfest.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>3</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="jclouds.headers" level="INFO">
+    <appender-ref ref="WIREFILE" />
+  </logger>
+
+  <logger name="jclouds.wire" level="INFO">
+    <appender-ref ref="WIREFILE" />
+  </logger>
+
+  <logger name="jclouds.compute" level="INFO">
+    <appender-ref ref="COMPUTEFILE" />
+  </logger>
+
+  <logger name="jclouds.ssh" level="INFO">
+    <appender-ref ref="COMPUTEFILE" />
+  </logger>
+
+  <logger name="clj-ssh.ssh" level="INFO">
+    <!-- Set this to TRACE to debug ssh keys -->
+    <appender-ref ref="COMPUTEFILE" />
+  </logger>
+
+  <logger name="pallet" level="DEBUG">
+    <appender-ref ref="PALLETFILE" />
+  </logger>
+
+  <logger name="vmfest" level="DEBUG">
+    <appender-ref ref="VMFESTFILE" />
+  </logger>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+  </root>
+
+  <logger name="clj-ssh.ssh" level="ERROR"/>
+  <logger name="pallet.action-plan" level="INFO"/>
+  <logger name="pallet.action-plan" level="INFO"/>
+  <logger name="pallet.algo.fsm" level="WARN"/>
+  <logger name="pallet.algo.fsmop" level="WARN"/>
+  <logger name="pallet.configure" level="INFO"/>
+  <logger name="pallet.core.api" level="DEBUG"/>
+  <logger name="pallet.core.operations" level="DEBUG"/>
+  <logger name="pallet.core.primitives" level="DEBUG"/>
+  <logger name="pallet.crate.nohup" level="DEBUG"/>
+  <logger name="pallet.execute" level="DEBUG"/>
+  <logger name="pallet.executors" level="INFO"/>
+  <logger name="pallet.project" level="INFO"/>
+  <logger name="pallet.stevedore" level="INFO"/>
+  <logger name="pallet.transport" level="DEBUG"/>
+
+</configuration>
