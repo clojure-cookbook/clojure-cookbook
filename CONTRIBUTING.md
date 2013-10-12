@@ -1,5 +1,13 @@
 # Contributing to Clojure Cookbook
 
+---
+
+**NOTE: As of 2013-10-11 we are *not* soliciting any new recipe submissions. At this point Luke and I are editing the book for publication.**
+
+We will begin accepting whole recipes again in the middle of December once we have shipped a completed manuscript to O'Reilly.
+
+---
+
 Our goal with *Clojure Cookbook* is to build the best possible cookbook, chock full of excellent Clojure recipes. To do this we need the help of the whole community. From typos and factual corrections, to ideas for recipes, to whole recipes themselves, your experience is what we need to build the best *Clojure Cookbook*.
 
 This document describes how you can contribute and what you'll receive if you do.
