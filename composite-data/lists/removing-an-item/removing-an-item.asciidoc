@@ -22,15 +22,6 @@ a non-empty list.
 ;; -> (2 3)
 ----
 
-When used on an empty list, the behavior does differ: +pop+ will throw
-an exception, while +rest+ will return an empty list.
-
-Lists do not support removing items except at the first position. If
-you need to remove an item in the middle or at the end of a list,
-you'll have to do so using the sequence manipulation functions, then
-convert the result back into a concrete list (if you absolutely need
-it to be a list, for some reason).
-
 ==== Discussion
 
 +rest+ is actually a sequence function, used to obtain the tail of a
@@ -43,6 +34,24 @@ structures rather than the sequence interface. Like +conj+, it is
 polymorphic, and also like +conj+, the position it removes the item
 from depends on what's most efficient for the concrete type.
 
+When used on an empty list, the behavior does differ: +pop+ will throw
+an exception, while +rest+ will return an empty list.
+
+[source,clojure]
+----
+(pop '())
+;; -> IllegalStateException Can't pop empty list ...
+
+(rest '())
+;; -> ()
+----
+
+Lists do not support removing items except at the first position. If
+you need to remove an item in the middle or at the end of a list,
+you'll have to do so using the sequence manipulation functions, then
+convert the result back into a concrete list (if you absolutely need
+it to be a list, for some reason).
+
 ==== See Also
 
-* Removing an item from a vector (xref)
+* <<sec_composite_removing_an_item_from_vector>>

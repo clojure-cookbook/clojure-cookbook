@@ -8,7 +8,7 @@ Normally, maps are strictly one value per key; if you +assoc+ an
 existing key, the old value is replaced.
 
 Sometimes it is useful to have a map-like interface (a "multimap")
-which is capable of storing _multiple_ values for the same key. There
+which is capable of storing *multiple* values for the same key. There
 is no such capability built in to Clojure.
 
 So, how would you design a multimap data structure, backed by a normal
@@ -68,6 +68,8 @@ And, of course, corresponding unit tests (using +clojure.test+.)
 
 [source,clojure]
 ----
+(require '[clojure.test :refer :all])
+
 (deftest test-insert
   (testing "inserting to a new key"
     (is (= {:k :v} (insert {} :k :v))))
@@ -101,6 +103,9 @@ And, of course, corresponding unit tests (using +clojure.test+.)
     (is (= #{:v} (get-all {:k :v} :k))))
   (testing "get multiple values"
     (is (= #{:v1 :v2} (get-all (insert (insert {} :k :v1) :k :v2) :k)))))
+
+(run-tests)
+;; -> {:type :summary, :pass 11, :test 3, :error 0, :fail 0}
 ----
 
 ==== Discussion
@@ -112,7 +117,7 @@ operations on the same object, and it allows for multiple concrete
 implementations.
 
 In this case, there are three methods required to implement the
-desired functionality. Note that it does _not_ override or
+desired functionality. Note that it does *not* override or
 re-implement any of the core map methods (+assoc+, +dissoc+ etc.). The
 semantics of the new behavior are simply different from regular maps,
 and Clojure defines very strong semantics around core
@@ -123,7 +128,7 @@ when multimap functionality is being used.
 The concrete implementation of +MultiAssociative+ extends the protocol
 to the +clojure.lang.Associative+ interface. It would certainly be
 possible to implement it on something more targeted, such as
-+IPersistentSet+, but since it only _requires_ something associative
++IPersistentSet+, but since it only *requires* something associative
 for the implementation, it's best not to be too specific. Coding
 against +clojure.lang.Associative+ also gives several additional
 capabilities for free; for example, there is now automatically a
@@ -138,32 +143,36 @@ check on what type the value is and wrap or unwrap
 accordingly. Similarly, +get-all+ needs to wrap single values in a set
 before returning, since it specifies that it must return a set.
 
-This is a design decision that has several benefits and
-tradeoffs. The alternative would be to always wrap the values in a
-set, even single values. This would make the code a bit simpler, and
-would eliminate most of the type checking as well as the wrapping and unwrapping of forms.
+
+This is a design decision that has several benefits and tradeoffs. The
+alternative would be to always wrap the values in a set, even single
+values. This would make the code a bit simpler, and would eliminate
+most of the type checking as well as the wrapping and unwrapping of
+forms.
 
 However, the simplicity would come with a price. If values (even
-single values) were _always_ wrapped in a set, the map being used as a
+single values) were *always* wrapped in a set, the map being used as a
 multimap would not be easily usable via the normal map functions; it
 would contain a lot of odd-looking single-item sets, and if anything
 were added to it using +assoc+ it would be incompatible with future
 uses of +insert+ on that key.
 
 In essence, the wrapping and unwrapping is to allow any map to be
-usable via both the standard +Associative+ _and_ the
+usable via both the standard +Associative+ *and* the
 +MultiAssociative+ interfaces, without requiring the user to keep
 track of which "kind" of a map it is. Values inserted using +assoc+
 can be read with +get-all+, and values inserted using +insert+ can be
 removed with +dissoc+. All expectations regarding normal maps should
 hold. In the case of a normal +get+ on a key with multiple values, a
-set containing multiple items will be returned; this is probably what the user would expect upon inspecting the data.
+set containing multiple items will be returned; this is probably what
+the user would expect upon inspecting the data.
 
-There is one more feature of this code that deserves commentary: the use of +::multi-value+ metadata on the sets used to store
-multiple values, applied and tested using the +value-set+ and
-+value-set?+ functions.
+There is one more feature of this code that deserves commentary: the
+use of +::multi-value+ metadata on the sets used to store multiple
+values, applied and tested using the +value-set+ and +value-set?+
+functions.
 
-This is to handle the edge case where the intended _value_ for a key
+This is to handle the edge case where the intended *value* for a key
 is, itself, a set. The code needs a way to disambiguate between sets
 it creates in order to manage multiple keys for a value, and sets that
 are simply values provided by users.
@@ -177,5 +186,5 @@ or is itself a value.
 
 ==== See also
 
-* Using a protocol to extend an existing interface
+* <<extend_built_in>>
 

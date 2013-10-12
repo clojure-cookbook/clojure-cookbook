@@ -379,7 +379,7 @@ Boolean fields are also very common and supported by ElasticSearch:
                        :promoted  {:type "boolean" :default false :boost 10.0 :include_in_all false}}}}
 ----
 
-Here we see one more setting in action, `:boost`. Boost is a multipler
+Here we see one more setting in action, `:boost`. Boost is a multiplier
 that is applied to field score during document scoring. It lets
 developer express that matches in some fields (e.g. title) are more
 important than others (for example, metadata). In the previous example

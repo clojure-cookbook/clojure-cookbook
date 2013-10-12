@@ -7,7 +7,7 @@ by Luke VanderHart
 You'd like to use a value that isn't a simple primitive type as a
 lookup key in a map. For example:
 
-* You'd like to use geographic or cartesian coordinates as map keys.
+* You'd like to use geographic or Cartesian coordinates as map keys.
 * You'd like to associate values with functions.
 
 ==== Solution

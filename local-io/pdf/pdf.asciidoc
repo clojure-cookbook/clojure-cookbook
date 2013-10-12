@@ -130,7 +130,7 @@ will be inherited by the child elements:
 [:paragraph "some content"]
 
 [:paragraph
-{:style :bold :size 10 :family :halvetica :color [0 255 221]}
+{:style :bold :size 10 :family :helvetica :color [0 255 221]}
 "some content "
 [:phrase [:chunk "a chunk of text "] "more text"]]
 ----
@@ -140,7 +140,7 @@ child elements can augment or override the parent style
 [source, clojure]
 ---- 
 [:paragraph
-{:style :bold :size 10 :family :halvetica :color [0 255 221]}
+{:style :bold :size 10 :family :helvetica :color [0 255 221]}
 "some content "
 [:phrase {:size 15}
  [:chunk {:style :italic} "a chunk of text "] "more text"]]

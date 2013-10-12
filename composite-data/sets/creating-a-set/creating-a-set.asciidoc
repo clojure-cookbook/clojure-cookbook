@@ -127,7 +127,7 @@ the set is preserved when adding or removing objects.
 ;; -> #{4 3 2 1 -1}
 ----
 
-There are some performance tradeoffs to consider when choosing between
+There are some performance trade-offs to consider when choosing between
 hash sets and sorted sets. Hash sets are based on hash tables, which
 offer constant time insert and lookup in most cases. However, they do
 require some degree of memory overhead. Sorted sets, based on a

@@ -12,7 +12,7 @@ You need to read or write some binary data.
 Use Java's `BufferedInputStream` / `BufferedOutputStream` and
 ByteBuffers, or Clojure libraries which wrap them.
 
-==== Discusion
+==== Discussion
 
 While reading and writing text files (e.g. via `slurp` and `spit`) are
 easy in pure Clojure, writing binary data requires a little more Java interop.

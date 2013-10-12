@@ -19,13 +19,7 @@ include::default-data-reader/default-data-reader.asciidoc[]
 
 include::edn-record/edn-record.asciidoc[]
 
-include::custom-data-structures/red-black-trees-part-i.asciidoc[]
-
-include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
-
 include::lein-templates/lein-templates.asciidoc[]
-
-include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
 
 include::trying-a-library-without-a-project/trying-a-library-without-a-project.asciidoc[]
 

@@ -1,3 +1,4 @@
+[[sec_composite_creating_a_vector]]
 === Creating a vector
 [role="byline"]
 by Luke VanderHart

@@ -61,7 +61,7 @@ you have to differentiate the run arguments from your own arguments using +--+:
 the +cli+ function is the main utility you will use.
 It received a list of args and will return a vector containing:
 * A hash of all your keyword arguments
-* A vector of all non key word trailing argumenta
+* A vector of all non keyword trailing arguments
 * A generated help banner
 
 [source,bash]
