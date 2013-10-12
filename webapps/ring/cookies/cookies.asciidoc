@@ -59,7 +59,7 @@ Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your
 
 In this example, we used the `wrap-cookies` and `wrap-params` middlewares included
 with ring-core. We show the user a form on first view for them to enter their name.
-After thier name is entered, a greeting is displayed thereafter instead, until
+After their name is entered, a greeting is displayed thereafter instead, until
 the cookie is removed.
 
 We use `wrap-cookies` to let us retrieve the user's stored name, and `wrap-params`

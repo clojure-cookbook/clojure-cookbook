@@ -40,7 +40,7 @@ This is how you can use the +from-unix-time+ function:
 ==== Discussion
 
 To get a Java Date object from a Unix time object, all you need to do
-is contruct a new +java.util.Date+ object using Clojure's Java interop
+is construct a new +java.util.Date+ object using Clojure's Java interop
 functionality.
 
 If you are already using, or wish to use the

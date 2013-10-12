@@ -88,7 +88,7 @@ We have two separate calls to a single arity `File` constructor, using the predi
 `string?` to decide between them. We relax our core.typed input type to `(U URI String)`,
 and core.typed can infer that each branch has the correct types by following the `string?` predicate.
 
-Let's wrap a method from java.io.File. `parent` is a thin wrapper over the File instace method `getParent`.
+Let's wrap a method from java.io.File. `parent` is a thin wrapper over the File instance method `getParent`.
 
 [source,clojure]
 ----

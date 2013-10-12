@@ -81,7 +81,7 @@ Here, +[:head :title]+ is a selector, pretty much like a css selector. If you're
 
 Enlive is a powerful templating tool. It lets you generate all pages in a very dynamic manner. It lets you completely decouple view logic from representation. You write HTML code, and then transform it into the page.
 
-To explain Enlive concepts a bit more, +snippet+ is a unit of your page. It may be logical or visual entry, such as header, footer, page element. Snippet is usually a part of a template, and may serve as a container for other snippets. For example, for navigation on the web page. For that, let's first define an html template for the navigation. Snippets are created by using +net.cgrand.enlive-html/defsnippet+ function and, same as templates, they require a corresponding HTML template file to be availble in a classpath.
+To explain Enlive concepts a bit more, +snippet+ is a unit of your page. It may be logical or visual entry, such as header, footer, page element. Snippet is usually a part of a template, and may serve as a container for other snippets. For example, for navigation on the web page. For that, let's first define an html template for the navigation. Snippets are created by using +net.cgrand.enlive-html/defsnippet+ function and, same as templates, they require a corresponding HTML template file to be available in a classpath.
 
 +Templates+ combine +snippets+ together, they serve like a basement for the snippets. In order to create a template, you can use +net.cgrand.enlive-html/deftemplate+ function. +deftemplate+ is used as something what you would call layout in some other templating systems. In essence, it's either a self-contained page (rarely true in bigger applications), or a container for snippets.
 

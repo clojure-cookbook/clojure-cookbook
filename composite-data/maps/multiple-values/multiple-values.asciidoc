@@ -139,7 +139,7 @@ accordingly. Similarly, +get-all+ needs to wrap single values in a set
 before returning, since it specifies that it must return a set.
 
 This is a design decision that has several benefits and
-tradeoffs. The alternative would be to always wrap the values in a
+trade-offs. The alternative would be to always wrap the values in a
 set, even single values. This would make the code a bit simpler, and
 would eliminate most of the type checking as well as the wrapping and unwrapping of forms.
 

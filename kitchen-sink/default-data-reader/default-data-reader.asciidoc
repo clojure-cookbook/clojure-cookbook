@@ -26,7 +26,7 @@ on a string.
 ==== Discussion
 
 The **edn** format defines a print representation for a significant subset of Clojure datatypes and
-offers extensiblibilty through tagged literals.  The best way to read **edn** data is to use
+offers extensibility through tagged literals.  The best way to read **edn** data is to use
 +clojure.edn/read+ on a stream or +clojure.edn/read-string+ on a string.  Both functions take the
 same style of an *opts* map, which allows you to control several options when reading.
 
