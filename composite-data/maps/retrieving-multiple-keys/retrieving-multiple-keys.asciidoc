@@ -93,3 +93,4 @@ You'll avoid weird maps now, won't you?
 ==== See also
 
 * <<sec_composite_retrieving_keys_map>>
+* <<sec_composites_as_keys>>

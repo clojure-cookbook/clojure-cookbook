@@ -17,9 +17,9 @@ Use a set literal to create a set of objects.
 #{:a :b :c}
 ;; -> #{:a :c :b}
 
-;; duplicate elements in set literals are an error
+;; Duplicate elements in set literals are an error
 #{:x :y :z :z :z}
-;; throws #<IllegalArgumentException java.lang.IllegalArgumentException: Duplicate key: :z>
+;; -> IllegalArgumentException Duplicate key: :y :z ...
 ----
 
 Use +hash-set+ to create a set from arguments.
@@ -136,6 +136,5 @@ for lookup and insertion.
 
 ==== See also
 
-* Creating a vector (xref)
-* Adding elements to a set (xref)
-* Removing elements from a set (xref)
+* <<sec_adding_removing_from_sets>>
+* <<sec_composite_creating_a_vector>>

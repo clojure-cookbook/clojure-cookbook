@@ -1,3 +1,4 @@
+[[sec_composites_as_keys]]
 === Using composite values as map keys
 [role="byline"]
 by Luke VanderHart
@@ -25,9 +26,9 @@ In Clojure, you can represent this directly as a map:
 
 [source,clojure]
 ----
-(def chessboard { [:a 5] [:white :king]
-                  [:a 4] [:white :pawn]
-                  [:d 4] [:black :king] })
+(def chessboard {[:a 5] [:white :king]
+                 [:a 4] [:white :pawn]
+                 [:d 4] [:black :king]})
 ----
 
 Moving a piece then, requires two operations: +dissoc+ing the old
@@ -42,6 +43,10 @@ position for a piece, and +assoc+ing the new position.
   (-> board
       (dissoc source)
       (assoc dest (board source))))
+
+(move chessboard [:a 5] [:a 4])
+;; -> {[:d 4] [:black :king]
+;;     [:a 4] [:white :king]}
 ----
 
 As another example of "non-traditional" map keys, consider the
@@ -52,11 +57,14 @@ corresponding weight whenever the function is called.
 An easy way to do this is to store the functions and weights in a map,
 with the functions as keys.
 
+// TODO: This sample for apply-weighted is a little convoluted.
+
 [source,clojure]
 ----
-(def weight-map { fn-a 1.0
-                  fn-b 0.8
-                  fn-c 1.9 })
+(def plus-two (partial + 2))
+(def plus-three (partial + 3))
+(def weight-map {plus-two 1.0
+                 plus-three 0.8})
 ----
 
 Then, you can use a simple wrapper function to apply the functions
@@ -72,6 +80,12 @@ with the weights applied:
   [weight-map f & args]
   (* (get weight-map f 1.0)
      (apply f args)))
+
+(apply-weighted weight-map plus-two 2)
+;; -> 4.0
+
+(apply-weighted weight-map plus-three 1)
+;; -> 3.2
 ----
 
 ==== Discussion
@@ -100,4 +114,4 @@ dynamically at runtime.
 
 ==== See also
 
-* Retrieving keys from maps
+* <<sec_composite_retrieving_keys_map>>

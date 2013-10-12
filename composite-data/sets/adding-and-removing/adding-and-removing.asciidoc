@@ -1,4 +1,4 @@
-=== Adding and removing items
+=== Adding and removing items from sets
 [role="byline"]
 by Luke VanderHart
 
@@ -58,7 +58,7 @@ invoking them with large numbers of arguments.
 
 ==== See also
 
-* Adding items to lists (xref)
-* Adding items to vectors (xref)
-* Using set manipulation functions (xref)
+* <<sec_adding_to_a_list>>
+* <<sec_adding_to_a_vector>>
+* <<sec_set_operations>>
 

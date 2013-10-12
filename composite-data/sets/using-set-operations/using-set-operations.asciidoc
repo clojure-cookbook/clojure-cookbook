@@ -1,3 +1,4 @@
+[[sec_set_operations]]
 === Using set operations
 [role="byline"]
 by Luke VanderHart
