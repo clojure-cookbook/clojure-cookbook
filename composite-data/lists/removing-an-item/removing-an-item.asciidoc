@@ -1,3 +1,4 @@
+[[sec_removing_an_item_list]]
 === "Removing" an item from a list
 [role="byline"]
 by Luke VanderHart

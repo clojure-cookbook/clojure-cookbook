@@ -1,3 +1,4 @@
+[[sec_setting_keys_map]]
 === Setting keys in a map
 [role="byline"]
 by Luke VanderHart

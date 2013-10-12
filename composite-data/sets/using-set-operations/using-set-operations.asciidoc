@@ -22,7 +22,7 @@ sets).
 [source,clojure]
 ----
 (clojure.set/union #{:red :white} #{:white :blue} #{:blue :green})
-;; -> #{:red :white :blue :green}
+;; -> #{:white :red :blue :green}
 ----
 
 +intersection+ also takes any number of sets as args, and returns
