@@ -1,3 +1,4 @@
+[[sec_adding_removing_from_sets]]
 === Adding and removing items from sets
 [role="byline"]
 by Luke VanderHart
