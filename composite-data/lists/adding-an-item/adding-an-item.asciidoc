@@ -38,7 +38,7 @@ different places in the collection depending on what is most efficient
 for the particular type.
 
 In the case of lists, +conj+ will always add the item at the
-_beginning_ of the list, since a linked list data structure supports
+*beginning* of the list, since a linked list data structure supports
 constant-time insertion only at the beginning.
 
 .+conj+ versus +cons+
@@ -49,8 +49,8 @@ expecting to see the +cons+ function used, instead of +conj+. Clojure
 does have a +cons+ function, but it has a slightly different purpose.
 
 While +conj+ will return a new concrete +clojure.lang.PersistentList+
-(when used on a list), +cons+ will always construct a new _sequence_,
-where the item added is the _first_ and the collection is the _rest_.
+(when used on a list), +cons+ will always construct a new *sequence*,
+where the item added is the *first* and the collection is the *rest*.
 
 This distinction is subtle, especially since a
 +clojure.lang.PersistentList+ and a sequence constructed using +cons+
@@ -61,7 +61,7 @@ structure* operation, which will not change the concrete type of the
 data structure it is applied to, while +cons+ is a *sequence*
 operation and only guarantees that it will return a sequence: in fact,
 it returns a cons cell (+clojure.lang.Cons+) which implements the
-sequence interface], no matter what type of seq-able collection you
+sequence interface, no matter what type of seq-able collection you
 gave it to start with.
 
 Unlike +conj+, +cons+ is also guaranteed to return a sequence with the
