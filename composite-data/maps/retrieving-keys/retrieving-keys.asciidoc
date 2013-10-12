@@ -87,7 +87,7 @@ structure. +nil+ is returned if any key is missing.
 ----
 
 +get-in+ also takes an optional default value, which will be returned
-if _any_ key in the nested hierarchy is missing.
+if *any* key in the nested hierarchy is missing.
 
 [source,clojure]
 ----
@@ -97,7 +97,7 @@ if _any_ key in the nested hierarchy is missing.
 ;; -> "1d2 (fists)"
 ----
 
-Note that +get-in+ works with _any_ associative data structure, not
+Note that +get-in+ works with *any* associative data structure, not
 just maps. This means that it can be combined to work with, for
 example, indices of vectors.
 
@@ -131,7 +131,7 @@ simply return +nil+.
 
 It is interesting to note, as well, that the ability to use a map
 itself as a function is not just an arbitrary convenience. In the
-technical sense of the word "function", maps _are_ functions of keys
+technical sense of the word "function", maps *are* functions of keys
 to values. Consider the following function definition and map:
 
 [source,clojure]
@@ -156,9 +156,9 @@ function can be a real boon to performance.
 
 Because all of the different techniques for retrieving values from a
 map return +nil+ if the key is not present, special handling is
-required if you need to differentiate the case in which a key
-_does_ exist in a map with a value of nil from the case in which the key does not
-exist at all.
+required if you need to differentiate the case in which a key *does*
+exist in a map with a value of nil from the case in which the key does
+not exist at all.
 
 The easiest way to do this is to always provide a default value to be
 returned in the case of a missing key. To be absolutely sure that you
@@ -193,4 +193,4 @@ throw an exception if used at all with a list or a sequence.
 
 ==== See also
 
-* Maps as sequences
+* <<seq_composite_maps_as_seqs>>

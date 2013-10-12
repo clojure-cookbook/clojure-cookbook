@@ -8,9 +8,9 @@ You want to "change" a map by adding, setting or removing keys.
 
 ==== Solution
 
-The most basic way to change a map is using the +assoc+
-function. Given a map and any number of additional key/value pairs as
-arguments, it will return an updated map containing the respective keys and
+The most basic way to change a map is using the +assoc+ function.
+Given a map and any number of additional key/value pairs as arguments,
+it will return an updated map containing the respective keys and
 values.
 
 [source,clojure]
@@ -44,38 +44,6 @@ number of keys, returns a map absent those keys.
 ;; -> {:name "Mayhem", :status :deceased}
 ----
 
-Another common way to update a map is to merge it with another
-one. Clojure supports this with the +merge+ function, which takes any
-number of maps, and returns a map containing all the keys and values
-in a single map. The maps are merged in argument order from left to
-right, so if a key is present in more than one of the maps, the value
-used will be the one in the final map to contain the key.
-
-[source,clojure]
-----
-(def public {:name "Bruce Wayne", :occupation "Playboy"})
-(def secret {:training "Ninja" :occupation "Vigilante"})
-(def batman (merge public secret))
-;; -> {:name "Bruce Wayne" :occupation "Vigilante" :training "Ninja"}
-----
-
-Sometimes, when merging maps which have the same key, it is possible
-to be smarter about combining them instead of doing a simple overwrite
-as +merge+ does. The +merge-with+ function allows you to specify a
-two-argument function that will be called with both values, with the
-result used as the final value in the resulting map.
-
-For example, the following example merges two maps, and if a key is
-the same, it uses the +`+`+ function to add the values together.
-
-[source,clojure]
-----
-(def print-sales {2010 153, 2011 206, 2012 321})
-(def ebook-sales {2011 25, 2012 83, 2013 104})
-(def total-sales (merge-with + print-sales ebook-sales))
-;; -> {2010 153, 2011 231, 2012 404, 2013 104}
-----
-
 ==== Discussion
 
 It's fairly common to have maps contained in other maps. If it is
@@ -86,8 +54,8 @@ quickly become inconvenient, especially since they need to be
 [source,clojure]
 ----
 (def book {:title "Clojure Cookbook"
-            :author {:name "Ryan Neufeld"
-                     :residence {:country "USA"}}})
+           :author {:name "Ryan Neufeld"
+                    :residence {:country "USA"}}})
 ----
 
 If Ryan were to move back to his native land of Canada, fully updating
@@ -103,11 +71,13 @@ like the following:
 
 Obviously, this is inconvenient, and difficult to read.
 
+// TODO: This is a bit of a mouthful, we may want to try rewording this.
 Fortunately, Clojure provides a function, +update-in+, for
 specifically this purpose. It takes a map, a sequence of keys, and a
-function and arguments to apply to the existing value. It uses the key
+function to apply to the existing value (optionally, arguments to the
+function can be passed as variadic arguments). It uses the key
 sequence to make successive lookups in a nested data structure,
-applies the function and arguments to the value at the specified
+applies the function and any arguments to the value at the specified
 location, and returns the fully nested data structure with the update
 in place. In the example above:
 
@@ -135,11 +105,13 @@ Even though the starting map is empty, two empty maps are created for
 the values of the +:author+ and +:residence+ keys, meaning the +assoc+
 will be applied to a new, empty map.
 
+.Treating Clojure's state constructs like maps
+****
 One other common use case for maps is as the values of one of
 Clojure's state constructs; _atoms_, _refs_ or _agents_. Clojure maps
 themselves are immutable values; in a very literal sense, if you "add"
 a key to a map, it is no longer the same value any more. But
-sometimes, it is necessary to preserve a logical _identity_ for
+sometimes, it is necessary to preserve a logical *identity* for
 different values across time. That's when to use one of the state
 management tools.
 
@@ -175,7 +147,9 @@ the general consistency of functions which take other functions and
 arguments, and how they can be combined arbitrarily deeply. In this
 case, what starts with a single call to +swap!+ ends up also updating
 a map and conjoining to a vector in the same form.
+****
 
 ==== See also
 
-* Maps as sequences (xref)
+* <<sec_composite_maps_as_seqs>>
+* <<sec_composite_combining_maps>>
