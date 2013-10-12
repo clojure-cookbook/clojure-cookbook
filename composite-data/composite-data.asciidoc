@@ -59,3 +59,12 @@ include::maps/as-sequences/as-sequences.asciidoc[]
 include::maps/applying-functions-to/applying-functions-to.asciidoc[]
 
 include::maps/multiple-values/multiple-values.asciidoc[]
+
+////
+Miscellaneous
+////
+include::custom-data-structures/red-black-trees-part-i.asciidoc[]
+
+include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
+
+include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
