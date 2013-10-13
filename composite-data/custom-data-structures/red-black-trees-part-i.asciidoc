@@ -33,7 +33,7 @@ implementation of RBTs relies on pattern matching. Use
 https://github.com/clojure/core.match[core.match] to simplify the
 implementation of a RBT.
 
-Add `[org.clojure/core.match "0.2.0-rc5"]` to your project's
+Add `[org.clojure/core.match "0.2.0"]` to your project's
 dependencies, or start a REPL with lein-try:
 
 [source,console]
@@ -43,6 +43,9 @@ lein try core.match
 
 Now implement the core of RBT, the +balance+ and +insert-val+
 functions:
+
+// TODO: Extract long :or clause as list of predicate vectors with
+// intention-revealing names.
 
 [source,clojure]
 ----
@@ -80,21 +83,13 @@ functions:
 
 // New ^^^^, old vvvv
 
+alue, define a +contains?+ function that
+recursively walks the tree s
 Then, define a couple of helper functions which will make dealing with
 our Red-Black tree easier:
 
 [source,clojure]
 ----
-(defn- is-member?
-  "Returns true if tree contains x"
-  [tree x]
-  (match tree
-         nil false
-         [_ a y b] (cond
-                    (< x y) (recur a x)
-                    (> x y) (recur b x)
-                    :else true)))
-
 (defn- find-val
   "Finds value x in tree"
   [tree x]
@@ -114,8 +109,10 @@ Next, we can take it for a whirl:
 (def rb-tree (reduce insert-val nil (range 10)))
 
 ;; Find specific values
-(find-val rb-tree 9)   ; 9
-(find-val rb-tree 100) ; nil
+(find-val rb-tree 9)
+;; -> 9
+(find-val rb-tree 100)
+;; -> nil
 ----
 
 ==== Discussions
@@ -147,7 +144,7 @@ to match +a-vector+ against two clauses:
 (match a-vector
        [_ y] (str "Got y: " y)
        [_ _ z] (str "Got z: " z))
-;; "Got z: 3"
+;; -> "Got z: 3"
 ----
 
 The first matches a two-element array whereas the second matches a
@@ -165,7 +162,7 @@ them a breeze:
 (match rb-node
        [:red left value right]   (str "Red node with value: " value)
        [:black left value right] (str "Black node with value: " value))
-;; "Red node with value: 3"
+;; -> "Red node with value: 3"
 ----
 
 All other functions simply take advantage of all the work +balance+ is
