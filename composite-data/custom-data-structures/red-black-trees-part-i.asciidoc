@@ -1,37 +1,48 @@
 [[sec_red_black_part_i]]
-=== Implementing custom data structures: Red Black Trees - Part I
+=== Implementing custom data structures: Red-Black Trees - Part I
 [role="byline"]
 by Leonardo Borges
 
 ==== Problem
 
-You need a way to perform fast, efficient in-memory searches across a
-large, random data set.
+You want to implement a data structure in Clojure with very specific
+performance characteristics.
 
-This dataset may change over time during program execution.
+For example, you need fast, efficient in-memory searches across a
+large, random and ever-changing data set.
 
 ==== Solution
 
-At first, a binary search tree - or a binary search over a list -
-might seem like a good solution. However this only works on sorted
-data but from the problem statement, you know you'll need something
-better. In the case of a binary search tree, it could end up quite
-unbalanced and no more efficient than a linked list.
+After identifying that Clojure's core data structures are not
+appropriate for your domain, your first step is to determine what data
+structure *is* appropriate.
 
-Instead you'll use a Red-Black tree, a type of self-balancing binary
-search tree.
+For the purpose of this recipe, assume you are trying to choose and
+implement a data structure appropriate for fast in-memory search of a
+large, random and ever-changing data set. At first, a binary search
+tree (BST) seems like a good solution. A BST is most efficient over a
+sorted data set, however. Adding and removing large amounts of data
+may unbalance a BST and degenerate its performance to that of a linked
+list.
 
-Before you get started, make sure you add
-https://github.com/clojure/core.match[core.match] as a dependency to
-your project:
+Red-Black trees (RBT) are similar to BSTs, but are self-balancing. This
+would be an appropriate data structure for the data set in question.
 
-[source,clojure]
+The next step is to implement the data structure itself. The
+implementation of RBTs relies on pattern matching. Use
+https://github.com/clojure/core.match[core.match] to simplify the
+implementation of a RBT.
+
+Add `[org.clojure/core.match "0.2.0-rc5"]` to your project's
+dependencies, or start a REPL with lein-try:
+
+[source,console]
 ----
-[org.clojure/core.match "0.2.0-rc5"]
+lein try core.match
 ----
 
-Now, define the +balance+ and +insert-val+ functions which are the
-core of our Red Black Tree:
+Now implement the core of RBT, the +balance+ and +insert-val+
+functions:
 
 [source,clojure]
 ----
@@ -67,8 +78,10 @@ core of our Red Black Tree:
     [:black a y b]))
 ----
 
+// New ^^^^, old vvvv
+
 Then, define a couple of helper functions which will make dealing with
-our Red Black tree easier:
+our Red-Black tree easier:
 
 [source,clojure]
 ----
@@ -107,12 +120,15 @@ Next, we can take it for a whirl:
 
 ==== Discussions
 
-For anyone who has ever had to implement a Red Black Tree - or at
+The 
+// New ^^^^, old vvvv
+
+For anyone who has ever had to implement a Red-Black Tree - or at
 least attended a class in Computer Science where the algorithm was
 taught - the implementation of +balance+ might seem extremely short.
 The reason for this is threefold:
 
-* Our Red Black Tree is persistent: operations on it, such as insert
+* Our Red-Black Tree is persistent: operations on it, such as insert
   and balance, are not destructive
 * +balance+ uses https://github.com/clojure/core.match[core.match], a
   pattern matching library for Clojure.
@@ -169,7 +185,7 @@ The benchmark adds items to the existing tree - or vector - and
 attempts to find an element. The benchmark is executed three times in
 order to give us a sense of the average time elapsed.
 
-First, our Red Black Tree Implementation:
+First, our Red-Black Tree Implementation:
 
 [source,clojure]
 ----
@@ -212,7 +228,7 @@ This is quite a difference. The second solution suffers from the
 nature of the data changing between each search, requiring us to sort
 the vector each time in order for the binary search to work.
 
-Our Red Black Tree on the other hand keeps itself balanced as each
+Our Red-Black Tree on the other hand keeps itself balanced as each
 item is inserted so the cost of inserting new elements in negligible.
 
 One limitation of our data structure at the moment is that we can't
@@ -222,7 +238,7 @@ In <<sec_red_black_part_ii>> we'll address this very issue.
 
 ==== See Also
 * <<sec_red_black_part_ii>>
-* See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red Black
+* See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-Black
   Trees on Wikipedia] for a more traditional take on this interesting
   data structure.
 * For the functional approach used in this recipe, the book

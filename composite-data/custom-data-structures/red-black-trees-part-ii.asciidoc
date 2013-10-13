@@ -1,17 +1,17 @@
 [[sec_red_black_part_ii]]
-=== Implementing custom data structures: Red Black Trees - Part II
+=== Implementing custom data structures: Red-Black Trees - Part II
 [role="byline"]
 by Leonardo Borges
 
 ==== Problem
 
-You wish to use Clojure core sequence functions such as +map+ and
-+filter+ on a custom data structure
+You want to use Clojure's core sequence functions (+conj+, +map+,
++filter+, etc.) on your own custom data structure.
 
 ==== Solution
 
 In <<sec_red_black_part_i>> of this recipe you implemented all the
-functions necessary for creating an efficient Red Black Tree.
+functions necessary for creating an efficient Red-Black Tree.
 
 The missing part now is to make this custom data structure participate
 into Clojure's sequence abstractions.
