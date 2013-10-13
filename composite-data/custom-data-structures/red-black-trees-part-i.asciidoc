@@ -5,24 +5,33 @@ by Leonardo Borges
 
 ==== Problem
 
-You need a way to perform fast, efficient in-memory searches across a large, random data set.
+You need a way to perform fast, efficient in-memory searches across a
+large, random data set.
 
 This dataset may change over time during program execution.
 
 ==== Solution
 
-At first, a binary search tree - or a binary search over a list - might seem like a good solution. However this only works on sorted data but from the problem statement, you know you'll need something better. In the case of a binary search tree, it could end up quite unbalanced and no more efficient than a linked list.
+At first, a binary search tree - or a binary search over a list -
+might seem like a good solution. However this only works on sorted
+data but from the problem statement, you know you'll need something
+better. In the case of a binary search tree, it could end up quite
+unbalanced and no more efficient than a linked list.
 
-Instead you'll use a Red-Black tree, a type of self-balancing binary search tree.
+Instead you'll use a Red-Black tree, a type of self-balancing binary
+search tree.
 
-Before you get started, make sure you add https://github.com/clojure/core.match[core.match] as a dependency to your project:
+Before you get started, make sure you add
+https://github.com/clojure/core.match[core.match] as a dependency to
+your project:
 
 [source,clojure]
 ----
 [org.clojure/core.match "0.2.0-rc5"]
 ----
 
-Now, define the +balance+ and +insert-val+ functions which are the core of our Red Black Tree:
+Now, define the +balance+ and +insert-val+ functions which are the
+core of our Red Black Tree:
 
 [source,clojure]
 ----
@@ -58,7 +67,8 @@ Now, define the +balance+ and +insert-val+ functions which are the core of our R
     [:black a y b]))
 ----
 
-Then, define a couple of helper functions which will make dealing with our Red Black tree easier:
+Then, define a couple of helper functions which will make dealing with
+our Red Black tree easier:
 
 [source,clojure]
 ----
@@ -95,18 +105,25 @@ Next, we can take it for a whirl:
 (find-val rb-tree 100) ; nil
 ----
 
-
 ==== Discussions
 
-For anyone who has ever had to implement a Red Black Tree - or at least attended a class in Computer Science where the algorithm was taught - the implementation of +balance+ might seem extremely short. The reason for this is threefold:
+For anyone who has ever had to implement a Red Black Tree - or at
+least attended a class in Computer Science where the algorithm was
+taught - the implementation of +balance+ might seem extremely short.
+The reason for this is threefold:
 
-* Our Red Black Tree is persistent: operations on it, such as insert and balance, are not destructive
-* +balance+ uses https://github.com/clojure/core.match[core.match], a pattern matching library for Clojure.
+* Our Red Black Tree is persistent: operations on it, such as insert
+  and balance, are not destructive
+* +balance+ uses https://github.com/clojure/core.match[core.match], a
+  pattern matching library for Clojure.
 * We represent nodes as vectors
 
 The later two points are related as you'll see below.
 
-https://github.com/clojure/core.match[core.match] allows us to match on the shape and values of a data structure as well as perform structural binding at the same time. For example, the code below tries to match +a-vector+ against two clauses:
+https://github.com/clojure/core.match[core.match] allows us to match
+on the shape and values of a data structure as well as perform
+structural binding at the same time. For example, the code below tries
+to match +a-vector+ against two clauses:
 
 [source,clojure]
 ----
@@ -117,9 +134,14 @@ https://github.com/clojure/core.match[core.match] allows us to match on the shap
 ;; "Got z: 3"
 ----
 
-The first matches a two-element array whereas the second matches a 3-element array. Given +a-vector+ has exactly three elements, it matches the second clause. But not only that, we also give the third element a binding, +z+, which we can use in the code handling that specific clause.
+The first matches a two-element array whereas the second matches a
+3-element array. Given +a-vector+ has exactly three elements, it
+matches the second clause. But not only that, we also give the third
+element a binding, +z+, which we can use in the code handling that
+specific clause.
 
-This is why we represent nodes as vectors - it makes pattern matching them a breeze:
+This is why we represent nodes as vectors - it makes pattern matching
+them a breeze:
 
 [source,clojure]
 ----
@@ -130,15 +152,22 @@ This is why we represent nodes as vectors - it makes pattern matching them a bre
 ;; "Red node with value: 3"
 ----
 
-All other functions simply take advantage of all the work +balance+ is doing and become a lot simpler.
+All other functions simply take advantage of all the work +balance+ is
+doing and become a lot simpler.
 
 *A note on performance*
 
-One might suggest a simpler way to achieve this goal is to first load all data into a vector, sort it and use Java's +binarySearch+ method to search across the dataset. This would be the case had the problem statement not mentioned that the dataset can change between searches.
+One might suggest a simpler way to achieve this goal is to first load
+all data into a vector, sort it and use Java's +binarySearch+ method
+to search across the dataset. This would be the case had the problem
+statement not mentioned that the dataset can change between searches.
 
-Instead of making any claims, I'll show how both solutions perform in a little benchmark.
+Instead of making any claims, I'll show how both solutions perform in
+a little benchmark.
 
-The benchmark adds items to the existing tree - or vector - and attempts to find an element. The benchmark is executed three times in order to give us a sense of the average time elapsed.
+The benchmark adds items to the existing tree - or vector - and
+attempts to find an element. The benchmark is executed three times in
+order to give us a sense of the average time elapsed.
 
 First, our Red Black Tree Implementation:
 
@@ -179,17 +208,26 @@ Next, the solution using Java's +binarySearch+:
 ;; "Elapsed time: 361.52 msecs"
 ----
 
-This is quite a difference. The second solution suffers from the nature of the data changing between each search, requiring us to sort the vector each time in order for the binary search to work.
+This is quite a difference. The second solution suffers from the
+nature of the data changing between each search, requiring us to sort
+the vector each time in order for the binary search to work.
 
-Our Red Black Tree on the other hand keeps itself balanced as each item is inserted so the cost of inserting new elements in negligible.
+Our Red Black Tree on the other hand keeps itself balanced as each
+item is inserted so the cost of inserting new elements in negligible.
 
-One limitation of our data structure at the moment is that we can't use core clojure functions such as +map+ and +filter+.
+One limitation of our data structure at the moment is that we can't
+use core clojure functions such as +map+ and +filter+.
 
 In <<sec_red_black_part_ii>> we'll address this very issue.
 
 ==== See Also
 * <<sec_red_black_part_ii>>
-
-* See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red Black Trees on Wikipedia] for a more traditional take on this interesting data structure.
-
-* For the functional approach used in this recipe, the book http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely Functional Data Structures] is an excellent source. It deals with how to efficiently implement data structures in a functional setting. The author chose to use ML and Haskell but its concepts are transferable to Clojure, as demonstrated above.
+* See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red Black
+  Trees on Wikipedia] for a more traditional take on this interesting
+  data structure.
+* For the functional approach used in this recipe, the book
+  http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely
+  Functional Data Structures] is an excellent source. It deals with
+  how to efficiently implement data structures in a functional
+  setting. The author chose to use ML and Haskell but its concepts are
+  transferable to Clojure, as demonstrated above.
