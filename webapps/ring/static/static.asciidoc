@@ -21,7 +21,7 @@ Use `ring.middleware.file/wrap-file`.
 
 ==== Discussion
 
-`wrap-file` wraps another web request handler, so that you will serve a static file if one exists and call the handler if the requested file does not exist.
+`wrap-file` wraps another web request handler, so that you will serve a static file if one exists in the specified directory, and call the handler if the requested file does not exist.
 
 `wrap-file` is only one way to serve static files. If you only want to serve up a particular file, `ring.util.response/file-response` will return a handler that serves up that file.
 
