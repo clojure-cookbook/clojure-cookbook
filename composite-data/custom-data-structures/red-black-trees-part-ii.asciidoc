@@ -5,15 +5,18 @@ by Leonardo Borges
 
 ==== Problem
 
-You wish to use clojure core sequence functions such as +map+ and +filter+ on a custom data structure
+You wish to use Clojure core sequence functions such as +map+ and
++filter+ on a custom data structure
 
 ==== Solution
 
-In <<sec_red_black_part_i>> of this recipe you implemented all the functions necessary for creating an efficient Red Black Tree. 
+In <<sec_red_black_part_i>> of this recipe you implemented all the
+functions necessary for creating an efficient Red Black Tree.
 
-The missing part now is to make this custom data structure participate into Clojure's sequence abstractions.
+The missing part now is to make this custom data structure participate
+into Clojure's sequence abstractions.
 
-Start by defining the protocols which make up our new type:  
+Start by defining the protocols which make up our new type:
 
 [source,clojure]
 ----
@@ -32,7 +35,9 @@ Start by defining the protocols which make up our new type:
   (right  [this]))
 ----
 
-Next, extend +clojure.lang.PersistentVector+ and make it implement the +IRedBlackTreeNode+ protocol - remember we represent tree nodes as vectors:
+Next, extend +clojure.lang.PersistentVector+ and make it implement the
++IRedBlackTreeNode+ protocol - remember we represent tree nodes as
+vectors:
 
 [source,clojure]
 ----
@@ -51,12 +56,14 @@ Next, extend +clojure.lang.PersistentVector+ and make it implement the +IRedBlac
     (nth this 3)))
 ----
 
-Finally, define a new type, +RedBlackTree+, which implements the +IRedBlackTree+ protocol as well as Clojure's sequence interfaces:
+Finally, define a new type, +RedBlackTree+, which implements the
++IRedBlackTree+ protocol as well as Clojure's sequence interfaces:
 
 [source,clojure]
 ----    
 (defn- rb-tree->tree-seq
-  "Takes a RedBlackTree type and returns a sequence of all its children using `tree-seq`"
+  "Takes a RedBlackTree type and returns a sequence of all its
+  children using `tree-seq`"
   [rb-tree]
   (tree-seq sequential? (fn [parent]
                           (filter (complement nil?) [(left parent) (right parent)]))
@@ -106,7 +113,10 @@ Now you're ready to use it:
 (find rb-tree 100) ; nil
 ----
 
-It doesn't look so different from before. We only replaced the previous function calls with calls to functions from the +IRedBlackTree+ protocol. What's new now is that we can use core sequence functions such as +map+ and +filter+: 
+It doesn't look so different from before. We only replaced the
+previous function calls with calls to functions from the
++IRedBlackTree+ protocol. What's new now is that we can use core
+sequence functions such as +map+ and +filter+:
 
 [source,clojure]
 ----
@@ -130,7 +140,9 @@ It doesn't look so different from before. We only replaced the previous function
 
 ==== Discussions
 
-In <<sec_red_black_part_i>> we decided to represent tree nodes as 4-element vectors. However they are not nice to work with as you need to remember which index represents which piece of information:
+In <<sec_red_black_part_i>> we decided to represent tree nodes as
+4-element vectors. However they are not nice to work with as you need
+to remember which index represents which piece of information:
 
 [source,clojure]
 ----
@@ -142,7 +154,8 @@ In <<sec_red_black_part_i>> we decided to represent tree nodes as 4-element vect
 ;; 3
 ----
 
-To make pulling information out of a node more idiomatic, we created a protocol to expose the basic API of a node: 
+To make pulling information out of a node more idiomatic, we created a
+protocol to expose the basic API of a node:
 
 [source,clojure]
 ----
@@ -156,7 +169,11 @@ To make pulling information out of a node more idiomatic, we created a protocol 
   (right  [this]))
 ----
 
-This protocol isn't useful on its own. We need a type to implement it in order for it to do its job. Normally, you would implement a protocol in a new type or record. But we already have a type that represents our node beatifully, +clojure.lang.PersistentVector+, so we simply extend the protocol to it:
+This protocol isn't useful on its own. We need a type to implement it
+in order for it to do its job. Normally, you would implement a
+protocol in a new type or record. But we already have a type that
+represents our node beautifully, +clojure.lang.PersistentVector+, so
+we simply extend the protocol to it:
 
 [source,clojure]
 ----
@@ -175,7 +192,8 @@ This protocol isn't useful on its own. We need a type to implement it in order f
     (nth this 3)))
 ----
 
-This makes standard Clojure vectors behave like tree nodes, as you can see below:
+This makes standard Clojure vectors behave like tree nodes, as you can
+see below:
 
 [source,clojure]
 ----
@@ -187,7 +205,9 @@ This makes standard Clojure vectors behave like tree nodes, as you can see below
 ;; 3  
 ----
 
-The code is shorter and expresses its intent clearly. As an added bonus, we get to use these functions in higher level sequence operations suchs as +map+:
+The code is shorter and expresses its intent clearly. As an added
+bonus, we get to use these functions in higher level sequence
+operations such as +map+:
 
 [source,clojure]
 ----
@@ -198,14 +218,16 @@ The code is shorter and expresses its intent clearly. As an added bonus, we get 
 (map #(nth % 2) rb-tree) 
 ----
 
-
 WARNING: The ability to extend existing types with extra protocols is
-extremely powerful but care should be taken not to cause conflicts with 
-any existing functions in the type being extended. Lucky for us, extended 
-types are confined to the namespaces in which they are used, minimising 
-problems.
+extremely powerful but care should be taken not to cause conflicts
+with any existing functions in the type being extended. Lucky for us,
+extended types are confined to the namespaces in which they are used,
+minimising problems.
 
-This brings us to the +map+ function and what allows us to use it with our custom data structure. If you look under the hood, at the source of +map+, you'll see something like this - I omitted a lot of the implementation to highlight the core of what map is doing: 
+This brings us to the +map+ function and what allows us to use it with
+our custom data structure. If you look under the hood, at the source
+of +map+, you'll see something like this - I omitted a lot of the
+implementation to highlight the core of what map is doing:
 
 [source,clojure]
 ----
@@ -218,9 +240,13 @@ This brings us to the +map+ function and what allows us to use it with our custo
          (cons (f (first s)) (map f (rest s)))))))
 ----
 
-Pay attention to the last line. +map+ eventually calls +first+ and +rest+ on its argument in order to build the resulting sequence. +rest+ in turn calls +more+ on the sequence. 
+Pay attention to the last line. +map+ eventually calls +first+ and
++rest+ on its argument in order to build the resulting sequence.
++rest+ in turn calls +more+ on the sequence.
 
-This indicates that, at the very minimum, our custom type has to support these operations. But where do they come from? I'm glad you asked! 
+This indicates that, at the very minimum, our custom type has to
+support these operations. But where do they come from? I'm glad you
+asked!
 
 They live in the +clojure.lang.ISeq+ java interface:
 
@@ -239,9 +265,14 @@ public interface ISeq extends IPersistentCollection {
 }
 ----
 
-This is great. We know which functions to implement and we know which interface they live in. All that is left is to create a sequence representation of our tree nodes. This is where +rb-tree->tree-seq+ comes into play.
+This is great. We know which functions to implement and we know which
+interface they live in. All that is left is to create a sequence
+representation of our tree nodes. This is where +rb-tree->tree-seq+
+comes into play.
 
-When mapping and/or filtering over our tree, we don't care about specific ordering so a depth-first walk will suffice. To that end, we can leverage Clojure's own +tree-seq+ function. From its docstring:
+When mapping and/or filtering over our tree, we don't care about
+specific ordering so a depth-first walk will suffice. To that end, we
+can leverage Clojure's own +tree-seq+ function. From its docstring:
 
 [source,clojure]
 ----
@@ -260,16 +291,22 @@ Now we can revisit the implementation of +rb-tree->tree-seq+:
 [source,clojure]
 ----
 (defn- rb-tree->tree-seq
-  "Takes a RedBlackTree type and returns a sequence of all its children using `tree-seq`"
+  "Takes a RedBlackTree type and returns a sequence of all its
+  children using `tree-seq`"
   [rb-tree]
   (tree-seq sequential? (fn [parent]
                           (filter (complement nil?) [(left parent) (right parent)]))
             (.tree rb-tree)))
 ----
 
-Given a node - which is just a 4-element vector - we can tell which of the elements are branches by asking if they are +sequential?+. Then we create an anonymous function that, when given a node, will return a vector of its branches if any. The root is, of course, the actual Red Black Tree.  
+Given a node - which is just a 4-element vector - we can tell which of
+the elements are branches by asking if they are +sequential?+. Then we
+create an anonymous function that, when given a node, will return a
+vector of its branches if any. The root is, of course, the actual Red
+Black Tree.
 
-The implementation of the functions +first+ and +next+ from +clojure.lang.ISeq+ should be clearer now:
+The implementation of the functions +first+ and +next+ from
++clojure.lang.ISeq+ should be clearer now:
 
 [source,clojure]
 ----

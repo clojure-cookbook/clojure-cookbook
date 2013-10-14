@@ -89,9 +89,13 @@ functions of their keys.
 Ultimately, when making a choice like this, you should consider:
 
 * What would make the code most evident?
-* What is the nature of the data in this case? For example, is it most fundamentally a sequence and only coincidentally a vector (implying +nth+), or fundamentally a correlation of values to indexes (implying +get+)?
-* What is the failure mode of the proposed technique? For example, would a nil return value or an exception be preferable?
+* What is the nature of the data in this case? For example, is it most
+  fundamentally a sequence and only coincidentally a vector (implying
+  +nth+), or fundamentally a correlation of values to indexes
+  (implying +get+)?
+* What is the failure mode of the proposed technique? For example,
+  would a nil return value or an exception be preferable?
 
 ==== See also
 
-* Getting items from a map by key (xref)
+* <<sec_composite_retrieving_keys_map>>

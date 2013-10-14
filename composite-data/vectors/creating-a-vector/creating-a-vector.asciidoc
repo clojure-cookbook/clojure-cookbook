@@ -1,3 +1,4 @@
+[[sec_composite_creating_a_vector]]
 === Creating a vector
 [role="byline"]
 by Luke VanderHart
@@ -58,5 +59,5 @@ readable.
 
 ==== See also
 
-* Creating a list (xref)
-* Creating a list from an existing collection (xref)
+* <<sec_creating_a_list>>
+* <<sec_creating_a_list_from_existing>>

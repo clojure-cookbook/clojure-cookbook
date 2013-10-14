@@ -1,3 +1,4 @@
+[[sec_creating_a_list_from_existing]]
 === Creating a list from an existing data structure
 [role="byline"]
 by Luke VanderHart
@@ -47,9 +48,8 @@ however many arguments are in the data structure. This may sound
 strange, particularly if the data structure contains millions of
 items. What does it mean to invoke a function with a million
 arguments? How does that even work, given that the JVM limits methods
-to 255
-arguments?:[http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3.3[JVM
-class file specification]]
+to 255 arguments (JVM
+class file specification[http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3.3]).
 
 As it turns out, functions with variadic arguments (such as +list+)
 are handled in a somewhat special way: the argument list is passed in
@@ -63,7 +63,7 @@ being a data structure and the second being a sequence. It then
 repeatedly conjoins items from the sequence onto the data structure
 provided using the +conj+ function (discussed in greater detail
 elsewhere). This is why the sequence is reversed; items are always
-pulled from the front of the sequence, but +conj+ on a list _prepends_
+pulled from the front of the sequence, but +conj+ on a list *prepends*
 the element being added. Therefore, the first element in the input
 sequence will end up being the last item in the list, and so on.
 

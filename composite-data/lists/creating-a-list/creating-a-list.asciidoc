@@ -1,3 +1,4 @@
+[[sec_creating_a_list]]
 === Creating a list
 [role="byline"]
 by Luke VanderHart
@@ -34,7 +35,7 @@ variadic number of arguments and constructs a list from them.
 
 Typically, between these two approaches, using the +list+ function is
 the better choice. The problem with constructing quoted lists is that
-the quote also prevents evaluation of everything _inside_ the list,
+the quote also prevents evaluation of everything *inside* the list,
 which means that symbols will be returned as literal symbols, instead
 of resolving vars or calling functions. +list+, however, will eval its
 arguments in the normal way before constructing the list, and is
@@ -57,7 +58,7 @@ irrelevant when it's empty.
 
 ==== See Also
 
-- (xref) Creating a vector
+* <<sec_composite_creating_a_vector>>
 
 .Lists versus Vectors
 ****
@@ -69,7 +70,7 @@ more commonly used in idiomatic Clojure.
 There are a couple reasons for this. Vectors have a cleaner literal
 syntax than lists, and are just as space-efficient and performant. In
 addition, vectors support near-constant lookup time by index
-(O(log~32~0 n), as opposed to lists, which require linear time
+(O(log~32~ n)), as opposed to lists, which require linear time
 (O(n)).
 
 In general, the only reason to explicitly choose a list over a vector is

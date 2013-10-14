@@ -1,6 +1,41 @@
+[[sec_composite_combining_maps]]
 === Combining Maps
 [role="byline"]
 by Tom Hicks
+
+// TODO: Rebalance recipe and/or integrate Luke's merge discussion:
+
+// Another common way to update a map is to merge it with another
+// one. Clojure supports this with the +merge+ function, which takes any
+// number of maps, and returns a map containing all the keys and values
+// in a single map. The maps are merged in argument order from left to
+// right, so if a key is present in more than one of the maps, the value
+// used will be the one in the final map to contain the key.
+//
+// [source,clojure]
+// ----
+// (def public {:name "Bruce Wayne", :occupation "Playboy"})
+// (def secret {:training "Ninja" :occupation "Vigilante"})
+// (def batman (merge public secret))
+// ;; -> {:name "Bruce Wayne" :occupation "Vigilante" :training "Ninja"}
+// ----
+//
+// Sometimes, when merging maps which have the same key, it is possible
+// to be smarter about combining them instead of doing a simple overwrite
+// as +merge+ does. The +merge-with+ function allows you to specify a
+// two-argument function that will be called with both values, with the
+// result used as the final value in the resulting map.
+//
+// For example, the following example merges two maps, and if a key is
+// the same, it uses the +`+`+ function to add the values together.
+//
+// [source,clojure]
+// ----
+// (def print-sales {2010 153, 2011 206, 2012 321})
+// (def ebook-sales {2011 25, 2012 83, 2013 104})
+// (def total-sales (merge-with + print-sales ebook-sales))
+// ;; -> {2010 153, 2011 231, 2012 404, 2013 104}
+// ----
 
 ==== Problem
 
@@ -12,16 +47,17 @@ Use +merge+ to combine two or more maps with no keys in common.
 
 [source,clojure]
 ----
-(def arizona-bird-counts {:cactus-wren 8 :phainopepla 4 :mourning-dove 20})
-(def florida-bird-counts {:gull 20 :anhinga 8 :pelican 14 :egret 4})
+(def arizona-bird-counts {:cactus-wren 8})
+(def florida-bird-counts {:gull 20 :pelican 14})
 
 (merge florida-bird-counts arizona-bird-counts)
-;; -> {:mourning-dove 20, :pelican 14, :phainopepla 4, :cactus-wren 8,
-;;     :egret 4, :gull 20, :anhinga 8}
+;; -> {:pelican 14, :cactus-wren 8, :gull 20}
 ----
 
 When mappings for the same key exist in more than one map, the latter
 mapping is used in the result.
+
+// TODO: This example is a little hard to read
 
 [source,clojure]
 ----
@@ -44,19 +80,6 @@ that exist in more than one map.
 
 (merge-with + california-bird-counts florida-bird-counts)
 ;; -> {:pelican 18, :egret 15, :gull 32, :jay 3, :anhinga 8}
-----
-
-[source,clojure]
-----
-(def first-names {1 "Joe", 2 "Mary", 3 "Jane", 5 "Carl"})
-(def last-names  {1 "Jones", 5 "Case", 2 "Hart", 3 "Smith"})
-(def people-ids  {1 100 2 202 3 333 5 500})
-
-(merge-with str first-names people-ids)
-;; -> {1 "Joe100", 2 "Mary202", 3 "Jane333", 5 "Carl500"}
-
-(merge-with #(str %1 ", " %2) last-names first-names)
-;; -> {1 "Jones, Joe", 2 "Hart, Mary", 3 "Smith, Jane", 5 "Case, Carl"}
 ----
 
 With careful choice of map value types, +merge-with+ provides some
@@ -114,6 +137,7 @@ keys remain unchanged in the result.
 
 ==== See also
 
-* See <<sec_composite_data_maps_setting_keys>> to learn more about manipulating maps.
+* See <<sec_composite_data_maps_setting_keys>> to learn more about
+  manipulating maps.
 * See <<sec_composite_data_maps_multiple_values>> for information on
   creating multiple value maps using a Clojure protocol.

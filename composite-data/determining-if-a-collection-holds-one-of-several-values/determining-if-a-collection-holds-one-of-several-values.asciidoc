@@ -1,0 +1,58 @@
+=== Determining if a collection holds one of several values
+[role="byline"]
+by John Touron
+
+==== Problem
+
+You have a collection and want to determine if it holds one of several
+possible values.
+
+==== Solution
+
+Use +some+, along with a set.
+
+[source,clojure]
+----
+(some #{1 2} (range 10))
+;; -> 1
+
+(some #{10} (range 10))
+;; -> nil
+----
+
+==== Discussion
+
+Since sets can act like functions, they can be used as predicates.
+This idiom will test each item in a collection, returning either the
+first match, or +nil+ if a match couldn't be found.
+
+However, a problem arises when you search for +nil+ or +false+ in a
+collection. Consider the following:
+
+[source,clojure]
+----
+(if (some #{nil} [1 2 nil 3])
+  ::found
+  ::not-found)
+;; -> :user/not-found
+
+(if (some #{false} [1 2 false 3])
+  ::found
+  ::not-found)
+;; -> :user/not-found
+----
+
+The solution, in this case, is to use a map:
+
+[source,clojure]
+----
+(if (some {nil true, false true} [nil false])
+  ::found
+  ::not-found)
+;; -> :user/found
+----
+
+==== See Also
+
+* <<sec_testing_set_membership>>
+* <<sec_composite_retrieving_keys_map>>

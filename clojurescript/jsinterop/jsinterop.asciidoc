@@ -195,7 +195,7 @@ an object containing an array containing an object.
 Additionally by also requiring mrhyde.extend-js (taken nearly directly from
 http://keminglabs.com/blog/angular-cljs-mobile-weather-app/[Kevin Lynagh's project])
 we get interop in the other
-direction, allowing ClojureScript to access JavaScript object more idomatically.
+direction, allowing ClojureScript to access JavaScript object more idiomatically.
 
 In this example it means we can replace the following two interop heavy lines of code:
 
@@ -206,7 +206,7 @@ In this example it means we can replace the following two interop heavy lines of
 (aset graph "offset" offsetMode)
 ----
 
-with the much more clojure idomatic
+with the much more clojure idiomatic
 
 [source, clojure]
 ----

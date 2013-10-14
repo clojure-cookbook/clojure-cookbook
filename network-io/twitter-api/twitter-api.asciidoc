@@ -2,6 +2,13 @@
 [role="byline"]
 by Tobias Bayer
 
+// TODO: Implement feedback (https://github.com/clojure-cookbook/clojure-cookbook/issues/132):
+// * The library itself is referred to in a number of capitalizations "Twitter API" (the API itself,) "Twitter-api" (the sentence capitalization of the library name,) and "twitter-api" (the proper name of the library.) When it actually comes down to it this seems the correct usage, but it may be confusing to readers.
+// * Is there a good guide out on the internet for getting OAuth credentials from Twitter? I'm not sure this, per se, needs to be a recipe, but rather just a good resource or even a footnote.
+// * The discussion itself is a little light
+//     * Could we talk about authenticated vs. unauthenticated queries? What can I do without creds? What can I do with them?
+//     * Streaming calls look cool. Is there anything we can do with that (or a bit of leg-work) in the discussion?
+
 ==== Problem
 
 You want to connect to Twitter and use its API.

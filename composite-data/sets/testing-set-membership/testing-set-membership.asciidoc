@@ -1,3 +1,4 @@
+[[sec_testing_set_membership]]
 === Testing set membership
 [role="byline"]
 by Luke VanderHart
@@ -80,14 +81,13 @@ itself is both easy and idiomatic.
 (take 10
   (filter #{1 2 3}
           (repeatedly #(rand-int 10))))
-
 ;; -> (2 1 2 3 2 2 1 2 2 1)
 ----
 
 This snippet first creates an infinite lazy sequence consisting of
 random numbers between one and ten, using +repeatedly+ to call
 +rand-int+ (wrapped in an anonymous function) over and over. Then, it
-feeds this sequence through a filter, with a _set_ of the numbers 0-3
+feeds this sequence through a filter, with a set of the numbers 1-3
 as the filter predicate.
 
 The result is another infinite lazy sequence, but containing only
@@ -99,5 +99,5 @@ most Clojure projects.
 
 ==== See also
 
-* Checking if a key is present in a map (xref)
-* Using set operations (xref)
+* <<sec_composite_retrieving_keys_map>>
+* <<sec_set_operations>>
