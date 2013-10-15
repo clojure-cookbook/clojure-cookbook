@@ -1,4 +1,4 @@
-=== Publish to MQTT Broker
+=== Communicate with Embedded Devices via MQTT
 // By Sandeep Nangia (nangia)
 
 ===== Problem
