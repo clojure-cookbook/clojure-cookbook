@@ -20,7 +20,7 @@ include::zmq-async/zmq-async.asciidoc[]
 include::websockets/websockets.asciidoc[]
 
 
-include::publishing-to-mqtt-server/publishing-to-mqtt-server.asciidoc[]
+include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
 
-include::subscribing-to-mqtt-server/subscribing-to-mqtt-server.asciidoc[]
+
 
