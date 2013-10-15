@@ -37,7 +37,8 @@ following code for subscribing to messages.
         (mh/disconnect conn-sub)))))
 
 (def subscriberid "SNSubscriber01")
-;; or use (def subscriberid (mh/generate-id))
+;; or use 
+;; (def subscriberid (mh/generate-id))
 		
 (connect-and-subscribe "tcp://test.mosquitto.org:1883"
                        ["SNControlNetwork/Florida/device1"] subscriberid)
@@ -62,7 +63,9 @@ must be connected already so as not to lose incoming messages.
           (mh/disconnect conn)))))
 
 (def pubclientid "SNPublisher01")
+;; or use
 ;; (def pubclientid (mh/generate-id))		  
+
 
 (connect-and-publish "tcp://test.mosquitto.org:1883" pubclientid
                        "SNControlNetwork/Florida/device1")
