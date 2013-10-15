@@ -3,46 +3,51 @@
 
 ===== Problem
 
-You want to communicate with devices that are part of "Internet of Things". You
-want to "publish" and "subscribe" to messages messages to embedded devices.
+You want to communicate with embedded devices (think "Internet of Things") using 
+"publish" and "subscribe" model.
 
 ===== Solution
 
-You use https://github.com/clojurewerkz/machine_head[Machine Head],
+Use https://github.com/clojurewerkz/machine_head[Machine Head],
 a Clojure library to perform Machine to Machine (M2M) communication via http://mqtt.org/[MQTT] protocol. 
 MQTT protocol requires an existing MQTT broker with which all devices (or machines) will 
 communicate by either publishing messages to or subscribing messages on specific
-"topics". In this reciple, you are going to publish messages to http://mosquitto.org/[Mosquitto] as the MQTT broker. 
+"topics". Use the http://mosquitto.org/[Mosquitto] broker with a test installation available at _tcp://test.mosquitto.org:1883_ 
+(of course, you need a functional internet in this case on your machine). 
+Or you can install MQTT broker as per the http://mqtt.org/wiki/doku.php/mosquitto_message_broker[MQTT installation instructions] on a machine on your network and use the path to that broker.
 
-Add this to your dependencies. 
-
-[source,clojure]
-----
-[clojurewerkz/machine_head "1.0.0-beta1"]
-----
-
-It is assumed that you have a working
-internet connection and the test MQTT broker (Mosquitto) is up and running and
-accepting connections at port 1883 at tcp://test.mosquitto.org. Or 
-alternatively, you setup Mosquitto as mentioned in its http://mqtt.org/wiki/doku.php/mosquitto_message_broker[installation instructions]. 
-
-Every client that connects to the broker needs to have a unique client id. This can be generated either using +generate-id+ method or you can choose some other
-unique string.
-
-Here's how you connect to the broker. You call the method +connect+ which accepts
-the broker address and client id and returns the connection +conn+. You can check
-if the connection is successful with +connected?+ method and then call upon
-the +publish+ method to publish messages (a few times) to the broker. The +publish+ method
-accepts the connection, topic string, payload, QoS value and  +retained+ as parameters. The QoS 
-value of 2 corresponds to "exactly once" delivery. +retained+ value of false instructs
-the broker not to retain messages (more on this later). 
-
-Finally, you use +disconnect+ method to disconnect from the broker.
+Invoke the REPL using *+lein try clojurewerkz/machine_head 1.0.0-beta1+* and then run the 
+following code for subscribing to messages.
 
 [source,clojure]
 ----
-(ns mqttpublisher.core
-  (:require [clojurewerkz.machine-head.client :as mh]))
+(require '[clojurewerkz.machine-head.client :as mh])
+
+(defn message-handler [topic meta payload]
+  (let [p (apply str (map char payload))]
+    (println "received " p "on topic " topic)))
+  
+(defn connect-and-subscribe [broker-addr topics subscriberid]
+  (let [qosvec (vec (repeat (count topics) 2));all with same qos
+        conn-sub (mh/connect broker-addr subscriberid)]
+    (if (mh/connected? conn-sub)
+      (do 
+        (mh/subscribe-with-qos conn-sub topics qosvec message-handler)
+        (Thread/sleep 15000)
+        (mh/disconnect conn-sub)))))
+
+(def subscriberid "SNSubscriber01")
+;; or use (def subscriberid (mh/generate-id))
+		
+(connect-and-subscribe "tcp://test.mosquitto.org:1883"
+                       ["SNControlNetwork/Florida/device1"] subscriberid)
+----
+
+Open another terminal window (besides the one already open above) and then run REPL using the command *+lein try clojurewerkz/machine_head 1.0.0-beta1+*. Use the code below to publish messages to the broker.
+
+[source,clojure]
+----
+(require '[clojurewerkz.machine-head.client :as mh])
 
 (defn connect-and-publish [broker-addr client-id topic]
   (let [qos 2
@@ -55,85 +60,26 @@ Finally, you use +disconnect+ method to disconnect from the broker.
               (println "published " payload)))
           (mh/disconnect conn)))))
 
-(defn -main[] 
-  (connect-and-publish "tcp://test.mosquitto.org:1883" (mh/generate-id)
-                       "SNControlNetwork/Florida/device1"))
+(def pubclientid "SNPublisher01")
+;; (def pubclientid (mh/generate-id))		  
+
+(connect-and-publish "tcp://test.mosquitto.org:1883" pubclientid
+                       "SNControlNetwork/Florida/device1")
 ----
-
-Now call the +-main+ method to establish connection and publish messages in REPL 
-or run it using 'lein run'.
-
-
-[source,clojure]
-----
-(-main)
-----
-
-
-Add this to your dependencies. 
-
-[source,clojure]
-----
-[clojurewerkz/machine_head "1.0.0-beta1"]
-----
-
-You first define callback handler +message-handler+ that is called
-whenever a message arrives from the broker. To connect to the broker,
-use the +connect+ method from Machine Head library providing it the broker address
-and client id (generated using +generate-id+). Check that the connection
-has been established using +connected?+ method. The +subscribe-with-qos+ method
-needs to be provided as parameters the connection, vector of topics to subscribe 
-to, a vector corresponding to QoS parameters to use and a message handler (defined earlier). Of course, your internet must be working for the connections and 
-subscriptions to work.
-
-
-[source,clojure]
-----
-(ns mqttsubscriber.core
-  (:require [clojurewerkz.machine-head.client :as mh]))
-
-(defn message-handler [topic meta payload]
-  (let [p (apply str (map char payload))]
-    (println "received " p "on topic " topic)))
-  
-(defn connect-and-subscribe [broker-addr topics]
-  (let [qosvec (vec (repeat (count topics) 2));all with same qos
-        conn-sub (mh/connect broker-addr (mh/generate-id))]
-    (if (mh/connected? conn-sub)
-      (do 
-        (mh/subscribe-with-qos conn-sub topics qosvec message-handler)
-        (Thread/sleep 15000)
-        (mh/disconnect conn-sub)))))
-
-(defn -main[] 
-  (connect-and-subscribe "tcp://test.mosquitto.org:1883"
-                       ["SNControlNetwork/devices/device1"]))
-----
-
-Now call the +-main+ method to establish connection and subscribe to messages in REPL 
-or run it using 'lein run'.
-
-
-[source,clojure]
-----
-(-main)
-----
-
-
 
 ===== Discussion
 
 http://mqtt.org[MQTT] is an open, lightweight publish/subscribe 
 messaging protocol. It is useful for connections where bandwidth is at premium and/or connections are unreliable. 
 While AMQP protocol excels at various scenarios for business messaging,
-MQTT is usually the choice for smaller payloads and last mile connectivity (think 
-"Internet of things") as it is simple to implement in hardware. MQTT protocol has 
+MQTT is usually the choice for smaller payloads and last mile connectivity as it is simple to 
+implement in hardware. MQTT protocol has 
 the following properties which make it good for constrained networks:
 
+   * Designed for devices with limited resources like battery operated 8 bit controllers.
    * Internally the protocol compresses into bit-wise headers and variable length fields. The smallest possible packet size is a mere 2 bytes.
    * "No-polling" required. Asynchronous bidirectional “push” delivery of messages.
-   * Supports always-connected and sometimes-connected models 
-   * Designed for devices with limited resources like battery operated 8 bit controllers.
+   * Supports always-connected and sometimes-connected models. 
    * Tested with low bandwidth networks like VSAT and GPRS
 
 The protocol defines three possible QoS values 0, 1 and 2 corresponding to "fire and 
@@ -143,24 +89,20 @@ acknowledgement arrives. In the above recipe, the default persistence
 implementation provided by the library is used.
 
 MQTT also has a concept of retention of messages. If you were to set
-+retained+ as +true+, the broker will remember the last known good message on the topic.
-So when the subscribers connect, they are given the last known
-good message by the broker and they do not have to wait to receive the first
++retained+ as +true+ in +connect-and-publish+ method, the broker will remember the last known retained message on the topic.
+So when the subscriber connects, it is given the last 
+message (for which +retained+ was true) by the broker and does not have to wait to receive the first
 message. 
 
-In this recipe, you communicated with http://mosquitto.org[Mosquitto]. Other
-implementations of MQTT broker are Websphere and  
-http://www.rabbitmq.com/mqtt.html[RabbitMQ].
+In this recipe, you communicated with http://mosquitto.org[Mosquitto]. Websphere and  
+http://www.rabbitmq.com/mqtt.html[RabbitMQ] also implement MQTT and can be used instead.
 
 The topics are usually defined with the separator '/' defining hierarchies. As an example, the sensor devices of a particular domain 'SNControl' might be publishing their
 values to 'SNControl/Florida/device1', 'SNControl/Florida/device2', and so on. While
 the devices in domain 'RKNControl' might publish their values to 'RKNControl/Washington/device1', etc. Naming the topics in this way helps in subscribing to multiple
-topics based on wild cards (as you will in the next recipe).
+topics based on wild cards.
 
-Note that zero, one or many subscribers can potentially connect to a topic. 
-
-While subscribing to messages, wild cards can be used in topic names. This allows
-subscription to multiple topics. This is how wild cards are used:
+This is how wild cards are used:
 
 * / is used as a separator.
 * + is the single-level wild-card and can appear anywhere in the string.
@@ -168,30 +110,41 @@ subscription to multiple topics. This is how wild cards are used:
 
 For example, these subscriptions are possible:
 
-* "SNControl/#" : any device under "SNControl/Florida". So "SNControl/Florida/device1/sensor1", "SNControl/Florida/device1/sensor2" and "SNControl/California/device1" will all match.
+* "SNControl/#" : any device under "SNControl/Florida" (e.g. "SNControl/Florida/device1/sensor1" and "SNControl/Florida/device1/sensor2") and "SNControl/California/device1" will match.
 * "SNControl/+/device1" : any "device1" in states under domain "SNControl". So "SNControl/Florida/device1" and "SNControl/California/device1" will match.
 *  "SNControl/\+/+/sensor1" will match "SNControl/Florida/device1/sensor1" and 
 "SNControl/Florida/device2/sensor1"
 
- 
-You can test out this subscription recipe with the recipe for publication of messages shown earlier. Run this code first and then start the publisher and you 
-should be able to see the payload from the publisher.
+// Had to use backslash before the first + above in order to display properly
+
+The +connect-and-subscribe+ method uses the callback handler +message-handler+ to process
+incoming messages arriving from the broker. In the +connect-and-subscribe+ method, 
+the +connect+ method from Machine Head library is used providing it the broker address
+and client id (statically encoded or generated using +generate-id+). Then, it checks that the connection
+has been established using +connected?+ method. The +subscribe-with-qos+ method
+is provided the connection, vector of topics to subscribe 
+to, a vector corresponding to QoS parameters to use and a message handler (defined earlier) as parameters. 
+
+The +connect-and-publish+ method calls the method +connect+ which accepts
+the broker address and client id and returns the connection +conn+. Then, it checks 
+if the connection is successful with +connected?+ method and then calls upon
+the +publish+ method to publish messages (a few times) to the broker. The +publish+ method
+accepts the connection, topic string, payload, QoS value and  +retained+ as parameters. The QoS 
+value of 2 corresponds to "exactly once" delivery. +retained+ value of false instructs
+the broker not to retain messages. Finally, +disconnect+ method disconnects from the broker.
 
 While the above code fragment just prints the incoming messages, you could 
 potentially use the messages in some other way e.g. triggering some actions based
 on an alarm that the code has received.
 
-
-
-
 ===== See Also
 
-* The details on MQTT protocol at http://mqtt.org/
+* The details on MQTT protocol at _http://mqtt.org/_
 * http://clojuremqtt.info/[Machine Head Documentation] of the https://github.com/clojurewerkz/machine_head[Machine_Head] library
 * http://www.eclipse.org/paho/[Eclipse Paho library], the Java library, that
 Machine Head uses under the hood to communicate using MQTT. 
 * Mosquitto, an open source message broker that implements MQTT 
-protocol at http://mosquitto.org/
+protocol at _http://mosquitto.org/_
 * http://www.redbooks.ibm.com/abstracts/sg248054.html[Building Smarter Planet 
 Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM Redbooks publication] explains MQTT in more details. 
 * The http://www.youtube.com/watch?v=s9nrm8q5eGg[TED talk] by Andy Stanford-Clark, one of the inventors of MQTT, is a humourous
