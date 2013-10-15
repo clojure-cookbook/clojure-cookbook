@@ -36,9 +36,9 @@ following code for subscribing to messages.
         (Thread/sleep 15000)
         (mh/disconnect conn-sub)))))
 
-(def subscriberid "SNSubscriber01")
-;; or use 
-;; (def subscriberid (mh/generate-id))
+(def subscriberid (mh/generate-id))
+;; or use a unique id
+;;(def subscriberid "SNSubscriber01")
 		
 (connect-and-subscribe "tcp://test.mosquitto.org:1883"
                        ["SNControlNetwork/Florida/device1"] subscriberid)
@@ -62,9 +62,9 @@ must be connected already so as not to lose incoming messages.
               (println "published " payload)))
           (mh/disconnect conn)))))
 
-(def pubclientid "SNPublisher01")
-;; or use
-;; (def pubclientid (mh/generate-id))		  
+(def pubclientid (mh/generate-id))		  
+;; or use a unique id
+;;(def pubclientid "SNPublisher01")
 
 
 (connect-and-publish "tcp://test.mosquitto.org:1883" pubclientid
@@ -121,7 +121,7 @@ For example, these subscriptions are possible:
 In the above code, the +connect-and-subscribe+ method uses the callback handler +message-handler+ 
 to process incoming messages arriving from the broker. In the +connect-and-subscribe+ method, 
 the +connect+ method from Machine Head library is invoked by providing it the broker address
-and client id (statically encoded or generated using +generate-id+). Then, it checks that the connection has been established using +connected?+ method. The +subscribe-with-qos+ method
+and client id (generated using +generate-id+ or some other unique id). Then, it checks that the connection has been established using +connected?+ method. The +subscribe-with-qos+ method
 is provided the connection, vector of topics to subscribe to, a vector corresponding to QoS parameters to use and a message handler (defined earlier) as parameters. The subscriber then
 waits for some time and disconnect using +disconnect+ method.
 
