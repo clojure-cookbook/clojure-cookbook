@@ -4,7 +4,7 @@
 ===== Problem
 
 You want to communicate with devices that are part of "Internet of Things". You
-want to "publish" messages to such devices.
+want to "publish" and "subscribe" to messages messages to embedded devices.
 
 ===== Solution
 
@@ -69,6 +69,58 @@ or run it using 'lein run'.
 (-main)
 ----
 
+
+Add this to your dependencies. 
+
+[source,clojure]
+----
+[clojurewerkz/machine_head "1.0.0-beta1"]
+----
+
+You first define callback handler +message-handler+ that is called
+whenever a message arrives from the broker. To connect to the broker,
+use the +connect+ method from Machine Head library providing it the broker address
+and client id (generated using +generate-id+). Check that the connection
+has been established using +connected?+ method. The +subscribe-with-qos+ method
+needs to be provided as parameters the connection, vector of topics to subscribe 
+to, a vector corresponding to QoS parameters to use and a message handler (defined earlier). Of course, your internet must be working for the connections and 
+subscriptions to work.
+
+
+[source,clojure]
+----
+(ns mqttsubscriber.core
+  (:require [clojurewerkz.machine-head.client :as mh]))
+
+(defn message-handler [topic meta payload]
+  (let [p (apply str (map char payload))]
+    (println "received " p "on topic " topic)))
+  
+(defn connect-and-subscribe [broker-addr topics]
+  (let [qosvec (vec (repeat (count topics) 2));all with same qos
+        conn-sub (mh/connect broker-addr (mh/generate-id))]
+    (if (mh/connected? conn-sub)
+      (do 
+        (mh/subscribe-with-qos conn-sub topics qosvec message-handler)
+        (Thread/sleep 15000)
+        (mh/disconnect conn-sub)))))
+
+(defn -main[] 
+  (connect-and-subscribe "tcp://test.mosquitto.org:1883"
+                       ["SNControlNetwork/devices/device1"]))
+----
+
+Now call the +-main+ method to establish connection and subscribe to messages in REPL 
+or run it using 'lein run'.
+
+
+[source,clojure]
+----
+(-main)
+----
+
+
+
 ===== Discussion
 
 http://mqtt.org[MQTT] is an open, lightweight publish/subscribe 
@@ -105,6 +157,31 @@ values to 'SNControl/Florida/device1', 'SNControl/Florida/device2', and so on. W
 the devices in domain 'RKNControl' might publish their values to 'RKNControl/Washington/device1', etc. Naming the topics in this way helps in subscribing to multiple
 topics based on wild cards (as you will in the next recipe).
 
+Note that zero, one or many subscribers can potentially connect to a topic. 
+
+While subscribing to messages, wild cards can be used in topic names. This allows
+subscription to multiple topics. This is how wild cards are used:
+
+* / is used as a separator.
+* + is the single-level wild-card and can appear anywhere in the string.
+* # is a multilevel wild card needs to appear at the end of the string.
+
+For example, these subscriptions are possible:
+
+* "SNControl/#" : any device under "SNControl/Florida". So "SNControl/Florida/device1/sensor1", "SNControl/Florida/device1/sensor2" and "SNControl/California/device1" will all match.
+* "SNControl/+/device1" : any "device1" in states under domain "SNControl". So "SNControl/Florida/device1" and "SNControl/California/device1" will match.
+*  "SNControl/\+/+/sensor1" will match "SNControl/Florida/device1/sensor1" and 
+"SNControl/Florida/device2/sensor1"
+
+ 
+You can test out this subscription recipe with the recipe for publication of messages shown earlier. Run this code first and then start the publisher and you 
+should be able to see the payload from the publisher.
+
+While the above code fragment just prints the incoming messages, you could 
+potentially use the messages in some other way e.g. triggering some actions based
+on an alarm that the code has received.
+
+
 
 
 ===== See Also
@@ -119,9 +196,3 @@ protocol at http://mosquitto.org/
 Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM Redbooks publication] explains MQTT in more details. 
 * The http://www.youtube.com/watch?v=s9nrm8q5eGg[TED talk] by Andy Stanford-Clark, one of the inventors of MQTT, is a humourous
 and informative session on how MQTT can be used.
-
-
-
-
-
-
