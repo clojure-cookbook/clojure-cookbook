@@ -62,9 +62,10 @@ different options. You could use +str+, which is great for a quick
 fix, but lacks control over how values are presented. Or, you could
 use +format+, which exposes fine-grained control over how values are
 displayed, but requires knowledge of C and Java-style formatting
-strings. We suggest you use only as tool as you need: stick
-to +str+ when the default formatting for a value will suffice, and use
-+format+ when you need more control over how values display/
+strings. Ultimately, you should use only as much tooling/complexity
+as is necessary for the task at hand: stick to +str+ when the default
+formatting for a value will suffice, and use +format+ when you need
+more control over how values display/
 
 .Format Strings
 **** 

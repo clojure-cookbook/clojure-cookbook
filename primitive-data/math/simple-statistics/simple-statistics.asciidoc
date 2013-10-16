@@ -130,19 +130,20 @@ each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
 
 The standard deviation measures how much, on average, the individual values in a
 population deviate from the mean: The higher the standard deviation is, the
-"farther away" the individual values will be (on average). As
+"farther away" the individual values will be (on average). 
 +standard-deviation+ is a bit more mathematical than +mean+, +median+ and
-+mode+, we will go through the first example step by step to get a better
-understanding on how it works:
++mode+, follow along the execution of this function with a step by step
+breakdown.
 
-* <5> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, we reuse the previously
+* <5> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, reuse the previously
 defined +mean+ function to find this.
-* <6> we calculate a new list of values, where we subtract +5+ from every value
-and multiply that result with itself. The result is the list +(1 0 9 16 0 4 1 0 1)+.
-* <7> the sum of this new list is +32+, and we divide this by +9 - 1+, the
+* <6> calculate a new list of values, subtracting +5+ from every value
+and multiplying that result with itself. The result is the list +(1 0 9 16 0 4 1 0 1)+.
+* <7> the sum of this new list is +32+, divide this by +9 - 1+, the
 number of elements minus one. The result of +32/8+ is +4+.
-* <9> finally, we take the square root of +4+ and get back +2.0+.
+* <9> finally, take the square root of +4+ and get back +2.0+.
 
+// TODO: This makes no sense (RN) and uses "we".
 <8> We have here covered the the _sample_ standard deviation, where we have a random
 sample of a larger population. If we have the complete population (_population_
 standard deviation), we should divide by +total+ instead of +(- total 1)+.
