@@ -17,9 +17,13 @@ include::ring/headers/headers.asciidoc[]
 
 include::ring/compojure/compojure.asciidoc[]
 
+include::webapps/ring/redirect/redirect.asciidoc[]
+
 include::liberator/basic.asciidoc[]
 
 include::templating-with-selmer/templating-with-selmer.asciidoc[]
+
+include::templating-with-enlive/templating-with-enlive.asciidoc[]
 
 include::markdown/markdown.asciidoc[]
 

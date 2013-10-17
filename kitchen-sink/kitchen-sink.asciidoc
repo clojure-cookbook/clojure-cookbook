@@ -1,6 +1,8 @@
 [[ch_kitchen_sink]]
 == Kitchen Sink (recipes without a home)
 
+include::nursery-rhyme/nursery-rhyme.asciidoc[]
+
 include::creating-reusable-functions-with-fn-arguments/creating-reusable-functions-with-fn-arguments.asciidoc[]
 
 include::parser-with-core-match/parser-with-core-match.asciidoc[]
