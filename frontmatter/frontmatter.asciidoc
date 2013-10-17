@@ -1,5 +1,7 @@
 [preface]
-== Foreward
+== Foreword
+
+include::galley_foreword.asciidoc[]
 
 [preface]
 == Preface

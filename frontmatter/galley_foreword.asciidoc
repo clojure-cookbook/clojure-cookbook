@@ -1,0 +1,22 @@
+=== Galley Foreword
+
+Hey. Well look at you, holding that galley copy of the Clojure
+Cookbook. It's *heavy*, no? We only printed a dozen of these suckers.
+
+In all seriousness, thank you for taking a look at the book. The
+Cookbook has been a long time coming, and a print release such as this
+is *cathartic* for any author. What you hold in your hands is the
+culmination of hundreds of hours of labor (if not thousands) on the
+part of nearly sixty people.
+
+We want you to be one of our contributors too, and that's why you're
+holding this _galley_ copy of the book. What you'll find between these
+covers is 80% of the finished book footnote:[...and the most
+important/challenging 20% of work ahead of us.]. This isn't a full tech
+review, but we'd certainly appreciate any feedback you had--be it typos,
+suggestions on improving a recipe or recipes you'd like to see included.
+
+Many thanks! We hope you enjoy your time here in Alexandria at the Conj.
+
+Ryan Neufeld & Luke VanderHart of Cognitect
+
