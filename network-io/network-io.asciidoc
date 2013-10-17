@@ -18,3 +18,9 @@ include::consuming-from-rabbitmq/consuming-from-rabbitmq.asciidoc[]
 include::zmq-async/zmq-async.asciidoc[]
 
 include::websockets/websockets.asciidoc[]
+
+
+include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
+
+
+
