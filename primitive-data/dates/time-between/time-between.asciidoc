@@ -61,8 +61,7 @@ Calculating the length of an interval of times is one of the more
 complex operations you can perform with time. Time on planet Earth is
 a complex beast, complected by constructs like leap time and time
 zones; https://github.com/clj-time/clj-time[clj-time] is the only
-library available at present of that is capable of wrangling this
-complexity.
+library we're aware of that is capable of wrangling this complexity.
 
 The +clj-time.core/interval+ function takes two dates and returns a
 representation of that discrete interval of time. From there, the

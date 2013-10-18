@@ -9,7 +9,7 @@ http://rubyonrails.org/[Ruby on Rails]' +2.days.from_now+.
 
 ==== Solution
 
-Because relative time is such a complex beast, you should use
+Because relative time is such a complex beast, we suggest using
 https://github.com/clj-time/clj-time[clj-time] for calculating
 relative dates and times.
 

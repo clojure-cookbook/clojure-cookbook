@@ -10,7 +10,7 @@ You need to parse dates from a string.
 ==== Solution
 
 Working directly with Java's date and time classes is like pulling
-teeth. You should use
+teeth. We suggest using
 https://github.com/clj-time/clj-time[clj-time], a Clojure wrapper
 over the excellent http://joda-time.sourceforge.net/[Joda Time]
 library.
