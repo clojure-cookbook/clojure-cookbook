@@ -60,6 +60,8 @@ include::maps/applying-functions-to/applying-functions-to.asciidoc[]
 
 include::maps/multiple-values/multiple-values.asciidoc[]
 
+include::maps/combining-maps/combining-maps.asciidoc[]
+
 ////
 Miscellaneous
 ////

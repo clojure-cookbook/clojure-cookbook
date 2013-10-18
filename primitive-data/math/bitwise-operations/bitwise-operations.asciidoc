@@ -58,10 +58,8 @@ representation of a number.
 Interestingly enough, core also includes a +bit-set+ and +bit-test+.
 These two operations set or test an individual bit position in an
 integer. Instead of working in multiples of two as is necessary for
-operations like +bit-and+, we can operate by the *index* of the flag
-we're interested in. This drastically simplifies the example from
-above.
-
+operations like +bit-and+, you can operate by the *index* of the flag
+you're interested in. This drastically simplifies the above example.
 
 [source,clojure]
 ----

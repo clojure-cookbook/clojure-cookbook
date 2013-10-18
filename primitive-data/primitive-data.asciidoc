@@ -28,6 +28,10 @@ include::strings/tokenizing-strings/tokenizing-strings.asciidoc[]
 
 include::strings/inflecting-strings/inflecting-strings.asciidoc[]
 
+include::strings/converting-stringlike-data/converting-stringlike-data.asciidoc[]
+
+include::strings/converting-to-number/converting-to-number.asciidoc[]
+
 ///////
 Numbers
 ///////
@@ -75,6 +79,8 @@ include::dates/comparing-dates/comparing-dates.asciidoc[]
 include::dates/time-between/time-between.asciidoc[]
 
 include::dates/date-ranges/date-ranges.asciidoc[]
+
+include::dates/gregorian-lazyseq/gregorian-lazyseq.asciidoc[]
 
 include::dates/relative-times/relative-times.asciidoc[]
 

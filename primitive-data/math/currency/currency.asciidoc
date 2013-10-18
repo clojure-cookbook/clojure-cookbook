@@ -84,8 +84,7 @@ nearest neighbour, preferring up, down or the most even neighbor.
 function. +convert-to+ take an amount of currency, a target currency, a
 conversion factor and a rounding mode. Money doesn't provide its own
 conversion factor, since these change so often, so you'll need to seek
-out a reputable source for conversation rates - unfortunately we can't
-help you with this one.
+out a reputable source for conversation rates.
 
 Money also provides support for a number of different persistence and
 serialization mediums, including

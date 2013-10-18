@@ -5,6 +5,8 @@ include::writing-to-stdout-and-stderr/writing-to-stdout-and-stderr.asciidoc[]
 
 include::get-local-resource/get-local-resource.asciidoc[]
 
+include::files/read-property-file/read-property-file.asciidoc[]
+
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
 
 include::console/parse-command-line-arguments/parse-command-line-arguments.asciidoc[]

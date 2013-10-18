@@ -14,6 +14,14 @@ cumbersome to work with in Clojure (or Java, for that matter.) Use
 https://github.com/clj-time/clj-time[clj-time] to properly deal with
 time zones.
 
+Before starting, add `[clj-time "0.6.0"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try clj-time
+----
+
 [source,clojure]
 ----
 (require '[clj-time.core :as t])
