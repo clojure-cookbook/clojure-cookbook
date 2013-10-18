@@ -10,7 +10,9 @@ to insert dynamic content and use template inheritance to structure the template
 
 ==== Solution
 
-Use Selmer to create your template and call it with a context map containing the dynamic content.
+Use can use the Selmer library (https://github.com/yogthos/Selmer) to
+create your template and call it with a context map containing the
+dynamic content.
 
 First, add Selmer to your project file:
 
@@ -23,7 +25,7 @@ First, add Selmer to your project file:
 ----
 
 A Selmer template is an HTML file with special tags that is populated with dynamic
-content at runtime. A simple template might look as follows:
+content at runtime. A simple template might look like the following:
 
 .src/views/templates/base.html
 [source, html]
@@ -54,15 +56,19 @@ The template can then be rendered by calling the +selmer.parser/render-file+ fun
 [source, clojure]
 ----
 (ns selmer-templating
-  (:require [selmer.parser :refer [render-file]))
+  (:require [selmer.parser :refer [render-file]]))
 
-(render-file "views/templates/base.html"
-             {:header "Hello Selmer"
-              :nav-items [{:name "Home" :link "/"}
-                          {:name "About" :link "/about"}]})
+(println
+  (render-file "views/templates/base.html"
+               {:header "Hello Selmer"
+                :nav-items [{:name "Home" :link "/"}
+                            {:name "About" :link "/about"}]}))
 ----
 
-When +render-file+ runs it will populate the tags with the content provided.
+When +render-file+ runs it will populate the tags with the content
+provided. The value will be returned as a string, suitable for use as
+the response body in a Ring application (for example). Here the result
+is simply printed to standard out, for easy inspection.
 
 We can apply filters to variables for additional post-processing at runtime.
 Below, we use the +upper+ filter to convert our heading to upper case:
@@ -136,7 +142,7 @@ content for the +content+ block:
 .src/views/templates/home.html
 [source, html]
 ----
-{% extends "base.html" %}
+{% extends "views/templates/base.html" %}
 
 {% block content %}
 

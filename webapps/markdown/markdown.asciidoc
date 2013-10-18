@@ -9,6 +9,8 @@ You need to render a Markdown document.
 
 ==== Solution
 
+You can use the +markdown-clj+ library (https://github.com/yogthos/markdown-clj)
+
 Include the +markdown-clj+ dependency in the project:
 
 [source,clojure]
@@ -16,7 +18,7 @@ Include the +markdown-clj+ dependency in the project:
 [markdown-clj "0.9.29"]
 ----
 
-Use +markdown.core/md-to-html+ to read a Markdown document and generate HTML.
+Use +markdown.core/md-to-html+ to read a Markdown document and generate as string containing HTML.
 
 [source,clojure]
 ----
@@ -85,7 +87,7 @@ It behaves equivalently to +md-t-html-string+:
   (md/mdToHtml "##This is a heading\nwith a paragraph following it"))
 ----
 
-All of standard Markdown tags are supported with the exception of the reference style links due
+`markdown-clj` supports all the standard Markdown tags with the exception of the reference style links due
 to the fact that the parser uses a single pass to generate the document.
 
 The +markdown.core/md-to-html+ processes the input line by line and the entirety of the content
