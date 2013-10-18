@@ -4,7 +4,7 @@ by Adam Bard
 
 ==== Problem
 
-You need to manipulate request or response headers.
+You need to read or write HTTP request or response headers.
 
 ==== Solution
 
@@ -20,10 +20,9 @@ Read or write the `:headers` key in Ring request or response maps.
   "A handler that returns the User-agent header as a JSON
    response with an appropriate Content-Type"
   [req]
-  (let [request-headers (:headers req)]
-    {:body (str "{\"user-agent\": \"" (get headers "User-Agent") "\"}")
-     :headers {"Content-Type" "application/json"}
-     :status 200}))
+  {:body (str "{\"user-agent\": \"" (get-in req [:headers "user-agent"]) "\"}")
+   :headers {"Content-Type" "application/json"}
+   :status 200})
 
 (defn -main []
   ;; Run the server on port 3000
