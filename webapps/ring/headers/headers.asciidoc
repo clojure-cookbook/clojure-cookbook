@@ -8,6 +8,8 @@ You need to manipulate request or response headers.
 
 ==== Solution
 
+Read or write the `:headers` key in Ring request or response maps.
+
 [source, clojure]
 ----
 (ns ringtest
@@ -39,3 +41,5 @@ The above example defines a Ring handler that simply echoes the User-Agent
 as a JSON response. It gets the User-Agent from the request header map, and
 uses a Content-Type header in the response to ensure it is parsed as JSON
 by a client.
+
+Note that the keys of incoming headers are Strings, not Clojure keywords.
