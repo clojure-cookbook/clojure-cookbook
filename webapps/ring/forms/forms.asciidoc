@@ -4,11 +4,12 @@ by Adam Bard
 
 ==== Problem
 
-You want your app to accept user input
+You want your app to accept user input using an HTML form.
 
 ==== Solution
 
-Use `ring.middleware.params.wrap-params` to add parameters to incoming request maps.
+Use `ring.middleware.params.wrap-params` to add incoming HTTP form parameters
+parameters to incoming request maps.
 
 [source, clojure]
 ----
@@ -17,7 +18,7 @@ Use `ring.middleware.params.wrap-params` to add parameters to incoming request m
     [ring.adapter.jetty :as jetty]
     [ring.middleware.params :refer [wrap-params]]))
 
-(def GREETING_FORM
+(def greeting-form
   (str
     "<html>"
     "  <form action='' method='post'>"
@@ -27,7 +28,7 @@ Use `ring.middleware.params.wrap-params` to add parameters to incoming request m
     "</html>"))
 
 (defn show-form []
-  {:body GREETING_FORM
+  {:body greeting-form
    :status 200 })
 
 (defn show-name
@@ -38,8 +39,8 @@ Use `ring.middleware.params.wrap-params` to add parameters to incoming request m
 
 (defn handler
   "Show a form requesting the user's name, or greet them if they submitted the form"
-  [{params :form-params :as req}]
-  (let [name (params "name")]
+  [req]
+  (let [name (get-in req [:params "name"])]
     (if name
       (show-name name)
       (show-form))))
@@ -58,11 +59,11 @@ and form parameters from raw requests. It adds three keys to the request:
 * `:form-params`, containing a map of form body parameters, and
 * `:params`, which has the contents of both merged together.
 
-In the above example we use `:form-params`, and so our handler will only
-respond with a greeting on POST requests. If we had used `:params`, we would
-have the option of also passing a query string with a `"name"` parameter.
+In the above example we use `:form-params`, and so our handler will
+only respond with a greeting on POST requests containing form encoded
+parameters.. If we had used `:params`, we would have the option of
+also passing a URL query string with a `"name"` parameter. `:params`
+works with any kind of parameter (form or URL encoded), `:form-params`
+only works for form parameters.
 
-Note the use of destructuring to retrieve the `:form-params` value from the
-request. This is a pretty common pattern. One gotcha to remember is that the
-params maps have *strings* for keys, not keywords.
-
+Note that the form keys are passed in as Strings, not keywords.

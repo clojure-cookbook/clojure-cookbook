@@ -4,11 +4,13 @@ by Adam Bard
 
 ==== Problem
 
-You need to store secure data about a logged-in user.
+You need to store secure data about a logged-in user as state on the
+server.
 
 ==== Solution
 
-Use `ring.middleware.session.wrap-session` to add sessions to your app.
+Use `ring.middleware.session.wrap-session` to add sessions to your
+Ring application.
 
 [source, clojure]
 ----
@@ -70,24 +72,28 @@ Use `ring.middleware.session.wrap-session` to add sessions to your app.
 
 ==== Discussion
 
-https://github.com/ring-clojure/ring/wiki/Sessions[Ring's session middleware]
-works just like cookies: get them from the `:session` request map,
-and set them by including a `:session` key in the response map. Whatever
-you pass to `:session` is up to you, but usually you'll want to use a map
-to store keys and values.
+https://github.com/ring-clojure/ring/wiki/Sessions[Ring's session
+middleware] have an api similar to the cookie api: get them from the
+`:session` request map, and set them by including a `:session` key in
+the response map. Whatever you pass to `:session` is up to you, but
+usually you'll want to use a map to store keys and values.
 
 Behind the scenes, Ring sets a cookie called `ring-session`, which contains a unique
 ID identifying the session. When a request comes in, the session middleware gets the
 session ID from the request, then reads the value of the session from some session store.
 
-Which session store the middleware uses is configurable. The default is to use an in-memory session
-store, which is useful for development but has the side effect of losing sessions whenever
-you restart the app. Ring includes an encrypted cookie store as well, which *is* persistent,
- and you can get third-party libs for many popular storages, including
+Which session store the middleware uses is configurable. The default
+is to use an in-memory session store, which is useful for development
+but has the side effect of losing sessions whenever you restart the
+app. Ring includes an encrypted cookie store as well, which *is*
+persistent, and you can get third-party libs for many popular
+storages, including
 https://github.com/killme2008/ring-session-memcached[memcached] and
-https://github.com/wuzhe/clj-redis-session[Redis]. You can write your own, too.
+https://github.com/wuzhe/clj-redis-session[Redis]. You can write your
+own, too, to store your sessions in any database.
 
-You can set your store by passing an options map with a `:store` parameter to `wrap-session`.
+You can set your store by passing an options map with a `:store`
+parameter to `wrap-session`.
 
 [source, clojure]
 ----
@@ -95,9 +101,7 @@ You can set your store by passing an options map with a `:store` parameter to `w
 ----
 
 To set the value of `:session`, just pass it along with your response. If you don't
-need the session changed, you can leave `:session` out of your response. If you want to actually clear the
-session, you'll need to pass `nil` as your session on your response.
-
-
+need the session changed,  leave `:session` out of your response. If you want to actually clear the
+session, pass `nil` as your the value of the `:session` key.
 
 
