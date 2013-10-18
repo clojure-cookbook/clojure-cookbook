@@ -2,11 +2,13 @@
 [role="byline"]
 by Chris Frisz
 
+// TODO: Tidy up code samples to match conventions more closely
+
 ==== Problem
 
-You want to reuse a single function in two different sections of your code, but
-each caller needs that function to do something slightly different in one 
-isolated part.
+You want to reuse a single function in two different sections of your
+code, but each caller needs that function to do something slightly
+different in one isolated part.
 
 Consider the following (highly contrived) example:
 
@@ -28,8 +30,8 @@ Consider the following (highly contrived) example:
 
 ==== Solution
 
-Modify the `my-message-helper` function to take an extra argument 
-(assumed to be a `fn`) and apply it to the value that needs the 
+Modify the `my-message-helper` function to take an extra argument
+(assumed to be a `fn`) and apply it to the value that needs the
 specific work.
 
 [source, clojure]
@@ -75,12 +77,13 @@ piece of work to be done in `my-message-helper` and pass that as an argument.
 
 ==== Discussion
 
-Even though the two functions, `make-awesome-message` and `make-cool-message`,
-did different work, the common work was reused in `my-message-helper`. 
+Even though the two functions, `make-awesome-message` and
+`make-cool-message`, did different work, the common work was reused in
+`my-message-helper`.
 
-The astute reader may notice that for this example one could simply `let`-bind 
-the result of `my-message-helper` and do the work of the `extra-fn` within the
-context of the two main functions: 
+The astute reader may notice that for this example one could simply
+`let`-bind the result of `my-message-helper` and do the work of the
+`extra-fn` within the context of the two main functions:
 
 [source, clojure]
 ----
@@ -97,10 +100,10 @@ context of the two main functions:
     (do (prn base-msg) base-msg)))
 ----
 
-Consider a slightly more complex example where the work done by `extra-fn` is 
-buried in the middle of a larger computation. For example, consider if 
-`my-message-helper` had originally appended another string to the end of the 
-message:
+Consider a slightly more complex example where the work done by
+`extra-fn` is buried in the middle of a larger computation. For
+example, consider if `my-message-helper` had originally appended
+another string to the end of the message:
 
 [source, clojure]
 ----
@@ -109,9 +112,9 @@ message:
   (str (str "super " msg) " times"))
 ----
 
-In this case, you would have a harder time separating out the piece that needs
-the caller-specific work done without splitting `my-message-helper` into two
-functions: 
+In this case, you would have a harder time separating out the piece
+that needs the caller-specific work done without splitting
+`my-message-helper` into two functions:
 
 [source, clojure]
 ----
@@ -134,15 +137,16 @@ functions:
     (my-message-helper2 base-msg)))
 ----
 
-Since you would need to call both functions separately, but always 
-together, you would create more opportunities for errors if you accidentally 
-called one and not the other. This sort of artificial, error-prone 
-separation is called a __bad abstraction__, and it highlights the 
-benefits of the solution using functions as arguments.
+Since you would need to call both functions separately, but always
+together, you would create more opportunities for errors if you
+accidentally called one and not the other. This sort of artificial,
+error-prone separation is called a __bad abstraction__, and it
+highlights the benefits of the solution using functions as arguments.
 
-As an alternative to the function argument, you could pass a flag to 
-`my-message-helper` that tells it who called it, and perform the caller-
-specific work based on the flag. That would look something like this:
+As an alternative to the function argument, you could pass a flag to
+`my-message-helper` that tells it who called it, and perform the
+caller-specific work based on the flag. That would look something
+like this:
 
 [source, clojure]
 ----
@@ -160,8 +164,8 @@ specific work based on the flag. That would look something like this:
   (my-message-helper "cool" 'make-cool-message))
 ----
 
-Consider if you wanted to add a new function, `make-rad-message`, that prepends
-the string "mega " to the message:
+Consider if you wanted to add a new function, `make-rad-message`, that
+prepends the string "mega " to the message:
 
 [source, clojure]
 ----
@@ -183,9 +187,10 @@ the string "mega " to the message:
   (my-message-helper "rad" 'make-rad-message))
 ----
 
-Notice that you had to add the definition for `make-rad-message` __and__ modify 
-the definition of `my-message-helper` to include a new `case` clause. Now 
-consider if you used function arguments to `my-message-helper` as before:
+Notice that you had to add the definition for `make-rad-message`
+__and__ modify the definition of `my-message-helper` to include a new
+`case` clause. Now consider if you used function arguments to
+`my-message-helper` as before:
 
 [source, clojure]
 ----
@@ -203,13 +208,13 @@ consider if you used function arguments to `my-message-helper` as before:
   (my-message-helper "rad" (partial str "mega ")))
 ----
 
-In this example, you only needed to add the new definition for 
-`make-rad-message` and made no modifications to `my-message-helper`. By using
-a function argument instead of a flag, `my-message-helper` doesn't need to know
-anything about the caller. In other words, you have "decoupled" 
-`make-rad-message` from `my-message-helper`. 
+In this example, you only needed to add the new definition for
+`make-rad-message` and made no modifications to `my-message-helper`.
+By using a function argument instead of a flag, `my-message-helper`
+doesn't need to know anything about the caller. In other words, you
+have "decoupled" `make-rad-message` from `my-message-helper`.
 
-As a related side note, you should always prefer solutions that decouple 
-functions (or objects, data structures, etc.). As you can see from this 
-example, decoupling leads to less code modification when adding new features, 
-and therefore less chance for introducing errors.
+As a related side note, you should always prefer solutions that
+decouple functions (or objects, data structures, etc.). As you can see
+from this example, decoupling leads to less code modification when
+adding new features, and therefore less chance for introducing errors.
