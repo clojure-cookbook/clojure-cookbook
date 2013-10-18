@@ -130,7 +130,7 @@ each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
 
 The standard deviation measures how much, on average, the individual values in a
 population deviate from the mean: The higher the standard deviation is, the
-"farther away" the individual values will be (on average). 
+"farther away" the individual values will be (on average).
 +standard-deviation+ is a bit more mathematical than +mean+, +median+ and
 +mode+, follow along the execution of this function with a step by step
 breakdown.
@@ -143,7 +143,7 @@ and multiplying that result with itself. The result is the list +(1 0 9 16 0 4 1
 number of elements minus one. The result of +32/8+ is +4+.
 * <9> finally, take the square root of +4+ and get back +2.0+.
 
-// TODO: This makes no sense (RN) and uses "we".
+// TODO: This makes no sense (RN).
 <8> We have here covered the the _sample_ standard deviation, where we have a random
 sample of a larger population. If we have the complete population (_population_
 standard deviation), we should divide by +total+ instead of +(- total 1)+.

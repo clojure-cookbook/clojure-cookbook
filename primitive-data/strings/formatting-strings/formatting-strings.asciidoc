@@ -65,7 +65,7 @@ displayed, but requires knowledge of C and Java-style formatting
 strings. Ultimately, you should use only as much tooling/complexity
 as is necessary for the task at hand: stick to +str+ when the default
 formatting for a value will suffice, and use +format+ when you need
-more control over how values display/
+more control over how values display.
 
 .Format Strings
 **** 

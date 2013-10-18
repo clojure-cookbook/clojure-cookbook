@@ -16,14 +16,19 @@ Use +clojure.java.io/delete-file+ to delete the file.
 ;; -> true
 ----
 
-If trying to delete a file that do not exist, a +java.io.IOException+ will be thrown.
+If trying to delete a file that do not exist, a +java.io.IOException+
+will be thrown.
+
 [source,clojure]
 ----
 (clojure.java.io/delete-file "./file-that-do-not-exist.txt")
 ;; -> java.io.IOException: Couldn't delete
 ----
 
-If you do not want +delete-file+ to throw exceptions when the given file could not be deleted for whatever reason, you can add the +silently+ flag set to +true+ to the arguments.
+If you do not want +delete-file+ to throw exceptions when the given
+file could not be deleted for whatever reason, you can add the
++silently+ flag set to +true+ to the arguments. 
+
 [source,clojure]
 ----
 (clojure.java.io/delete-file "./file-that-do-not-exist.txt" true)
@@ -31,7 +36,11 @@ If you do not want +delete-file+ to throw exceptions when the given file could n
 ----
 
 ==== Discussion
-For times when you want to do some custom handling of the eventual exceptions thrown, you should put the call to +delete-file+ inside a +try-catch+ body.
+
+For times when you want to do some custom handling of the eventual
+exceptions thrown, you should put the call to +delete-file+ inside a
++try-catch+ body.
+
 [source,clojure]
 ----
 (try
@@ -40,7 +49,12 @@ For times when you want to do some custom handling of the eventual exceptions th
 ;; -> "exception: Couldn't delete ./file-that-do-not-exist.txt"
 ----
 
-+java.io.File+ have an +.exists+ property that simply give you a boolean answer whether a file exists or not. You can put this property together with a +try-catch+ body to get a "safe" delete utility function. This function will first check to see if the file with the path from the argument do exist before trying to delete it.
++java.io.File+ have an +.exists+ property that simply give you a
+boolean answer whether a file exists or not. You can put this property
+together with a +try-catch+ body to get a "safe" delete utility
+function. This function will first check to see if the file with the
+path from the argument do exist before trying to delete it.
+
 [source,clojure]
 ----
 (defn safe-delete [file-path]
@@ -56,7 +70,11 @@ For times when you want to do some custom handling of the eventual exceptions th
 ;; -> true
 ----
 
-The +clojure.java.io/delete-file+ function can also be used to delete directories. Directories must be empty for the deletion to be successful. So any utility function you make to delete a directory must first delete all files in the given directory.
+The +clojure.java.io/delete-file+ function can also be used to delete
+directories. Directories must be empty for the deletion to be
+successful. So any utility function you make to delete a directory
+must first delete all files in the given directory.
+
 [source,clojure]
 ----
 (clojure.java.io/delete-file "./dir-to-delete")
@@ -71,7 +89,16 @@ The +clojure.java.io/delete-file+ function can also be used to delete directorie
 (delete-directory "./dir-to-delete")
 ;; -> true
 ----
-The +delete-directory+ function will get a +file-seq+ with the contents of the given path. It will then filter to only get the files of that directory. The next step is to delete all the files and then finish up by deleting the directory itself. Note the call to +doall+. If you do not call +doall+ the deletion of the files would be lazy and then the files would still exist when the call to delete the actual directory is made, which would then fail.
+
+The +delete-directory+ function will get a +file-seq+ with the
+contents of the given path. It will then filter to only get the files
+of that directory. The next step is to delete all the files and then
+finish up by deleting the directory itself. Note the call to +doall+.
+If you do not call +doall+ the deletion of the files would be lazy and
+then the files would still exist when the call to delete the actual
+directory is made, which would then fail.
+
 
 ==== See Also
+
 * <<sec_local-io_files_get_files_from_dir>> for more details on using a +file-seq+ to get the files from a directory.
