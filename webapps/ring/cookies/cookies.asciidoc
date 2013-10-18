@@ -4,7 +4,7 @@ by Adam Bard
 
 ==== Problem
 
-Your web application needs to remember a user's name with a cookie.
+Your web application needs to read or set cookies on the user's browser (for example, to remember a user's name.)
 
 ==== Solution
 
@@ -35,12 +35,10 @@ Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your
 
 (defn handler
   "If we know the user's name, show it; else, show a form to get it."
-  [{cookies :cookies params :params :as req}]
-  (prn cookies)
-  (prn params)
+  [req]
   (let [name (or
-               ((get cookies "name") :value)
-               (get params "name"))]
+              (get-in req [:cookies "name" :value])
+              (get-in req [:params "name"]))]
     (if name
       (show-name name)
       (set-name-form))))
@@ -57,18 +55,20 @@ Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your
 
 ==== Discussion
 
-In this example, we used the `wrap-cookies` and `wrap-params` middlewares included
-with ring-core. We show the user a form on first view for them to enter their name.
-After their name is entered, a greeting is displayed thereafter instead, until
-the cookie is removed.
+This example uses the `wrap-cookies` and `wrap-params` middlewares
+included with ring-core. The first time the user visits a page, it
+shows the user a form for them to enter their name.  After their name
+is entered, it stores their name in a cookie and displays it as a
+instead, until the cookie is removed.
 
-We use `wrap-cookies` to let us retrieve the user's stored name, and `wrap-params`
-to retrieve the user's name from the `:params` key added to
-the request dict, in case it's not available from the cookies.
+The example uses `wrap-cookies` to retrieve the user's stored name
+from the cookie map, or if it's not there, `wrap-params` to retrieve
+the user's name from the request parameters.
 
-Ring's cookie middleware simply adds an extra parameter, `:cookies`, onto your
-request dict, and sets any cookies you pass out as the `:cookies` parameter
-on the response. The `:cookies` parameter is a map that looks something like this:
+Ring's cookie middleware simply adds an extra parameter, `:cookies`,
+onto the incoming request map, and sets any cookies you pass out as the
+`:cookies` parameter on the response. The `:cookies` parameter is a
+map that looks something like this:
 
 [source, clojure]
 ----
