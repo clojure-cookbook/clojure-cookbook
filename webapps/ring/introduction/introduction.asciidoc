@@ -9,7 +9,8 @@ You need to write an HTTP service with clojure
 
 ==== Solution
 
-Clojure has no built-in HTTP server, but the de-facto standard is Ring.
+Clojure has no built-in HTTP server, but the de-facto standard for
+serving basic, synchronous HTTP requests is the Ring library.
 
 [source, clojure]
 ----
@@ -31,7 +32,7 @@ Clojure has no built-in HTTP server, but the de-facto standard is Ring.
 
 ==== Discussion
 
-https://github.com/ring-clojure/ring[Ring] is the basis for web
+https://github.com/ring-clojure/ring[Ring] is the basis for most web
 applications in clojure. It provides a low-level and straightforward request-
 response API, where requests and responses are plain old clojure maps.
 
@@ -39,11 +40,13 @@ Ring applications are architected around handlers; functions that accept
 requests and return responses. The above example defines a single handler
 that just echos the response it receives.
 
-The basic response consists of 3 keys: `:status`, the status code of the response,
-`:headers`, an optional string-string map of the response headers you want, and `:body`,
-the string you want as your response body. Here, `:status` is 200 and `:body`
-just echos the request, which will hopefully be instructive. Here's what I get back
-from `http://localhost:3000/test/path/?qs=1`:
+A basic response map consists of 3 keys: `:status`, the status code of
+the response, `:headers`, an optional string-string map of the
+response headers you want, and `:body`, the string you want as your
+response body. Here, `:status` is 200 and `:body` is a pretty-printed
+string of the request. Therefore, the following sample response from
+hitting the url `http://localhost:3000/test/path/?qs=1` on the authors
+machine demonstrates the structure of a request:
 
 [source, clojure]
 ----
@@ -71,7 +74,10 @@ from `http://localhost:3000/test/path/?qs=1`:
  :body #<HttpInput org.eclipse.jetty.server.HttpInput@43efe432>}
 ----
 
-You can see that this is pretty raw. The path can be found as :uri. The query
-string is present, but unparsed.
+You can see that this is comprehensive, but low level, with the
+salient features of the request parsed into Clojure data structures
+without additional abstraction. Typically, additional code or
+libraries are used to extract meaninful information from this data
+structure.
 
 
