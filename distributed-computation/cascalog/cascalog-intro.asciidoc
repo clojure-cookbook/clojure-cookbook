@@ -4,7 +4,8 @@ The next several recipes deal with Cascalog, a library that makes it
 easy to run Clojure on Hadoop. Cascalog defines a DSL based on
 Datalog, the same query language that backs Datomic. It might be a
 little weird at first, but you will be thinking in Datalog in no
-time. The Cascalog github page has a wiki full of all the
+time. The Cascalog GitHub page has a
+https://github.com/nathanmarz/cascalog/wiki[wiki] full of all the
 documentation you will need to learn how to write your own Cascalog
 queries.
 
@@ -28,7 +29,7 @@ very often, you might consider running your job on Amazon EMR, Elastic
 MapReduce.  EMR provides on-demand Hadoop clusters the same way EC2
 provides on-demand servers. You'll need an Amazon Web Services account
 to run the job, but it isn't difficult. You can read exactly how to do
-it later in this chapter: <<sec_cascalog_emr>>. Whether you run your
+it later in this recipe: <<sec_cascalog_emr>>. Whether you run your
 job on EMR or on your own cluster, you'll package up your code into an
 uberjar, then send it to Hadoop for execution. It is surprisingly
 simple to get hundreds of computers working on your task.

@@ -15,15 +15,18 @@ recipes in this chapter can help you with that part.
 
 Then, package the job into an uberjar.
 
-[source,terminal] ---- $ lein uberjar ----
+[source,terminal]
+----
+$ lein uberjar
+----
 
 Your uberjar can be found at
 `target/<project-name>-<version>-standalone.jar`.
 
 Upload your jar, along with the input data, to Amazon S3. You can
-upload files through the web console found at
-https://console.aws.amazon.com/s3/home, or through any number of other
-tools.
+upload files through the
+https://console.aws.amazon.com/s3/home[web console], or through any
+number of other tools.
 
 Go to https://console.aws.amazon.com/elasticmapreduce/ to setup your
 job flow.
@@ -36,7 +39,7 @@ Next, fill in the jar information. `Jar Location` is the S3 path to
 which you uploaded your jar. `Jar Arguments` are all the arguments
 you'd normally pass when executing your jar. First, pass the fully
 qualified name of the class you want to
-execute. +clojurebook.cascalog.emr.Main+ for example. Than pass any
+execute. +clojurebook.cascalog.emr.Main+ for example. Then pass any
 arguments your job expects. For example, you probably need at least an
 input and output argument. Note that in an EMR job you'll be reading
 from and writing so S3.

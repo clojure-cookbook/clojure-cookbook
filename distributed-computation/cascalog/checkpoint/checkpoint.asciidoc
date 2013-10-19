@@ -25,7 +25,7 @@ Add the Hadoop dependency to your dev profile. This key in your project map
 will do it:
 [source,clojure]
 ----
-:profiles { :dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
+:profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
 ----
 
 Set your class to be aot-compiled by adding the aot key to the project

@@ -37,10 +37,10 @@ Add the Hadoop dependency to your dev profile. This key in your project map
 will do it:
 [source,clojure]
 ----
-:profiles { :dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
+:profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
 ----
 
-Set your class to be aot-compiled by adding the aot key to the project
+Set your class to be AOT-compiled by adding the AOT key to the project
 definition.
 [source,clojure]
 ----
@@ -93,8 +93,6 @@ it would be a lot of work to convert the script to run across many
 computers. Writing the transform script using Cascalog allows it to
 run in local mode or distributed mode with almost no modification.
 
-Lets look at each part of the query to understand what happens where.
-
 [source,clojure]
 ----
 (defmain Main [in out & args]
@@ -122,10 +120,10 @@ vector and a series of logic predicates.
 ----
 
 This line is the destination, the place the output will be written.
-We are defining a location, called a "tap" in Cascalog. The same
-functions are used to create input and output taps. In this case, we
-are using +hfs-textline+, but many other taps exist. You can even
-write your own.
+This defines a location, called a "tap" in Cascalog. The same
+functions are used to create input and output taps. This example uses
++hfs-textline+, but many other taps exist. You can even write your
+own.
 
 :TIP Use ":sinkmode :replace" in your output tap and Cascalog will
 replace any existing output. This helps while you are rerunning the
@@ -173,8 +171,8 @@ which is stored into +?book-map+.
 
 Now you pull the authors out of the map and store the vector into its
 own logic variable. Cascalog assumes vector output means binding
-multiple logic vars. Here we wrap the output in an extra vector that
-Cascalog will consume.
+multiple logic vars. To outsmart Cascalog, wrap the output in an extra
+vector for Cascalog to consume.
 
 [source,clojure]
 ----
