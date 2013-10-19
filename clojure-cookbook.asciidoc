@@ -16,8 +16,6 @@ include::databases/databases.asciidoc[]
 
 include::webapps/webapps.asciidoc[]
 
-include::clojurescript/clojurescript.asciidoc[]
-
 include::deployment/deployment.asciidoc[]
 
 include::distributed-computation/distributed-computation.asciidoc[]
