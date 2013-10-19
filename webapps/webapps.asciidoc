@@ -23,8 +23,6 @@ include::liberator/basic.asciidoc[]
 
 include::templating-with-selmer/templating-with-selmer.asciidoc[]
 
-include::templating-with-enlive/templating-with-enlive.asciidoc[]
-
 include::markdown/markdown.asciidoc[]
 
 include::luminus/luminus.asciidoc[]
