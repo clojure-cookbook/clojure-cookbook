@@ -21,8 +21,6 @@ include::edn-record/edn-record.asciidoc[]
 
 include::lein-templates/lein-templates.asciidoc[]
 
-include::trying-a-library-without-a-project/trying-a-library-without-a-project.asciidoc[]
-
 include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 
 include::extend-built-in/extend-built-in.asciidoc[]

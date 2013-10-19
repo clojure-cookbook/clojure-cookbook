@@ -1,4 +1,4 @@
-=== Trying a Library Without a Project
+=== Trying a Library Without Explicit Dependencies
 [role="byline"]
 by Mark Whelan
 
