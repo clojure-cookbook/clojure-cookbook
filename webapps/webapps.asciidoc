@@ -17,7 +17,7 @@ include::ring/headers/headers.asciidoc[]
 
 include::ring/compojure/compojure.asciidoc[]
 
-include::webapps/ring/redirect/redirect.asciidoc[]
+include::ring/redirect/redirect.asciidoc[]
 
 include::liberator/basic.asciidoc[]
 
