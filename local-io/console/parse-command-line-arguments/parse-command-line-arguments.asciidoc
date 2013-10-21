@@ -165,6 +165,7 @@ arguments will be returned as the second item in +cli+'s returned vector.
 ----
 (second (apply cli ["-n" "5" "foo.txt" "bar.txt"] app-specs))
 ;; -> ["foo.txt" "bar.txt"]
+----
 
 If your variadic arguments look like flags, however, you'll need
 another trick. Use +--+ as an argument to indicate to +cli+ that
