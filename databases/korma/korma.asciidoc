@@ -333,13 +333,44 @@ SQL functions can be called using +sqlfn+ followed by the name and optional para
   (where {:registered [<= (sqlfn now)]}))
 ----
 
-When something can't be expressed in Korma you can use raw queries :
+When something can't be expressed in Korma you can use raw queries:
 
 [source,clojure]
 ----
 (exec-raw ["SELECT * FROM customer WHERE id = ?" [4]] :results)
 ----
 
+It should also be noted that Korma can enable some rather nice query composition based APIs:
+
+[source,clojure]
+----
+
+(defn customers []
+  (-> (select* customer) (with address)))
+
+(defn constrainer [field]
+  (fn [table value]
+    (-> table (where {field value}))))
+
+(def customer-fields [:tentacles :id :name :registered])
+(def all-constrainers (map constrainer customer-fields))
+
+;; closed over function via lexical scope
+(def constrain-tentacles (first all-constrainers))
+
+(defn yay-area-residents [customers]
+  (-> customers (where {:address.addy "San Francisco!"})))
+
+(defn customers-with-tentacles []
+      (-> (customers) (constrain-tentacles true) (select)))
+
+(defn customers-without-tentacles []
+      (-> (customers) (constrain-tentacles false) (select)))
+
+(defn customers-without-tentacles-in-sf []
+      (-> (customers) (constrain-tentacles false) (yay-area-residents) (select)))
+
+----
 
 ===== See Also
 
