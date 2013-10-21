@@ -91,7 +91,7 @@ Everything after the argument name and description will be interpreted
 as options in key-value pairs. tools.cli provides the following
 options:
 
-* +:default+: The default value returned in the absense of user-input.
+* +:default+: The default value returned in the absence of user-input.
   Without specifying, the default of default is +nil+.
 * +:flag+: If truthy (not +false+ or +nil+), indicates an argument
   behaves like a flag or switch. This argument will *not* take any
@@ -121,7 +121,7 @@ Here's a complete example:
 
 When writing flag options, a useful shortcut is to omit the +:flag+
 option and add a "`[no-]`" prefix to the arguments name. +cli+ will
-interpet this argument spec as including +:flag true+ without having
+interpret this argument spec as including +:flag true+ without having
 to specify it as such.
 
 [source,clojure]

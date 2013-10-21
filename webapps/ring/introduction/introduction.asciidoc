@@ -77,7 +77,7 @@ machine demonstrates the structure of a request:
 You can see that this is comprehensive, but low level, with the
 salient features of the request parsed into Clojure data structures
 without additional abstraction. Typically, additional code or
-libraries are used to extract meaninful information from this data
+libraries are used to extract meaningful information from this data
 structure.
 
 The jetty adapter is used to run an embedded Jetty server. Ring also
