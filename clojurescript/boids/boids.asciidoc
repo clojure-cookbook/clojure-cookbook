@@ -19,7 +19,7 @@ In your dependencies:
 ----
 
 
-Before looking at the whole version, try building a minimal viabale
+Before looking at the whole version, try building a minimal viable
 solution to see the core bits of creating objects and animating them
 in a web page.
 
@@ -76,7 +76,7 @@ http://s.trokes.org/dribnet/6460749[Live demo here]
 
 
 https://github.com/dribnet/strokes[strokes] is a library which
-provides idomatic use of http://d3js.org/[D3.js] from
+provides idiomatic use of http://d3js.org/[D3.js] from
 ClojureScript. Here, 5 objects were put in a vector wrapped by an atom
 to represent the boids, and then D3's timer function was used to
 repeatedly update and rerender these objects. Before getting too
