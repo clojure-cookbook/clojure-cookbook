@@ -1,18 +1,6 @@
-=== Working with SQL Korma
+=== Working with SQL in Korma
 [role="byline"]
 by Dmitri Sotnikov and Chris Allen
-=== Working with Korma for SQL
-
-// TODO: Early merged this so @bitemyapp (callen) could submit feedback
-//
-// The notes I (@rkneufeld) made for things to be addressed:
-//
-// * While the *Discussion* is sufficiently broad, I feel like the exposition
-//   on the capabilities of Korma are a little light. Right now they feel almost
-//   like a list for the sake of having a list instead of an in-depth look at how
-//   Korma works.
-// * Are all of these samples actually runnable? Where possible we're striving
-//   for REPL-ability of recipes, and I wasn't sure if all of these samples were.
 
 ==== Problem
 
@@ -24,50 +12,45 @@ Use Korma as a DSL for generating SQL queries and traversing relationships.
 
 First, fire up a fresh Leiningen project with Korma (the SQL library) and PostgreSQL as dependencies.
 
-If you're a Mac user and don't have PostgreSQL installed yet, you can go here http://postgresapp.com/
-for an easy to use dmg.
+[NOTE]
+====
+You'll need a running SQL database and existing table to connect to
+for this recipe. We suggest PostgreSQL.
 
-After you've got PostgreSQL running (presumably on localhost at port 5432) you run the following
-command to create the database we'll be using for our recipes:
+If you're a Mac user and don't have PostgreSQL installed yet, you can
+go here http://postgresapp.com/ for an easy to use DMG.
 
-[source,bash]
-----
-$ createdb -h 127.0.0.1 learnkorma
-----
-
-Now to create the project:
+After you have PostgreSQL running (presumably on _localhost:5432_) run the following
+command to create a database for this recipe:
 
 [source,bash]
 ----
-$ lein new learn-korma
+$ createdb learnkorma
+----
+====
+
+Before starting, add `[korma "0.3.0-RC6"]` and
+`[org.postgresql/postgresql "9.2-1002-jdbc4"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try clj-time korma org.postgresql/postgresql
 ----
 
-Then the project.clj with the appropriate dependencies:
-
-[source,clojure]
-----
-(defproject learn-korma "0.0.1-doesnt-matter-youre-not-shipping-this"
-  :description "Doesn't matter"
-  :url "http://uss-who-cares.com/"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                 [korma "0.3.0-RC6"]
-                 [org.postgresql/postgresql "9.2-1002-jdbc4"]])
-----
-
-Next, define a database connection. Korma uses c3p0 to create pooled connections.
+Next, define a database connection. Korma uses c3p0 to create pooled
+connections.
 
 [source,clojure]
 ----
-(require '[korma.db :refer :all])
+(require '[korma.db :refer [defdb postgres]])
 
 (defdb db
   (postgres {:db "learnkorma"}))
 ----
 
-Next, you will need to define and create your entities. Entities represent
-individual tables in your database. Here you'll define an entity for blog posts:
+Next, define and create some entities. Entities represent individual
+tables in your database. Here you'll define an entity for blog posts:
 
 [source,clojure]
 ----
@@ -75,23 +58,25 @@ individual tables in your database. Here you'll define an entity for blog posts:
 
 (defentity posts
   (pk :id)
-  ;; Upper-case table names by default in H2. We handled it for the columns->keys earlier with naming.
   (table :posts))
 
 ;; serial is the default Postgres type for autoincrementing integer primary keys
-(def create-posts (str "CREATE TABLE posts (id serial, title text, content text, created_on timestamp default current_timestamp);"))
+(def create-posts (str "CREATE TABLE posts "
+                       "(id serial, title text, content text,"
+                       "created_on timestamp default current_timestamp);"))
 
 ;; Korma function to exec raw SQL, should only be used where strictly necessary.
 (exec-raw create-posts)
 ----
 
-Normally you'd use a proper migration library for your schema, but we're
-keeping it simple for the sake of demonstration.
+Normally you'd use a proper migration library for your schema, but
+we're keeping it simple for the sake of demonstration.
 
-When only a single connection is defined it will be used by default and you
-don't have to pass it in explicitly. You can use +insert+ to add records to
-the database. Each record is represented by a map. The names of the keys
-in the map must match the names of the columns in the database.
+When only a single connection is defined it will be used by default
+and you don't have to pass it in explicitly. You can use +insert+ to
+add records to the database. Each record is represented by a map. The
+names of the keys in the map must match the names of the columns in
+the database.
 
 We're using +entity-fields+ to define which fields we want to retrieve by
 default in select queries that don't have fields specified.
