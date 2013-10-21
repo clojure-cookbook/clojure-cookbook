@@ -1,109 +1,199 @@
 === Parse command line arguments
 [role="byline"]
-by Nicolas Bessi
+Originally submitted by Nicolas Bessi
 
 ==== Problem
 
-You want your command line tool to be able to receive input arguments,
-parse and validate them.
+You want to write command line tools in Clojure that can parse input
+arguments.
 
 ==== Solution
 
-Use +org.clojure/tools.cli+ https://github.com/clojure/tools.cli
-library that replaces the +clojure.contrib/command-line+.
+Use the https://github.com/clojure/tools.cli[+org.clojure/tools.cli+]
+library.
+
+Before starting, add `[clj-pdf "1.11.6"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try clj-time
+----
+
+Use the +clojure.tools.cli/cli+ function in your project's +-main+
+function entry-point to parse command-line arguments footnote:[Since
+tools.cli is so cool this example can run entirely at the REPL.].
 
 [source,clojure]
 ----
-(ns dummy-command-line-parser.core
-  (:use [clojure.tools.cli :only (cli)]))
+(require '[clojure.tools.cli :refer [cli]])
 
-(defn invalid? [opts args]
-  (empty? args))
+(defn -main [& args]
+  (let [[opts args banner] (cli args
+                                "Usage: your_command [args] ..."
+                                ["-h" "--help" "Print this help" :default false :flag true])]
+    (when (or (:help opts))
+      (println banner))))
 
-(defn do-the-stuff [opts, path]
-  (println "kwargs:" opts)
-  (println "trailing:" path))
-
-(defn -main
-  "The application's main function"
-  [& args]
-  (let [[opts args banner]
-        (cli args
-             ["-h" "--help" "Show help" :flag true :default nil]
-             ["-c" "--csv-context" "Predefined mode  [Standard, LibreOffice]"
-              :default "standard"]
-             ["-s" "--separator" "CSV separator" :default ","]
-             ["-v" "--[no-]verbose" "I will talk a lot"])]
-    (when (or (:help opts) (invalid? opts args))
-      (println "my_command [args] file_pathes ..")
-      (println "")
-      (println banner)
-      (System/exit 0))
-    (do-the-stuff opts, args)))
+;; Simulate entry into the -main at the command-line
+(-main "-h")
+;; *out*
+;; your_command [args]  ...
+;;
+;; Usage:
+;;
+;;  Switches                 Default  Desc
+;;  --------                 -------  ----
+;;  -h, --no-help, --help    false    Print this help
 ----
 
 ==== Discussion
-Writing command line tools or being able to add arguments to
-an application/Web app is a must have.
 
-Clojure store all command line arguments into *+command-line-args+* list built-in.
-When using the Leiningen +run+ command, arguments are passed to main function
-defined in your project manifest.
+Clojure's tools.cli is a simple library, with only one function,
++cli+, and a slim data-oriented API for specifying how arguments
+should be parsed. Handily enough, there isn't much special about this
+function; an arguments vector and specifications go in, a map of parsed
+options, variadic arguments and a help banner come out. It's really the
+epitome of good, composable functional programming.
 
-If you want to test your arguments while working with +lein run+
-you have to differentiate the run arguments from your own arguments using +--+:
+To configure how options are parsed, pass any number spec vectors
+after the +args+ list. To specify a +:port+ parameter, for example,
+you would provide the spec `["-p" "--port"]`. The +"-p"+ isn't
+strictly necessary, but it is customary to provide a single-letter
+shortcut for command-line options (especially long ones.) In the
+returned +opts+ map the text of the last option name will be interned
+to a symbol (less the "--"). For example, +"--port"+ would become
++:port+, and +"--super-long-option"+ would become +:super-long-option+.
 
-[source,bash]
-----
-% lein run -- my args
-----
+// TODO: This feature is not working--throws misc. errors when
+// attempted.
+//
+// Optionally, you can pass a string as the first argument before
+// vector specs. Whatever is in this string will be printed above the list of
+// options. You've probably seen this to indicate how a command is to be
+// used in a number of other command-line applications.
+//
+// [source,clojure]
+// ----
+// // TODO: Usage example
+// ----
 
-the +cli+ function is the main utility you will use.
-It received a list of args and will return a vector containing:
-* A hash of all your keyword arguments
-* A vector of all non keyword trailing arguments
-* A generated help banner
-
-[source,bash]
-----
-lein run -- -s "|" -c "LibreOffice" -v my_file
-kwargs: {:verbose true, :separator |, :csv-context LibreOffice, :help false}
-trailing: [my_file]
-----
-Lets input invalid args to see the generated banner:
-
-[source,bash]
-----
-lein run -- -s "|" -c "LibreOffice" -v
-my_command [args] file_pathes ..
-
-Usage:
-
- Switches                     Default   Desc
- --------                     -------   ----
- -h, --no-help, --help                  Show help
- -c, --csv-context            standard  Predefined mode  [Standard, LibreOffice]
- -s, --separator              ,         CSV separator
- -v, --no-verbose, --verbose  false     I will talk a lot
-----
-
-Option definitions are specified in a vector:
+If you're a polite command-line application developer, you'll also
+include a description for each of your options. Specify this as an
+optional string following the final argument name.
 
 [source,clojure]
 ----
-["-short-name" "--long-name" "description"]
+["-p" "--port" "The incoming port the application will listen on."]
 ----
 
-You can add an optional default value by appending +:default+
-Flag keyword are defined by using the +:flag+ with a default set to true or
-by using the --[no-]myarg convention for long name with default set to false.
+Everything after the argument name and description will be interpreted
+as options in key-value pairs. tools.cli provides the following
+options:
+
+* +:default+: The default value returned in the absense of user-input.
+  Without specifying, the default of default is +nil+.
+* +:flag+: If truthy (not +false+ or +nil+), indicates an argument
+  behaves like a flag or switch. This argument will *not* take any
+  value is its input.
+* +parse-fn+: The function used to parse an argument's value. This can
+  be used to turn string values into integers, floats or other
+  datatypes.
+* +assoc-fn+: The function used to combine multiple values for a
+  single argument. 
+
+Here's a complete example:
 
 [source,clojure]
 ----
- ["-v" "--[no-]verbose" "I will talk a lot"]
+(def app-specs [["-n" "--count" :default 5
+                                :parse-fn #(Integer. %)
+                                :assoc-fn max]
+                ["-v" "--verbose" :flag true
+                                  :default true]])
+
+(first (apply cli ["-n" "2" "-n" "50"] app-specs))
+;; -> {:count 50, :verbose true}
+
+(first (apply cli ["--no-verbose"] app-specs))
+;; -> {:count 5, :verbose false}
 ----
-or
+
+When writing flag options, a useful shortcut is to omit the +:flag+
+option and add a "`[no-]`" prefix to the arguments name. +cli+ will
+interpet this argument spec as including +:flag true+ without having
+to specify it as such.
+
 [source,clojure]
 ----
- ["-v" "--verbose" "I will talk a lot" :flag true]
+["-v" "--[no-]verbose" :default true]
 ----
+
+One thing the tools.cli library *doesn't* provide is a hook into the
+application container's launch lifecycle. It is your responsiblity to
+add a +cli+ call to your +-main+ function and know when to print the
+help banner. A general pattern for use is to capture the results of
++cli+ in a +let+-block and determine if help needs to be printed. This
+is also useful for ensuring validity of arguments (especially since
+there is no +:required+ option.)
+
+[source,clojure]
+----
+(def required-opts #{:port})
+
+(defn missing-required?
+  "Returns true if opts is missing any of the required-opts"  
+  [opts]
+  (not-every? opts required-opts))
+
+(defn -main [& args]
+  (let [[opts args banner] (cli args
+                                ["-h" "--help" "Print this help" :default false :flag true]
+                                ["-p" "--port" :parse-fn #(Integer. %)])]
+    (when (or (:help opts)
+              (missing-required? opts))
+        (println banner))))
+----
+
+As with many applications, you may want to accept a variable number of
+arguments to your applications; for example, a list of file names.
+In most cases, you don't need to do anything special to capture these
+arguments--just supply them after any other options. These variadic
+arguments will be returned as the second item in +cli+'s returned vector.
+
+[source,clojure]
+----
+(second (apply cli ["-n" "5" "foo.txt" "bar.txt"] app-specs))
+;; -> ["foo.txt" "bar.txt"]
+
+If your variadic arguments look like flags, however, you'll need
+another trick. Use +--+ as an argument to indicate to +cli+ that
+everything that follows is a variadic argument. This is useful if
+you're invoking another program with the options originally passed to
+your program.
+
+[source,clojure]
+----
+(second (apply cli ["-n" "5" "--port" "80"] app-specs))
+;; -> Exception '--port' is not a valid argument ...
+
+(second (apply cli ["-n" "5" "--" "--port" "80"] app-specs))
+;; -> ["--port" "80"]
+----
+
+Once you've finished toying with your application's option-parsing at
+the REPL, you'll probably want to try invoking options via +lein run+.
+Just like your application needs to use +--+ to indicate arguments to
+pass onto subsequent programs, so too must you use +--+ to indicate to
++lein run+ which arguments are for your program and which are for it.
+
+[source,shell]
+----
+# If app-specs were rigged up to a project...
+$ lein run -- -n 5 --no-verbose
+----
+
+==== See Also
+
+* Packaging applications (TODO: xref)
+* Handling STDIN/STDOUT streams (TODO: xref)
