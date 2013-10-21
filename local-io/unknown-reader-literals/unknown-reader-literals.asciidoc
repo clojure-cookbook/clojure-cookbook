@@ -117,7 +117,7 @@ read from untrusted sources. This means user data, remote servers
 being a little extreme, of course, but we want you to be safe.)
 
 In the event that you *do* have a safe environment and absolutely need
-to evalute some code, then by all means use the +clojure.core+
+to evaluate some code, then by all means use the +clojure.core+
 readers. These readers do have a different interface for setting
 options than +clojure.edn+ readers, though; instead of passing an
 +opts+ you'll need to change various dynamic bindings to adjust the

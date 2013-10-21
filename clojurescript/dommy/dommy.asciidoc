@@ -43,7 +43,7 @@ functional and idiomatic code.
 (deftemplate my-list [items]
   [:#my-list.shopping-list
     [:ul (map list-element items)]
-    [:buttom.remove-button "Clear list"])
+    [:button.remove-button "Clear list"])
 ----
 
 To select for a DOM element, use either the +sel1+ function, which returns the first element matching a
@@ -122,7 +122,7 @@ Let's take a closer look at what's actually going on in the two templates from b
 (deftemplate my-list [items]
   [:#my-list.shopping-list
     [:ul (map list-element items)]
-    [:buttom.remove-button "Clear list"])
+    [:button.remove-button "Clear list"])
 ----
 
 * The first keyword in each vector always describes the element tag, including its classes and id, using css syntax.
