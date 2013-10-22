@@ -75,11 +75,12 @@ newline including the last one.
   (spit path (str text "\n") :append true)
 ----
 
-+spit+ and +slurp+ deal with the entire contents of a file at a time,
-and close the file after reading or writing. If you need to read or
-write a lot of data, it is more efficient (in terms of both memory and
-time) to use streams, since it does not require creating large string
-objects in memory.
+When used with strings, +spit+ and +slurp+ deal with the entire
+contents of a file at a time, and close the file after reading or
+writing. If you need to read or write a lot of data, it is more
+efficient (in terms of both memory and time) to use a streaming API
+such as +java.io.Reader+ or +java.io.Writer+, since they do not
+require realizing the contents of the file in memory.
 
 When using writers and streams, however, it is important to flush any
 writes to the underlying stream in order to ensure your data is
@@ -89,7 +90,7 @@ its body.
 
 WARNING: Be especially aware that any lazy sequences based on a stream
 will throw an error if the underlying stream is closed before the
-sequence is realized. Even when using +with-open+ it is possible to
+sequence is realized. Even when using +with-open+, it is possible to
 return an unrealized lazy sequence; the +with-open+ macro has no way
 of knowing that the stream is still needed, and so will close it
 anyway, leaving a sequence that cannot be realized.
