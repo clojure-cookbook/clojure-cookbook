@@ -1,3 +1,4 @@
+[[sec_datomic_schema]]
 === Define schema for a Datomic database
 [role="byline"]
 by Robert Stuttaford

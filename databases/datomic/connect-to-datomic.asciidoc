@@ -8,7 +8,16 @@ You need to connect to a Datomic database.
 
 ==== Solution
 
-Connect to an in-memory database:
+Before starting, add `[com.datomic/datomic "0.8.3335"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try com.datomic/datomic
+----
+
+To create and connect to an in-memory database use
++database.api/create-database+ and +datomic.api/connect+.
 
 [source,clojure]
 ----
@@ -25,7 +34,8 @@ conn
 ;; -> #<LocalConnection datomic.peer.LocalConnection@49384d99>
 ----
 
-Use the connection to get a database value to query:
+Once you have a connection, you can use it to get a database _value_
+with +datomic.api/db+. This value is used to query a database.
 
 [source,clojure]
 ----
@@ -35,62 +45,80 @@ db
 ;; -> datomic.db.Db@7b7fea26
 ----
 
-Use the connection to transact data:
+You can also use the connection to transact data using
++datomic.api/transact+.
 
 [source,clojure]
 ----
-(d/transact (d/connect uri) [...])
+;; Transact the schema for your Next Big Thing
+(def my-great-schema []) ; This vector intentionally left blank
+(d/transact (d/connect uri) my-great-schema)
 ----
 
-==== Discussions
+==== Discussion
 
-In the solution, we also show how to create a database, as we're dealing with an in-memory database.
-It is not necessary to call create-database if the database already exists, but it is safe to do so.
+You'll notice in the solution, we not only connected to a database,
+but we created it too. This pattern is common when using in-memory
+databases, as no in-memory databases exist in a fresh JVM. It is not
+strictly necessary to call +create-database+ if the database already
+exists, but it is safe to do so--+create-database+ is idempotent and
+will return +false+ if one already exists.
 
-When connecting to a database that isn't in memory, it is necessary for the relevant transactor and 
-storage service to be running.
+When connecting to a database that isn't in memory, it is necessary
+for the relevant transactor and storage service to be running.
 
-The return value of +d/connect+ is used when querying a database value or when transacting data.
+The return value of +d/connect+ is used when querying a database value
+or when transacting data. It is also used when reading the transaction
+log, consuming the transaction report queue or when performing
+administrative tasks such as requesting an indexing job, garbage
+collecting storage, and disposing resources associated with the
+connection.
 
-It is also used when reading the transaction log or consuming the transaction report queue, or when 
-performing administrative tasks such as requesting an indexing job, garbage collecting storage, and 
-disposing resources associated with the connection.
-
-Connections are thread-safe, and are cached by URI internally, so there is no need to pool connections
-yourself. There is no performance overhead for creating many connections to the same URI.
+Connections are thread-safe, and are cached by URI internally, so
+there is no need to pool connections yourself. There is no performance
+overhead for creating many connections to the same URI.
 
 ===== Storage Services
 
-Datomic transactor processes have a limit on the number of concurrently connected peer processes.
-Datomic Free has a limit of 2 peers per transactor.
-Datomic Pro licenses can be purchased to enable support for 5 to 30 peers.
+Datomic transactor processes have a limit on the number of
+concurrently connected peer processes. Datomic Free has a limit of 2
+peers per transactor. For non-distributed applications this may well
+be sufficient. If you're building a larger service, then you may need
+to purchase a Datomic Pro license for more peers.
 
-There are several options for Datomic storage services; three are built-in and the rest use external
-services. External storage services are only available with Datomic Pro.
+There are several options for storage services that back Datomic; three are
+built-in and the rest use external services. External storage services
+are only available with Datomic Pro.
 
 ===== Built-in storage options
 
-* In local memory: +"datomic:mem://[db-name]"+
-* Free, for use with Datomic Free, subject to the 2-peer limit: +"datomic:free://host[:port]/[db-name]"+
-* Dev, for use with Datomic Pro, subject to the licensed peer limit: +"datomic:dev://host[:port]/[db-name]"+
+* In local memory: `"datomic:mem://[db-name]"`
+* Free, for use with Datomic Free, subject to the 2-peer limit:
+  `"datomic:free://host[:port]/[db-name]"`
+* Dev, for use with Datomic Pro, subject to the licensed peer limit:
+  `"datomic:dev://host[:port]/[db-name]"`
 
-Free and Dev can also be configured to use alternate ports for storage:
+Free and Dev can also be configured to use alternate ports for
+storage: `"datomic:free://host[:port]/[db-name]?h2-port=[port]&h2-web-port=[port]"`
 
-+"datomic:free://host[:port]/[db-name]?h2-port=[port]&amp;h2-web-port=[port]"+
-
-By default, these ports will be 1 and 2 more than the transactor port, respectively.
+By default, these ports will be 1 and 2 more than the transactor port,
+respectively.
 
 ===== External storage service options
 
-* DynamoDB: +"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"+"
-* Riak: +"datomic:riak://host[:port]/bucket/dbname[?interface=http|protobuf]"+ (default is protobuf)
-* Couchbase: +"datomic:couchbase://host/bucket/dbname[?password=xxx]"+
-* Infinispan: +"datomic:inf://[cluster-member-host:port]/[db-name]"+
-* SQL: +"datomic:sql://[db-name][?jdbc-url]"+
+* DynamoDB:
+  `"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"+`
+* Riak:
+  `"datomic:riak://host[:port]/bucket/dbname[?interface=http|protobuf]"`
+  (default is protobuf)
+* Couchbase: `"datomic:couchbase://host/bucket/dbname[?password=xxx]"`
+* Infinispan: `"datomic:inf://[cluster-member-host:port]/[db-name]"`
+* SQL: `"datomic:sql://[db-name][?jdbc-url]"`
 
-For SQL storage services, the map format can be used instead of the string format. This is useful
-when specifying objects that can't be embedded in URI strings, like DataSources. The format for the
-SQL map is:
+For SQL storage services, the map format can be used instead of the
+string format. This is useful when specifying objects that can't be
+embedded in URI strings, like DataSources. The format for the SQL map
+is:
 
 [source,clojure]
 ----
@@ -103,3 +131,5 @@ SQL map is:
 
 ==== See Also
 
+* <<sec_datomic_schema>>
+* <<sec_datomic_transact_basics>>
