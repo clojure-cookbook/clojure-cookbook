@@ -45,8 +45,9 @@ and attempts to decompress the original stream. The output variant
 behaves similarly.
 
 By wrapping a normal input stream, as returned by
-+clojure.java.io/input-stream+, we can pass it to +slurp+ and easily
-read the entire decompressed contents.
++clojure.java.io/input-stream+, you can pass it to +slurp+ or
++line-seq+ (or any other function that takes an input stream) and
+easily read the entire decompressed contents.
 
 You can also leverage this technique to read a large compressed file
 line-by-line, or to read back Clojure forms written with +pr+ or
@@ -57,9 +58,11 @@ By binding an output stream to +pass:[*out*]+ we can use +println+,
 +pr+, etc. to output small amounts of data at a time to the stream,
 which will be compressed on disk when the stream is closed.
 
+A nearly identical approach can be used for writing data in the ZIP
+compression format, using the +java.util.zip.ZipInputStream+ and
++java.util.zip.ZipOutputStream+ classes.
+
 ==== See Also
 
-// TODO: Does not exist yet?
-* <<sec_local_io_read_write_zip>>
 * <<sec_local_io_clojure_data_to_disk>>
 
