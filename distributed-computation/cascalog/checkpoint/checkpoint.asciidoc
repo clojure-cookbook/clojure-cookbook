@@ -17,12 +17,31 @@ restarted at that step, instead of restarting from the beginning.
 Add the following to the dependencies vector of your project.clj:
 [source,clojure]
 ----
+[cascalog "1.10.2"]
 [cascalog/cascalog-checkpoint "1.10.2"]
+----
+
+Add the Hadoop dependency to your dev profile. This key in your project map
+will do it:
+[source,clojure]
+----
+:profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
+----
+
+Set your class to be aot-compiled by adding the aot key to the project
+definition.
+[source,clojure]
+----
+:aot [cookbook.checkpoint]
 ----
 
 Then use cascalog-checkpoint's workflow macro to setup your job.
 [source,clojure]
 ----
+(ns cookbook.checkpoint
+  (:require [cascalog.api :refer :all]
+            [cascalog.checkpoint :refer [workflow]]))
+
 (defmain Main [in-path out-path & args]
   (workflow ["/tmp/log-parsing"]
     step-1 ([:temp-dirs parsed-logs-path]

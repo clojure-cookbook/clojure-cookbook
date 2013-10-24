@@ -1,0 +1,35 @@
+=== Introduction to Cascalog
+
+The next several recipes deal with Cascalog, a library that makes it
+easy to run Clojure on Hadoop. Cascalog defines a DSL based on
+Datalog, the same query language that backs Datomic. It might be a
+little weird at first, but you will be thinking in Datalog in no
+time. The Cascalog GitHub page has a
+https://github.com/nathanmarz/cascalog/wiki[wiki] full of all the
+documentation you will need to learn how to write your own Cascalog
+queries.
+
+Cascalog provides a concise syntax for describing data processing
+jobs.  Transformations and aggregates are easy to express in
+Cascalog. Joins are particularly simple. You might like the Cascalog
+syntax so much that you use it even for local jobs.
+
+You can run your Cascalog jobs in a couple of different ways. The
+easiest way is to run it locally. Cascalog uses Hadoop's local mode,
+and the entire job runs on your own computer.  You get the benefit of
+parallelism, without the hassle of setting up a cluster. If the job
+ever gets too slow, it'll be easy to transfer it to another run
+method. Running Cascalog in local mode doesn't require any extra
+setup.
+
+Once you've outgrown local mode, you'll need to run it on a Hadoop
+cluster. Having your own cluster is a lot of fun, but it can be a fair
+amount of work to keep it up and running. If you don't need a cluster
+very often, you might consider running your job on Amazon EMR, Elastic
+MapReduce.  EMR provides on-demand Hadoop clusters the same way EC2
+provides on-demand servers. You'll need an Amazon Web Services account
+to run the job, but it isn't difficult. You can read exactly how to do
+it later in this recipe: <<sec_cascalog_emr>>. Whether you run your
+job on EMR or on your own cluster, you'll package up your code into an
+uberjar, then send it to Hadoop for execution. It is surprisingly
+simple to get hundreds of computers working on your task.

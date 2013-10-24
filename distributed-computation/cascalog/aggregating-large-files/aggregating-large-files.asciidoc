@@ -8,14 +8,14 @@ by Alex Robbins
 You need to generate aggregate statistics from terabytes of log
 files. For example:
 
-Simple input log file (<date> <URL> <USER-ID>):
+Simple input log file (<date>,<URL>,<USER-ID>):
 ----
-20130512020202 /             11
-20130512020412 /             23
-20130512030143 /post/clojure 11
-20130512040256 /post/datomic 23
-20130512050910 /post/clojure 11
-20130512051012 /post/clojure 14
+20130512020202,/,11
+20130512020412,/,23
+20130512030143,/post/clojure,11
+20130512040256,/post/datomic,23
+20130512050910,/post/clojure,11
+20130512051012,/post/clojure,14
 ----
 
 Output aggregate statistics:
@@ -43,6 +43,20 @@ Add the following to the dependencies vector of your project.clj:
 [cascalog/cascalog-more-taps "1.10.2"]
 ----
 
+Add the Hadoop dependency to your dev profile. This key in your project map
+will do it:
+[source,clojure]
+----
+:profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
+----
+
+Set your class to be aot-compiled by adding the aot key to the project
+definition.
+[source,clojure]
+----
+:aot [cookbook.aggregation]
+----
+
 Then add this query to your project:
 [source,clojure]
 ----
@@ -67,13 +81,15 @@ Then add this query to your project:
   (?<-
     (hfs-textline out :sinkmode :replace)
     [?out]
-    ((hfs-delimited in) ?date ?url ?user)
+    ((hfs-delimited in :delimiter ",") ?date ?url ?user)
     (aggregate-stats ?date ?url ?user :> ?out)))
 ----
 
 Then execute it locally
 [source,terminal]
+----
 $ lein run -m cookbook.aggregation.Main <in-path> <out-path>
+----
 
 or execute it over your Hadoop cluster
 [source,terminal]
@@ -98,7 +114,7 @@ Before you start writing your own aggregator, check through the source
 of +cascalog.ops+. +cascalog.ops+ has many useful functions and
 probably already does what you want to do.
 
-In our example, we need to count how many of each url occurs. To
+In the example, the goal is to count how many of each url occurs. To
 create the final map, all of the URLs need to end up in one reducer. A
 naive MapReduce program implementation would use an aggregation over
 all the tuples. That means you'd be doing all the work on only one
@@ -143,14 +159,67 @@ passed as an argument to later invocations of the +combine-var+
 function. Pairs of output will be combined until there is only one
 output left, which is the final output.
 
-For example, in this query, the +init-var+ takes the date, url and
-user id for each line and transforms them into a nested map with a
-value of one for each defined key.  Then +combine-var+ is called with
-pairs of nested maps. Combine var just merges the maps, using
-+merge-with+ and the addition function. As each new map is combined
-in, the counts go up for the defined keys. When all the maps have been
-combined, you are left with a single map of maps that contain counts
-for each value.
+Here is the query, with explanations inline:
+
+Require the Cascalog functions you'll need.
+[source,clojure]
+----
+(ns cookbook.aggregation
+  (:require [cascalog.api :refer :all]
+            [cascalog.more-taps :refer [hfs-delimited]]))
+----
+
+Define a functions that takes a date, url and user and returns a
+map of maps. The second level of maps has keys that correspond to
+the observed values. This is the init function, which takes each row
+and prepares it for aggregation.
+[source,clojure]
+----
+(defn init-aggregate-stats [date url user]
+  (let [day (.substring date 0 8)]
+    {"URL"  {url 1}
+     "User" {user 1}
+     "Day"  {date 1}}))
+----
+
+This function takes the output of calling the init function on all
+the inputs and combines them.  This function will be called over
+and over, combining the output of init functions and the output of
+other calls of itself. Its output should the same form as its input
+since this function will be called on pairs of output until there
+is only one piece of data left. This function merges the nested
+maps, adding the values together when they are in the same key.
+[source,clojure]
+----
+(def combine-aggregate-stats
+  (partial merge-with (partial merge-with +)))
+----
+
+This takes the two previous functions and turns them into a Cascalog
+parallel aggregation operation. Note that you pass the vars, not the
+functions themselves.
+[source,clojure]
+----
+(defparallelagg aggregate-stats
+  :init-var    #'init-aggregate-stats
+  :combine-var #'combine-aggregate-stats)
+----
+
+This makes a new class called Main.
+[source,clojure]
+----
+(defmain Main [in out & args]
+  ;; This defines and executes a Cascalog query.
+  (?<-
+    ;; Setup the output path
+    (hfs-textline out :sinkmode :replace)
+    ;; Define which logic variables will be output.
+    [?out]
+    ;; Setup the input path, define the logic vars to bind to input.
+    ((hfs-delimited in) ?date ?url ?user)
+    ;; Run the aggregation operation.
+    (aggregate-stats ?date ?url ?user :> ?out)))
+----
 
 If the aggregate you are wanting to calculate can't be defined using
 +defparallelagg+, Cascalog provides some other options for defining

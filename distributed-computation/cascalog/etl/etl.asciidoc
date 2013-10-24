@@ -31,7 +31,20 @@ Add the following to the dependencies vector of your project.clj:
 ----
 [cascalog "1.10.2"]
 [org.clojure/data.json "0.2.2"]
-[clojure-csv/clojure-csv "2.0.1"]
+----
+
+Add the Hadoop dependency to your dev profile. This key in your project map
+will do it:
+[source,clojure]
+----
+:profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
+----
+
+Set your class to be AOT-compiled by adding the AOT key to the project
+definition.
+[source,clojure]
+----
+:aot [cookbook.etl]
 ----
 
 Then add this query to your project:
@@ -39,8 +52,18 @@ Then add this query to your project:
 ----
 (ns cookbook.etl
   (:require [cascalog.api :refer :all]
-            [clojure.data.json :as json]
-            [clojure-csv.core :as csv]))
+            [clojure.data.json :as json]))
+
+(defn get-vec
+  "Wrap the result in a vector for Cascalog to consume."
+  [m k]
+  (vector
+   (get m k)))
+
+(defn vec->csv
+  "Turn a vector into a csv string. (Not production quality)."
+  [v]
+  (apply str (interpose "," v)))
 
 (defmain Main [in out & args]
   (?<-
@@ -48,8 +71,8 @@ Then add this query to your project:
     $$[?out-csv]$$
     ((hfs-textline in) ?in-json)
     (json/read-str ?in-json :> ?book-map)
-    (get ?book-map "authors" :> ?authors)
-    (csv/write-csv ?authors :> ?out-csv)))
+    (get-vec ?book-map "authors" :> ?authors)
+    (vec->csv ?authors :> ?out-csv)))
 ----
 
 Then execute it locally
@@ -70,13 +93,6 @@ it would be a lot of work to convert the script to run across many
 computers. Writing the transform script using Cascalog allows it to
 run in local mode or distributed mode with almost no modification.
 
-Cascalog defines a DSL based on Datalog, the same query language that
-backs Datomic. It might be a little weird at first, but you will be
-thinking in Datalog in no time. The Cascalog github page has a wiki
-full of all the documentation you will need to learn how to write your
-own Cascalog queries. Now we'll look at each part of the query to
-understand what happens where.
-
 [source,clojure]
 ----
 (defmain Main [in out & args]
@@ -94,7 +110,7 @@ Hadoop enabled queries in the same file.
 (?<-
 ----
 
-Inside the +Main+ function is a Cascalog operator +?<-+ that defines
+Inside the +Main+ function is a Cascalog operator, +?<-+, that defines
 and executes a query. This operator takes an output tap, a result
 vector and a series of logic predicates.
 
@@ -104,10 +120,10 @@ vector and a series of logic predicates.
 ----
 
 This line is the destination, the place the output will be written.
-We are defining a location, called a "tap" in Cascalog. The same
-functions are used to create input and output taps. In this case, we
-are using +hfs-textline+, but many other taps exist. You can even
-write your own.
+This defines a location, called a "tap" in Cascalog. The same
+functions are used to create input and output taps. This example uses
++hfs-textline+, but many other taps exist. You can even write your
+own.
 
 :TIP Use ":sinkmode :replace" in your output tap and Cascalog will
 replace any existing output. This helps while you are rerunning the
@@ -150,21 +166,23 @@ which is stored into +?book-map+.
 
 [source,clojure]
 ----
-(get ?book-map "authors" ?authors)
+(get-vec ?book-map "authors" ?authors)
 ----
 
 Now you pull the authors out of the map and store the vector into its
-own logic variable.
+own logic variable. Cascalog assumes vector output means binding
+multiple logic vars. To outsmart Cascalog, wrap the output in an extra
+vector for Cascalog to consume.
 
 [source,clojure]
 ----
-(csv/write-csv ?authors ?out-csv)))
+(vec->csv ?authors ?out-csv)))
 ----
 
 Finally, you convert the vector of authors into valid csv using the
-+write-csv+ function. Since this line produces values for the
++vec->csv+ function. Since this line produces values for the
 +?out-csv+ logic variable, which is named in the output line earlier,
-the query will produce output.
+the query will produce the output.
 
 Cascalog is a great tool for building ETL (Extract Transform Load)
 pipeline. It allows you to spend more time thinking about your data
