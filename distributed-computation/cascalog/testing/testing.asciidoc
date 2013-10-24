@@ -83,3 +83,7 @@ on.
 Testing your Cascalog workflows is as important as testing any other
 part of your application. With Midje-Cascalog, you can no longer
 excuse your lack of tests.
+
+==== See Also
+
+* <<sec_midje>>

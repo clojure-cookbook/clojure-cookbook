@@ -1,3 +1,4 @@
+[[sec_midje]]
 === Midje
 [role="byline"]
 by Joseph Wilk
