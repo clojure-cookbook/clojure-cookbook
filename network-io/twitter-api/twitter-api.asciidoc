@@ -26,7 +26,12 @@ Include the wrapper in your project file:
               :dependencies [[twitter-api "0.7.4"]])
 ----
 
-This recipe assumes you have already retrieved an OAuth footnote:[See the Twitter documentation on how to receive OAuth credentials at https://dev.twitter.com/docs/auth/obtaining-access-tokens] consumer key and secret for your app from Twitter and an access token and secret for the user. Make sure your app has read/write access in order to post status updates.
+This recipe assumes you have already retrieved an OAuth footnote:[See
+the Twitter documentation on how to receive OAuth credentials at
+https://dev.twitter.com/docs/auth/obtaining-access-tokens] consumer
+key and secret for your app from Twitter and an access token and
+secret for the user. Make sure your app has read/write access in order
+to post status updates.
 
 Define your keys and secrets and send the status update request to Twitter:
 
@@ -48,8 +53,10 @@ Define your keys and secrets and send the status update request to Twitter:
 
 ==== Discussion
 
-++twitter-api++ offers more than just sending status updates.
-The structure of function calls basically remains the same. ++twitter-api++ functions take the credentials and request parameters as arguments.
+++twitter-api++ offers more than just sending status updates. The
+structure of function calls basically remains the same.
+++twitter-api++ functions take the credentials and request parameters
+as arguments.
 
 For example, you can show user details with ++users-show++:
 
@@ -59,8 +66,9 @@ For example, you can show user details with ++users-show++:
 ;; -> ...:id 40514394, :profile_background_image_url_https "https://si0.twimg.com/images/themes/theme1/bg.png", :description "Without being overly modest, you can read this because of me.", :profile_text_color "333333", :screen_name "Alan_M_Turing"...
 ----
 
-Using Twitter's streaming feature for reading a user's timeline is also possible.
-First you should define a callback function that will be called later every time a new tweet is received:
+Using Twitter's streaming feature for reading a user's timeline is
+also possible. First you should define a callback function that will
+be called later every time a new tweet is received:
 
 [source,clojure]
 ----
@@ -74,8 +82,8 @@ First you should define a callback function that will be called later every time
   (AsyncStreamingCallback. #(println %2) nil nil))
 ----
 
-This function simply prints the raw output stream to the console.
-Now request the user stream and provide your callback:
+This function simply prints the raw output stream to the console. Now
+request the user stream and provide your callback:
 
 [source,clojure]
 ----
@@ -84,4 +92,5 @@ Now request the user stream and provide your callback:
 ----
 
 ==== See Also
-See the https://github.com/adamwynne/twitter-api[twitter-api documentation] for more details.
+
+* See the https://github.com/adamwynne/twitter-api[twitter-api documentation] for more details.
