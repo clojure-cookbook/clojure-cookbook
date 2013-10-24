@@ -1,11 +1,12 @@
-=== Extract Transform Load
+[[sec_cascalog_etl]]
+=== Processing Data with an Extract Transform Load (ETL) pipeline
 [role="byline"]
 by Alex Robbins
 
 ==== Problem
 
-You need to change the format of large amounts of data from json lists to csv for
-later processing. For example:
+You need to change the format of large amounts of data from json lists
+to csv for later processing. For example:
 
 Input:
 [source,json]

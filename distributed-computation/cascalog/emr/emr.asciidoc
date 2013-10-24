@@ -1,53 +1,63 @@
-[[sec_cascalog_emr]] === Running a Cascalog Job On EMR
+[[sec_cascalog_emr]]
+=== Running a Cascalog Job On Elastic MapReduce
+[role="byline"]
+by Alex Robbins
 
-===== Problem
+// TODO: This example needs a cloneable project to play along with
+// input/output data.
+
+==== Problem
 
 You have a large amount of data to process, but you don't have a
 Hadoop cluster.
 
-===== Solution
+==== Solution
 
-Amazon's EMR (Elastic MapReduce) provides on-demand Hadoop
-clusters. You'll need an Amazon web services account to use EMR.
+Amazon's Elastic MapReduce (EMR) provides on-demand Hadoop clusters.
+You'll need an Amazon Web Services account to use EMR. Create an
+account at _aws.amazon.com_.
 
-First, write the Cascalog job as you normally would. The rest of the
-recipes in this chapter can help you with that part.
+First, write a Cascalog job as you normally would. There are a number
+of recipes in this chapter that can help you create a complete
+Cascalog job. TODO is a great example.
 
-Then, package the job into an uberjar.
+Once you have a Cascalog project, package it into an uberjar.
 
 [source,terminal]
 ----
 $ lein uberjar
 ----
 
-Your uberjar can be found at
-`target/<project-name>-<version>-standalone.jar`.
+Next, upload the generated jar (named something like
+`target/<project-name>-<version>-standalone.jar`) to S3. If you
+haven't ever uploaded a file to S3 follow the S3 documentation to
+http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html[Create
+a Bucket] and
+http://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html[Adding
+an Object to a Bucket]. Repeat this process to upload your input data.
+Take note of the path of jar and input data location.
 
-Upload your jar, along with the input data, to Amazon S3. You can
-upload files through the
-https://console.aws.amazon.com/s3/home[web console], or through any
-number of other tools.
+To create your MapReduce job visit
+_https://console.aws.amazon.com/elasticmapreduce/_ and select "Create
+New Job Flow." Once you're in the new job flow wizard choose the
+"Custom JAR" job type.
 
-Go to https://console.aws.amazon.com/elasticmapreduce/ to setup your
-job flow.
+// TODO: Specify an actual example.
 
-Select `New Job Flow`.
+Select "Continue" and proceed to enter in your JAR's location and
+arguments. "JAR Location" is the S3 path you noted from earlier. "JAR
+Arguments are all of the arguments you would normally pass when
+executing your jar. First, pass the fully qualified name of the class
+you want to execute. +clojurebook.cascalog.emr.Main+ for example. Then
+pass any arguments your job expects. For example, you probably need at
+least an input and output argument. Note that in an EMR job you'll be
+reading from and writing so S3.
 
-Choose the `Custom Jar` option.
+After your job has run, you should be able to retrieve the results
+from S3. Elastic MapReduce also allows you to setup a logging path to
+help with debugging if your job doesn't complete like you expect.
 
-Next, fill in the jar information. `Jar Location` is the S3 path to
-which you uploaded your jar. `Jar Arguments` are all the arguments
-you'd normally pass when executing your jar. First, pass the fully
-qualified name of the class you want to
-execute. +clojurebook.cascalog.emr.Main+ for example. Then pass any
-arguments your job expects. For example, you probably need at least an
-input and output argument. Note that in an EMR job you'll be reading
-from and writing so S3.
-
-Retrieve your results from S3. You can setup a logging path to help with
-debugging if your job doesn't complete like you expect.
-
-===== Discussion
+==== Discussion
 
 Amazon's EMR is a great solution if you have big Cascalog jobs, but
 you don't have them very often. Maintaining your own Hadoop cluster
@@ -55,3 +65,7 @@ can be a fair amount of time and money. If you can keep the cluster
 busy, it is a great investment. If you only need it a couple times a
 month, you might be better off using EMR for on-demand Hadoop
 clusters.
+
+==== See Also
+
+* <<sec_cascalog_etl>>
