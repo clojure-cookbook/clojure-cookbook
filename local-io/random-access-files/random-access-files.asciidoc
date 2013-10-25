@@ -61,7 +61,7 @@ Files written in this way are populated by zeros by default and may be
 treated as "sparse files" by the JVM implementation and the underlying
 operating system, leading to extra efficiency in reading and writing.
 
-Examining the file using the Unix `od` facility from the
+Examining the file using the Unix `od` program to do a hex dump from the
 command line shows that the file consists of zeros with our +1234+ at
 the end:
 
@@ -74,7 +74,8 @@ $ od -Ad -tx4 /tmp/longfile
 1000000004
 ----
 
-+d2040000+ is the hex representation of at big-endian integer with the value 1234.
+At byte offset 1000000000 can be seen the value +d2040000+, which is
+the hex representation of a big-endian integer with the value 1234.
 (Java integers are big-endian by default. This means that the highest
 order bytes are stored at the lowest addresses.)
 

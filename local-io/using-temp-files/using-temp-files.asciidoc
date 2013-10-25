@@ -1,15 +1,16 @@
-=== Using temporary files from Clojure
+=== Using temporary files with Clojure
 [role="byline"]
 by Alan Busby
 
 ==== Problem
 
-You want to use a temporary file.
+You want to use a temporary file on the local file system.
 
 ==== Solution
 
-Use Java's +java.io.File/createTempFile+ to create a temporary file in the
-default temporary-file directory of the JVM, with the provided prefix and
+Use the static method +createTempFile+ of Java's built-in
++java.io.File+ clas to create a temporary file in the default
+temporary-file directory of the JVM, with the provided prefix and
 suffix.
 
 [source,clojure]
@@ -17,47 +18,46 @@ suffix.
 (def my-temp-file (java.io.File/createTempFile "filename" ".txt"))
 ----
 
-Write a line of text to the temporary file.
+You can then write to the temporary file like you would to any other
+instance of +java.io.File+:
 
 [source,clojure]
 ----
 (with-open [file (clojure.java.io/writer my-temp-file)]
-  (binding [*out* file] 
+  (binding [*out* file]
     (println "Example output.")))
 ----
 
 ==== Discussion
 
-Temporary files are an excellent mechanism to provide, and retrieve, 
-data from a subprocess which may not necessarily interact with Clojure 
-or the JVM particularly well.
+Temporary files are often quite useful to interact with other programs
+that prefer a file-based API. Using +createTempFile+ is important to
+ensure that temporary files are placed in an appropriate location on
+the file system, which can differ based on the operating system being
+used.
 
-To get the full path and filename for the created temporary file.
+To get the full path and filename for the created temporary file:
 
 [source,clojure]
 ----
 (.getAbsolutePath my-temp-file)
 ----
 
-Mark the temporary file to be deleted automatically when the JVM exits normally.
+You can use the +File.deleteOnExit+ method to mark the temporary file
+to be deleted automatically when the JVM exits.
 
 [source,clojure]
 ----
 (.deleteOnExit my-temp-file)
 ----
 
-Delete the temporary file immediately.
+Note that the file is not actually deleted until the JVM terminates,
+and may not be deleted if the process crashes or exits abnormally. It
+is good practice to delete the temp files immediately when they are no
+longer being used:
 
 [source,clojure]
 ----
 (.delete my-temp-file)
 ----
 
-Create a temporary directory.
-
-[source,clojure]
-----
-(def tmp-dir (doto (java.io.File/createTempFile "tmpdir" nil)
-                   (.delete)
-		   (.mkdir)))
-----
