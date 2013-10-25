@@ -12,12 +12,12 @@ arguments.
 Use the https://github.com/clojure/tools.cli[+org.clojure/tools.cli+]
 library.
 
-Before starting, add `[clj-pdf "1.11.6"]` to your project's
+Before starting, add `[org.clojure/tools.cli "0.2.4"]` to your project's
 dependencies or start a REPL using lein-try:
 
 [source,shell]
 ----
-$ lein try clj-time
+$ lein try org.clojure/tools.cli
 ----
 
 Use the +clojure.tools.cli/cli+ function in your project's +-main+
@@ -30,7 +30,6 @@ tools.cli is so cool this example can run entirely at the REPL.].
 
 (defn -main [& args]
   (let [[opts args banner] (cli args
-                                "Usage: your_command [args] ..."
                                 ["-h" "--help" "Print this help" :default false :flag true])]
     (when (or (:help opts))
       (println banner))))
@@ -100,7 +99,7 @@ options:
   be used to turn string values into integers, floats or other
   datatypes.
 * +assoc-fn+: The function used to combine multiple values for a
-  single argument. 
+  single argument.
 
 Here's a complete example:
 
