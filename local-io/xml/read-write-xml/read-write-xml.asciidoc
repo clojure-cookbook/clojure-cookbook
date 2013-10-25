@@ -7,7 +7,18 @@ by Stefan Karlsson
 You need to read or write XML data.
 
 ==== Solution
-Use +clojure.xml/parse+ to get a map representing the structure of an XML-file.
+Pass a file to +clojure.xml/parse+ to get a Clojure map representing the structure of an XML file.
+
+For example, when reading the following file:
+
+.simple.xml
+[source,xml]
+----
+<simple>
+  <item id="1">First</item>
+  <item id="2">Second</item>
+</simple>
+----
 
 [source,clojure]
 ----
@@ -18,22 +29,35 @@ Use +clojure.xml/parse+ to get a map representing the structure of an XML-file.
 ;;    {:tag :item, :attrs {:id "2"}, :content ["Second"]}]}
 ----
 
-If you want to process your XML as a +lazy-seq+, use +xml-seq+.
+If you want to read an XML as a sequence of nodes, pass the XML map to the +xml-seq+
+function from the +clojure.core+ namespace.
+
 [source,clojure]
 ----
-(class (xml-seq (clojure.xml/parse (clojure.java.io/file "simple.xml"))))
-;; -> clojure.lang.LazySeq
+(xml-seq (clojure.xml/parse (clojure.java.io/file "simple.xml")))
 ----
 
-Use +spit+ in combination with +clojure.xml/emit+ to write a structure that represents XML to a file.
++xml-seq+ returns a tree sequence of nodes; that is, a sequence of
+each node, starting at the root and then doing a depth-first walk of
+the rest of the document.
+
+To write an XML file, pass an XML structure map to
++clojure.xml/emit+. +emit+ spits the XML to the currently bound output
+stream (+*out*+), so to write to a file either bind +*out*+ to the
+file's output stream, or capture the output stream to a string with the
++with-out-str+ macro, which you can then +spit+ to a file:
+
 [source,clojure]
 ----
 (spit "test.xml" (with-out-str (clojure.xml/emit simple-xml-map)))
 ----
-The +with-out-str+ macro returns the string created by its body.
 
 ==== Discussion
-To work with XML you can handle it as any other map. Here is an example of a function that, given an id and a file, will parse the file for nodes with an attribute id that is equal to the argument.
+
+To work with XML you can handle it as any other map. Here is an
+example of a function that, given an id and a file, will parse the
+file for nodes with an attribute id that is equal to the argument.
+
 [source,clojure]
 ----
 (defn get-with-id [id xml-file]
@@ -46,26 +70,23 @@ To work with XML you can handle it as any other map. Here is an example of a fun
 ;; -> (["Second"])
 ----
 
-However if you are going to work a lot with your XML structure you might consider the convenience added using a "zipper". A "zipper" can be used to traverse structures.
+To modify XML, just use the normal map manipulation functions on the
+Clojure data representation.
 
-Use +clojure.data.zip.xml+ and +clojure.zip+ to access zipper functions for traversing XML.
-[source,clojure]
-----
-(def zipper (clojure.zip/xml-zip (clojure.xml/parse simple-xml)))	  <1>
-(clojure.data.zip.xml/xml-> zipper :item (clojure.data.zip.xml/attr :id)) <2>
-;; -> ("1" "2")
-(clojure.data.zip.xml/xml-> zipper :item clojure.data.zip.xml/text)	  <3>
-;; -> ("First" "Second")
-----
-In this example you will:
-<1> define a zipper
-<2> use the zipper to find all tags of +item+ and extract the +id+ attribute from them.
-<3> use the zipper to find all +item+ and get their text value.
-There are a lot more you can do with the xml zipper so check out the documentation.
+Additionally, if you are going to work a lot with your XML structure
+you might consider using a "zipper". A zipper is a purely functional
+data structure useful for navigating and modifying tree-like
+structures (such as XML) in a convenient and efficient way.
 
-If you have control of how the data is stored you might consider to use JSON which maps really well to Clojure data structures, see <<sec_local_io_json>> for more information. One other alternative to consider is to directly persist Clojure data structures to a file, see <<sec_local_io_clojure_data_to_disk>>
+Zippers are a deep topic, and a full discussion is beyond the scope of
+this recipe, but see the documentation for the +clojure.data.zip+
+library for explanation and examples of how to use them effectively
+with XML.
 
 ==== See also
-* See <<sec_local-io_read_write_files>> for more information of how to write to files.
 
-* See the documentation for https://github.com/clojure/data.zip[+clojure.data.zip+]
+* <<sec_local-io_read_write_files>>
+
+* <<zippers>>
+
+

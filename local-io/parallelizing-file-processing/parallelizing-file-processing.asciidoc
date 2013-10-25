@@ -9,7 +9,7 @@ without loading it into memory.
 
 ==== Solution
 
-A quick win using +pmap+ over +file-seq+
+A quick win using +pmap+ over a sequence returned by +file-seq+.
 
 [source,clojure]
 ----
@@ -46,9 +46,14 @@ parallel.  However, you then need to pass each processed row through
 one-at-a-time (put the write in the processing function to see what
 happens otherwise !).  Finally, as these are lazy sequences we need to
 realise their side-effects before exiting the +with-open+ block or the
-file will be closed by the time we wish to evaluate them.  We do this by
-calling +dorun+
+file will be closed by the time we wish to evaluate them.  We do this
+by calling +dorun+
 
-There are couple of caveats here.  Firstly, although the row ordering of the
-output file will match that of the input, the execution is not guaranteed.  Secondly, you will become IO bound quite quickly as all the writes happen on one thread so you may not get the speedup you expect unless the processing function
-is substantial.  Finally, pmap will not give you the core-fold increase you might expect.
+There are couple of caveats here. Firstly, although the row ordering
+of the output file will match that of the input, the execution order
+is not guaranteed. Secondly, the process will become IO bound quite
+quickly as all the writes happen on one thread, so you may not get the
+speedup you expect unless the processing function is substantial.
+Finally, pmap is not perfectly efficient at allocating work, so the
+degree of speedup you see might not correspond exactly to the number
+of processors on your system, as you might expect.
