@@ -9,7 +9,7 @@ without loading it into memory.
 
 ==== Solution
 
-A quick win using +pmap+ over +file-seq+
+A quick win using +pmap+ over a sequence returned by +file-seq+.
 
 [source,clojure]
 ----
