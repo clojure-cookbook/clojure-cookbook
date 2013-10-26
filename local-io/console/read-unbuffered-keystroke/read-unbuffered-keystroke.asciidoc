@@ -4,7 +4,7 @@ by John Jacobsen
 
 ==== Problem
 
-Console input is normally buffered by lines; you want to read a
+Console input via +stdin+ is normally buffered by lines; you want to read a
 single, unbuffered keystroke from the console.
 
 ==== Solution
@@ -62,6 +62,18 @@ nil
 user=> 
 
 ----
+
++lein trampoline+ is necessary because, by default, a Leiningen REPL
+actually runs the REPL and its associated console I/O in a separate
+JVM process from your application code. Using the +trampoline+ option
+forces Leiningen to run your code in the same process as the REPL,
+"trampolining " control back and forth. Normally this is invisible,
+but it is a problem when running code that itself is attempting to use
+the console directly.
+
+When running your program outside the REPL (as you typically would be,
+with a command-line application written in Clojure), this is not an
+issue.
 
 ==== See Also
 
