@@ -70,7 +70,7 @@ tables in your database. Here you'll define an entity for blog posts:
 ----
 
 Normally you'd use a proper migration library for your schema, but
-we're keeping it simple for the sake of demonstration.
+we'll keep things simple for the sake of demonstration.
 
 When only a single connection is defined it will be used by default
 and you don't have to pass it in explicitly. You can use +insert+ to
@@ -115,19 +115,20 @@ Deleting records is done using +delete+:
 
 ==== Discussion
 
-Korma provides a simple and intuitive way to construct SQL queries from Clojure.
-The advantage of using Korma is that the queries are written as regular code instead
-of SQL strings. You can easily compose queries together and abstract common operations.
+Korma provides a simple and intuitive way to construct SQL queries
+from Clojure. The advantage of using Korma is that the queries are
+written as regular code instead of SQL strings. You can easily compose
+queries together and abstract common operations.
 
-Korma provides many additional features in addition to those you saw above. Let's examine
-some of these below.
+Korma provides many additional features in addition to those you saw
+above. Let's examine some of these below.
 
-When defining entities you can pass in a number of options. These include
-+table+ to specify the table name directly, +entity-fields+ for default
-fields to be selected:
+When defining entities you can pass in a number of options. These
+include +table+ to specify the table name directly, +entity-fields+
+for default fields to be selected:
 
-You can also define entity relations using the +has-one+, +has-many+, +belongs-to+
-and +many-to-many+:
+You can also define entity relations using the +has-one+, +has-many+,
++belongs-to+ and +many-to-many+:
 
 [source,clojure]
 ----
@@ -333,4 +334,5 @@ It should also be noted that Korma can enable some rather nice query composition
 
 ==== See Also
 
-* For more information see the official http://sqlkorma.com/docs[Korma project] page.
+* For more information see the official http://sqlkorma.com/docs[Korma
+  project] page.
