@@ -4,7 +4,7 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to delete a file.
+You need to delete a file from your local file system.
 
 ==== Solution
 
