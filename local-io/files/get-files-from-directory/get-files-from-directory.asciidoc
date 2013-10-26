@@ -9,7 +9,7 @@ You need to get the files from a directory.
 
 ==== Solution
 
-Using +file-seq+ you will get a +lazy-seq+ of +java.io.File+ objects.
+Calling the built-in +file-seq+  function will return a lazy sequence of +java.io.File+ objects.
 
 [source,clojure]
 ----
@@ -17,7 +17,7 @@ Using +file-seq+ you will get a +lazy-seq+ of +java.io.File+ objects.
 ;; -> (#<File ./next-gen> #<File ./next-gen/picard.jpg> #<File ./next-gen/locutus.bmp> #<File ./next-gen/data.txt>)
 ----
 
-However it is a common scenario that you would want the file names rather than the actual +java.io.File+ objects from the directory. You can achieve this by using the +.isFile+ and +.getName+ properties on a +java.io.File+ object. 
+However it is a common scenario that you would want the file names rather than the actual +java.io.File+ objects from the directory. You can achieve this by mapping calls to the +.isFile+ and +.getName+ methjods on a +java.io.File+ object.
 [source,clojure]
 ----
 (defn get-file-names-from-directory [directory]
@@ -30,7 +30,7 @@ However it is a common scenario that you would want the file names rather than t
 (get-file-names-from-directory "./next-gen")
 ;; -> ("picard.jpg" "locutus.bmp" "data.txt")
 ----
-This function take a path to a directory as its argument. From that path it will create a +file-seq+ and +filter+ it on the +.isFile+ property to include only files. The last step is to get the name of all the +java.io.File+ objects that passed the filter. This is done by calling the +.getName+ property.
+This function take a path to a directory as its argument. From that path it will create a +file-seq+ and +filter+ it on the +.isFile+ method to include only files. The last step is to get the name of all the +java.io.File+ objects that passed the filter. This is done by calling the +.getName+ method.
 
 ==== Discussion
 You can achieve filtering on specific extensions with a regular expression. This example would filter on any files with a jpg, JPG or txt extension.
@@ -81,7 +81,7 @@ Now you have all the parts to make a good looking utility function that get all 
 ;; -> ("picard.jpg" "data.txt")
 ----
 
-Note that using +file-seq+ will give you a recursive tree from the given directory.
++file-seq+ will give you a recursive tree from the given directory.
 
 [source,clojure]
 ----
