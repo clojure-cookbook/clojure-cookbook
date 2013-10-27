@@ -13,9 +13,9 @@ Use a Datomic connection to transact data.
 
 To follow along with this recipe, complete the steps in
 <<sec_datomic_connect_to_datomic_solution>> and
-<<sec_datomic_schema_solution>>. After doing this you should have a
-connection, +conn+, on which to transact against and a schema on which
-you can insert data against.
+<<sec_datomic_schema_solution>>. After doing this you will have a
+connection, +conn+, and a schema installed against which you can
+insert data.
 
 [source,clojure]
 ----
