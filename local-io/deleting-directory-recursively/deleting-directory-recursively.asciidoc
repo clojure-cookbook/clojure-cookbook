@@ -1,14 +1,12 @@
 === Deleting a directory recursively
+[role="byline"]
+by Alan Busby
 
-////
-Author: Alan Busby @thebusby
-////
-
-===== Problem
+==== Problem
 
 You want to delete a directory, and all the files and directories it contains.
 
-===== Solution
+==== Solution
 
 Use +java.io.File+ to identify directories, list their contents, and to then
 delete them when possible.
@@ -27,11 +25,16 @@ delete them when possible.
    (del dir)))
 ----
 
-===== Discussion
+==== Discussion
 
-A directory must be empty before it can be deleted, hence the contents of each
-directory is deleted before finally deleting the directory itself.
+A directory must be empty before it can be deleted, which is why
+simply invoking the built-in +delete+ method on a +File+ will not work
+by itself. This code walks the directory structure, recursively
+deleting all the files inside of a directory before finally deleting
+the directory itself.
 
-It is important to remember that +java.io.File/delete+ may return false if it
-is unable to delete the file. This could be caused by file permissions, mount
-properties, etc; and in that case you'll need to determine what to do.
+It is important to remember that +java.io.File/delete+ may return
+false if it is unable to delete the file. This could be caused by file
+permissions, mount properties, etc; and in that case you'll need to
+determine what to do. The example code throws an exception for
+handling further up the call stack.

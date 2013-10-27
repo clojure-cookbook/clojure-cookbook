@@ -5,6 +5,8 @@ include::writing-to-stdout-and-stderr/writing-to-stdout-and-stderr.asciidoc[]
 
 include::get-local-resource/get-local-resource.asciidoc[]
 
+include::files/read-property-file/read-property-file.asciidoc[]
+
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
 
 include::console/parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
@@ -15,7 +17,7 @@ include::files/copy-file/copy-file.asciidoc[]
 
 include::files/delete-file/delete-file.asciidoc[]
 
-include::files/file-properties/file-properties.asciidoc[]
+// include::files/file-properties/file-properties.asciidoc[]
 
 include::files/get-files-from-directory/get-files-from-directory.asciidoc[]
 
@@ -26,6 +28,10 @@ include::json/read-write-json/read-write-json.asciidoc[]
 include::pdf/pdf.asciidoc[]
 
 include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
+
+include::edn-record/edn-record.asciidoc[]
+
+include::unknown-reader-literals/unknown-reader-literals.asciidoc[]
 
 include::read-write-files/read-write-files.asciidoc[]
 

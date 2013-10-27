@@ -1,11 +1,13 @@
 === Converting between strings, symbols, and keywords
+[role="byline"]
+by Colin Jones
 
-===== Problem
+==== Problem
 
 You have a string, a symbol, or a keyword, and you'd like to convert it into a
 different one of these string-like data types.
 
-===== Solution
+==== Solution
 
 To convert from a string to a symbol, use the +symbol+ function.
 
@@ -56,7 +58,7 @@ You'll need an intermediate step through +name+, to go from keyword to symbol.
 ----
 
 
-===== Discussion
+==== Discussion
 
 The primary conversion functions here are +str+, +keyword+, and +symbol+ - each
 named for the data type they return. One of these, +symbol+, is a bit more
@@ -82,7 +84,7 @@ sufficient to convert to a string, depending on your use case.
 Very often, you actually want both parts. You could collect them separately,
 and concatenate the strings, with a +/+ in the middle, but there's an easier
 way. Java has a rich set of performant methods for dealing with immutable
-strings, so we can take the leading-colon string and lop off the first
+strings. You can take the leading-colon string and lop off the first
 character with +java.lang.String.substring(int)+.
 
 [source,clojure]

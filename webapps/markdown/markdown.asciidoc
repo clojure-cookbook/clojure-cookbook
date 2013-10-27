@@ -1,14 +1,15 @@
 [[sec_webapps__markdown]]
-
 === Rendering Markdown documents
+[role="byline"]
+by Dmitri Sotnikov
 
-// By Dmitri Sotnikov
-
-===== Problem
+==== Problem
 
 You need to render a Markdown document.
 
-===== Solution
+==== Solution
+
+You can use the +markdown-clj+ library (https://github.com/yogthos/markdown-clj)
 
 Include the +markdown-clj+ dependency in the project:
 
@@ -17,7 +18,7 @@ Include the +markdown-clj+ dependency in the project:
 [markdown-clj "0.9.29"]
 ----
 
-Use +markdown.core/md-to-html+ to read a Markdown document and generate HTML.
+Use +markdown.core/md-to-html+ to read a Markdown document and generate as string containing HTML.
 
 [source,clojure]
 ----
@@ -42,7 +43,7 @@ with Markdown content to its HTML representation:
 &#40;defn foo &#91;&#93;&#41;
 </pre>
 ----
-===== Discussion
+==== Discussion
 
 Markdown is a popular lightweight markup language that's easy to read and write and
 can be converted to structurally valid HTML.
@@ -86,11 +87,11 @@ It behaves equivalently to +md-t-html-string+:
   (md/mdToHtml "##This is a heading\nwith a paragraph following it"))
 ----
 
-All of standard Markdown tags are supported with the exception of the reference style links due
+`markdown-clj` supports all the standard Markdown tags with the exception of the reference style links due
 to the fact that the parser uses a single pass to generate the document.
 
 The +markdown.core/md-to-html+ processes the input line by line and the entirety of the content
-does not need to be stored in memory when processing. On the otheer hand both +md-to-html-string+ and +mdToHTML+ 
+does not need to be stored in memory when processing. On the other hand both +md-to-html-string+ and +mdToHTML+ 
 functions load the entire contents into memory.
 
 The parser accepts additional formatting options. These include +:heading-anchors+, +:code-style+,
@@ -148,7 +149,7 @@ Finally, we could provide a custom set of transformers to replace the built in o
 (markdown/md-to-html-string "#foo" :replacement-transformers [capitalize])
 ----
 
-===== See Also
+==== See Also
 
 * Visit the https://github.com/yogthos/markdown-clj[markdown-clj] GitHub repository for more information on the library.
 

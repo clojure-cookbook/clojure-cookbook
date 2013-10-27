@@ -1,15 +1,15 @@
 === Creating custom project templates
+[role="byline"]
+by Travis Vachon
 
-// by Travis Vachon (travis)
-
-===== Problem
+==== Problem
 
 You regularly create new, similar projects and want an easy way to
 generate customized boilerplate. Or, you work on an open source
 project and want to give users an easy way to get started with your
 software.
 
-===== Solution
+==== Solution
 
 Leiningen templates give Clojure programmers an easy way to
 automatically generate customized project boilerplate with a single
@@ -74,7 +74,7 @@ expose a sanitized namespace string:
 ----
 
 A good template gives users a basic skeleton on which to build. Create
-a new file with some barebones web server logic:
+a new file with some bare-bones web server logic:
 
 .src/leiningen/new/my_website_template_by_firstname_lastname/site.clj
 [source,clojure]
@@ -147,7 +147,7 @@ lein new my-website-template-by-firstname-lastname
 ----
 
 
-===== Discussion
+==== Discussion
 
 Leiningen uses Clojars as a well known source of templates. When you
 pass a template name to +lein new+, it first looks for a template by
@@ -230,7 +230,7 @@ function we defined earlier. +render+ accepts a relative path to the
 template file and the key/value map we created above.
 
 Mustache templates are very simple, implementing nothing more than
-simple key substition. For example, the following snippet is used to
+simple key substitution. For example, the following snippet is used to
 generate the +ns+ statement for our new project's main file,
 +site.clj+:
 
@@ -241,7 +241,7 @@ generate the +ns+ statement for our new project's main file,
     (:require [ring.adapter.jetty :refer [run-jetty]]))
 ----
 
-===== Conclusion
+==== Conclusion
 
 Leiningen templates are a powerful tool for saving Clojure developers
 from the drudgery of project setup. More importantly, they are an
@@ -252,7 +252,7 @@ while, or even if you've just started, it's well worth your time to
 take templates for a spin today!
 
 
-===== See also
+==== See also
 
 * https://github.com/technomancy/leiningen/blob/master/doc/TEMPLATES.md[Leiningen template documentation]
 * https://github.com/technomancy/leiningen/blob/master/src/leiningen/new/templates.clj[leiningen.new.templates]

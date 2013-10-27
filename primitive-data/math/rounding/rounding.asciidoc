@@ -1,10 +1,12 @@
 === Truncating and Rounding Numbers
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to truncate or round a decimal number to a lower precision number.
 
-===== Solution
+==== Solution
 
 If the integer portion of a number is all you are concerned with, use
 +int+ to coerce a number to an integer. Of course, this completely
@@ -52,7 +54,7 @@ If you want to perform an unbalanced rounding, such as unconditionally
 You'll notice these functions return decimal numbers. Wrap calls to
 +ceil+ or +floor+ in +int+ to return an integer.
 
-===== Discussion
+==== Discussion
 
 One of the most simple ways "round" numbers is truncation. +int+ will
 do this for you, coercing floating-point numbers to integers by simply
@@ -114,7 +116,7 @@ your expressions with literal values (+3M+) or by means of the
 ;; -> 0.333M
 ----
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_math_arbitrary_precision>> for more information
   on +BigDecimal+, specifically type-contagion.

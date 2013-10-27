@@ -1,10 +1,12 @@
 === Parsing numbers
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to parse numbers out of strings.
 
-===== Solution
+==== Solution
 
 For "normal"-sized large or precise numbers, use +Integer/parseInt+ or
 +Double/parseDouble+ to parse them.
@@ -18,7 +20,7 @@ For "normal"-sized large or precise numbers, use +Integer/parseInt+ or
 ;; -> 3.14
 ----
 
-===== Discussion
+==== Discussion
 
 What is a "normal"-sized number? For +Integer/parseInt+ normal is anything below
 +Integer/MAX_VALUE+ (2147483647) and for +Double/parseDouble+ anything below
@@ -39,6 +41,6 @@ that matter) into infinite precision containers.
 ;; -> 122333444455555666666777777788888888999999999N
 ----
 
-===== See Also
+==== See Also
 
 * Documentation for http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#parseInt(java.lang.String)[+Integer/parseInt+] and http://docs.oracle.com/javase/7/docs/api/java/lang/Double.html#parseDouble(java.lang.String)[+Double/parseDouble+]

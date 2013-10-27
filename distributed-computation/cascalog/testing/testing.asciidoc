@@ -1,11 +1,13 @@
 === Testing Your Cascalog Workflows
+[role="byline"]
+by Alex Robbins
 
-===== Problem
+==== Problem
 
 You love testing your code. You love writing Cascalog jobs. You hate
 trying to test your Cascalog jobs.
 
-===== Solution
+==== Solution
 
 Midje-Cascalog provides a small amount of extra functionality that
 makes writing tests for Cascalog jobs quite easy.
@@ -50,7 +52,7 @@ The Midje-Cascalog test would look like this:
                                     ["Ryan Neufeld"]]))
 ----
 
-===== Discussion
+==== Discussion
 
 Unit testing is an important aspect of software
 craftsmanship. However, unit testing Hadoop workflows is difficult, to
@@ -81,3 +83,7 @@ on.
 Testing your Cascalog workflows is as important as testing any other
 part of your application. With Midje-Cascalog, you can no longer
 excuse your lack of tests.
+
+==== See Also
+
+* <<sec_midje>>

@@ -1,15 +1,17 @@
 === Getting the value at an index
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You have a vector, and you want to retrieve the value which the vector
 contains at a particular location (index).
 
-===== Solution
+==== Solution
 
 There are several ways to do this.
 
-====== Using +nth+
+===== Using +nth+
 
 The +nth+ function, which works on all sequences, is special cased to
 provide constant-time performance when used with indexed collections
@@ -34,7 +36,7 @@ which will be returned if the provided index is out-of-bounds.
 ;; -> :not-found
 ----
 
-====== Using vectors as functions of their indices
+===== Using vectors as functions of their indices
 
 Vectors are themselves functions which, when called with an integer
 argument, will return the value at that index.
@@ -49,7 +51,7 @@ argument, will return the value at that index.
 Using an out-of-range index when invoking a vector as a function will
 result in an +IndexOutOfBoundsException+.
 
-====== Using +get+
+===== Using +get+
 
 Because vectors support the associative interface with integer indexes
 as keys, you can also use the +get+ function to retrieve values by
@@ -75,7 +77,7 @@ not found.
 ;; -> :not-found
 ----
 
-===== Discussion
+==== Discussion
 
 Which technique should you use? All work equally well, but the choice
 does emphasize the way in which you're looking at your vector. +nth+
@@ -87,9 +89,13 @@ functions of their keys.
 Ultimately, when making a choice like this, you should consider:
 
 * What would make the code most evident?
-* What is the nature of the data in this case? For example, is it most fundamentally a sequence and only coincidentally a vector (implying +nth+), or fundamentally a correlation of values to indexes (implying +get+)?
-* What is the failure mode of the proposed technique? For example, would a nil return value or an exception be preferable?
+* What is the nature of the data in this case? For example, is it most
+  fundamentally a sequence and only coincidentally a vector (implying
+  +nth+), or fundamentally a correlation of values to indexes
+  (implying +get+)?
+* What is the failure mode of the proposed technique? For example,
+  would a nil return value or an exception be preferable?
 
-===== See also
+==== See also
 
-* Getting items from a map by key (xref)
+* <<sec_composite_retrieving_keys_map>>

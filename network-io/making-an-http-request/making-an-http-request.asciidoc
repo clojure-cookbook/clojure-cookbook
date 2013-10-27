@@ -1,12 +1,12 @@
 === Making HTTP Requests
+[role="byline"]
+by John Cromartie
 
-// By John Cromartie (jcromartie)
-
-===== Problem
+==== Problem
 
 You want to make a simple HTTP GET or POST request.
 
-===== Solution
+==== Solution
 
 Use +slurp+ to make simple HTTP GET requests.
 
@@ -49,7 +49,7 @@ Parameters can be included in both GET and POST requests.
 You can even use the +:multipart+ option to upload files, as from a
 HTML form via a web browser.
 
-===== Discussion
+==== Discussion
 
 +slurp+ works to make HTTP GET requests because its arguments are
 passed to +clojure.java.io/reader+, which in turn correctly handles

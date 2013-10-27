@@ -1,13 +1,13 @@
 [[sec_local_io_clojure_data_to_disk]]
 === Reading and Writing Clojure Data
+[role="byline"]
+by John Cromartie
 
-// By John Cromartie (jcromartie)
-
-===== Problem
+==== Problem
 
 You need to store and retrieve Clojure data structures on disk.
 
-===== Solution
+==== Solution
 
 Use +pr-str+ and +spit+ to serialize small amounts of data.
 
@@ -42,7 +42,7 @@ Use +read+ to efficiently read large data structures from a stream.
     (read r)))
 ----
 
-===== Discussion
+==== Discussion
 
 // This is very similar to local-io/read-write-files, I am trying to
 // harmonize the differences --JC
@@ -53,12 +53,26 @@ files makes this a relatively simple task. However, while this is
 often a good way to persist data to disk, you should be aware of a few
 issues.
 
-WARNING: The +read+ function is only appropriate for reading data from
+.warning Reading, Security & EDN
+[TIP]
+====
+The +read+ function is only appropriate for reading data from
 *trusted* sources. This is because the Clojure reader is not designed
 nor guaranteed to be safe or free from side-effects. Binding
 +pass:[*read-eval*]+ to +false+ is just a small safeguard. If you need to
 read Clojure data structures from *untrusted* sources, i.e. anything
 you did not write yourself, then see the +clojure.edn+ library.
+
+EDN (Extensible Data Notation) is a specification of Clojure's data
+structure serialization format with multiple implementations, so it
+can be used as a transport and persistence format and consumed from
+programs written in any language, much like XML or JSON. The
++clojure.edn+ library is EDNs implementation for Clojure.
+
+It works much the same as the Clojure reader and writer, however, it
+provides additional security guaranteess that the Clojure reader does
+not, and should always be used for any external or untrusted input.
+====
 
 The simple case of +slurp+ and +spit+ becomes unusable when the data
 is very large, because it creates a very large string in memory all at
@@ -117,3 +131,7 @@ must continue to call +read+ until it has reached the end.
     (binding [*read-eval* false]
       (doall (take-while #(not= ::EOF %) (repeatedly #(read-one r)))))))
 ----
+
+==== See Also
+
+* <<sec_default_data_reader>>

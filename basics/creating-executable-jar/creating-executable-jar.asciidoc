@@ -1,16 +1,15 @@
 === Create an executable jar file
+[role="byline"]
+by Alan Busby
 
-////
-Author: Alan Busby @thebusby
-////
-
-===== Problem
+==== Problem
 
 You want to create an executable jar.
 
-===== Solution
+==== Solution
 
-Using +Leiningen+ to create an "uberjar", https://github.com/technomancy/leiningen
+Using +Leiningen+ to create an "uberjar" (See the "Using Leiningen"
+recipe for instructions on obtaining and installing Leiningen)
 
 Add a +:main+ and +:aot+ parameter to your +project.clj+.
 
@@ -30,7 +29,7 @@ Add a +(:gen-class)+ parameter to the namespace listed as +:main+ in your +proje
   (:gen-class))
 ----
 
-Add a +-main+ function to the namespace. 
+Add a +-main+ function to the namespace.
 
 [source,clojure]
 ----
@@ -41,7 +40,7 @@ Add a +-main+ function to the namespace.
        (println "Executed with the following args;\n")))
 ----
 
-Call +lein uberjar+ to have Leiningen build an executable jar file.
+At the command line, call +lein uberjar+ to have Leiningen build an executable jar file.
 
 [source,bash]
 ----
@@ -50,7 +49,7 @@ Created /tmp/foo/target/uberjar/foo-1.0.0.jar
 Created /tmp/foo/target/foo-1.0.0-standalone.jar
 ----
 
-Then execute the jar along with whatever parameters you'd like to provide.
+Then, you can execute the jar along with whatever parameters you'd like to provide.
 
 [source,bash]
 ----
@@ -62,8 +61,35 @@ Executed with the following args;
 4
 ----
 
-===== Discussion
+==== Discussion
 
-Executable jar files provide an excellent method to package a program so
-it can be provided to users, called by cronjobs, or combined with other
-UNIX tools.
+Executable jar files provide an excellent method to package a program
+so it can be provided to users, called by cronjobs, combined with
+other UNIX tools, or used in any other scenario where command-line
+invocation is useful.
+
+Under the hood, an executable jar is like any other jar file in that
+it contains a collection of program resources such as class files,
+Clojure source files, classpath resources, etc. Additionally,
+executable jars contain metadata indicating which class contains the
++main+ method as a +Main-Class+ tag in its internal manifest file.
+
+A Leiningen uberjar is a jar file that contains not only your program,
+but all the dependencies bundled in as well. When Leiningen builds an
+uberjar, it can detect from the +:main+ entry in +project.clj+ that
+your program supplies a +main+ function, and writes an appropriate
+manifest that will ensure that the emitted jar file is executable.
+
+The +:gen-class+ in your namespace, and the +:aot+ Leiningen option
+are required to precompile your Clojure source file into a JVM class
+file, since the "Main-Class" manifest entry doesn't know how to
+reference or compile Clojure source files.
+
+==== See Also
+
+* Using Leiningen
+* Running Clojure Programs
+* Ahead-of-time Compilation
+
+
+

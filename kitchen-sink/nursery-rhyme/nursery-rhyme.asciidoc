@@ -1,12 +1,12 @@
-=== Nursery rhyme 
+=== Nursery rhyme
+[role="byline"]
+by Chris Ford
 
-// By Chris Ford (ctford)
-
-===== Problem
+==== Problem
 
 You want to code a nursery rhyme to inspire your children to take up programming.
 
-===== Solution
+==== Solution
 
 Use https://github.com/overtone/overtone[Overtone] to bring the song to life.
 
@@ -84,7 +84,7 @@ whose amplitude and duration is controlled by an envelope.
   (doseq [{ms :time midi :pitch} notes]
     (at ms (beep (midi->hz midi))))
 
-(->> melody 
+(->> melody
   (where :pitch (comp A major))
   (where :time (comp (from (now)) (bpm 90)))
   play)
@@ -99,7 +99,7 @@ to accompany itself.
 (defn round [beats notes]
   (concat notes (->> notes (where :time (from beats)))
 
-(->> melody 
+(->> melody
   (round 4)
   (where :pitch (comp A major))
   (where :time (comp (from (now)) (bpm 90)))
@@ -107,7 +107,7 @@ to accompany itself.
 
 ----
 
-===== Discussion
+==== Discussion
 
 A note is a sound of a particular pitch that occurs at a particular time.
 A song is a series of notes. We can therefore simply represent music in
@@ -116,10 +116,10 @@ Clojure as a sequence of time/pitch pairs.
 This representation is structurally very similar to Western music notation,
 where each dot on a stave has a time and a pitch determined by its horizontal
 and vertical position. But unlike traditional music notation, our Clojure
-representation can be worked on by functional programming techniques. 
+representation can be worked on by functional programming techniques.
 
 Pieces of Western music, like "Row, row, row your boat" aren't composed of
-arbitary pitches. Within a given melody, the notes are typically confined to
+arbitrary pitches. Within a given melody, the notes are typically confined to
 a subset of all possible pitches called a "scale".
 
 The approach taken here is to express the pitches by an integer denoting
@@ -130,7 +130,7 @@ note of the scale.
 This simplifies the description of the melody, because we don't have to
 worry about inadvertently specifying pitches that are outside our chosen
 scale. They also allow us to vary our chosen scale without having to rewrite
-the melody. 
+the melody.
 
 To work with degrees, we need a function that translates a degree into the
 actual pitch. Since "Row, row, row your boat" is in a major scale, we need
@@ -139,7 +139,7 @@ a function that represents such a scale.
 We use the observation that in a major scale, there is a regular pattern of
 double and single spaces between adjacent pitches (known to musicians as
 tones and semi-tones). We define a function called +major+ that accepts a
-degree out outputs the number of semi-tones it represents. 
+degree out outputs the number of semi-tones it represents.
 
 Our pitches still aren't quite right, because they're relative to the
 lowest note of the piece. We need to establish a musical reference point
@@ -174,6 +174,6 @@ flexible and composable way of describing a problem.
 Music is a wonderful and moving thing. It's also incredibly well-suited to
 being modelled in a functional programming language. I hope your children agree.
 
-===== See also
+==== See also
 
 * https://github.com/overtone/overtone[Overtone] is a music environment for Clojure.

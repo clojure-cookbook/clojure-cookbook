@@ -1,10 +1,12 @@
 === Inputting and Outputting Integers With Different Bases
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to enter numbers into a Clojure REPL or code in a different base (such as hexadecimal or binary).
 
-===== Solution
+==== Solution
 
 Specify the base or "radix" of a literal number by prefixing it with
 the radix number (e.g. 2, 16, etc.) and the letter +r+. Any base from
@@ -39,7 +41,7 @@ To output integers use the Java method +Integer/toString+.
 ;; -> "z"
 ----
 
-===== Discussion
+==== Discussion
 
 Unlike the
 ordering of most Clojure functions, this method takes an integer
@@ -58,7 +60,7 @@ wrapper around +Integer/toString+ to accomplish this.
 ;; -> "10001100101001"
 ----
 
-===== See Also
+==== See Also
 
 * <<sec_primitives_strings_formatting_strings>> for information on
   +format+. The 'o' and 'x' specifiers print integers in octal and

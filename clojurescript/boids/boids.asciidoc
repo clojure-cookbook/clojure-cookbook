@@ -1,18 +1,15 @@
-////
-:Author: Tom White
-:Email: tom@sixdozen.com
-////
+=== Animated SVG graphics in ClojureScript
 
+[role="byline"]
+by Tom White
 
-=== Boids Simulation
+==== Problem
 
-===== Problem
+You want to build an animated graphical SVG application on an HTML page (for example, a Boids simulation.)
 
-You want to run and visualize a boids simulation using SVG and CSS.
+==== Solution
 
-===== Solution
-
-Use https://github.com/dribnet/strokes[strokes] to use D3 from ClojureScript.
+You can use the Strokes library https://github.com/dribnet/strokes[strokes] to use D3 from ClojureScript.
 
 In your dependencies:
 
@@ -21,8 +18,10 @@ In your dependencies:
 [net.drib/strokes "0.5.0"]
 ----
 
-Before we look at the whole version, let's look at a minimal viabale solution to see the
-core bits of creating objects and animating them in a web page.
+
+Before looking at the whole version, try building a minimal viable
+solution to see the core bits of creating objects and animating them
+in a web page.
 
 [source,clojure]
 ----
@@ -73,20 +72,23 @@ core bits of creating objects and animating them in a web page.
 
 http://s.trokes.org/dribnet/6460749[Live demo here]
 
-===== Discussion
+==== Discussion
 
-https://github.com/dribnet/strokes[strokes] is a library which provides idomatic
-use of http://d3js.org/[D3.js] from ClojureScript. Here we put 5 objects in a
-vector wrapped by an atom to represent our boids, and then use D3's timer
-function to repeatedly update and rerender these objects. Before we get too
-distracted by the logic of intelligent boids, it's useful to see how short
-the code is when the boids are simply circles moving randomly on the screen.
 
-The main update logic of our model happens in update-one-boid, which takes a boid
+https://github.com/dribnet/strokes[strokes] is a library which
+provides idiomatic use of http://d3js.org/[D3.js] from
+ClojureScript. Here, 5 objects were put in a vector wrapped by an atom
+to represent the boids, and then D3's timer function was used to
+repeatedly update and rerender these objects. Before getting too
+distracted by the logic of intelligent boids, it's useful to see how
+short the code is when the boids are simply circles moving randomly on
+the screen.
+
+The main update logic of the model happens in update-one-boid, which takes a boid
 as input and returns the same boid with an updated position. The draw-boids function
 then simply takes whatever boids are in the atom and renders each at the correct position.
 
-Let's close with the full version - which has the same basic structure, but also
+Finally, take a look at the full version - which has the same basic structure, but also
 includes all of the logic needed to run a full boids simulation. This version was
 adapted from Sean Luke's excellent java based http://cs.gmu.edu/~eclab/projects/mason/[mason simulation library]
 and is written with some glaring inefficiencies to make it easier to understand.
@@ -116,8 +118,8 @@ http://s.trokes.org/dribnet/6460753[live demo here.]
   (+ low (rand (- high low))))
 
 (defn newboid []
-  {:id (gensym "boid-") 
-   :loc [(rand-int width) (rand-int height)] 
+  {:id (gensym "boid-")
+   :loc [(rand-int width) (rand-int height)]
    :lastd (mapv #(rand-range -1 1) (range 2))
    :dead (< (rand) (:dead-prop settings))})
 
@@ -232,6 +234,6 @@ http://s.trokes.org/dribnet/6460753[live demo here.]
   false))
 ----
 
-===== See Also
+==== See Also
 
 * http://en.wikipedia.org/wiki/Boids[Boids]

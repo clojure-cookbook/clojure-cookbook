@@ -1,11 +1,13 @@
 === Setting the value at an index
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 Given a vector, you would like to obtain a new vector with a different
 value at a particular index.
 
-===== Solution
+==== Solution
 
 Use +assoc+ to set the value at a particular index.
 
@@ -24,7 +26,7 @@ providing additional index/value pairs.
 ;; -> [:a :x :y]
 ----
 
-===== Discussion
+==== Discussion
 
 As you may have noticed, +assoc+ is the same function used to set the
 value of keys in a map. This is because vectors, like maps, are
@@ -39,9 +41,10 @@ attempting to +assoc+ an index greater than one more than the size of
 the vector  will throw a +IndexOutOfBoundsException+.
 
 Note that it _is_ possible to +assoc+ to an index 1 greater than the
-current size of the vector, this will have the result of appending the item to the end. (see adding items to a vector (xref)).
+current size of the vector, this will have the result of appending the item to the end. (see <<sec_adding_to_a_vector>>).
 
-===== See also
+==== See also
 
-* Adding items to a vector (xref)
-* Setting values in a map (xref)
+* <<sec_adding_to_a_vector>>
+* <<sec_setting_keys_map>>
+

@@ -1,11 +1,14 @@
+[[sec_composites_applying_fns_to_maps]]
 === Applying functions to maps
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You'd like to apply a transformation function to the keys or the
 values of a map.
 
-===== Solution
+==== Solution
 
 Use one of these simple general-purpose functions, modified to suit
 any needs you have.
@@ -17,6 +20,9 @@ any needs you have.
   the function to each key."
   [m f]
   (zipmap (map f (keys m)) (vals m)))
+
+(map-keys {"a" 1 "b" 2} keyword)
+;; -> {:b 2, :a 1}
 ----
 
 [source,clojure]
@@ -26,6 +32,9 @@ any needs you have.
   the function to each value."
   [m f]
   (zipmap (keys m) (map f (vals m))))
+
+(map-vals {:a 1, :b 1} inc)
+;; -> {:b 2, :a 2}
 ----
 
 [source,clojure]
@@ -38,13 +47,13 @@ any needs you have.
   (into {} (map (fn [[k v]] (f k v)) m)))
 ----
 
-===== Discussion
+==== Discussion
 
 +map-keys+ and +map-vals+ are extremely straightforward. They each
-start by breaking the map down into a sequence of keys and a sequence
-of values using the +keys+ and +vals+ functions, which return a
-sequence of the keys or values of a map, respectively. Then, they use
-the +map+ function to transform either the sequence of keys or the
+start by breaking the map, +m+, down into a sequence of keys and a
+sequence of values using the +keys+ and +vals+ functions, which return
+a sequence of the keys or values of a map, respectively. Then, they
+use the +map+ function to transform either the sequence of keys or the
 sequence of vals. Finally, the +zipmap+ function is used to recombine
 the key and value sequences into a single map, with the updates in
 place.
@@ -56,7 +65,8 @@ passes the key and value to the caller-provided function. Finally, it
 uses +into+ to repeatedly conjoin the resulting pairs onto an empty
 map, returning a new map consisting of the transformed keys and values.
 
-The following example is identical, but does not use destructuring, so the high-level structure is a bit more clear:
+The following example is identical, but does not use destructuring, so
+the high-level structure is a bit more clear:
 
 [source,clojure]
 ----
@@ -90,6 +100,7 @@ values in a map.
              (+ agg val))
            0
            {:a 1 :b 2 :c 3})
+;; -> 6
 ----
 
 Note that an underscore (+_+) is used instead of +key+ in the function
@@ -106,10 +117,12 @@ It's also possible to define +map-kv+ using +reduce-kv+:
 
 Which could be used in this example:
 
-----    
-(map-kv {:one 1 :two 2 :three 3} #(vector (-> %1 str (subs 1)) (inc %2)))    
+----
+(map-kv {:one 1 :two 2 :three 3}
+        #(vector (-> %1 str (subs 1)) (inc %2)))
+;; -> {"one" 2, "three" 4, "two" 3}
 ----
 
-===== See also
+==== See also
 
-* Maps as sequences
+* <<sec_composite_maps_as_seqs>>

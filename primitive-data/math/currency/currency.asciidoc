@@ -1,10 +1,12 @@
 === Working with Currency
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to manipulate values that represent currency.
 
-===== Solution
+==== Solution
 
 Use the https://github.com/clojurewerkz/money[Money] library for
 representing, manipulating and storing values in monetary units.
@@ -36,7 +38,7 @@ two
 ;; -> #<Money USD 8.00>
 ----
 
-===== Discussion
+==== Discussion
 
 Working with currency is serious business. Never trust built-in
 numerical types with handling currency - especially floating point
@@ -82,7 +84,7 @@ nearest neighbour, preferring up, down or the most even neighbor.
 function. +convert-to+ take an amount of currency, a target currency, a
 conversion factor and a rounding mode. Money doesn't provide its own
 conversion factor, since these change so often, so you'll need to seek
-out a reputable source for conversation rates - unfortunately we can't
+out a reputable source for conversation rates. Unfortunately we can't
 help you with this one.
 
 Money also provides support for a number of different persistence and

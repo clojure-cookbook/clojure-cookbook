@@ -1,15 +1,13 @@
-////
-:Author: Eric Normand
-:Email: ericwnormand@gmail.com
-////
-
 === Getting set up with Liberator
+[role="byline"]
+by Eric Normand
 
-===== Problem
+==== Problem
 
-You want to build a RESTful web application.
+You want to build a RESTful (RFC-2616 compliant) web application on top of Ring and
+Compojure at a higher level of abstracting, by defining resources.
 
-===== Solution
+==== Solution
 
 Use https://github.com/clojure-liberator/liberator[Liberator] to
 create HTTP-compliant, RESTful web apps.
@@ -23,17 +21,14 @@ In your dependencies:
 [ring/ring-jetty-adapter "1.1.0"]
 [liberator "0.9.0"]
 
-
 ----
 
 [source, clojure]
 ----
-
-
 (ns liberatortest
   (:require [compojure.core :refer [defroutes ANY]]
             [ring.adapter.jetty :as jetty]
-            [liberator.core :refer [defresource]))
+            [liberator.core :refer [defresource]]))
 
 ;; Resources
 
@@ -51,13 +46,13 @@ In your dependencies:
 
 ----
 
-===== Discussion
+==== Discussion
 
 https://github.com/clojure-liberator/liberator[Liberator] is a library
 for developing HTTP-compliant web servers. It handles content
-negotiation, status codes, and standard request methods. It decides
-what status to respond using a decision tree which follows the HTTP
-Spec.
+negotiation, status codes, and standard request methods on RESTful
+resources. It decides what status to respond using a decision tree
+which follows the HTTP Spec.
 
 Liberator does not handle routing, so another library needs to be
 used. In this recipe, Compojure was used. Since Liberator does a
@@ -79,7 +74,7 @@ response. In this recipe it is set to respond with `text/plain` as the
 MIME type. The default response is "OK", which you will see if you run
 the recipe and point a browser at http://localhost:3000.
 
-===== See Also
+==== See Also
 
 * <<sec_webapps_ring_introduction>> for information on setting up
   Ring.

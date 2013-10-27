@@ -1,0 +1,139 @@
+[[sec_datomic_connect_to_datomic]]
+=== Connect to a Datomic database
+[role="byline"]
+by Robert Stuttaford
+
+==== Problem
+
+You need to connect to a Datomic database.
+
+[[sec_datomic_connect_to_datomic_solution]]
+==== Solution
+
+Before starting, add `[com.datomic/datomic "0.8.3335"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try com.datomic/datomic
+----
+
+To create and connect to an in-memory database use
++database.api/create-database+ and +datomic.api/connect+.
+
+
+.Create a database and connection
+[source,clojure]
+----
+(require '[datomic.api :as d])
+
+(def uri "datomic:mem://sample-database")
+
+(d/create-database uri)
+;; -> true
+
+(def conn (d/connect uri))
+
+conn
+;; -> #<LocalConnection datomic.peer.LocalConnection@49384d99>
+----
+
+Once you have a connection, you can use it to get a database _value_
+with +datomic.api/db+. This value is used to query a database.
+
+[source,clojure]
+----
+(def db (d/db (d/connect uri)))
+
+db
+;; -> datomic.db.Db@7b7fea26
+----
+
+You can also use the connection to transact data using
++datomic.api/transact+.
+
+[source,clojure]
+----
+;; Transact the schema for your Next Big Thing
+(def my-great-schema []) ; This vector intentionally left blank
+(d/transact (d/connect uri) my-great-schema)
+----
+
+==== Discussion
+
+You'll notice in the solution, we not only connected to a database,
+but we created it too. This pattern is common when using in-memory
+databases, as no in-memory databases exist in a fresh JVM. It is not
+strictly necessary to call +create-database+ if the database already
+exists, but it is safe to do so--+create-database+ is idempotent and
+will return +false+ if one already exists.
+
+When connecting to a database that isn't in memory, it is necessary
+for the relevant transactor and storage service to be running.
+
+The return value of +d/connect+ is used when querying a database value
+or when transacting data. It is also used when reading the transaction
+log, consuming the transaction report queue or when performing
+administrative tasks such as requesting an indexing job, garbage
+collecting storage, and disposing resources associated with the
+connection.
+
+Connections are thread-safe, and are cached by URI internally, so
+there is no need to pool connections yourself. There is no performance
+overhead for creating many connections to the same URI.
+
+===== Storage Services
+
+Datomic transactor processes have a limit on the number of
+concurrently connected peer processes. Datomic Free has a limit of 2
+peers per transactor. For non-distributed applications this may well
+be sufficient. If you're building a larger service, then you may need
+to purchase a Datomic Pro license for more peers.
+
+There are several options for storage services that back Datomic; three are
+built-in and the rest use external services. External storage services
+are only available with Datomic Pro.
+
+===== Built-in storage options
+
+* In local memory: `"datomic:mem://[db-name]"`
+* Free, for use with Datomic Free, subject to the 2-peer limit:
+  `"datomic:free://host[:port]/[db-name]"`
+* Dev, for use with Datomic Pro, subject to the licensed peer limit:
+  `"datomic:dev://host[:port]/[db-name]"`
+
+Free and Dev can also be configured to use alternate ports for
+storage: `"datomic:free://host[:port]/[db-name]?h2-port=[port]&h2-web-port=[port]"`
+
+By default, these ports will be 1 and 2 more than the transactor port,
+respectively.
+
+===== External storage service options
+
+* DynamoDB:
+  `"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"+`
+* Riak:
+  `"datomic:riak://host[:port]/bucket/dbname[?interface=http|protobuf]"`
+  (default is protobuf)
+* Couchbase: `"datomic:couchbase://host/bucket/dbname[?password=xxx]"`
+* Infinispan: `"datomic:inf://[cluster-member-host:port]/[db-name]"`
+* SQL: `"datomic:sql://[db-name][?jdbc-url]"`
+
+For SQL storage services, the map format can be used instead of the
+string format. This is useful when specifying objects that can't be
+embedded in URI strings, like DataSources. The format for the SQL map
+is:
+
+[source,clojure]
+----
+{:protocol :sql                         ;; keyword or string
+ :db-name "[db-name]"                   ;; keyword or string
+ :data-source aDataSourceObject
+  ;; OR
+ :factory aCallableReturningConnection}
+----
+
+==== See Also
+
+* <<sec_datomic_schema>>
+* <<sec_datomic_transact_basics>>

@@ -1,11 +1,15 @@
 [[sec_primitives_math_arbitrary_precision]]
 === Maintaining Accuracy with Extremely Large/Small Numbers
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
-You need to work precisely with numbers, especially those that are very large or very small.
+You need to work precisely with numbers, especially those that are
+very large or very small, without the imprecision implied by using
+floating-point representations such as +double+ values.
 
-===== Solution
+==== Solution
 
 First, know that Clojure supports exponents as literal numbers, allowing you to succinctly express large/small numbers.
 
@@ -32,7 +36,7 @@ Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotio
 ;; -> 99950009999000049999N
 ----
 
-===== Discussion
+==== Discussion
 
 Clojure has a number of numeric types; integer and long, double, and
 +BigInteger+ and +BigDecimal+. The bounded types (integer, long and
@@ -67,6 +71,6 @@ integer-to-floating-point boundary - floating point numbers are
 contagious to integers. Arithmetic involving *any* floating point
 values will always return a floating point value.
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_rational_numbers> for information on maintaining accuracy with rational numbers.

@@ -1,3 +1,5 @@
+include::frontmatter/frontmatter.asciidoc[]
+
 include::basics/basics.asciidoc[]
 
 include::primitive-data/primitive-data.asciidoc[]
@@ -13,8 +15,6 @@ include::gui/gui.asciidoc[]
 include::databases/databases.asciidoc[]
 
 include::webapps/webapps.asciidoc[]
-
-include::clojurescript/clojurescript.asciidoc[]
 
 include::deployment/deployment.asciidoc[]
 

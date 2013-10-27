@@ -17,6 +17,8 @@ include::ring/headers/headers.asciidoc[]
 
 include::ring/compojure/compojure.asciidoc[]
 
+include::ring/redirect/redirect.asciidoc[]
+
 include::liberator/basic.asciidoc[]
 
 include::templating-with-selmer/templating-with-selmer.asciidoc[]

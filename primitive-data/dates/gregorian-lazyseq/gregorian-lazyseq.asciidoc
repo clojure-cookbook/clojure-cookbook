@@ -1,11 +1,13 @@
 === Generate an Infinite Lazy Sequence of Gregorian Calendar Dates
+[role="byline"]
+by Tom Hicks
 
-===== Problem
+==== Problem
 
 You would like to generate a lazy sequence of Gregorian calendar dates (or
 times) beginning on a specific date and time.
 
-===== Solution
+==== Solution
 
 You can use Java's +java.util.GregorianCalendar+ class coupled with
 Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
@@ -31,7 +33,7 @@ and +drop+ functions are then used to select the last two days of February.
 ----
 
 
-===== Discussion
+==== Discussion
 
 Clojure has no date type of its own but, by default, relies on its
 ability to easily interoperate with Java (but see the +clj-time+ library
@@ -39,23 +41,23 @@ for alternatives to Java's date, time, and calendar classes).
 
 This solution is based on the core +repeatedly+ function, which creates a lazy
 sequence by repeatedly calling the argument function it is given and returning
-a sequence of the function's results. Because we do not provide the optional,
+a sequence of the function's results. Because you do not provide the optional,
 limiting argument to +repeatedly+, the result sequences produced are
-infinite. Consequently, in the REPL environment, we must be careful to evaluate
-our result sequences in contexts (such as +take+ and +drop+) which
+infinite. Consequently, in the REPL environment, you must be careful to evaluate
+your result sequences in contexts (such as +take+ and +drop+) which
 limit the values produced.
 
 Since the function given to +repeatedly+ is a function of no arguments, it is
 presumed to achieve its goals by side-effects (making it an impure function).
 Here, the impurity occurs as the argument function creates a Gregorian calendar
 date and repeatedly increments it by a single +java.util.Calendar+ day
-unit. For each call of the function we return a copy of the Gregorian calendar
+unit. For each call of the function it returns a copy of the Gregorian calendar
 object (to avoid mysterious and unintended side-effects, it is advisable to
 avoid returning the mutated object directly).
 
 The date values in the result sequence are of type
 +java.util.GregorianCalendar+ but the +print+ function of the REPL displays
-them as an +#inst+ reader literal. We can verify that the sequence elements
+them as an +#inst+ reader literal. You can verify that the sequence elements
 are Gregorian calenders by mapping the +class+ (or +type+) function onto the
 sequence:
 
@@ -66,7 +68,7 @@ sequence:
 ;; -> (java.util.GregorianCalendar java.util.GregorianCalendar)
 ----
 
-We can generalize the solution to a function which takes a starting year
+You can generalize the solution to a function which takes a starting year
 argument but defaults to some convenient year if the argument is not provided:
 
 [source,clojure]
@@ -88,8 +90,8 @@ argument but defaults to some convenient year if the argument is not provided:
 ----
 
 
-Using the +java.text.SimpleDateFormat+ class we can then format the dates in a
-wide variety of different formats, two of which are illustrated:
+Using the +java.text.SimpleDateFormat+ class you can then format the dates in a
+wide variety of different formats:
 
 [source,clojure]
 ----
@@ -105,7 +107,7 @@ wide variety of different formats, two of which are illustrated:
 ----
 
 
-Finally, putting it all together, we can create a function which generates an
+To put it all together, create a function which generates an
 infinite lazy sequence of formatted Gregorian date strings. For convenience,
 the function takes optional starting year and date format string arguments:
 
@@ -123,8 +125,8 @@ the function takes optional starting year and date format string arguments:
 ----
 
 
-To test our function, we find all the Sundays in a sequence of day strings for
-the year 2000 and then select the last Sunday of that year:
+To test the function, select the last Sunday of the year by finding all of the
+Sundays in a year:
 
 [source,clojure]
 ----
@@ -133,7 +135,7 @@ the year 2000 and then select the last Sunday of that year:
 ;; -> "Sun 12/31/2000"
 ----
 
-===== See also
+==== See also
 
 * See <<sec_primitives_dates_current_date>> for information on using
   +java.util.Date+ from Clojure.

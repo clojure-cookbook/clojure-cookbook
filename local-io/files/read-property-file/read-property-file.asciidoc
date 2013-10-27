@@ -1,53 +1,87 @@
 === Read property file
+[role="byline"]
+by Tobias Bayer
 
-// By Tobias Bayer (codebrickie)
-
-===== Problem
+==== Problem
 
 You need to read a property file and access its key-value pairs.
 
-===== Solution
+==== Solution
 
-Propertea is a library that offers simple access to property files.
+The most straightforward way is to use the built in
++java.util.Properties+ class via Java interop. +java.util.Properties+
+implements +java.util.Map+, which can be easily consumed from Clojure,
+just as any other map is.
 
-Given this property file you want to read from your Clojure code:
+Here is an example +.properties+ file to load:
 
 .fruitcolors.properties
-[source]
+[source,text]
 ----
 banana=yellow
 grannysmith=green
 ----
 
-Include propertea as a dependency for your project.
-
-.project.clj
-[source,clojure]
-----
-(defproject fruitcolors "1.0.0-SNAPSHOT"
-  :dependencies [[propertea "1.2.3"]])
-----
-
-Read the property file and access its key-value pairs.
+Populating an instance of +Properties+ from a file is straightforward,
+using its +load+ method and passing in an instance of +java.io.Reader+
+obtained using the +clojure.java.io+ namespace.
 
 [source,clojure]
 ----
-(use '[propertea.core])
+(require '[clojure.java.io :refer (reader)])
+
+(def props (java.util.Properties.))
+
+(.load props (reader "fruitcolors.properties"))
+;; -> nil
+
+props
+;; -> {"banana" "yellow", "grannysmith" "green"}
+----
+
+Instead of using the built-in +Properties+ api via interop, you could
+also use the Propertea library for simpler, more idiomatic Clojure
+access to property files.
+
+Include the +[propertea "1.2.3"]+ dependency in your +project.clj+
+file, then read the property file and access its key-value pairs:
+
+[source,clojure]
+----
+(require '[propertea.core :refer (read-properties)])
 
 (def props (read-properties "fruitcolors.properties"))
 
+props
+;; -> {:grannysmith "green, :banana "yellow"}
+
 (props :banana)
 ;; -> "yellow"
-
-(props :grannysmith)
-;; -> "green"
 ----
 
-===== Discussion
-The basic +read-properties+ function treats all property values as strings. You can force parsing to other types by specifying the type for a property.
+==== Discussion
+
+Although using +java.util.Properties+ directly is more straightforward
+and doesn't require the addition of a dependency, propertea does
+provide some convenience. It returns an actual immutable Clojure map,
+instead of just a +java.util.Map+. Although both are perfectly usable
+from Clojure, an immutable map is probably preferable if you intend to
+do any further manipulation or updates on it.
+
+More importantly, propertea converts all string keys into keywords,
+which are more commonly used than strings as the keys of a map in
+Clojure.
+
+Additionally, propertea has several other features, such as the
+capability to parse values into numbers or booleans, and providing
+default values.
+
+By default, propertea's +read-properties+ function treats all
+property values as strings. You can force parsing to other types by
+specifying the type for a property.
 
 .other.properties
-[source]
+[source,text]
 ----
 intkey=42
 booleankey=true
@@ -89,5 +123,5 @@ You can also be strict on required properties. If an expected property is missin
 (def props (read-properties "other.properties" :required [:otherkey]))
 ;; -> java.lang.RuntimeException: (:otherkey) are required ...
 ----
-===== See Also
+==== See Also
 See the https://github.com/jaycfields/propertea[propertea documentation] for more details.

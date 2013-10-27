@@ -1,10 +1,12 @@
 === Generating Unique IDs
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to generate a unique ID.
 
-===== Solution
+==== Solution
 
 Use Java's +java.util.UUID/randomUUID+ to generate a universally
 unique ID (UUID).
@@ -18,7 +20,7 @@ unique ID (UUID).
 ;; -> #uuid "a6f92a6f-f736-468f-9e26-f392852825f4"
 ----
 
-===== Discussion
+==== Discussion
 
 Often times when building systems you want to assign a unique ID to
 objects and records. Often times IDs are simple integers that
@@ -88,7 +90,7 @@ yielding UUIDs that increase sequentially over time.
 ----
 ****
 
-===== See Also
+==== See Also
 
 * <<sec_primitives_dates_reader_literal>> for information on +#inst+,
   another reader literal for dates.

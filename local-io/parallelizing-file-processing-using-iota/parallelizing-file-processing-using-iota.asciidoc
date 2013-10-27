@@ -1,19 +1,19 @@
 === Using Reducers with Files
+[role="byline"]
+by Edmund Jackson
 
-////
-Author: Edmund Jackson @edmundjackson
-////
+==== Problem
 
-===== Problem
+You want to use Clojure's reducers on a file to realize parallel
+processing without loading the file into memory.
 
-You want to use reducers on a file to realize parallel processing
-without loading the file into memory.
+==== Solution
 
-===== Solution
+Use the +Iota+ library ( https://github.com/thebusby/iota) in
+conjunction with the +filter+, +map+ and +fold+ functions from the
+Clojure Reducers library in the +clojure.core.reducers+ namespace.
 
-Use the +Iota+ library, https://github.com/thebusby/iota
-
-Demonstration of a word count
+For example, to count the words in a very large file:
 
 [source,clojure]
 ----
@@ -23,10 +23,10 @@ Demonstration of a word count
             [clojure.core.reducers :as r]
             [clojure.string        :as str]))
 
-;; -----------------------------------------------------------------------
-;;  These are the word counting functions,
+
+;; word counting functions
 (defn count-map
-  "Returns an indicator map for words in s"
+  "Returns a map of words to occurence count in the given string"
   [s]
   (reduce (fn [m w] (update-in m [w] (fnil (partial inc) 0))) {} (str/split s #" ")))
 
@@ -36,8 +36,8 @@ Demonstration of a word count
   ([m1 m2]
      (reduce (fn [m [k v]] (update-in m [k] (fnil (partial + v) 0))) m1 m2)))
 
-;; -----------------------------------------------------------------------------
-;;  Main file processing
+
+;; Main file processing
 (defn keyword-count
   "Returns a map of the word counts"
   [filename]
@@ -47,9 +47,19 @@ Demonstration of a word count
        (r/fold add-maps)))
 ----
 
-===== Discussion
+==== Discussion
 
-Under the hood iota memory maps the file to prevent it having to be
-loaded into core which allows you to process huge files.  Furthermore by
-plugging into Clojure's reducers library you can utilize the
-map-reduce-combine pattern in parallel to realize substantial performance.
+The Iota library creates sequences from files on the local file
+system. Unlike the purely lazy sequences produced from something like
++file-seq+, the sequences returned by Iota are optimized for use with
+Clojure's reducers library, which uses the Java fork/join framework
+under the hood to provide efficient parallel processing.
+
+The +keyword-count+ function first creates a reducible sequence of
+lines in the file and filters out blank lines (using the +identity+
+function to eliminate nil values from the sequence). Then, it applies
+the +count-map+ function in parallel, and finally aggregates the
+results by folding with the +add-maps+ function.
+
+Under the hood, Iota memory maps the file to prevent it having to be
+loaded into memory at once, which allows you to process huge files.

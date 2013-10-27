@@ -1,10 +1,12 @@
 === Performing Fuzzy Comparison
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating point numbers, which are susceptible to "drift" through repeated operations.
 
-===== Solution
+==== Solution
 
 Clojure has no built-in functions for fault-tolerant equality or "fuzzy
 comparison" as it is often called. It's trivial to implement your own
@@ -23,7 +25,7 @@ comparison" as it is often called. It's trivial to implement your own
 ;; -> false
 ----
 
-===== Discussion
+==== Discussion
 
 +fuzzy=+ works like most other fuzzy comparison algorithms do; first,
 it finds the absolute difference between the two operands, and second,
@@ -90,7 +92,7 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance.
   other, return +0+ to indicate they are equal.
 * <2> Otherwise fallback to normal +compare+
 
-===== See Also
+==== See Also
 
 * See the Wikipedia article on http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating Point] for more detailed information on floating point numbers.
 * <<sec_primitives_arbitrary_precision>>

@@ -1,10 +1,12 @@
 === Changing the capitalization of a string
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to change the capitalization of a string.
 
-===== Solution
+==== Solution
 
 Use +clojure.string/capitalize+ to capitalize the first character in a string.
 
@@ -26,7 +28,7 @@ When you need to change the case of all characters in a string use
 ;; -> "column_header_one"
 ----
 
-===== Discussion
+==== Discussion
 
 Capitalization functions only affect letters. While the functions
 +capitalize+, +lower-case+ and +upper-case+ may modify letters,

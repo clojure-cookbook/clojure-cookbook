@@ -1,5 +1,13 @@
 # Contributing to Clojure Cookbook
 
+---
+
+**NOTE: As of 2013-10-11 we are *not* soliciting any new recipe submissions. At this point Luke and I are editing the book for publication.**
+
+We will begin accepting whole recipes again in the middle of December once we have shipped a completed manuscript to O'Reilly.
+
+---
+
 Our goal with *Clojure Cookbook* is to build the best possible cookbook, chock full of excellent Clojure recipes. To do this we need the help of the whole community. From typos and factual corrections, to ideas for recipes, to whole recipes themselves, your experience is what we need to build the best *Clojure Cookbook*.
 
 This document describes how you can contribute and what you'll receive if you do.
@@ -125,7 +133,7 @@ The full book itself is licensed under a [Creative Commons Attribution-NonCommer
 
 However, in order for us to accept submissions, those submissions must be licensed such that *we* (the authors and O'Reilly) *can* in fact use your submission to create derivative works, sell print copies, and distribute it under a more restrictive license (discussed above.)
 
-Therefore, all sizable public contributions (anything more than a typo correction) must be licensed under a [Creative Commons Attribution](http://creativecommons.org/licenses/by/3.0/) license. The easiest way to do this is by placing a copy of [.license-assignments/template.md](.license-assignments/template.md) in the [.license-assignments/](.license-assignments) folder with the name `<your github username>.md` the very first time you make a contribution.
+Therefore, all sizable public contributions (anything more than a typo correction) must be licensed under the license found [here](.license-assignments/template.md). The easiest way to do this is by placing a copy of [.license-assignments/template.md](.license-assignments/template.md) in the [.license-assignments/](.license-assignments) folder with the name `<your github username>.md` the very first time you make a contribution.
 
 Source files should contain comments indicating the name of the author for which you want to receive attribution.
 

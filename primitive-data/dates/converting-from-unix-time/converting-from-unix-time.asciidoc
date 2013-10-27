@@ -1,15 +1,13 @@
-//////////////////////////////////////////
-Authored by:
-Steven Proctor
-//////////////////////////////////////////
 [[sec_date_from_unix_timestamp]]
 === Converting a Unix timestamp to a Date
+[role="byline"]
+by Steven Proctor
 
-===== Problem
+==== Problem
 
 You need to get a Date object from a Unix timestamp.
 
-===== Solution
+==== Solution
 
 When dealing with data from outside systems, many systems will
 express a timestamp in Unix time format.  Some areas that you may
@@ -39,10 +37,10 @@ This is how you can use the +from-unix-time+ function:
 ;; #inst "2013-04-16T15:52:00.000-00:00"
 ----
 
-===== Discussion
+==== Discussion
 
 To get a Java Date object from a Unix time object, all you need to do
-is contruct a new +java.util.Date+ object using Clojure's Java interop
+is construct a new +java.util.Date+ object using Clojure's Java interop
 functionality.
 
 If you are already using, or wish to use the
@@ -74,7 +72,7 @@ You may not need to worry about dates and times being expressed as seconds
 very often, but when you do, isn't it nice to know how easy it can be to
 get those timestamps into a date format used by the rest of the system?
 
-===== See Also
+==== See Also
 
 * See <<sec_date_to_unix_timestamp>> for how to convert a Date to a
   Unix time.

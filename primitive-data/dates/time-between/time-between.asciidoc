@@ -1,15 +1,25 @@
 [[sec_primitives_dates_time_between]]
 === Calculating the Length of a Time Interval
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to calculate the difference between two points in time.
 
-===== Solution
+==== Solution
 
 Since Java date and time classes have poor support for time zones and
 leap years, use the https://github.com/clj-time/clj-time[clj-time]
 library for calculating the length of a time interval.
+
+Before starting, add `[clj-time "0.6.0"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try clj-time
+----
 
 Use +interval+ along with the numerous +in-<unit>+ helper functions in
 the +clj-time.core+ namespace to calculate the difference between
@@ -45,7 +55,7 @@ since-april-first
 ;; -> 1
 ----
 
-===== Discussion
+==== Discussion
 
 Calculating the length of an interval of times is one of the more
 complex operations you can perform with time. Time on planet Earth is

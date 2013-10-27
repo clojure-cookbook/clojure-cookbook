@@ -1,12 +1,14 @@
 [[sec_adding_to_a_vector]]
 === "Adding" an item to a vector
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to add an item to a vector, yielding a new vector containing
 the item.
 
-===== Solution
+==== Solution
 
 When used on a vector, the +conj+ function returns a vector with one
 or more items appended to the end.
@@ -20,15 +22,16 @@ or more items appended to the end.
 ;; -> [1 2 3 4 5]
 ----
 
-===== Discussion
+==== Discussion
 
-Vectors do not support adding new items anywhere aside from the end - if
-you need to insert an item in the middle, you will have to use a
+Vectors do not support adding new items anywhere aside from the end -
+if you need to insert an item in the middle, you will have to use a
 sequence manipulation function and convert back to a vector (if
 necessary) when you're done.
 
-Since vectors are associative (mapping integer indices to values), you can also use the +assoc+ function with an index one
-greater than the current length of the vector to append an item.
+Since vectors are associative (mapping integer indices to values), you
+can also use the +assoc+ function with an index one greater than the
+current length of the vector to append an item.
 
 [source,clojure]
 ----
@@ -42,4 +45,9 @@ earlier value in the vector, and if it's greater than 1 plus the
 vector's current length, it will throw an +IndexOutOfBoundsException+.
 
 Still, this technique is worth remembering. If you have code that is
-+assoc+-ing to a vector already, you can use this technique to produce new vectors with updated values.
++assoc+-ing to a vector already, you can use this technique to produce
+new vectors with updated values.
+
+==== See Also
+
+* <<sec_composite_creating_a_vector>>

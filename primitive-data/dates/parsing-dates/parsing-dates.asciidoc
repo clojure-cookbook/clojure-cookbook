@@ -1,17 +1,28 @@
 [[sec_primitives_dates_parsing_dates]]
 === Parsing Date and Times using clj-time
+[role="byline"]
+by Ryan Neufeld
 
-===== Problem
+==== Problem
 
 You need to parse dates from a string.
 
-===== Solution
+==== Solution
 
 Working directly with Java's date and time classes is like pulling
 teeth. We suggest using
 https://github.com/clj-time/clj-time[clj-time], a Clojure wrapper
 over the excellent http://joda-time.sourceforge.net/[Joda Time]
 library.
+
+Before starting, add `[clj-time "0.6.0"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try clj-time
+----
+
 
 Use +clj-time.format/formatter+ to create custom date/time
 representations capable of parsing candidate strings. Use the
@@ -35,7 +46,7 @@ strings into +DateTime+ objects.
 ;; -> #<DateTime 2013-04-06T16:13:49.060Z>
 ----
 
-===== Discussion
+==== Discussion
 
 clj-time's +formatter+ function is a powerful little function that
 takes a date/time format string and returns an object capable of
@@ -61,7 +72,7 @@ argument. You can use +clj-time.core/time-zone-for-offset+ or
 +clj-time.core/time-zone-for-id+ to receive a +DateTimeZone+ object to
 pass to +formatter+.
 
-===== See Also
+==== See Also
 
 * See <<sec_primitives_dates_formatting_dates>> for information on how
   to use formatters to _un_parse strings.

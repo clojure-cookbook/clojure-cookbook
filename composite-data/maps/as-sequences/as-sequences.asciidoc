@@ -1,11 +1,14 @@
-=== Maps as Sequences & Sequences as Maps
+[[sec_composite_maps_as_seqs]]
+=== Maps as Sequences (and vice versa)
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 * You want to view a map as a sequence of entries
 * You want to create a map by joining a sequence of entries
 
-===== Solution
+==== Solution
 
 To obtain a sequence view of a map, simply call +seq+ on it. Note that
 most sequence-processing functions call +seq+ on their arguments
@@ -20,7 +23,7 @@ themselves, so it's usually not necessary to do this explicitly.
 This creates a sequence of key-value pairs, which you can then process
 as you would any sequence.
 
-To create a map _from_ a sequence, you can exploit the fact that
+To create a map *from* a sequence, you can exploit the fact that
 +conj+, when applied to a map, can take a two-element vector as a
 key-value pair and use it to add the respective key and value on to
 the map.
@@ -42,7 +45,7 @@ used to transform a sequence of pairs into a single map.
 ;; -> {:a 1, :b 2, :c 3}
 ----
 
-It is also possible to construct a map from _two_ sequences; one
+It is also possible to construct a map from *two* sequences; one
 containing keys, and one containing values. This is the purpose of the
 +zipmap+ function. Given two sequences, it will return a single map
 with keys from the first argument sequence and values from the second.
@@ -57,11 +60,11 @@ If one of these sequences passed to zipmap is shorter than the other,
 the extra values will be ignored, and the output map will only contain
 entries up to the length of the shortest sequence.
 
-===== Discussion
+==== Discussion
 
 When obtaining a sequence view of a _hash map_, the map entries will
 be returned in an arbitrary or undefined order. Conveniently, this
-order (although arbitrary) _is_ guaranteed to be consistent if the
+order (although arbitrary) *is* guaranteed to be consistent if the
 same map is turned into a sequence multiple times.
 
 When using a _sorted map_, the entries will be returned according to
@@ -77,7 +80,7 @@ their sort order in the map. For example:
 ----
 
 There is another interesting fact about the entry values in this
-sequence. They are printed as vectors, and they _are_ vectors insofar
+sequence. They are printed as vectors, and they *are* vectors insofar
 as they implement the full vector interface. However, their concrete
 type is not actually +clojure.lang.PersistentVector+; rather, they are
 a different kind of vector called a _map entry_, which is not only a
@@ -105,6 +108,6 @@ functions on map entries when processing maps as sequences, since they
 preserve the semantic of key/value pairs, making the code easier to
 read.
 
-===== See also
+==== See also
 
-* Mapping over the keys or values of a map
+* <<sec_composites_applying_fns_to_maps>>

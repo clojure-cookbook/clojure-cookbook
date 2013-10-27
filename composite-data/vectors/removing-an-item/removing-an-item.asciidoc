@@ -1,11 +1,14 @@
+[[sec_composite_removing_an_item_from_vector]]
 === "Removing" an item from a vector
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to remove an item from a vector, obtaining a new vector
 without the item.
 
-===== Solution
+==== Solution
 
 To efficiently remove an item from the end of a vector, use the +pop+
 function, which takes a vector and returns a new vector without the
@@ -17,8 +20,10 @@ last item.
 ;; -> [1 2 3]
 ----
 
+==== Discussion
+
 Although there is no operation designed specifically to remove items
-from the beginning of a vector, as +pop+ does from the end, there _is_
+from the beginning of a vector, as +pop+ does from the end, there *is*
 a function - +subvec+ - that can be used to efficiently 'remove' any
 number of items from the beginning or end of a vector. Given a vector,
 a start index and an (optional) end index, it will return a vector
@@ -33,7 +38,7 @@ vector, you can use +subvec+ like so:
 ;; -> [:b :c :d]
 ----
 
-Or, to remove items from the beginning _and_ the end of a vector, pass
+Or, to remove items from the beginning *and* the end of a vector, pass
 an end index to +subvec+ as well:
 
 [source,clojure]
@@ -42,16 +47,14 @@ an end index to +subvec+ as well:
 ;; -> [:b :c]
 ----
 
-===== Discussion
-
 Because +subvec+ exploits the internal representation of a vector to
 create a sub-vector that shares internal structure with the original,
 it is extremely efficient and runs in constant time. It is the only
 way to efficiently 'remove' items from the beginning of a vector.
 
 While it is certainly also possible to use a function like +rest+ or
-+drop+ on a vector, these are technically _sequence_ operations, not
-_vector_ operations. The value they return is only guaranteed to be a
++drop+ on a vector, these are technically *sequence* operations, not
+*vector* operations. The value they return is only guaranteed to be a
 sequence, not a concrete vector, and as such will not support the same
 features or performance guarantees that vectors do.
 
@@ -59,7 +62,7 @@ Of course, you can convert any sequence back into a concrete vector
 using +vec+ or +into []+, but this can be an expensive operation for
 large vectors.
 
-===== See also
+==== See also
 
-* Removing an item from a list (xref)
-* Removing items from a sequence (xref)
+* <<sec_composite_creating_a_vector>>
+* <<sec_removing_an_item_list>>

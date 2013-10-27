@@ -20,3 +20,17 @@ include::redis/redis.asciidoc[]
 include::indexing-with-elasticsearch/indexing-with-elasticsearch.asciidoc[]
 
 include::korma/korma.asciidoc[]
+
+include::datomic/connect-to-datomic.asciidoc[]
+
+include::datomic/schema.asciidoc[]
+
+include::datomic/transact-basics.asciidoc[]
+
+include::datomic/transact-relations.asciidoc[]
+
+include::datomic/transact-retract-data.asciidoc[]
+
+include::datomic/transact-with-consistency.asciidoc[]
+
+include::datomic/dry-run-transactions.asciidoc[]

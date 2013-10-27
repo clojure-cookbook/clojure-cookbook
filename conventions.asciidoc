@@ -1,20 +1,20 @@
-== Conventions Used in This Book
+=== Conventions Used in This Book
 
-=== Source Code
+==== Programming Conventions
 
-Clojure source code appears in monospaced font, like this:
+Being a book full of solutions, you'll find no shortage of Clojure source code
+in the book. Clojure source code appears in a monospace font, like this:
 
 [source,clojure]
 ----
-(ns my-project.core)
-
 (defn add
   [x y]
   (+ x y))
 ----
 
-When a Clojure expression is evaluated for a return value, that value
-is denoted with a comment followed by an arrow, like this:
+When a Clojure expression is evaluated
+for a return value, that value is denoted with a comment followed by an arrow,
+much like it would appear on the command line:
 
 [source,clojure]
 ----
@@ -22,71 +22,116 @@ is denoted with a comment followed by an arrow, like this:
 ;; -> 3
 ----
 
-NOTE: Comments in Clojure start with a single semicolon. By
-convention, comments with two semicolons explain the preceding
-expression and are left-aligned to the same indentation
-level. Comments with a single semicolon are typically used for the
-right-hand margin, on the same line as the code being
-commented. Three semicolons or more are used for top-level section and
-file headers.
-
-When an expression produces output, it is denoted by a comment
-containing `*out*` followed by a comment with each line of output.
+Where appropriate, code samples may omit or ellipsize return value comments.
+The two most common places you'll see this are when defining a function/var or
+shortening lengthy output.
 
 [source,clojure]
 ----
-(do (println "Hello!") (println "Goodbye!"))
+;; This would return #'user/one, but do you really care?
+(def one 1)
+
+(into [] (range 1 20))
+;; -> [1 2 ... 20]
+----
+
+When an expression produces output to +STDOUT+ or +STDERR+ it is denoted by a
+comment (`*out*` and `*error*`, respectively), followed by a comment with each
+line of output.
+
+[source,clojure]
+----
+(do (println "Hello!")
+    (println "Goodbye!"))
 ;; -> nil
 ;; *out*
 ;; Hello!
 ;; Goodbye!
 ----
 
-=== REPL Sessions
+==== REPL Sessions
 
-REPLs (Read-Eval-Print Loop) are interactive prompts that evaluate
-expressions and print the result. The Bash prompt, +irb+, and the
-+python+ prompt are examples of REPLs.
+Seeing that _REPL-driven Development_ is in vogue at present, it follows that
+this be a REPL-driven book.  REPLs (Read-Eval-Print Loops) are interactive
+prompts that evaluate expressions and print their results. The Bash prompt,
++irb+, and the +python+ prompt are examples of REPLs.  Nearly every recipe in
+this book is designed to be run at a Clojure REPL.
 
-While Clojure REPLs are traditionally displayed as `user> ...`, our goal
-is for readers to be able to copy-paste all of the examples in a recipe 
-and see the indicated results. As such REPL sessions are indicated much
-the same way source-code is (with "normal" source code and comments for
-return value and +*out*+put.)
+While Clojure REPLs are traditionally displayed as `user> ...`, this book aims
+for readers to be able to copy-paste all of the examples in a recipe
+and see the indicated results. As such, samples omit `user>` and comment-out
+any output to make things easier. This is especially helpful if you're
+following along on a computer; You can blindly copy-paste code samples without
+worrying about trying to run non-code.
 
-Feel free to omit the return value comment of a statement if it doesn't 
-fit (for example, a +def+).
-
-[source,clojure]
-----
-;; Return values
-(map str [4 5 6])
-;; -> ("4" "5" "6")
-
-;; Return values with *out*put
-(println "Hello")
-;; -> nil
-;; *out*
-;; Hello
-
-;; Omitting return values...
-(def abc 123)
-
-abc
-;; -> 123
-----
-
-=== Console/Terminal Sessions
+==== Console/Terminal Sessions
 
 Console sessions (e.g. shell commands) are denoted by monospace font,
 with lines beginning with a dollar sign (+$+) indicating a shell
 prompt. Output is printed without a leading "+$+".
 
-A backslash (+\+) at the end of a command line indicates a single
-command that continues on the next line.
+A backslash (+\+) at the end of a command indicates to the console that the
+command continues on the next line.
 
 [source,console]
 ----
 $ lein version
 Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
 ----
+
+.Our Golden Boy, lein-try
+****
+// TODO: Clean the "Clojure chose ..." sentence up, it's kind of odd-sounding.
+Clojure is not known for its extensive standard library. Unlike languages like
+Perl or Ruby, Clojure's standard library is comparatively small; Clojure
+chose _simplicity_ and _power_ instead. As such, Clojure is a language full of
+libraries, not built-ins (well, except for Java...)
+
+Since so many of the solutions in this book rely on third-party libraries, we
+developed https://github.com/rkneufeld/lein-try[lein-try]. lein-try is a small
+plugin for http://leiningen.org/[Leiningen], Clojure's de facto project tool,
+that lets you quickly and easily try out various Clojure libraries.
+
+To use lein-try, follow along with Leiningen's
+http://leiningen.org/#install[installation instructions] to install the tool,
+then edit your user profile to look like so:
+
+.~/.lein/profiles.clj
+[source,clojure]
+----
+{:user {:plugins [[io.rkn/lein-try "RELEASE"]]}}
+----
+
+Now, inside of a project or out, you can use the +lein try+ command to launch a
+REPL with access to whichever library you please.
+
+[source,console]
+----
+$ lein try clj-time
+#...
+user=>
+----
+
+You'll see instructions on which lein-try command to execute above every recipe
+that uses third-party libraries.
+****
+
+// TODO: Typesetting Conventions section a la Perl Cookbook
+==== Typesetting Conventions
+
+The following typographic conventions are used in this book:
+
+// These conventions *roughly* follow standards layed out as the O'Reilly
+// standard.
+
+*Bold*::
+  is used to emphasize a word or phrase.
+_Italic_::
+  is used for URLs, filenames, and file extensions. New terms are also
+  italicized when they first appear in the text.
++Constant Width+::
+  is used for function and method names and their arguments; in examples to
+  show both input and output; and in regular text to show literal code.
+*+Constant Width Bold+*::
+  is used to indicate commands that should you should enter literally at the
+  command-line.

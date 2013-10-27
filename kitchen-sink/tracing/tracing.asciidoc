@@ -1,12 +1,12 @@
 === Tracing code
+[role="byline"]
+by Stefan Karlsson
 
-// By Stefan Karlsson (zclj)
-
-===== Problem
+==== Problem
 
 You want to trace the execution of your code, in order to see what it is doing.
 
-===== Solution
+==== Solution
 
 Use +clojure.tools.trace/trace+ to print a value and return it.
 
@@ -109,7 +109,7 @@ functions in a namespace.
 ;; -> 4
 ----
 
-===== Discussion
+==== Discussion
 
 `tools.trace` provides two approaches to tracing the execution of
 code: explicitly tracing specific values, or through re-binding vars
@@ -144,6 +144,6 @@ particularly from the REPL. Include +tools.trace+ in your
 `project.clj`'s +:dev+ profile to make tracing available only to
 development tasks.
 
-===== See also
+==== See also
 
 * Documentation for https://github.com/clojure/tools.trace[+clojure.tools.trace+]

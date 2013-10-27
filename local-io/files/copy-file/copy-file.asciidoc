@@ -1,14 +1,14 @@
 === Copy a file
+[role="byline"]
+by Stefan Karlsson
 
-// By Stefan Karlsson (zclj)
+==== Problem
 
-===== Problem
+You need to copy a file on your local file system.
 
-You need to copy a file.
+==== Solution
 
-===== Solution
-
-Use +clojure.java.io/copy+ to make a copy of a file.
+Invoke +clojure.java.io/copy+, passing it the source and destination files.
 
 [source,clojure]
 ----
@@ -27,7 +27,11 @@ If the input file is not found a +java.io.FileNotFoundException+ will be thrown.
 ;; -> java.io.FileNotFoundException
 ----
 
-The input argument to +copy+ can be a string, so if the data you are working with is a string, you can copy that directly to the output file.
+The input argument to +copy+ doesn't have to be a file; it can be an
++InputStream+, a +Reader+, a byte array or a string. This makes it
+easier to copy the data you are working with directly to the output
+file.
+
 [source,clojure]
 ----
 (clojure.java.io/copy "some text" (clojure.java.io/file "./str-test.txt"))
@@ -40,8 +44,12 @@ If required, an encoding can be specified by the +:encoding+ option.
 (clojure.java.io/copy "some text" (clojure.java.io/file "./str-test.txt") :encoding "UTF-8")
 ----
 
-===== Discussion
-Note that if the file already exists, it will be overwritten. If that is not what you want, you can put together a "safe" copy function that will catch any exceptions and optionally overwrite.
+==== Discussion
+
+Note that if the file already exists, it will be overwritten. If that
+is not what you want, you can put together a "safe" copy function that
+will catch any exceptions and optionally overwrite.
+
 [source,clojure]
 ----
 (defn safe-copy [source-path destination-path & opts]

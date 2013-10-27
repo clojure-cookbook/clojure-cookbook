@@ -1,15 +1,14 @@
-////
-:Author: Adam Bard
-:Email: adam@adambard.com
-////
-
 === Request and Response headers in Ring
+[role="byline"]
+by Adam Bard
 
-===== Problem
+==== Problem
 
-You need to manipulate request or response headers.
+You need to read or write HTTP request or response headers.
 
-===== Solution
+==== Solution
+
+Read or write the `:headers` key in Ring request or response maps.
 
 [source, clojure]
 ----
@@ -21,20 +20,19 @@ You need to manipulate request or response headers.
   "A handler that returns the User-agent header as a JSON
    response with an appropriate Content-Type"
   [req]
-  (let [request-headers (:headers req)]
-    {:body (str "{\"user-agent\": \"" (get headers "User-Agent") "\"}")
-     :headers {"Content-Type" "application/json"}
-     :status 200}))
+  {:body (str "{\"user-agent\": \"" (get-in req [:headers "user-agent"]) "\"}")
+   :headers {"Content-Type" "application/json"}
+   :status 200})
 
 (defn -main []
   ;; Run the server on port 3000
   (jetty/run-jetty user-agent-as-json {:port 3000}))
 ----
 
-===== Discussion
+==== Discussion
 
 Ring passes request headers as a `:headers` parameter in the request map, and
-accepts a `:headers` parameter in reponse maps as well.
+accepts a `:headers` parameter in response maps as well.
 Headers are
 http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[as in HTTP].
 
@@ -42,3 +40,5 @@ The above example defines a Ring handler that simply echoes the User-Agent
 as a JSON response. It gets the User-Agent from the request header map, and
 uses a Content-Type header in the response to ensure it is parsed as JSON
 by a client.
+
+Note that the keys of incoming headers are Strings, not Clojure keywords.

@@ -1,12 +1,14 @@
 [[sec_composite_creating_sets]]
 === Creating a Set
+[role="byline"]
+by Luke VanderHart
 
-===== Problem
+==== Problem
 
 You want to create an unordered collection of _distinct_ objects,
 which can be tested for membership quickly.
 
-===== Solution
+==== Solution
 
 Use a set literal to create a set of objects.
 
@@ -15,9 +17,9 @@ Use a set literal to create a set of objects.
 #{:a :b :c}
 ;; -> #{:a :c :b}
 
-;; duplicate elements in set literals are an error
+;; Duplicate elements in set literals are an error
 #{:x :y :z :z :z}
-;; throws #<IllegalArgumentException java.lang.IllegalArgumentException: Duplicate key: :z>
+;; -> IllegalArgumentException Duplicate key: :y :z ...
 ----
 
 Use +hash-set+ to create a set from arguments.
@@ -81,7 +83,7 @@ Create a sorted set with +sorted-set+.
 ;; -> #{\space \a \b \c \d \e \f \g \h \i \j \k \l \m \n \o \p \q \r \s \t \u \v \w \x \y \z}
 ----
 
-===== Discussion
+==== Discussion
 
 Sets are very useful data structures. They are commonly used when you
 have a collection of values but you are only concerned with the
@@ -125,15 +127,14 @@ the set is preserved when adding or removing objects.
 ;; -> #{4 3 2 1 -1}
 ----
 
-There are some performance tradeoffs to consider when choosing between
+There are some performance trade-offs to consider when choosing between
 hash sets and sorted sets. Hash sets are based on hash tables, which
 offer constant time insert and lookup in most cases. However, they do
 require some degree of memory overhead. Sorted sets, based on a
 balanced red-black binary tree, are more memory-efficient but slower
 for lookup and insertion.
 
-===== See also
+==== See also
 
-* Creating a vector (xref)
-* Adding elements to a set (xref)
-* Removing elements from a set (xref)
+* <<sec_adding_removing_from_sets>>
+* <<sec_composite_creating_a_vector>>
