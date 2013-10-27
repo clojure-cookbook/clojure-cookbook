@@ -17,8 +17,6 @@ include::tracing/tracing.asciidoc[]
 
 include::stream-processing/stream-processing.asciidoc[]
 
-include::edn-record/edn-record.asciidoc[]
-
 include::lein-templates/lein-templates.asciidoc[]
 
 include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]

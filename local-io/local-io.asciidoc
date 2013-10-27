@@ -29,6 +29,8 @@ include::pdf/pdf.asciidoc[]
 
 include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
 
+include::edn-record/edn-record.asciidoc[]
+
 include::unknown-reader-literals/unknown-reader-literals.asciidoc[]
 
 include::read-write-files/read-write-files.asciidoc[]
