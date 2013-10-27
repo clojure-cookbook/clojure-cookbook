@@ -9,9 +9,12 @@ You need to extend one of the built-in types with your own functions.
 
 ==== Solution
 
-Suppose for example you would like to add domain specific functions to the core +java.lang.String+ type. In this example, we will add a +first-name+ and +last-name+ function to +String+.
+Suppose for example you would like to add domain specific functions to
+the core +java.lang.String+ type. In this example, you will add a
++first-name+ and +last-name+ function to +String+.
 
-Define a protocol with the functions you need. The protocol declares the signature of the functions.
+Define a protocol with the functions you need. The protocol declares
+the signature of the functions.
 
 [source,clojure]
 ----
@@ -44,11 +47,18 @@ Now we can invoke our functions on Strings.
 
 ==== Discussion
 
-Use this approach instead of a multi-method when you want to tap into the higher performance dispatching of protocols. Note that protocol functions dispatch on the type of the first parameter.
+Why use protocols, when multimethods already exist? For one, speed;
+Protocols dispatch only on the type of their first parameter. Further,
+protocols allow you to group and name an extension. This makes it much
+easier to reason about what a group of functions confer about a type
+and ensure a proper, full implementation.
 
-It is good practice to only extend a protocol to a type if you are the author of either the protocol or the type. This will avoid cases where you violate the assumptions of the original authors.
+It is good practice to only extend a protocol to a type if you are the
+author of either the protocol or the type. This will avoid cases where
+you violate the assumptions of the original authors.
 
-If you already had functions to use, then it would make sense to use +extend+ instead of the +extend-type+ form.
+If you already had functions to use, then it would make sense to use
++extend+ instead of the +extend-type+ form.
 
 [source,clojure]
 ----
@@ -63,3 +73,9 @@ If you already had functions to use, then it would make sense to use +extend+ in
   {:first-name first-word
    :last-name second-word})
 ----
+
+==== See Also
+
+* http://stackoverflow.com/a/4513556, an excellent explanation of why
+  protocols exist as it relates to the _Expression Problem_ 
+  by Jörg W Mittag on StackOverflow.
