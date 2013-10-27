@@ -4,17 +4,21 @@ by Robert Stuttaford
 
 ==== Problem
 
-You want to test a transaction prior to committing it using Datalog or the entity API.
+You want to test a transaction prior to committing it using Datalog or
+the entity API.
 
 ==== Solution
 
-Build your transaction as usual, but instead of calling +d/transact+ or +d/transact-async+, use +d/with+ to produce an in-memory database that includes the changes your transaction provides.
+Build your transaction as usual, but instead of calling +d/transact+
+or +d/transact-async+, use +d/with+ to produce an in-memory database
+that includes the changes your transaction provides.
 
-First, some setup. Use the Schema recipe to construct and prepare a database with the schema we need, and then populate the database with some data about Fred Flintstone, and get a hold of Fred's entity ID:
+First, some setup. Use the Schema recipe to construct and prepare a
+database with the schema we need, and then populate the database with
+some data about Fred Flintstone, and get a hold of Fred's entity ID:
 
 [source,clojure]
 ----
-
 (def new-id (d/tempid :db.part/user))
 
 (def tx-result @(d/transact conn
@@ -30,14 +34,18 @@ fred-id
 ;; -> 17592186045421
 ----
 
-Oops, it looks like you need to tidy Fred's name up. Prepare a transaction to do that:
+Oops, it looks like you need to tidy Fred's name up. Prepare a
+transaction to do that:
 
 [source,clojure]
 ----
 (def fix-fred-tx [[:db/add fred-id :user/name "Fred Flintstone"]])
 ----
 
-Now, prepare an in-memory database with this new transaction applied. First, get the current database value to use as a basis, then create the in-memory database, and finally grab the +:db-after+ value so that you can test that the name is all fixed up:
+Now, prepare an in-memory database with this new transaction applied.
+First, get the current database value to use as a basis, then create
+the in-memory database, and finally grab the +:db-after+ value so that
+you can test that the name is all fixed up:
 
 [source,clojure]
 ----
@@ -48,7 +56,8 @@ Now, prepare an in-memory database with this new transaction applied. First, get
 (def db-after-tx (:db-after with-tx-result))
 ----
 
-Now, compare the value of Fred's name in the current database with that of Fred's name in your in-memory database:
+Now, compare the value of Fred's name in the current database with
+that of Fred's name in your in-memory database:
 
 [source,clojure]
 ----
@@ -67,11 +76,16 @@ Now, compare the value of Fred's name in the current database with that of Fred'
 ;; -> #{["fred flintston"]}
 ----
 
-As you can see, the database at +current-db+ remains unaffected by this transaction, but the database at +db-after-tx+ now displays the new value.
+As you can see, the database at +current-db+ remains unaffected by
+this transaction, but the database at +db-after-tx+ now displays the
+new value.
 
 ==== Discussions
 
-Databases produced by +d/with+ can be used with any of the other API functions that accept a database, including +d/with+ itself. This means that you can layer multiple transactions on top of each other without first having to commit them to the transactor!
+Databases produced by +d/with+ can be used with any of the other API
+functions that accept a database, including +d/with+ itself. This
+means that you can layer multiple transactions on top of each other
+without first having to commit them to the transactor!
 
 ==== See Also
 
