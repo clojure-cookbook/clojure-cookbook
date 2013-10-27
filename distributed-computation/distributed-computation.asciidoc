@@ -5,7 +5,7 @@
 Cascalog
 ////////
 
-include::cascalog/cascalog-intro.asciidoc
+include::cascalog/cascalog-intro.asciidoc[]
 
 include::cascalog/etl/etl.asciidoc[]
 
