@@ -10,12 +10,12 @@ You need to connect to a Datomic database.
 [[sec_datomic_connect_to_datomic_solution]]
 ==== Solution
 
-Before starting, add `[com.datomic/datomic "0.8.3335"]` to your project's
+Before starting, add `[com.datomic/datomic-free "0.8.4218"]` to your project's
 dependencies or start a REPL using lein-try:
 
 [source,shell]
 ----
-$ lein try com.datomic/datomic
+$ lein try com.datomic/datomic-free
 ----
 
 To create and connect to an in-memory database use
