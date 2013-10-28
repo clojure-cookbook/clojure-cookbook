@@ -38,26 +38,24 @@ Here's a simple ping-pong between two core.async go blocks communicating via a Z
 (require '[com.keminglabs.zmq-async.core :refer [register-socket!]]
          '[clojure.core.async :refer [>! <! go chan sliding-buffer close!]])
 
-;; TODO: ZMQ newbs (I) would appreciate a meaningful name for symbols c and s below.
-;; Are they 'source' and 'consumer'? 'socket' and 'channel'?
 (let [n 3
       addr "inproc://ping-pong"
-      [s-in s-out c-in c-out] (repeatedly 4 #(chan (sliding-buffer 64)))]
+      [server-in server-out client-in client-out] (repeatedly 4 #(chan (sliding-buffer 64)))]
 
-  (register-socket! {:in s-in :out s-out :socket-type :rep
+  (register-socket! {:in server-in :out server-out :socket-type :rep
                      :configurator (fn [socket] (.bind socket addr))})
-  (register-socket! {:in c-in :out c-out :socket-type :req
+  (register-socket! {:in client-in :out client-out :socket-type :req
                      :configurator (fn [socket] (.connect socket addr))})
 
   (go (dotimes [_ n]
-        (println (String. (<! s-out)))
-        (>! s-in "pong"))
-    (close! s-in))
+        (println (String. (<! server-out)))
+        (>! server-in "pong"))
+    (close! server-in))
 
   (go (dotimes [_ n]
-        (>! c-in "ping")
-        (println (String. (<! c-out))))
-    (close! c-in)))
+        (>! client-in "ping")
+        (println (String. (<! client-out))))
+    (close! client-in)))
 ----
 
 ==== Discussion
