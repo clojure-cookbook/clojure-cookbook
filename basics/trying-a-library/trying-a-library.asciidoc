@@ -14,12 +14,12 @@ will be met automatically.
 
 To gain this capability, first make sure you are using Leiningen >=
 2.1.3. Then edit your _~/.lein/profiles.clj_ file, adding +[lein-try
-"0.3.3"]+ to the +:plugins+ vector of the +:user+ profile:
+"0.4.1"]+ to the +:plugins+ vector of the +:user+ profile:
 
 .~/.lein/profiles.clj
 [source,clojure]
 ----
-{:user {:plugins [[lein-try "0.3.3"]]}}
+{:user {:plugins [[lein-try "0.4.1"]]}}
 ----
 
 Now you can experience nearly instant gratification with the library
