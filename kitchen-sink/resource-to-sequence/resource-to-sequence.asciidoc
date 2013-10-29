@@ -4,8 +4,9 @@ by Gerrit Jansen van Vuuren
 
 ==== Problem
 
-You have a resource that you want to access as a sequence, but you do not want to keep a connection open and close it only when the whole sequence have been read
-thus potentially leaking the connection.
+You have a resource that you want to access as a sequence, but you do
+not want to keep a connection open and close it only when the whole
+sequence have been read thus potentially leaking the connection.
 
 ==== Solution
 
@@ -14,59 +15,45 @@ The solution is simple.
 1. A select function
 2. The initial position
 
-The select function takes a single argument which is the last index position of data returned, and returns a snapshot of the data from the position
-to N amount of rows (here N is up to the function itself).
+The select function takes a single argument which is the last index
+position of data returned, and returns a snapshot of the data from the
+position to N amount of rows (here N is up to the function itself).
 
-The initial position depends on the context that this pattern is used in, it can be 0, 1, 10 etc.
-
-
+The initial position depends on the context that this pattern is used
+in, it can be 0, 1, 10 etc.
 
 [source,clojure]
 ----
 (defn buffered-select [f-select init-pos]
-    "Creates a lazy sequence of messages for this datasource"
-    (letfn [
-            (m-seq [buff pos]
-                 (if-let [buff2 (if (empty? buff) (f-select pos) buff)]
-                    (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))
-           ]
-         (m-seq nil init-pos)))
+  "Creates a lazy sequence from f-select"
+  (letfn [(m-seq [buff pos]
+            (if-let [buff2 (if (empty? buff) (f-select pos) buff)]
+              (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))]
+    (m-seq nil init-pos)))
 ----
 
-You can explore the usage of this recipe by going through a simple file reading example.
+You can explore the usage of this recipe by going through a simple
+file reading example.
 
 [source,clojure]
 ----
-(use 'clojure.pprint)
-
 (defn load-example []
- "Methods that will build and read from a RandomAccessFile"
- (let [file "testfile.txt"
-       get-bytes (fn [pos max]
-               ;reads the file from the line position pos
-               (with-open [raf (java.io.RandomAccessFile. file "r")]
-                        (if (> pos 0) (.seek raf pos))
-                        (doall (take max (repeatedly #(.readByte raf))))))
-       ]
-
-      (with-open [writer (clojure.java.io/writer file)]
-               (doseq [x (range 1000) ] (.write writer x)))
-      {:file file :bytes get-bytes} ))
-
-(defn buffered-select [f-select init-pos]
-    "Creates a lazy sequence from f-select"
-    (letfn [
-            (m-seq [buff pos]
-                 (if-let [buff2 (if (empty? buff) (f-select pos) buff)]
-                    (cons (first buff2) (lazy-seq (m-seq (rest buff2) (inc pos) )))))
-           ]
-         (m-seq nil init-pos)))
-
+  "Methods that will build and read from a RandomAccessFile"
+  (let [file "testfile.txt"
+        get-bytes (fn [pos max]
+                    ;; reads the file from the line position pos
+                    (with-open [raf (java.io.RandomAccessFile. file "r")]
+                      (if (> pos 0) (.seek raf pos))
+                      (doall (take max (repeatedly #(.readByte raf))))))]
+    (with-open [writer (clojure.java.io/writer file)]
+      (doseq [x (range 1000)]
+        (.write writer x)))
+    {:file file :bytes get-bytes}))
 
 (def db (load-example))
 
-;;normally you'd make the max argument much bigger for performance reasons,
-;;here its set to 5 to show how connecting and querying is done.
+;; Normally you'd make the max argument much bigger for performance reasons,
+;; here its set to 5 to show how connecting and querying is done.
 (defn select [pos] ((:bytes db) pos 5 ) )
 
 (def bts (buffered-select select 0))
@@ -78,13 +65,19 @@ You can explore the usage of this recipe by going through a simple file reading 
 
 ==== Discussion
 
-The solution showed is a simple pattern (monad) with simple constructs, and its usage applies directly to database queries and network io,
-and more generally to all resources that are accessed using a connection or resource interface (as shown in the example).
+The solution showed is a simple pattern (monad) with simple
+constructs, and its usage applies directly to database queries and
+network io, and more generally to all resources that are accessed
+using a connection or resource interface (as shown in the example).
 
-The select function connects (opens a file), queries (sees to the position and reads max amount of bytes) and closes a connection (closes the file), then returns a sequence.
-The sequence can then be consumed by the using code and after the buffer has been consumed the select function is called again. To the user of the function it appears as if the sequence is
-one huge sequence over which higher order functions like map filter partition can be applied.
+The select function connects (opens a file), queries (sees to the
+position and reads max amount of bytes) and closes a connection
+(closes the file), then returns a sequence. The sequence can then be
+consumed by the using code and after the buffer has been consumed the
+select function is called again. To the user of the function it
+appears as if the sequence is one huge sequence over which higher
+order functions like map filter partition can be applied.
 
-The pattern also helps unroll the typical with-open pattern; where work must be done inside the scope of another function and cannot be pulled, to something more pull orientated and functional.
-
-
+The pattern also helps unroll the typical with-open pattern; where
+work must be done inside the scope of another function and cannot be
+pulled, to something more pull orientated and functional.
