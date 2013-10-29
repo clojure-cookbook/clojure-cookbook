@@ -69,4 +69,6 @@ include::custom-data-structures/red-black-trees-part-i.asciidoc[]
 
 include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
 
+include::removing-duplicate-elements-from-a-collection/removing-duplicate-elements-from-a-collection.asciidoc[]
+
 include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
