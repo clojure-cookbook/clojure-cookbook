@@ -1,0 +1,70 @@
+=== Use core.async to decouple consumers and producers
+[role="byline"]
+by Daemian Mack
+
+==== Problem
+
+You want to decouple your program's consumers and producers into asynchronous components.
+
+==== Solution
+
+Use the https://github.com/clojure/core.async[+core.async+]
+library to introduce and coordinate asynchronous channels.
+
+// TODO: Update lib to latest stable.
+Before starting, add `[org.clojure/core.async "0.1.242.0-44b1e3-alpha"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try org.clojure/core.async
+----
+
+[source,clojure]
+----
+(require '[clojure.core.async :refer :all])
+
+(defn consumer-a
+  []
+  (let [in (chan (sliding-buffer 64))]
+    (go-loop [data (<! in)]
+             (when data
+               (println (format "consumer-a received data %s" data))
+               (recur (<! in))))
+    in))
+
+(defn consumer-b
+  []
+  (let [in (chan (sliding-buffer 64))]
+    (go-loop [data (<! in)]
+             (when data
+               (println (format "consumer-b received data %s" data))
+               (recur (<! in))))
+    in))
+
+(def items [:a :b :c])
+
+(defn producer
+  [& channels]
+  (go
+   (doseq [item items
+           out  channels]
+     (<! (timeout 2000))
+     (>! out item))))
+
+(producer (consumer-a) (consumer-b))
+;; -> consumer-a received data :a
+;; -> consumer-b received data :a
+;; -> consumer-a received data :b
+;; -> consumer-b received data :b
+;; -> consumer-a received data :c
+;; -> consumer-b received data :c
+----
+
+==== Discussion
+
+Executing this in a REPL will show each item in `items` being passed via `producer` to both `consumer-a` and `consumer-b` after a short delay.
+
+In a real application, the `producer` function might be using Twitter's streaming API to follow user timelines, feeding updates simultaneously to browsers via Server Sent Events and to a database.
+
+One shortcoming of this approach is that, although the operations are asynchronous, they occur serially. If one of the consumers takes from the channel too slowly, the pipeline will back up; the producer will not be able to put onto the channels, and the other consumers will not be able to take. This is ameliorated somewhat by applying a buffer to each consumer channel; specifically, a sliding buffer that will drop older items when full. This gives some wiggle room for latency. core.async has several more advanced facilities like pub-sub, mixes and taps that provide more control over channel behavior.
