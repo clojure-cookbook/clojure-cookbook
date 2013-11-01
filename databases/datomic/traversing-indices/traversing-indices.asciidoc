@@ -1,0 +1,142 @@
+=== Traversing Datomic Indices
+[role="byline"]
+by Alan Busby and Ryan Neufeld
+
+==== Problem
+
+You want to execute simple Datomic queries with high-performance.
+
+==== Solution
+
+Use the +datomic.api/datoms+ function to directly access the core
+Datomic indices in your database.
+
+To follow along with this recipe, complete the steps in
+<<sec_datomic_connect_to_datomic_solution>> and
+<<sec_datomic_schema_solution>>. After doing this you will have a
+connection, +conn+, and a schema installed against which you can
+insert data.
+
+For example, to quickly find the entities which have the provided attribute and
+value set, invoke +datomic.api/datoms+, specifying the +:avet+ index
+(attribute, value, entity, transaction) and the desired attribute and
+value.
+
+[NOTE]
+====
+This will only work for attributes where +:db/index+ is true, or
++:db/unique+ is not nil.
+====
+
+[source,clojure]
+----
+(require '[datomic.api :as d])
+
+(d/transact conn [{:db/id (d/tempid :db.part/user)
+                   :user/name "Barney Rubble"
+                   :user/email "barney@example.com"}])
+
+(defn entities-with-attr-val
+  "Return entities with a given attribute and value."
+  [db attr val]
+  (->> (d/datoms db :avet attr val)
+       (map :e)
+       (map (partial d/entity db))))
+
+
+(def barney (first (entities-with-attr-val (d/db conn)
+                                           :user/email
+                                           "barney@example.com")))
+
+(:user/email barney)
+;; -> "barney@example.com"
+
+----
+
+To quickly determine all of the attributes an entity has, use the
++:eavt+-ordered index.
+
+[source,clojure]
+----
+(defn entities-attrs
+  "Return attrs of an entity"
+  [db entity]
+  (->> (d/datoms db :eavt (:db/id entity))
+       (map :a)
+       (map (partial d/entity db))
+       (map :db/ident)))
+
+(entities-attrs (d/db conn) barney)
+;; -> (:user/email :user/name)
+----
+
+To quickly find entities that refer, via +:db.type/ref+, to a provided
+entity, use the +:vaet+-ordered index.
+
+[source,clojure]
+----
+;; Add a person that refers to a :user.roles/author role
+(d/transact conn [{:db/id (d/tempid :db.part/user)
+                   :user/name "Ryan Neufeld"
+                   :user/email "ryan@rkn.io"
+                   :user/roles [:user.roles/author :user.roles/editor]}])
+
+(defn referring-to
+  "Find all entities referring to an entity as a certain attribute."
+  [db entity]
+  (->> (d/datoms db :vaet (:db/id entity) )
+       (map :e)
+       (map (partial d/entity db))))
+
+(def author-entity (d/entity (d/db conn) :user.roles/author))
+
+;; The names of all users with a :user.roles/author role
+(map :user/name (referring-to (d/db conn) author-entity))
+;; -> ("Ryan Neufeld")
+----
+
+==== Discussion
+
+For simple lookup queries, like "find by attribute" or "find by
+value", nothing beats Datomic's raw indices in terms of performance.
+The +datomic.api/datoms+ interface provides access to all of Datomic's
+indices, and conveniently lets you dive in any number of levels,
+"biting off" only the data you need.
+
+As with most Datomic functions, +datoms+ takes a +db+ as its first
+argument. You'll not in our examples, and elsewhere in the book, we
+too accept a database as a value, and not a connection--this idiom
+allows API users to perform varying numbers of operations on the same
+database value. You should always try to do this yourself.
+
++datoms+ second argument is the particular index you want to access.
+Each of these is a permutation of e, entity, a, attribute, v, value,
+and t, transaction. The order of letters in an index indicates how it
+is indexed. For example, +:eavt+ should be traversed by entity, then
+attribute, then so on and so forth. The four indices and what they
+include are as follows:
+
+* +:eavt+ - An entity-first index which includes all datoms. This
+  index provides a view over your database very much like a
+  traditional relational-database.
+* +:aevt+ - An "attribute, then entity" index which includes all datoms. This
+  index provides columnar access to your database, much like a data
+  warehouse.
+* +:avet+ - An "attribute-value" index which only includes attributes
+  where +:db/index+ is +true+. Incredibly useful as a lookup index
+  (e.g. "I need the entity with email of 'foo@example.com'").
+* +:vaet+ - A value-first index which only includes +:db.type/ref+
+  values. A very interesting index that can be used to treat your data
+  a bit like a graph database.
+
+After specifying an index ordering, you can optionally provide any
+number of components to pre-traverse the index. This serves to reduce
+the number of elements returned. For example, specifying just an
+attribute component for AVET traversal will return any entity with
+that attribute. Specifying an attribute and a value component, on the
+other hand, will return only entities with that specify attribute and
+value pair.
+
+What is returned by +datoms+ is a stream of +Datum+ objects. Each
+datum responds to +:a+, +:e+ and +:v+ as functions, returning the
+attribute, entity and value of the datom, respectively.
