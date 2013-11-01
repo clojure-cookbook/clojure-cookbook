@@ -13,8 +13,6 @@ include::cassandra-with-cassaforte/cassandra-with-cassaforte.asciidoc[]
 
 include::mongo/mongo.asciidoc[]
 
-include::traversing-datomic-indices/traversing-datomic-indices.asciidoc[]
-
 include::redis/redis.asciidoc[]
 
 include::indexing-with-elasticsearch/indexing-with-elasticsearch.asciidoc[]
@@ -34,3 +32,5 @@ include::datomic/transact-retract-data.asciidoc[]
 include::datomic/transact-with-consistency.asciidoc[]
 
 include::datomic/dry-run-transactions.asciidoc[]
+
+include::datomic/traversing-indices/traversing-indices.asciidoc[]
