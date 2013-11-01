@@ -8,7 +8,7 @@ You want to work with data stored in Cassandra.
 
 ==== Solution
 
-Use the https://github.com/clojurewerkz/cassaforte[Cassaforte] library for connecting to Cassandra cluster and work with the records in the database.
+Use the http://clojurecassandra.info/[Cassaforte] library for connecting to Cassandra cluster and work with the records in the database.
 
 In order to successfully work through the examples in this recipe, you
 should have Cassandra installed. You can find details on how to
