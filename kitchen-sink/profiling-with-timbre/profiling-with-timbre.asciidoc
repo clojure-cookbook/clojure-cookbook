@@ -1,17 +1,27 @@
 === Simple Profiling with Timbre
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
-//TODO: Edit for style (first vs. second person, less conversational)
 
 ==== Problem
 
-You want fine-grained statistics on the running time and invocation counts
-of your code.
+You want fine-grained statistics on the running time and invocation
+counts of your code.
 
 ==== Solution
 
-Use https://github.com/ptaoussanis/timbre[Timbre]
-by inserting profiling macros into your code, without performance penalty in production.
+Use https://github.com/ptaoussanis/timbre[Timbre] to inserting
+profiling macros into your code that won't incur a performance penalty
+in production.
+
+Before starting, add `[com.taoensso/timbre "2.6.3"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try com.taoensso/timbre
+----
+
+// TODO: Use X to Y.
 
 [source,clojure]
 ----
@@ -36,8 +46,8 @@ by inserting profiling macros into your code, without performance penalty in pro
         ([a] (p/p :bench/one-arg-f) +))))
 ----
 
-Here we define a Clojure function `bench-me`, which is called with a
-higher-order function `f` which takes zero or one argument.
+Here we define a Clojure function +bench-me+, which is called with a
+higher-order function +f+ which takes zero or one argument.
 
 Timbre outputs rich profiling information in a convenient table.
 
@@ -58,26 +68,30 @@ Timbre outputs rich profiling information in a convenient table.
 ==== Discussion
 
 Profiling with Timbre is a great solution for Clojure-only profiling.
-Standard JVM profiling tools like YourKit and JVisualVM provide more comprehensive
-information on Java methods, but come with a greater performance penalty.
+Standard JVM profiling tools like YourKit and JVisualVM provide more
+comprehensive information on Java methods, but come with a greater
+performance penalty.
 
-Timbre's profiling is most useful when profiling a specific area of code, than
-than using profiling as an exploratory tool for tuning performance.
-As profiling markers are just macros, they are flexible. For example, you could
-record how many times a particular +if+ branch was taken, all without leaving Clojure
-or suffering from mangled Clojure function names via YourKit or JVisualVM.
+Timbre's profiling is most useful when profiling a specific area of
+code, than than using profiling as an exploratory tool for tuning
+performance. As profiling markers are just macros, they are flexible.
+For example, you could record how many times a particular +if+ branch
+was taken, all without leaving Clojure or suffering from mangled
+Clojure function names via YourKit or JVisualVM.
 
-If profiling is deemed useful enough to keep in your code base,
-it good practice to use the profiling macros via a namespace alias.
-`p`, while conveniently named, is prone to being shadowed by local bindings
-if used without an explicit namespace.
-In the solution we used the alias `p`, and each call to `p` becomes `p/p`.
+If profiling is deemed useful enough to keep in your code base, it
+good practice to use the profiling macros via a namespace alias. +p+,
+while conveniently named, is prone to being shadowed by local bindings
+if used without an explicit namespace. In the solution we used the
+alias +p+, and each call to +p+ becomes +p/p+.
 
-Remember, you should not be hesitant to add profiling statements: there is no performance
-penalty for code involving `taoensso.timbre.profiling/p` if tracing is not enabled.
-This means you can leave tracing code in production, which is useful if you want to
-profile the same code later, or if the profiling comments make your code clearer.
+Remember, you should not be hesitant to add profiling statements:
+there is no performance penalty for code involving
++taoensso.timbre.profiling/p+ if tracing is not enabled. This means
+you can leave tracing code in production, which is useful if you want
+to profile the same code later, or if the profiling comments make your
+code clearer.
 
 ==== See also
 
-https://github.com/ptaoussanis/timbre#profiling(Profiling with Timbre)
+* https://github.com/ptaoussanis/timbre#profiling[Profiling with Timbre]
