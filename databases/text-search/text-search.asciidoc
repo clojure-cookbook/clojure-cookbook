@@ -1,30 +1,45 @@
-=== Full text search
+=== Full text search with Lucene
 [role="byline"]
 by Osbert Feng
 
 ==== Problem
 
-You want to support flexible full text search over a dataset. For
-example, return all people that have "Clojure" in their job
-descriptions in the "United States".
+You want to support flexible full text search over a unstructured or
+semi-structured dataset using Lucene. For example, return all people
+that have "Clojure" anywhere in their job descriptions in the "United States".
 
 ==== Solution
 
-Use +clucy+, a Clojure wrapper for Lucene.
+Use https://github.com/weavejester/clucy[Clucy], a Clojure wrapper for
+Lucene. Clucy provides the tools to build and query indexes from
+within a Clojure process.
+
+First, include the Clucy dependency in your +project.clj+ file:
 
 [source,clojure]
 ----
-(def index (clucy.core/memory-index))
+[clucy "0.4.0"]
+----
+
+The following code creates and queries a simple in-memory index:
+
+[source,clojure]
+----
+(ns clucy-sample
+  (:require [clucy.core :as clucy]))
+
+
+(def index (clucy/memory-index))
 ;; -> #'user/index
 
 
-(clucy.core/add index
+(clucy/add index
    {:name "Alice" :description "Clojure expert" :location "North Carolina, United States"}
    {:name "Bob" :description "Clojure novice" :location "Berlin, Germany"}
    {:name "Eve" :description "Eavesdropper" :location "Maryland, United States"})
 ;; -> nil
 
-(clucy.core/search index "description:clojure AND location:\"united states\"" 10)
+(clucy/search index "description:clojure AND location:\"united states\"" 10)
 ;; -> ({:name "Alice", :location "North Carolina, United States", :description "Clojure expert"})
 ----
 
@@ -32,26 +47,30 @@ Use +clucy+, a Clojure wrapper for Lucene.
 
 Lucene is a Java library for information retrieval. To use Lucene, you
 generate documents and index them for later retrieval. Documents
-consist of fields and terms.
+consist of fields and terms. In this example the documents are quite
+small, but Lucene is capable of efficiently indexing large numbers of
+very large documents as well.
 
 +clucy+ wraps Lucene in a convenient manner for use in Clojure, and is
 capable of generating Lucene documents directly from simple Clojure
-maps, where keys map to fields and values map to terms.
+maps, where keys map to fields and values map to textual data to be
+indexed.
 
 +clucy.core/search+ takes an index, a query string, and the number of
 results to return as parameters. Lucene is able to efficiently query
 in part because it is not necessary to return all matching documents,
-just the top +n+.
+just the top +n+ best matches.
 
 [NOTE]
 +clucy+ does not work as well out of the box with nested values in your
 maps. Be sure to flatten out values into simple strings for proper
 indexing and retrieval.
 
-Indexes in Lucene can stored in RAM, or on disk if you wish to persist
-your search index after your program terminates. This eliminates the
-time required to rebuild an index and also can be a way of persisting
-your application state if search is the only access pattern.
+This example uses a +memory-index+, which stores the index in system
+memory. In most real applications, you'll want to persist the index to
+disk, allowing it to grow larger than the available memory, and
+allowing you to restart your process without re-indexing. Clucy lets
+you construct a Lucene disk index via the +disk-index+ function.
 
 [source,clojure]
 ----
@@ -81,7 +100,7 @@ generation.
 (binding [clucy.core/*analyzer* (StandardAnalyzer.
                                  clucy.core/*version*
                                  stop-words)]
-  ;; Do index add + search here
+  ;; invoke index add and search forms here, within the binding
   )
 ----
 
@@ -96,12 +115,12 @@ possessives.
 ;; -> org.apache.lucene.analysis.en.EnglishAnalyzer
 
 (binding [clucy.core/*analyzer* (EnglishAnalyzer. clucy.core/*version*)]
-  ;; Do index add + search here
+  ;; invoke index add and search forms here, within the binding
   )
 ----
 
-The basic search query syntax is +field:term+, by default multiple
-clauses will perform an +OR+ search so an explicit +AND+ is required
+The basic search query syntax is +field:term+. By default multiple
+clauses will perform an +OR+ search, so an explicit +AND+ is required
 if both clauses must be true.
 
 If no field is specified, there an implicit field _content that
