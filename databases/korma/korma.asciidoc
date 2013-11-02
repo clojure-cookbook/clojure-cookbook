@@ -1,4 +1,4 @@
-=== Working with SQL in Korma
+=== Simplifying SQL with Korma
 [role="byline"]
 by Dmitri Sotnikov and Chris Allen
 
@@ -11,9 +11,6 @@ writing SQL by hand.
 
 Use Korma as a DSL for generating SQL queries and traversing
 relationships.
-
-First, fire up a fresh Leiningen project with Korma (the SQL library)
-and PostgreSQL as dependencies.
 
 [NOTE]
 ====
@@ -28,7 +25,7 @@ command to create a database for this recipe:
 
 [source,bash]
 ----
-$ /Applications/Postgres.app/Contents/MacOS/bin/createdb learn_korma;
+$ /Applications/Postgres.app/Contents/MacOS/bin/createdb learn_korma
 ----
 ====
 
@@ -41,21 +38,20 @@ dependencies or start a REPL using lein-try:
 $ lein try korma org.postgresql/postgresql
 ----
 
-Next, define a database connection. Korma uses c3p0 to create pooled
-connections.
+To connect to the +learn_korma+ database, use +defdb+
+with the +postgres+ helper. Because Korma is a rather large DSL, it is
+acceptable to +:refer :all+ its contents into model namespaces.
 
 [source,clojure]
 ----
-;; While we don't normally suggest :refer :all, Korma is a rather
-;; large DSL
 (require '[korma.db :refer :all])
 
 (defdb db
   (postgres {:db "learn_korma"}))
 ----
 
-Next, define and create some entities. Entities represent individual
-tables in your database. Here you'll define an entity for blog posts:
+To interact with a table in your database, define and create what
+Korma calls *entities*. Here you'll define an entity for blog posts:
 
 [source,clojure]
 ----
@@ -63,32 +59,36 @@ tables in your database. Here you'll define an entity for blog posts:
   (pk :id)
   (table :posts) ; Table name
   (entity-fields :title :content)) ; Default fields to SELECT
+----
 
-;; serial is the default Postgres type for autoincrementing integer primary keys
+Normally you'd use a proper migration library for your schema, but for
+the sake of simplicity we'll create a table manually. Use the
++exec-raw+ function to execute raw SQL statements against the
+database. You should only do this where strictly necessary.
+
+[source,clojure]
+----
 (def create-posts (str "CREATE TABLE posts "
                        "(id serial, title text, content text,"
                        "created_on timestamp default current_timestamp);"))
 
-;; Korma function to exec raw SQL, should only be used where strictly necessary.
 (exec-raw create-posts)
 ----
 
-Normally you'd use a proper migration library for your schema, but
-we'll keep things simple for the sake of demonstration.
-
-You can use +insert+ to add records to the database. Each record is
-represented by a map. The names of the keys in the map must match the
-names of the columns in the database.
+Now that the posts table exists, you can invoke +insert+ against
++posts+ with the maps +values+ returns to add records to the database.
+Each record is represented by a map. The names of the keys in the map
+must match the names of the columns in the database.
 
 [source,clojure]
 ----
 (insert posts
-        (values {:title "First post" :content "blah blah blah"}))
+        (values nil {:title "First post" :content "blah blah blah"}))
 ----
 
-You can then query the data using +select+. If the query is successful a
-sequence of maps will be returned. Each map will contain keys representing
-the column names.
+To retrieve values from the database, query using +select+. Successful
+queries will return a sequence of maps, each containing keys
+representing the column names.
 
 [source,clojure]
 ----
@@ -99,7 +99,10 @@ the column names.
 ;;      :id 1}]
 ----
 
-You can update existing records using +update+:
+To correct or change exist records, use the +update+ macro. Invoke
++update+ against +posts+, providing a +set-fields+ declaration to
+specify what should change and a +where+ declaration narrowing what
+records to make those changes to.
 
 [source,clojure]
 ----
@@ -109,7 +112,8 @@ You can update existing records using +update+:
 ;; -> {:title "Best Post", :id 1 ...}
 ----
 
-Deleting records is done using +delete+:
+The +delete+ macro works similarly to +update+, but doesn't take a
++set-fields+ declaration.
 
 [source,clojure]
 ----
@@ -127,254 +131,100 @@ from Clojure. The advantage of using Korma is that the queries are
 written as regular code instead of SQL strings. You can easily compose
 queries together and abstract common operations.
 
-Korma provides many additional features in addition to those you saw
-above. Let's examine some of these below.
-
-One convenience feature Korma provides is default connections. When
-only a single connection is defined it will be used by default and you
-don't have to pass it in explicitly. That said, it is also possible to
-define multiple connections and pass them explicitly.
+Korma exposes these abilities through its entity system. Entities are
+an abstraction over traditional SQL tables that mask the complexity of
+SQL's crufty and complicated DDL (Data Definition Language). Via the
++defentity+ macro, you have access to all of the power of traditional
+SQL, packaged in a readable, Clojure-based DSL.
 
 When defining entities with +defentity+ you can pass in a number of
-options. These include +table+ to specify the table name directly,
-+pk+ for the relations default ID field (primary key), +entity-fields+
-for default fields for SELECTs, and +db+ for which database the entity
-belongs in.
+options. Some common options include +table+ to specify a table name,
++pk+ to specify the default ID field (primary key), +entity-fields+ to
+specify the default fields for SELECT statements, or even +db+ to
+specify which database the entity belongs in.
 
-You can also define entity relations using the +has-one+, +has-many+,
-+belongs-to+ and +many-to-many+:
-
-[source,clojure]
-----
-(defentity orders
-  ;; order is a reserved name in korma and H2.
-  (table :orders))
-
-(defentity billable
-  (table :billable))
-
-(defentity address
-  (table :address))
-
-(defentity phone
-  (table :phone))
-
-(defentity customer
-  ;; Specify which database directly, using the one you defined earlier
-  ;; (database db)
-
-  (table :customer)
-
-  ;; By default assumed id as a primary key
-  ;; produces query:
-  ;; "customer.id = address.customer_id"
-  (has-one address)
-  (has-many phone)
-
-  ;; You can override the default foreign key
-  ;; name by using :fk as seen below
-  (belongs-to billable {:fk :cust_id})
-  (many-to-many orders :customer_orders))
-
-
-(def create-orders
-  (str "CREATE TABLE orders (id serial, billable_id int);"))
-
-(def create-billable
-  (str "CREATE TABLE billable (id serial, cust_id int, item text);"))
-
-(def create-address
-  (str "CREATE TABLE address (id serial, customer_id int, addy text, current boolean default true);"))
-
-(def create-phone
-  (str "CREATE TABLE phone (id serial, customer_id int, phone text);"))
-
-(def create-customer
-  (str "CREATE TABLE customer (id serial, name text, tentacles boolean, registered timestamp default current_timestamp);"))
-
-(doseq [sql-cmd [create-orders create-billable create-address create-phone create-customer]]
-  (exec-raw db sql-cmd))
-----
-
-Korma also allows us to create subselects using +korma.core/subselect+.
+Entities also simplify defining relations between tables. Entity
+declaration statements such as +has-one+, +has-many+, +belongs-to+ and
++many-to-many+ define relationships to other entities. Consider adding
+an author to each of our blog posts:
 
 [source,clojure]
 ----
-(defentity sub-customers
-  (table (korma.core/subselect customer
-                               (where :orders_pending))
-         :customersWithOrders))
+;; Create authors that assume posts has an author_id
+(defentity authors
+  ;; By default, foreign-key will be :authors_id, but that is a little
+  ;; awkward...
+  (has-many posts {:fk :author_id}))
+
+;; Re-define posts such that it assumes it has an author_id
+(defentity posts
+  (belongs-to authors {:fk :author_id}))
+
+;; Create the authors table
+(exec-raw "CREATE TABLE authors (id serial, name text);")
+
+;; Add the authors_id field to posts
+(exec-raw "ALTER TABLE posts ADD COLUMN author_id int;")
+
+(def ryan (insert authors (values {:name "Ryan"})))
+ryan
+;; -> {:name "Ryan", :id 1}
+
+(insert posts (values [{:title "My first post!", :author_id (:id ryan)}
+                       {:title "My second post.", :author_id (:id ryan)}]))
+(select posts
+        (where {:author_id (:id ryan)}))
+;; -> [{:author_id 1,
+;;      ...
+;;      :title "My first post!",
+;;      :id 4}
+;;     {:author_id 1,
+;;      ...
+;;      :title "My second post.",
+;;      :id 5}]
 ----
 
-To more intimately examine Korma's querying abilities, create some
-test data.
+Stemming from its entity system, Korma provides DSL versions of common
+SQL statements such as +select+, +update+, +insert+ and +delete+. One
+of the most interesting query types is +select+, which provides
+support for most every SELECT statement option, include simplified
+table-joins (via its relation helpers). Some notable helpers include:
++aggregate+, +join+, +order+, +group+ and +having+--chances are, if it
+is a SQL statement feature, Korma has a helper for it.
+
+Korma's DSL isn't only convenient, it's also composable. Using
++select*+ instead of +select+ returns a query as a value, instead of
+an evaluated result. You can pipeline query values through regular
++select+-helpers to build up or store partial queries. Finally, invoke
++select+ on a query value to execute it and receive its result.
 
 [source,clojure]
 ----
-;; You can insert multiple rows by passing a vector to "values"
-(insert customer
-        (values [{:name "Dmitri"  :tentacles false}
-                 {:name "Chris"   :tentacles false}
-                 {:name "Brandy"  :tentacles false}
-                 {:name "Cthulhu" :tentacles true}]))
+(defn authors-posts
+  "Retrieve all posts for a person with a given name"
+  [name]
+  (-> (select* posts)
+      (with authors)
+      (where {:authors.name name})))
 
-(def dmitri  (first (select customer
-                            (where {:name "Dmitri"}))))
-(def chris   (first (select customer
-                            (where {:name "Chris"}))))
-(def brandy  (first (select customer
-                            (where {:name "Brandy"}))))
-(def cthulhu (first (select customer
-                            (where {:name "Cthulhu"}))))
-
-(insert billable
-        (values {:cust_id (:id brandy) :item "Chainsaw for cutting down trees in the backyard"}))
-(insert billable
-        (values {:cust_id (:id dmitri) :item "Caviar"}))
-(insert billable
-        (values {:cust_id (:id chris) :item "Bottles of whiskey for bribery"}))
-(insert address
-        (values {:customer_id (:id chris) :addy "San Francisco!"}))
-(insert address
-        (values {:customer_id (:id dmitri) :addy "Elsewhere"}))
-(insert address
-        (values {:customer_id (:id brandy) :addy "San Francisco!"}))
-----
-
-Selection queries define all the common relational operations
-such as +aggregate+, +join+, +order+, +group+ and +having+:
-
-[source,clojure]
-----
-(select customer
-        (fields [:tentacles])
-        (group :tentacles))
-;; -> [{:tentacles true} {:tentacles false}]
-----
-
-You can include results from other related entities using the +with+ clause:
-
-[source,clojure]
-----
-(select customer
-        (with address)
-        (limit 1))
-;; -> [{:current true,
-;;      :addy "Elsewhere",
-;;      :customer_id 1,
-;;      :id_2 2,
-;;      :registered #inst "2013-11-01T19:36:38.765727000-00:00",
-;;      :tentacles false,
-;;      :name "Dmitri",
-;;      :id 1}]
-----
-
-Korma also allows doing manual joins using the +join+ clause.
-
-[source,clojure]
-----
-(select customer
-        (join address (= :address.customer_id :id))
-        (limit 1))
-;; -> ... <results as above>
-----
-
-The +subselect+ clause allows you to perform subselections inside of a
-+where+ clause.
-
-[source,clojure]
-----
-;; Performing a customer query where address is current.
-(select customer
-        (with address)
-        (where {:address.id
-                [in (subselect address
-                               (fields :id)
-                               (where {:current true}))]}))
-----
-
-Korma queries are composable
-
-[source,clojure]
-----
-(-> (select* customer)
-    (with address)
+;; Find the title of all posts by author named "Ryan"
+(-> (authors-posts "Ryan")
+    (where (like :title "%second%"))
+    (fields :title)
     select)
+;; -> [{:title "My second post."}]
 ----
 
-Queries can be further decorated using the +modifier+ clause:
+Another convenience Korma provides is default connections. You may
+have noticed in the examples we never referred to the +db+ we defined.
+When only a single connection is defined it will be used by default
+and you don't have to pass it explicitly. If you like you can define
+multiple connections and wrap series of statements in a +with-db+ call
 
 [source,clojure]
 ----
-(select customer
-        (modifier "DISTINCT"))
-----
-
-SQL functions can be called using +sqlfn+ followed by the name and
-optional parameters:
-
-[source,clojure]
-----
-(select customer
-        (where {:registered [<= (sqlfn now)]}))
-----
-
-When something can't be expressed in Korma you can use raw queries.
-
-[source,clojure]
-----
-(exec-raw ["SELECT * FROM customer WHERE id = ?" [4]] :results)
-----
-
-It should also be noted that Korma can enable some rather nice query
-composition based APIs:
-
-[source,clojure]
-----
-(defn customers
-  "Query statement for customers with addresses."
-  []
-  (-> (select* customer)
-      (with address)))
-
-(select (customers))
-;; -> ... All customers
-
-(defn constrainer
-  "Return a function that constrains a field in a table by a value."
-  [field]
-  (fn [table value]
-    (-> table
-        (where {field value}))))
-
-(def customer-fields [:tentacles :id :name :registered])
-
-(def all-constrainers (map constrainer customer-fields))
-
-(def constrain-tentacles (first all-constrainers))
-
-(defn san-fran-residents [customers]
-  (-> customers
-      (where {:address.addy "San Francisco!"})))
-
-(defn customers-with-tentacles []
-  (-> (customers)
-      (constrain-tentacles true)
-      select))
-
-(defn customers-without-tentacles []
-  (-> (customers)
-      (constrain-tentacles false)
-      select))
-
-(defn customers-without-tentacles-in-sf []
-  (-> (customers)
-      (constrain-tentacles false)
-      (san-fran-residents)
-      select))
-
-(customers-without-tentacles-in-sf)
-;; -> ... Everyone, but Cthulu, and Chris.
+(with-db db
+  (select (authors-posts "Ryan")))
 ----
 
 ==== See Also
