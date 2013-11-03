@@ -1,3 +1,4 @@
+[[sec_sql_korma]]
 === Simplifying SQL with Korma
 [role="byline"]
 by Dmitri Sotnikov and Chris Allen
@@ -11,6 +12,15 @@ writing SQL by hand.
 
 Use Korma as a DSL for generating SQL queries and traversing
 relationships.
+
+Before starting, add `[korma "0.3.0-RC6"]` and
+`[org.postgresql/postgresql "9.2-1002-jdbc4"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try korma org.postgresql/postgresql
+----
 
 [NOTE]
 ====
@@ -28,15 +38,6 @@ command to create a database for this recipe:
 $ /Applications/Postgres.app/Contents/MacOS/bin/createdb learn_korma
 ----
 ====
-
-Before starting, add `[korma "0.3.0-RC6"]` and
-`[org.postgresql/postgresql "9.2-1002-jdbc4"]` to your project's
-dependencies or start a REPL using lein-try:
-
-[source,shell]
-----
-$ lein try korma org.postgresql/postgresql
-----
 
 To connect to the +learn_korma+ database, use +defdb+
 with the +postgres+ helper. Because Korma is a rather large DSL, it is
