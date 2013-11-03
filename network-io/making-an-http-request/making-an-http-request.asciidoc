@@ -1,3 +1,4 @@
+[[sec_http_request]]
 === Making HTTP Requests
 [role="byline"]
 by John Cromartie
@@ -95,8 +96,8 @@ manage complex failure scenarios involving external services.
 
 * See +clj-http+'s https://github.com/dakrone/clj-http[GitHub
   repository] for more detailed information on the library.
-* Consider http://http-kit.org/[HTTP Kit] if you need to make
-  asynchronous HTTP calls.
+* For information on making asynchronous HTTP calls, see
+  <<sec_async_http>>.
 * When building production systems that interact with external
   services, consider https://github.com/Netflix/Hystrix[Hystrix] and
   its

@@ -5,19 +5,18 @@ include::making-an-http-request/making-an-http-request.asciidoc[]
 
 include::async-http-requests/async-http-requests.asciidoc[]
 
+include::ping/sending-a-ping-request.asciidoc[]
+
 include::rss/rss.asciidoc[]
 
 include::twitter-api/twitter-api.asciidoc[]
-
-include::ping/sending-a-ping-request.asciidoc[]
 
 include::publishing-to-rabbitmq/publishing-to-rabbitmq.asciidoc[]
 
 include::consuming-from-rabbitmq/consuming-from-rabbitmq.asciidoc[]
 
+include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
+
 include::zmq-async/zmq-async.asciidoc[]
 
 include::websockets/websockets.asciidoc[]
-
-include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
-
