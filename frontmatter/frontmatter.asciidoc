@@ -1,5 +1,5 @@
 [preface]
-== Foreward
+== Foreword
 
 [preface]
 == Preface
