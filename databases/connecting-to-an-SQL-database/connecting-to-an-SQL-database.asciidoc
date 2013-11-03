@@ -62,8 +62,8 @@ and any number of column specifications.
 
 [source,clojure]
 ----
-(require '[clojure.java.jdbc :as jdbc])
-(require '[clojure.java.jdbc.sql :as sql])
+(require '[clojure.java.jdbc :as jdbc]
+         '[clojure.java.jdbc.sql :as sql])
 
 (jdbc/with-connection db-spec
   (jdbc/create-table 
@@ -77,6 +77,8 @@ Many other functions which query and manipulate a database, such as
 +clojure.java.jdbc/insert!+, take a database specification directly as
 their first argument.
 
+[source,clojure]
+----
 (jdbc/insert! db-spec :tags
                       {:name "Clojure"}
                       {:name "Java"})
