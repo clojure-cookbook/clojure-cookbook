@@ -1,4 +1,4 @@
-=== Work with XML data
+=== Working with XML data
 [role="byline"]
 by Stefan Karlsson
 
