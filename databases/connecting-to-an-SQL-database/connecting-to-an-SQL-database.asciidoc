@@ -9,54 +9,81 @@ You want to connect your program to an SQL database.
 
 ==== Solution
 
-Use the +clojure.java.jdbc+ library for JDBC-based access to SQL databases.
+Use the +clojure.java.jdbc+ library for JDBC-based access to SQL
+databases.
 
-Add a dependency to your Leiningen project file for the +clojure.java.jdbc+
-library. You will also need to add a dependency for the JDBC library used
-with the RDBMS you are connecting to (e.g. MySQL):
+[NOTE]
+====
+You'll need a running SQL database and existing table to connect to
+for this recipe. We suggest PostgreSQL.
+
+If you're a Mac user and don't have PostgreSQL installed yet, you can
+go here http://postgresapp.com/ for an easy to use DMG.
+
+After you have PostgreSQL running (presumably on _localhost:5432_) run the following
+command to create a database for this recipe:
+
+[source,bash]
+----
+$ /Applications/Postgres.app/Contents/MacOS/bin/createdb cookbook_experiments
+----
+====
+
+Before starting, add `[org.clojure/java.jdbc "0.3.0-alpha4"]` to your
+project's dependencies. You'll also need a JDBC-driver for the RDBMS
+of your choice. If you're following along with this sample, use
+`[org.postgresql/postgresql "9.2-1002-jdbc4"]`. To start a REPL using
+lein-try, enter the following Leiningen command:
+
+[source,shell]
+----
+$ lein try org.clojure/java.jdbc org.postgresql/postgresql
+----
+
+To interact with a database using +clojure.java.jdbc+, all you need is
+a connection specification. This specification takes the form of a
+plain Clojure map with values indicating the database driver type,
+location and authentication credentials.
 
 [source,clojure]
 ----
-:dependencies [ ; ...
-                [org.clojure/java.jdbc "0.3.0-alpha4"]
-                [mysql/mysql-connector-java "5.1.25"] ]
+(def db-spec {:classname "org.postgresql.Driver"
+              :subprotocol "postgresql"
+              :subname "//localhost:5432/cookbook_experiments"
+              ;; Not needed for a non-secure local database...
+              ;; :user "bilbo"
+              ;; :password "secret"
+              })
 ----
 
-Require the necessary parts of the +clojure.java.jdbc+ library in your Clojure source code:
+Create a relation in the specified database by invoking the
++clojure.java.jdbc/create-table+ function with the specification
+and any number of column specifications.
 
 [source,clojure]
 ----
-(ns myproj.core
-  (:require [clojure.java.jdbc :as jdbc]
-            [clojure.java.jdbc.sql :as sql]))
+(require '[clojure.java.jdbc :as jdbc])
+(require '[clojure.java.jdbc.sql :as sql])
 
+(jdbc/with-connection db-spec
+  (jdbc/create-table 
+     :tags
+     [:id :serial "PRIMARY KEY"]
+     [:name :varchar "NOT NULL"]))
+;; -> (0)
 ----
 
-Create a database specification containing the parameters for accessing the
-database:
+Many other functions which query and manipulate a database, such as
++clojure.java.jdbc/insert!+, take a database specification directly as
+their first argument.
 
-[source,clojure]
-----
-(def db-spec {:classname "com.mysql.jdbc.Driver"
-              :subprotocol "mysql"
-              :subname "//localhost:3306/lotr_db"
-              :user "bilbo"
-              :password "secret"})
-----
+(jdbc/insert! db-spec :tags
+                      {:name "Clojure"}
+                      {:name "Java"})
+;; -> ({:name "Clojure", :id 1} {:name "Java", :id 2})
 
-Pass the database specification as the first argument to several of the
-library's other functions which query and manipulate your database.
-
-[source,clojure]
-----
-(jdbc/insert! db-spec :blocks_world
-              {:color "RED" :shape "square" :size 1.4}
-              {:color "BLUE" :shape "cone"  :size 2.0}
-              {:color "WHITE" :shape "rectangle" :size 0.5})
-;; -> (nil nil nil)
-
-(jdbc/query db-spec (sql/select * :blocks_world (sql/where {:shape "cone"})))
-;; -> ({:size 2.0, :shape "cone", :color "BLUE"})
+(jdbc/query db-spec (sql/select * :tags (sql/where {:name "Clojure"})))
+;; -> ({:name "Clojure", :id 1})
 ----
 
 ==== Discussion
@@ -83,14 +110,17 @@ and plain strings. For example, a complete URI string may be provided under the
 
 [source,clojure]
 ----
-(def db-spec {:connection-uri "jdbc:mysql://localhost:3306/lotr_db?user=bilbo&password=secret"})
+(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/clojure_experiments"}))
+
+;; If you had a username and password...
+(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/clojure_experiments?user=bilbo&password=secret"})
 ----
 
 Or provided directly as the database specification itself:
 
 [source,clojure]
 ----
-(def db-spec "jdbc:mysql://bilbo:secret@localhost:3306/lotr_db")
+(def db-spec "jdbc:postgresql://bilbo:secret@localhost:5432/clojure_experiment")
 ----
 
 Database records are represented as Clojure maps, with the table's column names
@@ -99,25 +129,24 @@ maps which can then be processed with all the normal Clojure functions.
 
 [source,clojure]
 ----
-(jdbc/query db-spec (sql/select * :abc_words))
-;; -> ({:name "ant" :id 11} {:name "bat" :id 12} {:name "cat" :id 13}
-;;     {:name "dog" :id 14} {:name "fat" :id 16} {:name "elf" :id 15})
+(jdbc/query db-spec (sql/select * :tags))
+;; -> ({:name "Clojure", :id 1}
+;      {:name "Java", :id 2})
 
-(filter #(not (.endsWith (:name %) "at"))
-        (jdbc/query db-spec (sql/select * :abc_words)))
-;; -> ({:name "ant", :id 11} {:name "dog", :id 14} {:name "elf", :id 15})
+(filter #(not (.endsWith (:name %) "ure"))
+        (jdbc/query db-spec (sql/select * :tags)))
+;; -> ({:name "Java", :id 2})
 ----
 
 There are other Clojure libraries to access relational databases and each
 provides a different abstraction and DSL for the manipulation of SQL data and
-expressions. The +clojure.java.jdbc+ library, however, covers a large portion
+expressions, such as Korma. The +clojure.java.jdbc+ library, however, covers a large portion
 of everyday database access needs.
 
 ==== See Also
 
 * See <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
 * See <<sec_db_connecting_with_a_connection_pooling>> to learn about pooling connections to an SQL database with +c3p0+ and +clojure.java.jdbc+.
-
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
 * See http://sqlkorma.com/[Korma SQL] for an alternative SQL DSL.
 * See  https://github.com/jkk/honeysql[HoneySQL] for another alternative SQL DSL.
