@@ -63,4 +63,12 @@ Create a Cat and invoke the protocol functions.
 
 ==== Discussion
 
-Using protocols and types in this way is useful for functions that have alternate implementations based on the type of the target. For performance critical code this approach is superior to a more ad-hoc approach using maps and multi-methods because when the functions are called they are dispatched using the native Java polymorphic dispatch which is highly optimized in the JVM. However, this approach gives up some of the flexibility afforded by multi-methods. Specifically, only the type of the first argument to each function can be used to dispatch the call.
+Using protocols and types in this way is useful for functions that
+have alternate implementations based on the type of the target. For
+performance critical code this approach is superior to a more ad-hoc
+approach using maps and multi-methods because when the functions are
+called they are dispatched using the native Java polymorphic dispatch
+which is highly optimized in the JVM. However, this approach gives up
+some of the flexibility afforded by multi-methods. Specifically, only
+the type of the first argument to each function can be used to
+dispatch the call.

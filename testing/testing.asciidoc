@@ -1,16 +1,19 @@
 [[ch_testing]]
 == Testing & Profiling
 
-include::avoid-null-pointer/avoid-null-pointer.asciidoc[]
-
-include::hof-typed/hof-typed.asciidoc[]
-
 include::browser-testing/browser-testing.asciidoc[]
 
 include::unit-testing/unit-testing.asciidoc[]
 
 include::unit-testing/midje.asciidoc[]
 
+include::tracing/tracing.asciidoc[]
+
 include::primitive-arrays/primitive-arrays.asciidoc[]
 
 include::verify-java-interop/verify-java-interop.asciidoc[]
+
+include::avoid-null-pointer/avoid-null-pointer.asciidoc[]
+
+include::hof-typed/hof-typed.asciidoc[]
+
