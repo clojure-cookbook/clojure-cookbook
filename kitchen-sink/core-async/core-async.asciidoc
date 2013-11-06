@@ -16,7 +16,7 @@ Use the https://github.com/clojure/core.async[+core.async+]
 library to introduce and coordinate asynchronous channels.
 
 // TODO: Update lib to latest stable.
-Before starting, add `[org.clojure/core.async "0.1.242.0-44b1e3-alpha"]` to your project's
+Before starting, add +[org.clojure/core.async "0.1.242.0-44b1e3-alpha"]+ to your project's
 dependencies or start a REPL using lein-try:
 
 [source,shell]
@@ -65,7 +65,7 @@ The following passage illustrates a synchronous approach.
 ----
 
 Each message received is sent to each of the consumers passed as
-arguments to `message-producer`.
+arguments to +message-producer+.
 
 This approach is rigid. It offers minimal control over consumer
 latency or availability. What if the database needs to buffer incoming
@@ -86,18 +86,18 @@ possible use of a channel.
     in))
 ----
 
-In the outer `let` binding, a new unbuffered channel is created. Then,
-inside the `go` block, `<!` reads once from the channel, and the
+In the outer +let+ binding, a new unbuffered channel is created. Then,
+inside the +go+ block, +<!+ reads once from the channel, and the
 resulting value is printed. Finally, the function returns the channel.
 
 One of the benefits of core.async is that it lets you write
-callback-style code in a straight-forward manner. Because the `go`
+callback-style code in a straight-forward manner. Because the +go+
 block is asynchronous, the read call parks until a value is placed on
-the channel. The remainder of the `go` block -- here, the `println`
+the channel. The remainder of the +go+ block -- here, the +println+
 call -- is pending. Since the channel is returned as the function's
 value, other parts of the system -- here, the producer -- are free to
 write to the channel while the read parks. The first value written to
-the channel will satisfy that read call, allowing the rest of the `go`
+the channel will satisfy that read call, allowing the rest of the +go+
 block to then make use of the value written.
 
 This asynchronous consumer can still be improved quite a bit.
@@ -111,7 +111,7 @@ other consumers will not be able to take.
 Additionally, the single read allows only one value to be transferred
 over the channel.
 
-Fix this using buffering and the `go-loop` construct.
+Fix this using buffering and the +go-loop+ construct.
 
 [source,clojure]
 ----
@@ -126,18 +126,18 @@ Fix this using buffering and the `go-loop` construct.
     in))
 ----
 
-Here the channel is given a buffer of size 64. The `sliding-buffer`
+Here the channel is given a buffer of size 64. The +sliding-buffer+
 variant dictates that, if this channel accrues more than 64 unread
 values, older values will start 'falling off' the end, trading off
-historical completeness in favor of recency. Using `dropping-buffer`
+historical completeness in favor of recency. Using +dropping-buffer+
 instead would optimize in the opposite direction.
 
-Also, the `go` block has been recast as a `go-loop` which takes as its
+Also, the +go+ block has been recast as a +go-loop+ which takes as its
 initial value the first value read from the channel. If that value is
 not nil -- if the channel has been written to but not yet closed --
 the value is printed, and the loop recurs with the next value read
-from the channel. `go-loop` is the core.async response to looping via
-a construct like `while true`.
+from the channel. +go-loop+ is the core.async response to looping via
+a construct like +while true+.
 
 This consumer is now asynchronous, grants some control over its
 latency, and will read values until the channel closes.
@@ -156,12 +156,12 @@ Time to address the producer.
 ----
 
 In a similar vein, this producer will take each incoming item, read
-from a `timeout` channel to cause a 2-second pause for effect, and
-then employ `>!` to place the value onto each channel passed in.
+from a +timeout+ channel to cause a 2-second pause for effect, and
+then employ +>!+ to place the value onto each channel passed in.
 
 Here's how the final passage looks. Note that the consumers, now
 functions, need to be evaluated to return the channel passed in to
-`producer`.
++producer+.
 
 
 [source,clojure]
