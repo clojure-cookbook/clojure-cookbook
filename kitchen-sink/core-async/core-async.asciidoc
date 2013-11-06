@@ -1,10 +1,14 @@
-=== Use core.async to decouple consumers and producers
+=== Decoupling Consumers and Producers with core.async
 [role="byline"]
 by Daemian Mack
 
 ==== Problem
 
-You want to decouple your program's consumers and producers into asynchronous components.
+You want to decouple your program's consumers and producers. 
+
+Introducing explicit queues between components allows them to
+communicate asynchronously, makes them simpler to manage independently
+and frees up computational resources.
 
 ==== Solution
 
@@ -20,31 +24,177 @@ dependencies or start a REPL using lein-try:
 $ lein try org.clojure/core.async
 ----
 
+Imagine you are building a custom dashboard that fetches
+Twitter messages. These messages are pushed to web browsers over
+Server Sent Events (SSE) to provide a real-time view.
+
+In addition, simultaneously persisting each message to a database
+allows displaying a backlog of messages when the web page is initially
+loaded.
+
+Thus, the message producer needs to feed two consumers.
+
+The following passage illustrates a synchronous approach.
+
 [source,clojure]
 ----
-(require '[clojure.core.async :refer :all])
 
-(defn consumer-a
+(defn database-consumer
+  "Accept messages and persist them to a database."
+  [msg]
+  (println (format "database-consumer received message %s" msg)))
+
+(defn sse-consumer
+  "Accept messages and pass them to web browsers via SSE."
+  [msg]
+  (println (format "sse-consumer received message %s" msg)))
+
+(defn messages
+  "Fetch messages from Twitter."
+  []
+  (range 4))
+
+(defn message-producer
+  "Produce messages and deliver them to consumers."
+  [& consumers]
+  (doseq [msg (messages)
+          consumer consumers]
+    (consumer msg)))
+
+(message-producer database-consumer sse-consumer)
+----
+
+Each message received is sent to each of the consumers passed as
+arguments to `message-producer`.
+
+This approach is rigid. It offers minimal control over consumer
+latency or availability. What if the database needs to buffer incoming
+messages? What if you want to temporarily turn off one or more of the
+consumers during partial maintenance downtime?
+
+core.async can help. Here is a degenerate pass at making the simplest
+possible use of a channel.
+
+[source,clojure]
+----
+(defn database-consumer
+  "Accept messages and persist them to a database."
+  []
+  (let [in (chan)]
+    (go (let [msg (<! in)]
+          (println (format "database-consumer received msg %s" msg))))
+    in))
+----
+
+In the outer `let` binding, a new unbuffered channel is created. Then,
+inside the `go` block, `<!` reads once from the channel, and the
+resulting value is printed. Finally, the function returns the channel.
+
+One of the benefits of core.async is that it lets you write
+callback-style code in a straight-forward manner. Because the `go`
+block is asynchronous, the read call parks until a value is placed on
+the channel. The remainder of the `go` block -- here, the `println`
+call -- is pending. Since the channel is returned as the function's
+value, other parts of the system -- here, the producer -- are free to
+write to the channel while the read parks. The first value written to
+the channel will satisfy that read call, allowing the rest of the `go`
+block to then make use of the value written.
+
+This asynchronous consumer can still be improved quite a bit.
+
+One shortcoming stems from the fact that although the operations are
+asynchronous, they occur serially. Using unbuffered channels means if
+one of the consumers takes from the channel slowly, the pipeline will
+stall; the producer will not be able to put onto the channels, and
+other consumers will not be able to take.
+
+Additionally, the single read allows only one value to be transferred
+over the channel.
+
+Fix this using buffering and the `go-loop` construct.
+
+[source,clojure]
+----
+(defn database-handler
+  "Accept messages and persist them to a database."
   []
   (let [in (chan (sliding-buffer 64))]
     (go-loop [data (<! in)]
              (when data
-               (println (format "consumer-a received data %s" data))
+               (println (format "database-consumer received msg %s" msg))
                (recur (<! in))))
     in))
+----
 
-(defn consumer-b
+Here the channel is given a buffer of size 64. The `sliding-buffer`
+variant dictates that, if this channel accrues more than 64 unread
+values, older values will start 'falling off' the end, trading off
+historical completeness in favor of recency. Using `dropping-buffer`
+instead would optimize in the opposite direction.
+
+Also, the `go` block has been recast as a `go-loop` which takes as its
+initial value the first value read from the channel. If that value is
+not nil -- if the channel has been written to but not yet closed --
+the value is printed, and the loop recurs with the next value read
+from the channel. `go-loop` is the core.async response to looping via
+a construct like `while true`.
+
+This consumer is now asynchronous, grants some control over its
+latency, and will read values until the channel closes.
+
+Time to address the producer.
+
+[source,clojure]
+----
+(defn producer
+  [& channels]
+  (go
+   (doseq [item (items)
+           out  channels]
+     (<! (timeout 2000))
+     (>! out item))))
+----
+
+In a similar vein, this producer will take each incoming item, read
+from a `timeout` channel to cause a 2-second pause for effect, and
+then employ `>!` to place the value onto each channel passed in.
+
+Here's how the final passage looks. Note that the consumers, now
+functions, need to be evaluated to return the channel passed in to
+`producer`.
+
+
+[source,clojure]
+----
+(require '[clojure.core.async :refer [chan sliding-buffer go go-loop timeout >! <!]])
+
+(defn database-consumer
+  "Accept messages and persist them to a database."
   []
   (let [in (chan (sliding-buffer 64))]
     (go-loop [data (<! in)]
              (when data
-               (println (format "consumer-b received data %s" data))
+               (println (format "database-consumer received data %s" data))
                (recur (<! in))))
     in))
 
-(def items [:a :b :c])
+(defn sse-consumer
+  "Accept messages and pass them to web browsers via SSE."
+  []
+  (let [in (chan (sliding-buffer 64))]
+    (go-loop [data (<! in)]
+             (when data
+               (println (format "sse-consumer received data %s" data))
+               (recur (<! in))))
+    in))
+
+(defn messages
+  "Fetch messages from Twitter."
+  []
+  (range 4))
 
 (defn producer
+  "Produce messages and deliver them to consumers."
   [& channels]
   (go
    (doseq [item items
@@ -63,8 +213,4 @@ $ lein try org.clojure/core.async
 
 ==== Discussion
 
-Executing this in a REPL will show each item in `items` being passed via `producer` to both `consumer-a` and `consumer-b` after a short delay.
-
-In a real application, the `producer` function might be using Twitter's streaming API to follow user timelines, feeding updates simultaneously to browsers via Server Sent Events and to a database.
-
-One shortcoming of this approach is that, although the operations are asynchronous, they occur serially. If one of the consumers takes from the channel too slowly, the pipeline will back up; the producer will not be able to put onto the channels, and the other consumers will not be able to take. This is ameliorated somewhat by applying a buffer to each consumer channel; specifically, a sliding buffer that will drop older items when full. This gives some wiggle room for latency. core.async has several more advanced facilities like pub-sub, mixes and taps that provide more control over channel behavior.
+core.async has several more advanced facilities like pub-sub, mixes and taps that provide more control over channel behavior.
