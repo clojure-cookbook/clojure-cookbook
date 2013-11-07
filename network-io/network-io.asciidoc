@@ -11,9 +11,7 @@ include::rss/rss.asciidoc[]
 
 include::twitter-api/twitter-api.asciidoc[]
 
-include::publishing-to-rabbitmq/publishing-to-rabbitmq.asciidoc[]
-
-include::consuming-from-rabbitmq/consuming-from-rabbitmq.asciidoc[]
+include::queueing-with-rabbitmq/queueing-with-rabbitmq.asciidoc[]
 
 include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
 
