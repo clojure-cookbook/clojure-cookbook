@@ -63,10 +63,10 @@ and any number of column specifications.
 [source,clojure]
 ----
 (require '[clojure.java.jdbc :as jdbc]
-         '[clojure.java.jdbc.sql :as sql])
+         '[clojure.java.jdbc.ddl :as ddl])
 
-(jdbc/with-connection db-spec
-  (jdbc/create-table 
+(jdbc/db-do-commands db-spec false
+  (ddl/create-table 
      :tags
      [:id :serial "PRIMARY KEY"]
      [:name :varchar "NOT NULL"]))
@@ -79,6 +79,8 @@ their first argument.
 
 [source,clojure]
 ----
+(require '[clojure.java.jdbc.sql :as sql])
+
 (jdbc/insert! db-spec :tags
                       {:name "Clojure"}
                       {:name "Java"})

@@ -28,7 +28,7 @@ the following command to create a database for this recipe:
 
 [source,bash]
 ----
-$ /Applications/Postgres.app/Contents/MacOS/bin/createdb learn_korma
+$ /Applications/Postgres.app/Contents/MacOS/bin/createdb cookbook_experiments
 ----
 ====
 
@@ -37,10 +37,10 @@ Before starting, add the BoneCP dependency (`[com.jolbox/bonecp
 RDBMS, to your project's dependencies. You'll also need a valid SLF4J
 logger. Alternatively, you can follow along in a REPL using lein-try:
 
-[source,shell]   
+[source,shell]
 ----
 $ lein try com.jolbox/bonecp "0.8.0.RELEASE"     \
-           org.clojure/java.jdbc "0.3.0-alpha4"  \
+           org.clojure/java.jdbc "0.3.0-beta1"  \
            postgresql/postgresql "8.4-702.jdbc4" \
            org.slf4j/slf4j-nop # Just don't log anything...
 ----
@@ -53,7 +53,7 @@ pool sizes, as well as the number of partitions.
 ----
 (def db-spec {:classname "org.postgresql.Driver"
               :subprotocol "postgresql"
-              :subname "//localhost:5432/cookbook-experiments"
+              :subname "//localhost:5432/cookbook_experiments"
               :init-pool-size 4
               :max-pool-size 20
               :partitions 2})
@@ -100,19 +100,20 @@ Pass the database specification as the first argument to any
 [source,clojure]
 ----
 (require '[clojure.java.jdbc :as jdbc]
+         '[clojure.java.jdbc.ddl :as ddl]
          '[clojure.java.jdbc.sql :as sql])
 
-(jdbc/with-connection pooled-db-spec
-  (jdbc/create-table
-   :blog_posts
-   [:id :serial "PRIMARY KEY"]
-   [:title "varchar(255)" "NOT NULL"]
-   [:body :text]))
+(jdbc/db-do-commands pooled-db-spec false
+  (ddl/create-table
+    :blog_posts
+    [:id :serial "PRIMARY KEY"]
+    [:title "varchar(255)" "NOT NULL"]
+    [:body :text]))
+;; -> (0)
 
 (jdbc/insert! pooled-db-spec
               :blog_posts
-              {:title "My first post!" :body "This is going to be
-              good!"})
+              {:title "My first post!" :body "This is going to be good!"})
 ;; -> ({:body "This is going to be good!", :title "My first post!", :id 1})
 
 (jdbc/query pooled-db-spec
