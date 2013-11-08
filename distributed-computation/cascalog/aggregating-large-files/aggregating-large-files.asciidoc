@@ -48,10 +48,9 @@ $ cd cascalog-samples
 $ git checkout aggregation-begin
 ----
 
-Now, add the `[cascalog/cascalog-more-taps "2.0.0"]` dependency to the
-+:dependencies+ vector of your _project.clj_ and set the
-+cookbook.aggregation+ namespace to be AOT-compiled. Your
-_project.clj_ should look like this:
+Now, add `[cascalog/cascalog-more-taps "2.0.0"]` to the project's
+dependencies and set the +cookbook.aggregation+ namespace to be
+AOT-compiled. _project.clj_ should look like this:
 
 [source,clojure]
 ----
