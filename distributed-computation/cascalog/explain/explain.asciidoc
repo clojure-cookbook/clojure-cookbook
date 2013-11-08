@@ -1,4 +1,4 @@
-=== Explaining a Cascalog Query
+ein === Explaining a Cascalog Query
 [role="byline"]
 by Alex Robbins
 
@@ -14,7 +14,7 @@ project, such as <<sec_cascalog_etl>>.
 
 [source,clojure]
 ----
-(require '[cascalog.api :refer [explain]])
+(require '[cascalog.api :refer [explain <-]])
 
 (explain "slow-query.dot" (<- [?a ?b] ([[1 2]] ?a ?b)))
 ----
