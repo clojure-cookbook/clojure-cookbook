@@ -5,18 +5,18 @@ by Alex Robbins
 
 ==== Problem
 
-You need to change the format of large amounts of data from json lists
-to csv for later processing. For example:
+You need to change the format of large amounts of data from JSON lists
+to CSV for later processing. For example:
 
-Input:
+.Input
 [source,json]
 ----
 {"name": "Clojure Programming", "authors": ["Chas Emerick", "Brian Carper", "Christophe Grand"]}
 {"name": "The Joy of Clojure", "authors": ["Michael Fogus", "Chris Houser"]}
 ----
 
-Output:
-[source,tsv]
+.Output
+[source,csv]
 ----
 Chas Emerick,Brian Carper,Christophe Grand
 Michael Fogus,Chris Houser
@@ -24,31 +24,39 @@ Michael Fogus,Chris Houser
 
 ==== Solution
 
-Cascalog allows you to write distributed processing jobs that can run locally for
-small jobs or on a Hadoop cluster for larger jobs.
+Cascalog allows you to write distributed processing jobs that can run
+locally for small jobs or on a Hadoop cluster for larger jobs.
 
-Add the following to the dependencies vector of your project.clj:
+To follow along with this recipe, create a new Leiningen project
+
+[source,shell]
+----
+$ lein new cookbook
+----
+
+Modify your new project's _project.clj_ file by adding the +cascalog+
+dependency, setting up the +:dev+ profile, and enabling
+AOT-compilation for the +cookbook.etl+ namespace. Your _project.clj_
+file should now look like this:
+
+._project.clj_
 [source,clojure]
 ----
-[cascalog "1.10.2"]
-[org.clojure/data.json "0.2.2"]
+(defproject cookbook "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [cascalog "1.10.2"]
+                 [org.clojure/data.json "0.2.2"]]
+  :profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
+  :aot [cookbook.etl])
 ----
 
-Add the Hadoop dependency to your dev profile. This key in your project map
-will do it:
-[source,clojure]
-----
-:profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
-----
+Create the file _src/cookbook/etl.clj_ and add a *query* to it.
 
-Set your class to be AOT-compiled by adding the AOT key to the project
-definition.
-[source,clojure]
-----
-:aot [cookbook.etl]
-----
-
-Then add this query to your project:
+._src/cookbook/etl.clj_
 [source,clojure]
 ----
 (ns cookbook.etl
@@ -69,30 +77,66 @@ Then add this query to your project:
 (defmain Main [in out & args]
   (?<-
     (hfs-textline out :sinkmode :replace)
-    $$[?out-csv]$$
+    [?out-csv]
     ((hfs-textline in) ?in-json)
     (json/read-str ?in-json :> ?book-map)
     (get-vec ?book-map "authors" :> ?authors)
     (vec->csv ?authors :> ?out-csv)))
 ----
 
-Then execute it locally
-[source,terminal]
-$ lein run -m cookbook.etl.Main <in-path> <out-path>
+Create a file with input data in _samples/books/books.csv_.
 
-or execute it over your Hadoop cluster
-[source,terminal]
+._samples/books/books.csv_
+[source,csv]
 ----
+{"name": "Clojure Cookbook", "authors": ["Ryan", "Luke"]}
+----
+
+[NOTE]
+====
+The full contents of this solution are available on GitHub in the
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples]
+repository.
+
+To retrieve a copy of the working project, clone the project from
+GitHub and checkout the +etl-sample+ branch.
+
+[source,shell]
+----
+$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
+$ cd cascalog-samples
+$ git checkout etl-sample
+----
+====
+
+You can now execute the job locally with +lein run+, providing an
+input and output file.
+
+[source,console]
+----
+$ lein run -m cookbook.etl.Main samples/books/books.json samples/books/output
+
+# Or, on a Hadoop cluster
 $ lein uberjar
-$ hadoop jar target/cookbook-standalone.jar cookbook.etl.Main <in-path> <out-path>
+$ hadoop jar target/cookbook-standalone.jar cookbook.etl.Main books.json books.csv
+----
+
+The results in _samples/books/output/part-00000_ are as follows:
+
+[source,csv]
+----
+Ryan,Luke
 ----
 
 ==== Discussion
 
-While it would be easy to write a script that converted json to csv,
+While it would be easy to write a script that converted JSON to CSV,
 it would be a lot of work to convert the script to run across many
 computers. Writing the transform script using Cascalog allows it to
 run in local mode or distributed mode with almost no modification.
+
+There are a lot of new concepts and syntax in the small example above,
+so let us break it down piece by piece.
 
 [source,clojure]
 ----
@@ -100,11 +144,11 @@ run in local mode or distributed mode with almost no modification.
 ----
 
 In this recipe, the data flows through the functions roughly in order.
-The first line uses the +defmain+ macro (from Cascalog) to define a
-class with a main function which lets you run the query over
-Hadoop. In this case the class with a main function is called +Main+,
-but that is not required. +defmain+ allows you to create several
-Hadoop enabled queries in the same file.
+The first line uses the +defmain+ macro (from Cascalog)
+to define a class with a main function which lets you run the query
+over Hadoop. In this case the class with a main function is called
++Main+, but that is not required. +defmain+ allows you to create
+several Hadoop enabled queries in the same file.
 
 [source,clojure]
 ----
@@ -126,14 +170,17 @@ functions are used to create input and output taps. This example uses
 +hfs-textline+, but many other taps exist. You can even write your
 own.
 
-:TIP Use ":sinkmode :replace" in your output tap and Cascalog will
-replace any existing output. This helps while you are rerunning the
-query to debug it.  Otherwise you will have to remove the output file
-every time you want to rerun.
+[TIP]
+====
+Use ":sinkmode :replace" in your output tap and Cascalog will replace
+any existing output. This helps while you are re-running the query to
+debug it. Otherwise you will have to remove the output file every time
+you want to rerun.
+====
 
 [source,clojure]
 ----
-$$[?out-csv]$$
+[?out-csv]
 ----
 
 This is a list of all the logic variables that should be returned from
@@ -141,11 +188,13 @@ this query. In this case, these are the logic variables that will be
 dumped into the output location. Cascalog knows these are special
 logic variables because their names begin with a "?" or a "!"
 
-:WARNING When thinking about logic variables, it helps to think of
-them as containing all possible valid values. As you add predicates
-you either introduce new logic variables which are hopefully linked to
-existing variables, or you add constraints to existing logic
-variables.
+[WARNING]
+====
+When thinking about logic variables, it helps to think of them as
+containing all possible valid values. As you add predicates you either
+introduce new logic variables which are hopefully linked to existing
+variables, or you add constraints to existing logic variables.
+====
 
 [source,clojure]
 ----
@@ -198,4 +247,5 @@ pipelines, it might help to follow this process:
 
 ==== See Also
 
-* core.logic - A logic programming library for Clojure
+* https://github.com/clojure/core.logic[+core.logic+] - A logic
+  programming library for Clojure
