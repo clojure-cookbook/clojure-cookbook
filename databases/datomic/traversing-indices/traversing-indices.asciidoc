@@ -138,5 +138,4 @@ other hand, will return only entities with that specify attribute and
 value pair.
 
 What is returned by +datoms+ is a stream of +Datum+ objects. Each
-datum responds to +:a+, +:e+ and +:v+ as functions, returning the
-attribute, entity and value of the datom, respectively.
+datum responds to +:a+, +:e+, +t+, +:v+ and +:added+ as functions.
