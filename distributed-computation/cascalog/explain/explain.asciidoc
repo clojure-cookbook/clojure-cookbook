@@ -1,4 +1,4 @@
-ein === Explaining a Cascalog Query
+=== Explaining a Cascalog Query
 [role="byline"]
 by Alex Robbins
 

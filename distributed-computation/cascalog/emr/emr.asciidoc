@@ -3,9 +3,6 @@
 [role="byline"]
 by Alex Robbins
 
-// TODO: This example needs a cloneable project to play along with
-// input/output data.
-
 ==== Problem
 
 You have a large amount of data to process, but you don't have a
@@ -19,17 +16,27 @@ account at _aws.amazon.com_.
 
 First, write a Cascalog job as you normally would. There are a number
 of recipes in this chapter that can help you create a complete
-Cascalog job. TODO is a great example.
+Cascalog job. If you don't have your own, you can clone
+<<sec_cascalog_etl>>.
+
+[source,shell]
+----
+$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
+$ cd cascalog-samples
+$ git checkout etl-sample
+----
 
 Once you have a Cascalog project, package it into an uberjar.
 
 [source,terminal]
 ----
+$ lein compile
 $ lein uberjar
 ----
 
-Next, upload the generated jar (named something like
-`target/<project-name>-<version>-standalone.jar`) to S3. If you
+Next, upload the generated jar
+(_target/cookbook-0.1.0-SNAPSHOT-standalone.jar_ if you're
+following along with the ETL sample) to S3. If you
 haven't ever uploaded a file to S3 follow the S3 documentation to
 http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html[Create
 a Bucket] and
@@ -42,16 +49,20 @@ _https://console.aws.amazon.com/elasticmapreduce/_ and select "Create
 New Job Flow." Once you're in the new job flow wizard choose the
 "Custom JAR" job type.
 
-// TODO: Specify an actual example.
+Select "Continue" and enter your JAR's location and arguments. "JAR
+Location" is the S3 path you noted from earlier. "JAR Arguments are
+all of the arguments you would normally pass when executing your jar.
+For example: using the Cascalog Samples repository, the arguments
+would be the fully qualified class name to execute,
++cookbook.etl.Main+, an +s3n://+ URI for input data, and an +s3n://+
+URI for the output.
 
-Select "Continue" and proceed to enter in your JAR's location and
-arguments. "JAR Location" is the S3 path you noted from earlier. "JAR
-Arguments are all of the arguments you would normally pass when
-executing your jar. First, pass the fully qualified name of the class
-you want to execute. +clojurebook.cascalog.emr.Main+ for example. Then
-pass any arguments your job expects. For example, you probably need at
-least an input and output argument. Note that in an EMR job you'll be
-reading from and writing so S3.
+.Specify Parameters
+image::distributed-computation/cascalog/emr/specify-parameters.png["",width="350"]
+
+The next few wizard windows allow your to specify additional
+configuration options for the job. Select "Continue" until you reach
+the review phase and start your job.
 
 After your job has run, you should be able to retrieve the results
 from S3. Elastic MapReduce also allows you to setup a logging path to
@@ -68,4 +79,8 @@ clusters.
 
 ==== See Also
 
-* <<sec_cascalog_etl>>
+* To learn about building a simple Cascalog job, see <<sec_cascalog_etl>>.
+* See the
+  http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-launch-custom-jar-cli.html[Launch
+  a Custom JAR Cluster] documentation to learn more about creating
+  JAR-based clusters.
