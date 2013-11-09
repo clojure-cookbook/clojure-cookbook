@@ -88,16 +88,17 @@ Datomic transactor processes have a limit on the number of
 concurrently connected peer processes. Datomic Free has a limit of 2
 peers per transactor. For non-distributed applications this may well
 be sufficient. If you're building a larger service, then you may need
-to purchase a Datomic Pro license for more peers.
+a Datomic Pro license for more peers.
 
-There are several options for storage services that back Datomic; three are
-built-in and the rest use external services. External storage services
-are only available with Datomic Pro.
+There are several options for storage services that back Datomic;
+three are built-in and the rest use external services. Datomic Free
+includes access to the in-memory and +:free+ storage backends. Datomic
+Pro and Pro Starter Edition include access to all services.
 
 ===== Built-in storage options
 
 * In local memory: `"datomic:mem://[db-name]"`
-* Free, for use with Datomic Free, subject to the 2-peer limit:
+* Free, for use with Datomic Free, subject to a 2-peer limit:
   `"datomic:free://host[:port]/[db-name]"`
 * Dev, for use with Datomic Pro, subject to the licensed peer limit:
   `"datomic:dev://host[:port]/[db-name]"`
@@ -110,6 +111,7 @@ respectively.
 
 ===== External storage service options
 
+These storage services 
 * DynamoDB:
   `"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"+`
 * Riak:
@@ -137,3 +139,6 @@ is:
 
 * <<sec_datomic_schema>>
 * <<sec_datomic_transact_basics>>
+* Sign up for free access to all service storages and Datomic Console via
+  https://my.datomic.com/starter[Datomic
+  Pro Starter Edition].
