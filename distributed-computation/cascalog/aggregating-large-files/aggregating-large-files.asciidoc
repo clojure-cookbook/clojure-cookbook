@@ -37,9 +37,11 @@ For example:
 Cascalog allows you to write distributed processing jobs that run
 locally or on a Hadoop cluster.
 
-To follow along with this recipe, clone the Cascalog Samples GitHub
-repository and checkout the +aggregation-begin+ branch. This will give
-you a basic Cascalog project as created in <<sec_cascalog_etl>>.
+To follow along with this recipe, clone the
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples
+GitHub repository] and checkout the +aggregation-begin+ branch. This
+will give you a basic Cascalog project as created in
+<<sec_cascalog_etl>>.
 
 [source,shell]
 ----
@@ -48,7 +50,7 @@ $ cd cascalog-samples
 $ git checkout aggregation-begin
 ----
 
-Now, add `[cascalog/cascalog-more-taps "2.0.0"]` to the project's
+Now add `[cascalog/cascalog-more-taps "2.0.0"]` to the project's
 dependencies and set the +cookbook.aggregation+ namespace to be
 AOT-compiled. _project.clj_ should look like this:
 
@@ -114,7 +116,7 @@ Add some sample data to the file _samples/posts/posts.csv_.
 [NOTE]
 ====
 The full contents of this solution is available in the
-+aggregation-sample+ branch of the
++aggregation-complete+ branch of the
 https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples]
 repository.
 
