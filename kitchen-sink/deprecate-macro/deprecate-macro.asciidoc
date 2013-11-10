@@ -220,6 +220,3 @@ The +def-deprecated+ macro checks the status of the +:silence-deprecations+ meta
 
 Now, any use of +def-deprecated+ in that namespace will not print the warning.  Future versions of Clojure will provide a cleaner way of creating and managing compile-time flags, but for now this is a decent compromise.
 
-==== See also
-
-TODO
