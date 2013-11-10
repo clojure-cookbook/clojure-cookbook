@@ -13,6 +13,9 @@ Though Java's Swing library is the most common way to make Java GUIs
 provides a more idiomatic and functional interface, is the best tool
 for creating GUIs with Clojure.
 
+To get started with Seesaw, add +[seesaw "1.4.4"]+ to your project
+dependencies in +project.clj+.
+
 Swing implements "programmable Look and Feel": the appearance of
 various widgets, and their behavior, can be modified, though it is
 common to set this to match the platform one is on, for the sake of
