@@ -194,6 +194,6 @@ $ lein run -- -n 5 --no-verbose
 ----
 
 ==== See Also
-
+* See http://sjl.bitbucket.org/clojure-lanterna/ to make interactive terminal applications
 * Packaging applications (TODO: xref)
 * Handling STDIN/STDOUT streams (TODO: xref)
