@@ -5,72 +5,82 @@ by Tom Hicks and Filippo Diotalevi
 
 ==== Problem
 
-You would like to connect to an SQL database efficiently using a connection pool.
+You would like to connect to an SQL database efficiently using a
+connection pool.
 
 ==== Solution
 
-Use the +BoneCP+ connection and statement pooling library to wrap your JDBC-based
-drivers, creating a pooled data source. The pooled data source is then usable
-by the +clojure.java.jdbc+ library, as described in the
-<<sec_db_connecting_to_a_sql_database>> recipe.
+Use the BoneCP connection and statement pooling library to wrap your
+JDBC-based drivers, creating a pooled data source. The pooled data
+source is then usable by the +clojure.java.jdbc+ library, as described
+in the <<sec_db_connecting_to_a_sql_database>> recipe.
 
-Add a dependency to your Leiningen project file for the +BoneCP+ library. You
-will also need to add dependencies for the +clojure.java.jdbc+ library and the
-JDBC library used with the RDBMS you are connecting to (e.g. MySQL):
+[NOTE]
+====
+You'll need a running SQL database and existing table to connect to
+for this recipe. We suggest PostgreSQL.
+
+If you're a Mac user and don't have PostgreSQL installed yet, you can
+go here http://postgresapp.com/ for an easy to use DMG.
+
+After you have PostgreSQL running (presumably on _localhost:5432_) run
+the following command to create a database for this recipe:
+
+[source,bash]
+----
+$ /Applications/Postgres.app/Contents/MacOS/bin/createdb cookbook_experiments
+----
+====
+
+Before starting, add the BoneCP dependency (`[com.jolbox/bonecp
+"0.8.0.RELEASE"]`), as well as the appropriate JDBC libraries for your
+RDBMS, to your project's dependencies. You'll also need a valid SLF4J
+logger. Alternatively, you can follow along in a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try com.jolbox/bonecp "0.8.0.RELEASE"     \
+           org.clojure/java.jdbc "0.3.0-beta1"  \
+           postgresql/postgresql "8.4-702.jdbc4" \
+           org.slf4j/slf4j-nop # Just don't log anything...
+----
+
+First, create a database specification containing the parameters for
+accessing the database. This includes keys for the initial and maximum
+pool sizes, as well as the number of partitions.
 
 [source,clojure]
 ----
-:dependencies [ ; ...
-                [org.clojure/java.jdbc "0.3.0-alpha4"]
-                [mysql/mysql-connector-java "5.1.25"]
-                [com.jolbox/bonecp "0.7.1.RELEASE"]
-----
-
-In your +project.clj+ file, and import the +BoneCP+ classes you intend to use:
-
-[source,clojure]
-----
-(ns myproj.core
-  (:require [clojure.java.jdbc :as jdbc]
-            [clojure.java.jdbc.sql :as sql])
-  (:import com.jolbox.bonecp.BoneCPDataSource))
-----
-
-
-Create a database specification containing the parameters for accessing the
-database:
-
-[source,clojure]
-----
-(def db-spec {:classname "com.mysql.jdbc.Driver"
-              :subprotocol "mysql"
-              :subname "//localhost:3306/lotr_db"
-              :user "bilbo"
-              :password "secret"
+(def db-spec {:classname "org.postgresql.Driver"
+              :subprotocol "postgresql"
+              :subname "//localhost:5432/cookbook_experiments"
               :init-pool-size 4
               :max-pool-size 20
               :partitions 2})
 ----
 
-Define a function (for convenience) which uses the parameters in the database
-specification map to create a pooled data source.
+To create a pooled +BoneCPDataSource+ object define a function (for
+convenience) which uses the parameters in the database
+specification map.
 
 [source,clojure]
 ----
+(import 'com.jolbox.bonecp.BoneCPDataSource)
+
 (defn pooled-datasource [db-spec]
-  (let [ {:keys [classname subprotocol subname user password
-                 init-pool-size max-pool-size idle-time partitions]} db-spec
+  (let [{:keys [classname subprotocol subname user password
+                init-pool-size max-pool-size idle-time partitions]} db-spec
          cpds (doto (BoneCPDataSource.)
-               (.setDriverClass classname)
-               (.setJdbcUrl (str "jdbc:" subprotocol ":" subname))
-               (.setUsername user)
-               (.setPassword password)
-               (.setMinConnectionsPerPartition (inc (int (/ init-pool-size partitions))))
-               (.setMaxConnectionsPerPartition (inc (int (/ max-pool partitions))))
-               (.setPartitionCount partitions)
-               (.setStatisticsEnabled true)
-               (.setIdleMaxAgeInMinutes (or idle-time 60))
-    {:datasource cpds} ))
+                    (.setDriverClass classname)
+                    (.setJdbcUrl (str "jdbc:" subprotocol ":" subname))
+                    (.setUsername user)
+                    (.setPassword password)
+                    (.setMinConnectionsPerPartition (inc (int (/ init-pool-size partitions))))
+                    (.setMaxConnectionsPerPartition (inc (int (/ max-pool-size partitions))))
+                    (.setPartitionCount partitions)
+                    (.setStatisticsEnabled true)
+                    (.setIdleMaxAgeInMinutes (or idle-time 60)))]
+       {:datasource cpds}))
 ----
 
 Use the convenience function to define a pooled data source for connecting to
@@ -79,27 +89,43 @@ your database:
 [source,clojure]
 ----
 (def pooled-db-spec (pooled-datasource db-spec))
+
+pooled-db-spec
+;; -> {:datasource #<BoneCPDataSource ...>}
 ----
 
-Pass the database specification as the first argument to several of the
-library's other functions which query and manipulate your database.
+Pass the database specification as the first argument to any
++clojure.java.jdbc+ functions that query or manipulate your database.
 
 [source,clojure]
 ----
-(jdbc/insert! pooled-db-spec :players
-              {:name "Bilbo" :type "hobbit"} {:name "Galadriel" :type "elf"}
-              {:name "Frodo" :type "hobbit"} {:name "Ori" :type "dwarf"})
-;; -> (nil nil nil nil)
+(require '[clojure.java.jdbc :as jdbc]
+         '[clojure.java.jdbc.ddl :as ddl]
+         '[clojure.java.jdbc.sql :as sql])
 
-(jdbc/query pooled-db-spec (sql/select * :players (sql/where {:type "hobbit"})))
-;; -> ({:type "hobbit", :name "Bilbo"} {:type "hobbit", :name "Frodo"})
+(jdbc/db-do-commands pooled-db-spec false
+  (ddl/create-table
+    :blog_posts
+    [:id :serial "PRIMARY KEY"]
+    [:title "varchar(255)" "NOT NULL"]
+    [:body :text]))
+;; -> (0)
+
+(jdbc/insert! pooled-db-spec
+              :blog_posts
+              {:title "My first post!" :body "This is going to be good!"})
+;; -> ({:body "This is going to be good!", :title "My first post!", :id 1})
+
+(jdbc/query pooled-db-spec
+            (sql/select * :blog_posts (sql/where{:title "My first post!"})))
+;; -> ({:body "This is going to be good!", :title "My first post!", :id 1})
 ----
 
 ==== Discussion
 
 As shown above, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
-pooled by the +BoneCP+ or other pooling library.
+pooled by the +BoneCP+ or other pooling libraries.
 
 The +BoneCP+ library wraps existing JDBC classes to allow the creation of
 efficient data sources. It can adapt traditional unpooled drivers and
@@ -124,7 +150,7 @@ in an SQL exception.
 
 [source,clojure]
 ----
-(.close pooled-db-spec)
+(.close (:datasource pooled-db-spec))
 ;; -> nil
 ----
 

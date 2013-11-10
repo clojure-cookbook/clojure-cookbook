@@ -18,30 +18,36 @@ Use the java +java.net/InetAddress+ class to test if the address +isReachable+.
 
 ==== Discussion
 
-Using +isReachable+ works great if the correct permissions can be obtained.  On
-a typical Unix like implementation you will need to start your Clojure instance with
-+sudo+ to get an actual ICMP ping sent.  Otherwise a standard connection will
-be attempted on port 7, which in most cases will be blocked by a firewall.  More
-information can be found in the Java docs (see footnote below).
+Using +isReachable+ works great if the correct permissions can be
+obtained. On a typical Unix like implementation you will need to start
+your Clojure instance with +sudo+ to get an actual ICMP ping sent.
+Otherwise a standard connection will be attempted on port 7, which in
+most cases will be blocked by a firewall. More information can be
+found in the Java docs (see <<sec_sending_ping_see_also>>).
 
-A common need when pinging another machine is to time the ping.  A quick macro
-can be used for this.
+A common need when pinging another machine is to time the ping. You
+can wrap an +.isReachable+ invokation in a function +timed-ping+ to
+return timing values with every ping.
 
 [source,clojure]
 ----
-(defmacro wrap-time
-  "Evaluates expr and returns {:milliseconds :exp-result}"
-  [expr]
-  `(let [start# (. System (nanoTime))
-         ret# ~expr
-         total# (/ (double (- (. System (nanoTime)) start#)) 1000000.0)]
-     {:time (if (not (contains? #{:timeout :error} ret#)) total# 0)
-      :result ret#}))
-
-(wrap-time (.isReachable (java.net.InetAddress/getByName "oreilly.com") 5000))
-;; -> {:result true, :time 187.255}
+(defn timed-ping
+  "Time an .isReachable ping to a given domain"
+  [domain timeout]
+  (let [addr (java.net.InetAddress/getByName domain)
+        start (. System (nanoTime))
+        result (.isReachable addr timeout)
+        total (/ (double (- (. System (nanoTime)) start)) 1000000.0)]
+    {:time total
+     :result result}))
+  
+(timed-ping "oreilly.com" 5000)
+;; -> {:time 88.07, :result true}
 ----
 
+[[sec_sending_ping_see_also]]
 ==== See Also
 
-* See the http://docs.oracle.com/javase/1.5.0/docs/api/java/net/InetAddress.html#isReachable(int)[InetAddress/isReachable documentation] for more details.
+* See the
+  http://docs.oracle.com/javase/1.5.0/docs/api/java/net/InetAddress.html#isReachable(int)[InetAddress/isReachable
+  documentation] for more details.

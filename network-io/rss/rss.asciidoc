@@ -8,39 +8,50 @@ You need to parse RSS data.
 
 ==== Solution
 
-Use +feedparser-clj.core/parse-feed+ to parse RSS data from a URL.
+Use the feedparser-clj library to parse RSS data.
+
+Before starting, add `[org.clojars.scsibug/feedparser-clj "0.4.0"]` to
+your project's dependencies, or follow along in a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try org.clojars.scsibug/feedparser-clj
+----
+
+Invoke +feedparser-clj.core/parse-feed+ with the URI of a RSS feed to
+retrieve that feed and parse it into Clojure data.
 
 [source,clojure]
 ----
-(feedparser-clj.core/parse-feed "https://github.com/clojure-cookbook/clojure-cookbook/commits/master.atom")
-;; -> {:authors [...] :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} {:link ... }] ... }
+(require '[feedparser-clj.core :as rss])
+
+(rss/parse-feed "https://github.com/clojure-cookbook/clojure-cookbook/commits/master.atom")
+;; -> {:authors [...] :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} ...] ...}
 ----
 
-+feedparser-clj.core/parse-feed+ can also be fed a java.io.InputStream to read from a file.
+You can also invoke +parse-feed+ with a java.io.InputStream to read
+from a file or other location.
 
 [source,clojure]
 ----
-(with-open [file-stream (clojure.java.io/input-stream "master.atom")]
-  (feedparser-clj.core/parse-feed file-stream))
-;; -> {:authors [...] :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} {:link ... }] ... }
+(with-open [writer (clojure.java.io/writer "master.atom")]
+  (spit writer
+        (slurp "https://github.com/clojure-cookbook/clojure-cookbook/commits/master.atom")))
+
+(with-open [stream (clojure.java.io/input-stream "master.atom")]
+  (rss/parse-feed stream))
+;; -> {:authors [...] :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} ...] ...}
 ----
 
 ==== Discussion
 
-+feedparser-clj+ is a wrapper around the Java ROME library which
-capable of processing a variety of RSS and Atom versions.
++feedparser-clj+ is a wrapper around the Java ROME library which is
+capable of processing a variety formats of RSS and Atom feeds.
 +feedparser-clj.core/parse-feed+ returns a Clojure map that closely
 mimics the underlying XML feed.
 
-Most of the time, what you care about will be under the +:entries+ key,
-which contains an array of maps corresponding to each RSS entry.
-
-[NOTE] 
-ROME returns a com.sun.syndication.feed.synd.SyndFeedImpl
-object under the covers, but it is generally preferred to return
-Clojure maps (or records) instead of Java objects.
-
-===== Lazy Pagination
+Most of the time, what you care about will be under the +:entries+
+key, which contains an array of maps corresponding to each RSS entry.
 
 Some RSS feeds will have +<link rel="next">+ elements that indicate
 that the returned list is incomplete and more entries can be retrieved
@@ -62,30 +73,35 @@ generated:
 (defn lazy-stream 
   "Return a lazy stream of RSS entries."
   [uri]
-   (let [raw-response (feedparser-clj.core/parse-feed uri)]
+   (let [raw-response (rss/parse-feed uri)]
       (lazy-cat (:entries raw-response)
          (if-let [nxt (next-uri raw-response)]
             (lazy-stream nxt)))))
-
 ----
 
 To verify that lazy loading is happening, logging or tracing can be
-added to lazy-stream, but it also easy to confirm that you can
+added to +lazy-stream+, but it also easy to confirm that you can
 retrieve more entries than are present in a single fetch:
 
 [source,clojure]
 ----
-(def uri "http://gdata.youtube.com/feeds/api/videos")
-;; -> #'user/uri
+(def youtube-feed "http://gdata.youtube.com/feeds/api/videos")
 
-(count (feedparser-clj.core/parse-feed uri))
+(count (rss/parse-feed youtube-feed))
 ;; -> 15
 
-(count (take 50 (lazy-stream uri)))
+(count (take 50 (lazy-stream youtube-feed)))
 ;; -> 50
 ----
 
-[NOTE]
+[WARNING]
+====
 Be careful when evaluating a lazy sequence in a REPL, it will attempt
-to print the entire sequence, so use +take+ to only realize part of 
+to print the entire sequence. Use +take+ to only realize part of 
 the sequence.
+====
+
+==== See Also
+
+* See <<sec_read_write_xml>> for more information on reading and
+  writing XML data like RSS feeds.

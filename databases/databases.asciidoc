@@ -25,11 +25,7 @@ include::datomic/schema.asciidoc[]
 
 include::datomic/transact-basics.asciidoc[]
 
-include::datomic/transact-relations.asciidoc[]
-
 include::datomic/transact-retract-data.asciidoc[]
-
-include::datomic/transact-with-consistency.asciidoc[]
 
 include::datomic/dry-run-transactions.asciidoc[]
 

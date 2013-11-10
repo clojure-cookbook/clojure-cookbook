@@ -19,7 +19,6 @@ uses Hadoop's local mode, completing entire job on your own
 computer. You get the benefit of parallelism, without the hassle of
 setting up a cluster. 
 
-
 Once your jobs outgrow local mode, you'll need to start running them
 on a Hadoop cluster. Having your own cluster is a lot of fun, but it
 can be a fair amount of work (and money!) to setup and maintain. If

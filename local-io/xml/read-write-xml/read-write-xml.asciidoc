@@ -1,4 +1,5 @@
-=== Work with XML data
+[[sec_read_write_xml]]
+=== Working with XML data
 [role="byline"]
 by Stefan Karlsson
 

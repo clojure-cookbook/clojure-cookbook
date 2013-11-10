@@ -1,0 +1,165 @@
+=== Tracing code
+[role="byline"]
+by Stefan Karlsson
+
+==== Problem
+
+You want to trace the execution of your code, in order to see what it
+is doing.
+
+==== Solution
+
+Use the https://github.com/clojure/tools.trace[tools.trace]
+libraries bevy of "trace" functions and macros to help examine your
+code as it runs.
+
+Before starting, add `[org.clojure/tools.trace "0.7.6"]` to your
+project's dependencies under the +:development+ profile (in the vector
+at the `[:profiles :dev :dependencies]` path instead of the
+`[:dependencies]` path). Alternatively, start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try org.clojure/tools.trace
+----
+
+To examine a single value at execution, wrap that value in an
+invocation of +clojure.tools.trace/trace+.
+
+[source,clojure]
+----
+(require '[clojure.tools.trace :as t])
+
+(map #(inc (t/trace %))
+     (range 3))
+;; -> (1 2 3)
+;; *out*
+;; TRACE: 0
+;; TRACE: 1
+;; TRACE: 2
+----
+
+To example multiple values without losing context of which trace is
+which, supply a descriptive name string as the first argument to
++trace+.
+
+[source,clojure]
+----
+(defn divide
+  [n d]
+  (/ (t/trace "numerator" n)
+     (t/trace "denominator" d)))
+
+(divide 4 6)
+;; -> 2/3
+;; *out*
+;; TRACE numerator: 4
+;; TRACE denominator: 6
+----
+
+==== Discussion
+
+At its core, the +tools.trace+ library is all about introspecting upon
+the execution of a body of code. The +trace+ function is the simplest
+and most low-level tracing operation. Wrapping a value in an
+invokation of +trace+ does two things: it logs a tracer message to
+STDOUT, and, most importantly, returns the original value unadultered.
++tools.trace+ provides a number of other granularities for tracing
+execution.
+
+Stepping up a level from simple values, you can define functions with
++clojure.tools.trace/deftrace+ instead of +defn+ to trace the input
+and output to the function you define.
+
+[CAUTION]
+====
+It is not advisable to deploy production code with tracing in place.
+Tracing is most suited to development and debugging, particularly from
+the REPL. Include +tools.trace+ in your _project.clj_'s +:dev+ profile
+to make tracing available only to development tasks.
+====
+
+[source,clojure]
+----
+(t/deftrace pow [x n]
+  (Math/pow x n))
+
+(pow 2 3)
+;; -> 8.0
+;; *out*
+;; TRACE t815: (pow 2 3)
+;; TRACE t815: => 8.0
+----
+
+If you're trying to diagnose a difficult-to-understand exception, use
+the +clojure.tools.trace/trace-forms+ macro to wrap an expression and
+pinpoint the origin of the exception. When no exception occurs,
+`trace-forms` prints no output, and returns normally.
+
+[source,clojure]
+----
+(t/trace-forms (* (pow 2 3)
+                  (divide 1 (- 1 1))))
+;; *out*
+;; ...
+;; ArithmeticException Divide by zero
+;;   Form failed: (divide 1 (- 1 1))
+;;   Form failed: (* (pow 2 3) (divide 1 (- 1 1)))
+;;   clojure.lang.Numbers.divide (Numbers.java:156)
+----
+
+Apart from explicitly tracing values or functions, +tools.trace+ also
+allows you to dynamically trace vars or entire namespaces. To add a
+trace function to a var, use +clojure.tools.trace/trace-vars+. To
+remove such a trace, use +clojure.tools.trace/untrace-vars+.
+
+[source,clojure]
+----
+(defn add [x y] (+ x y))
+
+(t/trace-vars add)
+(add 2 2)
+;; -> 4
+;; *out*
+;; TRACE t1309: (user/add 2 2)
+;; TRACE t1309: => 4
+
+(t/untrace-vars add)
+(add 2 2)
+;; -> 4
+----
+
+To trace or untrace an entire namespace, use
++clojure.tools.trace/trace-ns+ and +clojure.tools.trace/untrace-ns+,
+respectively. This will dynamically add or remove tracing from all
+functions and vars in a namespace. Even things defined _after_
++trace-ns+ is invoked will be traced.
+
+[source,clojure]
+----
+(def my-inc inc)
+(defn my-dec [n] (dec n))
+
+(t/trace-ns 'user)
+
+(my-inc (my-dec 0))
+;; -> 0
+;; TRACE t1217: (user/my-dec 0)
+;; TRACE t1218: | (user/my-dec 0)
+;; TRACE t1218: | => -1
+;; TRACE t1217: => -1
+;; TRACE t1219: (user/my-inc -1)
+;; TRACE t1220: | (user/my-inc -1)
+;; TRACE t1220: | => 0
+;; TRACE t1219: => 0
+
+(t/untrace-ns 'user)
+
+(my-inc (my-dec 0))
+;; -> 0
+----
+
+==== See Also
+
+* See the +tools.trace+ https://github.com/clojure/tools.trace[GitHub
+  repository] for a full list of trace functions/macros.
