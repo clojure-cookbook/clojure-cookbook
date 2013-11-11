@@ -27,7 +27,7 @@ Michael Fogus,Chris Houser
 Cascalog allows you to write distributed processing jobs that can run
 locally for small jobs or on a Hadoop cluster for larger jobs.
 
-To follow along with this recipe, create a new Leiningen project
+To follow along with this recipe, create a new Leiningen project.
 
 [source,shell]
 ----
