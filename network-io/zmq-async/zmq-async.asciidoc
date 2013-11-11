@@ -54,7 +54,6 @@ Here's a simple ping-pong between two asynchronously +go+ blocks in
 (require '[com.keminglabs.zmq-async.core :refer [register-socket!]]
          '[clojure.core.async :refer [>! <! go chan sliding-buffer close!]])
 
-
 (def addr "inproc://ping-pong")
 
 (def server-in  (chan (sliding-buffer 64)))
@@ -88,6 +87,13 @@ Here's a simple ping-pong between two asynchronously +go+ blocks in
       (>! client-in "ping")
       (println (String. (<! client-out))))
     (close! client-in)))
+;; *out*
+;; ping
+;; pong
+;; ping
+;; pong
+;; ping
+;; pong
 ----
 
 ==== Discussion
