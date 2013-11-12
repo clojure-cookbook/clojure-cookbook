@@ -1,3 +1,4 @@
+[[sec_parse_command_line_arguments]]
 === Parse command line arguments
 [role="byline"]
 Originally submitted by Nicolas Bessi
@@ -197,3 +198,6 @@ $ lein run -- -n 5 --no-verbose
 
 * Packaging applications (TODO: xref)
 * Handling STDIN/STDOUT streams (TODO: xref)
+* For building ncurses-style applications, see
+  http://sjl.bitbucket.org/clojure-lanterna/[clojure-lanterna], a wrapper
+  around the Lanterna terminal output library.
