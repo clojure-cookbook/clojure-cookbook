@@ -40,7 +40,7 @@ _test/browser_testing/core_test.clj_, overwriting its content.
   (:use clojure.test)
   (:require [clj-webdriver.taxi :as t]))
 
-# A simple fixture that sets up test driver
+;; A simple fixture that sets up test driver
 (defn selenium-fixture
   [& browsers]
   (fn [test]
@@ -50,7 +50,7 @@ _test/browser_testing/core_test.clj_, overwriting its content.
       (test)
       (t/quit))))
 
-(use-fixtures :once (selenium-fixture :firefox :chrome))
+(use-fixtures :once (selenium-fixture :firefox))
 
 (deftest ^:browser test-clojure
   (t/to "http://clojure.org")
@@ -96,18 +96,8 @@ FAIL in (test-clojure) (core_test.clj:20)
 expected: (= (t/current-url) "http://example.com/")
   actual: (not (= "http://clojure.org/" "http://example.com/"))
 
-[ Testing :chrome ]
-Starting ChromeDriver (v2.3) on port 42116
-objc[69115]: Object 0x1277bb0 of class NSThread autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug
-
-lein test :only browser-testing.core-test/test-clojure
-
-FAIL in (test-clojure) (core_test.clj:20)
-expected: (= (t/current-url) "http://example.com/")
-  actual: (not (= "http://clojure.org/" "http://example.com/"))
-
-Ran 4 tests containing 10 assertions.
-2 failures, 0 errors.
+Ran 2 tests containing 5 assertions.
+1 failures, 0 errors.
 Tests failed.
 ----
 
@@ -145,14 +135,15 @@ a REPL. Start up a REPL with clj-webdriver using lein-try:
 $ lein try clj-webdriver "0.6.0"
 ----
 
-Use the +clj-webdriver.taxi/set-driver!+ function, selecting the Chrome
-WebDriver implementation (other options include +:firefox+ or +:ie+).
+Use the +clj-webdriver.taxi/set-driver!+ function, selecting the Firefox
+WebDriver implementation (other options include +:chrome+ or +:ie+, but may
+require more setup).
 
 [source,clojure]
 ----
 (require '[clj-webdriver.taxi :as t])
 
-(t/set-driver! {:browser :chrome})
+(t/set-driver! {:browser :firefox})
 ;; -> #clj_webdriver.driver.Driver{:webdriver ...}
 ----
 
@@ -206,7 +197,7 @@ the namespace's tests inside that browser.
       (test)
       (t/quit))))
 
-(use-fixtures :once (selenium-fixture :firefox :chrome))
+(use-fixtures :once (selenium-fixture :firefox))
 ----
 
 It's important to note that using a +:once+ fixture means the state of the
@@ -273,18 +264,8 @@ FAIL in (test-clojure) (core_test.clj:20)
 expected: (= (t/current-url) "http://example.com/")
   actual: (not (= "http://clojure.org/" "http://example.com/"))
 
-[ Testing :chrome ]
-Starting ChromeDriver (v2.3) on port 42116
-objc[69115]: Object 0x1277bb0 of class NSThread autoreleased with no pool in place - just leaking - break on objc_autoreleaseNoPool() to debug
-
-lein test :only browser-testing.core-test/test-clojure
-
-FAIL in (test-clojure) (core_test.clj:20)
-expected: (= (t/current-url) "http://example.com/")
-  actual: (not (= "http://clojure.org/" "http://example.com/"))
-
-Ran 4 tests containing 10 assertions.
-2 failures, 0 errors.
+Ran 2 tests containing 5 assertions.
+1 failures, 0 errors.
 Tests failed.
 ----
 
