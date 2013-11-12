@@ -10,18 +10,49 @@ source code.
 ==== Solution
 
 Run a file full of Clojure expressions by passing the filename as an
-argument to +clojure.main+:
+argument to +clojure.main+.
+
+[NOTE]
+====
+To follow along with this recipe, you can download a version of
+_clojure.jar_ at _http://clojure.org/downloads_.
+====
+
+For example, given a file _my_clojure_program.clj_ with the contents:
+
+._my_clojure_program.clj_
+[source,clojure]
+----
+(println "Hi.")
+----
+
+Invoke the +java+ command with _my_clojure_program.clj_ as the final argument:
 
 [source,console]
 ----
 $ java -cp clojure.jar clojure.main my_clojure_program.clj
+Hi.
 ----
 
-Load and run the +-main+ function in a namespace with the +-m+/+--main+ option.
+In a more structured project, you'll probably have files organized in a _src/_ folder. For example, given a file _src/com/example/my_program.clj_:
+
+._src/com/example/my_program.clj_
+[source,clojure]
+----
+(ns com.example.my-program)
+
+(defn -main [& args]
+  (println "Hey!"))
+----
+
+To load and run the +-main+ function, specify the desired namespace
+with the +-m+/+--main+ option and add _src_ to the classpath list (via
++-cp+).
 
 [source,console]
 ----
-$ java -cp clojure.jar:src clojure.main --main my.namespace.core
+$ java -cp clojure.jar:src clojure.main --main com.example.my-program
+Hey!
 ----
 
 ==== Discussion
@@ -35,8 +66,9 @@ In either case, you have access to any extra command line arguments
 passed after the script name or the main namespace name.
 
 For example, let's say you have written the following program, in a
-file called +hello.clj+.
+file called _hello.clj_.
 
+._hello.clj_
 [source,clojure]
 ----
 (defn greet
@@ -54,7 +86,6 @@ Invoking this Clojure program directly will yield predictable output.
 $ java -cp clojure.jar clojure.main hello.clj Alice Bob
 Hello, Alice!
 Hello, Bob!
-$ 
 ----
 
 This simple script has the side effect of printing output when it is
@@ -71,30 +102,39 @@ namespace, and your project is structured something like this:
 
 ----
 ./src/foo/util.clj
-./src/foo/core.clj
+./src/foo.clj
 ----
 
-Your +foo.core+ namespace requires the +foo.util+ namespace, and
+Your +foo+ namespace requires the +foo.util+ namespace, and
 provides a +-main+ function, like so:
 
 [source,clojure]
 ----
-(ns foo.core
+(ns foo
   (:require foo.util))
 
 (defn -main
   [& args]
   (doseq [name args]
-    (foo.util/greet name)))
+    (println (foo.util/greet name))))
 ----
 
-When we invoke Clojure with +foo.core+ as the "main" namespace, it
+When you invoke Clojure with +foo.core+ as the "main" namespace, it
 calls the +-main+ function with the provided command line arguments.
 
 [source,console]
 ----
-$ java -cp clojure.jar:src clojure.main --main foo.core Alice Bob
+$ java -cp clojure.jar:src clojure.main --main foo Alice Bob
 Hello, Alice!
 Hello, Bob!
-$
 ----
+
+You'll also note the addition of _:src_ to the +-cp+ option. This
+indicates to Java that the classpath for execution not only includes
+_clojure.jar_, but also the contents of the _src/_ directory on disk.
+
+==== See Also
+
+* See <<sec_parse_command_line_arguments>> to learn how to cleanly
+  expose multiple options and flags in your command-line
+  applications.
