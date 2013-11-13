@@ -38,8 +38,6 @@ tools.cli is so cool this example can run entirely at the REPL.].
 ;; Simulate entry into the -main at the command-line
 (-main "-h")
 ;; *out*
-;; your_command [args]  ...
-;;
 ;; Usage:
 ;;
 ;;  Switches                 Default  Desc

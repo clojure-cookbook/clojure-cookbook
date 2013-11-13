@@ -106,7 +106,7 @@ the tool, then edit your user profile to look like so:
 .~/.lein/profiles.clj
 [source,clojure]
 ----
-{:user {:plugins [[io.rkn/lein-try "0.4.1"]]}}
+{:user {:plugins [[lein-try "0.4.1"]]}}
 ----
 
 Now, inside of a project or out, you can use the +lein try+ command to
