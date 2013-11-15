@@ -7,6 +7,8 @@ include::unit-testing/unit-testing.asciidoc[]
 
 include::unit-testing/midje.asciidoc[]
 
+include::generative-testing/generative.asciidoc[]
+
 include::tracing/tracing.asciidoc[]
 
 include::primitive-arrays/primitive-arrays.asciidoc[]

@@ -1,0 +1,230 @@
+=== Generative Testing
+
+[role="byline"]
+by Luke VanderHart
+
+==== Problem
+
+You want to test a function with randomized generated inputs.
+
+==== Solution
+
+Use the +test.generative+ library to specify a function's inputs, and
+test it across random generated values.
+
+Say you are trying to test the following function, which calculates
+the arithmatic mean of all the numbers in a sequence.
+
+[source,clj]
+.code.clj
+----
+(ns example.code)
+
+(defn mean
+  "Calculate the mean of the numbers in a sequence"
+  [s]
+  (/ (reduce + s) (count s)))
+----
+
+Start by including +[org.clojure/test.generative "0.5.0"]+ in your
++project.clj+.
+
+The following test.generative code then defines a _specification_ for
+the +mean+ function:
+
+[source,clj]
+.generative_tests.clj
+----
+(ns example.generative-tests
+  (:require [example.code :as code]
+            [clojure.test.generative :as t]
+            [clojure.test.generative.runner :as r]
+            [clojure.data.generators :as gen]))
+
+(defn number
+  "Returns a random number, of a random type"
+  []
+  (gen/one-of gen/byte
+              gen/short
+              gen/int
+              gen/long
+              gen/float
+              gen/double))
+
+(defn seq-of-numbers
+  "Returns a list, seq or set of numbers"
+  []
+  (gen/one-of (gen/list number)
+              (gen/set number)
+              (gen/vec number)))
+
+(t/defspec mean-spec
+  mean
+  [^example.generative-tests/seq-of-numbers arg]
+  (assert (number? %)))
+----
+
+To run the +mean-spec+ specification, invoke the +run+ function in the
++clojure.test.generative.runner+ namespace, passing in the number of
+threads upon which to run the simulation, the number of milliseconds
+to run, and the _var_ referring to a spec.
+
+Running the above example at the REPL:
+
+[source,clj]
+----
+> (r/run 2 5000 #'example.generative-tests/mean-spec)
+;; Throws exception!
+;; clojure.lang.ExceptionInfo: Generative test failed
+----
+
+This shows the behavior when the generative test fails. The exact
+details of the failure are returned as the data of a Clojure
+information-bearing exception; to retrieve it you must retrieve an
+instance of the exception itself and call +ex-data+ on it to return
+the data map.
+
+In the REPL, if you didn't explicitly catch the exception, you can use
+the special +*e+ symbol to retrieve the most recent exception. Calling
++ex-data+ on it returns information on the test case that provoked the
+error:
+
+[source,clj]
+----
+> (ex-data *e)
+;; => {:exception #<ArithmeticException java.lang.ArithmeticException: 
+;;     Divide by zero>, :iter 7, :seed -875080314,
+;;     :example.generative-tests/mean-spec, :input [#{}]}
+----
+
+This states that after only seven iterations, using the random number
+seed -875080314, the function under test was passed +#{}+ as input and threw a divide by zero error.
+
+Once highlighted in this way, the problem is easy to see; the +mean+
+function will divide by zero if +(count s)+ is zero. Fix the bug by
+rewriting the +mean+ function to handle that case:
+
+[source,clj]
+----
+(defn mean
+  [s]
+  (if (zero? (count s))
+    0
+    (/ (reduce + 1.0 s) (count s))))
+----
+
+Rerunning now shows a passing test:
+
+[source,clj]
+----
+> (r/run 2 5000 #'example.generative-tests/mean-spec)
+;; {:iter 3931, :seed -1495229764, :test testgen-test.core/mean-spec}
+;; {:iter 3909, :seed -1154113663, :test testgen-test.core/mean-spec}
+----
+
+This output indicates that over the allotted five seconds, two threads
+ran about 3900 iterations of the test each, and did not encounter any
+errors or assertion failures.
+
+==== Discussion
+
+There are two key parts of the test definition above: the +defspec+
+form itself, which defines the genrative test, and functions used to
+generate random data. In this case, the data generator functions are
+built from primitive data generation functions found in the
++clojure.data.generators+ namespace.
+
+Generator functions take no arguments, and return a random
+value. Different functions produce different types of data. The
++clojure.data.generators+ namespace contains generator functions for
+all of Clojure's primitive types, as well as collections. It also
+contains functions for randomly choosing from a set of options; the
++one-of+ function used above, for example, takes a number of generator
+functions and chooses a value from one at random.
+
+The +defspec+ macro takes three types of forms: a function to put
+under test, an _argument specification_ and a _body_ containing one or
+more assertion forms.
+
+The function under test is simply the function to call. Over the
+course of the generative test it will be called many times, each time
+with different values.
+
+The argument specification is a vector of arguments names, and should
+match the signature of the function under test. Each argument should
+have _metadata_ attached. Specifically, it should have a +:tag+
+metadata key, mapped to the fully qualified name of a generator
+function. Each time the test driver calls the function, it will use a
+random value for each argument pulled from its corresponding generator
+function.
+
+[NOTE]
+====
+You may find the use of +:tag+ metadata may be a bit
+confusing. Normally, +:tag+ is a type hint and returns a JVM
+_class_. In test.generative, it should be a _function_ that can return
+any type of value you want to pass to the function under test.
+
+The motivation for reusing +:tag+ in this way is mostly
+historical. test.generative is largely inspired by a library called
+QuickCheck, which is written in Haskell. Because Haskell is strongly
+and statically typed, QuickCheck truly can use the type signature
+sufficient information on how to generate input data.
+
+The link isn't quite as strong in Clojure, and arguably is more
+confusing than helpful. Just remember that, in the context of
+test.generative, +:tag+ refers not to the actual system type, but to a
+function that returns an object of the type(s) you want to pass to the
+function to test.
+====
+
+The body of a +defspec+ simply contains expressions that may throw an
+exception if some condition is not met. It is executed on each
+iteration of the test, with the instantiated arguments available, and
+with the return value of the function under test bound to +%+. This
+example merely has a single assertion that the result is a number, for
+brevity, but you can have any number of assertions executing arbitrary
+checks.
+
+An interesting difference between +test.generative+ and traditional
+unit tests is that rather than specifying what tests to run, and
+having them take as long as they do, in +test.generative+ you specify
+how long to run, and the system will run as many random permutations
+of the test as it can fit into that time. This has the property of
+keeping test run times deterministic, while allowing you to trade off
+speed and comperehensiveness depending on the situation. For example,
+you might have tests run for 5 seconds in development, but thoroughly
+hammer the system for an hour every night on the CI server, allowing
+you to find that (literally) 1-in-a-million bug.
+
+===== Running generative tests
+
+While developing tests, running from the REPL is usually the most
+convenient. However, there are many other scenarios (such as commit
+hooks or a continuous integration server) where running tests from the
+command line is required. For this purpose, test.generative provides a
++-main+ function in the +clojure.test.generative.runner+ namespace
+that takes as command line argument one or more directories where
+generative tests can be found. It searches all the Clojure namespaces
+in those locations for generative testing specifications, and executes
+them.
+
+For example, if you've placed your generative tests in a
++tests/generative+ directory inside a Leiningen project, you could
+execute tests by running the following at the shell, from your
+project's root directory:
+
+[source,shell]
+----
+lein run -m clojure.test.generative.runner tests/generative
+----
+
+If you want to control the intensity of the test run, you can adjust
+the number of concurrent threads and the length of the run using the
++clojure.test.generative.threads+ and +clojure.test.generative.msec+
+JVM system properties. Using leiningen, you must set these options in
+the +:jvm-opts+ key in +project.clj+ like so:
+
++clojure.test.generative.runner/-main+ will pick up any parameters
+provided in this way, and run accordingly.
+
