@@ -1,11 +1,11 @@
-=== Generative Testing
+=== Testing a function using generated values
 
 [role="byline"]
 by Luke VanderHart
 
 ==== Problem
 
-You want to test a function with randomized generated inputs.
+You want to test a function with randomly generated inputs.
 
 ==== Solution
 
@@ -228,3 +228,8 @@ the +:jvm-opts+ key in +project.clj+ like so:
 +clojure.test.generative.runner/-main+ will pick up any parameters
 provided in this way, and run accordingly.
 
+==== See Also
+
+- The https://github.com/clojure/test.generative[test.generative] page on Github
+- The QuickCheck Haskell library
+- SimpleCheck, a property-based testing library for Clojure with some overlap with test.generative and some unique features.
