@@ -9,8 +9,6 @@ include::ping/sending-a-ping-request.asciidoc[]
 
 include::rss/rss.asciidoc[]
 
-include::twitter-api/twitter-api.asciidoc[]
-
 include::queueing-with-rabbitmq/queueing-with-rabbitmq.asciidoc[]
 
 include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
