@@ -68,7 +68,7 @@ you want to do. If you're planning to do multiple changes at once to a single DO
     dommy/show!)
 ----
 
-For event-listeners, Dommy provides some extra special syntactic sugar. For instance, if you want to listen to
+For event-listeners, Dommy provides some extra-special syntactic sugar. For instance, if you want to listen to
 multiple events on a node, you can just list them both in the same call to +dommy/listen!+.
 
 [source, clojure]
@@ -127,10 +127,10 @@ Let's take a closer look at what's actually going on in the two templates from b
 
 * The first keyword in each vector always describes the element tag, including its classes and id, using css syntax.
 If no tag is specified, it defaults to div. Thus, the +:#my-list.shopping-list+ becomes
-+<div id="my-list" class="shopping-list">...</div>+
-* If the second item in the vector is a map literal, or it type-hinted with +^:attrs+, then it's treated as an
++<div id="my-list" class="shopping-list">...</div>+.
+* If the second item in the vector is a map literal, or is type-hinted with +^:attrs+, then it's treated as an
 attribute map.
-* Any string literals (like +"Clear list"+ above), can simply be included in the vector. However, like with attributes,
+* Any string literals (like +"Clear list"+ above), can simply be included in the vector. However, as with attributes,
 if you're generating the value dynamically, you must type-hint it with +^:text+.
 * The remaining items in the vector are all just recursively generated as child nodes.
 * Any +lists+, like the +(map ...)+ above, create a document fragment, which means they eventually just get resolved
@@ -198,14 +198,11 @@ manipulation:
 
 ==== See Also
 
-* Examine Dommy in more depth and propose new changes by taking a look at
-https://github.com/Prismatic/dommy[the source on GitHub].
-* Peruse this excellent blog post by Fogus on to understand exactly how the macro-compilation process works:
-http://blog.fogus.me/2012/04/25/the-clojurescript-compilation-pipeline/[The ClojureScript Compilation Pipeline]
-* For a more detailed look into Dommy's performant use of macros, check out the posts on
-http://blog.getprismatic.com/blog/2013/1/22/the-magic-of-macros-lighting-fast-templating-in-clojurescript[Templating]
-and http://blog.getprismatic.com/blog/2013/4/29/faster-better-dom-manipulation-with-dommy-and-clojurescript[DOM manipulation]
-on the Prismatic blog.
-* Dommy isn't the only DOM manipulation library out there. Check out https://github.com/ibdknox/jayq[JayQ],
-https://github.com/ckirkendall/enfocus[Enfocus], or https://github.com/levand/domina[Domina] if Dommy doesn't
-do the trick for you.
+* https://github.com/Prismatic/dommy[The source on GitHub] to examine Dommy in more depth and propose changes.
+* http://blog.fogus.me/2012/04/25/the-clojurescript-compilation-pipeline/[The ClojureScript Compilation Pipeline],
+an excellent blog post by Fogus, to understand exactly how the macro-compilation process works.
+* The http://blog.getprismatic.com/blog/2013/1/22/the-magic-of-macros-lighting-fast-templating-in-clojurescript[Templating] and
+http://blog.getprismatic.com/blog/2013/4/29/faster-better-dom-manipulation-with-dommy-and-clojurescript[DOM manipulation]
+posts on the Prismatic blog for a more detailed look into Dommy's performant use of macros.
+* The https://github.com/ibdknox/jayq[JayQ], https://github.com/ckirkendall/enfocus[Enfocus], or https://github.com/levand/domina[Domina]
+DOM manipulation libraries, if Dommy doesn't do the trick for you.
