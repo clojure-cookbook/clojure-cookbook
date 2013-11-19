@@ -361,7 +361,7 @@ and more. To learn more, see RabbitMQ and Langohr documentation sites.
   more.
 * Langohr http://reference.clojurerabbitmq.info[API reference] is also
   available.
-* The http://www.rabbitmq.com/java-client.html[RabbitMQ Java Client],
-  upon which Langohr is based; Clojure's Java interop is fairly easy
-  to work with, and you may prefer to work with the Java client
-  directly.
+* If you need low-level access to RabbitMQ, you may want to
+  investigate using Clojure's Java interop to interact with the
+  http://www.rabbitmq.com/java-client.html[RabbitMQ Java Client], the
+  library upon which Langohr is based.
