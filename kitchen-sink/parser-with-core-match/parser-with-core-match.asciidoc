@@ -8,8 +8,8 @@ by Chris Frisz
 You want to parse Clojure expressions, say, from the input to a macro,
 into a different representation (like maps).
 
-For this example, consider a heavily simplified version of Clojure that
-consists of the following expression types:
+For this example, consider a heavily simplified version of Clojure
+that consists of the following expression types:
 
   * A variable represented by a valid Clojure symbol
   * A `fn` expression that accepts a single argument and whose body is
@@ -19,14 +19,27 @@ consists of the following expression types:
 
 You can represent this language by the following grammar:
 
-  Expr = var
-       | (fn [var] Expr)
-       | (Expr Expr)
+[source]
+----
+Expr = var
+     | (fn [var] Expr)
+     | (Expr Expr)
+----
 
 ==== Solution
 
-Use `core.match` to pattern match over the input and return the
+Use _core.match_ to pattern match over the input and return the
 expression represented as maps of maps.
+
+Before starting, add `[org.clojure/core.match "0.2.0"]` to your
+project's dependencies, or start a REPL using lein-try:
+
+[source,console]
+----
+$ lein try org.clojure/core.match
+----
+
+Now, codify the language's grammar using +clojure.core.match/match+.
 
 [source, clojure]
 ----
@@ -40,45 +53,58 @@ expression represented as maps of maps.
                                {:arg arg
                                 :body (simple-clojure-parser body)}}
     [([operator operand] :seq)] {:application
-                                 {:rator (simple-clojure-parser operator)
-                                  :rand (simple-clojure-parser operand)}}
+                                 {:operator (simple-clojure-parser operator)
+                                  :operand (simple-clojure-parser operand)}}
     :else (throw (Exception. (str "invalid expression: " expr)))))
 
 (simple-clojure-parser 'a)
 ;; -> {:variable a}
 
 (simple-clojure-parser '(fn [x] x))
-;; -> {:closure {:arg x :body x}}
+;; -> {:closure {:arg x, :body {:variable x}}}
 
 (simple-clojure-parser '((fn [x] x) a))
-;; -> {:application {:rator {:closure {:arg x :body x}} :rand a}}
+;; -> {:application
+;;      {:operator {:closure {:arg x, :body {:variable x}}}
+;;       :operand {:variable a}}}
 
 ;; fn expression can only have one argument!
 (simple-clojure-parser '(fn [x y] x))
-;; -> Exception invalid expression: (fn [x y] x)
+;; -> Exception invalid expression: (fn [x y] x) ...
 ----
 
 ==== Discussion
 
-The first match pattern, `[(var :guard symbol?)]`, matches the variable
-case, binding the matched expression to `var`. The special `:guard`
-form applies the predicate `symbol?` to `var`, and the right- hand side
-of the match executes only if `symbol?` returns `true`.
+A +match+ statement in core.match is made up of two basic parts. The
+first part is a vector of +vars+ to be matched. In our example, this
+is `[expr]`. This vector isn't limited to a single entry, it can
+contain as many items-to-match as you would like. The next part is a
+variable list of question-answer pairs. A _question_ is a vector
+representing the *shape* the +vars+ vector must take. Like +cond+, an
+_answer_ is what will be returned should +vars+ satisfy a question.
 
-The second pattern, `[(['fn [arg] body] :seq)]`, matches the `fn` case
-footnote:[The match pattern for `fn` could (and should) include a guard
-on the `arg` to ensure that it's a symbol, but that's elided it here
+Questions take a variety of forms in core.match. Here are explanations
+of the samples from above.
+
+The first match pattern, `[(var :guard symbol?)]`, matches the
+variable case of our syntax, binding the matched expression to +var+.
+The special +:guard+ form applies the predicate +symbol?+ to +var+,
+only returning the answer if +symbol?+ returns +true+.
+
+The second pattern, `[(['fn [arg] body] :seq)]`, matches the +fn+ case
+footnote:[The match pattern for +fn+ could (and should) include a guard
+on the +arg+ to ensure that it's a symbol, but that's elided it here
 for brevity.].  Note the special `([...] :seq)` syntax for matching
-over lists, used here to represent a `fn` expression. Also notice
-that to match on the literal `fn`, it had to be quoted in the match
-pattern.  Interestingly, since the `body` expression should also be
+over lists, used here to represent a +fn+ expression. Also notice
+that to match on the literal +fn+, it had to be quoted in the match
+pattern.  Interestingly, since the +body+ expression should also be
 accepted by this parser, it makes a self-recursive call,
-`(simple-clojure-parser body)`, in the right-hand side of the match
++(simple-clojure-parser body)+, in the right-hand side of the match
 pattern.
 
-For the third, so-called "application" pattern, the parser again
+For the third +:application+ pattern, the parser again
 matches on a list using the `([...] :seq)` syntax. Like the body of the
-`fn` expression, both the `operator` and `operand` expressions should
++fn+ expression, both the +operator+ and +operand+ expressions should
 be accepted by the parser, so it make a recursive call for each one.
 
 Finally, the parser throws an exception if the given expression doesn't
@@ -88,9 +114,9 @@ expression.
 
 Writing your parser this way gives you succinct code that closely
 resembles the target input. Alternatively, you could write it
-using conditional expressions (`if` or `cond`) and explicitly
+using conditional expressions (+if+ or +cond+) and explicitly
 destructured the input. To illustrate the difference in length and
-clarity of the code, consider this function that only parses the `fn`
+clarity of the code, consider this function that only parses the +fn+
 expressions of the Clojure subset:
 
 [souce, clojure]
@@ -108,15 +134,18 @@ expressions of the Clojure subset:
 ----
 
 Notice how much more code this version needed in order to express the
-same properties about a `fn` expression? Not only did the non-`match`
-version require more code, but the `if` test doesn't resemble the
-structure of the expression the way the `match` pattern does. Plus,
-`match` binds the matched input to the variable names in the match
-pattern automatically, saving you from having to `let`-bind them
+same properties about a +fn+ expression? Not only did the non-+match+
+version require more code, but the +if+ test doesn't resemble the
+structure of the expression the way the +match+ pattern does. Further,
++match+ binds the matched input to the variable names in the match
+pattern automatically, saving you from having to +let+-bind them
 yourself or repeatedly write the same list access code (as shown with
-`(nth expr)` in `parse-fn` above). Needless to say, the `match` is much
-easier to read and maintain.
++(nth expr)+ in +parse-fn+ above). Needless to say, the +match+ is
+much easier to read and maintain.
 
-The language used by this parser also appears in <<sec_core_match_interpreter>>
-explaining how to write an interpreter for it. Readers that already
-recognize the language will probably find it completely unsurprising.
+==== See Also
+
+* <<sec_core_match_interpreter>>, where the language used by this
+  parser also appears in explaining how to write an interpreter
+  for it. Readers that already recognize the language will probably
+  find it completely unsurprising.
