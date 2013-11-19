@@ -5,8 +5,6 @@ include::nursery-rhyme/nursery-rhyme.asciidoc[]
 
 include::parser-with-core-match/parser-with-core-match.asciidoc[]
 
-include::interpreter/interpreter.asciidoc[]
-
 include::deprecate-macro/deprecate-macro.asciidoc[]
 
 include::stream-processing/stream-processing.asciidoc[]

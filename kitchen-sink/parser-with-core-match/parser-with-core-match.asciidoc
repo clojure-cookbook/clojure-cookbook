@@ -145,7 +145,6 @@ much easier to read and maintain.
 
 ==== See Also
 
-* <<sec_core_match_interpreter>>, where the language used by this
-  parser also appears in explaining how to write an interpreter
-  for it. Readers that already recognize the language will probably
-  find it completely unsurprising.
+* See the core.match wiki's
+  https://github.com/clojure/core.match/wiki/Overview[Overview page] for a
+  more broad pass over all of the library's capabilities.
