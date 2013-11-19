@@ -9,7 +9,7 @@ queueing broker such as http://rabbitmq.com[RabbitMQ].
 
 ==== Solution
 
-Use http://clojurerabbitmq.info[Langohr], a small feature complete
+Use http://clojurerabbitmq.info[Langohr], a small
 RabbitMQ client, to communicate with RabbitMQ.
 
 Before starting, add `[com.novemberain/langohr "1.6.0"]` to your
@@ -134,9 +134,9 @@ tag
 
 At this point, you've round-tripped a few messages to RabbitMQ, but
 you've barely scratched the surface of what Langohr/RabbitMQ are
-capable of. Langohr is a feature complete RabbitMQ client that
-supports AMQP 0-9-1, RabbitMQ extensions of AMQP, and provides HTTP
-API client.
+capable of. Langohr is a small RabbitMQ client wrapping the Java
+RabbitMQ library that supports AMQP 0-9-1, RabbitMQ extensions of
+AMQP, and provides HTTP API client.
 
 AMQP 0-9-1, and by extension, Langohr, centers around a few main
 concepts: *exchanges*, *queues* and *bindings*.
@@ -361,3 +361,7 @@ and more. To learn more, see RabbitMQ and Langohr documentation sites.
   more.
 * Langohr http://reference.clojurerabbitmq.info[API reference] is also
   available.
+* The http://www.rabbitmq.com/java-client.html[RabbitMQ Java Client],
+  upon which Langohr is based; Clojure's Java interop is fairly easy
+  to work with, and you may prefer to work with the Java client
+  directly.
