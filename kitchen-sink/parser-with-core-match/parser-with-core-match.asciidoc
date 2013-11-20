@@ -19,7 +19,7 @@ that consists of the following expression types:
 
 You can represent this language by the following grammar:
 
-[source]
+[source,plain]
 ----
 Expr = var
      | (fn [var] Expr)
