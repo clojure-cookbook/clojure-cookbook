@@ -17,7 +17,7 @@ In your dependencies:
 [com.keminglabs/c2 "0.2.3"]
 ----
 
-Then in a ClojureScript file associated with an HTML page containing a `<div id="barchart"></div>`.
+Then, in a ClojureScript file associated with an HTML page containing a `<div id="barchart"></div>`:
 
 [source,clojure]
 ----

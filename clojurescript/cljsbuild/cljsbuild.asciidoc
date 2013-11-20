@@ -31,10 +31,8 @@ The compiler will output to target/cljsbuild-main.js
 
 ==== Discussion
 
-https://github.com/emezeske/lein-cljsbuild[lein-cljsbuild] is a
-Leiningen plugin for compiling ClojureScript. The first time it is
-run, it will fetch and use the ClojureScript compiler and the Google
-Closure compiler.
+The first time you run lein-cljsbuild, it will fetch and use the
+ClojureScript compiler and the Google Closure compiler.
 
 Above, you ran the `once` command to compile the code once. You can
 run `auto` to have the plugin automatically recompile whenever the
