@@ -59,10 +59,12 @@ new-id
 ----
 
 Of course, you can provide statements like these yourself, as well
-using the map syntax in the Solution, or any mix of the two.
+using the map syntax in the Solution, or any mix of the two. This is
+also how you would transact multiple entries (e.g. `(d/transact conn
+[person1-map person2-map])`).
 
 One difference you'll note between the map and the expanded form is
-the lack of a +:db/add+ statement for the +:db/id+ key itself. In the
+the lack of a +:db/add+ statement for the +:db/id+ key. In the
 expanded form this value comes immediately after the action
 (+:db/add+) and *must* be identical between all statements to
 correlate attributes to a single entity. When specifying an entity as
@@ -77,8 +79,6 @@ values. When working with code, the correct approach is to use the
 +datomic.api/tempid+ function to obtain a temporary ID. The
 +datomic.api/tempid+ function takes a partition keyword as its
 arguments; for most purposes +:db.part/user+ will suffice
-
-// TODO: When would you not use :db.part/user?
 
 When working with non-executable data, you'll need to use the
 data-literal form for temporary IDs. The literal `#db/id

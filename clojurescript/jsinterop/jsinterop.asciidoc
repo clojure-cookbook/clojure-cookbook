@@ -10,13 +10,13 @@ You want to use an existing JavaScript library from ClojureScript as painlessly 
 
 Use https://github.com/dribnet/mrhyde[mrhyde] to map between JavaScript and ClojureScript datatypes.
 
-As an example, let's assume you wanted to use the rickshaw library which provides simple framework
+As an example, let's assume you wanted to use the rickshaw library, which provides a simple framework
 for drawing charts of time series data on a web page. Naturally, you'd rather not worry about JavaScript
 semantics, but instead hope to simply declaratively generate charts from ClojureScript datatypes.
 
 We'll use the 
 http://code.shutterstock.com/rickshaw/tutorial/introduction.html#example_07[fanciest example] from
-the rickshaw documentation here and adapt it to ClojureScript using mrhyde.
+the rickshaw documentation and adapt it to ClojureScript using mrhyde.
 
 The *JavaScript* for this example is reprinted verbatim below.
 
@@ -86,7 +86,7 @@ offsetForm.addEventListener('change', function(e) {
 graph.render();
 ----
 
-In your dependencies:
+In your +project.clj+:
 
 [source, clojure]
 ----
@@ -94,7 +94,7 @@ In your dependencies:
 ----
 
 Then compile the following ClojureScript file and replace the script reference in the enclosing HTML page.
-You will also to include the https://github.com/dribnet/ArrayLike.js[ArrayLike.js polyfill] *before* the JavaScript libraries you want to use from
+You will also want to include the https://github.com/dribnet/ArrayLike.js[ArrayLike.js polyfill] *before* the JavaScript libraries you want to use from
 ClojureScript.
 
 [source,clojure]
@@ -179,7 +179,7 @@ from JavaScript as if they were native JavaScript objects. Though this adds some
 overhead to ClojureScript datatype creation, it can greatly simplify many
 interop scenarios.
 
-So for example in the line
+For example, in the line:
 
 [source, clojure]
 ----
@@ -192,12 +192,12 @@ datatypes such as a map containing a vector containing a map which are
 handed directly to Rickshaw functions which interpret the data as
 an object containing an array containing an object.
 
-Additionally by also requiring mrhyde.extend-js (taken nearly directly from
+By also requiring mrhyde.extend-js (taken nearly directly from
 http://keminglabs.com/blog/angular-cljs-mobile-weather-app/[Kevin Lynagh's project])
 we get interop in the other
-direction, allowing ClojureScript to access JavaScript object more idiomatically.
+direction, allowing ClojureScript to access JavaScript objects more idiomatically.
 
-In this example it means we can replace the following two interop heavy lines of code:
+In this example, it means we can replace the following two lines of interop-heavy code:
 
 [source, clojure]
 ----

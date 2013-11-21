@@ -3,11 +3,7 @@
 
 include::nursery-rhyme/nursery-rhyme.asciidoc[]
 
-include::creating-reusable-functions-with-fn-arguments/creating-reusable-functions-with-fn-arguments.asciidoc[]
-
 include::parser-with-core-match/parser-with-core-match.asciidoc[]
-
-include::interpreter/interpreter.asciidoc[]
 
 include::deprecate-macro/deprecate-macro.asciidoc[]
 
@@ -18,8 +14,4 @@ include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 include::extend-built-in/extend-built-in.asciidoc[]
 
 include::profiling-with-timbre/profiling-with-timbre.asciidoc[]
-
-include::resource-to-sequence/resource-to-sequence.asciidoc[]
-
-include::deploy-on-lein/deploy-on-lein.asciidoc[]
 

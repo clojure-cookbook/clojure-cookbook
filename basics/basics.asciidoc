@@ -14,3 +14,4 @@ include::trying-a-library/trying-a-library.asciidoc[]
 
 include::lein-templates/lein-templates.asciidoc[]
 
+include::releasing-a-library/releasing-a-library.asciidoc[]
