@@ -9,6 +9,8 @@ include::unit-testing/midje.asciidoc[]
 
 include::generative-testing/generative.asciidoc[]
 
+include::generative-testing/simplecheck/simplecheck.asciidoc[]
+
 include::tracing/tracing.asciidoc[]
 
 include::primitive-arrays/primitive-arrays.asciidoc[]
