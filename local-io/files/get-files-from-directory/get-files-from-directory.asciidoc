@@ -1,7 +1,7 @@
 [[sec_local-io_files_get_files_from_dir]]
 === Listing files in a directory
 [role="byline"]
-by Stefan Karlsson
+originally submitted by Stefan Karlsson
 
 ==== Problem
 
@@ -9,115 +9,84 @@ Given a directory, you want to access the files inside
 
 ==== Solution
 
-Calling the built-in +file-seq+  function will return a lazy sequence of +java.io.File+ objects.
+Call the built-in +file-seq+ function to return a lazy sequence
+of +java.io.File+ objects.
+
+[NOTE]
+++++
+To follow along with this recipe, create some sample files and folders
+using these commands (on Linux or Mac):
+
+[source,console]
+----
+$ mkdir -p next-gen
+$ touch next-gen/picard.jpg next-gen/locutus.bmp next-gen/data.txt
+----
+++++
 
 [source,clojure]
 ----
-(file-seq (clojure.java.io/file "./next-gen"))
-;; -> (#<File ./next-gen> #<File ./next-gen/picard.jpg> #<File ./next-gen/locutus.bmp> #<File ./next-gen/data.txt>)
-----
+(def tng-dir (file-seq (clojure.java.io/file "./next-gen")))
 
-However it is a common scenario that you would want the file names rather than the actual +java.io.File+ objects from the directory. You can achieve this by mapping calls to the +.isFile+ and +.getName+ methjods on a +java.io.File+ object.
-[source,clojure]
+tng-dir
+;; -> (#<File ./next-gen>
+;;     #<File ./next-gen/picard.jpg>
+;;     #<File ./next-gen/locutus.bmp>
+;;     #<File ./next-gen/data.txt>)
 ----
-(defn get-file-names-from-directory [directory]
-  (->> directory
-       clojure.java.io/file
-       file-seq
-       (filter #(.isFile %))
-       (map #(.getName %))))
-
-(get-file-names-from-directory "./next-gen")
-;; -> ("picard.jpg" "locutus.bmp" "data.txt")
-----
-This function take a path to a directory as its argument. From that path it will create a +file-seq+ and +filter+ it on the +.isFile+ method to include only files. The last step is to get the name of all the +java.io.File+ objects that passed the filter. This is done by calling the +.getName+ method.
 
 ==== Discussion
-You can achieve filtering on specific extensions with a regular expression. This example would filter on any files with a jpg, JPG or txt extension.
-[source,clojure]
-----
-(filter #(re-find #"^.*\.(jpg|JPG|txt)$" %) (get-file-names-from-directory "./next-gen"))
-;; -> ("picard.jpg" "data.txt")
-----
 
-You can make this more of a utility function and get the extensions and files as arguments. To do that a predicate to match against a +vector+ of extensions is useful.
-[source,clojure]
-----
-(defn has-file-extension? [file-name extensions]
-  (let [extension-pattern (clojure.string/join "|" extensions)
-        complete-pattern (str "^.+\\.(" extension-pattern ")$")
-        extensions-reg-exp (re-pattern complete-pattern)]
-    (if (re-find extensions-reg-exp file-name)
-      true
-      false)))
+Sequences are one of Clojure's more powerful abstractions; treating a
+directory hierarchy as a squence allows you to leverage functions like
++map+ and +filter+ to manipulate files and directories.
 
-(has-file-extension? "picard.jpg" ["txt" "jpg"])
-;; -> true
-
-(has-file-extension? "locutus.bmp" ["txt" "jpg"])
-;; -> false
-----
-The predicate will take a file name and a +vector+ of extensions. It will +join+ the extensions to build a string to insert into the regular expression (+"jpg|JPG|txt"+, like in the example above). It will then check to see if the file name match the regular expression or not. Note that you have to use +re-pattern+ when building a regular expression from a string variable, the reader macro +#""+ will not work.
-
-Armed with the predicate you can make a convenience function that performs the filtering. This function work on a +vector+ of files and apply a filter with the predicate +has-file-extension?+ and the given extension on the sequence of files.
-[source,clojure]
-----
-(defn filter-on-extensions [files extensions]
-  (filter #(has-file-extension? % extensions) files))
-
-(filter-on-extensions ["picard.jpg" "locutus.bmp"] ["txt" "jpg"])
-;; -> ("picard.jpg")
-----
-
-Now you have all the parts to make a good looking utility function that get all the files from a directory with the given extensions.
-[source,clojure]
-----
-(defn get-files-with-extension [directory extensions]
-  (-> directory
-      get-file-names-from-directory
-      (filter-on-extensions extensions)))
-
-(get-files-with-extension "./next-gen" ["txt" "jpg"])
-;; -> ("picard.jpg" "data.txt")
-----
-
-+file-seq+ will give you a recursive tree from the given directory.
+Consider, for example, the case where you would like to select only files in a
+directory hierarchy (and not directories). You can define such a function
+by taking a sequence of files and directories and filtering them by the
++.isFile+ property of +java.io.File+ objects.
 
 [source,clojure]
 ----
-(file-seq (clojure.java.io/file "./next-gen"))
-;; -> (#<File ./next-gen> #<File ./next-gen/picard.jpg> #<File ./next-gen/locutus.bmp> #<File ./next-gen/deep-space> #<File ./next-gen/deep-space/very-deep.org> #<File ./next-gen/data.txt>)
+(defn only-files
+  "Filter a sequence of files/directories by the .isFile property of
+  java.io.File"
+  [file-s]
+  (filter #(.isFile %) file-s))
+
+(only-files tng-dir)
+;; -> (#<File ./next-gen/data.txt>
+;;     #<File ./next-gen/locutus.bmp>
+;;     #<File ./next-gen/picard.jpg>)
 ----
 
-If that is not your intention, you can solve this by using a function that finds the depth of a file. The function will get the path of the file, with +.getPath+, +split+ on the directory delimiter (use the directory delimiter of your file system) and do a +count+. The value of +count+ is decreased by two to not count the own directory or the file name.
+What if you wanted display the string-names of all those files? Define
+a +names+ function to map the +.getName+ property over a sequence of
+files, combining +only-files+ and +names+ to get a list of file names
+in a directory.
+
 [source,clojure]
 ----
-(defn get-file-directory-depth [file]
-  (-> file
-      .getPath
-      (clojure.string/split #"\/")
-      count
-      (- 2)))
+(defn names
+  "Return the .getName property of a sequence of files"
+  [file-s]
+  (map #(.getName %) file-s))
+
+(-> tng-dir
+    only-files
+    names)
+;; -> ("data.txt" "locutus.bmp" "picard.jpg")
 ----
 
-This function can now be used to +filter+ on your required depth. The filter simply compares the depth of all files in the +file-seq+ and compares it to the depth that you require.
-[source,clojure]
-----
-(filter #(= (get-file-directory-depth %) 1)  (file-seq (clojure.java.io/file "./next-gen")))
-;; -> (#<File ./next-gen/picard.jpg> #<File ./next-gen/locutus.bmp> #<File ./next-gen/deep-space> #<File ./next-gen/data.txt>)
-----
+==== See Also
 
-You can add this functionality to the +get-file-names-from-directory+ function. You do this by adding an argument that specifies the required depth and then include the filter created above.
-[source,clojure]
-----
-(defn get-file-names-from-directory-with-depth [directory depth]
-  (->> directory
-       clojure.java.io/file
-       file-seq
-       (filter #(.isFile %))
-       (filter #(= (get-file-directory-depth %) depth))
-       (map #(.getName %))))
+* See the documentation for the
+  http://docs.oracle.com/javase/7/docs/api/java/io/File.html[File
+  class] for a complete list of properties and methods available on
+  +File+ objects.
+* Combine these techniques with utility libraries like Google Guava's
+  http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/io/Files.html[Files
+  class] or Apache Commons
+  http://commons.apache.org/proper/commons-io/javadocs/api-1.4/org/apache/commons/io/FilenameUtils.html[FilenameUtils class]
+  to exert even greater leverage over the file sequence abstraction.
 
-(get-file-names-from-directory-with-depth "./next-gen" 2)
-;; -> ("very-deep.org")
-----
