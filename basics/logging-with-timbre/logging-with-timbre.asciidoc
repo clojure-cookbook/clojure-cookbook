@@ -24,8 +24,7 @@ functions +info+, +error+, etc.
 
 [source,clojure]
 ----
-(ns cookbook.logging-timbre
-  (:require [taoensso.timbre :as log]))
+(require '[taoensso.timbre :as log])
 
 (defn div-4 [n]
   (log/info "Starting")
@@ -37,6 +36,7 @@ functions +info+, +error+, etc.
       (log/info "Ending"))))
 ----
 
+
 The +div-4+ function takes a single argument and returns (4 / n). 
 
 The +log/info+ calls will create a log message output at the "info" 
@@ -44,36 +44,37 @@ level. Similarly, the +log/error+ call will create a log message at the
 "error" output level. Passing an exception as the first argument will 
 cause the stack trace to be printed as well.
 
-Timbre writes logs to any number of configured "appenders" (output 
-destinations). By default, a single appender is configured to write to 
-standard out. 
-
 If you call div-4 with values that will succeed or throw an error you 
 will see output like the following in your REPL.
 
-[source,console]
+[source,clojure]
 ----
-cookbook.logging-timbre=> (div-4 4)
-2013-Nov-21 16:04:11 -0600 laptop INFO [user] - Starting
-2013-Nov-21 16:04:11 -0600 laptop INFO [user] - Ending
-1
-cookbook.logging-timbre=> (div-4 0)
-2013-Nov-21 16:04:19 -0600 laptop INFO [user] - Starting
-2013-Nov-21 16:04:19 -0600 laptop ERROR [user] - oh no! java.lang.ArithmeticException: Divide by zero
+(div-4 2)
+;; -> 2
+;; *out*
+;; 2013-Nov-22 10:34:11 -0500 laptop INFO [user] - Starting
+;; 2013-Nov-22 10:34:11 -0500 laptop INFO [user] - Ending
 
-java.lang.ArithmeticException: Divide by zero
-           Numbers.java:156 clojure.lang.Numbers.divide
-           Numbers.java:3667 clojure.lang.Numbers.divide
-         NO_SOURCE_FILE:4 user/div-4
-         NO_SOURCE_FILE:1 user/eval673
-                   (etc)
+(div-4 0)
+;; -> 2013-Nov-22 10:34:47 -0500 laptop ERROR [user] - oh no! java.lang.ArithmeticException: Divide by zero
+;; -> nil
+;; *out* 
+;; 2013-Nov-22 10:34:21 -0500 laptop INFO [user] - Starting
+;; 2013-Nov-22 10:34:21 -0500 laptop ERROR [user] - oh no! java.lang.ArithmeticException: Divide by zero
+;; ... Exception stacktrace
+;; 2013-Nov-22 10:34:21 -0500 laptop INFO [user] - Ending
 ----
+
 
 ==== Discussion
 
 Timbre is a great way to get started with logging in your code. Using a log 
 library allows you to specify later where the output will go, possibly to
 more than one location or filtered by namespace. 
+
+Timbre writes logs to any number of configured "appenders" (output 
+destinations). By default, a single appender is configured to write to 
+standard out. 
 
 For example, to add a second appender for a file, you can dynamically modify
 the configuration by enabling the pre-configured +spit+ appender:
@@ -102,11 +103,12 @@ To change the logging level at runtime, change the configuration:
 (log/set-level! :warn)
 ----
 
-While Timbre is an excellent library for simple logging in your Clojure 
-app, it may not be the best choice if you are integrating with many Java
-libraries. There are a variety of popular Java logging frameworks and
-logging facades. If you wish to leverage the existing Java logging 
-infrastructure, you might find the tools.logging framework more suitable. 
+While Timbre is an excellent library for simple logging in your
+Clojure app, it may not be sufficient if you are integrating with many
+Java libraries. There are a variety of popular Java logging frameworks
+and logging facades. If you wish to leverage the existing Java logging
+infrastructure, you might find the tools.logging framework more
+suitable.
 
 ==== See also
 

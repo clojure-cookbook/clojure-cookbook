@@ -8,6 +8,8 @@ include::exploring-namespaces/exploring-namespaces.asciidoc[]
 
 include::main/main.asciidoc[]
 
+include::logging-with-timbre/logging-with-timbre.asciidoc[]
+
 include::creating-executable-jar/creating-executable-jar.asciidoc[]
 
 include::trying-a-library/trying-a-library.asciidoc[]
