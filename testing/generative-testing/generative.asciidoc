@@ -1,11 +1,12 @@
-=== Testing a function using generated values
+=== Thoroughly testing by randomizing inputs
 
 [role="byline"]
 by Luke VanderHart
 
 ==== Problem
 
-You want to test a function with randomly generated inputs.
+You want to test a function using randomly generated inputs to ensure
+that it works in all possible scenarios.
 
 ==== Solution
 
