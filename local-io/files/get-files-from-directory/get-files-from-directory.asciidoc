@@ -13,7 +13,7 @@ Call the built-in +file-seq+ function to return a lazy sequence
 of +java.io.File+ objects.
 
 [NOTE]
-++++
+====
 To follow along with this recipe, create some sample files and folders
 using these commands (on Linux or Mac):
 
@@ -22,7 +22,7 @@ using these commands (on Linux or Mac):
 $ mkdir -p next-gen
 $ touch next-gen/picard.jpg next-gen/locutus.bmp next-gen/data.txt
 ----
-++++
+====
 
 [source,clojure]
 ----
