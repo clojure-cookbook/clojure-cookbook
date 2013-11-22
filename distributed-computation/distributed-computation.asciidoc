@@ -1,6 +1,8 @@
 [[ch_distributed]]
 == Distributed Computation
 
+include::stream-processing/stream-processing.asciidoc[]
+
 ////////
 Cascalog
 ////////

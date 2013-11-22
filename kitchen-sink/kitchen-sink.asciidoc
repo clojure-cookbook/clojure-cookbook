@@ -7,8 +7,6 @@ include::parser-with-core-match/parser-with-core-match.asciidoc[]
 
 include::deprecate-macro/deprecate-macro.asciidoc[]
 
-include::stream-processing/stream-processing.asciidoc[]
-
 include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 
 include::extend-built-in/extend-built-in.asciidoc[]
