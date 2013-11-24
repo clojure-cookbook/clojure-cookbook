@@ -1,5 +1,6 @@
 == General Computing
 
+include::introduction[]
 
 include::interactive-docs/interactive-docs.asciidoc[]
 
@@ -20,5 +21,4 @@ include::parser-with-core-match/parser-with-core-match.asciidoc[]
 include::core-logic/core-logic.asciidoc[]
 
 include::nursery-rhyme/nursery-rhyme.asciidoc[]
-
 

@@ -1,0 +1,13 @@
+=== Introduction
+
+More and more these days it seems like every system we build has to
+talk to something, somewhere footnote:[In fact,
+http://queue.acm.org/detail.cfm?id=2482856[There's Just No Getting
+around It: You're Building a Distributed System].]. Like
+<<ch_local_io>>, we'd hardly be doing anything at all if we didn't
+actually talk with some other process.
+
+This chapter covers all of the normal communication modes you would
+expect--HTTP, TCP, UDP and the like--as well as some newcomers footnote:[As
+Australian songwriter Peter Allen so accurately put: "Everything old
+is new again"], namely message-oriented architectures.
