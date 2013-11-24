@@ -16,7 +16,7 @@ include::databases/databases.asciidoc[]
 
 include::webapps/webapps.asciidoc[]
 
-include::deployment/deployment.asciidoc[]
+include::deployment-and-distribution/deployment-and-distribution.asciidoc[]
 
 include::distributed-computation/distributed-computation.asciidoc[]
 
