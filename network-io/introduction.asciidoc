@@ -9,5 +9,5 @@ actually talk with some other process.
 
 This chapter covers all of the normal communication modes you would
 expect--HTTP, TCP, UDP and the like--as well as some newcomers footnote:[As
-Australian songwriter Peter Allen so accurately put: "Everything old
-is new again"], namely message-oriented architectures.
+Australian songwriter Peter Allen so aptly put it: "Everything old
+is new again."], namely message-oriented architectures.

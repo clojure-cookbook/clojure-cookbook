@@ -1,5 +1,7 @@
 == Deployment and Distribution
 
+include::introduction.asciidoc[]
+
 include::bare-bones/bare-bones.asciidoc[]
 
 include::profiling-with-timbre/profiling-with-timbre.asciidoc[]

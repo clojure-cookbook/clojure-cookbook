@@ -1,6 +1,8 @@
 [[ch_webapps]]
 == Web Applications
 
+include::introduction.asciidoc[]
+
 include::ring/introduction/introduction.asciidoc[]
 
 include::ring/middleware/middleware.asciidoc[]
