@@ -1,0 +1,187 @@
+[[sec_webapps_templating_with_hiccup]]
+=== Creating templates for web applications with Hiccup
+[role=""]
+by Yoko Harada
+
+==== Problem
+
+When we create a web application, we can't byapass writing html tags and attributes.
+How to write/devide code and html portion would be an eternal theme for web developers in all languages.
+Clojure's web application ecosystems is still young and doesn't have an estabilished way like other languages.
+We have choices in this area. Some tools provides rendering feadture with MVC-like framework, while others focuse on just rendering html.
+The answer for 'what should be chosen' is, probably, depends on what tool you want to integrate.
+
+In light of recent growth of JavaScript framework, we got a freedom to move more logic to a client side.
+If some of Javascript frameworks are in your mind, you'd better to choose a simple rendering tool not to conflict with directives of such frameworks.
+For example, AngularJS(http://angularjs.org/) uses double curly braces {{value}} to insert a value.
+In such a case, Hiccup will be a good choice because of its simplicity.
+
+
+==== Solution
+
+Hiccup(https://github.com/weavejester/hiccup) is one of the oldest html rendering library in Clojure world. It is simple, just renders html.
+The syntaxes are all written in Clojure. There's no doubt that Hiccup is a clojure-friendly html rendering tool.
+If the editor supports Clojure editing feature, writing Hiccup syntaxes are fairly easy.
+Since all are written in Clojure, Hiccup's syntaxes don't conflict with JavaScript frameworks' ones.
+
+Also, Hiccup is easy to get started rendering tool.
+On Hiccup, html tags are expressed by vectors lead by a tag name as a keyword, while tag attributes are written as a map.
+
+Other than that, Hiccup doesn't use any special syntaxes.
+This brings us painless inegration with JavaScript tools or frameworks which use their specific directives. 
+
+Before going to Hiccup coding with some we application framework,
+you can try Hiccup rendering out on repl.
+
+First, create a project and add Hiccup to your project.clj:
+
+.project.clj
+[source,clojure]
+----
+(defproject hiccup-templating "0.1.0-SNAPSHOT"
+  :description "Hiccup examples for Clojure Cookbook"
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [hiccup "1.0.4"]])
+----
+
+Then, start repl. The example below is a result of a whole html starting from a doctype declaration.
+As in the example, html tags and attributes are all in Clojure vectors and maps. Some extras are
+Hiccup provided utility functions, however, still, those are in Clojure syntax only.
+As in the Hiccup API document (http://weavejester.github.io/hiccup/index.html), usages of all functions are the same as other Clojure libraries.
+
+----
+user=> (use 'hiccup.page)
+nil
+user=> (html5 {:lang "en"} [:head (include-js "myscript.js") (include-css "mystyle.css")] [:body [:div [:h1 {:class "info"} "Hiccup"]]])
+"<!DOCTYPE html>\n<html lang=\"en\"><head><script src=\"myscript.js\" type=\"text/javascript\"></script><link href=\"mystyle.css\" rel=\"stylesheet\" type=\"text/css\"></head><body><div><h1 class=\"inf\
+o\">Hiccup</h1></div></body></html>"
+----
+
+Before going further to code Hiccup more, we need some sort of web application.
+Since html rendering is almost always done as a part of web application,
+Hiccup coding with the web application will give us a better idea.
+The examples of this section use Compojure (https://github.com/weavejester/compojure).
+This section won't explain much about Compojure. Please see the section about Compojure.
+
+
+Our project.clj will be the one like in below, which had compojure and ring-jetty-adapter dependencies and main.
+
+.project.clj
+[source,clojure]
+----
+(defproject hiccup-templating "0.1.0-SNAPSHOT"
+  :description "Hiccup examples for Clojure Cookbook"
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [hiccup "1.0.4"]
+                 [compojure "1.1.6"]
+                 [ring/ring-jetty-adapter "1.2.1"]]
+  :main hiccup-templating.core)
+----
+
+Now, let's write core.clj, which has a basic routing and starts up a server.
+
+.src/hiccup-templating/core.clj
+[source, clojure]
+----
+(ns hiccup-templating.core
+  (:require [compojure.core :refer [defroutes GET ANY]]
+            [compojure.route :as route]
+            [compojure.handler :as handler]
+            [ring.adapter.jetty :as jetty]
+            [hiccup-templating.views.layout :as layout]
+            [hiccup-templating.views.contents :as contents]))
+
+(defroutes routes
+  (GET "/" [] (layout/application "Home" (contents/index)))
+  (GET "/hello" [] (layout/application "Hello ???" (contents/hello)))
+  (route/resources "/")
+  (ANY "*" [] (route/not-found (layout/application "Page Not Found" (contents/not-found)))))
+
+(def application (handler/site routes))
+
+(defn -main []
+  (let [port (Integer/parseInt (or (System/getenv "PORT") "8080"))]
+    (jetty/run-jetty application {:port port :join? false})))
+----
+
+The core.clj above provides three pages. The first is a root ("/") path, the second is "/hello", and the last is a so-to-speak 404 page.
+Each page calls an application function with 2 arguments, title and contents.
+
+This example doesn't use any MVC-like framework, instead, takes a template style approach.
+layout/application function renders a base html as in below:
+
+.src/hiccup-templating/views/layout.clj
+[source, clojure]
+----
+(ns hiccup-templating.views.layout
+  (:use [hiccup.page :only (html5 include-css include-js)]))
+
+(defn application [title & content]
+  (html5 {:ng-app "" :lang "en"}
+         [:head
+          [:title title]
+          (include-css "/css/bootstrap.min.css")
+          (include-js "/js/jquery-1.10.2.min.js")
+          (include-js "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js")
+          [:body
+           [:div {:class "container"} content]]]))
+----
+
+This example uses twitter bootstrap and AngularJS. Those setting are included by Hiccup's include-css and include-js functions.
+
+All three page contests are provided by functions in contents.clj.
+
+.src/hiccup-templating/views/layout.clj
+[source, clojure]
+----
+(ns hiccup-templating.views.contents
+  (:use [hiccup.form :only (label text-field)]
+        [hiccup.element :only (link-to)]))
+
+(defn index []
+  [:div {:id "content"}
+   [:h1 {:class "text-success"} "Hello Hiccup"]])
+
+(defn hello []
+  [:div
+   [:h1 {:class "text-info"} "Hello Hiccup and Angular"]
+   [:div {:class "row"}
+    [:div {:class "span2"}
+     (label "name" "Name:")]
+    [:div {:class "span10"}
+     (text-field {:ng-model "yourName" :placeholder "Enter a name here"} "your-name")]]
+   [:hr]
+   [:h1 {:class "text-success"} "Hello {{yourName}}!"]])
+
+(defn not-found []
+  [:div
+   [:h1 {:class "info-worning"} "Page Not Found"]
+   [:p "There's no requested page. "]
+   (link-to {:class "btn btn-primary"} "/" "Take me to Home")])
+----
+
+The index function renders a simple html with a little style.
+The hello function renders an AngularJS example introduced on the AngularJS web site.
+The no-found function renders a simple message and button.
+
+The directory structure so far is:
+
+----
+hiccup-templating -+- project.clj
+                   +- resources -+- public -+- css -+- bootstrap.min.css
+                   |                        +- js -+- jquery-1.10.2.min.js
+                   |                               +- jquery-1.10.2.min.map
+                   +- src -+- hiccup-templating -+- core.clj
+                                                 +- views -+- contents.clj
+                                                           +- layout.clj
+----
+
+In the top, hiccup-templating directory, directory, type lein run, then jetty server will start running at port 8080.
+Go to http://localhost:8080/, you'll see the green text, "Hello Hiccup".
+If you request http://localhost:8080/hello, text input field and a text "Hello !" will show up.
+Type some characters in the text field. You can see AngularJS inserts the characters right next the word "Hello".
+We have one more page. To see the third page, request the page other than "/" and "/hello", for exaample,
+http://localhost:8080/somewhere. This comes down to the not-found function.
+
+==== Discussion
+
