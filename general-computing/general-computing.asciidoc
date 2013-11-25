@@ -1,6 +1,6 @@
 == General Computing
 
-include::introduction[]
+include::introduction.asciidoc[]
 
 include::interactive-docs/interactive-docs.asciidoc[]
 

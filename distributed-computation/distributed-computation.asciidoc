@@ -1,7 +1,7 @@
 [[ch_distributed]]
 == Distributed Computation
 
-include::introduction[]
+include::introduction.asciidoc[]
 
 include::stream-processing/stream-processing.asciidoc[]
 

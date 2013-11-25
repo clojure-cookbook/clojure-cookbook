@@ -1,7 +1,7 @@
 [[ch_testing]]
 == Testing
 
-include::introduction[]
+include::introduction.asciidoc[]
 
 include::unit-testing/unit-testing.asciidoc[]
 
