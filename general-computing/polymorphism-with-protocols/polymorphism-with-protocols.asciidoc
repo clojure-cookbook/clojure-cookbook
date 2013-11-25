@@ -12,8 +12,8 @@ For example, you want to develop a set of flexible geometry functions.
 
 ==== Solution
 
-The most easy way to implement run-time polymorphism is via
-hand-rolled map-based dispatch using functions like +cond+ or +condp+.
+The easiest way to implement run-time polymorphism is via hand-rolled
+map-based dispatch using functions like +cond+ or +condp+.
 
 [source,clojure]
 ----
@@ -69,7 +69,7 @@ functions and their implementations could be grouped and written
 together.
 
 Use Clojure's _protocol_ facilities to define a protocol interface and
-create concrete implementations.
+extend it with concrete implementations.
 
 [source,clojure]
 ----
@@ -107,6 +107,10 @@ geometry library in Clojure, but that is not to say it is without its
 uses. This approach is best used in-the-small; you could use +cond+ to
 prototype early iterations of a protocol at the REPL, or in places
 where you aren't defining new types.
+
+It's important to note, there are techiniques beyond +cond+ for
+implementing map-based dispatch. One such technique is a dispatch
+map, generally implemented as a map of keys to functions.
 
 Next up are multimethods. Unlike +cond+-based polymorphism,
 multimethods separate dispatch from implementation. On account of
