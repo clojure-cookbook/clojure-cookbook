@@ -41,13 +41,13 @@ A quick win using +pmap+ over a sequence returned by +file-seq+.
 ==== Discussion
 
 The idea is to use +pmap+ to map over the sequence of file rows in
-parallel.  However, you then need to pass each processed row through
+parallel. However, you then need to pass each processed row through
 +(map #(.write wtr %) ...)+ in order to ensure the rows are written
 one-at-a-time (put the write in the processing function to see what
-happens otherwise !).  Finally, as these are lazy sequences we need to
+happens otherwise!). Finally, as these are lazy sequences we need to
 realise their side-effects before exiting the +with-open+ block or the
-file will be closed by the time we wish to evaluate them.  We do this
-by calling +dorun+
+file will be closed by the time we wish to evaluate them. This is
+accomplished by calling +dorun+
 
 There are couple of caveats here. Firstly, although the row ordering
 of the output file will match that of the input, the execution order

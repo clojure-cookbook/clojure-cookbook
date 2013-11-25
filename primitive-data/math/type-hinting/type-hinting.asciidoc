@@ -120,7 +120,7 @@ negative one.
 ----
 ;; With checked math, you cannot overflow an integer
 (inc Long/MAX_VALUE)
-;; ArithmeticException integer overflow  clojure.lang.Numbers.throwIntOverflow (Numbers.java:1388)
+;; ArithmeticException integer overflow  ...
 
 (time (dotimes [n 999999999] (inc n)))
 ;; "Elapsed time: 690.88 msecs"

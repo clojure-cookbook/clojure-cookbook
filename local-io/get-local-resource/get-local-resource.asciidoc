@@ -1,5 +1,5 @@
 [[sec_local_io_get_local_resource]]
-=== Including and Accessing Resource Files in a Clojure Project
+=== Accessing Resource Files
 [role="byline"]
 by John Jacobsen with help from John Cromartie and Alex Petrov
 
@@ -10,8 +10,8 @@ Clojure project.
 
 ==== Solution
 
-Place the resource files in the +resources/+ directory at the top level
-of your Leiningen project.
+Place resource files in the +resources/+ directory at the top level of
+your Leiningen project.
 
 For example, a file +resources/people.edn+:
 

@@ -14,7 +14,8 @@ The quickest method for formatting values into a string with the +str+ function.
 [source,clojure]
 ----
 (def me {:first-name "Ryan", :favorite-language "Clojure"})
-(str "My name is " (:first-name me) ", and I really like to program in " (:favorite-language me))
+(str "My name is " (:first-name me)
+     ", and I really like to program in " (:favorite-language me))
 ;; -> "My name is Ryan, and I really like to program in Clojure"
 
 (apply str (interpose " " [1 2.000 (/ 3 1) (/ 4 9)]))

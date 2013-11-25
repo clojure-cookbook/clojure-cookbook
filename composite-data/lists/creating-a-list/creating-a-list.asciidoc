@@ -56,10 +56,6 @@ That said, +'()+ is the idiomatic way to create an empty list - it is
 more terse, and the concern about evaling its contents is
 irrelevant when it's empty.
 
-==== See Also
-
-* <<sec_composite_creating_a_vector>>
-
 .Lists versus Vectors
 ****
 
@@ -79,3 +75,7 @@ the beginning, which lists do; vectors are most efficient when
 appending items to the end.
 
 ****
+
+==== See Also
+
+* <<sec_composite_creating_a_vector>>

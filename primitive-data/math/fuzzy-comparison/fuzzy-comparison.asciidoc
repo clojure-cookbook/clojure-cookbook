@@ -88,11 +88,15 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance.
 ;; -> (11 10 9 100 150) ; 100 and 150 have moved, but not 11, 10, 9
 ----
 
-* <1> If the two values being compared are within +tolerance+ of each
-  other, return +0+ to indicate they are equal.
-* <2> Otherwise fallback to normal +compare+
+<1> If the two values being compared are within +tolerance+ of each
+    other, return +0+ to indicate they are equal.
+<2> Otherwise fallback to normal +compare+
 
 ==== See Also
 
-* See the Wikipedia article on http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating Point] for more detailed information on floating point numbers.
-* <<sec_primitives_arbitrary_precision>>
+* See the Wikipedia article on
+  http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating
+  Point] for more detailed information on floating point numbers.
+* See <<sec_primitives_arbitrary_precision>> for more general
+  information on numeric precision.
+

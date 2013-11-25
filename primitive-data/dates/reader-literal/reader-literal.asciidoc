@@ -21,7 +21,7 @@ time.
 ----
 
 When communicating with other Clojure processes (or anything else that
-speaks https://github.com/edn-format/edn[edn] use +clojure.edn/read+
+speaks https://github.com/edn-format/edn[edn]) use +clojure.edn/read+
 to reify instant literal strings into Date objects.
 
 [source,clojure]
