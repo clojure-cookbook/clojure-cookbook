@@ -1,0 +1,343 @@
+=== Hierarchical Graph Querying with core.logic
+[role="byline"]
+by Ryan Senior
+
+==== Problem
+
+You have a graph-like, hierarchical data structure, serialized as a
+flat list of nodes that you want to query. For example, you have a
+graph of movie metadata represented as entity-attribute-value triples.
+Writing this code with the standard seq functions has proven to be too
+tedious and error prone.
+
+==== Solution
+
+The _core.logic_ library is a Clojure implementation of the
+_miniKanren_ Domain Specific Langauge for logic programming. It's
+declarative style is well suited for querying flattened hierarchical
+data.
+
+To follow along with this recipe, start a REPL using lein-try:
+
+[source,console]
+----
+lein try org.clojure/core.logic
+---- 
+
+The first thing you need is a dataset to query. Consider, for example,
+that you have represented a graph of movie metadata as a list of tuples:
+
+[source,clojure]
+----
+(def movie-graph
+  [;; The "Newmarket Films" studio
+   [:a1 :type :FilmStudio]
+   [:a1 :name "Newmarket Films"]
+   [:a1 :filmsCollection :a2]
+   
+   ;; Collection of films made by Newmarket Films
+   [:a2 :type :FilmCollection]
+   [:a2 :film :a3]
+   [:a2 :film :a6]
+   
+   ;; The movie "Memento"
+   [:a3 :type :Film]
+   [:a3 :name "Memento"]
+   [:a3 :cast :a4]
+   
+   ;; Connects the film to it's cast (actors/director/producer etc)
+   [:a4 :type :FilmCast]
+   [:a4 :director :a5]
+   
+   ;; The director of "Memento"
+   [:a5 :type :Person]
+   [:a5 :name "Christopher Nolan"]
+
+   ;; The movie "The Usual Suspects"
+   [:a6 :type :Film]
+   [:a6 :filmName "The Usual Suspects"]
+   [:a6 :cast :a7]
+   
+   ;; Connects the film to its cast (actors/director/producer etc)
+   [:a7 :type :FilmCast]
+   [:a7 :director :a8]
+   
+   ;; The director of "The Usual Suspects"
+   [:a8 :type :Person]
+   [:a8 :name "Bryan Singer"]])
+----   
+
+With all of this data in hand, how would you go about querying it? In
+an imperative model, you would likely arduously "connect the dots"
+from node to node using filters, maps and conditionals footnote:[Oh
+my!]. With core.logic, however, it is possible to connect these dots
+using declarative logic statements.
+
+For example, to answer the question: "which directors have made movies
+at a given studio," create a number of dots (_logic variables_) using
++clojure.core.logic/fresh+ and connect (_ground_) them using
++clojure.core.logic/membero+. Finally, invoke
++clojure.core.logic/run*+ to obtain all of the possible solutions.
+
+[source,clojure]
+----
+(require '[clojure.core.logic :as cl])
+
+(defn directors-at
+  "Find all of the directors that have directed at a given studio"
+  [graph studio-name]
+  (cl/run* [director-name]
+    (cl/fresh [studio film-coll film cast director]
+      ;; Relate the original studio-name to a film collection
+      (cl/membero [studio :name studio-name] graph)
+      (cl/membero [studio :type :FilmStudio] graph)
+      (cl/membero [studio :filmsCollection film-coll] graph)
+
+      ;; Relate any film collections to their individual films
+      (cl/membero [film-coll :type :FilmCollection] graph)
+      (cl/membero [film-coll :film film] graph)
+
+      ;; Then from film to cast members
+      (cl/membero [film :type :Film] graph)
+      (cl/membero [film :cast cast] graph)
+      
+      ;; Grounding to cast members of type :director
+      (cl/membero [cast :type :FilmCast] graph)
+      (cl/membero [cast :director director] graph)
+      
+      ;; Finally, attach to the director-name
+      (cl/membero [director :type :Person] graph)
+      (cl/membero [director :name director-name] graph))))
+
+(directors-at movie-graph "Newmarket Films")
+;; -> ("Christopher Nolan" "Bryan Singer")
+----
+
+==== Discussion
+
+_miniKanren_ is a Domain Specific Language written in Scheme, intended
+to give many of the benefits of a logic programming language (such as
+Prolog) from within Scheme. An implementation of _miniKanren_ was
+created by David Nolen for Clojure, with a focus on performance. One
+of the benefits of logic programming languages is their very
+declarative style. By using core.logic we are able to say _what_ we
+are looking for in the graph without saying _how_ core.logic should go
+about finding it.
+
+In general, all _core.logic_ queries begin with one of the libraries
++run+ macros; +clojure.core.logic/run+ returning a finite number of
+solutions, and +clojure.core.logic/run*+ returning *all* of the
+solutions. 
+
+The first argument to the +run+ macro is the _goal_, a variable used
+to store the result of the query. In the solution above, this was the
++director-name+ variable. The rest is the body of the core.logic
+program. A program is made up _logic_variables_ (created using
++clojure.core.logic/fresh+) ground to values or constrained by logic
+statements.
+
++run+ is a clue that our programming paradigm is changing to logic
+programming. In a core.logic program, _unification_ is used rather
+than traditional variable assignment and seqential expression
+evaluation. Unification uses substitution of variables for values in
+an attempt to make two expressions syntactically identical. Statements
+in a core.logic program can appear in any order. For example, you can use
++clojure.core.logic/==+ to unify 1 and +q+:
+
+[source,clojure]
+----
+(cl/run 1 [q]
+  (cl/== 1 q))
+;; -> (1)
+
+(cl/run 1 [q]
+  (cl/== q 1))
+;; -> (1)
+----
+
+core.logic is also able to unify the contents of lists and vectors,
+finding the right substitution to make both expressions the same:
+
+[source,clojure]
+----
+(cl/run 1 [q]
+  (cl/== [1 2 3]
+         [1 2 q]))
+;; -> (3)
+
+(cl/run 1 [q]
+  (cl/== ["foo" "bar" "baz"]
+         [q     "bar" "baz"]))
+;; -> ("foo")
+----
+
+Technically speaking, unification is a relation, relating the first
+form with the second form. This is a kind of puzzle for core.logic to
+solve. In the above example, +q+ is a logic variable and core.logic is
+charged with binding a value to +q+ such that the left and the right
+side of the unification (the +clojure.core.logic/==+ relation) are
+syntactically identical. When there is no binding that satisfies the
+puzzle, no solution exists:
+
+[source,clojure]
+----
+;; There is no way a single value is both 1 AND 2
+(cl/run 1 [q]
+  (cl/== 1 q)
+  (cl/== 2 q))
+;; -> ()
+----
+
++fresh+ is one way to create more logic variables:
+
+[source,clojure]
+----
+(cl/run 1 [q]
+  (cl/fresh [x y z]
+    (cl/== x 1)
+    (cl/== y 2)
+    (cl/== z 3)
+    (cl/== q [x y z])))
+;; -> ([1 2 3])
+----
+
+Just as +clojure.core.logic/==+ is a relation between two forms,
++clojure.core.logic/membero+ is a relation between an element in a
+list and the list itself:
+
+[source,clojure]
+----
+(cl/run 1 [q]
+  (cl/membero q [1]))
+;; -> (1)
+
+(cl/run 1 [q]
+  (cl/membero 1 q))
+;; -> ((1 . _0))
+----
+
+The first example is asking for any member of the list +[1]+, which
+happens to only be 1. The second example is the opposite, any list
+where +1+ is a member. The dot notation indicates an improper tail
+with +_0+ in it. This means +1+ could be in a list by itself or +1+
+could be followed by any other sequence of numbers/strings/lists etc.
++_0+ is an unbound variable, since there was no further restriction on
+the list, other than +1+ being an element.
+
+[WARNING]
+++++
++clojure.core.logic/run*+ is a macro that asks for all possible
+solutions. Asking for all of the lists that contain a +1+ will not
+terminate.
+++++
+
+Unification can peek inside structures with
++clojure.core.logic/membero+ as well:
+
+[source,clojure]
+----
+(cl/run 1 [q]
+  (cl/membero [1 q 3] [[1 2 3] [4 5 6] [7 8 9]]))
+;; -> (2)
+----
+
+Logic variables live for the duration of the program, making it
+possible to use the same logic variable in multiple statements:
+
+[source,clojure]
+----
+(let [seq-a [["foo" 1 2] ["bar" 3 4] ["baz" 5 6]]
+      seq-b [["foo" 9 8] ["bar" 7 6] ["baz" 5 4]]]
+  (cl/run 1 [q]
+    (cl/fresh [first-item middle-item last-a last-b]
+      (cl/membero [first-item middle-item last-a] seq-a)
+      (cl/membero [first-item middle-item last-b] seq-b)
+      (cl/== q [last-a last-b]))))
+;; -> ([6 4])
+----
+
+The example above does not specify +first-item+, only that it should
+be the same for +seq-a+ and +seq-b+. core.logic uses the data provided
+to bind values to the variable that satisfy the constraints. The same
+is true with +middle-item+.
+
+Building up from this, we can traverse the graph described in the
+solution.
+
+[source,clojure]
+----
+(cl/run 1 [director-name]
+  (cl/fresh [studio film-coll film cast director]
+    (cl/membero [studio :name "Newmarket Films"] graph)
+    (cl/membero [studio :type :FilmStudio] graph)
+    (cl/membero [studio :filmsCollection film-coll] graph)
+
+    (cl/membero [film-coll :type :FilmCollection] graph)
+    (cl/membero [film-coll :film film] graph)
+
+    (cl/membero [film :type :Film] graph)
+    (cl/membero [film :cast cast] graph)
+
+    (cl/membero [cast :type :FilmCast] graph)
+    (cl/membero [cast :director director] graph)
+    
+    (cl/membero [director :type :Person] graph)
+    (cl/membero [director :name director-name] graph)))
+;; -> ("Christopher Nolan")
+----
+
+There is one minor difference from the above code and the original
+solution. Rather than using +clojure.core.logic/run*+, asking for all
+solutions, +clojure.core.logic/run 1+ was used. The program above has
+multiple answers to the query for a director at "Newmarket Films".
+Asking for more answers will return more with no other code change.
+
+[TIP]
+++++
+Slight modifications to the query above can significantly change the
+results. Swapping "Newmarket Films" for a new fresh variable will
+return all directors, for all studios. A macro could also be created
+to reduce some of the code duplication if desired.
+++++
+
+One benefit of the relational solution to this problem is being able
+to generate a graph from the values:
+
+[source,clojure]
+----
+(first
+  (cl/run 1 [graph]
+    (cl/fresh [studio film-coll film cast director]
+      (cl/membero [studio :name "Newmarket Films"] graph)
+      (cl/membero [studio :type :FilmStudio] graph)
+      (cl/membero [studio :filmsCollection film-coll] graph)
+
+      (cl/membero [film-coll :type :FilmCollection] graph)
+      (cl/membero [film-coll :film film] graph)
+
+      (cl/membero [film :type :Film] graph)
+      (cl/membero [film :cast cast] graph)
+
+      (cl/membero [cast :type :FilmCast] graph)
+      (cl/membero [cast :director director] graph)
+    
+      (cl/membero [director :type :Person] graph)
+      (cl/membero [director :name "Baz"] graph))))
+;; -> ([_0 :name "Newmarket Films"] [_0 :type :FilmStudio] [_0 :filmsCollection _1] ...)
+----
+
+[TIP]
+++++
+For small graphs, membero is fast enough. Larger graphs will
+experience performance problems as core.logic will traverse the list
+many times to find the elements. Using _clojure.core.logic/to-stream_
+with some basic indexing can greatly improve the query performance.
+++++
+
+==== See Also
+
+* The Reasoned Schemer - By Daniel P. Friedman, William E. Byrd and Oleg Kiselyov
+* https://github.com/clojure/core.logic/wiki[The core.logic wiki]
+* http://minikanren.org/[The miniKanren] website
+* See https://github.com/clojure/core.logic[core.logic repository] for examples of using _clojure.core.logic/to-stream_
+* https://github.com/clojure/core.match[core.match], a (non-unification) matching library with some similar ideas, described briefly in <<sec_core_match_parser>>

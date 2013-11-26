@@ -5,7 +5,7 @@
 for filename in `find . -name "*.asciidoc"`; do
   # Skip the root conventions, it is a false positive.
   if [ $filename == "./conventions.asciidoc" ] ||
-     [ $filename == "./clojure-cookbook.asciidoc"]; then
+     [ $filename == "./clojure-cookbook.asciidoc" ]; then
     continue
   fi
 
