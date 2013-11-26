@@ -1,0 +1,52 @@
+=== Introduction
+
+Now that we've got primitives out of the way, we need to start doing
+something with them. Single atomic values are great and all, but
+things get much more interesting when we start globbing them all
+together. As you'll see soon enough, data manipulation is one of
+Clojure's strong suits.
+
+What makes Clojure so good at manipulating collections? It comes down
+to two things: _persistence_ and the _sequence_ abstraction. Every one
+of Clojure's many collections have these properties and are thus
+unified in their API's appearance and behavior.
+
+As the great Alan J. Perlis put it:
+
+[quote, Alan J. Perlis, Early Computer Science Pioneer]
+____
+It is better to have 100 functions operate on one data structure than
+to have 10 functions operate on 10 data structures.
+____
+
+This chapter introduces Clojure collections and where/how to use them.
+Finally, we wrap things up by showing you how to build your own
+feature-complete types that look and behave just like the rest of
+Clojure's collections.
+
+==== Persistence
+
+What does it mean to say that Clojure's collections are persistent?
+Persistence, in this context, refers to "Persistent Data Structures,"
+a type of data structure that is _immutable_. More precisely,
+manipulating a persistent data structure never mutates the original,
+it merely returns a new version with an addendum tacked on.
+
+Persistence is one of the more subtle features of Clojure; it doesn't
+seem like it adds much at face value, but it fundamentally shifts the
+paradigms on which we work with data. Instead of tossing around lossy
+pointers and references our programs can move raw _facts_ and values.
+
+==== The Sequence Abstraction
+
+From vectors, maps, sets and lists to strings and streams, every last
+one of Clojure's collections behave in a similar, predictable fashion;
+simple tools for a more civilized age. This is on account of Clojure's
+sequence abstraction.
+
+The wide-array of collection manipulating functions in Clojure are all
+implemented in terms of one simple abstraction; every collection can
+be treated as a sequence of values. By implementing +first+, +rest+
+and +cons+ any data structure--even ones you build yourself--can
+participate in the +ISeq+ interface.
+

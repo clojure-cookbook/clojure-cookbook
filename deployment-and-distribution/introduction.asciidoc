@@ -1,0 +1,12 @@
+=== Introduction
+
+You've spent all of this time developing your next big thing, what's
+next but to ship it to the wild? Whether it is a product, internal
+service or library, the last step (but most important one) is
+delivering the fruits of your labor to your audience.
+
+This is a chapter all about finishing the last 20% of your work. Be
+the task performance, logging, release or long-term maintenance, it's
+all important in shipping something that is truly excellent. There is
+certainly a lot to worry about when your baby finally leaves home; we
+hope these recipes help you get it right.

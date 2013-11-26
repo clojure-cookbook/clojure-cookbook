@@ -1,10 +1,10 @@
 == Primitive Data
 
+include::introduction.asciidoc[]
+
 ////////////////////
 Strings & Characters
 ////////////////////
-
-include::strings/introduction/introduction.asciidoc[]
 
 include::strings/capitalizing-strings/capitalizing-strings.asciidoc[]
 

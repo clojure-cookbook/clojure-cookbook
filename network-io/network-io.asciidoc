@@ -1,6 +1,8 @@
 [[ch_network_io]]
 == Network IO & Web Services
 
+include::introduction.asciidoc[]
+
 include::making-an-http-request/making-an-http-request.asciidoc[]
 
 include::async-http-requests/async-http-requests.asciidoc[]

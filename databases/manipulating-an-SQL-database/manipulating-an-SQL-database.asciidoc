@@ -192,7 +192,7 @@ If an exception is thrown, the transaction is rolled back:
 ;; Query how many items the table has now:
 (defn fruit-count 
   "Query how many items are in the fruit table." 
-  [db]
+  [db-spec]
   (let [result (jdbc/query db-spec (sql/select "count(*)" :fruit))]
     (:count (first result))))
 

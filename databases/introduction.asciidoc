@@ -1,0 +1,24 @@
+=== Introduction
+
+Storing data in a database is not an uncommon task for developers in
+this day and age, it's practically a given. Like nearly every language
+under the sun there exist a bevy of drivers and clients to interact
+with databases from Clojure. What sets Clojure apart, however, is its
+ability to _compose_.
+
+As we've said before in this book: in Clojure, data is king. You'll
+find many of the database client libraries do a little legwork to
+connect you to the datastore, then promptly get out of your way.
+Libraries such as this don't do so out of laziness (at least, we
+hope), but rather out of separation of concern; I'll handle connecting
+to the database, you handle the domain (your data).
+
+In this chapter, we'll visit a a wide number of databases and techniques, including
+the SQLs, full-text search, Mongo, Redis and our favorite, Datomic.
+
+One of the more interesting developments in the Database landscape as
+of late has been Datomic, a value-oriented, time-based database
+unashamedly developed at our place of employ, Cognitect. Datomic
+embodies many of the core principles of Clojure, albeit in a
+datastore; if you like Clojure so far, we're confident you'll like
+Datomic as well.

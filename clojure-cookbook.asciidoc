@@ -1,10 +1,10 @@
 include::frontmatter/frontmatter.asciidoc[]
 
-include::basics/basics.asciidoc[]
-
 include::primitive-data/primitive-data.asciidoc[]
 
 include::composite-data/composite-data.asciidoc[]
+
+include::general-computing/general-computing.asciidoc[]
 
 include::local-io/local-io.asciidoc[]
 
@@ -16,10 +16,8 @@ include::databases/databases.asciidoc[]
 
 include::webapps/webapps.asciidoc[]
 
-include::deployment/deployment.asciidoc[]
+include::deployment-and-distribution/deployment-and-distribution.asciidoc[]
 
 include::distributed-computation/distributed-computation.asciidoc[]
 
 include::testing/testing.asciidoc[]
-
-include::kitchen-sink/kitchen-sink.asciidoc[]

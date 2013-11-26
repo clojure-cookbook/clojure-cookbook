@@ -80,7 +80,7 @@ You'll find an _employees.pdf_ in the directory you ran your
 project/REPL--it looks something like this:
 
 ._employees.pdf_
-image::employees.pdf.png["Contents of the employees.pdf file"]
+image::local-io/pdf/employees.pdf.png["Contents of the employees.pdf file"]
 
 ==== Discussion
 

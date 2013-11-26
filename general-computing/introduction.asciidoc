@@ -1,0 +1,15 @@
+==== Introduction
+
+There's a saying in business that "no organization operates in a
+vacuum." The same applies to Clojure. For all the cool tools and
+techniques Clojure offers, there are still a number of activities and
+techniques at the periphery of Getting Things Done. Some might call
+them incidental complexity, but for the time, we call them "life."
+
+This chapter covers some of the fringe topics in Clojure that don't
+quite fill chapters on their own. Topics like:
+
+* How do Clojure's developer-centric tools work?
+* How do I try a library?
+* How does polymorphism work in Clojure?
+* What *is* logic programming?

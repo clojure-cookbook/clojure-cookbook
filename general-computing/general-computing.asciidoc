@@ -1,0 +1,24 @@
+== General Computing
+
+include::introduction.asciidoc[]
+
+include::interactive-docs/interactive-docs.asciidoc[]
+
+include::exploring-namespaces/exploring-namespaces.asciidoc[]
+
+include::main/main.asciidoc[]
+
+include::creating-executable-jar/creating-executable-jar.asciidoc[]
+
+include::trying-a-library/trying-a-library.asciidoc[]
+
+include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
+
+include::extend-built-in/extend-built-in.asciidoc[]
+
+include::parser-with-core-match/parser-with-core-match.asciidoc[]
+
+include::core-logic/core-logic.asciidoc[]
+
+include::nursery-rhyme/nursery-rhyme.asciidoc[]
+
