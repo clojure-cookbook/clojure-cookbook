@@ -7,6 +7,13 @@ suite of tests is a statement to yourself and any one that comes after
 you: "This is how this application works, now and so long as this test
 passes."
 
+In addition to tests, several other tools have recently sprung up in
+the Clojure space aimed at improving program reliability. Often, these
+focus on validating that data looks as expected, to guard programs
+from recieving input they don't know how to handle. These solutions
+range from optional static typing with algabraic types analyzed at
+compile time, down to simple preconditions.
+
 Admittedly, testing is a bit of hot-button topic in the Clojure
 community right now. People are starting to question: "are these tests
 worthwhile, or is there a better way to think about
