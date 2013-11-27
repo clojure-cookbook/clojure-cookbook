@@ -140,5 +140,5 @@ _Italic_::
   examples to show both input and output; and in regular text to show
   literal code.
 *+Constant Width Bold+*::
-  is used to indicate commands that should you should enter literally
-  at the command-line.
+  is used to indicate commands that you should enter literally at the
+  command-line.
