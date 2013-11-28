@@ -12,18 +12,30 @@ trying to test your Cascalog jobs.
 Midje-Cascalog provides a small amount of extra functionality that
 makes writing tests for Cascalog jobs quite easy.
 
-Add the following entries to the dev profile in your project.clj or
-your personal lein profile:
-[source,clojure]
+To follow along with this recipe, clone the
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples
+GitHub repository] and checkout the +testing-begin+ branch. This will
+give you a basic Cascalog project as created in <<sec_cascalog_etl>>.
+
+Now add the Midje plugin and Midje-Cascalog dependency to the +:dev+
+profile in your _project.clj_. The +:profiles+ key should now look
+like this:
+
 ----
-[lein-midje "3.0.1"]
-[cascalog/midje-cascalog "1.10.2"]
+(defproject cookbook "0.1.0-SNAPSHOT"
+  ;; ...
+  :profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]
+                                  [cascalog/midje-cascalog "2.0.0"]]
+                   :plugins [[lein-midje "3.1.1"]]}})
 ----
 
-Given a query like the following:
+Create a simple query in _src/cookbook/test_me.clj_ to write a test
+against.
+
+._src/cookbook/test_me.clj_
 [source,clojure]
 ----
-(ns cookbook.midje-cascalog
+(ns cookbook.test-me
   (:require [cascalog.api :refer :all]))
 
 (defn capitalize [s]
@@ -35,10 +47,13 @@ Given a query like the following:
     (capitalize ?author :> ?capitalized-author)))
 ----
 
-The Midje-Cascalog test would look like this:
+You can now write a test for this query in
+_test/cookbook/test_me_test.clj_.
+
+._test/cookbook/test_me_test.clj_
 [source,clojure]
 ----
-(ns cookbook.midje-cascalog-test
+(ns cookbook.test-me-test
   (:require [cookbook.midje-cascalog :refer :all]
             [midje
               [sweet :refer :all]
@@ -52,24 +67,48 @@ The Midje-Cascalog test would look like this:
                                     ["Ryan Neufeld"]]))
 ----
 
+[NOTE]
+====
+The full contents of this solution is available in the
++testing-complete+ branch of the
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples
+repository].
+
+Check out that branch to retrieve a full working copy with sample data.
+
+[source,shell]
+----
+$ git checkout testing-complete
+----
+====
+
+Finally, run the tests with +lein midje+:
+
+[source,console]
+----
+lein midje
+2013-11-09 12:19:27.844 java[3620:1703] Unable to load realm info from SCDynamicStore
+All checks (1) succeeded.
+----
+
 ==== Discussion
 
-Unit testing is an important aspect of software
-craftsmanship. However, unit testing Hadoop workflows is difficult, to
-say the least. Most distributed computing development is done using
-trial and error, with only limited manual testing happening before the
-workflow is "good enough" and put into production use. You shouldn't
-let your code quality slip, but testing distributed code can be
-difficult. Midje-Cascalog makes it easy to test different parts of
-your Cascalog workflow by making it dead simple to mock out the
-results of subqueries.
+Unit testing is an important aspect of software craftsmanship.
+However, unit testing Hadoop workflows is difficult, to say the least.
+Most distributed computing development is done using trial and error,
+with only limited manual testing happening before the workflow is
+"good enough" and put into production use. You shouldn't let your code
+quality slip, but testing distributed code can be difficult.
+Midje-Cascalog makes it easy to test different parts of your Cascalog
+workflow by making it dead simple to mock out the results of
+subqueries.
 
 In the solution outlined above, you are testing a simple query. It
-reads lines from the input path, capitalizes and outputs
-them. Normally, you'd need to make sure part of the test wrote some
-test data into a file, then reference that file in the test, then
-cleanup and delete the file. Instead, using Midje-Cascalog, you mock
-the +hfs-textline+ call.
+reads lines from the input path, capitalizes and outputs them.
+Normally, you'd need to make sure part of the test wrote some test
+data into a file, then reference that file in the test, then cleanup
+and delete the file. Instead, using Midje-Cascalog, you mock the
++hfs-textline+ call.
 
 +fact+ is provided by the +midje+ library, which is well worth
 learning on its own. It is an alternative to +deftest+ from
@@ -81,5 +120,9 @@ test only the function in question, and not the functions it depends
 on.
 
 Testing your Cascalog workflows is as important as testing any other
-part of your application. With Midje-Cascalog, you can no longer
-excuse your lack of tests.
+part of your application. With Midje-Cascalog, this is actually
+possible.
+
+==== See Also
+
+* Learn more about Midje in <<sec_midje>>.

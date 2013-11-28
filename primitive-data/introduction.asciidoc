@@ -1,0 +1,78 @@
+=== Introduction
+
+Clojure is a fantastic language for tackling *hard* problems. Its
+_simple_ tools let us software developers build up layer upon layer of
+abstractions until we've tackled some of the world's most difficult
+problems with ease. Like chemistry every great Clojure program boils
+down to simple atoms--these are our primitives.
+
+Standing on the shoulder of the Java giants from days of yore, Clojure
+leverages a fantastic array of battle-hardened types present in the
+JVM; strings, numeric types, dates, UUIDs, you name it, Clojure has
+it all. This chapter dives in to the primitives of Clojure and how to
+accomplish common tasks.
+
+==== Strings
+
+Almost every programming language knows how to work with and deal in
+strings. Clojure is no exception, and despite a few differences,
+Clojure provides the same general capabilites as most other
+languages.Here are a few key differences we think you should know
+about:
+
+First, Clojure strings are backed by Java's UTF-16 strings. You don't
+need to add comments to files to indicate string encoding or worry
+about losing characters in translation. Your Clojure programs are
+ready to communicate in the world beyond a-Z.
+
+Second, unlike languages like Perl or Ruby which have extensive string
+libraries, Clojure has a rather spartan built-in string
+manipulation library. This may seem odd at first, but Clojure prefers
+simple and composable tools; any of the plethora of collection
+modifying functions in Clojure are all perfectly capable of accepting
+strings - they're collections too! For this reason Clojure's string
+library is unexpectedly small. You'll find that small set of very
+string-specific functions in the +clojure.string+ namespace.
+
+Clojure also embraces its host platform (the JVM), and does not
+duplicate functionality already adequalty performed by Java's
++java.lang.String+ class. Using Java interop in Clojure is not a
+failure - the langauge is designed to make it straightforward, and
+using the built-in string methods is usually just as easy as invoking
+a Clojure function.
+
+We suggest you "require as" the +clojure.string+ namespace when you
+need it. Blindly ++:use++ing a namespace is always annoying, and often
+results in collisions/confusion. Prefixing everything with
++clojure.string+ is kind of odd, so we prefer to alias it to +str+ or +s+.
+
+[source,clojure]
+----
+(require '[clojure.string :as str])
+
+(str/blank? "")
+;; -> true
+----
+
+==== Numeric Types
+
+The veneer between Clojure and Java is a little thicker over the
+numeric types. This isn't necessarily a bad thing, though; while
+Java's numeric types can be extremely fast or arbitrarily precise,
+numerics overall don't have the prettiest set of interfaces to work
+with. Clojure unifies the various numeric types of Java into one
+coherent package, with clear escape hatches at every turn.
+
+The recipes on numeric types in this chapter will show you how to work with
+these hatches, showing you how to be as fast or precise or expressive
+as you desire.
+
+==== Dates
+
+Dates and times have a long and varied history in the Java
+ecosystem. Do you want a +Date+, +Time+, +DateTime+ or a +Calendar+?
+Who knows. And why are these APIs all so wonky!? The recipes in this
+chapter should hopefully illuminate how and when to use the
+appropriate built-in types, and when to look to an external library
+when built-ins aren't sufficient (or are just too darned difficult to
+use).

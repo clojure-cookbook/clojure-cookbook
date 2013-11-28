@@ -1,16 +1,17 @@
 [[sec_local_io_get_local_resource]]
-=== Including and Accessing Resource Files in a Clojure Project
+=== Accessing Resource Files
 [role="byline"]
 by John Jacobsen with help from John Cromartie and Alex Petrov
 
 ==== Problem
 
-You want to include resource files in your project and access them.
+You want to include a resource files from the classpath in your
+Clojure project.
 
 ==== Solution
 
-Places resource files in the +resources/+ directory at the top level
-of your project.
+Place resource files in the +resources/+ directory at the top level of
+your Leiningen project.
 
 For example, a file +resources/people.edn+:
 
@@ -21,7 +22,10 @@ For example, a file +resources/people.edn+:
  {:first-name "Rich", :last-name "Hickey", :language "Clojure"}]
 ----
 
-Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.io/resource+] to read it.
+Pass the the name of the file (relative to the resources directory) to
+the +clojure.java.io/resource+ function to obtain an instance of
++java.io.File+, which you can then read as you please (for example,
+using the +slurp+ function).
 
 [source,clojure]
 ----
@@ -39,15 +43,20 @@ Use http://clojuredocs.org/clojure_core/clojure.java.io/resource[+clojure.java.i
 
 ==== Discussion
 
-Resources are loaded via the classpath. Leiningen puts the
-+resources/+ directory on the classpath automatically; when packaged,
-the contents of +resources/+ are copied to the root of the JAR. Data
-packaged this way will therefore continue to be available to your code
-after your JAR file is distributed.
+Resources are commonly used to store any kind of file that is
+logically a part of your application, but is not code.
 
-You can also specify other resource directories using the `:resources-paths` key in your `project.clj`.
+Resources are loaded via the Java classpath, just like Clojure code
+is. Leiningen puts the +resources/+ directory on the classpath
+automatically whenever it starts a Java process, and when packaged,
+the contents of +resources/+ are copied to the root of any emitted JAR
+files.
 
+You can also specify an alternative (or additional) resource directories using the
+`:resources-paths` key in your `project.clj`.
+
+.project.clj
 [source,clojure]
 ----
-    :resource-paths ["src/main/resources"] ; inside src instead of project root
+:resource-paths ["my-resources" "src/other-resources"]
 ----

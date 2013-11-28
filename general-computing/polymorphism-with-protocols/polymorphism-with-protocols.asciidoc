@@ -1,0 +1,322 @@
+[[polymorphism_with_protocols]]
+=== Polymorphism
+[role="byline"]
+by Ryan Neufeld, originally submitted by David McNeil
+
+==== Problem
+
+You want to create functions whose behavior varies based upon the
+arguments passed to them.
+
+For example, you want to develop a set of flexible geometry functions.
+
+==== Solution
+
+The easiest way to implement run-time polymorphism is via hand-rolled
+map-based dispatch using functions like +cond+ or +condp+.
+
+[source,clojure]
+----
+(defn area
+  "Calculate the area of a shape"
+  [shape]
+  (condp = (:type shape)
+    :triangle  (* (:base shape) (:height shape) 1/2)
+    :rectangle (* (:length shape) (:width shape))))
+
+(area {:type :triangle :base 2 :height 4})
+;; -> 4N
+
+(area {:type :rectangle :length 2 :width 4})
+;; -> 8
+----
+
+This approach is a little raw, though; +area+ ties together dispatch
+and multiple shapes' area implementations, all under one function. Use
+the +defmulti+ and +defmethod+ macros to define a multimethod,
+separatating dispatch from implementation, and introducing a measure
+of extensibility.
+
+[source,clojure]
+----
+(defmulti area
+  "Calculate the area of a shape"
+  :type)
+
+(defmethod area :rectangle [shape]
+  (* (:length shape) (:width shape)))
+
+(area {:type :rectangle :length 2 :width 4})
+;; -> 8
+
+;; Trying to get the area of a new shape...
+(area {:type :circle :radius 1})
+;; -> IllegalArgumentException No method in multimethod 'area' for
+;;    dispatch value: :circle ...
+
+(defmethod area :circle [shape]
+  (* (. Math PI) (:radius shape) (:radius shape)))
+
+(area {:type :circle :radius 1})
+;; -> 3.141592653589793
+----
+
+Better, but things start to fall apart if you want to add new
+geometric functions like +perimeter+. With multimethods you'll need to
+repeat dispatch logic for each function and write a combinatorial
+explosion of implementations to suit. It would be better if these
+functions and their implementations could be grouped and written
+together.
+
+Use Clojure's _protocol_ facilities to define a protocol interface and
+extend it with concrete implementations.
+
+[source,clojure]
+----
+;; Define the "shape" of a Shape object
+(defprotocol Shape
+  (area [s] "Calculate the area of a shape")
+  (perimeter [s] "Calculate the perimeter of a shape"))
+
+;; Define a concrete Shape, the Rectangle
+(defrecord Rectangle [length width]
+  Shape
+  (area [this] (* length width))
+  (perimeter [this] (+ (* 2 length)
+                       (* 2 width))))
+
+(->Rectangle 2 4)
+;; -> #user.Rectangle{:length 2, :width 4}
+
+(area (->Rectangle 2 4))
+;; -> 8
+----
+
+==== Discussion
+
+As you've seen in this recipe, there are a multitude of different ways
+to implement polymorphism in Clojure. While the example above
+settled on protocols as a method for implementing polymorphism, there
+are no hard and fast rules about which techinique to use. Each
+approach has its own unique set of trade-offs that need to be
+considered when introducing polymorphism.
+
+The first approach considered was simple map-based polymorphism using
++condp+. In retrospect, it's not the right choice for building a
+geometry library in Clojure, but that is not to say it is without its
+uses. This approach is best used in-the-small; you could use +cond+ to
+prototype early iterations of a protocol at the REPL, or in places
+where you aren't defining new types.
+
+It's important to note, there are techiniques beyond +cond+ for
+implementing map-based dispatch. One such technique is a dispatch
+map, generally implemented as a map of keys to functions.
+
+Next up are multimethods. Unlike +cond+-based polymorphism,
+multimethods separate dispatch from implementation. On account of
+this, they can be extended after their creation. Multimethods are
+defined using the +defmulti+ macro, which behaves similarly to +defn+,
+but specifies a dispatch function instead of an implementation.
+
+Let's break down the +defmulti+ declaration for a rather simple
+multimethod, the +area+ function:
+
+[source,clojure]
+----
+(defmulti area ; <1> 
+  "Calculate the area of a shape" ; <2>
+  :type) ; <3>
+----
+
+<1> The function name for this multimethod
+<2> A docstring describing the function
+<3> The dispatch function
+
+Using the keyword +:type+ as a dispatch function doesn't do justice to
+the flexibility of multimethods; they're capable of much more.
+Multimethods allow you to perform arbitrarily complex introspection of
+the arguments they are invoked with.
+
+When choosing a map-lookup like +:type+ for a dispatch function, you
+also imply the arity of the function (number of arguments it accepts).
+Since keywords act as a function on one argument (a map), +area+ is a
+single-arity function. Other functions will imply different arities. A
+common pattern with multimethods is to use an anonymous function to
+make the intended arity of a multimethod more explicit.
+
+[source,clojure]
+----
+(defmulti ingest-message
+  "Ingest a message into an application"
+  (fn [app message] ; <1>
+    (:priority message)) ; <2>
+  :default :low) ; <3>
+
+(defmethod ingest-message :low [app message]
+  (println (str "Ingesting message " message ", eventually...")))
+
+(defmethod ingest-message :high [app message]
+  (println (str "Ingesting message " message ", now.")))
+
+(ingest-message {} {:type :stats :value [1 2 3]})
+;; *out*
+;; Ingesting message {:type :stats :value [1 2 3]}, eventually...
+
+(ingest-message {} {:type :heartbeat :priority :high})
+;; *out*
+;; Ingesting message {:type :heartbeat, :priority :high}, now.
+----
+
+<1> +ingest-messages+ accepts two arguments, an app and a message
+<2> +message+ will be processed differently depending on its priority.
+<3> In the absence of a +:priority+ key on +message+, the default
+    priority will be +:low+. Without specifying, the default dispatch
+    value is +:default+.
+
+In all of the examples so far, we've always dispatched on a single
+value. Multimethods also support something called "multiple dispatch,"
+whereby a function can be dispatched upon any number of factors. By
+returning a vector rather than a single value in our dispatch, you can
+make more dynamic decisions.
+
+[source,clojure]
+----
+(defmulti convert
+  "Convert a thing from one type to another"
+  (fn [request thing]
+    [(:input-format request) (:output-format request)])) ; <1>
+
+(require 'clojure.edn)
+(defmethod convert [:edn-string :clojure] ; <2>
+  [_ str]
+  (clojure.edn/read-string str))
+
+(require 'clojure.data.json)
+(defmethod convert [:clojure :json] ; <3>
+  [_ thing]
+  (clojure.data.json/write-str thing))
+
+(convert {:input-format :edn-string
+          :output-format :clojure}
+         "{:foo :bar}")
+;; -> {:foo :bar}
+
+(convert {:input-format :clojure
+          :output-format :json}
+         {:foo [:bar :baz]})
+;; -> "{\"foo\":[\"bar\",\"baz\"]}"
+----
+
+<1> The +convert+ multimethod dispatches on input *and* output format.
+<2> An implementation of +convert+ that converts from edn strings to
+    clojure data.
+<3> Similarly, an implementation that converts from Clojure data to
+    JSON
+
+All this power comes at a cost, however; because multimethods are so
+dynamic, they can be quite slow. Further, there is no good way to
+group sets of related multimethods into an "all or nothing" package
+footnote:[That is to say, you cannot enforce a multimethod consumer
+implements all of the required methods when extending behavior to
+their own type]. If speed or implementing a complete interface are
+among your chief concerns, then you will likely be better served by
+protocols.
+
+Clojure's protocol feature provides extensible polymorphism with fast
+dispatch akin to Java's interfaces with one notable difference from
+multimethods: protocols can only perform single-dispatch (based on type).
+
+Protocols are defined using the +defprotocol+ macro, accepting a name,
+optional docstring and any number of named methods signatures. A
+method signature is made up of a few parts; the name, at least one
+type signature, and an optional docstring. The first argument of any
+type signature is always the object itself--Clojure dispatches on the
+type of this argument. Perhaps an example would be the easiest way to
+dig in to +defprotocol+'s syntax.
+
+[source,clojure]
+----
+(defprotocol Frobnozzle
+  "Basic methods for any Frobnozzle"
+  (blint [this x] "Blint the frobnozzle with x") ; <1>
+  (crand [this f] [this f x] (str "Crand a frobnozzle with another " ; <2>
+                                  "optionally incorporating x")))
+----
+
+<1> A function, +blint+, with a single additional argument +x+.
+<2> A multi-arity function, +crand+, that takes an optional +x+ argument.
+
+Once a protocol is defined, there are numerous ways to provide an
+implementation for it. +deftype+, +defrecord+ and +reify+ all define a
+protocol implementation while creating an object. The +deftype+ and
++defrecord+ forms create new named types, while +reify+ creates an
+anonymous type. Each form is used by indicating the protocol being
+extended, followed by concrete implementations of each of that
+protocol's methods. 
+
+[source,clojure]
+----
+;; deftype has a similar syntax, but is not really applicable for an
+;; immutable shape
+(defrecord Square [length]
+  Shape ; <1>
+  (area [this] (* length length)) ; <2>
+  (perimeter [this] (* 4 length))
+  ; <3>
+  )
+
+(perimeter (->Square 1))
+;; -> 4
+
+;; Calculate the area of a parallelogram without defining a record
+(area
+  (let [b 2
+        h 3]
+    (reify Shape
+      (area [this] (* b h))
+      (perimeter [this] (* 2 (+ b h))))))
+;; -> 6
+----
+
+<1> Indicate the protocol being implemented...
+<2> and implement all of its methods.
+<3> Repeat steps one and two for any remaining protocols you wish to
+    implement.
+
+.The Difference Between a Type and a Record
+****
+Given types and records share a very similar syntax, it can be
+hard to understand at face value how each should be used.
+
+Chas Emerick explained it best in an appendix to
+http://www.clojurebook.com/[Clojure Programming]:
+
+[quote, Chas Emerick, Clojure Programming]
+____
+Is your class modelling a domain value -- thus benefitting from hash
+map-like functionality and semantics? Use defrecord.
+
+Do you need to define mutable fields? Use deftype.
+____
+
+There you have it.
+****
+
+For implementing protocols on existing types, you will want to use the
++extend+ family of built-in functions (+extend+, +extend-type+ and
++extend-protocol+). Insetad of creating a new type, these functions
+define implementations for existing types.
+
+==== See Also
+
+* The official documentation for
+  http://clojure.org/multimethods[Multimethods and Hierarchies], which
+  covers multimethods in depth. This document also covers hierarchies
+  as they relate to multimethods, a feature not covered in this
+  recipe.
+* The official documentation for
+  http://clojure.org/protocols[Protocols], which covers protocols in
+  depth, including information on how protocols relate to interfaces.
+* See <<extend_built_in>> for examples of using +extend+ and its
+  convenience macros +extend-type+ and +extend-protocol+.
+

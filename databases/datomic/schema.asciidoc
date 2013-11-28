@@ -1,21 +1,35 @@
+[[sec_datomic_schema]]
 === Define schema for a Datomic database
 [role="byline"]
 by Robert Stuttaford
 
 ==== Problem
 
-You need to define how your data will be modelled in Datomic. For example, you might need to model 
-users and user groups, and relate the two in some way.
+You need to define how your data will be modelled in Datomic. For
+example, you might need to model users and user groups, and relate the
+two in some way.
 
+[[sec_datomic_schema_solution]]
 ==== Solution
 
-Define user schema attributes. Users have:
+
+Datomic schemas are defined in terms of _attributes_. It's probably
+easiest to jump straight to an example.
+
+To follow along with this recipe, complete the steps in
+<<sec_datomic_connect_to_datomic_solution>>. After doing this you
+should have a in-memory database and connection, +conn+, to work with.
+
+Consider the attributes a user might have:
 
 * One email address, which must be unique to the database.
 * One name, which we index for fast search.
-* Any number of roles.
+* Any number of roles. There are three roles: guest, author, and editor.
 
-There are three roles: guest, author, and editor.
+To define this schema, create a vector with attribute maps for email,
+name and role, as well as insertions of the three static roles.
+
+// TODO: Add UML schema diagrams for user and group.
 
 [source,clojure]
 ----
@@ -24,7 +38,7 @@ There are three roles: guest, author, and editor.
     :db/ident :user/email
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
-    :db/unique :db.unique/value
+    :db/unique :db.unique/identity
     :db/id #db/id[:db.part/db]
     :db.install/_attribute :db.part/db}
 
@@ -48,7 +62,7 @@ There are three roles: guest, author, and editor.
    [:db/add #db/id[:db.part/user] :db/ident :user.roles/editor]])
 ----
 
-Define group schema attributes. Groups have:
+We define a group as having:
 
 * One UUID, which must be unique to the database.
 * One name, which we index for fast search.
@@ -81,10 +95,15 @@ Define group schema attributes. Groups have:
     :db.install/_attribute :db.part/db}])
 ----
 
+Finally, _transact_ both schema definitions into a database via a
+connection.
+
 Transact the schema into the database.
 
 [source,clojure]
 ----
+(require '[datomic.api :as d])
+
 @(d/transact (d/connect "datomic:mem://sample-database") (concat user-schema group-schema))
 ;; -> {:db-before datomic.db.Db@25b48c7b,
 ;;     :db-after datomic.db.Db@5d81650c,
@@ -94,22 +113,28 @@ Transact the schema into the database.
 
 ==== Discussions
 
-Datomic schema is represented as Clojure data, and is added to the database in a transaction, just 
-like any other data we would store. The +:db.install/_attribute :db.part/db+ key/value is used by 
-the transactor to make the schema available to the rest of the system.
+Datomic schema is represented as Clojure data, and is added to the
+database in a transaction, just like any other data we would store.
+The +:db.install/_attribute :db.part/db+ key/value is used by the
+transactor to make the schema available to the rest of the system.
 
-Schema is placed in the +db.part/db+ database partition, which is reserved for schema. All user data
-is placed in user partition(s) - either the default of +:db.part/user+ or custom partitions. 
-Partitions are useful for optimising how indexes sort data, which is useful for optimising query.
+Schema is placed in the +db.part/db+ database partition, which is
+reserved for schema. All user data is placed in user partition(s) -
+either the default of +:db.part/user+ or custom partitions. Partitions
+are useful for optimising how indexes sort data, which is useful for
+optimising query.
 
-Schema entities require that at least +:db/ident+, +:db/valueType+ and +:db/cardinality+ are present.
+Schema entities require that at least +:db/ident+, +:db/valueType+ and
++:db/cardinality+ values are present.
 
-Aside from schema, Datomic does not enforce how attributes are combined for any given entity. Datomic 
-only enforces that only defined schema can be used, as well as enforcing their type and uniqueness 
-constraints. 
+Aside from schema, Datomic does not enforce how attributes are
+combined for any given entity. Datomic only enforces that only defined
+schema can be used, as well as enforcing their type and uniqueness
+constraints.
 
-Use namespaces in schema +:db/ident+ values to help classify entities. Datomic doesn't do 
-anything specific with namespaces, and so using them is optional.
+Use namespaces in schema +:db/ident+ values to help classify entities
+(such as +user+ in +:user/email+). Datomic doesn't do anything
+specific with namespaces, so using them is optional.
 
 There are several options for +:db/valueType+:
 
@@ -124,43 +149,57 @@ There are several options for +:db/valueType+:
 
 See http://docs.datomic.com/schema.html for an exhaustive listing of their semantics.
 
-Attributes with +:db/valueType :db.type/ref+ can only have other entities as their value(s). You use 
-this type to model relationships between entities. Datomic does not enforce which entities are related 
-to on a given +:db/valueType :db.type/ref+ attribute; any other entity can be related to. This means 
-that entities can relate to themselves!
+Attributes with +:db/valueType :db.type/ref+ can only have other
+entities as their value(s). You use this type to model relationships
+between entities. Datomic does not enforce which entities are related
+to on a given +:db/valueType :db.type/ref+ attribute; any other entity
+can be related to. This means that entities can relate to themselves!
 
-You also use +:db/valueType :db.type/ref+ and to model enumerations, such as the user roles that you
-defined. These enumerations are not actually schema, they are normal entities with a single 
-attribute, +:db/ident+. Datomic allows you to use a shorthand for defining and querying on such enums, 
-by proving the enum entity's +db/ident+ value directly instead of the enum entity's +:db/id+ value.
+You also use +:db/valueType :db.type/ref+ and lone +:db/ident+ values
+to model enumerations, such as the user roles that you defined. These
+enumerations are not actually schema, they are normal entities with a
+single attribute, +:db/ident+. Datomic allows you to use a shorthand
+for defining and querying on such enums, by proving the enum entity's
++db/ident+ value directly instead of the enum entity's +:db/id+ value.
 
+Attributes with +:db/valueType :db.type/ref+ and +:db/unique+ values
+are implicitly indexed, as though you had added +:db/index true+ to
+their definitions.
 
-Attributes with +:db/valueType :db.type/ref+ and +:db/unique+ values are implicitly indexed, as 
-though you had added +:db/index true+ to their definitions.
+It is also possible to use Lucene full-text indexing on string
+attributes, using +:db/fulltext true+ and using the system-defined
++fulltext+ function in Datalog.
 
-It is also possible to use Lucene full-text indexing on string attributes, using +:db/fulltext true+ 
-and using the system-defined +fulltext+ function in Datalog.
+There are two options for specifying a uniqueness constraint at
++db/unique+; +:db.unique/value+ and +:db.unique/identity+.
 
-There are two options for specifying a uniqueness constraint at +db/unique+; +:db.unique/value+ and 
-+:db.unique/identity+.
+* +:db.unique/value+: attempts to insert a duplicate value for a
+  different entity ID will fail.
+* +:db.unique/identity+: the attribute value is unique to each entity
+  and "upsert" is enabled; attempts to insert a duplicate value for a
+  temporary entity ID will cause all attributes associated with that
+  temporary ID to be merged with the entity already in the database.
 
-* +:db.unique/value+: attempts to insert a duplicate value for a different entity ID will fail.
-* +:db.unique/identity+: the attribute value is unique to each entity and "upsert" is enabled; attempts 
-to insert a duplicate value for a temporary entity ID will cause all attributes associated with that 
-temporary ID to be merged with the entity already in the database.
+In the case where you are modelling entities with sub-entities that
+only exist in the context of the entity, such as order items on an
+order or variants for a product, you can use +:db/isComponent+ to
+simplify working with such sub-entities. It can only be used on
+attributes of type +:db.type/ref+.
 
-In the case where you are modelling entities with sub-entities that only exist in the context of the 
-entity, such as order items on an order or variants for a product, you can use +:db/isComponent+ to 
-simplify working with such sub-entities. It can only be used on attributes of type +:db.type/ref+. 
+When you use the +:db.fn/retractEntity+ function in a transaction, any
+entities on the value side of such attributes for the retracted entity
+will be also be retracted. Also, when you use +d/touch+ to realize all
+the lazy keys in an entity map, component entities will also be
+realized. Both the retraction and realization behaviours are
+recursive.
 
-When you use the +:db.fn/retractEntity+ function in a transaction, any entities on the value side of 
-such attributes for the retracted entity will be also be retracted. Also, when you use +d/touch+ to 
-realize all the lazy keys in an entity map, component entities will also be realized. Both the 
-retraction and realization behaviours are recursive.
-
-By default, Datomic stores all past values of attributes. If you do not wish to keep past values for 
-a particular attribute, use +:db/noHistory true+ to have Datomic discard previous values. Using this 
-attribute is much like using a traditional update-in-place database.
+By default, Datomic stores all past values of attributes. If you do
+not wish to keep past values for a particular attribute, use
++:db/noHistory true+ to have Datomic discard previous values. Using
+this attribute is much like using a traditional update-in-place
+database.
 
 ==== See Also
 
+* See <<sec_datomic_transact_basics>> for more information on
+  transacting datoms (schema!)

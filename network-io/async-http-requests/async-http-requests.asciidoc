@@ -1,49 +1,95 @@
+[[sec_async_http]]
 === Perform an asynchronous HTTP request
 [role="byline"]
-by Alan Busby
+by Alan Busby and Ryan Neufeld
 
 ==== Problem
 
-You want to perform an asynchronous HTTP request.
+You want to perform asynchronous HTTP requests.
 
 ==== Solution
 
-Using +HTTP-Kit+, http://http-kit.org/
+Use http://http-kit.org/[HTTP-Kit], a highly-performant event-driven
+HTTP client/server library.
 
-With a callback function.
+Before starting, add `[http-kit "2.1.12"]` to your project's
+dependencies, or follow along in a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try http-kit
+----
+
+Use any of +org.httpkit.client+'s HTTP verb functions to perform
+asynchronous HTTP requests. In their base form, these functions return
+a promise which you can await with +deref+ or the +@+
+reader-shorthand.
 
 [source,clojure]
 ----
-(org.httpkit.client/get "http://www.host.com/path"
-                        {:timeout      200 ;; ms
-                         :basic-auth   ["username" "password]
-              	         :query-params {:parameter "value"}}
-                        (fn [{:keys [status headers body error]}]
-                          (if error
-                            (binding [*out* *err*]
-              	              (println "Failed with, " error))
-                            (println body))))
-----
+(require '[org.httpkit.client :as http])
 
-With a Clojure promise.
+(def response (http/get "http://example.com"))
 
-[source,clojure]
-----
-(let [{:keys [body error]} @(org.httpkit.client/post "http://www.host.com/path"
-                                                     {:form-params {:foo "bar"}})]
-  (if error
-    (binding [*out* *err*]
-      (println "Failed with, " error))
-    (println body)))
+;; Some time later..
+
+(:status @response)
+;; -> 200
+
+;; Or, using deref to specify a timeout length in milliseconds and
+;; value
+(deref response 2000 nil)
+;; -> {:opts {:url "http://example.com", :method :get}
+;;     :body "..."
+;;     :headers {:content-type "text/html", :content-length "1270" ...}
+;;     :status 200}
 ----
 
 ==== Discussion
 
-As the bulk of time spent performing HTTP requests is establishing the connection
-and awaiting the server's response, asynchronous requests enable your application
-to continue working while awaiting the delivery of data.
+As the bulk of time spent performing HTTP requests is establishing the
+connection and awaiting the server's response, asynchronous requests
+enable your application to continue working while awaiting the
+delivery of data.
 
-In this vein HTTP-Kit provides both a highly concurrent web server, as well a
-powerful HTTP client. It offers both callbacks and promises for asynchronous
-requests, as well as persistent connections and alternate SSL Engines for dealing
-with unsigned SSL certificates.
+In this vein HTTP-Kit provides both a highly concurrent web server, as
+well a powerful HTTP client. It offers both callbacks and promises for
+asynchronous requests, as well as persistent connections and alternate
+SSL Engines for dealing with unsigned SSL certificates.
+
+The +org.httpkit.client+ namespace defines asynchronous versions of
+numerous HTTP methods, including: +get+, +delete+, +head+, +post+,
++put+, +options+ and +patch+. Each of these verbs derives from
++org.httpkit.client/request+, which defines a common interface; An
+asynchronous request of a given method is made and a promise is
+returned. Upon completion of the request, the promise will be
+fulfilled with the results/response.
+
+All +request+ functions accept an optional map of options where you
+can specify keys like +:query-params+, +:post-params+ or +:headers+.
+Functions also allow specifying a callback function to be called upon
+request completion.
+
+[source,clojure]
+----
+(http/get "http://example.com"
+          {:timeout 1000 ;; ms
+ 	         :query-params {:search "value"}}
+          (fn [{:keys [status headers body error]}]
+            (if error
+              (binding [*out* *err*]
+                (println "Failed with, " error))
+              (println body))))
+;; -> #<core$promise$reify__6310@582e6c93: :pending>
+;; *out*
+;; <html>
+;; <head>
+;;   <title>Example Domain</title>
+;; ...
+----
+
+==== See Also
+
+* HTTP-Kit is heavily inspired by the API of
+  https://github.com/dakrone/clj-http[clj-http], see
+  <<sec_http_request>> for more information on the library.

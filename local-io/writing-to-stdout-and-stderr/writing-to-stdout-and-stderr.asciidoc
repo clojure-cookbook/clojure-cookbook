@@ -1,30 +1,79 @@
-=== Writing to stdout and stderr
+=== Writing to +STDOUT+ and +STDERR+
 [role="byline"]
 by Alan Busby
 
 ==== Problem
 
-You want to write to stdout and stderr.
+You want to write to +STDOUT+ and +STDERR+.
 
 ==== Solution
 
-To stdout,
+By default, the +print+ and +println+ functions will print content
+passed to them to +STDOUT+.
 
 [source,clojure]
 ----
-(println "This text will be printed to stdout.")
+(println "This text will be printed to STDOUT.")
+;; *out*
+;; This text will be printed to STDOUT.\n
+
+(do 
+  (print "a")
+  (print "b"))
+;; *out*
+;; ab
 ----
 
-To stderr,
+Change the binding of `*out*` to `*err*` to print to +STDERR+ instead
+of +STDOUT+.
 
 [source,clojure]
 ----
 (binding [*out* *err*]
-  (println "This text will be printed to stderr."))
+  (println "Blew up!"))
+;; *err*
+;; Blew up!\n
 ----
 
 ==== Discussion
 
-In Clojure `*in*`, `*out*`, and `*err*` are bound to stdin, stdout, and stderr.
-Using the +binding+ function all output normally sent to stdout can be sent to
-stderr; or using +clojure.java.io/writer+, to the file of your choice.
+In Clojure, the dynamic binding vars `*out*` and `*err*` are bound to your
+application environment's built-in +STDOUT+ and +STDERR+ streams,
+respectively.
+
+All of the printing functions in Clojure, +print+ and +println+
+utilize the `*out*` binding as the destination to write to.
+Consequently, you can re-bind that var to `*err*` (using +binding+) to
+change the destination of print messages from +STDOUT+ to +STDERR+.
+Other printing functions include: +pr+, +prn+, +printf+ and a handful
+of others.
+
+The bound value of `*out*` is not restricted to operating system
+streams; `*out*` can be *any* stream-like object. This makes print
+functions powerful tools, they can be used to write to files, sockets
+or any other pipes you desire. The built-in function
++clojure.java.io/writer+ is a versatile constructor for output streams.
+
+[source,clojure]
+----
+;; Create a writer to file foo.txt and print to it.
+(def foo-file (clojure.java.io/writer "foo.txt"))
+(binding [*out* foo-file]
+  (println "Foo, bar."))
+
+;; Nothing is printed to *out*.
+
+;; And of course, close the file
+(.close foo-file)
+----
+
+==== See Also
+
+* +pr+'s
+  http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/pr[documentation]
+  and
+  https://github.com/clojure/clojure/blob/c6756a8bab137128c8119add29a25b0a88509900/src/clj/clojure/core.clj#L3325[source]
+  to get a better idea how `*out*`-based printing works.
+* +clojure.java.io/writer+'s
+  http://clojure.github.io/clojure/clojure.java.io-api.html#clojure.java.io/writer[documentation]
+  for more information on creating writers.

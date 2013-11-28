@@ -84,7 +84,7 @@ sufficient to convert to a string, depending on your use case.
 Very often, you actually want both parts. You could collect them separately,
 and concatenate the strings, with a +/+ in the middle, but there's an easier
 way. Java has a rich set of performant methods for dealing with immutable
-strings, so we can take the leading-colon string and lop off the first
+strings. You can take the leading-colon string and lop off the first
 character with +java.lang.String.substring(int)+.
 
 [source,clojure]

@@ -1,48 +1,68 @@
 [[ch_local_io]]
 == Local IO
 
-include::writing-to-stdout-and-stderr/writing-to-stdout-and-stderr.asciidoc[]
+include::introduction.asciidoc[]
 
-include::get-local-resource/get-local-resource.asciidoc[]
+// Console
+
+include::writing-to-stdout-and-stderr/writing-to-stdout-and-stderr.asciidoc[]
 
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
 
 include::console/parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
 
-include::csv/read-write-csv/read-write-csv.asciidoc[]
+include::exec-system-command/exec-system-command.asciidoc[]
+
+// Files
+
+include::get-local-resource/get-local-resource.asciidoc[]
 
 include::files/copy-file/copy-file.asciidoc[]
 
 include::files/delete-file/delete-file.asciidoc[]
 
-include::files/file-properties/file-properties.asciidoc[]
+include::deleting-directory-recursively/deleting-directory-recursively.asciidoc[]
 
 include::files/get-files-from-directory/get-files-from-directory.asciidoc[]
 
 include::memory-map-files/memory-map-files.asciidoc[]
 
-include::json/read-write-json/read-write-json.asciidoc[]
-
-include::pdf/pdf.asciidoc[]
-
-include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
-
 include::read-write-files/read-write-files.asciidoc[]
 
-include::handle-binary-files/handle-binary-files.asciidoc[]
+include::using-temp-files/using-temp-files.asciidoc[]
 
 include::random-access-files/random-access-files.asciidoc[]
-
-include::read-write-gzip/read-write-gzip.asciidoc[]
-
-include::xml/read-write-xml/read-write-xml.asciidoc[]
 
 include::parallelizing-file-processing/parallelizing-file-processing.asciidoc[]
 
 include::parallelizing-file-processing-using-iota/parallelizing-file-processing-using-iota.asciidoc[]
 
-include::using-temp-files/using-temp-files.asciidoc[]
+// Clojure data + edn
 
-include::deleting-directory-recursively/deleting-directory-recursively.asciidoc[]
+include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
 
-include::exec-system-command/exec-system-command.asciidoc[]
+include::edn-config/edn-config.asciidoc[]
+
+include::edn-record/edn-record.asciidoc[]
+
+include::unknown-reader-literals/unknown-reader-literals.asciidoc[]
+
+// Specific Formats
+
+include::files/read-property-file/read-property-file.asciidoc[]
+
+include::handle-binary-files/handle-binary-files.asciidoc[]
+
+include::csv/read-write-csv/read-write-csv.asciidoc[]
+
+include::read-write-gzip/read-write-gzip.asciidoc[]
+
+include::xml/read-write-xml/read-write-xml.asciidoc[]
+
+include::json/read-write-json/read-write-json.asciidoc[]
+
+include::pdf/pdf.asciidoc[]
+
+// GUI
+
+include::seesaw/making-a-window.asciidoc[]

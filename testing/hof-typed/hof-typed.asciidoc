@@ -1,15 +1,15 @@
 === Type Checking Higher-order functions with core.typed
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
-//TODO: Edit for style (first vs. second person, less conversational)
+//TODO: Edit for style towards a more first-person style
 
-=== Problem
+==== Problem
 
 Clojure strongly encourages higher-order functions, but tools for
 verifying their use focus on runtime verification. We want earlier
 feedback: compile time.
 
-=== Solution
+==== Solution
 
 We use core.typed to type check higher-order function use.
 
@@ -107,7 +107,7 @@ book.hof> (t/cf ((hash-of? + number?)))
 ArityException Wrong number of args (0) passed to: hof$hash-of-QMARK-$fn  clojure.lang.AFn.throwArity (AFn.java:437)
 ----
 
-=== Discussion
+==== Discussion
 
 Another way to verify higher-order functions is by runtime assertions. Clojure's
 pre/post conditions are useful for defining anonymous functions that fail fast
@@ -120,6 +120,6 @@ It reads, "for all types x, takes a function that accepts an x and returns an x,
 and takes an x, and returns a lazy sequence of x". Read more about 
 https://github.com/clojure/core.typed/wiki/User-Guide#polymorphism[polymorphism] in core.typed.
 
-=== See also
+==== See also
 
-https://github.com/clojure/core.typed[core.typed Home]
+* https://github.com/clojure/core.typed[core.typed Home]

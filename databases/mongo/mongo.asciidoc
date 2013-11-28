@@ -8,9 +8,16 @@ You want to work with data stored in MongoDB.
 
 ==== Solution
 
-Use Monger to connect to MongoDB and search or manipulate the data. Monger is a Clojure wrapper around the Java MongoDB driver.
+Use http://clojuremongodb.info/[Monger] to connect to MongoDB and
+search or manipulate the data. Monger is a Clojure wrapper around the
+Java MongoDB driver.
 
-First, add Monger to your `project.clj` file:
+Before using Mongo from your Clojure code, you must have a running
+instance of MongoDB to connect to. See MongoDB's
+http://docs.mongodb.org/manual/installation/[installation guide] for
+instructions on how to install MongoDB on your local system.
+
+When you're ready to write a Clojure MongoDB client, add Monger to your `project.clj` file:
 
 [source,clojure]
 ----
@@ -165,4 +172,4 @@ The basic find functions in `monger.collection` will work for simple queries, bu
 
 ==== See Also
 
-* https://github.com/aboekhoff/congomongo[CongoMongo] is another Clojure library for working with MongoDB that you can consider.
+* https://github.com/aboekhoff/congomongo[CongoMongo] is another Clojure library for working with MongoDB that you might consider.

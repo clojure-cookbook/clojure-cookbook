@@ -1,0 +1,165 @@
+=== Making a GUI Window with Scrollable Text
+[role="byline"]
+by John Jacobsen, originally submitted by John Walker
+
+==== Problem
+
+You want to create and display a GUI window.
+
+==== Solution
+
+Though Java's Swing library is the most common way to make Java GUIs
+(at least on the desktop), the Seesaw library, which wraps Swing and
+provides a more idiomatic and functional interface, is the best tool
+for creating GUIs with Clojure.
+
+To get started with Seesaw, add +[seesaw "1.4.4"]+ to your project
+dependencies in +project.clj+.
+
+Swing implements "programmable Look and Feel": the appearance of
+various widgets, and their behavior, can be modified, though it is
+common to set this to match the platform one is on, for the sake of
+maximum usability. Setting the native Look and Feel is accomplished in
+Seesaw with the +native!+ function:
+
+[source,clojure]
+----
+(ns simplegui.core 
+  (:require [seesaw.core :refer [native! frame show! config!
+                                 pack! text scrollable]]))
+
+(native!)
+;; => nil
+----
+
+To create your window object, use +frame+ (which, under the covers, makes a
++JFrame+ Swing object):
+
+[source,clojure]
+----
+(frame :title "Lyrical Clojure" :content "Hello World")
+;; => #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523
+;; [frame0,0,22,0x0,invalid,hidden,layout=java.awt.BorderLayout,
+;; title=Lyrical Clojure,resizable,normal,
+;; defaultCloseOperation=HIDE_ON_CLOSE,
+;; rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,
+;; layout=javax.swing.JRootPane$RootLayout,
+;; alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,
+;; minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+----
+
+Although a frame has been created, nothing appears. In order to
+actually display the frame, use +show!+:
+
+[source,clojure]
+----
+(def f (frame :title "Lyrical Clojure"))
+
+(show! f)
+;; => #<JFrame$Tag$a79ba523 [...]>
+----
+
+image:gui/seesaw/window-only.png["",width=150]
+
+==== Discussion
+
+Having created the window, you can set its size, add content, and add scrollbars, as follows.
+
+==== Adding Content
+You can change properties of the frame using +config!+:
+
+[source,clojure]
+----
+(config! f :content "Actual content!")
+;; => #<JFrame$Tag$a79ba523 [...]>
+----
+
+==== Sizing the Window
+
+You can also specify the size of the window at time of creation:
+
+[source,clojure]
+----
+(def f (frame :title "Lyrical Clojure" :width 300 :height 150))
+;; => #<JFrame$Tag$a79ba523 [...]>
+----
+
+However, it is common to instead call +pack!+ on the resulting frame
+object; this assigns width and height properties according to its
+content:
+
+[source,clojure]
+----
+(-> f pack! show!)
+;; => #<JFrame$Tag$a79ba523 [...]>
+----
+
+image:gui/seesaw/content.png["",width=150]
+
+==== Adding Scrollable Content
+
+Now add some text, in the form of an excerpt from the sonnets of Shakespeare, to your window:
+
+[source,clojure]
+----
+(def sonnet-text (->> "http://www.gutenberg.org/cache/epub/1041/pg1041.txt"
+                      slurp
+                      (drop 20000)
+                      (take 4000)
+                      (apply str)))
+----
+
+This content is too big to fit in the current window:
+
+[source,clojure]
+----
+(config! f :content sonnet-text)
+;; => #<JFrame$Tag$a79ba523 [...]>
+----
+
+image:gui/seesaw/no-longer-yours.png["",width=150]
+
+Normally, one would call +pack!+ again to adjust the window size to
+the new content. However, the content will not fit comfortably on most
+screens, so set the size explicitly and add scrollbars:
+
+[source,clojure]
+----
+(.setSize f 400 400)
+(config! f :content (scrollable (text :multi-line? true
+                                      :text sonnet-text
+                                      :editable? false)))
+----
+
+image:gui/seesaw/sonnets.png["",width=420]
+
+The +:multi-line?+ option to the +text+ function selects +JTextArea+
+as the underlying object, rather than +JTextField+ (+JTextArea+ is
+used for multiline text; +JTextField+ is for single-line text fields).
++:editable?+ specifies that you don't want allow users to edit the text
+(since it is, perhaps, doubtful that they would improve upon
+Shakespeare's original).
+
+Like most of the Seesaw functions which create widgets, there are
+several more options to +text+, which are best learned about by
+studying the http://daveray.github.io/seesaw/[API documentation].
+
+As is always the case in Clojure, the Seesaw library functions return
+Java objects, which can be operated upon directly using Java methods;
+for example, our use of the +.setSize+ method of the +JFrame+ object
+returned by +frame+. This interoperability provides great power, but
+comes at the cost of a somewhat higher burden on programmers, who must
+navigate not only the Seesaw API but, frequently, some aspects of the
+underlying Swing API as well.
+
+Seesaw supports a wide variety of GUI tasks -- creation of menus,
+display of text and images, scroll bars, radio buttons, check boxes,
+multi-paned windows, drag-and-drop, and much more. In addition to the
+dozen or so books which have been written about Swing, one could easily
+write an entire book on Seesaw. This recipe merely serves as a
+starting point for further investigation of the Seesaw library.
+
+==== See Also
+
+* https://github.com/daveray/seesaw[The Seesaw project on GitHub].
+* J. Elliott et. al., "Java Swing, 2nd Ed.", O'Reilly Media.

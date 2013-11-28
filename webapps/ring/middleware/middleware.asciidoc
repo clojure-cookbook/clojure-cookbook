@@ -4,7 +4,9 @@ by Adam Bard
 
 ==== Problem
 
-Ring gives you query strings, but you'd really rather work with a parsed map.
+You'd like to build a transformation automatically applied to Ring
+requests or responses. For example, Ring gives you query strings, but
+you'd really rather work with a parsed map.
 
 ==== Solution
 

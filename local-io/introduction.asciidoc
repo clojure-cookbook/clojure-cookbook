@@ -1,0 +1,23 @@
+=== Introduction
+
+We've done a lot of work in the last few chapters, but clearly, the
+rubber has to meet the road somewhere. How did we get all of this data
+*in* to our Clojure programs, and more importantly, how do we get it
+*out*? This chapter is all about input and output to a local
+computer--the primary place where most application's data hits the
+road, so to speak.
+
+There are a variety of modes and mediums for communicating with a
+local machine. What do we communicate with, in what way, and what
+format? It's a little like the classic board game Clue: was it
+plain-text, in the console, with command-line arguments; or Clojure
+data, in a file, as configuration data? In this chapter we'll explore
+files, formats and applications of both GUI and console flavors, to
+name a few.
+
+While it isn't possible for us to enumerate every possible
+combination, it is our hope that this chapter will give you a strong
+idea of what is possible. Handily enough, most good solutions in
+Clojure _compose_; you should have little trouble sticking together
+any number of recipes in this chapter to suit your needs.
+

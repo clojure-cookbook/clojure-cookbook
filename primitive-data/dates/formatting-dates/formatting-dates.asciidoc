@@ -10,9 +10,16 @@ You need to print dates or times in a particular format.
 ==== Solution
 
 While it is possible to format Java Date-like instances (+Date+,
-+Calendar+ and +Timestamp+) with +clojure.core/format+', we suggest
-you use https://github.com/clj-time/clj-time[clj-time] to format
-dates.
++Calendar+ and +Timestamp+) with +clojure.core/format+', you should
+use https://github.com/clj-time/clj-time[clj-time] to format dates.
+
+Before starting, add `[clj-time "0.6.0"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try clj-time
+----
 
 Use +clj-time.format/unparse+ with any clj-time +DateTimeFormatter+,
 custom or built-in to output a date/time as a string.

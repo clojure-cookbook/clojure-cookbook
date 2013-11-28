@@ -5,8 +5,8 @@ by Luke VanderHart
 
 ==== Problem
 
-You would like to obtain the union, intersection or difference of two
-sets.
+You want to perform operations on sets, such as taking union,
+intersection or difference of two sets. 
 
 Or, you want to test if one set is a subset or superset of another.
 

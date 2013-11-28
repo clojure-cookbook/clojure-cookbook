@@ -71,7 +71,7 @@ in a string. You _could_ do this by repeatedly calling +re-find+ on a
 +re-matcher+, but we don't suggest this approach. Why? Because it
 isn't very idiomatic Clojure. Mutating a +re-matcher+ object with
 repeated calls to +re-find+ is just wrong; it completely violates the
-principle of pure functions. We highly suggest you prefer +re-seq+
+principle of pure functions. We highly suggested you prefer +re-seq+
 over +re-matcher+ and +re-find+ unless you have a really good reason
 not too.
 

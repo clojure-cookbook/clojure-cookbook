@@ -4,7 +4,7 @@ by Craig McDaniel
 
 ==== Problem
 
-You need to redirect the browser to another URL. 
+In a Ring application, you need to return a HTTP response code that will redirect the browser to another URL.
 
 ==== Solution
 

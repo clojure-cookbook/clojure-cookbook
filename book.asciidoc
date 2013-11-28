@@ -1,0 +1,5 @@
+:bookseries: cookbook
+
+= Clojure Cookbook
+
+include::clojure-cookbook.asciidoc[]

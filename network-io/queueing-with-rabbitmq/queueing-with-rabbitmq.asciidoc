@@ -1,0 +1,367 @@
+=== Communicating over Queues using RabbitMQ
+[role="byline"]
+originally submitted by Michael Klishin
+
+==== Problem
+
+You want to communicate between a number of applications using a
+queueing broker such as http://rabbitmq.com[RabbitMQ].
+
+==== Solution
+
+Use http://clojurerabbitmq.info[Langohr], a small
+RabbitMQ client, to communicate with RabbitMQ.
+
+Before starting, add `[com.novemberain/langohr "1.6.0"]` to your
+project's dependencies, or follow along in a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try com.novemberain/langohr
+----
+
+[NOTE]
+====
+In order to follow along with this recipe, you need to have RabbitMQ
+installed and running. You can find details on how to install RabbitMQ
+here: _http://www.rabbitmq.com/download.html_.
+
+Once installed, start a standalone RabbitMQ server with the command
++rabbitmq-server+.
+
+[source,shell]
+----
+$ rabbitmq-server
+----
+====
+
+Prior to performing any operations against RabbitMQ you must connect 
+to a server and open a communication channel. A channel is the medium
+over which you can produce and consume messages to/from.
+
+[source,clojure]
+----
+(require 'langohr.core
+         'langohr.channel)
+
+;; Connect to local RabbitMQ cluster node on localhost:5672
+(def conn (langohr.core/connect {:hostname "localhost"}))
+
+;; Open a channel against the connection.
+(def ch (langohr.channel/open conn))
+----
+
+In RabbitMQ, messages are published to *exchanges*, routed to *queues*
+via a *binding*, then finally consumed by consumers. There are a
+number of different exchange types that vary the semantics of
+delivery; the most basic exchange type is "direct", which routes
+messages based on their *routing key*.
+
+To construct a pipeline between producer and consumer, start by
+invoking +langohr.queue/declare+ to create a queue with the desired
+name.
+
+[source,clojure]
+----
+(require '[langohr.queue :as lq])
+
+(def resize-queue "imaging.resize")
+
+(lq/declare ch resize-queue)
+;; -> {:queue "imaging.resize",
+;;     :consumer-count 0,
+;;     :message_count 0,
+;;     :consumer_count 0,
+;;     :message-count 0}
+----
+
+By default, RabbitMQ creates a binding between the empty exchange (an
+empty string) and each queue. You can now publish a message to the
++"imagine.resize"+ queue by invoking +langohr.basic/publish+ with the
+channel, direct exchange, routing key (your queue name) and a message.
+
+[source,clojure]
+----
+(lb/publish ch "" resize-queue "hello.jpg")
+----
+
+To consume messages from a queue synchronously, invoke
++langohr.basic/get+ with the channel and queue name.
+
+[source,clojure]
+----
+(def hello-msg (lb/get ch resize-queue))
+
+hello-msg
+;; -> [{:routing-key "imaging.resize", :headers nil ...} #<byte[] [B@2b195c88>]
+
+(String. (last hello-msg) "UTF-8")
+;; -> "hello.jpg"
+----
+// get -> delivered in order, nil if empty, properties
+
+To consume messages asynchronously as they appear, use
++langohr.consumers/subscribe+ to subscribe to a queue. The handler
+function you provide to +subscribe+ will be called for each message
+published to the queue.
+
+[source,clojure]
+----
+(require '[langohr.consumers :as lc])
+
+(defn resize-image-handler
+  "Spawn a resize process for each resize message received"
+  [ch metadata ^bytes payload]
+  (let [filename (String. payload "UTF-8")]
+    (println (format "Resizing file %s" filename))))
+
+;; Subscribe to the queue with the handler function
+(def tag (lc/subscribe ch resize-queue resize-image-handler))
+
+;; The return value of subscribe is a subscription tag.
+tag
+;; -> "amq.ctag-7hsNsSqLDEEoES5AkIC6XQ"
+
+(lb/publish ch "" resize-queue "hello-again.jpg")
+;; *out*
+;; Resizing file hello-again.jpg
+
+;; Unsubscribe resize-image-handler via the tag value
+(lb/cancel ch tag)
+----
+
+==== Discussion
+
+At this point, you've round-tripped a few messages to RabbitMQ, but
+you've barely scratched the surface of what Langohr/RabbitMQ are
+capable of. Langohr is a small RabbitMQ client wrapping the Java
+RabbitMQ library that supports AMQP 0-9-1, RabbitMQ extensions of
+AMQP, and provides HTTP API client.
+
+AMQP 0-9-1, and by extension, Langohr, centers around a few main
+concepts: *exchanges*, *queues* and *bindings*.
+
+===== Exchanges
+
+An exchange is very much like a post office: when a message is
+published to an exchange, the exchange will route the message to one
+or more queues. How those messages are routed to queues is dependant
+on both the exchange type and the bindings between the
+exchange/queues.
+
+There are multiple exchange types, each with its own routing
+semantics. Custom exchange types can be created to deal with
+sophisticated routing scenarios (e.g. routing based on content or
+geolocation data) or just for convenience.
+
+.Built-in Exchange Types
+[options="header"]
+|===============================
+| Name | Behavior | Pre-declared Exchange |
+| Direct | 1:1, routed based on routing key | +""+ |
+| Fanout | 1:N, ignoring routing key | +"amq.fanout"+ |
+| Topic | 1:N, taking routing key into consideration | +"amq.topic"+ |
+| Headers | 1:1, taking into consideration any number of headers | +"amq.match"+ |
+|===============================
+
+To declare one of the built-in exchanges, use one of
++langohr.exchange/fanout+, +langohr.exchange/topic+,
++langohr.exchange/direct+ or +langohr.exchange/headers+. Each of these
+functions exposes the relevant options for that exchange type,
+ultimately invoking +langohr.exchange/declare+. 
+
+[source,clojure]
+----
+(require '[langohr.exchange :as le])
+
+;; Create a topic exchange for image processing completion
+(le/fanout ch "imaging.complete")
+----
+
+Exchanges have several attributes associated with them:
+
+ * Name
+ * Type (direct, fanout, topic, headers or some custom type)
+ * Durability (should it survive broker restarts?)
+ * Whether the exchange is auto-deleted when no longer used
+ * Custom metadata (sometimes known as +x-arguments+)
+
+Using +langohr.exchange/declare+ directly you can customize these
+attributes to create your own types of exchanges.
+
+===== Queues
+
+A queue is like a mailbox in a post office. The
++langohr.queue/declare+ function creates named queues. Apart from the
+name, this function accepts a number of keyword arguments that vary
+the characteristics of the queue, including whether it is +:durable+,
++:exclusive+, +:auto-delete+. Other arguments can be specified in an
++:arguments+ value.
+
+[source,clojure]
+----
+(lq/declare ch "imaging.transcode" :durable true)
+;; -> {:queue "imaging.transcode", ...}
+----
+
+Queues with unique names can be generated using the
++langohr.queue/declare-server-named+ function. This functions
+similarly to +langohr.queue/declare+, but without a name argument.
+
+[source,clojure]
+----
+(lq/declare-server-named ch)
+;; -> "amq.gen-FcFv8JD9K8-4NuT8kC3jKA"
+----
+
+Unlike exchanges, queues in RabbitMQ are all of the same type. 
+
+===== Bindings
+
+As you saw in the solution, a direct exchange has an implicit
+binding between the default exchange and every queue, by name. In the
+wild, however, queues are usually bound to exchanges explicitly. You
+can create your own bindings by invoking +langohr.queue/bind+ with a
+channel, queue name and exchange name.
+
+[source,clojure]
+----
+;; Create a unique completion queue...
+(def completion-queue (lq/declare-server-named ch))
+
+;; and bind it to the imaging.complete fanout
+(lq/bind ch completion-queue "imaging.complete")
+----
+
+===== Publishing
+
+Messages are published to an exchange using the
++langohr.basic/publish+ function. This function takes three primary
+arguments (beyond channel): 
+
+* The name of an exchange, either a user-made exchange such as
+  +"imaging.complete"+, or a built-in like +"amq.fanout"+ or +""+.
+* A routing key, used by the exchange to perform type-specific routing
+  of messages to queue(s).
+* A message, a string body for the message to be delivered to the
+  queue.
+
+As optional arguments, +publish+ allows users to specify a plethora of
+message headers as keyword arguments. For the full list, see the
+docstring for the +publish+ function.
+
+===== Consuming
+
+Having declared a number of queues, there are two ways to consume
+messages from them:
+
+* Pull, using +langohr.basic/get+, or
+* Push, using +langohr.consumers/subscribe+
+
+In the Push API, you make a synchronous invokation of +get+ function
+to retrieve a single message from a queue. The return value of +get+
+is a tuple of metadata map and a body. The body payload, as returned,
+is an array of bytes--for plaintext messages you can use the string
+constructor, +String.+, to intern those bytes to a string. Since
++String+ byte arrays are encoded using UTF-8, it is important to
+invoke the +String+ constructor with an encoding option of +"UTF-8"+.
+
+[source,clojure]
+----
+(lb/publish ch "" resize-queue "hello.jpg")
+(let [[_ body] (lb/get ch resize-queue)]
+  (String. body "UTF-8"))
+;; -> "hello.jpg"
+----
+
+When no messages are present on a queue, +get+ will return nil.
+
+In the Pull API, you subscribe to a queue using
++langohr.consumers/subscribe+, providing a message handler function that
+will be invoked for each message the queue receives. This function
+will be invoked with three arguments: a channel, metadata and the body
+bytes.
+
+[source,clojure]
+----
+;; A run-of-the-mill handler function
+(defn resize-image-handler
+  "Spawn a resize process for each resize message received"
+  [ch metadata ^bytes payload]
+  (let [filename (String. payload "UTF-8")]
+    (println (format "Resizing file %s" filename))))
+----
+
++subscribe+ is a non-blocking call, and upon completion will return a
+tag string that can be used to later cancel the subscription use
++langohr.consumers/cancel+.
+
+The +subscribe+ function also allows you to specify a large number of
+queue lifecycle functions, documented at length in the
++langohr.consumers/create-default+ docstring.
+
+===== Acknowledgement
+
+Consumed messages need to be acknowledged. That can happen
+automatically (RabbitMQ will consider a message acknowledged as soon
+as it sends it to a consumer) or manually.
+
+When a message is acknowledged, it is removed from the queue. If a
+channel closes unexpectedly before a delivery is acknowledged, it will
+be automatically requeued by RabbitMQ.
+
+Note that these acknowledgements have application-specific semantics
+and help ensure that messages are processed properly.
+
+With manual acknowledgement, it is application's responsibility to
+either acknowledge or reject a delivery. This is done with
++langohr.basic/ack+ and +langohr.basic/nack+, respectively, which
+takes a metadata attribute called +delivery-tag+ (delivery ID). To
+enable manual acknowledgements, pass +:auto-ack false+ to
++langohr.consumers/subscribe+.
+
+[source,clojure]
+----
+(defn manual-ack-handler
+  "Spawn a resize process for each resize message received"
+  [ch {:keys [delivery-tag]} ^bytes payload]
+  (try
+    (String. payload "UTF-8")
+    ;; Do some work, then acknowledge the message
+    (lb/ack ch delivery-tag)
+    (catch Throwable t
+      ;; Reject message
+      (lb/nack ch delivery-tag))))
+
+(lc/subscribe ch resize-queue manual-ack-handler :auto-ack false)
+----
+
+Note that if you requeue a message with just one consumer on it, it
+will be redelivered immediately.
+
+It is also possible to control how many messages will be pushed to the
+client before it must receive an ack for at least one of them. This is
+known as the *prefetch setting* and is set using +langohr.basic/qos+.
+This setting applies across an entire channel.
+
+[source,clojure]
+----
+;; Pre-fetch a dozen messages
+(lb/qos ch 12)
+----
+
+RabbitMQ queues can also be mirrored between cluster nodes for high
+availability, have bounded length or expiration period for messages,
+and more. To learn more, see RabbitMQ and Langohr documentation sites.
+
+==== See Also
+
+* See http://clojurerabbitmq.info[Langohr documentation] and
+  http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn
+  more.
+* Langohr http://reference.clojurerabbitmq.info[API reference] is also
+  available.
+* If you need low-level access to RabbitMQ, you may want to
+  investigate using Clojure's Java interop to interact with the
+  http://www.rabbitmq.com/java-client.html[RabbitMQ Java Client], the
+  library upon which Langohr is based.

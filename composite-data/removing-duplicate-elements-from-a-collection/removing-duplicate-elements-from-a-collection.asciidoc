@@ -1,0 +1,70 @@
+=== Removing Duplicate Elements From a Collection
+[role="byline"]
+by John Cromartie
+
+==== Problem
+
+You have a sequence of elements and want to remove any duplicates,
+while possibly preserving the order of elements.
+
+==== Solution
+
+When the sequence of elements you're working with is of a bounded,
+reasonable size, use `set` to coerce the collection into a hash set
+containing only distinct values.
+
+[source, clojure]
+----
+(set [:a :a :g :a :b :g])
+;; -> #{:a :b :g}
+----
+
+When the sequence is infinite, or you wish maintain ordering, use
+`distinct` to return a lazy sequence of unique values in a collection
+in the order they appear.
+
+[source,clojure]
+----
+(distinct [:a :a :g :a :b :g])
+;; -> (:a :g :b)
+----
+
+==== Discussion
+
+There are a number of tradeoffs between these two approaches. For
+starters, +set+ consumes the entire sequence to produce a new set
+collection. Because of this, +set+ cannot be used to filter an
+infinite sequence. +distinct+, on the other hand, is designed for
+consuming lazy sequences. The value of +distinct+ is a lazy view or
+projection over another sequence, yielding new values the first time
+they appear.
+
+[source, clojure]
+----
+(defn rand-int-seq
+  "Returns an infinite sequence of ints from [0, n)"
+  [n]
+  (repeatedly #(rand-int n)))
+
+;; Taking the set of an infinite sequence will *never* return:
+; (set (rand-int-seq 10)) ; don't do it!
+
+;; However, if you limit the seq, set will work:
+(set (take 10 (rand-int-seq 10)))
+;; -> #{0 1 2 3 4 7 8 9}
+
+;; Distinct works no matter what
+(take 10 (distinct (rand-int-seq 10)))
+;; -> (8 3 4 6 0 5 9 7 1 2)
+----
+
+Since +distinct+ produces new values as it sees them, it *does*
+maintain ordering. +set+, on the other hand, returns an unordered set.
+
+If +distinct+ is both ordered and lazy over sequences of any length,
+what is the advantage of +set+? Speed. Using `distinct` is by far the
+slowest, while simply calling `set` is about 2X faster.
+
+==== See Also
+
+* See <<sec_composite_creating_sets>> for more information on creating sets.

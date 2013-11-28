@@ -1,9 +1,15 @@
 [[ch_distributed]]
 == Distributed Computation
 
+include::introduction.asciidoc[]
+
+include::stream-processing/stream-processing.asciidoc[]
+
 ////////
 Cascalog
 ////////
+
+include::cascalog/cascalog-intro.asciidoc[]
 
 include::cascalog/etl/etl.asciidoc[]
 
@@ -14,3 +20,5 @@ include::cascalog/testing/testing.asciidoc[]
 include::cascalog/checkpoint/checkpoint.asciidoc[]
 
 include::cascalog/explain/explain.asciidoc[]
+
+include::cascalog/emr/emr.asciidoc[]

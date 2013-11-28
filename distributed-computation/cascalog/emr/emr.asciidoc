@@ -1,0 +1,86 @@
+[[sec_cascalog_emr]]
+=== Running a Cascalog Job On Elastic MapReduce
+[role="byline"]
+by Alex Robbins
+
+==== Problem
+
+You have a large amount of data to process, but you don't have a
+Hadoop cluster.
+
+==== Solution
+
+Amazon's Elastic MapReduce (EMR) provides on-demand Hadoop clusters.
+You'll need an Amazon Web Services account to use EMR. Create an
+account at _aws.amazon.com_.
+
+First, write a Cascalog job as you normally would. There are a number
+of recipes in this chapter that can help you create a complete
+Cascalog job. If you don't have your own, you can clone
+<<sec_cascalog_etl>>.
+
+[source,shell]
+----
+$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
+$ cd cascalog-samples
+$ git checkout etl-sample
+----
+
+Once you have a Cascalog project, package it into an uberjar.
+
+[source,terminal]
+----
+$ lein compile
+$ lein uberjar
+----
+
+Next, upload the generated jar
+(_target/cookbook-0.1.0-SNAPSHOT-standalone.jar_ if you're
+following along with the ETL sample) to S3. If you
+haven't ever uploaded a file to S3 follow the S3 documentation to
+http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html[Create
+a Bucket] and
+http://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html[Adding
+an Object to a Bucket]. Repeat this process to upload your input data.
+Take note of the path of jar and input data location.
+
+To create your MapReduce job visit
+_https://console.aws.amazon.com/elasticmapreduce/_ and select "Create
+New Job Flow." Once you're in the new job flow wizard choose the
+"Custom JAR" job type.
+
+Select "Continue" and enter your JAR's location and arguments. "JAR
+Location" is the S3 path you noted from earlier. "JAR Arguments are
+all of the arguments you would normally pass when executing your jar.
+For example: using the Cascalog Samples repository, the arguments
+would be the fully qualified class name to execute,
++cookbook.etl.Main+, an +s3n://+ URI for input data, and an +s3n://+
+URI for the output.
+
+.Specify Parameters
+image::distributed-computation/cascalog/emr/specify-parameters.png["",width="350"]
+
+The next few wizard windows allow your to specify additional
+configuration options for the job. Select "Continue" until you reach
+the review phase and start your job.
+
+After your job has run, you should be able to retrieve the results
+from S3. Elastic MapReduce also allows you to setup a logging path to
+help with debugging if your job doesn't complete like you expect.
+
+==== Discussion
+
+Amazon's EMR is a great solution if you have big Cascalog jobs, but
+you don't have them very often. Maintaining your own Hadoop cluster
+can be a fair amount of time and money. If you can keep the cluster
+busy, it is a great investment. If you only need it a couple times a
+month, you might be better off using EMR for on-demand Hadoop
+clusters.
+
+==== See Also
+
+* To learn about building a simple Cascalog job, see <<sec_cascalog_etl>>.
+* See the
+  http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-launch-custom-jar-cli.html[Launch
+  a Custom JAR Cluster] documentation to learn more about creating
+  JAR-based clusters.

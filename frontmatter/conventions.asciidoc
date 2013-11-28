@@ -2,8 +2,9 @@
 
 ==== Programming Conventions
 
-Being a book full of solutions, you'll find no shortage of Clojure source code
-in the book. Clojure source code appears in a monospace font, like this:
+Being a book full of solutions, you'll find no shortage of Clojure
+source code in the book. Clojure source code appears in a monospace
+font, like this:
 
 [source,clojure]
 ----
@@ -12,9 +13,9 @@ in the book. Clojure source code appears in a monospace font, like this:
   (+ x y))
 ----
 
-When a Clojure expression is evaluated
-for a return value, that value is denoted with a comment followed by an arrow,
-much like it would appear on the command line:
+When a Clojure expression is evaluated for a return value, that value
+is denoted with a comment followed by an arrow, much like it would
+appear on the command line:
 
 [source,clojure]
 ----
@@ -22,9 +23,9 @@ much like it would appear on the command line:
 ;; -> 3
 ----
 
-Where appropriate, code samples may omit or ellipsize return value comments.
-The two most common places you'll see this are when defining a function/var or
-shortening lengthy output.
+Where appropriate, code samples may omit or ellipsize return value
+comments. The two most common places you'll see this are when defining
+a function/var or shortening lengthy output.
 
 [source,clojure]
 ----
@@ -35,9 +36,9 @@ shortening lengthy output.
 ;; -> [1 2 ... 20]
 ----
 
-When an expression produces output to +STDOUT+ or +STDERR+ it is denoted by a
-comment (`*out*` and `*error*`, respectively), followed by a comment with each
-line of output.
+When an expression produces output to +STDOUT+ or +STDERR+ it is
+denoted by a comment (`*out*` and `*error*`, respectively), followed
+by a comment with each line of output.
 
 [source,clojure]
 ----
@@ -51,18 +52,19 @@ line of output.
 
 ==== REPL Sessions
 
-Seeing that _REPL-driven Development_ is in vogue at present, it follows that
-this be a REPL-driven book.  REPLs (Read-Eval-Print Loops) are interactive
-prompts that evaluate expressions and print their results. The Bash prompt,
-+irb+, and the +python+ prompt are examples of REPLs.  Nearly every recipe in
-this book is designed to be run at a Clojure REPL.
+Seeing that _REPL-driven Development_ is in vogue at present, it
+follows that this be a REPL-driven book. REPLs (Read-Eval-Print Loops)
+are interactive prompts that evaluate expressions and print their
+results. The Bash prompt, +irb+, and the +python+ prompt are examples
+of REPLs. Nearly every recipe in this book is designed to be run at a
+Clojure REPL.
 
-While Clojure REPLs are traditionally displayed as `user> ...`, this book aims
-for readers to be able to copy-paste all of the examples in a recipe
-and see the indicated results. As such, samples omit `user>` and comment-out
-any output to make things easier. This is especially helpful if you're
-following along on a computer; You can blindly copy-paste code samples without
-worrying about trying to run non-code.
+While Clojure REPLs are traditionally displayed as `user> ...`, this
+book aims for readers to be able to copy-paste all of the examples in
+a recipe and see the indicated results. As such, samples omit `user>`
+and comment-out any output to make things easier. This is especially
+helpful if you're following along on a computer; You can blindly
+copy-paste code samples without worrying about trying to run non-code.
 
 ==== Console/Terminal Sessions
 
@@ -81,29 +83,34 @@ Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
 
 .Our Golden Boy, lein-try
 ****
-// TODO: Clean the "Clojure chose ..." sentence up, it's kind of odd-sounding.
-Clojure is not known for its extensive standard library. Unlike languages like
-Perl or Ruby, Clojure's standard library is comparatively small; Clojure
-chose _simplicity_ and _power_ instead. As such, Clojure is a language full of
-libraries, not built-ins (well, except for Java...)
+// TODO: Clean the "Clojure chose ..." sentence up, it's kind of
+// odd-sounding.
 
-Since so many of the solutions in this book rely on third-party libraries, we
-developed https://github.com/rkneufeld/lein-try[lein-try]. lein-try is a small
-plugin for http://leiningen.org/[Leiningen], Clojure's de facto project tool,
-that lets you quickly and easily try out various Clojure libraries.
+Clojure is not known for its extensive standard library. Unlike
+languages like Perl or Ruby, Clojure's standard library is
+comparatively small; Clojure chose _simplicity_ and _power_ instead.
+As such, Clojure is a language full of libraries, not built-ins (well,
+except for Java...)
+
+Since so many of the solutions in this book rely on third-party
+libraries, we developed
+https://github.com/rkneufeld/lein-try[lein-try]. lein-try is a small
+plugin for http://leiningen.org/[Leiningen], Clojure's de facto
+project tool, that lets you quickly and easily try out various Clojure
+libraries.
 
 To use lein-try, follow along with Leiningen's
-http://leiningen.org/#install[installation instructions] to install the tool,
-then edit your user profile to look like so:
+http://leiningen.org/#install[installation instructions] to install
+the tool, then edit your user profile to look like so:
 
 .~/.lein/profiles.clj
 [source,clojure]
 ----
-{:user {:plugins [[io.rkn/lein-try "RELEASE"]]}}
+{:user {:plugins [[lein-try "0.4.1"]]}}
 ----
 
-Now, inside of a project or out, you can use the +lein try+ command to launch a
-REPL with access to whichever library you please.
+Now, inside of a project or out, you can use the +lein try+ command to
+launch a REPL with access to whichever library you please.
 
 [source,console]
 ----
@@ -112,11 +119,10 @@ $ lein try clj-time
 user=>
 ----
 
-You'll see instructions on which lein-try command to execute above every recipe
-that uses third-party libraries.
+Long story short: You'll see instructions on which lein-try command to
+execute above every recipe that uses third-party libraries.
 ****
 
-// TODO: Typesetting Conventions section a la Perl Cookbook
 ==== Typesetting Conventions
 
 The following typographic conventions are used in this book:
@@ -130,8 +136,9 @@ _Italic_::
   is used for URLs, filenames, and file extensions. New terms are also
   italicized when they first appear in the text.
 +Constant Width+::
-  is used for function and method names and their arguments; in examples to
-  show both input and output; and in regular text to show literal code.
+  is used for function and method names and their arguments; in
+  examples to show both input and output; and in regular text to show
+  literal code.
 *+Constant Width Bold+*::
-  is used to indicate commands that should you should enter literally at the
-  command-line.
+  is used to indicate commands that should you should enter literally
+  at the command-line.

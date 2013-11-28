@@ -8,7 +8,7 @@ You want to work with data in Redis.
 
 ==== Solution
 
-Use Carmine to connect to and interact with Redis.
+Use https://github.com/ptaoussanis/carmine[Carmine] to connect to and interact with Redis.
 
 [NOTE]
 To use this recipe you should first install Redis and have it running locally. You can find
@@ -39,9 +39,9 @@ To use Carmine pull in the +carmine+ namespace and define a connection spec.
                                :timeout  4000}})
 ----
 
-Carmine supports all of the Redis commands and the names (basically) match the Redis documentation.
-So use +wcar+ and the connection specification +server-connection+ to send all the Redis commands
-you know and love:
+Carmine supports all of the Redis commands and the names (for the most part) match the Redis documentation.
+Use the +wcar+ function and the connection specification +server-connection+ to send all the Redis commands
+you already know and love:
 
 [source,clojure]
 ----
@@ -98,15 +98,17 @@ want to store and Carmine will automatically serialize/de-serialize it for you:
 ----
 
 This works great as long as you stick to core Clojure data types. However if you need to support
-storing custom data types you will need to deal with the underlying serialization library Nippy. For
+storing custom data types you will need to deal with the underlying serialization library, called Nippy. For
 more information see https://github.com/ptaoussanis/nippy[the Nippy Github project].
 
-Redis is great to use as a memoization storage backend.  Obviously there are some serious trade-offs
-to consider when weighing against an in memory solution,  such as the +memoize+ function included in
-Clojure core.  But for the right situation it can be an incredible boost.  Consider for example
-memoizing a function that hits an external web service to fetch the current weather.  With minimal
-effort multiple servers can share the latest data and even have stale data automatically expire and
-refresh.  The following is an example for just such a situation:
+Redis is great to use as a memoization storage backend.  Obviously
+there are some serious trade-offs to consider when weighing against an
+in memory solution, such as the +core.cache+ library.  But for the
+right situation it can be an incredible boost.  Consider for example
+memoizing a function that hits an external web service to fetch the
+current weather.  With minimal effort multiple servers can share the
+latest data and even have stale data automatically expire and refresh.
+The following is an example for just such a situation:
 
 [source,clojure]
 ----
@@ -145,11 +147,13 @@ defined above:
 ;; -> 9801
 ----
 
-Carmine is a great Redis client for Clojure. It is actively developed and fully featured.  It
-includes (among other things): serialization, a message queue, distributed locks, a Ring session
-store and even an implementation of DynamoDB (which is alpha at time of writing).  Many of these
-features are outside the scope of this recipe, but are well documented and straightforward to use.
-Consult https://github.com/ptaoussanis/carmine[the Carmine Github project] for more information.
+In addition to the features showcased above, Carmine includes (among
+other things): serialization, a message queue, distributed locks, a
+Ring session store and even an implementation of DynamoDB (which is
+alpha at time of writing).  Many of these features are outside the
+scope of this recipe, but are well documented and straightforward to
+use.  Consult https://github.com/ptaoussanis/carmine[the Carmine
+Github project] for more information.
 
 ==== See Also
 

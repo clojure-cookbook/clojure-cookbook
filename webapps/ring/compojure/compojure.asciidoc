@@ -5,11 +5,14 @@ by Adam Bard
 
 ==== Problem
 
-You want an easy way to route your views.
+You want an easy way to route URLs to specific Ring handler functions.
 
 ==== Solution
 
-Use https://github.com/weavejester/compojure[Compojure] to add routing to your app.
+Use the Compojure library (https://github.com/weavejester/compojure) to add routing to your app.
+
+Start by adding the Compojure dependency to leiningen by adding
+`[compojure "1.1.5"]` to `:dependencies` in the `project.clj`.
 
 [source, clojure]
 ----
@@ -43,7 +46,7 @@ Use https://github.com/weavejester/compojure[Compojure] to add routing to your a
 ==== Discussion
 
 Compojure is a routing library that lets you define routes for your app.
-It does this via the `defroutes` macro, which produces a Ring handler.
+It does this via the `defroutes` macro, which produces a Ring handler function.
 
 Here, we define four routes:
 
@@ -56,6 +59,11 @@ The last view is an example of Compojure's URL parameter syntax. The section
 of the URL identified by `:greeting` is passed along to the view, which displays
 it for the user. So, visiting `http://localhost:3000/Buenos%20Dias/` displays
 "Buenos Dias" in response.
+
+One caveat to be aware of is that Compojure routes are sensitive to a
+trailing slash: a route defined as `/users/:user/blog/` will not match
+the url `http://mysite.com/users/fred/blog` - but it _will_ match
+`http://mysite.com/users/fred/blog/`.
 
 The `[]` in each route is actually a syntactic sugar for intercepting these
 parameters. You can also use `req` or any other symbol to get the whole request:
@@ -79,6 +87,11 @@ and pass them to a function:
 It is important to realize that compojure works on top of Ring. Your views
 should still return Ring response maps (although Compojure will wrap strings
 you return with a basic 200 response).
+
+You can also define routes for other types of HTTP requests by
+specifying the route using the relevant Compojure directive:
+`compojure.core/POST` and `compojure.core/PUT` are most commonly used
+in addition to `compojure.core/GET`.
 
 Compojure provides a few other helpful tools:
 http://weavejester.github.io/compojure/compojure.route.html[`compojure.routes`],

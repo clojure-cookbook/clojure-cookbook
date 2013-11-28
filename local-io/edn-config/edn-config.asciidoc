@@ -1,0 +1,165 @@
+=== Using _edn_ for configuration files
+
+[role="byline"]
+by Luke VanderHart
+
+==== Problem
+
+You want to configure your application using Clojure-like data literals.
+
+==== Solution
+
+Use Clojure data structures stored in _edn_ files to define a map that
+contains configuration items you care about.
+
+For example, the _edn_ configuration of an application that needs to
+know its own hostname and connection info for a relational database
+might look something like this:
+
+[source,clj]
+.config.edn
+----
+{:hostname "localhost"
+ :database {:host "my.db.server"
+            :port 5432
+            :name "my-app"
+            :user "root"
+            :password "s00p3rs3cr3t"}}
+----
+
+The basic function to read this data into a Clojure map is trivial
+using the _edn_ reader.
+
+[source,clj]
+.config.clj
+----
+(ns myapp.config
+  (:require [clojure.edn :as edn]))
+
+(defn load-config
+  "Given a filename, load & return a config file"
+  [filename]
+  (edn/read-string (slurp filename)))
+----
+
+Invoking the newly-defined +load-config+ function will now return a
+configuration map that you can pass around and use in your application
+as you would any other map.
+
+==== Discussion
+
+As can be seen from the above code, the basic process for obtaining a
+map containing configuration data is extremely trivial. A more
+interesting question is what to do with the config map once you have
+it, and there are two general schools of thought regarding the answer.
+
+The first group prioritizes ease of development by making the
+configuration map ambiently available thoughtought the entire
+application. Usually this involves setting a global var to contain the
+configuration.
+
+However, this is problematic for a number of reasons. First, it
+becomes more difficult to override the default configuration file in
+alternate contexts, such as tests, or running two differently
+configured systems in the same JVM. (This can be worked around by using
+thread-local bindings, but this can lead to messy code fairly
+rapidly.)
+
+More importantly, using a global configuration means that any function
+that reads the config (most functions, in a sizeable application)
+_cannot be pure_. In Clojure, that is a lot to give up. One of the
+main benefits of pure Clojure code is its local transparency; the
+behavior of a function can be determined solely by looking at its
+arguments and its code. If every function reads a global variable,
+however, this becomes much more difficult.
+
+The alternative is to explicitly pass around the config everywhere it
+is needed, like you would every other argument. Since a config file is
+usually supplied at application start, the config is usually
+established in the +-main+ function and passed wherever else it is needed.
+
+This sounds painful, and indeed it can be somewhat annoying to pass an
+extra argument to every function. Doing so, however, lends the code a
+large degree of self-documentation; it becomes extremely evident what
+parts of the application rely on the config, and what parts do not. It
+also makes it more straightforward to modify the config at runtime or
+supply an alternative config in testing scenarios.
+
+===== Using multiple config files
+
+A common pattern when configuring an application is to have a number
+of different classes of configuration items. Some config fields are
+more or less constants, and don't vary between instances of the
+application in the same environment. These are often committed to
+source control along with the application's source code.
+
+Other config items are fairly constant, but can't be checked in to
+source control due to security concerns. Examples of this include
+database passwords or secure API tokens, and ideally these are put
+into a seperate config file.
+
+Still other configuration fields (such as IP addresses) will often be
+completely different for every instance of a deployed application, and
+the desire is to specify those seperately from the more constant
+config fields.
+
+A useful technique to handle this heterogeneity is to use multiple
+configuration files, each handling a different type of concern, and
+then merge them into a single configuration map before passing it on
+to the application. This typically uses a simple deep-merge function:
+
+[source,clj]
+.config.clj
+----
+(defn deep-merge
+  "Deep merge two maps"
+  [& values]
+  (if (every? map? values)
+    (apply merge-with deep-merge values)
+    (last values)))
+----
+
+This will merge two maps, merging values as well if they are all
+maps. If values are not all maps, the second one "wins" and is used in
+the resulting map.
+
+Then, you can rewrite the config loader to accept multiple config
+files, and merge them together:
+
+[source,clj]
+.config.clj
+----
+(defn load-config
+  [& filenames]
+  (reduce deep-merge (map (comp edn/read-string slurp)
+                          filenames)))
+----
+
+Using it on two seperate _edn_ config files yields a merged map:
+
+[source,clj]
+.config-public.edn
+----
+{:hostname "localhost"
+ :database {:host "my.db.server"
+            :port 5432
+            :name "my-app"
+            :user "root"}}
+----
+
+[source,clj]
+.config-private.edn
+----
+{:database {:password "s3cr3t"}}
+----
+
+[source,clj]
+----
+=> (load-config "config-public.edn" "config-private.edn")
+;; -> {:hostname "localhost", :database {:password "s3cr3t",
+;;     :host "my.db.server", :port 5432, :name "my-app", :user "root"}}
+
+----
+
+Be aware that any values present in both configuration files will be
+overridden by the "rightmost" file passed to +load-config+.

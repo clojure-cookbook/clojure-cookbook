@@ -9,9 +9,17 @@ http://rubyonrails.org/[Ruby on Rails]' +2.days.from_now+.
 
 ==== Solution
 
-Because relative time is such a complex beast, we suggest you use
+Because relative time is such a complex beast, we suggest using
 https://github.com/clj-time/clj-time[clj-time] for calculating
 relative dates and times.
+
+Before starting, add `[clj-time "0.6.0"]` to your project's
+dependencies or start a REPL using lein-try:
+
+[source,shell]
+----
+$ lein try clj-time
+----
 
 If you've used the Ruby on Rails framework then you're likely
 accustomed to statements like +1.day.from_now+, +3.days.ago+ or

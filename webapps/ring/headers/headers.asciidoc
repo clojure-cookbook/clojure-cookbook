@@ -4,9 +4,11 @@ by Adam Bard
 
 ==== Problem
 
-You need to manipulate request or response headers.
+You need to read or write HTTP request or response headers.
 
 ==== Solution
+
+Read or write the `:headers` key in Ring request or response maps.
 
 [source, clojure]
 ----
@@ -18,10 +20,9 @@ You need to manipulate request or response headers.
   "A handler that returns the User-agent header as a JSON
    response with an appropriate Content-Type"
   [req]
-  (let [request-headers (:headers req)]
-    {:body (str "{\"user-agent\": \"" (get headers "User-Agent") "\"}")
-     :headers {"Content-Type" "application/json"}
-     :status 200}))
+  {:body (str "{\"user-agent\": \"" (get-in req [:headers "user-agent"]) "\"}")
+   :headers {"Content-Type" "application/json"}
+   :status 200})
 
 (defn -main []
   ;; Run the server on port 3000
@@ -39,3 +40,5 @@ The above example defines a Ring handler that simply echoes the User-Agent
 as a JSON response. It gets the User-Agent from the request header map, and
 uses a Content-Type header in the response to ensure it is parsed as JSON
 by a client.
+
+Note that the keys of incoming headers are Strings, not Clojure keywords.

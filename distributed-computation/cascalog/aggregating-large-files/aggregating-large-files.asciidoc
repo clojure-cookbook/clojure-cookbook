@@ -5,20 +5,21 @@ by Alex Robbins
 
 ==== Problem
 
-You need to generate aggregate statistics from terabytes of log
-files. For example:
+You need to generate aggregate statistics from terabytes of log files.
+For example:
 
-Simple input log file (<date> <URL> <USER-ID>):
+.Simple input log file (<date>,<URL>,<USER-ID>)
+[source,csv]
 ----
-20130512020202 /             11
-20130512020412 /             23
-20130512030143 /post/clojure 11
-20130512040256 /post/datomic 23
-20130512050910 /post/clojure 11
-20130512051012 /post/clojure 14
+20130512020202,/,11
+20130512020412,/,23
+20130512030143,/post/clojure,11
+20130512040256,/post/datomic,23
+20130512050910,/post/clojure,11
+20130512051012,/post/clojure,14
 ----
 
-Output aggregate statistics:
+.Output aggregate statistics
 ----
 {
 "URL"  {"/"              2
@@ -36,14 +37,42 @@ Output aggregate statistics:
 Cascalog allows you to write distributed processing jobs that run
 locally or on a Hadoop cluster.
 
-Add the following to the dependencies vector of your project.clj:
-[source,clojure]
+To follow along with this recipe, clone the
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples
+GitHub repository] and checkout the +aggregation-begin+ branch. This
+will give you a basic Cascalog project as created in
+<<sec_cascalog_etl>>.
+
+[source,shell]
 ----
-[cascalog "1.10.2"]
-[cascalog/cascalog-more-taps "1.10.2"]
+$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
+$ cd cascalog-samples
+$ git checkout aggregation-begin
 ----
 
-Then add this query to your project:
+Now add `[cascalog/cascalog-more-taps "2.0.0"]` to the project's
+dependencies and set the +cookbook.aggregation+ namespace to be
+AOT-compiled. _project.clj_ should look like this:
+
+[source,clojure]
+----
+(defproject cookbook "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [cascalog "2.0.0"]
+                 [cascalog/cascalog-more-taps "2.0.0"]
+                 [org.clojure/data.json "0.2.2"]]
+  :profiles {:dev {:dependencies [[org.apache.hadoop/hadoop-core "1.1.2"]]}}
+  :aot [cookbook.etl
+        cookbook.aggregation])
+----
+
+Create the file _src/cookbook/aggregation.clj_ and add an aggregation query to it.
+
+._src/cookbook/aggregation.clj_
 [source,clojure]
 ----
 (ns cookbook.aggregation
@@ -67,19 +96,65 @@ Then add this query to your project:
   (?<-
     (hfs-textline out :sinkmode :replace)
     [?out]
-    ((hfs-delimited in) ?date ?url ?user)
+    ((hfs-delimited in :delimiter ",") ?date ?url ?user)
     (aggregate-stats ?date ?url ?user :> ?out)))
 ----
 
-Then execute it locally
-[source,terminal]
-$ lein run -m cookbook.aggregation.Main <in-path> <out-path>
+Add some sample data to the file _samples/posts/posts.csv_.
 
-or execute it over your Hadoop cluster
+._samples/posts/posts.csv_
+[source,csv]
+----
+20130512020202,/,11
+20130512020412,/,23
+20130512030143,/post/clojure,11
+20130512040256,/post/datomic,23
+20130512050910,/post/clojure,11
+20130512051012,/post/clojure,14
+----
+
+[NOTE]
+====
+The full contents of this solution is available in the
++aggregation-complete+ branch of the
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples]
+repository.
+
+Check out that branch to retrieve a full working copy with sample data.
+
+[source,shell]
+----
+$ git checkout aggregation-complete
+----
+====
+
+You can now execute the job locally:
+
 [source,terminal]
 ----
+$ lein run -m cookbook.aggregation.Main samples/posts/posts.csv samples/posts/output
+
+# Or, on a Hadoop cluster
 $ lein uberjar
-$ hadoop jar target/cookbook-standalone.jar cookbook.aggregation.Main <in-path> <out-path>
+$ hadoop jar target/cookbook-standalone.jar \
+             cookbook.aggregation.Main \
+             samples/posts/posts.csv samples/posts/output
+----
+
+The results in _samples/posts/output/part-00000_, formatted for
+readability, are as follows:
+
+._samples/posts/output/part-00000_
+----
+{
+"URL"  {"/"              2
+        "/post/datomic"  1
+        "/post/clojure"  3}
+"User" {"23" 2
+        "11" 3
+        "14" 1}
+"Day"  {"20130512" 6}
+}
 ----
 
 ==== Discussion
@@ -95,10 +170,10 @@ cluster during the reduce phase if all the aggregation happened on one
 node.
 
 Before you start writing your own aggregator, check through the source
-of +cascalog.ops+. +cascalog.ops+ has many useful functions and
+of +cascalog.logic.ops+. This namespace has many useful functions and
 probably already does what you want to do.
 
-In our example, we need to count how many of each url occurs. To
+In the example, the goal is to count how many of each url occurs. To
 create the final map, all of the URLs need to end up in one reducer. A
 naive MapReduce program implementation would use an aggregation over
 all the tuples. That means you'd be doing all the work on only one
@@ -117,21 +192,24 @@ writing highly-optimized queries without even trying. You can even
 write your own functions to use combiners using the +defparallelagg+
 macro.
 
-:TIP Cascalog often works with Vars instead of the values of those
+[TIP]
+====
+Cascalog often works with Vars instead of the values of those
 Vars. For example, the call to +defparallelagg+ takes quoted
-arguments. The #' syntax means that the var is being passed, not the
+arguments. The +#'+ syntax means that the var is being passed, not the
 value that the var refers to. Cascalog passes the vars around instead
 of values so that it doesn't have to serialize functions to pass them
 to the mappers and reducers. It just passes the name of the var, which
 is looked up in the remote execution environment. This means you won't
 be able to dynamically construct functions for some parts of the
 Cascalog workflow. Most functions need to be bound to a var.
+====
 
 +defparallelagg+ is kind of confusing at first, but the power to write
 queries that leverage combiners makes it worth learning. You need to
 provide two vars which point to functions to the +defparallelagg+
 call: +init-var+ and +combine-var+. Note that both arguments are being
-passed as vars, not function values, so you need to prepend a #' to
+passed as vars, not function values, so you need to prepend a +#'+ to
 the name. The +init-var+ function needs to take the input data and
 change it into a format that can be easily processed by the
 +combine-var+ function. In this case, the recipe changes the data into
@@ -143,14 +221,75 @@ passed as an argument to later invocations of the +combine-var+
 function. Pairs of output will be combined until there is only one
 output left, which is the final output.
 
-For example, in this query, the +init-var+ takes the date, url and
-user id for each line and transforms them into a nested map with a
-value of one for each defined key.  Then +combine-var+ is called with
-pairs of nested maps. Combine var just merges the maps, using
-+merge-with+ and the addition function. As each new map is combined
-in, the counts go up for the defined keys. When all the maps have been
-combined, you are left with a single map of maps that contain counts
-for each value.
+What follows is an explanation of the query, bit by bit.
+
+Require the Cascalog functions you'll need.
+
+[source,clojure]
+----
+(ns cookbook.aggregation
+  (:require [cascalog.api :refer :all]
+            [cascalog.more-taps :refer [hfs-delimited]]))
+----
+
+Define a functions, +init-aggregate-stats+ that takes a date, URL and
+user and returns a map of maps. The second level of maps has keys that
+correspond to the observed values. This is the init function, which
+takes each row and prepares it for aggregation.
+
+[source,clojure]
+----
+(defn init-aggregate-stats [date url user]
+  (let [day (.substring date 0 8)]
+    {"URL"  {url 1}
+     "User" {user 1}
+     "Day"  {date 1}}))
+----
+
+The +combine-aggregate-stats+ function takes the output of invoking
+the +init-aggregate-stats+ function on all the inputs and combines
+them. This function will be called over and over, combining the output
+of +init-aggregate-stats+ functions and the output of other
+invokations of itself. Its output should be the same form as its
+input, since this function will be called on pairs of output until
+there is only one piece of data left. This function merges the nested
+maps, adding the values together when they are in the same key.
+
+[source,clojure]
+----
+(def combine-aggregate-stats
+  (partial merge-with (partial merge-with +)))
+----
+
++aggregate-stats+ takes the two previous functions and turns them into
+a Cascalog parallel aggregation operation. Note that you pass the
+vars, not the functions themselves.
+
+[source,clojure]
+----
+(defparallelagg aggregate-stats
+  :init-var    #'init-aggregate-stats
+  :combine-var #'combine-aggregate-stats)
+----
+
+Finally, setup +Main+ to define and execute a query that invokes the
++aggregate-stats+ operation across input from +in+, writing it to
++out+.
+
+[source,clojure]
+----
+(defmain Main [in out & args]
+  ;; This defines and executes a Cascalog query.
+  (?<-
+    ;; Setup the output path
+    (hfs-textline out :sinkmode :replace)
+    ;; Define which logic variables will be output.
+    [?out]
+    ;; Setup the input path, define the logic vars to bind to input.
+    ((hfs-delimited in) ?date ?url ?user)
+    ;; Run the aggregation operation.
+    (aggregate-stats ?date ?url ?user :> ?out)))
+----
 
 If the aggregate you are wanting to calculate can't be defined using
 +defparallelagg+, Cascalog provides some other options for defining
@@ -160,3 +299,10 @@ reducers. The computation will probably finish, but you are losing a
 lot of the benefit of distributed computation. Check out the source
 the +cascalog.ops+ to see what the different options are, and how you
 can use them.
+
+==== See Also
+
+* The source of
+  https://github.com/nathanmarz/cascalog/blob/develop/cascalog-core/src/clj/cascalog/logic/ops.clj[+cascalog.logic.ops+],
+  a namespace with many pre-defined operations (including
+  aggregators.)

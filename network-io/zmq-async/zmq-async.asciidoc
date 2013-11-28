@@ -1,84 +1,159 @@
-=== Using ZeroMQ via core.async
+=== Concurrent ZeroMQ
 [role="byline"]
 by Kevin J. Lynagh
 
 ==== Problem
 
-You want to use ZeroMQ sockets in a thread safe way via core.async.
+You want to use ZeroMQ concurrently, but ZeroMQ sockets are not
+thread-safe. You _could_ manually set up mutual exclusion via locks or
+other Java concurrency primitives, but you'd rather use a simpler
+method.
 
 ==== Solution
 
-Use https://github.com/lynaghk/zmq-async[zmq-async].
+Use the https://github.com/lynaghk/zmq-async[zmq-async] library to
+simplify concurrent usage of ZeroMQ via +core.async+.
 
-In your dependencies:
+[NOTE]
+====
+In order to follow along with this recipe, your system should have
+ZeroMQ 3.2 installed.
+
+If you're on a Mac and have the http://brew.sh[Homebrew] package
+manager installed:
+
+[source,console]
+----
+$ brew install zeromq
+----
+
+Or, are on Ubuntu:
+
+[source,console]
+----
+$ apt-get install libzmq3
+----
+
+Otherwise, visit http://zeromq.org/intro:get-the-software[ØMQ's
+Downloads page].
+====
+
+Before starting, add `[com.keminglabs/zmq-async "0.1.0"]` to your
+project's dependencies, or follow along in a REPL using lein-try:
 
 [source,clojure]
 ----
-[com.keminglabs/zmq-async "0.1.0-SNAPSHOT"]
+$ lein try com.keminglabs/zmq-async
 ----
 
-Your system should have ZeroMQ 3.2 installed:
-
-[source,console]
-----
-brew install zeromq
-----
-
-or
-
-[source,console]
-----
-apt-get install libzmq3
-----
-
-Here's a simple ping-pong between two core.async go blocks communicating via a ZeroMQ in-process socket:
+Here's a simple ping-pong between two asynchronously +go+ blocks in
++core.async+, communicating via a ZeroMQ in-process socket:
 
 [source,clojure]
 ----
 (require '[com.keminglabs.zmq-async.core :refer [register-socket!]]
          '[clojure.core.async :refer [>! <! go chan sliding-buffer close!]])
 
-(let [n 3, addr "inproc://ping-pong"
-      [s-in s-out c-in c-out] (repeatedly 4 #(chan (sliding-buffer 64)))]
+(def addr "inproc://ping-pong")
 
-  (register-socket! {:in s-in :out s-out :socket-type :rep
-                     :configurator (fn [socket] (.bind socket addr))})
-  (register-socket! {:in c-in :out c-out :socket-type :req
-                     :configurator (fn [socket] (.connect socket addr))})
+(def server-in  (chan (sliding-buffer 64)))
+(def server-out (chan (sliding-buffer 64)))
+(def client-in  (chan (sliding-buffer 64)))
+(def client-out (chan (sliding-buffer 64)))
 
-  (go (dotimes [_ n]
-        (println (String. (<! s-out)))
-        (>! s-in "pong"))
-    (close! s-in))
+(register-socket! {:in server-in
+                   :out server-out
+                   :socket-type :rep
+                   :configurator (fn [socket] (.bind socket addr))})
 
-  (go (dotimes [_ n]
-        (>! c-in "ping")
-        (println (String. (<! c-out))))
-    (close! c-in)))
+(register-socket! {:in client-in
+                   :out client-out
+                    :socket-type :req
+                   :configurator (fn [socket] (.connect socket addr))})
+
+(do
+  ;; A simple server worker which waits for incoming requests and
+  ;; responds with "pong"
+  (go
+    (dotimes [_ 3]
+      (println (String. (<! server-out)))
+      (>! server-in "pong"))
+    (close! server-in))
+
+  ;; A simple client worker which sends a "ping" request and awaits
+  ;;  a response.
+  (go
+    (dotimes [_ 3]
+      (>! client-in "ping")
+      (println (String. (<! client-out))))
+    (close! client-in)))
+;; *out*
+;; ping
+;; pong
+;; ping
+;; pong
+;; ping
+;; pong
 ----
 
 ==== Discussion
 
-ZeroMQ is a message-oriented socket system that supports many communication styles (request/reply, , &c.) on top of many transport layers (intra-process, inter-process, inter-machine via tcp, &c.) with bindings to many languages.
-ZeroMQ sockets are a great substrate upon which to build service-oriented architectures.
-ZeroMQ sockets have less overhead than HTTP and are architecturally more flexible---supporting publish/subscribe, fan-out, and other topologies in addition to request/reply.
+ZeroMQ is a message-oriented socket system that supports many
+communication styles (request/reply, pub-sub, etc.) on top of many
+transport layers (intra-process, inter-process, inter-machine via TCP,
+etc.) with bindings to many languages. ZeroMQ sockets are a great
+substrate upon which to build service-oriented architectures. ZeroMQ
+sockets have less overhead than HTTP and are architecturally more
+flexible -- supporting publish/subscribe, fan-out, and other
+topologies in addition to request/reply.
 
-However, ZeroMQ sockets are not thread safe---concurrent usage typically requires explicit locking or dedicated threads and queues.
-The zmq-async library handles all of that for you, creating ZeroMQ socket on your behalf and giving you access to them via thread safe core.async channels.
+However, ZeroMQ sockets are not thread-safe -- concurrent usage
+typically requires explicit locking or dedicated threads and queues.
+The zmq-async library handles all of that for you, creating ZeroMQ
+sockets on your behalf and giving you access to them via thread-safe
++core.async+ channels.
 
-The zmq-async library provides one function, `register-socket!`, which associates a ZeroMQ socket with core.async channel(s) `in` (into which you can write strings or byte arrays) and/or `out` (whence byte arrays).
-Writing a Clojure collection of strings and/or byte arrays sends a multipart message; received multipart messages are put on core.async channels as a vector of byte arrays.
+The zmq-async library provides one function,
++com.keminglabs.zmq-async.core/register-socket!+, which associates a
+ZeroMQ socket with two +core.async+ channels: +:in+ (to which you can
+write strings or byte arrays) and/or +:out (from which you can read
+byte arrays). Writing a Clojure collection of strings and/or byte
+arrays to a channel using +>!+ sends a multipart message. Received
+multipart messages are placed on +core.async+ channels. Reading these
+messages with +<!+ will yield a vector of byte arrays.
 
-The `register-socket!` function can be given an already created ZeroMQ socket, but typically you would have the library create a socket for you by passing the `socket-type` and a `configurator`.
-The configurator is a function that is passed the raw ZeroMQ socket object.
-This function is run on the socket after it is created to connect/bind addresses, set pubsub subscriptions, and otherwise configure the socket.
+To simulate two asynchronous processes interacting over ZeroMQ the
+sample above uses to +go+ blocks that read/write from the registered
+channels. Each +go+ block will begin executing immediately in
+background threads. The "server" block will wait-for and reply-to
+three requests (+<!+ blocks until it receives a value), replying with
+"pong" each time. Concurrently, the "client" block will make three
+"ping" requests, awaiting a reply before moving on to the next
+request. Finally, after both blocks are done working, they each
+close their channels using +close!+.
 
-WARNING: The implicit context supporting `register-socket!` can only handle one incoming/outgoing message at a time.
-If you need sockets to work in parallel (i.e., you don't want to miss a small control message just because you're slurping in a 10GB message on another socket), then you'll need multiple zmq-async contexts.
+The +register-socket!+ function can be given an already-created ZeroMQ
+socket, but typically you would have the library create a socket for
+you by passing the +:socket-type+ and a +:configurator+. The
+configurator is a function that is passed the raw ZeroMQ socket
+object. This function is run on the socket after it is created in
+order to connect/bind addresses, set pub-sub subscriptions, and
+otherwise configure the socket.
 
+[WARNING]
+====
+The implicit context supporting `register-socket!` can only
+handle one incoming/outgoing message at a time. If you need sockets to
+work in parallel (i.e., you don't want to miss a small control message
+just because you're slurping in a 10GB message on another socket),
+then you'll need multiple zmq-async contexts.
+====
 
 ==== See Also
 
 * Rich Hickey's http://www.youtube.com/watch?v=ROor6_NGIWU[Language of the System] talk, wherein he outlines the benefits of queues
-* The http://zguide.zeromq.org/[ZeroMQ guide] for architectural patterns and advice
+* The http://zguide.zeromq.org/[ZeroMQ guide] for architectural
+  patterns and advice
+* See <<sec_core_async>> for more information on interacting with
+  +core.async+ channels.
 

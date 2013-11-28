@@ -1,22 +1,22 @@
 [[sec_local-io_read_write_files]]
-=== Reading and writing files
+=== Reading and writing text files
 [role="byline"]
 by Stefan Karlsson
 
 ==== Problem
 
-You need to read or write a file.
+You need to read or write a text file to the local filesystem.
 
 ==== Solution
 
-Write a string to a file with +spit+.
+Write a string to a file with the built in +spit+ function.
 
 [source,clojure]
 ----
 (spit "stuff.txt" "my stuff")
 ----
 
-Read the contents of a file with +slurp+.
+Read the contents of a file with the built in +slurp+ function.
 
 [source,clojure]
 ----
@@ -40,7 +40,7 @@ Append data to an existing file using the +:append true+ option to +spit+.
 ----
 
 To read a file line-by-line, instead of loading the entire contents
-into memory at once, use a +java.io.Reader+ together with +line-seq+.
+into memory at once, use a +java.io.Reader+ together with the +line-seq+ function.
 
 [source,clojure]
 ----
@@ -49,7 +49,8 @@ into memory at once, use a +java.io.Reader+ together with +line-seq+.
     (println line)))
 ----
 
-To write a large amount of data to a file, use a +java.io.Writer+.
+To write a large amount of data to a file without realizing it all as
+a string, use a +java.io.Writer+.
 
 [source,clojure]
 ----
@@ -74,12 +75,30 @@ newline including the last one.
   (spit path (str text "\n") :append true)
 ----
 
-+spit+ and +slurp+ deal with the entire contents of a file at a time,
-and close the file after reading or writing. If you need to read or
-write a lot of data, it is more efficient (in terms of both memory and
-time) to use streams.
+When used with strings, +spit+ and +slurp+ deal with the entire
+contents of a file at a time, and close the file after reading or
+writing. If you need to read or write a lot of data, it is more
+efficient (in terms of both memory and time) to use a streaming API
+such as +java.io.Reader+ or +java.io.Writer+, since they do not
+require realizing the contents of the file in memory.
 
-It is important to flush any writes to the underlying stream in order
-to ensure your data is actually written and resources are cleaned
-up. The +with-open+ macro flushes and closes the stream specified in
-its binding after executing its body.
+When using writers and streams, however, it is important to flush any
+writes to the underlying stream in order to ensure your data is
+actually written and resources are cleaned up. The +with-open+ macro
+flushes and closes the stream specified in its binding after executing
+its body.
+
+WARNING: Be especially aware that any lazy sequences based on a stream
+will throw an error if the underlying stream is closed before the
+sequence is realized. Even when using +with-open+, it is possible to
+return an unrealized lazy sequence; the +with-open+ macro has no way
+of knowing that the stream is still needed, and so will close it
+anyway, leaving a sequence that cannot be realized.
+
+Generally, it is best to not let lazy sequences based on streams
+escape the scope in which the stream is open. If you do, you must be
+extremely careful that the resources required for the realization of a
+lazy sequence are still open as long as the sequence has any
+readers. Typically, the latter approach involves manually tracking
+which streams are still open rather than relying on a +try/finally+ or
++with-open+ block.

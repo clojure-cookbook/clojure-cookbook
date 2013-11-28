@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to work manipulate fractional numbers with absolute precision.
+You need to manipulate fractional numbers with absolute precision.
 
 ==== Solution
 

@@ -5,8 +5,9 @@ by Luke VanderHart
 
 ==== Problem
 
-* You want to view a map as a sequence of entries
-* You want to create a map by joining a sequence of entries
+You want to treat the contents of a map as a sequence of entries.
+Alternatively, you want to convert a sequence of entries back into
+a map.
 
 ==== Solution
 

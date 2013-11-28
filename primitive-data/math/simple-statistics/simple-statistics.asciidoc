@@ -55,8 +55,8 @@ considering the mean of the *two* middle values.
 ;; -> 5/2  ; The average of 2 and 3.
 ----
 
-* <1> In the case +coll+ has an odd number of items, simply retrieve that item with +nth+.
-* <2> When +coll+ has an even number of items, find the index for the other central value (+bottom+), and take the mean of the top and bottom value.
+<1> In the case +coll+ has an odd number of items, simply retrieve that item with +nth+.
+<2> When +coll+ has an even number of items, find the index for the other central value (+bottom+), and take the mean of the top and bottom value.
 
 Find the _mode_ (most frequently occurring value) of a collection by
 using +frequencies+ to tally occurrences, then massage that tally to
@@ -122,27 +122,33 @@ compared to its numeric cousins.
 
 Here is a break down of how +mode+ works:
 
-* <1> +frequencies+ returns a map that tallies the number of times
-each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
-* <2> +group-by+ with +second+ inverts the +freqs+ map, turning keys into values, merging duplicates into groups. This would turn +{:a 1 :b 1}+ into `{1 [[:a 1] [:b 1]]}`.
-* <3> The list of occurrences is now sortable; the last pair in the sorted list will be the modes, or most frequently occurring values.
-* <4> The final step is processing the raw mode pairs into discrete values. Taking +second+ turns `[2 [[:alan 2]]]` into `[[:alan 2]]`, and +(map first)+ turns that into +'(:alan)+.
+<1> +frequencies+ returns a map that tallies the number of times
+    each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
+<2> +group-by+ with +second+ inverts the +freqs+ map, turning keys
+    into values, merging duplicates into groups. This would turn +{:a 1 :b
+    1}+ into `{1 [[:a 1] [:b 1]]}`.
+<3> The list of occurrences is now sortable; the last pair in the
+    sorted list will be the modes, or most frequently occurring values.
+<4> The final step is processing the raw mode pairs into discrete
+    values. Taking +second+ turns `[2 [[:alan 2]]]` into `[[:alan
+    2]]`, and +(map first)+ turns that into +'(:alan)+.
 
 The standard deviation measures how much, on average, the individual values in a
 population deviate from the mean: The higher the standard deviation is, the
-"farther away" the individual values will be (on average). As
+"farther away" the individual values will be (on average).
 +standard-deviation+ is a bit more mathematical than +mean+, +median+ and
-+mode+, we will go through the first example step by step to get a better
-understanding on how it works:
++mode+, follow along the execution of this function with a step by step
+breakdown.
 
-* <5> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, we reuse the previously
-defined +mean+ function to find this.
-* <6> we calculate a new list of values, where we subtract +5+ from every value
-and multiply that result with itself. The result is the list +(1 0 9 16 0 4 1 0 1)+.
-* <7> the sum of this new list is +32+, and we divide this by +9 - 1+, the
-number of elements minus one. The result of +32/8+ is +4+.
-* <9> finally, we take the square root of +4+ and get back +2.0+.
+<5> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, reuse the previously
+    defined +mean+ function to find this.
+<6> calculate a new list of values, subtracting +5+ from every value
+    and multiplying that result with itself. The result is the list +(1 0 9 16 0 4 1 0 1)+.
+<7> the sum of this new list is +32+, divide this by +9 - 1+, the
+    number of elements minus one. The result of +32/8+ is +4+.
+<9> finally, take the square root of +4+ and get back +2.0+.
 
+// TODO: This makes no sense (RN).
 <8> We have here covered the the _sample_ standard deviation, where we have a random
 sample of a larger population. If we have the complete population (_population_
 standard deviation), we should divide by +total+ instead of +(- total 1)+.
