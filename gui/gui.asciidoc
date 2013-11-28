@@ -1,6 +1,0 @@
-[[ch_gui]]
-== GUIs
-
-include::seesaw/making-a-window.asciidoc[]
-
-
