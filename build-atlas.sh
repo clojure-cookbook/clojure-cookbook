@@ -24,9 +24,15 @@ git config http.postBuffer 524288000 > /dev/null
 
 if git remote | grep atlas > /dev/null; then
   echo "Atlas remote detected"
-  if ask "Force push to Atlas repository? [y/n] "; then
+
+  echo "Pulling any changes..."
+  git fetch atlas
+
+  git merge atlas/master
+
+  if ask "Push to Atlas repository? [y/n] "; then
     echo -e "\nPushing..."
-    git push -f atlas master
+    git push atlas master
     open_build_page
   fi
 else
