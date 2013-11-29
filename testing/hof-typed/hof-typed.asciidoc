@@ -1,4 +1,4 @@
-=== Type Checking Higher-order functions with core.typed
+=== core.typed: Type Checking Higher-order Functions
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 //TODO: Edit for style towards a more first-person style

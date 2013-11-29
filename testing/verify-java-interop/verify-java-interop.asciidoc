@@ -1,4 +1,4 @@
-=== Verify Java interop with core.typed
+=== core.typed: Verify Java Interop 
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 // TODO: Adjust sample style to fit conventions

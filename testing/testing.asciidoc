@@ -17,9 +17,9 @@ include::tracing/tracing.asciidoc[]
 
 include::primitive-arrays/primitive-arrays.asciidoc[]
 
-include::verify-java-interop/verify-java-interop.asciidoc[]
-
 include::avoid-null-pointer/avoid-null-pointer.asciidoc[]
+
+include::verify-java-interop/verify-java-interop.asciidoc[]
 
 include::hof-typed/hof-typed.asciidoc[]
 
