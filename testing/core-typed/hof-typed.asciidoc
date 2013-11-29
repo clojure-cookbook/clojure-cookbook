@@ -11,33 +11,32 @@ feedback: compile time.
 
 ==== Solution
 
-Use _core.typed_ to type check higher-order function use.
+Use _core.typed_ to type check higher-order functions.
 
-We use `clojure.core.typed/cf` to type check individual forms.
-We can lookup the type for some common higher-order functions
-this way, also using `clojure.repl/doc` to read their documentation.
+To follow along with this recipe, create a file _core_typed_samples.cl_
+and start a REPL using lein-try:
 
-[source,clojure]
------
-clojure.core.typed> (cf iterate)
-(All [x] 
-  (Fn [(Fn [x -> x]) x -> (clojure.lang.LazySeq x)]))
+[source,console]
+----
+$ touch core_typed_samples.clj
+$ lein try org.clojure/core.typed
+----
 
-clojure.core.typed> (require '[clojure.repl :refer [doc]])
-clojure.core.typed> (doc iterate)
-clojure.core/iterate
-([f x])
-  Returns a lazy sequence of x, (f x), (f (f x)) etc. f must be free of side-effects
------
+[NOTE]
+====
+This recipe is a little different than others because core.typed uses
+on-disk files to check namespaces.
+====
 
-These two tools are complementary in exploring Clojure's core library.
+To demonstrate core.typed's abilities, define a typed higher-order
+function +hash-of?+, which accepts two predicates and returns a new
+predicate. Use +clojure.core.typed/fn>+ to return an anonymous
+function with type annotations attached.
 
-Let's define our own higher-order function `hash-of?`, which takes two predicates
-and returns a predicate.
-
+._core_typed_samples.clj_
 [source,clojure]
 ----
-(ns book.hof
+(ns core-typed-samples
   (:require [clojure.core.typed :refer [ann fn>] :as t]))
 
 (ann hash-of? [[Any -> Any] [Any -> Any] -> [Any -> Any]])
@@ -48,78 +47,123 @@ and returns a predicate.
            (every? ks? (vals m))))))
 ----
 
-http://clojure.github.io/core.typed/#clojure.core.typed/fn>[clojure.core.typed/fn>] 
-is used like `fn` except each argument must be annotated.
+Each argument to +hash-of?+ has type `[Any -> Any]`: a single argument
+function taking anything and returning anything.
 
-Each argument to `hash-of?` has type `[Any -> Any]`: a single argument function taking
-anything and returning anything. 
+Verifying +hash-of?+ confirms that the type annotations above are correct.
 
-core.typed can verify the implementation and usages of `hash-of?`.
-
-[source,clojure]
+[source,console]
 -----
-book.hof> (t/check-ns)
+user=> (require '[clojure.core.typed :as t])
+user=> (t/check-ns 'core-typed-samples)
+# ...
 :ok
 -----
 
-Invoking `hash-c?` with two predicates is verified by core.typed as expected.
+Using the +clojure.core.typed/cf+ macro you can type check individual
+forms at the REPL (or under test). Invoking +hash-of?+ with two
+predicates verifies as expected, outputting the resulting type.
 
-[source,clojure]
+[source,console]
 -----
-book.hof> (t/cf (hash-of? number? number?))
+user=> (require '[core-typed-samples :refer [hash-of?]])
+user=> (t/cf (hash-of? number? number?))
 (Fn [Any -> Any])
 -----
 
 Passing `+` as a predicate, however, is a type error.
 
-[source,clojure]
+[source,console]
 -----
-book.hof> (t/cf (hash-of? + number?))
-Type Error (book.hof:1:36) Expected type: (Fn [Any -> Any])
-Actual: (Fn [t/AnyInteger * -> t/AnyInteger] [Number * -> Number])
-ExceptionInfo Type Checker: Found 1 error  clojure.core/ex-info (core.clj:4327)
------
+user=> (t/cf (hash-of? + number?))
+Type Error (user:1:7) Type mismatch:
 
-This is because `hash-of?` takes a function with an `Any` parameter, while `+` can take
-at most a `Number`.
+Expected:       (Fn [Any -> Any])
 
-core.typed also tells us when we are passing the wrong number of arguments to
-a function returned by another function.
-
-[source,clojure]
------
-book.hof> (t/cf (fn [] ((hash-of? + number?))))
-Type Error (book.hof:1:43) Wrong number of arguments, expected 1 fixed parameters, and got 0 for function [Any -> Any] and arguments []
-in: ((book.hof/hash-of? clojure.core/number? clojure.core/number?))
-
+Actual:         (Fn [t/AnyInteger * -> t/AnyInteger]
+                    [java.lang.Number * -> java.lang.Number])
 
 ExceptionInfo Type Checker: Found 1 error  clojure.core/ex-info (core.clj:4327)
 -----
 
-Note we wrap the faulty `((hash-of? + number?))` in a `fn` because 
-as of writing core.typed evaluates code before it type checks it.
-Otherwise `((hash-of? + number?))` returns the usual Clojure runtime error
-for mismatched parameters:
-
-[source,clojure]
-----
-book.hof> (t/cf ((hash-of? + number?)))
-ArityException Wrong number of args (0) passed to: hof$hash-of-QMARK-$fn  clojure.lang.AFn.throwArity (AFn.java:437)
-----
+Because +hash-of?+ takes a function with an +Any+ parameter and `+`
+takes at most a +Number+ this is a type error.
 
 ==== Discussion
 
-Another way to verify higher-order functions is by runtime assertions. Clojure's
-pre/post conditions are useful for defining anonymous functions that fail fast
-when passed incorrect parameters. The upside of runtime assertions is there is
-no commitment to a programming style like static typing, but the downside is
-feedback is at runtime.
+While Clojure's built-in pre/post conditions are useful for defining
+anonymous functions that fail fast, these checks only provide feedback
+at runtime. Why not type-check our higher-order functions as well?
+core.typed's type checking abilities aren't limited to only data
+types--it can also type-check functions as types themselves.
 
-The `All` around `iterate`'s type indicates that it is _polymorphic_ in `x`.
-It reads, "for all types x, takes a function that accepts an x and returns an x,
-and takes an x, and returns a lazy sequence of x". Read more about 
-https://github.com/clojure/core.typed/wiki/User-Guide#polymorphism[polymorphism] in core.typed.
+By writing returning anonymous functions created with the
++clojure.core.typed/fn>+ form instead of +fn+, it is possible to
+annotate function objects with core.typed's rich type-checking system.
+When defining functions with +fn>+, annotate types to its arguments
+with the +:-+ operator. For example, +(t/fn> [m :- Map] ...)+ would
+indicate an anonymous function that accepted a +Map+ as its sole
+argument.
+
+Beyond definition, it can also be useful to check the types of forms
+at the REPL. The `clojure.core.typed/cf` macro is a versatile,
+REPL-oriented tool for on-demand type checking. This proves useful not
+only for checking your code, but investigating built-in functions.
+Invoking +cf+ on any of Clojure' higher-order functions reveals their
+type signatures.
+
+[source,console]
+-----
+user=> (t/cf iterate)
+(All [x] 
+  (Fn [(Fn [x -> x]) x -> (clojure.lang.LazySeq x)]))
+-----
+
+The +All+ around +iterate+'s type indicates that it is _polymorphic_
+in +x+. It reads, "for all types x, takes a function that accepts an x
+and returns an x, and takes an x, and returns a lazy sequence of x".
+
+The +cf+ macro can also detect when the wrong number of arguments are
+being passed to a function returned by another function.
+
+[source,console]
+-----
+user=> (t/cf (fn [] ((hash-of? + number?))))
+Type Error (user:1:15) Type mismatch:
+
+Expected:       (Fn [Any -> Any])
+
+Actual:         (Fn [t/AnyInteger * -> t/AnyInteger]
+                    [java.lang.Number * -> java.lang.Number])
+in: ((core-typed-samples/hash-of? clojure.core/+ clojure.core/number?))
+
+
+Type Error (user:1:14) Wrong number of arguments, expected 1 fixed
+parameters, and got 0 for function [Any -> Any] and arguments []
+in: ((core-typed-samples/hash-of? clojure.core/+ clojure.core/number?))
+
+
+
+ExceptionInfo Type Checker: Found 2 errors  clojure.core/ex-info (core.clj:4327)
+-----
+
+[NOTE]
+====
+In this experiment, the faulty invokation of +hash-of?+ is wrapped in
+an anonymous function. At the time of this writing, core.typed
+evaluates code before it type checks it.
+
+Without this, the raw invokation `((hash-of? + number?))` woudl return
+a regular Clojure +ArityException+.
+====
 
 ==== See also
 
-* https://github.com/clojure/core.typed[core.typed Home]
+* The https://github.com/clojure/core.typed[core.typed repository] on GitHub.
+* The core.typed user guide, in particular its sections on
+  https://github.com/clojure/core.typed/wiki/User-Guide#polymorphism[polymorphism]
+  and
+  https://github.com/clojure/core.typed/wiki/User-Guide#functions[function
+  annotations].
+* Recipes <<sec_verify_java> and <<sec_avoid_null>> for further
+  examples of how to use core.typed.

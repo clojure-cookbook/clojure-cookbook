@@ -93,6 +93,7 @@ user=> (t/check-ns 'core-typed-samples)
 +File+ has a second single-argument constructor: +public File(URI
 uri)+. Enhance +new-file+ to support +URI+ or +String+ file names.
 
+._core_typed_samples.clj_
 [source,clojure]
 ----
 (ns core-typed-samples
@@ -120,6 +121,7 @@ Java code correctly.
 Though the +File+ constructor is fairly innocous, consider writing
 +parent+, a thin wrapper over the +getParent+ method.
 
+._core_typed_samples.clj_
 [source,clojure]
 ----
 (ns core-typed-samples

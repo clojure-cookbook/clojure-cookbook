@@ -1,7 +1,7 @@
 [[sec_avoid_null]]
 === Avoiding Null-Pointer Exceptions with core.typed
 [role="byline"]
-originally submitted by Ambrose Bonnaire-Sergeant
+by Ambrose Bonnaire-Sergeant
 
 ==== Problem
 
