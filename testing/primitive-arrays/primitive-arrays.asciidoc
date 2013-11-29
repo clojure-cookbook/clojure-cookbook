@@ -79,6 +79,16 @@ For faster +reduce+-like operations, use one of Hiphip's +areduce+ and
 ;; -> 20.0 
 ----
 
+[WARNING]
+====
+We'd love to throw in a quick +time+ benchmark to demonstrate the
+gains, but the JVM is a fickle beast when it comes to optimizations.
+We suggest using https://github.com/hugoduncan/criterium[criterium]
+when benchmarking to avoid common pitfalls.
+
+To see criterium benchmarks of hiphip, see
+https://gist.github.com/w01fe/7132440[this gist].
+====
 
 ==== Discussion
 
@@ -153,4 +163,7 @@ If you're up to the challenge, you should keep these tips in mind:
   arrays of primitives to full C-style structs, which may be a good
   choice if you need to manipulate structured data (i.e., not just
   sequences of ++double++s) with maximal performance.
-* TODO: cross reference with other performance recipes
+* See <<sec_primitives_math_type_hinting>> to learn more about
+  type-hinting and unchecked-math.
+* See <<sec_profiling_timbre>> to learn about using Timbre to output
+  profiling statistics from your code.

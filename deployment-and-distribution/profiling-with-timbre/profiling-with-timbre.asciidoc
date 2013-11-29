@@ -1,3 +1,4 @@
+[[sec_profiling_timbre]]
 === Simple Profiling with Timbre
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
