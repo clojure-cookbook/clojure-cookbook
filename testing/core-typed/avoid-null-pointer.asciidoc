@@ -1,6 +1,7 @@
-=== core.typed: Avoiding Null-Pointer Exceptions
+[[sec_avoid_null]]
+=== Avoiding Null-Pointer Exceptions with core.typed
 [role="byline"]
-by Ambrose Bonnaire-Sergeant
+originally submitted by Ambrose Bonnaire-Sergeant
 
 ==== Problem
 
@@ -44,8 +45,6 @@ annotate it with +clojure.core.typed/ann+ to accept the union (+U+) of the +nil+
 -----
 
 Verify the functions correctness at the REPL using +clojure.core.typed/check-ns+.
-
-
 
 [source,clojure]
 ----
@@ -159,4 +158,7 @@ argument types with each arity until one matches.
 * The list of core type aliases in the API reference. For example, the
   entry for
   http://clojure.github.io/core.typed/#clojure.core.typed/AnyInteger[clojure.core.typed/AnyInteger].
-* Valid types are documented on the https://github.com/clojure/core.typed/wiki/Types[Types] wiki page.
+* Valid types are documented on the
+  https://github.com/clojure/core.typed/wiki/Types[Types] wiki page.
+* Recipes <<sec_verify_java> and <<sec_verify_hof>> for further
+  examples of how to use core.typed.

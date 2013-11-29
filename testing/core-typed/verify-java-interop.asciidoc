@@ -1,0 +1,227 @@
+[[sec_verify_java]]
+=== Verify Java Interop using core.typed
+[role="byline"]
+by Ambrose Bonnaire-Sergeant
+
+==== Problem
+
+You want to verify that we are using Java libraries safely and
+unambiguously.
+
+Java provides a vast ecosystem that is a major draw for Clojure
+developers, however, it can be often be complex to use large,
+cumbersome Java APIs from Clojure.
+
+==== Solution
+
+Use _core.typed_ to type check Java interop calls.
+
+To follow along with this recipe, create a file _core_typed_samples.cl_
+and start a REPL using lein-try:
+
+[source,console]
+----
+$ touch core_typed_samples.clj
+$ lein try org.clojure/core.typed
+----
+
+[NOTE]
+====
+This recipe is a little different than others because core.typed uses
+on-disk files to check namespaces.
+====
+
+To demonstrate, choose a standard Java API function such as the
++java.io.File+ constructor.
+
+Using the dot constructor to create new Files can be annoying, wrap it
+in a Clojure function that takes a string +new-file+.
+
+._core_typed_samples.clj_
+[source,clojure]
+----
+(ns core-typed-samples
+  (:require [clojure.core.typed :refer [ann] :as t])
+  (:import (java.io File)))
+
+(ann new-file [String -> File])
+(defn new-file [s]
+  (File. s))
+----
+
+Setting `*warn-on-reflection*` when compiling this namespace will tell
+us that there is a reflective call to the `java.io.File` constructor.
+Checking this namespace at the REPL with +clojure.core.typed/check-ns+ will
+tell report the same information, albeit in the form of a type error.
+
+[source,console]
+----
+user=> (require '[clojure.core.typed :as t])
+user=> (t/check-ns 'core-typed-samples)
+# ...
+ExceptionInfo Internal Error (core-typed-samples:6) Unresolved constructor invocation java.io.File.
+
+Hint: add type hints.
+
+in: (new java.io.File s)  clojure.core/ex-info (core.clj:4327)
+----
+
+Add a type hint to call the `public File(String pathname)` constructor
+(http://docs.oracle.com/javase/6/docs/api/java/io/File.html#File(java.lang.String)[Javadoc]).
+
+._core_typed_samples.clj_
+[source,clojure]
+----
+(ns core-typed-samples
+  (:require [clojure.core.typed :refer [ann] :as t])
+  (:import (java.io File)))
+
+(ann new-file [String -> File])
+(defn new-file [^String s]
+  (File. s))
+----
+
+Checking again, core.type is satisfied.
+
+[source,console]
+----
+user=> (t/check-ns 'core-typed-samples)
+# ...
+:ok
+----
+
++File+ has a second single-argument constructor: +public File(URI
+uri)+. Enhance +new-file+ to support +URI+ or +String+ file names.
+
+[source,clojure]
+----
+(ns core-typed-samples
+  (:require [clojure.core.typed :refer [ann] :as t])
+  (:import (java.io File)
+           (java.net URI)))
+
+(ann new-file [(U URI String) -> File])
+(defn new-file [s]
+  (if (string? s)
+    (File. ^String s)
+    (File. ^URI s)))
+----
+
+Even after relaxing the input type to `(U URI String)`, core.typed is
+able to infer that each branch has the correct types by following the
+`string?` predicate.
+
+==== Discussion
+
+While `java.io.File` is a relatively small API, careful inspection of
+Java types _and_ documentation is needed to confidently use foreign
+Java code correctly.
+
+Though the +File+ constructor is fairly innocous, consider writing
++parent+, a thin wrapper over the +getParent+ method.
+
+[source,clojure]
+----
+(ns core-typed-samples
+  (:require [clojure.core.typed :refer [ann] :as t])
+  (:import (java.io File)))
+
+(ann file-parent [File -> String])
+(defn file-parent [^File f]
+  (.getParent f))
+----
+
+The above implementation is free from reflective calls, so... all
+good? No. Checking this function with core.typed tells another story;
+Java's return types are _nullable_ and core.typed knows it. It is
+possible that +getParent+ return +nil+ instead of a +String+.
+
+[source,console]
+----
+user=> (t/check-ns 'core-typed-samples)
+# ...
+Type Error (core-typed-samples:7:3) Return type of instance method
+java.io.File/getParent is (U java.lang.String nil), expected
+java.lang.String.
+
+Hint: Use `non-nil-return` and `nilable-param` to configure where
+`nil` is allowed in a Java method call. `method-type` prints the
+current type of a method.
+in: (.getParent f)
+
+
+Type Error (core-typed-samples:6) Type mismatch:
+
+Expected:       java.lang.String
+
+Actual:         (U String nil)
+in: (.getParent f)
+
+
+Type Error (core-typed-samples:6:1) Type mismatch:
+
+Expected:       (Fn [java.io.File -> java.lang.String])
+
+Actual:         (Fn [java.io.File -> (U String nil)])
+in: (def file-parent (fn* ([f] (.getParent f))))
+
+
+
+ExceptionInfo Type Checker: Found 3 errors clojure.core/ex-info ...
+----
+
+core.typed assumes all methods return nullable types, so it is a type
+error to annotate `parent` as `[File -> String]`. Each type error
+above reiterates that the annotation tried to claim a `(U nil String)`
+was a `String`, with the most specific (and useful) error being the
+first.
+
+core.typed is designed to be pessimistic about Java code, while being
+accurate enough to avoid adding arbitrary code to "please" the type checker.
+For example, core.typed distrusts Java methods enough to assume all method
+parameters are non-nullable and the return type is nullable by default.
+On the other hand, core.typed knows Java constructors never return `null`.
+
+If core.typed is too pessimistic for you with its nullable return
+types, you can override particular methods with
+`clojure.core.typed/non-nil-return`. Adding the following to the above
+code would result in a successful type check (check omitted for
+brevity).
+
+[source,clojure]
+----
+(t/non-nil-return java.io.File/getName :all)
+----
+
+[NOTE]
+====
+As of this writing, core.typed does not enforce static type overrides
+at runtime, so use `non-nil-return` and similar features with caution.
+====
+
+Sometimes the type checker might seem overly picky; in the solution
+two type-hinted constructors are necessary. It might seem normal in a
+dynamically typed language to simply call `(File. s)` and allow
+reflection to resolve any ambiguity. By conforming to what core.typed
+expects, however, all ambiguity is eliminated from the constructors,
+and the type hints inserted have enabled the Clojure compiler to
+generate efficient bytecode.
+
+It is valid to wonder why both type hints _and_ core.typed annotations
+are needed to type check ambiguous Java calls. A type hint is a
+directive to the _compiler_, while type annotations are merely for
+core.typed to consume during type checking. core.typed does not have
+influence over resolving reflection calls at compile time, so it
+chooses to assume all reflective calls to be ambiguous instead of
+trying to guess what the reflection might resolve to at runtime. This
+simple rule usually results in faster, more explicit code, often
+desirable in larger code bases.
+
+==== See also
+
+* https://github.com/clojure/core.typed[core.typed Home]
+* http://clojure.github.io/core.typed/[core.typed API Reference],
+  particularly documentation for +non-nil-return+ and +nilable-param+.
+* Recipes <<sec_avoid_null> and <<sec_verify_hof>> for further
+  examples of how to use core.typed.
+

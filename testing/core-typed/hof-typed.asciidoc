@@ -1,17 +1,17 @@
-=== core.typed: Type Checking Higher-order Functions
+[[sec_verify_hof]]
+=== Type Checking Higher-order Functions with core.typed
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
-//TODO: Edit for style towards a more first-person style
 
 ==== Problem
 
 Clojure strongly encourages higher-order functions, but tools for
-verifying their use focus on runtime verification. We want earlier
+verifying their use focus on runtime verification. You want earlier
 feedback: compile time.
 
 ==== Solution
 
-We use core.typed to type check higher-order function use.
+Use _core.typed_ to type check higher-order function use.
 
 We use `clojure.core.typed/cf` to type check individual forms.
 We can lookup the type for some common higher-order functions
