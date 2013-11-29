@@ -14,7 +14,6 @@ Use the
 https://github.com/lynaghk/jetty7-websockets-async[+jetty7-websockets-async+]
 library to create WebSocket connections using Jetty and +core.async+.
 
-
 Before starting, add `[ring/ring-jetty-adapter "1.2.1"]`,
 `[org.clojure/core.async "0.1.242.0-44b1e3-alpha"]` and
 `[com.keminglabs/jetty7-websockets-async "0.1.0"]` to your project's
@@ -23,6 +22,7 @@ dependencies, or start a REPL using lein-try:
 [source,console]
 ----
 lein try ring/ring-jetty-adapter \
+         org.clojure/core.async \
          com.keminglabs/jetty7-websockets-async
 ----
 
@@ -63,10 +63,10 @@ channel to a WebSocket connection to a remote server.
 
 (def ws-client (chan))
 
-(connect! c "ws://localhost:8090")
+(connect! ws-client "ws://localhost:8090")
 
 (go (loop []
-      (let [ws-req (<! c)]
+      (let [ws-req (<! ws-client)]
         (>! (:in ws-req) "Hello remote websocket server!")
         (recur))))
 ----
@@ -83,7 +83,9 @@ established (i.e., a WebSocket client has connected to your server or
 provided on the channel, containing the following keys:
 
 * +:uri+ - the string URI on which the connection was made
-* +:conn+ - the underlying Jetty7 websocket connection (http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/websocket/WebSocket.Connection.html[Jetty WebSocket JavaDoc]).
+* +:conn+ - the underlying Jetty7 websocket connection
+  (http://download.eclipse.org/jetty/stable-7/apidocs/org/eclipse/jetty/websocket/WebSocket.Connection.html[Jetty
+  WebSocket JavaDoc]).
 * +:in+ - a +core.async+ channel where you can put string messages
 * +:out+ - a +core.async+ channel whence string messages
 
