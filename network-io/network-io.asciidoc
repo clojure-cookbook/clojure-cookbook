@@ -22,3 +22,5 @@ include::websockets/websockets.asciidoc[]
 include::tcp-client/tcp-client.asciidoc[]
 
 include::tcp-server/tcp-server.asciidoc[]
+
+include::tcp-server/udp.asciidoc[]

@@ -1,0 +1,153 @@
+=== Sending & Receiving UDP Packets
+[role="byline"]
+by Luke VanderHart
+
+==== Problem
+
+You want to send or recieve asynchronous UDP packets from your
+application.
+
+==== Solution
+
+Use Java interop with the +java.net.DatagramSocket+ and
++java.net.DatagramPacket+ classes to send and recieve UDP messages.
+
+The following example demonstrates functions that send and recieve
+short strings encoded into UDP packets.
+
+[source,clojure]
+----
+(ns udp
+  (:import [java.net DatagramSocket
+                     DatagramPacket
+                     InetSocketAddress]))
+
+(defn send
+  "Send a short textual message over a DatagramSocket to the specified
+  host and port. If the string is over 512 bytes long, it will be
+  truncated. "
+  [^DatagramSocket socket msg host port]
+  (let [payload (.getBytes msg)
+        length (min (alength payload) 512)
+        address (InetSocketAddress. host port)
+        packet (DatagramPacket. payload length address)]
+    (.send socket packet)))
+
+(defn receive
+  "Block until a UDP message is recieved on the given DatagramSocket, and
+  returns the payload message as a string."
+  [^DatagramSocket socket]
+  (let [buffer (byte-array 512)
+        packet (DatagramPacket. buffer 512)]
+    (.receive socket packet)
+    (String. (.getData packet)
+             0 (.getLength packet))))
+
+(defn receive-loop
+  "Given a function and DatagramSocket, will (in another thread) wait
+  for the socket to receive a message, and whenever it does, will call
+  the provided function on the incoming message."
+  [socket f]
+  (future (while true (f (receive socket)))))
+----
+
+The +send+ function is fairly straightforward - most of its content is
+devoted to constructring a byte array as a payload for the
++DatagramPacket+, and invoking constructor forms. The most interesting
+thing is its limitation of the payload size to 512 bytes, using the
++length+ argument to the +DatagramPacket+ constructor. This is because
+it generally isn't safe to attempt to send over 512 bytes of payload
+in a single UDP packet - although some network infrastructures may
+support it, others do not.
+
+The +recieve+ function creates an incoming byte array, adds it to a
+mutable empty +DatagramPacket+ instance, and invokes the +DatagramSocket.receive+
+method on the socket. When incoming data is recieved, the +receive+
+method will return after populating the instance of
++DatagramPacket+. The Clojure code then constructs and returns a new
++String+ using the populated range of the byte array (that is, between
+0 and the value reported by the +DatagramPacket.getLength+ method.)
+
+Because the +receive+ function blocks and only returns a single value,
+it isn't particularly useful for accepting multiple message or using
+from the REPL. +receive-loop+ wraps the +receive+ function, calling it
+repeatedly on a seperate thread. Whenever it returns a value, it invokes
+the supplied function, then loops back to waiting for more
+input.
+
+To execute this code, you'll first need to create an instance of
++DatagramSocket+. At the REPL:
+
+[source,clojure]
+----
+udp> (def socket (DatagramSocket. 8888))
+;; -> #'udp/socket
+----
+
+This creates a UDP socket on the specified port (in this case, 8888).
+
+Next, start up a listener using the +receive-loop+ function. For this
+example, simply pass it the +println+ function so it will print out
+all recieved values.
+
+[source,clojure]
+----
+udp> (receive-loop socket println)
+;; -> #<core$future_call$reify__6267@2783890e: :pending>
+----
+
+Then, you can send a message! If you started the listener thread with
++receive-loop+ properly, you should see it print out the incoming
+message immediately.
+
+[source,clojure]
+----
+udp> (send socket "hello, world!" "localhost" 8888)
+hello, world!
+
+nil
+----
+
+In this case, sending to localhost, the message transmission happens
+so quickly that the message is actually received before the +send+
+function even returns.
+
+===== Discussion
+
+Unlike TCP, UDP (which stands for User Datagram Packet) is an
+_asynchronous_ protocol that makes no guarantees regarding the order
+in which messages arrive, whether their contents are correct, or even
+if they arrive at all. In exchange, UDP typically has a lower
+per-packet latency than protocols like TCP since it does not need to
+perform error checking or recovery.
+
+Before you do decide to use UDP, make sure your application is
+designed to continue working even if packets are dropped or corrupt.
+
+Because UDP uses asynchronous messages as its model, it is fairly easy
+to use +core.async+ to wrap the raw +DatagramSocket+s. +core.async+
+provides a very nice _channel_ abstraction that lets you consume and
+produce inherently asynchronous eventes (such as UDP messages) in a
+clean, managed way.
+
+===== Multicast UDP
+
+UDP is also capable of sending the same datagram packet to multiple
+destinations using a technique called +UDP multicast+. To use
+multicast, create an instance of +java.net.MulticastSocket+ instead of
++java.net.DatagramSocket+.
+
+A full explanation of how to use +MulticastSocket+ is very well
+documented
+http://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html[on
+Oracle's website] and would be redundant to reproduce here, since it
+is straightforward Java interop. After reading the example above,
+extending it to +MulticastSocket+ should be relatively self
+explanatory.
+
+===== See Also
+
+- Creating a TCP Server
+- Creating a TCP Client
+- Using core.async
+- Documentation for +java.net.MulticastSocket+.
