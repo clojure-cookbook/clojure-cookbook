@@ -30,7 +30,7 @@ would be an appropriate data structure for the data set in question.
 
 The next step is to implement the data structure itself. The
 implementation of RBTs relies on pattern matching. Use
-https://github.com/clojure/core.match[core.match] to simplify the
+https://github.com/clojure/core.match[_core.match_] to simplify the
 implementation of a RBT.
 
 Add `[org.clojure/core.match "0.2.0"]` to your project's
@@ -41,30 +41,32 @@ dependencies, or start a REPL with lein-try:
 lein try core.match
 ----
 
-Now implement the core of RBT, the +balance+ and +insert-val+
-functions:
-
-// TODO: Extract long :or clause as list of predicate vectors with
-// intention-revealing names.
+First, implement the core of a RBT, the +balance+ and +insert-val+
+functions. By using core.match it is possible to succinctly express
+the required behaviors based on the shape of the tree.
 
 [source,clojure]
 ----
 (require '[clojure.core.match :refer [match]])
 
-(defn- balance
+(defn balance
   "Ensures the given sub-tree stays balanced by rearranging black nodes
   which have at least one red child and one red grandchild"
   [tree]
   (match [tree]
-         [(:or [:black [:red [:red a x b] y c] z d]
+         [(:or ;; Left child red with left red grandchild
+               [:black [:red [:red a x b] y c] z d]
+               ;; Left child red with right red grandchild
                [:black [:red a x [:red b y c]] z d]
+               ;; Right child red with left red grandchild
                [:black a x [:red [:red b y c] z d]]
+               ;; Right child red with right red grandchild 
                [:black a x [:red b y [:red c z d]]])] [:red [:black a x b]
                                                             y
                                                             [:black c z d]]
                :else tree))
 
-(defn- insert-val
+(defn insert-val
   "Inserts x in tree.
   Returns a node with x and no children if tree is nil.
 
@@ -81,16 +83,15 @@ functions:
     [:black a y b]))
 ----
 
-// New ^^^^, old vvvv
-
-alue, define a +contains?+ function that
-recursively walks the tree s
-Then, define a couple of helper functions which will make dealing with
-our Red-Black tree easier:
+With insertion and balance out of the way, the only remaining
+function to implement is a +find-val+ function for testing if a value
+is present in a RBT. The easiest way to do this is by breaking down
+individual tree nodes with +match+ and recursively scanning for the
+desired value.
 
 [source,clojure]
 ----
-(defn- find-val
+(defn find-val
   "Finds value x in tree"
   [tree x]
   (match tree
@@ -101,24 +102,24 @@ our Red-Black tree easier:
                     :else x)))
 ----
 
-Next, we can take it for a whirl:
+With all of this in place, it is now possible to create and query a
+RBT.
 
 [source,clojure]
 ----
-;; Load some data
-(def rb-tree (reduce insert-val nil (range 10)))
+(def rb-tree (reduce insert-val nil (range 4)))
 
-;; Find specific values
-(find-val rb-tree 9)
-;; -> 9
+rb-tree
+;; -> [:black [:black nil 0 nil] 1 [:black nil 2 [:red nil 3 nil]]]
+
+(find-val rb-tree 2)
+;; -> 2
+
 (find-val rb-tree 100)
 ;; -> nil
 ----
 
-==== Discussions
-
-The 
-// New ^^^^, old vvvv
+==== Discussion
 
 For anyone who has ever had to implement a Red-Black Tree - or at
 least attended a class in Computer Science where the algorithm was
@@ -126,120 +127,65 @@ taught - the implementation of +balance+ might seem extremely short.
 The reason for this is threefold:
 
 * Our Red-Black Tree is persistent: operations on it, such as insert
-  and balance, are not destructive
-* +balance+ uses https://github.com/clojure/core.match[core.match], a
-  pattern matching library for Clojure.
-* We represent nodes as vectors
+  and balance, are not destructive.
+* +balance+ and +find-val+ use core.match to codify logic as patterns
+  to match.
+* Nodes are represented as vectors.
 
-The later two points are related as you'll see below.
+The two latter points are related, as you'll see below.
 
-https://github.com/clojure/core.match[core.match] allows us to match
-on the shape and values of a data structure as well as perform
-structural binding at the same time. For example, the code below tries
-to match +a-vector+ against two clauses:
+Conveniently enough, core.match allows us to match on the shape and
+values of a data structure as well as perform structural binding at
+the same time. For example, the following tries to match +a-vector+
+against two clauses:
 
 [source,clojure]
 ----
 (def a-vector [1 2 3])
+
 (match a-vector
        [_ y] (str "Got y: " y)
        [_ _ z] (str "Got z: " z))
 ;; -> "Got z: 3"
 ----
 
-The first matches a two-element array whereas the second matches a
-3-element array. Given +a-vector+ has exactly three elements, it
-matches the second clause. But not only that, we also give the third
-element a binding, +z+, which we can use in the code handling that
-specific clause.
+The first clause matches a two-element vector whereas the second
+matches a 3-element vector. Given +a-vector+ has exactly three
+elements, it matches the second clause. In the expression that
+follows, named values (such as +z+) are bound to the positions they
+match.
 
-This is why we represent nodes as vectors - it makes pattern matching
-them a breeze:
+This is why it was convenient to represent nodes as vectors - it makes
+pattern matching against them a breeze:
 
 [source,clojure]
 ----
 (def rb-node [:red nil 3 [:black nil 4 nil]])
+
 (match rb-node
        [:red left value right]   (str "Red node with value: " value)
        [:black left value right] (str "Black node with value: " value))
 ;; -> "Red node with value: 3"
 ----
 
-All other functions simply take advantage of all the work +balance+ is
-doing and become a lot simpler.
+Assuming this new custom data structure meets your performance
+criteria, what is left? (You are benchmarking all of your custom data
+structures, right?) Unlike built-in data structures, this custom data
+structures doesn't work with core functions such as +map+ and
++filter+.
 
-*A note on performance*
-
-One might suggest a simpler way to achieve this goal is to first load
-all data into a vector, sort it and use Java's +binarySearch+ method
-to search across the dataset. This would be the case had the problem
-statement not mentioned that the dataset can change between searches.
-
-Instead of making any claims, I'll show how both solutions perform in
-a little benchmark.
-
-The benchmark adds items to the existing tree - or vector - and
-attempts to find an element. The benchmark is executed three times in
-order to give us a sense of the average time elapsed.
-
-First, our Red-Black Tree Implementation:
-
-[source,clojure]
-----
-(def rbtree (reduce insert-val nil (range 10)))
-(dotimes [_ 3]
-  (time
-   (dotimes [_ 400]
-     (-> rbtree
-         (insert-val 500)
-         (insert-val 550)
-         (insert-val 200)
-         (find-val 200)))))
-
-;; "Elapsed time: 29.552 msecs"
-;; "Elapsed time: 22.656 msecs"
-;; "Elapsed time: 22.577 msecs"
-----
-
-Next, the solution using Java's +binarySearch+:
-
-[source,clojure]
-----
-(def vector (vec (range 1000 5000)))
-(dotimes [_ 3]
-  (time
-   (dotimes [_ 400]
-     (let [coll (-> vector
-                    (conj 500)
-                    (conj 550)
-                    (conj 200)
-                    sort)]
-       (nth coll (java.util.Collections/binarySearch coll 200 compare))))))
-
-;; "Elapsed time: 351.09 msecs"
-;; "Elapsed time: 328.122 msecs"
-;; "Elapsed time: 361.52 msecs"
-----
-
-This is quite a difference. The second solution suffers from the
-nature of the data changing between each search, requiring us to sort
-the vector each time in order for the binary search to work.
-
-Our Red-Black Tree on the other hand keeps itself balanced as each
-item is inserted so the cost of inserting new elements in negligible.
-
-One limitation of our data structure at the moment is that we can't
-use core clojure functions such as +map+ and +filter+.
-
-In <<sec_red_black_part_ii>> we'll address this very issue.
+In the second part of this recipe, <<sec_red_black_part_ii>> we'll
+rectify this situation by participating in the core sequence abstraction.
 
 ==== See Also
-* <<sec_red_black_part_ii>>
+
+* The second part of this recipe, <<sec_red_black_part_ii>>, where we
+  add sequence functionality to our RBT.
 * See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-Black
   Trees on Wikipedia] for a more traditional take on this interesting
   data structure.
 * For the functional approach used in this recipe, the book
-  http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504/ref=sr_1_1?ie=UTF8&qid=1376914321&sr=8-1&keywords=purely+functional+data+structures[Purely
+  http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504[Purely
   Functional Data Structures] is an excellent source. It deals with
   how to efficiently implement data structures in a functional
   setting. The author chose to use ML and Haskell but its concepts are
