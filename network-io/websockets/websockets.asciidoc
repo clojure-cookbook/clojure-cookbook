@@ -1,3 +1,4 @@
+[[sec_websocket_server]]
 === Creating a WebSocket Server
 [role="byline"]
 by Kevin J. Lynagh

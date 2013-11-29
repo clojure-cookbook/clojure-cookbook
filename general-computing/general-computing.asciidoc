@@ -16,6 +16,8 @@ include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 
 include::extend-built-in/extend-built-in.asciidoc[]
 
+include::core-async/core-async.asciidoc[]
+
 include::parser-with-core-match/parser-with-core-match.asciidoc[]
 
 include::core-logic/core-logic.asciidoc[]

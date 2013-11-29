@@ -1,325 +1,260 @@
 [[sec_red_black_part_ii]]
-=== Implementing custom data structures: Red Black Trees - Part II
+=== Implementing custom data structures: Red-Black Trees - Part II
 [role="byline"]
-by Leonardo Borges
+originally submitted by Leonardo Borges
 
 ==== Problem
 
-You wish to use Clojure core sequence functions such as +map+ and
-+filter+ on a custom data structure
+You want to use Clojure's core sequence functions (+conj+, +map+,
++filter+, etc.) with your own custom data structure.
 
 ==== Solution
 
-In <<sec_red_black_part_i>> of this recipe you implemented all the
-functions necessary for creating an efficient Red Black Tree.
+In Part I of this recipe (<<sec_red_black_part_i>>) you implemented
+all the functions necessary for creating an efficient Red-Black Tree.
 
-The missing part now is to make this custom data structure participate
-into Clojure's sequence abstractions.
+What's missing is participation in Clojure's sequence abstractions.
 
-Start by defining the protocols which make up our new type:
+
+The most important part of participating in the sequence abstraction
+is the ability to expose values of a data structure sequently. The
+built-in +tree-seq+ is well suited for this task. One extra step is
+needed, however; +tree-seq+ returns a sequence of nodes, not values.
+The final +rb-tree->seq+ function 
+
+[source,clojure]
+----
+(defn- rb-tree->tree-seq
+  "Returns a seq of all nodes in an red-black tree."
+  [rb-tree]
+  (tree-seq sequential? (fn [[_ left _ right]]
+                          (remove nil? [left right]))
+            rb-tree))
+
+(defn rb-tree->seq
+  "Convert a red-black tree to a seq of its values."
+  [rb-tree]
+  (map (fn [[_ _ val _]] val) (rb-tree->tree-seq rb-tree)))
+
+(rb-tree->seq (-> nil
+                  (insert-val 5)
+                  (insert-val 2)))
+;; -> (5 2)
+----
+
+There is one ability RBTs have that sequences do not: their ability to
++find+ values efficiently. Define a protocol +IRedBlackTree+ to
+capture this ability for extension in the realized type.
 
 [source,clojure]
 ----
 (defprotocol IRedBlackTree
   "RedBlackTree public API functions"
-    (find [this x])
-    (insert [this x]))
-
-(defprotocol IRedBlackTreeNode
-  "Functions for accessing specific node values.
-  Each node is a 4-element vector of the shape:
-     [colour left value right]"
-  (value  [this])
-  (colour [this])
-  (left   [this])
-  (right  [this]))
+    (find [this x] "Test if a value is present in an RBT))
 ----
 
-Next, extend +clojure.lang.PersistentVector+ and make it implement the
-+IRedBlackTreeNode+ protocol - remember we represent tree nodes as
-vectors:
+Now, extend the +ISeq+ and +IRedBlackTree+ protocols to a new
++RedBlackTree+ type, implementing all of the necessary functions. It's
+also wise to implement the multimethod +print-method+ for
++RedBlackTree+, as the default implementation will fail for
++RedBlackTree+ as implemented.
 
 [source,clojure]
 ----
-(extend-type clojure.lang.PersistentVector
-  IRedBlackTreeNode
-  (value  [this]
-    (nth this 2))
-
-  (colour  [this]
-    (nth this 0))
-
-  (left  [this]
-    (nth this 1))
-
-  (right  [this]
-    (nth this 3)))
-----
-
-Finally, define a new type, +RedBlackTree+, which implements the
-+IRedBlackTree+ protocol as well as Clojure's sequence interfaces:
-
-[source,clojure]
-----    
-(defn- rb-tree->tree-seq
-  "Takes a RedBlackTree type and returns a sequence of all its
-  children using `tree-seq`"
-  [rb-tree]
-  (tree-seq sequential? (fn [parent]
-                          (filter (complement nil?) [(left parent) (right parent)]))
-            (.tree rb-tree)))
-
-;; The RedBlackTree type
 (deftype RedBlackTree [tree]
-    IRedBlackTree
-    (find [this x]
-      (find-val tree x))
+  IRedBlackTree
+  (find [this n] (find-val tree n))
+  clojure.lang.ISeq
+  (cons [self v] (->RedBlackTree (insert-val tree v)))
+  (empty [self] (->RedBlackTree nil))
+  (equiv [self o] (if (instance? RedBlackTree o)
+                    (= tree (.tree o))
+                    false))
+  (first [this] (first (rb-tree->seq tree)))
+  (next [this] (next (rb-tree->seq tree)))
+  (more [this] (rest (rb-tree->seq tree)))
+  (seq [this] (if tree (rb-tree->seq tree)))
+  Object
+  (toString [this] (pr-str this)))
 
-    (insert [this x]
-      (RedBlackTree. (insert-val tree x)))
-    
-    clojure.lang.ISeq
-    (first [this]
-      (first (rb-tree->tree-seq this)))
-
-    (next [this]
-      (next (rb-tree->tree-seq this)))
-
-    (seq [this]
-      (if (seq? this)
-        this
-        nil))
-    
-    (more [this]
-      (if-let [n (next this)]
-        n
-        [])))
-
-
-;; Necessary for printing custom types at the repl
-(defmethod print-method RedBlackTree [o, ^java.io.Writer w]
-  (.write w (str "[RedBlackTree] "(.tree o))))
+(defmethod print-method RedBlackTree [o ^java.io.Writer w]
+  (.write w (str "#rbt " (pr-str (.tree o)))))
 ----
 
-Now you're ready to use it:
+It is now possible to use a +RedBlackTree+ instance like any other
+collection.
 
-[source,clojure]
+[source, clojure]
 ----
-;; Load some data
-(def rb-tree (reduce insert (RedBlackTree. nil) (range 10)))
+(into (->RedBlackTree nil) (range 2))
+;; -> #rbt [:black nil 0 [:red nil 1 nil]]
 
-;; Find specific values
-(find rb-tree 9)   ; 9
-(find rb-tree 100) ; nil
+(def to-ten (into (->RedBlackTree nil) (range 10)))
+
+(seq to-ten)
+;; -> (3 1 0 2 5 4 7 6 8 9)
+
+(find to-ten 9)
+;; -> 9
+
+(find to-ten 15)
+;; -> nil
 ----
-
-It doesn't look so different from before. We only replaced the
-previous function calls with calls to functions from the
-+IRedBlackTree+ protocol. What's new now is that we can use core
-sequence functions such as +map+ and +filter+:
-
-[source,clojure]
-----
-;; Get a seq of all values in the tree 
-(map value rb-tree) 
-;; (3 1 0 2 5 4 7 6 8 9)  
-
-
-;; Get a seq of vectors representing each node's colour and value
-(map #(vec [(colour %) (value %)]) rb-tree) 
-;; ([:black 3] [:black 1] [:black 0] [:black 2] [:black 5] [:black 4] 
-;;  [:red 7] [:black 6] [:black 8] [:red 9])
-
-
-;; Filter all even nodes in the tree
-(filter #(even? (value %)) rb-tree) 
-;;([:black nil 0 nil] [:black nil 2 nil] [:black nil 4 nil] [:black nil 6 nil] 
-;; [:black nil 8 [:red nil 9 nil]])
-----
-
 
 ==== Discussions
 
-In <<sec_red_black_part_i>> we decided to represent tree nodes as
-4-element vectors. However they are not nice to work with as you need
-to remember which index represents which piece of information:
+In the end, it doesn't take a lot to participate in the sequence
+abstraction. By implementing a small handful of interface functions, the
+Red-Black Tree implementation from <<sec_red_black_part_i>> can
+participate in a wide-array of sequence-oriented functions; +map+,
++filter+, +reduce+, you name it. 
 
-[source,clojure]
-----
-(def rb-node [:red nil 3 [:black nil 4 nil]])
-(nth rb-node 0) ; get the colour
-;; :red
+At its essence, +ISeq+ is an abstraction over a data structure that
+views its underlying values as a _list_. A list is traditionally
+represented by two parts: its head, a single value and "rest," either
+another list or nothing. Nearly every collection manipulating function
+in Clojure builds off of this abstraction.
 
-(nth rb-node 2) ; get the value
-;; 3
-----
+The sequence abstraction lives in the +clojure.lang.ISeq+ java
+interface, along with its parents +clojure.lang.IPersistentCollection+
+and +clojure.lang.Seqable+. Most of the functions are self
+explanatory, but some deserve further explanation. The function +cons+ is a
+historical name for constructing a new list by appending a value to an
+existing list. +seq+ is intended to produce a sequence from a
+collection, or +nil+ if empty.
 
-To make pulling information out of a node more idiomatic, we created a
-protocol to expose the basic API of a node:
-
-[source,clojure]
-----
-(defprotocol IRedBlackTreeNode
-  "Functions for accessing specific node values.
-  Each node is a 4-element vector of the shape:
-     [colour left value right]"
-  (value  [this])
-  (colour [this])
-  (left   [this])
-  (right  [this]))
-----
-
-This protocol isn't useful on its own. We need a type to implement it
-in order for it to do its job. Normally, you would implement a
-protocol in a new type or record. But we already have a type that
-represents our node beautifully, +clojure.lang.PersistentVector+, so
-we simply extend the protocol to it:
-
-[source,clojure]
-----
-(extend-type clojure.lang.PersistentVector
-  IRedBlackTreeNode
-  (value  [this]
-    (nth this 2))
-
-  (colour  [this]
-    (nth this 0))
-
-  (left  [this]
-    (nth this 1))
-
-  (right  [this]
-    (nth this 3)))
-----
-
-This makes standard Clojure vectors behave like tree nodes, as you can
-see below:
-
-[source,clojure]
-----
-(def rb-node [:red nil 3 [:black nil 4 nil]])
-(colour rb-node) ; get the colour
-;; :red
-
-(value rb-node) ; get the value
-;; 3  
-----
-
-The code is shorter and expresses its intent clearly. As an added
-bonus, we get to use these functions in higher level sequence
-operations such as +map+:
-
-[source,clojure]
-----
-; we get to write this
-(map value rb-tree) 
-
-;; as opposed to
-(map #(nth % 2) rb-tree) 
-----
-
-WARNING: The ability to extend existing types with extra protocols is
-extremely powerful but care should be taken not to cause conflicts
-with any existing functions in the type being extended. Lucky for us,
-extended types are confined to the namespaces in which they are used,
-minimising problems.
-
-This brings us to the +map+ function and what allows us to use it with
-our custom data structure. If you look under the hood, at the source
-of +map+, you'll see something like this - I omitted a lot of the
-implementation to highlight the core of what map is doing:
-
-[source,clojure]
-----
-;; Other arities and implementation details omitted
-(defn map [f coll]
-    (lazy-seq
-     (when-let [s (seq coll)]
-       (if (chunked-seq? s)
-         ;; handle chunked seqs
-         (cons (f (first s)) (map f (rest s)))))))
-----
-
-Pay attention to the last line. +map+ eventually calls +first+ and
-+rest+ on its argument in order to build the resulting sequence.
-+rest+ in turn calls +more+ on the sequence.
-
-This indicates that, at the very minimum, our custom type has to
-support these operations. But where do they come from? I'm glad you
-asked!
-
-They live in the +clojure.lang.ISeq+ java interface:
-
+.ISeq.java
 [source,java]
 ----
 public interface ISeq extends IPersistentCollection {
-
   Object first();
-
   ISeq next();
-
   ISeq more();
-
   ISeq cons(Object o);
-
 }
 ----
 
-This is great. We know which functions to implement and we know which
-interface they live in. All that is left is to create a sequence
-representation of our tree nodes. This is where +rb-tree->tree-seq+
-comes into play.
+.IPersistentCollection.java
+[source,java]
+----
+public interface IPersistentCollection extends Seqable {
+  int count();
+  IPersistentCollection cons(Object o);
+  IPersistentCollection empty();
+  boolean equiv(Object o);
+}
+----
 
-When mapping and/or filtering over our tree, we don't care about
-specific ordering so a depth-first walk will suffice. To that end, we
-can leverage Clojure's own +tree-seq+ function. From its docstring:
+.Seqable.java
+[source,java]
+----
+public interface Seqable {
+  ISeq seq();
+}
+----
+
+The most challenging part of any +ISeq+ implementation is actually
+making a sequence out of the underlying data structure. This would be
+particularly challenging if you needed to write your own lazy
+tree-traversal algorithms. Luckily Clojure has a built-in function
++tree-seq+ that does precisely this. By leveraging +tree-seq+ to
+produce a sequence of nodes, it is trivial to write a +rb-tree->seq+
+conversion function that lazily traverses a RBT yielding node-values
+as it goes.
+
++tree-seq+ accepts three arguments:
+
+* +branch?+ - a conditional that returns true if a node is a branch
+  (not a leaf node). For RBT, +sequential?+ is an adequate check, as
+  every node is a vector.
+* +children+ - a function that returns all of the children for a given
+  node.
+* +root+ - the node to begin traversal on.
+
+[NOTE]
+****
++tree-seq+ performs a depth-first traversal of trees. Given how
+Red-Black Trees are represented, this will *not* be an ordered
+traversal.
+****
+
+With a sequence in hand, it is easy enough to implement +first+,
++next+, +more+ and +seq+. Similarly +cons+ and +empty+ are easy enough
+to write too. Equality testing can be a bit more difficult, however.
+
+For the sake of simplicity, we chose to implement equality (+equiv+)
+between *only* +RedBlackTree+ instances. Further, the implementation
+compares a sorted sequence of their elements. In this case, +equiv+ is
+answering the question "do these trees have the same values?" and not
+the question "are these the same trees?" It's an important
+distinction, one you'll need to consider carefully when implementing
+your own data structures. 
+
+Even with the full +ISeq+ interface implemented, there are still a
+number of conveniences +RedBlackTree+ is lacking. For one, you need to
+use the kludgy +->RedBlackTree+ function to create a new RBT and add
+values to it manually. By convention, many built-in collections
+provide convenience functions for populating them (aside from literal
+tags like `[]` or +{}+, of course). It's easy enough to mirror +vec+
+and +vector+ for RBTs:
 
 [source,clojure]
 ----
-clojure.core/tree-seq
-([branch? children root])
-  Returns a lazy sequence of the nodes in a tree, via a depth-first walk.
-   branch? must be a fn of one arg that returns true if passed a node
-   that can have children (but may not).  children must be a fn of one
-   arg that returns a sequence of the children. Will only be called on
-   nodes for which branch? returns true. Root is the root node of the
-  tree.
+(defn rbt
+ "Create a new RedBlackTree with the contents of coll."
+ [coll]
+ (into (->RedBlackTree nil) coll))
+
+(defn red-black-tree
+  "Creates a new RedBlackTree containing the args."
+  [& args]
+  (rbt args))
+
+(rbt (range 3))
+;; -> #rbt [:black [:black nil 0 nil] 1 [:black nil 2 nil]]
+
+(red-black-tree 7 42)
+;; -> #rbt [:black nil 7 [:red nil 42 nil]]
 ----
 
-Now we can revisit the implementation of +rb-tree->tree-seq+:
+You may also have noticed printing is not a concern of the sequence
+abstraction, although it is certainly an important consideration to
+make for developing developer (and machine) friendly data structures.
+There are two types of printing in Clojure: +toString+ and +pr+-based
+printing. The +toString+ function is intended for printing
+human-readable values at the REPL, while the +pr+ family of functions
+are meant (more or less) to be readable by the Clojure reader.
+
+To provide our own readable representation of RBT we must implement
++print-method+ (the heart of +pr+) for the +RedBlackTree+ type. By
+writing in a "tagged literal" format (e.g. +#rbt+) it is possible to
+configure the reader to ingest and hydrate written values as
+first-class objects.
 
 [source,clojure]
 ----
-(defn- rb-tree->tree-seq
-  "Takes a RedBlackTree type and returns a sequence of all its
-  children using `tree-seq`"
-  [rb-tree]
-  (tree-seq sequential? (fn [parent]
-                          (filter (complement nil?) [(left parent) (right parent)]))
-            (.tree rb-tree)))
+(require '[clojure.edn :as edn])
+
+;; Recall ...
+(defmethod print-method RedBlackTree [o ^java.io.Writer w]
+  (.write w (str "#rbt " (pr-str (.tree o)))))
+
+(def rbt-string (pr-str (rbt [1 4 2])))
+rbt-string
+;; -> "#rbt [:black [:black nil 1 nil] 2 [:black nil 4 nil]]"
+
+(edn/read-string rbt-string)
+;; -> RuntimeException No reader function for tag rbt ...
+
+(edn/read-string {:readers {'rbt ->RedBlackTree}}
+                 rbt-string)
+;; -> #rbt [:black [:black nil 1 nil] 2 [:black nil 4 nil]]
 ----
-
-Given a node - which is just a 4-element vector - we can tell which of
-the elements are branches by asking if they are +sequential?+. Then we
-create an anonymous function that, when given a node, will return a
-vector of its branches if any. The root is, of course, the actual Red
-Black Tree.
-
-The implementation of the functions +first+ and +next+ from
-+clojure.lang.ISeq+ should be clearer now:
-
-[source,clojure]
-----
-clojure.lang.ISeq
-  (first [this]
-    (first (rb-tree->tree-seq this)))
-
-  (next [this]
-    (next (rb-tree->tree-seq this))) 
-----
-
-The other interface functions have straightforward implementations.
 
 ==== See Also
 
-* <<sec_red_black_part_i>>
+* <<sec_red_black_part_i>>, the first of this two part recipe on
+  Red-Black Trees.
+* See <<sec_local_io_clojure_data_to_disk>> and
+  <<sec_default_data_reader>> for more information on reading Clojure
+  data.

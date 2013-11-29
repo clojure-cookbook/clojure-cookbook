@@ -1,3 +1,4 @@
+[[sec_concurrent_zmq]]
 === Concurrent ZeroMQ
 [role="byline"]
 by Kevin J. Lynagh
