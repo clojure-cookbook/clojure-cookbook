@@ -223,5 +223,5 @@ producer would not be able to put further values onto the channels.
 * core.async has more advanced facilities for layout and coordination
   of channels. For more details, see the
   http://clojure.github.io/core.async/[core.async overview].
-* See recipes <<sec_concurrent_zmq>> and <<sec_websocket_server>> for
+* See recipe <<sec_concurrent_zmq>> for
   further examples of core.async usage.
