@@ -135,9 +135,7 @@ communication over channels and doing work asynchronously, we've
 created service boundaries around producers and consumers, allowing
 them to operate as independently as possible.
 
-As the creator of Clojure, Rich Hickey put it:
-
-[quote, Rich Hickey, Creator of Clojure]
+[quote, Clojure Creator Rich Hickey]
 ____
 There comes a time in all good programs when components or subsystems
 must stop communicating directly with one another.
