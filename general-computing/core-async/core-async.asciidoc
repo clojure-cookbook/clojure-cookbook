@@ -135,7 +135,7 @@ communication over channels and doing work asynchronously, we've
 created service boundaries around producers and consumers, allowing
 them to operate as independently as possible.
 
-[quote, Clojure Creator Rich Hickey]
+[quote, Rich Hickey, Rationale for http://clojure.com/blog/2013/06/28/clojure-core-async-channels.html[Clojure core.async Channels]]
 ____
 There comes a time in all good programs when components or subsystems
 must stop communicating directly with one another.
@@ -221,5 +221,6 @@ producer would not be able to put further values onto the channels.
 * core.async has more advanced facilities for layout and coordination
   of channels. For more details, see the
   http://clojure.github.io/core.async/[core.async overview].
-* See recipe <<sec_concurrent_zmq>> for
-  further examples of core.async usage.
+* See <<sec_concurrent_zmq>> to see how to use core.async to communicate
+  over ZeroMQ.
+
