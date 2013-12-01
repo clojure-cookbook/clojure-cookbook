@@ -135,7 +135,7 @@ communication over channels and doing work asynchronously, we've
 created service boundaries around producers and consumers, allowing
 them to operate as independently as possible.
 
-[quote, Rich Hickey, Rationale for http://clojure.com/blog/2013/06/28/clojure-core-async-channels.html[Clojure core.async Channels]]
+[quote, Rich Hickey, Rationale for Clojure core.async Channels]
 ____
 There comes a time in all good programs when components or subsystems
 must stop communicating directly with one another.
