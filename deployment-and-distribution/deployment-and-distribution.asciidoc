@@ -2,6 +2,8 @@
 
 include::introduction.asciidoc[]
 
+include::war-file/war-file.asciidoc[]
+
 include::bare-bones/bare-bones.asciidoc[]
 
 include::profiling-with-timbre/profiling-with-timbre.asciidoc[]
