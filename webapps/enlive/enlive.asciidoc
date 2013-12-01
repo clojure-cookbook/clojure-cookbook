@@ -27,8 +27,8 @@ To begin, create a file _post.hml_ to serve as an Enlive template.
 
 NOTE: Place this file in the _resources/_ directory, if you're using enlive in the context of a project.
 
+._post.html_
 [source,html]
-.post.html
 ----
 <html>
   <head><title>Page Title</title></head>
