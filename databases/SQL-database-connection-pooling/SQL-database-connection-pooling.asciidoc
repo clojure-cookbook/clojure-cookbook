@@ -34,7 +34,6 @@ $ /Applications/Postgres.app/Contents/MacOS/bin/createdb cookbook_experiments
 # Everyone else:
 $ createdb cookbook_experiments
 ----
-====
 
 Before starting, add the BoneCP dependency (`[com.jolbox/bonecp
 "0.8.0.RELEASE"]`), as well as the appropriate JDBC libraries for your

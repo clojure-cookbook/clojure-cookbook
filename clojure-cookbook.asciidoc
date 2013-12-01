@@ -10,8 +10,6 @@ include::local-io/local-io.asciidoc[]
 
 include::network-io/network-io.asciidoc[]
 
-include::gui/gui.asciidoc[]
-
 include::databases/databases.asciidoc[]
 
 include::webapps/webapps.asciidoc[]

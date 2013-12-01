@@ -1,7 +1,7 @@
 [[ch_databases]]
 == Databases
 
-include::introduction.ascidoc[]
+include::introduction.asciidoc[]
 
 include::connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[]
 

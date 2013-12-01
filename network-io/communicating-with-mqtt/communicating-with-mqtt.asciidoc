@@ -2,12 +2,12 @@
 [role="byline"]
 By Sandeep Nangia
 
-===== Problem
+==== Problem
 
 You want to communicate with embedded devices (think "Internet of
 Things") using "publish" and "subscribe" model.
 
-===== Solution
+==== Solution
 
 Use https://github.com/clojurewerkz/machine_head[Machine Head], a
 Clojure library to perform Machine to Machine (M2M) communication via
@@ -92,7 +92,7 @@ pubclientid
 ;; received  msg4 on topic  SNControlNetwork/Florida/device1
 ----
 
-===== Discussion
+==== Discussion
 
 http://mqtt.org[MQTT] is an open, lightweight publish/subscribe
 messaging protocol. It is useful for connections where bandwidth is at
@@ -187,7 +187,7 @@ While the above code fragment just prints the incoming messages, you
 could potentially use the messages in some other way e.g. triggering
 some actions based on an alarm that the code has received.
 
-===== See Also
+==== See Also
 
 * The details on MQTT protocol at _http://mqtt.org/_
 * http://clojuremqtt.info/[Machine Head Documentation] of the

@@ -1,6 +1,6 @@
 === Statistics on Collections of Numbers
 [role="byline"]
-by Ryan Neufeld
+by Ryan Neufeld and Jean Niklas L'orange
 
 ==== Problem
 
@@ -65,10 +65,10 @@ retrieve the discrete list of modes.
 [source,clojure]
 ----
 (defn mode [coll]
-  (let [freqs (frequencies coll) <1>
-        occurrences (group-by second freqs) <2>
-        modes (last (sort occurrences)) <3>
-        modes (->> modes <4>
+  (let [freqs (frequencies coll)
+        occurrences (group-by second freqs)
+        modes (last (sort occurrences))
+        modes (->> modes
                    second
                    (map first))]
      modes))
@@ -81,9 +81,6 @@ retrieve the discrete list of modes.
 ----
 
 ===== Standard Deviation
-
-[role="byline"]
-by Jean Niklas L'orange
 
 Find the sample _standard deviation_ by completing the following steps:
 
@@ -122,6 +119,18 @@ compared to its numeric cousins.
 
 Here is a break down of how +mode+ works:
 
+[source,clojure]
+----
+(defn mode [coll]
+  (let [freqs (frequencies coll)            ; <1>
+        occurrences (group-by second freqs) ; <2>
+        modes (last (sort occurrences))     ; <3>
+        modes (->> modes                    ; <4>
+                   second
+                   (map first))]
+     modes))
+----
+
 <1> +frequencies+ returns a map that tallies the number of times
     each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+
 <2> +group-by+ with +second+ inverts the +freqs+ map, turning keys
@@ -140,16 +149,29 @@ population deviate from the mean: The higher the standard deviation is, the
 +mode+, follow along the execution of this function with a step by step
 breakdown.
 
-<5> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, reuse the previously
+[source,clojure]
+----
+(defn standard-deviation [coll]
+  (let [avg (mean coll)                   ; <1>
+        squares (for [x coll]             ; <2>
+                  (let [x-avg (- x avg)]
+                    (* x-avg x-avg)))
+        total (count coll)]
+    (-> (/ (apply + squares)              ; <3>
+           (- total 1))                   ; <4>
+        (Math/sqrt))))                    ; <5>
+----
+
+<1> the +mean+ of +[4 5 2 9 5 7 4 5 4]+ is +5+, reuse the previously
     defined +mean+ function to find this.
-<6> calculate a new list of values, subtracting +5+ from every value
+<2> calculate a new list of values, subtracting +5+ from every value
     and multiplying that result with itself. The result is the list +(1 0 9 16 0 4 1 0 1)+.
-<7> the sum of this new list is +32+, divide this by +9 - 1+, the
+<3> the sum of this new list is +32+, divide this by +9 - 1+, the
     number of elements minus one. The result of +32/8+ is +4+.
-<9> finally, take the square root of +4+ and get back +2.0+.
+<4> finally, take the square root of +4+ and get back +2.0+.
 
 // TODO: This makes no sense (RN).
-<8> We have here covered the the _sample_ standard deviation, where we have a random
+<5> We have here covered the the _sample_ standard deviation, where we have a random
 sample of a larger population. If we have the complete population (_population_
 standard deviation), we should divide by +total+ instead of +(- total 1)+.
 

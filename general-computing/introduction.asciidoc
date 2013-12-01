@@ -1,4 +1,4 @@
-==== Introduction
+=== Introduction
 
 There's a saying in business that "no organization operates in a
 vacuum." The same applies to Clojure. For all the cool tools and

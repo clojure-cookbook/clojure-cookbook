@@ -31,7 +31,6 @@ $ /Applications/Postgres.app/Contents/MacOS/bin/createdb cookbook_experiments
 # Everyone else:
 $ createdb cookbook_experiments
 ----
-====
 
 Before starting, add `[org.clojure/java.jdbc "0.3.0-beta2"]` and
 `[java-jdbc/dsl "0.1.0"]`to your project's dependencies. You'll also

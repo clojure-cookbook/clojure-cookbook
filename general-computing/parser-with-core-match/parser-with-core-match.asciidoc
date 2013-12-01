@@ -119,7 +119,7 @@ destructured the input. To illustrate the difference in length and
 clarity of the code, consider this function that only parses the +fn+
 expressions of the Clojure subset:
 
-[souce, clojure]
+[source, clojure]
 ----
 (defn parse-fn
   [expr]

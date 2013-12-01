@@ -172,11 +172,11 @@ as it goes.
 * +root+ - the node to begin traversal on.
 
 [NOTE]
-****
+++++
 +tree-seq+ performs a depth-first traversal of trees. Given how
 Red-Black Trees are represented, this will *not* be an ordered
 traversal.
-****
+++++
 
 With a sequence in hand, it is easy enough to implement +first+,
 +next+, +more+ and +seq+. Similarly +cons+ and +empty+ are easy enough

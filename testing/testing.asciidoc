@@ -9,7 +9,7 @@ include::unit-testing/midje.asciidoc[]
 
 include::generative-testing/generative.asciidoc[]
 
-include::generative-testing/simplecheck/simplecheck.asciidoc[]
+include::simplecheck/simplecheck.asciidoc[]
 
 include::browser-testing/browser-testing.asciidoc[]
 
