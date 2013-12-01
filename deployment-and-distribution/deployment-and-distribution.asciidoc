@@ -13,3 +13,5 @@ include::lein-templates/lein-templates.asciidoc[]
 include::releasing-a-library/releasing-a-library.asciidoc[]
 
 include::deprecate-macro/deprecate-macro.asciidoc[]
+
+include::sending-email.asciidoc[]
