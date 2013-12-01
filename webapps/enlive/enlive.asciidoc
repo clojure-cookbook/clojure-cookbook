@@ -16,10 +16,19 @@ Hiccup, it doesn't use specialized DSLs. Instead, templates are plain
 old HTML files, and Enlive uses Clojure code to target specific areas
 for replacement or duplication based on incoming data.
 
-For example, this HTML file is an Enlive template:
+To follow along with this recipe, start a REPL using lein-try:
+
+[source,console]
+----
+$ lein try enlive
+---- 
+
+To begin, create a file _post.hml_ to serve as an Enlive template.
+
+NOTE: Place this file in the _resources/_ directory, if you're using enlive in the context of a project.
 
 [source,html]
-.resources/post.html
+.post.html
 ----
 <html>
   <head><title>Page Title</title></head>
@@ -33,13 +42,11 @@ For example, this HTML file is an Enlive template:
 </html>
 ----
 
-The following Clojure code defines an Enlive template based on this
-HTML:
+The following Clojure code defines an Enlive template based on the contents of _post.html_.
 
 [source,clj]
 ----
-(ns enlive-demo
-  (:require [net.cgrand.enlive-html :as html]))
+(require '[net.cgrand.enlive-html :as html])
 
 ;; define the template
 (html/deftemplate post-page "post.html"
@@ -53,7 +60,6 @@ HTML:
 (def sample-post {:author "Luke VanderHart"
                   :title "Why Clojure Rocks"
                   :body "Functional programming!"})
-
 ----
 
 To apply the template to the data, invoke the function defined by
@@ -66,8 +72,7 @@ single string.
 (reduce str (post-page sample-post))
 ----
 
-The result, printed out with newlines, is:
-
+.Formatted Output
 [source,html]
 ----
 <html>
@@ -126,6 +131,7 @@ page populated with all three sample posts:
 (reduce str (all-posts-page sample-post-list))
 ----
 
+.Formatted Output
 [source,html]
 ----
 <html>
@@ -179,7 +185,7 @@ composing them into useful templating systems becomes more manageable.
 First of all, it is important to understand that Enlive does not
 operate on HTML text directly. Instead, it first parses the HTML into
 a Clojure data structure representing the DOM (document object model.)
-For example, the html fragment:
+For example, the HTML fragment:
 
 [source,html]
 ----
@@ -222,7 +228,7 @@ the resulting html as a sequence of strings.
 An Enlive _selector_ is a Clojure data structure that identifies a
 specific node in the input HTML file. They are similar to CSS
 selectors in operation, although somewhat more capable. In this
-example, +[:title]+ selects each +<title>+ element, +[:span.author]+
+example, `[:title]` selects each +<title>+ element, `[:span.author]`
 each +<span>+ with +class="author"+, etc. More selector forms are
 described later on in this section.
 
@@ -260,22 +266,22 @@ complete documentation.
 However, the following selector patterns should be sufficient to get
 your started:
 
-- +[:div]+ selects all +<div>+ element nodes.
+- `[:div]` selects all +<div>+ element nodes.
 
-- +[:div.sidebar]+ selects all +<div>+ element nodes with a CSS style
+- `[:div.sidebar]` selects all +<div>+ element nodes with a CSS class
   of "sidebar".
 
-- +[:div#summary]+ selects the +<div>+ element with an HTML ID of
+- `[:div#summary]` selects the +<div>+ element with an HTML ID of
   "summary".
 
-- +[:p :span] selects all +<span>+ elements that are descendants of
+- `[:p :span]` selects all +<span>+ elements that are descendants of
   +<p>+ elements.
 
-- +[:div.menu :ul :li :span] selects only +<span>+ elements inside a +<li>+
+- `[:div.menu :ul :li :span]` selects only +<span>+ elements inside a +<li>+
   element inside a +<ul>+ element inside a +<div>+ element with a CSS
   style of "menu".
 
-- +[[:div (nth-child 2)]]+ selects +<div>+ elements that are the
+- `[[:div (nth-child 2)]]` selects +<div>+ elements that are the
   second child of their parent element. The double square brackets are
   not a typo - the inner vector is used to denote a logical _and_
   condition. In this case, the matched element must be a div, AND the
@@ -354,11 +360,8 @@ recent N comic titles in the XKCD archives:
         title-nodes (html/select dom [:#middleContainer :a])
         titles (map html/text title-nodes)]
     (take n titles)))
-----
 
-[source,clojure]
-----
-user> (comic-titles 5)
+(comic-titles 5)
 ;; -> ("Oort Cloud" "Git Commit" "New Study"
        "Telescope Names" "Job Interview")
 ----
