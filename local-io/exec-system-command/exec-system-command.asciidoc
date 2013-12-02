@@ -1,6 +1,6 @@
-=== Executing a System Command
+=== Executing System Commands
 [role="byline"]
-by Mark Whelan
+by Mark Whelan and Ryan Neufeld
 
 ==== Problem
 
@@ -9,98 +9,154 @@ its output.
 
 ==== Solution
 
-Use +clojure.java.shell/sh+ to run a shell command on your local
-system.  It will return a map containing the command's output, any
-error, and the exit status, available via the :out, :err, and :exit
-keys respectively.
+Use the clj-commons-exec library to run shell commands on your local
+system.
+
+To follow along, start a repl using lein-try:
+
+[source,console]
+----
+$ lein try org.clojars.hozumi/clj-commons-exec "1.0.6"
+----
+
+Invoking the +clj-commons-exec/exec+ function with a command will
+return a promise, eventually delivering a map of the command's output,
+exit status, and any errors that occured available via the :out, :exit
+and :err keys, respectively.
 
 [source,clojure]
 ----
-(use '[clojure.java.shell :only [sh]])
-(sh "date")
-;; -> {:exit 0, :out "Sun Aug 18 09:35:56 EDT 2013\n", :err ""}
+(require '[clj-commons-exec :as exec])
+
+(def p (exec/sh ["date"]))
+
+(deref p)
+;; -> {:exit 0, :out "Sun Dec  1 19:43:49 EST 2013\n", :err nil}
 ----
 
-If your command requires options or arguments, simply add them to the
-+sh+ argument list as strings:
+If your command requires options or arguments, simply append them to
+the command vector as strings:
 
 [source,clojure]
 ----
-(sh "ls" "-l" "/etc/passwd")
-;; -> {:exit 0, :out "-rw-r--r--  1 root  wheel  4962 May 27 07:54 /etc/passwd\n", :err ""}
-(sh "ls" "-l" "nosuchfile")
-;; -> {:exit 1, :out "", :err "ls: nosuchfile: No such file or directory\n"}
+@(exec/sh ["ls" "-l" "/etc/passwd"])
+;; -> {:exit 0
+       :out "-rw-r--r--  1 root  wheel  4962 May 27 07:54 /etc/passwd\n"
+       :err nil}
+
+@(exec/sh ["ls" "-l" "nosuchfile"])
+;; -> {:exit 1
+       :out nil
+       :err "ls: nosuchfile: No such file or directory\n"
+       :exception #<ExecuteException ... Process exited with an error: 1 ...)>}
 ----
 
 ==== Discussion
 
-If you're at the REPL, newline characters will be shown instead of
-actual linebreaks. To see human-friendly output instead, wrap the
-+sh+ command with a +println+. Here's the canonical cowsay example for +sh+,
-in which we print only nicely formatted output:
+Up until this point, we've neglected to mention that functionality
+equivalent to +exec/sh+ already exists in Clojure-proper (as
++clojure.java.shell/sh+). Now that the cat is out of the bag, it must
+be asked: why use a library over a built-in? Simple: clj-commons-exec
+is a functional veneer over the excellent
+http://commons.apache.org/proper/commons-exec/[Apache Commons Exec]
+library, providing capabilities like "piping" not available in
++clojure.java.sh+.
+
+To pipe data through multiple commands, use the
++clj-commons-exec/sh-pipe+ function. Just as with regular unix pipes,
+pairs of commands will have their STDOUT and STDIN streams bound to
+each other. The API of +sh-pipe+ is nearly identically to +sh+, the
+only notable exception being you will pass more than one command to
++sh-pipe+. The return value of +sh-pipe+ is a list of promises that
+fulfill as each sub-command completes execution.
 
 [source,clojure]
 ----
-(println (:out (sh "cowsay" "hello!")))
- ________
-< hello! >
- --------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
+(def results (exec/sh-pipe ["cat"] ["wc" "-w"] {:in "Hello, world!"}))
 
-;; -> nil
+results
+;; -> (#<core$promise$reify__6310@71eed8d: {:exit 0, :out nil, :err nil}>
+       #<core$promise$reify__6310@7f7dc7a1: {:exit 0, :out "       2\n", :err nil}>)
+
+@(last results)
+;; -> {:exit 0, :out "       2\n", :err nil}
 ----
 
-Note that this will only work if you have the +cowsay+ program installed
-and on the path of your local system).
-
-Sometimes you may want your command to be executed in a directory
-other than the current one for your process. Use the :dir
-option. If you want to perform multiple operations in the same directory,
-you can wrap them using +with-sh-dir+.
+Like any reasonable shell-process library, clj-commons-exec allows you
+to configure the environment in which your commands execute. To
+control the execution environment of either +sh+ or +sh-pipe+, specify
+options in a map as the final argument to either function. The +:dir+
+option controls the path on which a command executes.
 
 [source,clojure]
 ----
-(use 'clojure.java.shell)
-;; -> nil
-(sh "ls" :dir "/Users")
-;; -> {:exit 0, :out "Guest\nShared\ndale\ntucker\n", :err ""}
-(with-sh-dir "/Users/tucker"
-  (sh "do-backup.sh")
-  (sh "du" "-sh" "."))
-;; -> {:exit 0, :out " 11G\t.\n", :err ""}
+(println (:out @(exec/sh ["ls"] {:dir "/"})))
+;; *out*
+Applications
+Library
+# ...
+usr
+var
 ----
 
-Similarly, you can override environment variables for +sh+ with
-the :env option and a map, or use +with-sh-env+ and a map to wrap a command
-or group of commands.
+The +:env+ and +:add-env+ options control the environment variables
+available to the executing command. +:add-env+ amends variables to the
+existing set of environment variables, while +:env+ replaces the
+existing set with a completely new one. Each option is a map of
+variable names to values, like +{"USER" "jeff"}+.
 
 [source,clojure]
 ----
-(use 'clojure.java.shell)
-;; -> nil
-(sh "printenv" "HOME")
-;; -> {:exit 0, :out "/Users/tucker\n", :err ""}
-(sh "printenv" "HOME" :env {"HOME" "/Users/dale"})
-;; -> {:exit 0, :out "/Users/dale\n", :err ""}
-(with-sh-env {"HOME" "/Users/dale"} (sh "printenv" "HOME"))
-;; -> {:exit 0, :out "/Users/dale\n", :err ""}
+@(exec/sh ["printenv" "HOME"])
+;; -> {:exit 0, :out "/Users/ryan\n", :err nil}
+
+@(exec/sh ["printenv" "HOME"] {:env {}})
+;; -> {:exit 1, :out nil, :err nil, :exception #<ExecuteException ..)>}
+
+@(exec/sh ["printenv" "HOME"] {:env {"HOME" "/Users/jeff"}})
+;; -> {:exit 0, :out "/Users/jeff\n", :err nil}
 ----
 
-[NOTE] When running your program directly (not inside a REPL), you may
-notice that it will fail to exit immediately after it does its
-work. This is because +sh+ is implemented using a +future+. A +future+
-will launch a separate pooled thread which, even after realization,
-will linger in the JVM an indeterminate amount of time, during which
-the JVM will not naturally terminate. Invoke +shutdown-agents+ or
-+System/exit+ directly to shut down the future thread pool or forcibly
-terminate the JVM to avoid this issue.
+There are a number of other options available in +sh+ and +sh-pipe+:
+
++:watchdog+::
+  The time in number of seconds to await a commands executing before terminating it.
++:shutdown+::
+  A flag indicating that sub-processes should be destroyed when the VM exits.
++:as-success+ and +:as-successes+::
+  An integer or sequence of integers that will be considered successful exit codes, respectively.
++:result-handler-fn+::
+  A custom function to be used to handle results.
+
+A word of warning: if you initiate long-running sub-processes inside
+of a +-main+ function, your application will hang until those
+processes complete. This may be desireable, but it may not. If it
+isn't desirable forcibly terminate your application by invoking
++(System/exit)+ directly at the end of your +-main+ function.
+Additionally, set the option +:shutdown+ to +true+ for any
+sub-processes to ensure you leave your tidy and free of rogue
+processes.
+
+To check if a sub-process has returned without waiting for it to
+finish, invoke the +realized?+ function on the promise returned by
++sh+. (This is especially useful for monitoring the progress of the
+sequence of promises returned by +sh-pipe+.)
+
+[source,clojure]
+----
+;; Any old long-running command
+(def p (exec/sh ["sleep" "5"]))
+
+(realized? p)
+;; -> false
+
+;; A few seconds later...
+(realized? p)
+;; -> true
+----
 
 ==== See Also
 
-* +clojure.core/future+
-* SSH (xref)
-* See the Conch library ( https://github.com/Raynes/conch ) for another approach to shelling out in Clojure.
+* If you don't need piping or clj-common-execs advanced features,
+  consider using
+  http://richhickey.github.io/clojure/clojure.java.shell-api.html[clojure.java.shell].
