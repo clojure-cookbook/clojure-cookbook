@@ -47,11 +47,11 @@ Now we can invoke our functions on Strings.
 
 ==== Discussion
 
-Why use protocols, when multimethods already exist? For one, speed;
+Why use protocols when multimethods already exist? For one, speed;
 Protocols dispatch only on the type of their first parameter. Further,
 protocols allow you to group and name an extension. This makes it much
 easier to reason about what a group of functions confer about a type
-and ensure a proper, full implementation.
+and ensures a proper, full implementation.
 
 It is good practice to only extend a protocol to a type if you are the
 author of either the protocol or the type. This will avoid cases where
