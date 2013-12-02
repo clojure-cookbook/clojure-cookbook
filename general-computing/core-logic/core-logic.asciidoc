@@ -224,12 +224,12 @@ could be followed by any other sequence of numbers/strings/lists etc.
 +_0+ is an unbound variable, since there was no further restriction on
 the list, other than +1+ being an element.
 
-[WARNING]
-++++
+[WARN]
+====
 +clojure.core.logic/run*+ is a macro that asks for all possible
 solutions. Asking for all of the lists that contain a +1+ will not
 terminate.
-++++
+====
 
 Unification can peek inside structures with
 +clojure.core.logic/membero+ as well:
@@ -292,13 +292,13 @@ solutions, +clojure.core.logic/run 1+ was used. The program above has
 multiple answers to the query for a director at "Newmarket Films".
 Asking for more answers will return more with no other code change.
 
-[TIP]
-++++
+[NOTE]
+====
 Slight modifications to the query above can significantly change the
 results. Swapping "Newmarket Films" for a new fresh variable will
 return all directors, for all studios. A macro could also be created
 to reduce some of the code duplication if desired.
-++++
+====
 
 One benefit of the relational solution to this problem is being able
 to generate a graph from the values:
@@ -326,13 +326,13 @@ to generate a graph from the values:
 ;; -> ([_0 :name "Newmarket Films"] [_0 :type :FilmStudio] [_0 :filmsCollection _1] ...)
 ----
 
-[TIP]
-++++
+[NOTE]
+====
 For small graphs, membero is fast enough. Larger graphs will
 experience performance problems as core.logic will traverse the list
 many times to find the elements. Using _clojure.core.logic/to-stream_
 with some basic indexing can greatly improve the query performance.
-++++
+====
 
 ==== See Also
 

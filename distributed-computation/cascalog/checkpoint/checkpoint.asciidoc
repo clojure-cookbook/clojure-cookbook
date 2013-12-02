@@ -92,13 +92,13 @@ once the workflow successfully runs all the way through. Until then,
 these directories hold the output from the different steps so the
 workflow can resume from the last incomplete step.
 
-[TIP]
-----
+[NOTE]
+====
 If you want to restart a step that successfully completed, delete the
 file at _<checkpoint-dir>/<step-name>_. The temp-dirs from the step
 definitions can be found in _<checkpoint-dir>/data/<temp-dir>_, in case
 you need to delete or modify the data there.
-----
+====
 
 Another method for dealing with errors is providing error taps for
 your Cascalog queries. Cascalog will put the input tuples that cause

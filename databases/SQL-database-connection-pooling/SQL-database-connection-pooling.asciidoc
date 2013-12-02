@@ -15,22 +15,25 @@ JDBC-based drivers, creating a pooled data source. The pooled data
 source is then usable by the +clojure.java.jdbc+ library, as described
 in the <<sec_db_connecting_to_a_sql_database>> recipe.
 
-[NOTE]
-====
-You'll need a running SQL database and existing table to connect to
-for this recipe. We suggest PostgreSQL.
+To follow along with this recipe, you'll need a running SQL database
+and existing table to connect to. We suggest PostgreSQL footnote:[Mac
+users: visit http://postgresapp.com/ to download an
+easy-to-install DMG. Everyone else: find a guide for your operating
+system on the
+https://wiki.postgresql.org/wiki/Detailed_installation_guides[PostgreSQL
+Wiki].]
 
-If you're a Mac user and don't have PostgreSQL installed yet, you can
-go here http://postgresapp.com/ for an easy to use DMG.
-
-After you have PostgreSQL running (presumably on _localhost:5432_) run
-the following command to create a database for this recipe:
+After you have PostgreSQL running (presumably on _localhost:5432_) run the following
+command to create a database for this recipe:
 
 [source,bash]
 ----
+# On Mac
 $ /Applications/Postgres.app/Contents/MacOS/bin/createdb cookbook_experiments
+
+# Everyone else:
+$ createdb cookbook_experiments
 ----
-====
 
 Before starting, add the BoneCP dependency (`[com.jolbox/bonecp
 "0.8.0.RELEASE"]`), as well as the appropriate JDBC libraries for your
@@ -40,7 +43,8 @@ logger. Alternatively, you can follow along in a REPL using lein-try:
 [source,shell]
 ----
 $ lein try com.jolbox/bonecp "0.8.0.RELEASE"     \
-           org.clojure/java.jdbc "0.3.0-beta1"  \
+           org.clojure/java.jdbc "0.3.0-beta2"  \
+           java-jdbc/dsl "0.1.0" \
            postgresql/postgresql "8.4-702.jdbc4" \
            org.slf4j/slf4j-nop # Just don't log anything...
 ----
@@ -100,8 +104,8 @@ Pass the database specification as the first argument to any
 [source,clojure]
 ----
 (require '[clojure.java.jdbc :as jdbc]
-         '[clojure.java.jdbc.ddl :as ddl]
-         '[clojure.java.jdbc.sql :as sql])
+         '[java-jdbc.ddl :as ddl]
+         '[java-jdbc.sql :as sql])
 
 (jdbc/db-do-commands pooled-db-spec false
   (ddl/create-table

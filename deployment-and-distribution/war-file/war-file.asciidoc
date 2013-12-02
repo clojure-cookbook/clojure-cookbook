@@ -1,5 +1,4 @@
 === Creating a WAR file
-
 [role="byline"]
 by Luke VanderHart
 
@@ -195,7 +194,7 @@ application server using a deployment descriptor (+web.xml+).
 
 The structure of a WAR file is:
 
-[source]
+[source,console]
 ----
 <war root>
 |-- <static resources>
