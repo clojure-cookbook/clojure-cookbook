@@ -80,7 +80,7 @@ uberjar, it can detect from the +:main+ entry in +project.clj+ that
 your program supplies a +main+ function, and writes an appropriate
 manifest that will ensure that the emitted jar file is executable.
 
-The +:gen-class+ in your namespace, and the +:aot+ Leiningen option
+The +:gen-class+ in your namespace and the +:aot+ Leiningen option
 are required to precompile your Clojure source file into a JVM class
 file, since the "Main-Class" manifest entry doesn't know how to
 reference or compile Clojure source files.
