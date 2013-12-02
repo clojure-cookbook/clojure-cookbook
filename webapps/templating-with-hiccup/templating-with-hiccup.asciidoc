@@ -170,12 +170,13 @@ The directory structure of this web application is in below:
 
 In the top directory, type lein run, then jetty server will start running at port 8080.
 Go to http://localhost:8080/, you'll see the green text, "Hello Hiccup".
+
 image:images/root_page.png[Root page]
 
 We have one more page, which will show up when a requested page is not found. To see the page, request the page other than "/", for exaample,
 http://localhost:8080/somewhere. This request goes to the not-found function and renders a message and button.
-image:images/404_page.png[404 page]
 
+image:images/404_page.png[404 page]
 
 
 Next, we will use AngularJS with Hiccup.
@@ -209,7 +210,7 @@ Let's add a new route and function to render the page:
 
 We got the route to "/hello". When this page is requested, the hello function renders an AngularJS example introduced on the AngularJS web site. If you request http://localhost:8080/hello, you'll see text input field and a text "Hello !". Type some characters in the text field. Those characters will appear on the right of the word "Hello!". AngularJS replaces the text inside of the double curly braces.
 
-image:images/hello_page.png
+image:images/hello_page.png[Hello page]
 
 You may have noticed that we used link-to in not-found function, and text-field in hello function. Hiccup provides functions for well-used html tags. The next example is a html forms.
 
@@ -255,7 +256,7 @@ We can write form tags as in below:
 
 We can see the form by requesting /subscribe. The image below is after clicking checkbox, radio button and typing password. Those are shown in the bottom, which is done by AngularJS. However, email address is not displayed in the bottom part, besides, text field is surrounded by red color. This is because we used email-field Hiccup function and bootstrap/AngularJS. The incomplete email address won't recognized as an email, also alerted by the red color.
 
-image:images/subscribe_page.png
+image:images/subscribe_page.png[Form sample]
 
 
 The last example is a simple pagination.
@@ -309,7 +310,7 @@ Hiccup renders div tag with `ng-controller="PaginationCtrl"` attribute. The attr
 
 You will see the page like in below:
 
-images:images/pagination_page.png
+image:images/pagination_page.png[Pagination sample]
 
 
 ==== Discussion
