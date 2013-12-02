@@ -2,6 +2,8 @@
 
 include::introduction.asciidoc[]
 
+include::aot-compilation/aot-compilation.asciidoc[]
+
 include::war-file/war-file.asciidoc[]
 
 include::bare-bones/bare-bones.asciidoc[]
