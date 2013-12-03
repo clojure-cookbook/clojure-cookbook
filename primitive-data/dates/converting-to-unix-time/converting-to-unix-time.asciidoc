@@ -82,6 +82,5 @@ Unix time format.
 
 * See <<sec_date_from_unix_timestamp>> for how to convert a Unix time
   to a Date.
-* See <<sec_current_date>> to see how to get the current time in
+* See <<sec_primitives_dates_current_date>> to see how to get the current time in
   milliseconds, which can be converted to seconds.
-
