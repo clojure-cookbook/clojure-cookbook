@@ -64,4 +64,4 @@ collapse them into a string.
 
 ==== See Also
 
-* Concatenation strings sections
+* <<sec_primitives_building_strings_from_parts>>
