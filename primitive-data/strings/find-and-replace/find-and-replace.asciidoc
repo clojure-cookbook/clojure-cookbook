@@ -36,7 +36,7 @@ literals (+#"..."+) to specify a pattern as a regular expression.
 (defn linkify-comment
   "Add Markdown-style links for any GitHub issue numbers present in comment"
   [repo comment]
-  (clojure.string/replace comment 
+  (clojure.string/replace comment
                           #"#(\d+)"
                           (str "[#$1](https://github.com/" repo "/issues/$1)")))
 
@@ -72,8 +72,8 @@ treat. Regexps are a powerful tool for modifying strings with
 unbounded flexibility. Like any powerful new tool, it's easy to
 over-do it. Because of their terse and compact syntax it's very easy
 to produce regexps that are both difficult to interpret and at a high
-risk of being incorrect. You should regular expressions sparingly, and
-only if you fully understand their syntax.
+risk of being incorrect. You should use regular expressions sparingly,
+and only if you fully understand their syntax.
 
 ==== See Also
 
