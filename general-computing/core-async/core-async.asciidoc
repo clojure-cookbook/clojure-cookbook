@@ -4,12 +4,12 @@ by Daemian Mack
 
 ==== Problem
 
-You want to decouple your program's consumers and producers, by
+You want to decouple your program's consumers and producers by
 introducing explicit queues between them.
 
 For example, you are building a web dashboard that fetches Twitter
-messages. This application both persists events to a database and
-publishes them via Server-Sent Events (SSE) to a browser.
+messages. This application must both persist these events to a database and
+publish them via Server-Sent Events (SSE) to a browser.
 
 ==== Solution
 
@@ -65,12 +65,12 @@ Consider the following passage illustrating a synchronous approach.
 ;; sse-consumer received message 3
 ----
 
-Each message received is directly passed to each consumer of
-+message-producer+. As implemented this approach is rather brittle;
+Each message received is passed directly to each consumer of
++message-producer+. As implemented, this approach is rather brittle;
 any slow consumer could cause the entire pipeline to grind to a halt.
 
 To make processing asynchronous, introduce explicit queues with
-+clojure.core.async/chan+ and perform work asynchronously by wrapping
++clojure.core.async/chan+. Perform work asynchronously by wrapping
 it in one of core.async's +clojure.core.async/go+ forms.
 
 [source,clojure]
@@ -126,7 +126,7 @@ it in one of core.async's +clojure.core.async/go+ forms.
 
 ==== Discussion
 
-This code is larger than the original implementation, what has this
+This code is larger than the original implementation. What has this
 afforded us?
 
 The original approach was rigid. It offered no control over consumer
@@ -135,23 +135,25 @@ communication over channels and doing work asynchronously, we've
 created service boundaries around producers and consumers, allowing
 them to operate as independently as possible.
 
-[quote, Rich Hickey, Rationale for Clojure core.async Channels]
+[quote, Rich Hickey, Rationale for Clojure core.async channels]
 ____
 There comes a time in all good programs when components or subsystems
 must stop communicating directly with one another.
 ____
 
 Let's examine one of the new consumers in depth to understand how it
-has changed. Instead of receiving messages via function invocation,
+has changed. 
+
+Instead of receiving messages via function invocation,
 consumers now draw messages from a buffered channel. Where a consumer
 (e.g. +database-consumer+) used to consume a single message at a time,
 it now uses a +go-loop+ to continuously consume messages from its
 producer.
 
-In traditional callback-oriented code accomplishing something like
+In traditional callback-oriented code, accomplishing something like
 this would require splitting logic out across numerous functions,
 introducing "callback hell." One of the benefits of +core.async+ is
-that it lets you write code inline in a more straight-forward style.
+that it lets you write code inline, in a more straight-forward style.
 
 [source,clojure]
 ----
