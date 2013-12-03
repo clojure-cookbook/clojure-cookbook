@@ -13,9 +13,9 @@ You want to use Clojure's core sequence functions (+conj+, +map+,
 In Part I of this recipe (<<sec_red_black_part_i>>) you implemented
 all the functions necessary for creating an efficient Red-Black Tree.
 
-What's missing is participation in Clojure's sequence abstractions.
+What's missing is participation in Clojure's sequence abstraction.
 
-The most important part of participating in sequence abstractions
+The most important part of participating in sequence abstraction
 is the ability to expose values of a data structure sequently. The
 built-in +tree-seq+ is well suited for this task. One extra step is
 needed, however; +tree-seq+ returns a sequence of nodes, not values.
@@ -110,11 +110,10 @@ Red-Black Tree implementation from <<sec_red_black_part_i>> can
 participate in a wide-array of sequence-oriented functions; +map+,
 +filter+, +reduce+, you name it. 
 
-At its essence, +clojure.lang.IPersistentSet+ is an abstraction over a data
-structure that views its underlying values as a a discrete set; this
-matches a tree datastructure well. A set isn't a list or sequence
-though, how is +RedBlackTree+ then said to be participating in the
-sequence abstraction?
+At its essence, +clojure.lang.IPersistentSet+ is an abstraction of what it
+means to represent a mathematical set structure; this matches a tree data
+structure well. A set isn't a list or sequence though, how is +RedBlackTree+
+then said to be participating in the sequence abstraction?
 
 In Clojure, types extending the +clojure.lang.ISeq+ interface are true
 _sequences_, represented as a logical list of head and tail. While
@@ -242,7 +241,6 @@ course). It's easy enough to mirror +vec+ and +vector+ for ++RedBlackTree++s:
 (red-black-tree 7 42)
 ;; -> #rbt [:black nil 7 [:red nil 42 nil]]
 ----
-
 
 You may also have noticed printing is not a concern of the sequence
 abstraction, although it is certainly an important consideration to
