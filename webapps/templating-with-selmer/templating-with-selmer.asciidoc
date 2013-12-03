@@ -10,7 +10,7 @@ to insert dynamic content and use template inheritance to structure the template
 
 ==== Solution
 
-Use can use the Selmer library (https://github.com/yogthos/Selmer) to
+Use the Selmer library (https://github.com/yogthos/Selmer) to
 create your template and call it with a context map containing the
 dynamic content.
 

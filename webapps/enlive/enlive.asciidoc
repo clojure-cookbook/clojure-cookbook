@@ -1,3 +1,4 @@
+[[sec_enlive]]
 === Templating HTML with Enlive
 [role="byline"]
 by Luke VanderHart
@@ -392,3 +393,5 @@ persistent, immutable data structures.
 - The Enlive https://github.com/cgrand/enlive/wiki[documentation]
 - David Nolen's https://github.com/swannodette/enlive-tutorial[tutorial]
 - The Enlive https://groups.google.com/forum/#!forum/enlive-clj[mailing list].
+- Alternative templating libraries Hiccup (<<sec_hiccup>>) and Selmer
+  (<<sec_webapps_templating_with_selmer>>).
