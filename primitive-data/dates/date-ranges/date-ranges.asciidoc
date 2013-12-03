@@ -40,10 +40,14 @@ This is how you can use the +time-range+ function:
 
 ;; months-of-the-year is an unrealized lazy sequence
 (realized? months-of-the-year)
-;; -> true
+;; -> false
 
 (count months-of-the-year)
 ;; -> 12
+
+;; now realized
+(realized? months-of-the-year)
+;; -> true
 ----
 
 ==== Discussion
