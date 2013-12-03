@@ -1,3 +1,4 @@
+[[sec_test_collection_with_set]]
 === Determining if a collection holds one of several values
 [role="byline"]
 by John Touron

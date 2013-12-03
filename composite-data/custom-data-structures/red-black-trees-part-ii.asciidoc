@@ -15,8 +15,7 @@ all the functions necessary for creating an efficient Red-Black Tree.
 
 What's missing is participation in Clojure's sequence abstractions.
 
-
-The most important part of participating in the sequence abstraction
+The most important part of participating in sequence abstractions
 is the ability to expose values of a data structure sequently. The
 built-in +tree-seq+ is well suited for this task. One extra step is
 needed, however; +tree-seq+ returns a sequence of nodes, not values.
@@ -42,38 +41,28 @@ The final +rb-tree->seq+ function
 ;; -> (5 2)
 ----
 
-There is one ability RBTs have that sequences do not: their ability to
-+find+ values efficiently. Define a protocol +IRedBlackTree+ to
-capture this ability for extension in the realized type.
-
-[source,clojure]
-----
-(defprotocol IRedBlackTree
-  "RedBlackTree public API functions"
-    (find [this x] "Test if a value is present in an RBT))
-----
-
-Now, extend the +ISeq+ and +IRedBlackTree+ protocols to a new
-+RedBlackTree+ type, implementing all of the necessary functions. It's
-also wise to implement the multimethod +print-method+ for
-+RedBlackTree+, as the default implementation will fail for
-+RedBlackTree+ as implemented.
+Since RBTs most closely resemble sets, they should adhere well to the
++IPersistentSet+ interface. Extend the +IPersistentSet+ and +IFn+
+protocols to a new +RedBlackTree+ type, implementing all of the
+necessary functions. It's also wise to implement the multimethod
++print-method+ for +RedBlackTree+, as the default implementation will
+fail for +RedBlackTree+ as implemented.
 
 [source,clojure]
 ----
 (deftype RedBlackTree [tree]
-  IRedBlackTree
-  (find [this n] (find-val tree n))
-  clojure.lang.ISeq
-  (cons [self v] (->RedBlackTree (insert-val tree v)))
-  (empty [self] (->RedBlackTree nil))
+  clojure.lang.IPersistentSet
+  (cons [self v] (RedBlackTree. (insert-val tree v)))
+  (empty [self] (RedBlackTree. nil))
   (equiv [self o] (if (instance? RedBlackTree o)
                     (= tree (.tree o))
                     false))
-  (first [this] (first (rb-tree->seq tree)))
-  (next [this] (next (rb-tree->seq tree)))
-  (more [this] (rest (rb-tree->seq tree)))
   (seq [this] (if tree (rb-tree->seq tree)))
+  (get [this n] (find-val tree n))
+  (contains [this n] (boolean (get this n)))
+  ;; (disjoin [this n] ...) ;; Omitted due to complexity
+  clojure.lang.IFn
+  (invoke [this n] (get this n))
   Object
   (toString [this] (pr-str this)))
 
@@ -81,8 +70,14 @@ also wise to implement the multimethod +print-method+ for
   (.write w (str "#rbt " (pr-str (.tree o)))))
 ----
 
+[NOTE]
+====
++disjoin+ and the corresponding +remove-val+ functions are left as
+exercises to the reader.
+====
+
 It is now possible to use a +RedBlackTree+ instance like any other
-collection.
+collection--in particular, instances act like sets.
 
 [source, clojure]
 ----
@@ -94,11 +89,17 @@ collection.
 (seq to-ten)
 ;; -> (3 1 0 2 5 4 7 6 8 9)
 
-(find to-ten 9)
+(get to-ten 9)
 ;; -> 9
 
-(find to-ten 15)
-;; -> nil
+(contains? to-ten 9)
+;; -> true
+
+(to-ten 9)
+;; -> 9
+
+(map inc to-ten)
+;; -> (4 2 1 3 6 5 8 7 9 10)
 ----
 
 ==== Discussions
@@ -109,28 +110,36 @@ Red-Black Tree implementation from <<sec_red_black_part_i>> can
 participate in a wide-array of sequence-oriented functions; +map+,
 +filter+, +reduce+, you name it. 
 
-At its essence, +ISeq+ is an abstraction over a data structure that
-views its underlying values as a _list_. A list is traditionally
-represented by two parts: its head, a single value and "rest," either
-another list or nothing. Nearly every collection manipulating function
-in Clojure builds off of this abstraction.
+At its essence, +clojure.lang.IPersistentSet+ is an abstraction over a data
+structure that views its underlying values as a a discrete set; this
+matches a tree datastructure well. A set isn't a list or sequence
+though, how is +RedBlackTree+ then said to be participating in the
+sequence abstraction?
 
-The sequence abstraction lives in the +clojure.lang.ISeq+ java
-interface, along with its parents +clojure.lang.IPersistentCollection+
-and +clojure.lang.Seqable+. Most of the functions are self
-explanatory, but some deserve further explanation. The function +cons+ is a
-historical name for constructing a new list by appending a value to an
-existing list. +seq+ is intended to produce a sequence from a
+In Clojure, types extending the +clojure.lang.ISeq+ interface are true
+_sequences_, represented as a logical list of head and tail. While
++IPersistentSet+ does not inherit from +ISeq+, it does share a common
+ancestry with it. Both interfaces extend
++clojure.lang.IPersistentCollection+ and its parent
++clojure.lang.Seqable+. As luck would have it footnote:[actually, as
+design would have it], sequence functions rely on collections being
++Seqable+, *not* +ISeq+. Since +RedBlackTree+ can be read as a
+sequence, it is +Seqable+ and can be operated on by all of the
+sequence functions you know and love.
+
+Most of the functions in the +IPersistentSet+ interface are self
+explanatory, but some deserve further explanation. The function +cons+
+is a historical name for constructing a new list by appending a value
+to an existing list. +seq+ is intended to produce a sequence from a
 collection, or +nil+ if empty.
 
-.ISeq.java
+.IPersistentSet.java
 [source,java]
 ----
-public interface ISeq extends IPersistentCollection {
-  Object first();
-  ISeq next();
-  ISeq more();
-  ISeq cons(Object o);
+public interface IPersistentSet extends IPersistentCollection, Counted {
+  public IPersistentSet disjoin(Object key) ;
+  public boolean contains(Object key);
+  public Object get(Object key);
 }
 ----
 
@@ -153,20 +162,20 @@ public interface Seqable {
 }
 ----
 
-The most challenging part of any +ISeq+ implementation is actually
+The most challenging part of any +Seqable+ implementation is actually
 making a sequence out of the underlying data structure. This would be
 particularly challenging if you needed to write your own lazy
 tree-traversal algorithms. Luckily Clojure has a built-in function
 +tree-seq+ that does precisely this. By leveraging +tree-seq+ to
 produce a sequence of nodes, it is trivial to write a +rb-tree->seq+
-conversion function that lazily traverses a RBT yielding node-values
-as it goes.
+conversion function that lazily traverses a +RedBlackTree+ yielding
+node-values as it goes.
 
 +tree-seq+ accepts three arguments:
 
 * +branch?+ - a conditional that returns true if a node is a branch
-  (not a leaf node). For RBT, +sequential?+ is an adequate check, as
-  every node is a vector.
+  (not a leaf node). For +RedBlackTree+, +sequential?+ is an adequate
+  check, as every node is a vector.
 * +children+ - a function that returns all of the children for a given
   node.
 * +root+ - the node to begin traversal on.
@@ -178,9 +187,10 @@ Red-Black Trees are represented, this will *not* be an ordered
 traversal.
 ====
 
-With a sequence in hand, it is easy enough to implement +first+,
-+next+, +more+ and +seq+. Similarly +cons+ and +empty+ are easy enough
-to write too. Equality testing can be a bit more difficult, however.
+With a sequence conversion function in hand, it is easy enough to
+write the +seq+ function. Similarly +cons+ and +empty+ are a breeze,
+simply utilize the existing tree functions. Equality testing can be a
+bit more difficult, however.
 
 For the sake of simplicity, we chose to implement equality (+equiv+)
 between *only* +RedBlackTree+ instances. Further, the implementation
@@ -188,15 +198,31 @@ compares a sorted sequence of their elements. In this case, +equiv+ is
 answering the question "do these trees have the same values?" and not
 the question "are these the same trees?" It's an important
 distinction, one you'll need to consider carefully when implementing
-your own data structures. 
+your own data structures.
 
-Even with the full +ISeq+ interface implemented, there are still a
-number of conveniences +RedBlackTree+ is lacking. For one, you need to
-use the kludgy +->RedBlackTree+ function to create a new RBT and add
-values to it manually. By convention, many built-in collections
-provide convenience functions for populating them (aside from literal
-tags like `[]` or +{}+, of course). It's easy enough to mirror +vec+
-and +vector+ for RBTs:
+As discussed in <<sec_test_collection_with_set>>, one of the big
+bonuses of sets is their ability to be invoked just like any other
+function. It's easy enough to provide this ability to
+++RedBlackTree++s too. By implementing the single-arity +invoke+
+function of the +clojure.lang.IFn+ interface, ++RedBlackTree++s can be
+invoked like any other function (or set, for that matter).
+
+[source,clojure]
+----
+(some (rbt [2 3 5 7]) [6])
+;; -> nil
+
+((rbt (range 10)) 3)
+;; -> 3
+----
+
+Even with the full +IPersistentSet+ interface implemented, there are
+still a number of conveniences +RedBlackTree+ is lacking. For one, you
+need to use the kludgy +->RedBlackTree+ or +RedBlackTree.+ functions
+to create a new +RedBlackTree+ and add values to it manually. By
+convention, many built-in collections provide convenience functions
+for populating them (aside from literal tags like `[]` or +{}+, of
+course). It's easy enough to mirror +vec+ and +vector+ for ++RedBlackTree++s:
 
 [source,clojure]
 ----
@@ -216,6 +242,7 @@ and +vector+ for RBTs:
 (red-black-tree 7 42)
 ;; -> #rbt [:black nil 7 [:red nil 42 nil]]
 ----
+
 
 You may also have noticed printing is not a concern of the sequence
 abstraction, although it is certainly an important consideration to
