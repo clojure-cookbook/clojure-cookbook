@@ -66,13 +66,13 @@ formats and a sample date/time in that format. Once you've picked a
 suitable format use +clj-time.formater/formatters+ with its keyword to
 receive the appropriate +DateTimeFormatter+.
 
-By default, +formatter+ always parses strings into +DateTime+s with a
-UTC time zone. +formatter+ optionally takes a time zone as its second
-argument. You can use +clj-time.core/time-zone-for-offset+ or
+By default, +formatter+ always parses strings into +DateTime+ objects
+with a UTC time zone. +formatter+ optionally takes a time zone as its
+second argument. You can use +clj-time.core/time-zone-for-offset+ or
 +clj-time.core/time-zone-for-id+ to receive a +DateTimeZone+ object to
 pass to +formatter+.
 
 ==== See Also
 
 * See <<sec_primitives_dates_formatting_dates>> for information on how
-  to use formatters to _un_parse strings.
+  to use formatters to unparse strings.
