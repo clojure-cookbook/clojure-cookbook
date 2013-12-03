@@ -17,25 +17,49 @@ In your dependencies:
 [com.keminglabs/c2 "0.2.3"]
 ----
 
-Then, in a ClojureScript file associated with an HTML page containing a `<div id="barchart"></div>`:
+[source,css]
+---
+.bar {
+  width: 100%
+}
+.bar-fill {
+  display: inline-block;
+  background-color: gray;
+  height: 2em;
+}
+.label {
+  display: block;
+  vertical-align: middle;
+  width: 2em;
+}
+---
 
 [source,clojure]
 ----
 (ns barchart
+  (:require-macros [c2.util :refer [bind!]])
   (:require [c2.core :refer [unify]]
             [c2.scale :as scale]))
 
 (def !my-data (atom {"A" 1, "B" 2, "C" 4, "D" 3}))
 
+(def x-scale
+  (scale/linear :domain [0 4] :range [0 100]))
+
+(def x-scale-percent
+  #(str (x-scale %) "%"))
+
 (bind! "#barchart"
        [:div#barchart
         [:h2 "Rad barchart!"]
-        [:div.bars
-         (unify !my-data
+        [:table
+         (unify @!my-data
                 (fn [[label val]]
-                  [:div.bar
-                   [:div.bar-fill {:style {:width (x-scale val)}}]
-                   [:span.label label]]))]])
+                  [:tr
+                   [:td
+                    [:span.label label]]
+                   [:td.bar
+                    [:div.bar-fill {:style {:width (x-scale-percent val)}}]]]))]])
 ----
 
 
