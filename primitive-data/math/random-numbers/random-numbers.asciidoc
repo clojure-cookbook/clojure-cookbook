@@ -48,7 +48,7 @@ ranging from +0.0+ (inclusive) to +5.0+ (exclusive).
 (inclusive) and +5+ (exclusive). At first blush +rand-int+ might seem like an
 ideal way to select a random element from a vector or list. This is a lot of
 ceremony though, use +rand-nth+ instead to get a random element from any
-sequential collect (i.e. the collection responds to +nth+.)
+sequential collection (i.e. the collection responds to +nth+).
 
 [source,clojure]
 ----
