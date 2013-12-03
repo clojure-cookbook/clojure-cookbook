@@ -1,0 +1,328 @@
+[[sec_webapps_templating_with_hiccup]]
+=== Creating templates for web applications with Hiccup
+[role=""]
+by Yoko Harada
+
+==== Problem
+
+You want to use a templating library to write html tags and attributes, which should not conflict with expressions of JavaScript frameworks such as AngularJS(http://angularjs.org/) or Meteor(http://www.meteor.com/).
+
+
+==== Solution
+
+Hiccup(https://github.com/weavejester/hiccup) is one of the choices since it uses Clojure's vectors. maps and functions only to render html tags and attributes. Because of that simplicity, Hiccup doesn't have any conflict with double curly braces expression, which are used by AngularJS. Hiccup's simple syntaxes are nothing but Clojure friendly, but also flexible to work with JavaScript frameworks. Additionally, Hiccup is an easy rendering tool to get started for Clojurians.
+
+Let's begin to use Hiccup and see how we can use it. The first step would be to try it out on repl. This is handy to know what Hiccup function prints out what.
+
+First, create a project and add Hiccup to your project.clj:
+
+.project.clj
+[source,clojure]
+----
+(defproject hiccup-templating "0.1.0-SNAPSHOT"
+  :description "Hiccup examples for Clojure Cookbook"
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [hiccup "1.0.4"]])
+----
+
+Then, start repl. The example below is a result of a whole html starting from a doctype declaration.
+As in the example, html tags and attributes are all in Clojure vectors and maps. Some extras are
+Hiccup provided utility functions, however, still, those are in Clojure syntax only.
+As in the Hiccup API document (http://weavejester.github.io/hiccup/index.html), usages of all functions are the same as other Clojure libraries.
+
+----
+user=> (use 'hiccup.page)
+nil
+user=> (html5 {:lang "en"} [:head (include-js "myscript.js") (include-css "mystyle.css")] [:body [:div [:h1 {:class "info"} "Hiccup"]]])
+"<!DOCTYPE html>\n<html lang=\"en\"><head><script src=\"myscript.js\" type=\"text/javascript\"></script><link href=\"mystyle.css\" rel=\"stylesheet\" type=\"text/css\"></head><body><div><h1 class=\"inf\
+o\">Hiccup</h1></div></body></html>"
+----
+
+Before going further to code Hiccup more, we need some sort of web application.
+Since Hiccup is the html rendering library for a web application,
+using it with the web application will help you to understand how it works.
+The examples of this section use Compojure (https://github.com/weavejester/compojure), however,
+this section won't explain much about Compojure. Please see the section about Compojure.
+
+
+Our project.clj will be the one like in below, which had compojure and ring-jetty-adapter dependencies and main.
+
+.project.clj
+[source,clojure]
+----
+(defproject hiccup-templating "0.1.0-SNAPSHOT"
+  :description "Hiccup examples for Clojure Cookbook"
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [hiccup "1.0.4"]
+                 [compojure "1.1.6"]
+                 [ring/ring-jetty-adapter "1.2.1"]]
+  :main hiccup-templating.core)
+----
+
+Now, let's write core.clj, which has a basic routing and starts up a server.
+
+.src/hiccup-templating/core.clj
+[source, clojure]
+----
+(ns hiccup-templating.core
+  (:require [compojure.core :refer [defroutes GET ANY]]
+            [compojure.route :as route]
+            [compojure.handler :as handler]
+            [ring.adapter.jetty :as jetty]
+            [hiccup-templating.views.layout :as layout]
+            [hiccup-templating.views.contents :as contents]))
+
+(defroutes routes
+  (GET "/" [] (layout/application "Home" (contents/index)))
+  (route/resources "/")
+  (ANY "*" [] (route/not-found (layout/application "Page Not Found" (contents/not-found)))))
+
+(def application (handler/site routes))
+
+(defn -main []
+  (let [port (Integer/parseInt (or (System/getenv "PORT") "8080"))]
+    (jetty/run-jetty application {:port port :join? false})))
+----
+
+The core.clj above provides two pages. The first is a root ("/") path and the one serves 404 page. Each page calls an application function with 2 (or more) arguments, title and contents.
+
+This example doesn't use any MVC-like framework, instead, takes a template style approach.
+layout/application function renders a base html as in below:
+
+.src/hiccup-templating/views/layout.clj
+[source, clojure]
+----
+(ns hiccup-templating.views.layout
+  (:use [hiccup.page :only (html5 include-css include-js)]))
+
+(defn application [title & content]
+  (html5 {:ng-app "myApp" :lang "en"}
+         [:head
+          [:title title]
+          (include-css "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css")
+          (include-js "http://code.angularjs.org/1.2.3/angular.min.js")
+          (include-js "js/ui-bootstrap-tpls-0.7.0.min.js")
+          (include-js "js/script.js")
+
+          [:body
+           [:div {:class "container"} content ]]]))
+----
+
+The example above will have CSS and JavaScript tags. Those are rendered by Hiccup's include-css and include-js functions. The first Hiccup example uses Twitter bootstrap only, but following examples will use AngularJS and its ui bootstrap(http://angular-ui.github.io/bootstrap/). The `layout.clj` above has all from the first for the convenience. 
+
+In our example, the contests of two pages are provided by functions in contents.clj.
+
+.src/hiccup-templating/views/contents.clj
+[source, clojure]
+----
+(ns hiccup-templating.views.contents
+  (:use [hiccup.form]
+        [hiccup.element :only (link-to)]))
+
+(defn index []
+  [:div {:id "content"}
+   [:h1 {:class "text-success"} "Hello Hiccup"]])
+
+(defn not-found []
+  [:div
+   [:h1 {:class "info-worning"} "Page Not Found"]
+   [:p "There's no requested page. "]
+   (link-to {:class "btn btn-primary"} "/" "Take me to Home")])
+----
+
+The index function renders a simple html with a little style.
+The no-found function renders a simple message and button.
+
+The last piece is a JavaScript file. Although these two examples doesn't explicitely use JavaScript, we need `script.js` below:
+
+.resources/public/js/script.js
+[source, javascript]
+----
+var myApp = angular.module('myApp', ['ui.bootstrap']);
+----
+
+This is because `layout.clj` has all including AngularJS portion. The "myApp" in the layout.clj looks at myApp variable in the script.js.
+
+
+The directory structure of this web application is in below:
+
+----
+.
+├── README.md
+├── project.clj
+├── resources
+│   └── public
+│       ├── css
+│       └── js
+│           ├── script.js
+│           └── ui-bootstrap-tpls-0.7.0.min.js
+├── src
+│   └── hiccup_templating
+│       ├── core.clj
+│       └── views
+│           ├── contents.clj
+│           └── layout.clj
+└── target
+    ├── classes
+    └── stale
+        └── extract-native.dependencies
+----
+
+In the top directory, type lein run, then jetty server will start running at port 8080.
+Go to http://localhost:8080/, you'll see the green text, "Hello Hiccup".
+
+image:images/root_page.png[Root page]
+
+We have one more page, which will show up when a requested page is not found. To see the page, request the page other than "/", for exaample,
+http://localhost:8080/somewhere. This request goes to the not-found function and renders a message and button.
+
+image:images/404_page.png[404 page]
+
+
+Next, we will use AngularJS with Hiccup.
+
+Let's add a new route and function to render the page:
+
+.src/hiccup-templating/core.clj
+[source, clojure]
+----
+(defroutes routes
+  (GET "/" [] (layout/application "Home" (contents/index)))
+  (GET "/hello" [] (layout/application "Hello ???" (contents/hello)))
+  (route/resources "/")
+  (ANY "*" [] (route/not-found (layout/application "Page Not Found" (contents/not-found)))))
+----
+
+.src/hiccup-templating/views/contents.clj
+[source, clojure]
+----
+(defn hello []
+  [:div {:class "well"}
+   [:h1 {:class "text-info"} "Hello Hiccup and AngularJS"]
+   [:div {:class "row"}
+    [:div {:class "col-lg-2"}
+     (label "name" "Name:")]
+    [:div {:class "col-lg-4"}
+     (text-field {:class "form-control" :ng-model "yourName" :placeholder "Enter a name here"} "your-name")]]
+   [:hr]
+   [:h1 {:class "text-success"} "Hello {{yourName}}!"]])
+----
+
+We got the route to "/hello". When this page is requested, the hello function renders an AngularJS example introduced on the AngularJS web site. If you request http://localhost:8080/hello, you'll see text input field and a text "Hello !". Type some characters in the text field. Those characters will appear on the right of the word "Hello!". AngularJS replaces the text inside of the double curly braces.
+
+image:images/hello_page.png[Hello page]
+
+You may have noticed that we used link-to in not-found function, and text-field in hello function. Hiccup provides functions for well-used html tags. The next example is a html forms.
+
+Again, let's add a new route to core.clj. Our new routes will be as in below:
+
+.src/hiccup-templating/core.clj
+[source, clojure]
+----
+(defroutes routes
+  (GET "/" [] (layout/application "Home" (contents/index)))
+  (GET "/hello" [] (layout/application "Hello ???" (contents/hello)))
+  (GET "/subscribe" [] (layout/application "Subscrition" (contents/subscribe)))
+  (route/resources "/")
+  (ANY "*" [] (route/not-found (layout/application "Page Not Found" (contents/not-found)))))
+----
+
+We can write form tags as in below:
+
+.src/hiccup-templating/views/contents.clj
+[source, clojure]
+----
+(defn labeled-radio [label]
+  [:label (radio-button {:ng-model "user.gender"} "user.gender" false label)
+   (str label "    ")])
+
+(defn subscribe []
+  [:div {:class "well"}
+   [:form {:novalidate "" :role "form"}
+    [:div {:class "form-group"}
+     (label {:class "control-label"} "email" "Email")
+     (email-field {:class "form-control" :placeholder "Email" :ng-model "user.email"} "user.email")]
+    [:div {:class "form-group"}
+     (label {:class "control-label"} "password" "Password")
+     (password-field {:class "form-control" :placeholder "Password" :ng-model "user.password"} "user.password")]
+    [:div {:class "form-group"}
+     (label {:class "control-label"} "gender" "Gender")
+     (reduce conj [:div {:class "btn-group"}] (map labeled-radio ["male" "female" "other"]))]
+    [:div {:class "form-group"}
+     [:label
+      (check-box {:ng-model "user.remember"} "user.remember-me") " Remember me"]]]
+   [:pre "form = {{ user | json }}"]])
+----
+
+We can see the form by requesting /subscribe. The image below is after clicking checkbox, radio button and typing password. Those are shown in the bottom, which is done by AngularJS. However, email address is not displayed in the bottom part, besides, text field is surrounded by red color. This is because we used email-field Hiccup function and bootstrap/AngularJS. The incomplete email address won't recognized as an email, also alerted by the red color.
+
+image:images/subscribe_page.png[Form sample]
+
+
+The last example is a simple pagination.
+As we did so far, let's add a new route and functions:
+
+.src/hiccup-templating/core.clj
+[source, clojure]
+----
+(defroutes routes
+  (GET "/" [] (layout/application "Home" (contents/index)))
+  (GET "/hello" [] (layout/application "Hello ???" (contents/hello)))
+  (GET "/subscribe" [] (layout/application "Subscrition" (contents/subscribe)))
+  (GET "/pagination" [] (layout/application "Pagination" (contents/pagination)))
+  (GET "/pages/:id" [id]  (contents/page id))
+  (route/resources "/")
+  (ANY "*" [] (route/not-found (layout/application "Page Not Found" (contents/not-found)))))
+----
+
+.src/hiccup-templating/views/contents.clj
+[source, clojure]
+----
+(defn pagination []
+  [:div {:ng-controller "PaginationCtrl" :class "well"}
+   [:pre "[Browser] Current page: {{currentPage}}. [Server] {{partial}}"]
+   [:pagination {:total-items "totalItems" :page "currentPage" :on-select-page "displayPartial(page)"}]])
+
+(defn page [id]
+  (str "Got id: " id))
+----
+
+In this example, two new routes are added, "/pagination" and "/pages/:id". The route "/pagination" shows a current page number and all page numbers rendered by pagenation function in contents.clj. The pagination tag in the function is supported by AngularJS ui bootstrap. To make this work, we need JavaScript below:
+
+.resources/public/js/script.js
+[source, clojure]
+----
+var myApp = angular.module('myApp', ['ui.bootstrap']);
+
+myApp.controller('PaginationCtrl', function($scope, $http) {
+    $scope.totalItems = 60;
+    $scope.currentPage = 3;
+
+    $scope.displayPartial = function(page_number) {
+        $http.get('pages/'+page_number).success(function(data) {
+            $scope.partial = data;
+        });
+    };
+});
+----
+
+Hiccup renders div tag with `ng-controller="PaginationCtrl"` attribute. The attribute ties AngularJS directives in a Hiccup page to the AngularJS controller of the same name. When page number is clicked, AJAX request is triggered, which makes a request to the server, for example, "pages/2". The request goes to page function in contents.clj and returns the string. The returned string will be inserted to the {{partial}} directive by AngularJS.
+
+You will see the page like in below:
+
+image:images/pagination_page.png[Pagination sample]
+
+
+==== Discussion
+
+When we create a web application, we can't byapass writing html tags and attributes. How to write/devide code and html portion would be an eternal theme for web development in all languages.
+Clojure's web application ecosystems is still young and doesn't have an estabilished way like other languages. We have choices in this area. Some tools provides rendering feadture with MVC-like framework, while others focuse on just rendering html. The answer for 'what should be chosen' is, probably, depends on what tool you want to integrate with it.
+
+On the other hand, recent growth of JavaScript framework gives us a new style of web development. Integrating a JavaScript framework, We will get a freedom to move more logic to a client side.
+If some of Javascript frameworks are in your mind, you'd better to choose a simple rendering tool not to conflict with directives of such frameworks. For example, as in our examples, AngularJS(http://angularjs.org/) uses double curly braces {{value}} to insert a value. 
+
+Already mentioned at the beginning, Hiccup is a simple rendering tool and has no conflict with such JavaScript framework's directives. Hiccup's simplicity works with those painlessly.
+
+Hiccup's Clojure-friendly syntaxes has another good side. It is editing. If the editor supports Clojure editing feature, writing Hiccup syntaxes are fairly easy. We don't need any extra support to write a template.
+
+Some Clojurians may think Hiccup is too simple to create complicated html. They might want more features to do a lot on server side. However, the web developement methodology has been changing. New technologies keep emerging. Recent JavaScript frameworks are worth to try out. It might be a time to reconsider how we should devide server/client sides jobs.
