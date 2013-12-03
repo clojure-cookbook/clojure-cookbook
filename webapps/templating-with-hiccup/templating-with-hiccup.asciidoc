@@ -159,18 +159,18 @@ to simplify rendering form tags.
   (f/text-field :title)
   (f/text-field :content))
 ;; -> [:form {:method "POST", :action #<URI /posts/new>}
-        [:input {:type "hidden"
-                 :name "user-id"
-                 :id "user-id"
-                 :value 42}]
-        [:input {:type "text"
-                 :name "title"
-                 :id "title"
-                 :value nil}]
-        [:input {:type "text"
-                 :name "content"
-                 :id "content"
-                 :value nil}]]
+;;      [:input {:type "hidden"
+;;               :name "user-id"
+;;               :id "user-id"
+;;               :value 42}]
+;;      [:input {:type "text"
+;;               :name "title"
+;;               :id "title"
+;;               :value nil}]
+;;      [:input {:type "text"
+;;               :name "content"
+;;               :id "content"
+;;               :value nil}]]
 ----
 
 ==== See Also
