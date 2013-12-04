@@ -142,5 +142,3 @@ _Italic_::
 *+Constant Width Bold+*::
   is used to indicate commands that you should enter literally at the
   command-line.
-_+Constant Width Italic+_::
-  is used to indicate the name of libraries, for example: _+Hiccup+_, _+core.logic+_ and _+clj-commons-exec+_.
