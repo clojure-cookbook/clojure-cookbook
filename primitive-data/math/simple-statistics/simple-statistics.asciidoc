@@ -30,8 +30,8 @@ Find the _mean_ (average) of a collection by dividing its total by the +count+ o
 ;; -> 0
 ----
 
-Find the _median_ (middle value) of a collection by +sort+ing its
-values and +get+ing its middle value. There are, of course, special
+Find the _median_ (middle value) of a collection by sorting its
+values and getting its middle value. There are, of course, special
 considerations for collections of odd-length. In these cases median is
 considering the mean of the *two* middle values.
 
@@ -39,12 +39,12 @@ considering the mean of the *two* middle values.
 ----
 (defn median [coll]
   (let [sorted (sort coll)
-        count (count sorted)
-        halfway (int (/ count 2))]
-    (if (odd? count)
+        cnt (count sorted)
+        halfway (int (/ cnt 2))]
+    (if (odd? cnt)
       (nth sorted halfway) <1>
       (let [bottom (dec halfway)
-            bottom-val (nth sorted other)
+            bottom-val (nth sorted bottom)
             top-val (nth sorted halfway)]
         (mean [bottom-val top-val]))))) <2>
 
@@ -92,14 +92,14 @@ Find the sample _standard deviation_ by completing the following steps:
 [source,clojure]
 ----
 (defn standard-deviation [coll]
-  (let [avg (mean coll) <5>
-        squares (for [x coll] ;<6>
+  (let [avg (mean coll)
+        squares (for [x coll]
                   (let [x-avg (- x avg)]
                     (* x-avg x-avg)))
         total (count coll)]
-    (-> (/ (apply + squares) <7>
-           (- total 1)) <8>
-        (Math/sqrt)))) <9>
+    (-> (/ (apply + squares)
+           (- total 1))
+        (Math/sqrt))))
 
 (standard-deviation [4 5 2 9 5 7 4 5 4])
 ;; -> 2.0

@@ -64,7 +64,7 @@ You can add your own rules for pluralization with +inflections.core/plural!+.
 ;; -> "boxes"
 
 ;; Words ending in 'ox' pluralize with 'en' (and not 'es')
-(inflections.plural/plural! #"(ox)(?i)$" "$1en")
+(inf/plural! #"(ox)(?i)$" "$1en")
 
 (inf/plural "box")
 ;; -> "boxen"
@@ -95,5 +95,5 @@ inflections also has support for inflections like +camelize+,
 ==== See Also
 
 * See
-  https://github.com/r0man/inflections-clj/blob/master/src/inflections/core.clj[inflections
+  https://github.com/r0man/inflections-clj/[inflections
   core.clj] for the most up-to-date listing of inflections available.

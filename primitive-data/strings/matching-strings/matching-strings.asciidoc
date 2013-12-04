@@ -48,7 +48,7 @@ something a little different. Don't worry, the resulting sequence is
 still lazy, but instead of flat strings its values will be vectors.
 The first value of the vector will always be the whole match, grouped
 or not; subsequent values will be the strings captured by matching
-group parenthesis. These captured values will appear in the their
+group parenthesis. These captured values will appear in the order their
 opening parenthesis appeared, despite any nesting. Take a look at this
 example:
 
@@ -73,7 +73,7 @@ isn't very idiomatic Clojure. Mutating a +re-matcher+ object with
 repeated calls to +re-find+ is just wrong; it completely violates the
 principle of pure functions. We highly suggested you prefer +re-seq+
 over +re-matcher+ and +re-find+ unless you have a really good reason
-not too.
+not to.
 
 ==== See Also
 

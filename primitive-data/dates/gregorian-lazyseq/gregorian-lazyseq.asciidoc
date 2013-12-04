@@ -114,7 +114,8 @@ the function takes optional starting year and date format string arguments:
 [source,clojure]
 ----
 (defn gregorian-day-seq
-  "Return an infinite sequence of formatted Gregorian day strings starting on January 1st of the given year (default 1970)"
+  "Return an infinite sequence of formatted Gregorian day strings
+  starting on January 1st of the given year (default 1970)"
   [& [start-year date-format]]
   (let [ gd-format (java.text.SimpleDateFormat. (or date-format "EEE M/d/yyyy"))
          start-date (java.util.GregorianCalendar. (or start-year 1970) 0 0 0 0) ]

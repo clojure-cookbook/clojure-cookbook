@@ -60,7 +60,7 @@ by a +BigDecimal+ 1, but its much easier to use the +bigdec+ or
 [source,clojure]
 ----
 (* 2 Double/MAX_VALUE)
-;; -> Infinity
+;; -> Double/POSITIVE_INFINITY
 
 (* 2 (bigdec Double/MAX_VALUE))
 ;; -> 3.5953862697246314E+308M
@@ -73,4 +73,4 @@ values will always return a floating point value.
 
 ==== See Also
 
-* See <<sec_primitives_rational_numbers> for information on maintaining accuracy with rational numbers.
+* See <<sec_primitives_rational_numbers>> for information on maintaining accuracy with rational numbers.
