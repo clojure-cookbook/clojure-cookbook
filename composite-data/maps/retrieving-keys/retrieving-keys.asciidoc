@@ -193,4 +193,4 @@ throw an exception if used at all with a list or a sequence.
 
 ==== See also
 
-* <<seq_composite_maps_as_seqs>>
+* <<sec_composite_maps_as_seqs>>
