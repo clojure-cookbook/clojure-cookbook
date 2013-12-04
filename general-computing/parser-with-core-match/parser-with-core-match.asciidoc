@@ -32,7 +32,7 @@ Use +core.match+ to pattern match over the input and return the
 expression represented as maps of maps.
 
 Before starting, add `[org.clojure/core.match "0.2.0"]` to your
-project's dependencies, or start a REPL using lein-try:
+project's dependencies, or start a REPL using +lein-try+:
 
 [source,console]
 ----

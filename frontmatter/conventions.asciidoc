@@ -81,7 +81,7 @@ $ lein version
 Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
 ----
 
-.Our Golden Boy, lein-try
+.Our Golden Boy, +lein-try+
 ****
 // TODO: Clean the "Clojure chose ..." sentence up, it's kind of
 // odd-sounding.
@@ -94,12 +94,12 @@ except for Java...)
 
 Since so many of the solutions in this book rely on third-party
 libraries, we developed
-https://github.com/rkneufeld/lein-try[lein-try]. lein-try is a small
+https://github.com/rkneufeld/lein-try[+lein-try+]. +lein-try+ is a small
 plugin for http://leiningen.org/[Leiningen], Clojure's de facto
 project tool, that lets you quickly and easily try out various Clojure
 libraries.
 
-To use lein-try, follow along with Leiningen's
+To use +lein-try+, follow along with Leiningen's
 http://leiningen.org/#install[installation instructions] to install
 the tool, then edit your user profile to look like so:
 
@@ -119,7 +119,7 @@ $ lein try clj-time
 user=>
 ----
 
-Long story short: You'll see instructions on which lein-try command to
+Long story short: You'll see instructions on which +lein-try+ command to
 execute above every recipe that uses third-party libraries.
 ****
 

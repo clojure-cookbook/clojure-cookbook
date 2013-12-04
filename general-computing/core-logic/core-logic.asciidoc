@@ -17,7 +17,7 @@ _miniKanren_ Domain Specific Langauge for logic programming. It's
 declarative style is well suited for querying flattened hierarchical
 data.
 
-To follow along with this recipe, start a REPL using lein-try:
+To follow along with this recipe, start a REPL using +lein-try+:
 
 [source,console]
 ----

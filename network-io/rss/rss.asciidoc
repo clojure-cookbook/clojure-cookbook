@@ -11,7 +11,7 @@ You need to parse RSS data.
 Use the +feedparser-clj+ library to parse RSS data.
 
 Before starting, add `[org.clojars.scsibug/feedparser-clj "0.4.0"]` to
-your project's dependencies, or follow along in a REPL using lein-try:
+your project's dependencies, or follow along in a REPL using +lein-try+:
 
 [source,shell]
 ----

@@ -11,7 +11,7 @@ You need to send emails from inside a Clojure application.
 Use +postal+, a thin wrapper over the JavaMail package, to send email
 messages.
 
-To follow along with this recipe, start a REPL using lein-try:
+To follow along with this recipe, start a REPL using +lein-try+:
 
 [source,console]
 ----

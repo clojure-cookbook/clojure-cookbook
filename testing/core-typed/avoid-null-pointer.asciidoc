@@ -14,7 +14,7 @@ Use +core.typed+, an optional type system for Clojure, to annotate and
 check a namespace for misuses of `nil`.
 
 To follow along with this recipe, create a file _core_typed_samples.cl_
-and start a REPL using lein-try:
+and start a REPL using +lein-try+:
 
 [source,console]
 ----

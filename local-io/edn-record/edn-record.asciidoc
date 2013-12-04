@@ -14,7 +14,7 @@ You can use the _tagged_ library to read and print records as
 +edn+ tagged literal values.
 
 Before starting, add `[com.velisco/tagged "0.3.0"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----

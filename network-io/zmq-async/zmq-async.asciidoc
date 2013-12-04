@@ -40,7 +40,7 @@ Downloads page].
 ====
 
 Before starting, add `[com.keminglabs/zmq-async "0.1.0"]` to your
-project's dependencies, or follow along in a REPL using lein-try:
+project's dependencies, or follow along in a REPL using +lein-try+:
 
 [source,clojure]
 ----

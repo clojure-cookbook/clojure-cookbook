@@ -16,7 +16,7 @@ over the excellent http://joda-time.sourceforge.net/[Joda Time]
 library.
 
 Before starting, add `[clj-time "0.6.0"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----

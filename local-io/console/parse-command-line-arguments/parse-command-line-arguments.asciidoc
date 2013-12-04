@@ -14,7 +14,7 @@ Use the https://github.com/clojure/tools.cli[+tools.cli+]
 library.
 
 Before starting, add `[org.clojure/tools.cli "0.2.4"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----

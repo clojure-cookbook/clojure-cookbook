@@ -128,7 +128,7 @@ http://code.google.com/p/selenium[Selenium WebDriver documentation]
 and the http://github.com/semperos/clj-webdriver/wiki[+clj-webdriver+ wiki].
 
 Before you dive into testing, you can experiment with +clj-webdriver+ at
-a REPL. Start up a REPL with +clj-webdriver+ using lein-try:
+a REPL. Start up a REPL with +clj-webdriver+ using +lein-try+:
 
 [source,console]
 ----

@@ -15,7 +15,7 @@ profiling macros into your code that won't incur a performance penalty
 in production.
 
 Before starting, add `[com.taoensso/timbre "2.6.3"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----

@@ -13,7 +13,7 @@ Use http://clojurerabbitmq.info[Langohr], a small
 RabbitMQ client, to communicate with RabbitMQ.
 
 Before starting, add `[com.novemberain/langohr "1.6.0"]` to your
-project's dependencies, or follow along in a REPL using lein-try:
+project's dependencies, or follow along in a REPL using +lein-try+:
 
 [source,shell]
 ----

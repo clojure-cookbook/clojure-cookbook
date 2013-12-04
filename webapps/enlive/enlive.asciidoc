@@ -17,7 +17,7 @@ Hiccup, it doesn't use specialized DSLs. Instead, templates are plain
 old HTML files, and Enlive uses Clojure code to target specific areas
 for replacement or duplication based on incoming data.
 
-To follow along with this recipe, start a REPL using lein-try:
+To follow along with this recipe, start a REPL using +lein-try+:
 
 [source,console]
 ----

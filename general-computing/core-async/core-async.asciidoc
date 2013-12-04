@@ -20,7 +20,7 @@ and freeing up computational resources.
 Use the https://github.com/clojure/core.async[+core.async+]
 library to introduce and coordinate asynchronous channels.
 
-To follow along with this recipe, start a REPL using lein-try:
+To follow along with this recipe, start a REPL using +lein-try+:
 
 [source,clojure]
 ----

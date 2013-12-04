@@ -12,7 +12,7 @@ its output.
 Use the +clj-commons-exec library to run shell commands on your local
 system.
 
-To follow along, start a repl using lein-try:
+To follow along, start a repl using +lein-try+:
 
 [source,console]
 ----

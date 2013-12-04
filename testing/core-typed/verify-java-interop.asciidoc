@@ -17,7 +17,7 @@ cumbersome Java APIs from Clojure.
 Use +core.typed+ to type check Java interop calls.
 
 To follow along with this recipe, create a file _core_typed_samples.cl_
-and start a REPL using lein-try:
+and start a REPL using +lein-try+:
 
 [source,console]
 ----

@@ -18,7 +18,7 @@ the http://mosquitto.org/[Mosquitto] broker with its test installation
 that is available at _tcp://test.mosquitto.org:1883_ (of course, you
 need a functional Internet connection on your machine).
 
-To follow along with this recipe, launch a REPL using lein-try:
+To follow along with this recipe, launch a REPL using +lein-try+:
 
 [source,console]
 ----
@@ -52,7 +52,7 @@ listens to a topic and prints messages it receives.
                        ["SNControlNetwork/Florida/device1"] subscriberid)
 ----
 
-Open another terminal window and start a second lein-try REPL session.
+Open another terminal window and start a second +lein-try+ REPL session.
 Use the code below to publish messages to the broker. Note that
 subscriber must be connected already so as not to lose incoming
 messages.

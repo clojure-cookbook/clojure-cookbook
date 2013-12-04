@@ -22,7 +22,7 @@ specific parameters or headers, to handle redirects and other special
 circumstances, or to get specific details about the response.
 
 To follow along, add `[clj-http "0.7.7"]` to your project's
-dependencies, or use lein-try to start a REPL:
+dependencies, or use +lein-try+ to start a REPL:
 
 [source,shell]
 ----

@@ -15,7 +15,7 @@ relationships.
 
 Before starting, add `[korma "0.3.0-RC6"]` and
 `[org.postgresql/postgresql "9.2-1002-jdbc4"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----
