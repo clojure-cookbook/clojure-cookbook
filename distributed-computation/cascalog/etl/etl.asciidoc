@@ -1,5 +1,5 @@
 [[sec_cascalog_etl]]
-=== Processing Data with an Extract Transform Load (ETL) pipeline
+=== Processing Data with an Extract Transform Load (ETL) Pipeline
 [role="byline"]
 by Alex Robbins
 

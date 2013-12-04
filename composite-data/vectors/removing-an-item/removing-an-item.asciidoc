@@ -1,5 +1,5 @@
 [[sec_composite_removing_an_item_from_vector]]
-=== "Removing" an item from a vector
+=== "Removing" an Item From a Vector
 [role="byline"]
 by Luke VanderHart
 

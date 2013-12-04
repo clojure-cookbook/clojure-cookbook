@@ -1,5 +1,5 @@
 [[polymorphism_with_protocols]]
-=== Polymorphism
+=== Building Functions with Polymorphic Behavior
 [role="byline"]
 by Ryan Neufeld, originally submitted by David McNeil
 

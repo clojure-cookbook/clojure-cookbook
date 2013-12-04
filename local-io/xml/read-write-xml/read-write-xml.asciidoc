@@ -1,5 +1,5 @@
 [[sec_read_write_xml]]
-=== Working with XML data
+=== Working with XML Data
 [role="byline"]
 by Stefan Karlsson
 

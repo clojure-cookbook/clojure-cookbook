@@ -1,5 +1,5 @@
 [[sec_core_match_parser]]
-=== Make a Parser for Clojure Expressions Using `core.match`
+=== Make a Parser for Clojure Expressions Using core.match
 [role="byline"]
 by Chris Frisz
 

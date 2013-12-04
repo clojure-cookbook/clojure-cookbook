@@ -1,5 +1,5 @@
 [[sec_test_collection_with_set]]
-=== Determining if a collection holds one of several values
+=== Determining if a Collection Holds One of Several Values
 [role="byline"]
 by John Touron
 

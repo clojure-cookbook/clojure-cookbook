@@ -1,4 +1,4 @@
-=== Creating custom project templates
+=== Creating Custom Project Templates
 [role="byline"]
 by Travis Vachon
 

@@ -1,4 +1,4 @@
-=== Getting set up with Liberator
+=== Building a RESTful Application with Liberator
 [role="byline"]
 by Eric Normand
 
@@ -11,6 +11,8 @@ Compojure at a higher level of abstracting, by defining resources.
 
 Use https://github.com/clojure-liberator/liberator[Liberator] to
 create HTTP-compliant, RESTful web apps.
+
+// TODO: Extend instructions for this recipe.
 
 In your dependencies:
 

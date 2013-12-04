@@ -1,5 +1,5 @@
 [[sec_concurrent_zmq]]
-=== Concurrent ZeroMQ
+=== Using ZeroMQ Concurrently
 [role="byline"]
 by Kevin J. Lynagh
 

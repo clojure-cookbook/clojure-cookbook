@@ -1,4 +1,4 @@
-=== Tracing code
+=== Tracing Code Execution
 [role="byline"]
 by Stefan Karlsson
 

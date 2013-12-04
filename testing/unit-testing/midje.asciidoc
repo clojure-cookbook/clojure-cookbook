@@ -1,5 +1,5 @@
 [[sec_midje]]
-=== Midje
+=== Testing with Midje
 [role="byline"]
 by Joseph Wilk
 

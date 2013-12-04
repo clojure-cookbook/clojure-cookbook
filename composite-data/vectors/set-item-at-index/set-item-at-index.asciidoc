@@ -1,4 +1,4 @@
-=== Setting the value at an index
+=== Setting the Value at an Index
 [role="byline"]
 by Luke VanderHart
 

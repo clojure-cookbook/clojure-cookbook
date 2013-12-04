@@ -1,4 +1,4 @@
-=== Read property file
+=== Read Properties From a File
 [role="byline"]
 by Tobias Bayer
 

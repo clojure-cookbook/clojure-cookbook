@@ -1,4 +1,4 @@
-=== Creating a WAR file
+=== Creating a WAR File
 [role="byline"]
 by Luke VanderHart
 

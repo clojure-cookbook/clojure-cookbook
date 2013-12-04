@@ -1,5 +1,5 @@
 [[sec_webapps__markdown]]
-=== Rendering Markdown documents
+=== Rendering Markdown Documents
 [role="byline"]
 by Dmitri Sotnikov
 

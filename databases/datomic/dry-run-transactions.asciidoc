@@ -1,5 +1,5 @@
 [[sec_datomic_dry_run]]
-=== Dry-run transactions in a Datomic database without actually committing them
+=== Trying Datomic Transactions without Committing Them
 [role="byline"]
 by Robert Stuttaford
 

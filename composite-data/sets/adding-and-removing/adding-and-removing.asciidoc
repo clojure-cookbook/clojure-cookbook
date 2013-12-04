@@ -1,5 +1,5 @@
 [[sec_adding_removing_from_sets]]
-=== Adding and removing items from sets
+=== Adding and Removing Items From Sets
 [role="byline"]
 by Luke VanderHart
 

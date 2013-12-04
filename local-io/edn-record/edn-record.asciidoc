@@ -1,5 +1,5 @@
 [[sec_edn_record]]
-==== Records as _edn_ values
+=== Emitting Records as edn values
 [role="byline"]
 submitted by Steve Miner
 

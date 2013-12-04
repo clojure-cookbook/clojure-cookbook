@@ -1,4 +1,4 @@
-=== Sending & Receiving UDP Packets
+=== Sending and Receiving UDP Packets
 [role="byline"]
 by Luke VanderHart
 

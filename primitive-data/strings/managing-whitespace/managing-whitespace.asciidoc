@@ -1,4 +1,4 @@
-=== Cleaning up whitespace in a string
+=== Cleaning up Whitespace in a String
 [role="byline"]
 by Ryan Neufeld
 

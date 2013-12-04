@@ -1,5 +1,5 @@
 [[sec_adding_to_a_list]]
-=== "Adding" an item to a list
+=== "Adding" an Item to a List
 [role="byline"]
 by Luke VanderHart
 

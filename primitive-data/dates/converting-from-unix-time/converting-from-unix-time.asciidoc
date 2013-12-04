@@ -1,5 +1,5 @@
 [[sec_date_from_unix_timestamp]]
-=== Converting a Unix timestamp to a Date
+=== Converting a Unix Timestamp to a Date
 [role="byline"]
 by Steven Proctor
 

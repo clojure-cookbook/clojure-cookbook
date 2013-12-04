@@ -1,5 +1,4 @@
-=== Using _edn_ for configuration files
-
+=== Using edn for Configuration Files
 [role="byline"]
 by Luke VanderHart
 

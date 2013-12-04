@@ -1,5 +1,5 @@
 [[sec_webapps_templating_with_selmer]]
-=== Creating templates for web applications with Selmer
+=== Templating with Selmer
 [role="byline"]
 by Dmitri Sotnikov
 

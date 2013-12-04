@@ -46,8 +46,6 @@ include::math/rounding/rounding.asciidoc[]
 
 include::math/fuzzy-comparison/fuzzy-comparison.asciidoc[]
 
-include::math/type-hinting/type-hinting.asciidoc[]
-
 include::math/trigonometry/trigonometry.asciidoc[]
 
 include::math/different-bases/different-bases.asciidoc[]

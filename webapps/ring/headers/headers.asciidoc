@@ -1,4 +1,4 @@
-=== Request and Response headers in Ring
+=== Reading and Writing Request & Response Headers in Ring
 [role="byline"]
 by Adam Bard
 

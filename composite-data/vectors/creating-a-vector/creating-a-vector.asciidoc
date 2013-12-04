@@ -1,5 +1,5 @@
 [[sec_composite_creating_a_vector]]
-=== Creating a vector
+=== Creating a Vector
 [role="byline"]
 by Luke VanderHart
 

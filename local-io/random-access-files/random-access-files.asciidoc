@@ -1,5 +1,5 @@
 [[sec_local-random-access-files]]
-=== Read or Write Files At Arbitrary Positions
+=== Reading and Writing Files at Arbitrary Positions
 [role="byline"]
 by John Jacobsen
 

@@ -1,5 +1,5 @@
 [[sec_datomic_schema]]
-=== Define schema for a Datomic database
+=== Defining Schema for a Datomic Database
 [role="byline"]
 by Robert Stuttaford
 

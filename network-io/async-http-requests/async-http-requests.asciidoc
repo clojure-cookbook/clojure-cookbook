@@ -1,5 +1,5 @@
 [[sec_async_http]]
-=== Perform an asynchronous HTTP request
+=== Performing Asynchronous HTTP Requests
 [role="byline"]
 by Alan Busby and Ryan Neufeld
 

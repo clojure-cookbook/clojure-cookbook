@@ -1,4 +1,4 @@
-=== Building a simple activity feed system with Storm
+=== Building an Activity Feed System with Storm
 [role="byline"]
 by Travis Vachon
 

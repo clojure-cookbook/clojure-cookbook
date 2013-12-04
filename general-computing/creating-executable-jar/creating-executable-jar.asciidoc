@@ -1,4 +1,4 @@
-=== Create an executable jar file
+=== Create an Executable JAR File
 [role="byline"]
 by Alan Busby
 

@@ -1,5 +1,5 @@
 [[sec_default_data_reader]]
-=== Handling unknown tagged literals when reading Clojure data
+=== Handling Unknown Tagged Literals when Reading Clojure Data
 [role="byline"]
 by Steve Miner
 

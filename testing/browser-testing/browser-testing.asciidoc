@@ -1,4 +1,4 @@
-=== Browser Testing
+=== Running Browser-based Tests
 [role="byline"]
 by Matthew Maravillas
 

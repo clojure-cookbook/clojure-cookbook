@@ -1,5 +1,5 @@
 [[sec_local-io_handle_binary_files]]
-=== Write or Read Binary Files
+=== Reading and Writing Binary Files
 [role="byline"]
 by John Jacobsen
 

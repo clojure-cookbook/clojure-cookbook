@@ -1,5 +1,5 @@
 [[sec_primitives_building_strings_from_parts]]
-=== Building a string from parts
+=== Building a String from Parts
 [role="byline"]
 by Ryan Neufeld
 

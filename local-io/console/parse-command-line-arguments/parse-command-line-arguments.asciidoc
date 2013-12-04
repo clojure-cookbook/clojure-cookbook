@@ -1,5 +1,5 @@
 [[sec_parse_command_line_arguments]]
-=== Parse command line arguments
+=== Parsing Command Line Arguments
 [role="byline"]
 Originally submitted by Nicolas Bessi
 

@@ -1,5 +1,5 @@
 [[sec_composites_applying_fns_to_maps]]
-=== Applying functions to maps
+=== Applying Functions to Maps
 [role="byline"]
 by Luke VanderHart
 

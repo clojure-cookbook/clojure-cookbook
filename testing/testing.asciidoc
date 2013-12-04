@@ -15,8 +15,6 @@ include::browser-testing/browser-testing.asciidoc[]
 
 include::tracing/tracing.asciidoc[]
 
-include::primitive-arrays/primitive-arrays.asciidoc[]
-
 include::core-typed/avoid-null-pointer.asciidoc[]
 
 include::core-typed/verify-java-interop.asciidoc[]

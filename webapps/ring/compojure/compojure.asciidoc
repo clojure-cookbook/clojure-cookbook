@@ -1,5 +1,5 @@
 [[sec_webapps_compojure_compojure]]
-=== Routing requests with Compojure
+=== Routing Requests with Compojure
 [role="byline"]
 by Adam Bard
 

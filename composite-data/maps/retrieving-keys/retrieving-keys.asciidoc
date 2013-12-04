@@ -1,5 +1,5 @@
 [[sec_composite_retrieving_keys_map]]
-=== Retrieving keys from a map
+=== Retrieving Keys From a Map
 [role="byline"]
 by Luke VanderHart
 

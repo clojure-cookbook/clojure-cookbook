@@ -1,4 +1,4 @@
-=== Communicate with Embedded Devices via MQTT
+=== Communicating with Embedded Devices via MQTT
 [role="byline"]
 By Sandeep Nangia
 

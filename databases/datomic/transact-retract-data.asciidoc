@@ -1,4 +1,4 @@
-=== Remove data from your Datomic database
+=== Removing data from a Datomic Database
 [role="byline"]
 by Robert Stuttaford
 

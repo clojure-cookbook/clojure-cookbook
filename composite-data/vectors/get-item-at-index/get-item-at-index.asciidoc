@@ -1,4 +1,4 @@
-=== Getting the value at an index
+=== Getting the Value at an Index
 [role="byline"]
 by Luke VanderHart
 

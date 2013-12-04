@@ -1,4 +1,4 @@
-=== Converting between strings, symbols, and keywords
+=== Converting Between Strings, Symbols and Keywords
 [role="byline"]
 by Colin Jones
 

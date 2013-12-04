@@ -1,4 +1,4 @@
-=== HTTP Redirect with Ring
+=== Performing HTTP Redirects with Ring
 [role="byline"]
 by Craig McDaniel
 

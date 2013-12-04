@@ -1,4 +1,4 @@
-=== Finding values which cause failure
+=== Finding Values Which Cause Failure
 
 [role="byline"]
 by Luke VanderHart

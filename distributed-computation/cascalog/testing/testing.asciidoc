@@ -1,4 +1,4 @@
-=== Testing Your Cascalog Workflows
+=== Testing Cascalog Workflows
 [role="byline"]
 by Alex Robbins
 

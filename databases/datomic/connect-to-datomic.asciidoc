@@ -1,5 +1,5 @@
 [[sec_datomic_connect_to_datomic]]
-=== Connect to a Datomic database
+=== Connecting to a Datomic Database
 [role="byline"]
 by Robert Stuttaford
 

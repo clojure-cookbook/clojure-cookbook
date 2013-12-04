@@ -1,5 +1,5 @@
 [[sec_set_operations]]
-=== Using set operations
+=== Using Set Operations
 [role="byline"]
 by Luke VanderHart
 

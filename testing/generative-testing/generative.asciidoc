@@ -1,5 +1,4 @@
-=== Thoroughly testing by randomizing inputs
-
+=== Thoroughly Testing by Randomizing Inputs
 [role="byline"]
 by Luke VanderHart
 

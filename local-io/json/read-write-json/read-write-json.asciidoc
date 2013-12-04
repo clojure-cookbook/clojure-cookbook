@@ -1,5 +1,5 @@
 [[sec_local_io_json]]
-=== Work with JSON data
+=== Reading and Writing JSON Data
 [role="byline"]
 by Stefan Karlsson
 

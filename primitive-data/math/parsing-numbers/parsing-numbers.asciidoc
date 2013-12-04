@@ -1,4 +1,4 @@
-=== Parsing numbers
+=== Parsing Numbers
 [role="byline"]
 by Ryan Neufeld
 

@@ -1,5 +1,5 @@
 [[sec_datomic_transact_basics]]
-=== Write data to Datomic with Transactions
+=== Writing Data to Datomic
 [role="byline"]
 by Robert Stuttaford
 

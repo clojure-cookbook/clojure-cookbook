@@ -1,4 +1,4 @@
-=== Memory-map a file
+=== Memory-mapping a File
 [role="byline"]
 by Alan Busby
 

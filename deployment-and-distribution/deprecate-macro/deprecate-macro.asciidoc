@@ -1,4 +1,4 @@
-=== Using macros to simplify API deprecations
+=== Using Macros to Simplify API Deprecations
 [role="byline"]
 by Michael Fogus
 

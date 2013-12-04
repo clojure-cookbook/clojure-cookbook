@@ -1,4 +1,4 @@
-=== Changing the capitalization of a string
+=== Changing the Capitalization of a String
 [role="byline"]
 by Ryan Neufeld
 

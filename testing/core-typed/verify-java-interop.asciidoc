@@ -1,5 +1,5 @@
 [[sec_verify_java]]
-=== Verify Java Interop using core.typed
+=== Verifying Java Interop using core.typed
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 

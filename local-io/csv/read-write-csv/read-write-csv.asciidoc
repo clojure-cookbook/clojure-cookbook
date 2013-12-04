@@ -1,4 +1,4 @@
-=== Work with CSV data
+=== Reading and Writing CSV Data
 [role="byline"]
 by Jason Whitlark
 

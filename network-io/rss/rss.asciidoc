@@ -1,4 +1,4 @@
-=== Retrieve and parse RSS data
+=== Retrieving and Parsing RSS Data
 [role="byline"]
 by Osbert Feng
 
