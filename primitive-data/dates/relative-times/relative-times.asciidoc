@@ -4,7 +4,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to calculate a time relative to some another time a la
+You need to calculate a time relative to some other time a la
 http://rubyonrails.org/[Ruby on Rails]' +2.days.from_now+.
 
 ==== Solution
