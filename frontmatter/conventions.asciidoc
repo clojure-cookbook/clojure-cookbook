@@ -144,6 +144,6 @@ _Italic_::
   command-line.
 
 The names of libraries follow one of two conventions: libraries with proper
-names are displayed in capitalized plain text (e.g. "Hiccup" or "Swing"), whil
+names are displayed in capitalized plain text (e.g. "Hiccup" or "Swing"), while
 libraries with names meant to mimic code symbols are displayed in constant
 width text (e.g. +core.async+ or +clj-commons-exec+).
