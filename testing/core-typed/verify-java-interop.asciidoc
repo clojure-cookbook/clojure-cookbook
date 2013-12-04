@@ -1,5 +1,5 @@
 [[sec_verify_java]]
-=== Verifying Java Interop using core.typed
+=== Verifying Java Interop using +core.typed+
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 
@@ -14,7 +14,7 @@ cumbersome Java APIs from Clojure.
 
 ==== Solution
 
-Use _core.typed_ to type check Java interop calls.
+Use +core.typed+ to type check Java interop calls.
 
 To follow along with this recipe, create a file _core_typed_samples.cl_
 and start a REPL using lein-try:
@@ -27,7 +27,7 @@ $ lein try org.clojure/core.typed
 
 [NOTE]
 ====
-This recipe is a little different than others because core.typed uses
+This recipe is a little different than others because +core.typed+ uses
 on-disk files to check namespaces.
 ====
 
@@ -108,7 +108,7 @@ uri)+. Enhance +new-file+ to support +URI+ or +String+ file names.
     (File. ^URI s)))
 ----
 
-Even after relaxing the input type to `(U URI String)`, core.typed is
+Even after relaxing the input type to `(U URI String)`, +core.typed+ is
 able to infer that each branch has the correct types by following the
 `string?` predicate.
 
@@ -134,8 +134,8 @@ Though the +File+ constructor is fairly innocous, consider writing
 ----
 
 The above implementation is free from reflective calls, so... all
-good? No. Checking this function with core.typed tells another story;
-Java's return types are _nullable_ and core.typed knows it. It is
+good? No. Checking this function with +core.typed+ tells another story;
+Java's return types are _nullable_ and +core.typed+ knows it. It is
 possible that +getParent+ return +nil+ instead of a +String+.
 
 [source,console]
@@ -172,19 +172,19 @@ in: (def file-parent (fn* ([f] (.getParent f))))
 ExceptionInfo Type Checker: Found 3 errors clojure.core/ex-info ...
 ----
 
-core.typed assumes all methods return nullable types, so it is a type
++core.typed+ assumes all methods return nullable types, so it is a type
 error to annotate `parent` as `[File -> String]`. Each type error
 above reiterates that the annotation tried to claim a `(U nil String)`
 was a `String`, with the most specific (and useful) error being the
 first.
 
-core.typed is designed to be pessimistic about Java code, while being
++core.typed+ is designed to be pessimistic about Java code, while being
 accurate enough to avoid adding arbitrary code to "please" the type checker.
-For example, core.typed distrusts Java methods enough to assume all method
+For example, +core.typed+ distrusts Java methods enough to assume all method
 parameters are non-nullable and the return type is nullable by default.
-On the other hand, core.typed knows Java constructors never return `null`.
+On the other hand, +core.typed+ knows Java constructors never return `null`.
 
-If core.typed is too pessimistic for you with its nullable return
+If +core.typed+ is too pessimistic for you with its nullable return
 types, you can override particular methods with
 `clojure.core.typed/non-nil-return`. Adding the following to the above
 code would result in a successful type check (check omitted for
@@ -197,22 +197,22 @@ brevity).
 
 [NOTE]
 ====
-As of this writing, core.typed does not enforce static type overrides
+As of this writing, +core.typed+ does not enforce static type overrides
 at runtime, so use `non-nil-return` and similar features with caution.
 ====
 
 Sometimes the type checker might seem overly picky; in the solution
 two type-hinted constructors are necessary. It might seem normal in a
 dynamically typed language to simply call `(File. s)` and allow
-reflection to resolve any ambiguity. By conforming to what core.typed
+reflection to resolve any ambiguity. By conforming to what +core.typed+
 expects, however, all ambiguity is eliminated from the constructors,
 and the type hints inserted have enabled the Clojure compiler to
 generate efficient bytecode.
 
-It is valid to wonder why both type hints _and_ core.typed annotations
+It is valid to wonder why both type hints _and_ +core.typed+ annotations
 are needed to type check ambiguous Java calls. A type hint is a
 directive to the _compiler_, while type annotations are merely for
-core.typed to consume during type checking. core.typed does not have
++core.typed+ to consume during type checking. +core.typed+ does not have
 influence over resolving reflection calls at compile time, so it
 chooses to assume all reflective calls to be ambiguous instead of
 trying to guess what the reflection might resolve to at runtime. This
@@ -221,9 +221,9 @@ desirable in larger code bases.
 
 ==== See also
 
-* https://github.com/clojure/core.typed[core.typed Home]
-* http://clojure.github.io/core.typed/[core.typed API Reference],
+* https://github.com/clojure/core.typed[+core.typed+ Home]
+* http://clojure.github.io/core.typed/[+core.typed+ API Reference],
   particularly documentation for +non-nil-return+ and +nilable-param+.
 * Recipes <<sec_avoid_null> and <<sec_verify_hof>> for further
-  examples of how to use core.typed.
+  examples of how to use +core.typed+.
 

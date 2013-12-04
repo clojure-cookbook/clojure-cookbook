@@ -129,9 +129,9 @@ Pass the database specification as the first argument to any
 
 As shown above, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
-pooled by the +BoneCP+ or other pooling libraries.
+pooled by the BoneCP or other pooling libraries.
 
-The +BoneCP+ library wraps existing JDBC classes to allow the creation of
+The BoneCP library wraps existing JDBC classes to allow the creation of
 efficient data sources. It can adapt traditional unpooled drivers and
 data sources by augmenting them with transparent pooling of +Connection+
 and +PreparedStatement+ instances.
@@ -139,7 +139,7 @@ and +PreparedStatement+ instances.
 While the library offers several ways to create data sources,
 most users will find the examples provided here to be the easiest.
 
-+BoneCP+ offers several dozen configuration parameters which control
+BoneCP offers several dozen configuration parameters which control
 the operation of the data source and its connections. Luckily, most of these
 configuration parameters have built-in defaults. Parameters may be specified
 to control such facets as the min, max, and initial pool size; the number of
@@ -162,5 +162,5 @@ in an SQL exception.
 
 * See <<sec_db_connecting_to_a_sql_database>> to learn about basic database connections with +clojure.java.jdbc+.
 * See <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
-* See the +BoneCP+ http://jolbox.com/index.html?page=http://jolbox.com/configuration.html[documentation] and https://github.com/wwadge/bonecp[GitHub repository]
+* See the BoneCP http://jolbox.com/index.html?page=http://jolbox.com/configuration.html[documentation] and https://github.com/wwadge/bonecp[GitHub repository]
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.

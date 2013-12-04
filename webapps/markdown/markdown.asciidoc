@@ -87,7 +87,7 @@ It behaves equivalently to +md-t-html-string+:
   (md/mdToHtml "##This is a heading\nwith a paragraph following it"))
 ----
 
-`markdown-clj` supports all the standard Markdown tags with the exception of the reference style links due
++markdown-clj+ supports all the standard Markdown tags with the exception of the reference style links due
 to the fact that the parser uses a single pass to generate the document.
 
 The +markdown.core/md-to-html+ processes the input line by line and the entirety of the content
@@ -151,5 +151,5 @@ Finally, we could provide a custom set of transformers to replace the built in o
 
 ==== See Also
 
-* Visit the https://github.com/yogthos/markdown-clj[markdown-clj] GitHub repository for more information on the library.
+* Visit the https://github.com/yogthos/markdown-clj[+markdown-clj+] GitHub repository for more information on the library.
 

@@ -6,7 +6,7 @@ by Kevin J. Lynagh
 ==== Problem
 
 You want to use ZeroMQ concurrently, but ZeroMQ sockets are not
-thread-safe. You _could_ manually set up mutual exclusion via locks or
+thread-safe. You *could* manually set up mutual exclusion via locks or
 other Java concurrency primitives, but you'd rather use a simpler
 method.
 

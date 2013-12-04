@@ -8,7 +8,7 @@ You need to read or write CSV data.
 
 ==== Solution
 
-Use +clojure.data.csv/read-csv+ to lazily read CSV from a String or java.io.Reader
+Use +clojure.data.csv/read-csv+ to lazily read CSV from a +String+ or +java.io.Reader+
 
 [source,clojure]
 ----

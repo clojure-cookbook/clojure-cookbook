@@ -8,7 +8,7 @@ You need to send emails from inside a Clojure application.
 
 ==== Solution
 
-Use _postal_, a thin wrapper over the JavaMail package, to send email
+Use +postal+, a thin wrapper over the JavaMail package, to send email
 messages.
 
 To follow along with this recipe, start a REPL using lein-try:
@@ -48,11 +48,11 @@ thereafter.
 
 ==== Discussion
 
-With the venerable JavaMail at its core, there isn't much postal
+With the venerable JavaMail at its core, there isn't much +postal+
 leaves for you to worry about. Even Gmail's oft-maligned
 authentication setup can be tackled with a single +:ssl+ key. While we
 might normally suggest: "give the native Java API a try," for simple
-email delivery we prefer postal because it presents an API oriented
+email delivery we prefer +postal+ because it presents an API oriented
 around data rather than objects.
 
 One of the places data-orientation really shines is in specifying
@@ -75,14 +75,14 @@ are:
   Enables TLS encryption if value is truthy.
 
 When provided *no* connection details -- either by omitting the first
-argument or passing +nil+ -- postal will attempt to route email
+argument or passing +nil+ -- +postal+ will attempt to route email
 through a local http://en.wikipedia.org/wiki/Sendmail[sendmail]
 instance.
 
 [NOTE]
 ====
 Since Amazon's Simple Email Service (SES) can operate over SMTP,
-it is possible to use postal to send email via Amazon's
+it is possible to use +postal+ to send email via Amazon's
 infrastructure.
 ====
 
@@ -185,6 +185,6 @@ cat might look something like this:
 
 ==== See Also
 
-* postal's https://github.com/drewr/postal[GitHub Repository].
+* ++postal++'s https://github.com/drewr/postal[GitHub Repository].
 * JavaMail's https://javamail.java.net/nonav/docs/api/[API Documentation].
 

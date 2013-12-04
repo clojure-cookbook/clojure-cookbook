@@ -87,7 +87,7 @@ In most REPL implementations +clojure.repl+ macros like +source+ and +doc+ are
 only referred into the +user+ namespace. This means as soon as you switch into
 another namespace the unqualified +clojure.repl+ macros will no longer be
 available.  You can get around this by namespacing the macros
-(+clojure.repl/doc+ instead of +doc+,) or, for extended use, by +use+'ing the
+(+clojure.repl/doc+ instead of +doc+,) or, for extended use, by ++use++'ing the
 namespace
 
 [source,console]

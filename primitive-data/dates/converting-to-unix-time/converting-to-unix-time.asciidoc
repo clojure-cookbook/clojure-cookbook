@@ -44,7 +44,7 @@ time.  Java's Date objects have a method +getTime+ which returns the
 date as a Unix time.
 
 If you are already using, or wish to use the
-https://github.com/clj-time/clj-time[clj-time] library, you can use +clj-time+
+https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+
 to obtain a Unix time formatted +DateTime+ object if you have a DateTime object.
 
 [source,clojure]

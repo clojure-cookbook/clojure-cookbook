@@ -79,5 +79,5 @@ issue.
 
 If you want a richer terminal-based interface similar to what
 the C curses library provides, the
-http://sjl.bitbucket.org/clojure-lanterna/[Clojure Lanterna] library
+http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+] library
 may be a good place to start.

@@ -1,17 +1,17 @@
 [[sec_edn_record]]
-=== Emitting Records as edn values
+=== Emitting Records as +edn+ values
 [role="byline"]
 submitted by Steve Miner
 
 ==== Problem
 
-You want to use Clojure records as _edn_ values, but the _edn_
+You want to use Clojure records as +edn+ values, but the +edn+
 format doesn't support records.
 
 ==== Solution
 
 You can use the _tagged_ library to read and print records as
-_edn_ tagged literal values.
++edn+ tagged literal values.
 
 Before starting, add `[com.velisco/tagged "0.3.0"]` to your project's
 dependencies or start a REPL using lein-try:
@@ -44,7 +44,7 @@ with the +miner.tagged/pr-tagged-record-on+ helper function.
 ----
 
 At this point, you can round-trip your records between +pr-str+ and
-+miner.tagged/read-string+ using the _edn_ tagged literal format.
++miner.tagged/read-string+ using the +edn+ tagged literal format.
 
 [source,clojure]
 ----
@@ -56,10 +56,10 @@ At this point, you can round-trip your records between +pr-str+ and
 ;; -> true
 ----
 
-The _edn_ reader still doesn't understand how to parse these tagged
+The +edn+ reader still doesn't understand how to parse these tagged
 values, though. To enable this behavior, use
 +miner.tagged/tagged-default-reader+ as the +:default+ option when
-reading values with _edn_.
+reading values with +edn+.
 
 [source,clojure]
 ----
@@ -72,34 +72,34 @@ reading values with _edn_.
 
 ==== Discussion
 
-The _edn_ format is great, it covers a useful subset of the Clojure
+The +edn+ format is great, it covers a useful subset of the Clojure
 datatypes and makes high-fidelity data transfer a breeze,
 unfortunately it doesn't support records. This is easy enough to
-rectify, however; _edn_ is an extensible format by name, we just need to
+rectify, however; +edn+ is an extensible format by name, we just need to
 provide tag-style printing (+#tag <value>+) and an appropriate reader.
 The _tagged_ library makes both of these tasks quite easy.
 
 As seen in the samples above, Clojure's default printed value for
-records is close, but not quite the _tagged-format_ _edn_ expects.
+records is close, but not quite the _tagged-format_ +edn+ expects.
 Where Clojure prints +"#user.SimpleRecord{:a 42}"+ for a
-+SimpleRecord+, what is really needed for _edn_ is a tag-style string
++SimpleRecord+, what is really needed for +edn+ is a tag-style string
 like +""#user/SimpleRecord {:a 42}"+. The
 +miner.tagged/pr-tagged-record-on+ function understands how to write
 records in this format (to a +java.io.Writer+). By extending Clojure's
 +print-method+ multimethod with this function you ensure Clojure
 always prints a record in a tagged-format.
 
-For reading this values back in, you need to tell the _edn_ reader how
+For reading this values back in, you need to tell the +edn+ reader how
 to parse your new record tags. By design, the _tagged_ library
 provides a +miner.tagged/tagged-default-reader+ function that can be
-used to extend _edn_ to read your record tags. When the _edn_ reader
+used to extend +edn+ to read your record tags. When the +edn+ reader
 can't parse a tag it attempts to use a function specified by its
 +:default+ option to re-hydrate tags. By providing the
-+tagged-default-reader+ as this +:default+ option you allow the _edn_
++tagged-default-reader+ as this +:default+ option you allow the +edn+
 reader to properly interpet your tagged record values.
 
 ==== See Also
 
 * For more information on the +:default+ option, see <<sec_default_data_reader>>.
-* https://github.com/edn-format/edn[_edn_: extensible data notation]
+* https://github.com/edn-format/edn[+edn+: extensible data notation]
 

@@ -9,7 +9,7 @@ were fully loaded into memory, without actually loading the whole thing.
 
 ==== Solution
 
-Use the +clj-mmap+ library (https://github.com/thebusby/clj-mmap),
+Use the https://github.com/thebusby/clj-mmap[+clj-mmap+] library,
 which wraps the memory mapping functionality provided by Java's NIO library.
 
 Start by importing the library in your +project.clj+:
@@ -58,6 +58,6 @@ structured binary data, or text files where Java's String overhead may be
 unwelcome.
 
 While Clojure makes it simple to work with Java's NIO primitives directly,
-NIO makes working with files larger than 2GB especially difficult. clj-mmap
+NIO makes working with files larger than 2GB especially difficult. +clj-mmap+
 wraps this complexity, but at the same time doesn't expose all the features
 that NIO does. The NIO Java api is still available via interop, should it be needed.

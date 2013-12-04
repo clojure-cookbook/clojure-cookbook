@@ -1,5 +1,5 @@
 [[sec_avoid_null]]
-=== Avoiding Null-Pointer Exceptions with core.typed
+=== Avoiding Null-Pointer Exceptions with +core.typed+
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 
@@ -10,7 +10,7 @@ potential null-pointer exceptions.
 
 ==== Solution
 
-Use _core.typed_, an optional type system for Clojure, to annotate and
+Use +core.typed+, an optional type system for Clojure, to annotate and
 check a namespace for misuses of `nil`.
 
 To follow along with this recipe, create a file _core_typed_samples.cl_
@@ -24,7 +24,7 @@ $ lein try org.clojure/core.typed
 
 [NOTE]
 ====
-This recipe is a little different than others because core.typed uses
+This recipe is a little different than others because +core.typed+ uses
 on-disk files to check namespaces.
 ====
 
@@ -111,25 +111,25 @@ code, a null-pointer exception is impossible.
 
 ==== Discussion
 
-core.typed is designed to avoid all misuses of +nil+ or +null+ in
++core.typed+ is designed to avoid all misuses of +nil+ or +null+ in
 typed code. To achieve this, the concepts of the null-pointer and
 reference types are separated. This is unlike Java, where a type like
 +java.lang.Number+ implies a "nullable" type.
 
-In core.typed, reference types are implicitly non-nullable. To express
+In +core.typed+, reference types are implicitly non-nullable. To express
 a nullable type (such as in the example above) construct a _union
 type_ of the desired type and +nil+. For example, a +java.lang.Number+
-in core.typed syntax is non-nullable; the union type +(U nil
+in +core.typed+ syntax is non-nullable; the union type +(U nil
 java.lang.Number)+ expresses the equivalent to a nullable
 +java.lang.Number+ (the latter is closest to what +java.lang.Number+
 implies in Java type syntax).
 
-This separation of concepts allows core.typed to throw a _type error_
+This separation of concepts allows +core.typed+ to throw a _type error_
 on any potential misuse of +nil+. The solution above threw a type
 error when type checking the equivalent expression: ++(+ nil 20)++.
 
-To better understand core.typed type errors, it is useful to note that
-some functions have _inline_ definitions. core.typed fully expands all
+To better understand +core.typed+ type errors, it is useful to note that
+some functions have _inline_ definitions. +core.typed+ fully expands all
 code before type checking, so it is common to see calls to the Java
 method +clojure.lang.Numbers/add+ in type errors when user code
 invokes `clojure.core/+`.
@@ -153,12 +153,12 @@ argument types with each arity until one matches.
 
 ==== See also
 
-* https://github.com/clojure/core.typed[core.typed Home]
-* http://clojure.github.io/core.typed/[core.typed API Reference]
+* https://github.com/clojure/core.typed[+core.typed+ Home]
+* http://clojure.github.io/core.typed/[+core.typed+ API Reference]
 * The list of core type aliases in the API reference. For example, the
   entry for
   http://clojure.github.io/core.typed/#clojure.core.typed/AnyInteger[clojure.core.typed/AnyInteger].
 * Valid types are documented on the
   https://github.com/clojure/core.typed/wiki/Types[Types] wiki page.
 * Recipes <<sec_verify_java> and <<sec_verify_hof>> for further
-  examples of how to use core.typed.
+  examples of how to use +core.typed+.

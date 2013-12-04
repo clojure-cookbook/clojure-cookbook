@@ -1,4 +1,4 @@
-=== Using edn for Configuration Files
+=== Using +edn+ for Configuration Files
 [role="byline"]
 by Luke VanderHart
 
@@ -8,10 +8,10 @@ You want to configure your application using Clojure-like data literals.
 
 ==== Solution
 
-Use Clojure data structures stored in _edn_ files to define a map that
+Use Clojure data structures stored in +edn+ files to define a map that
 contains configuration items you care about.
 
-For example, the _edn_ configuration of an application that needs to
+For example, the +edn+ configuration of an application that needs to
 know its own hostname and connection info for a relational database
 might look something like this:
 
@@ -27,7 +27,7 @@ might look something like this:
 ----
 
 The basic function to read this data into a Clojure map is trivial
-using the _edn_ reader.
+using the +edn+ reader.
 
 [source,clj]
 .config.clj
@@ -134,7 +134,7 @@ files, and merge them together:
                           filenames)))
 ----
 
-Using it on two seperate _edn_ config files yields a merged map:
+Using it on two seperate +edn+ config files yields a merged map:
 
 [source,clj]
 .config-public.edn

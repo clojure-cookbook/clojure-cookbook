@@ -6,7 +6,7 @@ by Michael Fogus
 
 When maintaining a library that other programmers rely on to get their work done it behooves you to be thoughtful when making changes.  In the process of fixing bugs and making improvements to your library you will eventually wish to change its public interface.  Making changes to a public-facing portion of your library is no small matter, but assuming that you've determined its necessity then you'll want to _deprecate_ the functions that are obsolete.  The term deprecate basically means that a given function should be avoided in favor of some other, newer function.  This section details an approach to deprecating API functions and reporting existing deprecations using Clojure macros.
 
-Take for example the case of the Clojure contrib library https://www.github.com/clojure/core.memoize[core.memoize].  Without going into detail about what core.memoize does, it's fine to know that at one point a segment of its public-facing API was a function named +memo-fifo+ that looked like the following:
+Take for example the case of the Clojure contrib library https://www.github.com/clojure/core.memoize[+core.memoize+].  Without going into detail about what +core.memoize+ does, it's fine to know that at one point a segment of its public-facing API was a function named +memo-fifo+ that looked like the following:
 
 [source,clojure]
 ----
@@ -159,7 +159,7 @@ Of course, you could copy over the metadata if do desired, but why do so when th
 
 .Faster call-site
 
-The +depr+ function, because it's required to handle any function that you give it needed to use +apply+ at its core.  While in the case of the core.memoize functions this was not a problem, it may become so in the case of functions requiring higher performance.  In reality, though the use of +println+ will likely overwhelm the cost of the +apply+, so if you really need to deprecate a high-performance function then you might want to consider the following approach instead.
+The +depr+ function, because it's required to handle any function that you give it needed to use +apply+ at its core.  While in the case of the +core.memoize+ functions this was not a problem, it may become so in the case of functions requiring higher performance.  In reality, though the use of +println+ will likely overwhelm the cost of the +apply+, so if you really need to deprecate a high-performance function then you might want to consider the following approach instead.
 
 .Compile time warnings
 

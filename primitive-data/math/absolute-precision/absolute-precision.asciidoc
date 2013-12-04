@@ -40,7 +40,7 @@ Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotio
 
 Clojure has a number of numeric types; integer and long, double, and
 +BigInteger+ and +BigDecimal+. The bounded types (integer, long and
-double) all seamlessly transition as needed while inside the _total_
+double) all seamlessly transition as needed while inside the *total*
 bounds of those types. Exceeding those bounds causes one of two things
 to happen; for integers, an integer overflow error is raised, for
 floating point numbers, the result will become +Infinity+. With

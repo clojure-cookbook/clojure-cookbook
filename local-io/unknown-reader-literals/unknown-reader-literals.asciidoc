@@ -5,7 +5,7 @@ by Steve Miner
 
 ==== Problem
 
-You want to read Clojure data (in an _edn_ format) that may contain
+You want to read Clojure data (in an +edn+ format) that may contain
 unknown tagged literals.
 
 ==== Solution
@@ -28,10 +28,10 @@ Use the +:default+ option of either +clojure.edn/read+ or
 
 ==== Discussion
 
-The _edn_ format defines a print representation for a significant
+The +edn+ format defines a print representation for a significant
 subset of Clojure datatypes and offers extensibility through tagged
-literals. The best way to read _edn_ data is to use +clojure.edn/read+
-or +clojure.edn/read-string+. These functions consume _edn_-formatted
+literals. The best way to read +edn+ data is to use +clojure.edn/read+
+or +clojure.edn/read-string+. These functions consume ++edn++-formatted
 data from a stream or string, respectively, and return hydrated
 Clojure data.
 
@@ -103,7 +103,7 @@ format.
 .+clojure.core/read+
 ****
 
-The _edn_ reader hasn't always existed, you know. It used to be that
+The +edn+ reader hasn't always existed, you know. It used to be that
 if you wanted to read Clojure data you would use one of the two
 built-in reader functions, +clojure.core/read+ and
 +clojure.core/read-string+. The purpose of these two functions is to
@@ -124,7 +124,7 @@ options than +clojure.edn+ readers, though; instead of passing an
 readers behavior. For example, the `*default-data-reader-fn*`
 determines how the core functions deal with unknown tags. See also,
 `*data-readers*` and `*read-eval*` for more information. That said,
-for reading data, it's generally better to use the _edn_ variants
+for reading data, it's generally better to use the +edn+ variants
 footnote:[The Clojure mailing list thread
 https://groups.google.com/forum/#!topic/clojure/YBkUaIaRaow[ANN: NEVER
 use clojure.core/read or read-string for reading untrusted data
@@ -133,7 +133,7 @@ use clojure.core/read or read-string for reading untrusted data
 ****
 ==== See Also
 
-* https://github.com/edn-format/edn[_edn_: extensible data notation]
+* https://github.com/edn-format/edn[+edn+: extensible data notation]
 * <<sec_edn_record>>
 * <<sec_local_io_clojure_data_to_disk>>
 

@@ -8,11 +8,11 @@ You want to create an executable JAR.
 
 ==== Solution
 
-Use the +Leiningen+ build tool to package your application as an
+Use the Leiningen build tool to package your application as an
 _uberjar_, a JAR file that includes an application and all of its
 dependencies.
 
-To follow along with this recipe, create a new +Leiningen+ project:
+To follow along with this recipe, create a new Leiningen project:
 
 [source,console]
 ----

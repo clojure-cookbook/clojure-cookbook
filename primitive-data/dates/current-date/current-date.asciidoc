@@ -59,7 +59,7 @@ use +currentTimeMillis+ as some sort of unique value - UUIDs do
 a much better job of this.
 
 If you decide you would rather use
-https://github.com/clj-time/clj-time[clj-time] to work with dates, it
+https://github.com/clj-time/clj-time[+clj-time+] to work with dates, it
 provides the a function +clj-time.core/now+ to get the current +DateTime+.
 
 [source,clojure]

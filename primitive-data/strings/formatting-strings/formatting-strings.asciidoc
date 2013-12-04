@@ -23,7 +23,7 @@ The quickest method for formatting values into a string with the +str+ function.
 ----
 
 With +str+, however, values are inserted blindly, appearing in their
-default "+.toString()+" appearance. Not only that, it can sometimes be
+default "++.toString()++" appearance. Not only that, it can sometimes be
 difficult to look at a +str+ form and interpret what the intended
 output is.
 

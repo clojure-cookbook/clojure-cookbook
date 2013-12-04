@@ -1,4 +1,4 @@
-=== Hierarchical Graph Querying with core.logic
+=== Hierarchical Graph Querying with +core.logic+
 [role="byline"]
 by Ryan Senior
 
@@ -12,7 +12,7 @@ tedious and error prone.
 
 ==== Solution
 
-The _core.logic_ library is a Clojure implementation of the
+The +core.logic+ library is a Clojure implementation of the
 _miniKanren_ Domain Specific Langauge for logic programming. It's
 declarative style is well suited for querying flattened hierarchical
 data.
@@ -70,7 +70,7 @@ that you have represented a graph of movie metadata as a list of tuples:
 With all of this data in hand, how would you go about querying it? In
 an imperative model, you would likely arduously "connect the dots"
 from node to node using filters, maps and conditionals footnote:[Oh
-my!]. With core.logic, however, it is possible to connect these dots
+my!]. With +core.logic+, however, it is possible to connect these dots
 using declarative logic statements.
 
 For example, to answer the question: "which directors have made movies
@@ -120,28 +120,28 @@ to give many of the benefits of a logic programming language (such as
 Prolog) from within Scheme. An implementation of _miniKanren_ was
 created by David Nolen for Clojure, with a focus on performance. One
 of the benefits of logic programming languages is their very
-declarative style. By using core.logic we are able to say _what_ we
-are looking for in the graph without saying _how_ core.logic should go
+declarative style. By using +core.logic+ we are able to say _what_ we
+are looking for in the graph without saying _how_ +core.logic+ should go
 about finding it.
 
-In general, all _core.logic_ queries begin with one of the libraries
+In general, all +core.logic+ queries begin with one of the libraries
 +run+ macros; +clojure.core.logic/run+ returning a finite number of
 solutions, and +clojure.core.logic/run*+ returning *all* of the
 solutions. 
 
 The first argument to the +run+ macro is the _goal_, a variable used
 to store the result of the query. In the solution above, this was the
-+director-name+ variable. The rest is the body of the core.logic
++director-name+ variable. The rest is the body of the +core.logic+
 program. A program is made up _logic_variables_ (created using
 +clojure.core.logic/fresh+) ground to values or constrained by logic
 statements.
 
 +run+ is a clue that our programming paradigm is changing to logic
-programming. In a core.logic program, _unification_ is used rather
+programming. In a +core.logic+ program, _unification_ is used rather
 than traditional variable assignment and seqential expression
 evaluation. Unification uses substitution of variables for values in
 an attempt to make two expressions syntactically identical. Statements
-in a core.logic program can appear in any order. For example, you can use
+in a +core.logic+ program can appear in any order. For example, you can use
 +clojure.core.logic/==+ to unify 1 and +q+:
 
 [source,clojure]
@@ -155,7 +155,7 @@ in a core.logic program can appear in any order. For example, you can use
 ;; -> (1)
 ----
 
-core.logic is also able to unify the contents of lists and vectors,
++core.logic+ is also able to unify the contents of lists and vectors,
 finding the right substitution to make both expressions the same:
 
 [source,clojure]
@@ -172,8 +172,8 @@ finding the right substitution to make both expressions the same:
 ----
 
 Technically speaking, unification is a relation, relating the first
-form with the second form. This is a kind of puzzle for core.logic to
-solve. In the above example, +q+ is a logic variable and core.logic is
+form with the second form. This is a kind of puzzle for +core.logic+ to
+solve. In the above example, +q+ is a logic variable and +core.logic+ is
 charged with binding a value to +q+ such that the left and the right
 side of the unification (the +clojure.core.logic/==+ relation) are
 syntactically identical. When there is no binding that satisfies the
@@ -257,7 +257,7 @@ possible to use the same logic variable in multiple statements:
 ----
 
 The example above does not specify +first-item+, only that it should
-be the same for +seq-a+ and +seq-b+. core.logic uses the data provided
+be the same for +seq-a+ and +seq-b+. +core.logic+ uses the data provided
 to bind values to the variable that satisfy the constraints. The same
 is true with +middle-item+.
 
@@ -329,7 +329,7 @@ to generate a graph from the values:
 [NOTE]
 ====
 For small graphs, membero is fast enough. Larger graphs will
-experience performance problems as core.logic will traverse the list
+experience performance problems as +core.logic+ will traverse the list
 many times to find the elements. Using _clojure.core.logic/to-stream_
 with some basic indexing can greatly improve the query performance.
 ====
@@ -337,7 +337,7 @@ with some basic indexing can greatly improve the query performance.
 ==== See Also
 
 * The Reasoned Schemer - By Daniel P. Friedman, William E. Byrd and Oleg Kiselyov
-* https://github.com/clojure/core.logic/wiki[The core.logic wiki]
+* https://github.com/clojure/core.logic/wiki[The +core.logic+ wiki]
 * http://minikanren.org/[The miniKanren] website
-* See https://github.com/clojure/core.logic[core.logic repository] for examples of using _clojure.core.logic/to-stream_
-* https://github.com/clojure/core.match[core.match], a (non-unification) matching library with some similar ideas, described briefly in <<sec_core_match_parser>>
+* See https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using _clojure.core.logic/to-stream_
+* https://github.com/clojure/core.match[+core.match+], a (non-unification) matching library with some similar ideas, described briefly in <<sec_core_match_parser>>

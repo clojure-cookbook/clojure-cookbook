@@ -149,5 +149,5 @@ explanatory.
 
 - Creating a TCP Server
 - Creating a TCP Client
-- Using core.async
+- Using +core.async+
 - Documentation for +java.net.MulticastSocket+.

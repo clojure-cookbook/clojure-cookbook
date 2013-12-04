@@ -1,5 +1,5 @@
 [[sec_core_match_parser]]
-=== Make a Parser for Clojure Expressions Using core.match
+=== Make a Parser for Clojure Expressions Using +core.match+
 [role="byline"]
 by Chris Frisz
 
@@ -28,7 +28,7 @@ Expr = var
 
 ==== Solution
 
-Use _core.match_ to pattern match over the input and return the
+Use +core.match+ to pattern match over the input and return the
 expression represented as maps of maps.
 
 Before starting, add `[org.clojure/core.match "0.2.0"]` to your
@@ -75,7 +75,7 @@ Now, codify the language's grammar using +clojure.core.match/match+.
 
 ==== Discussion
 
-A +match+ statement in core.match is made up of two basic parts. The
+A +match+ statement in +core.match+ is made up of two basic parts. The
 first part is a vector of +vars+ to be matched. In our example, this
 is `[expr]`. This vector isn't limited to a single entry, it can
 contain as many items-to-match as you would like. The next part is a
@@ -83,7 +83,7 @@ variable list of question-answer pairs. A _question_ is a vector
 representing the *shape* the +vars+ vector must take. Like +cond+, an
 _answer_ is what will be returned should +vars+ satisfy a question.
 
-Questions take a variety of forms in core.match. Here are explanations
+Questions take a variety of forms in +core.match+. Here are explanations
 of the samples from above.
 
 The first match pattern, `[(var :guard symbol?)]`, matches the
@@ -145,6 +145,6 @@ much easier to read and maintain.
 
 ==== See Also
 
-* See the core.match wiki's
+* See the +core.match+ wiki's
   https://github.com/clojure/core.match/wiki/Overview[Overview page] for a
   more broad pass over all of the library's capabilities.

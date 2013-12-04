@@ -14,7 +14,7 @@ get a fast start on a new web development project.
 
 ==== Solution
 
-Use the +luminus+ leiningen template when creating a new project.
+Use the Luminus leiningen template when creating a new project.
 
 At the command line, type:
 

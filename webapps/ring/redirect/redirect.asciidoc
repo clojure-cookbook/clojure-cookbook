@@ -8,7 +8,7 @@ In a Ring application, you need to return a HTTP response code that will redirec
 
 ==== Solution
 
-To redirect a ring request, use the +redirect+ function in the +ring.util.response+ namespace.
+To redirect a Ring request, use the +redirect+ function in the +ring.util.response+ namespace.
 
 [source, clojure]
 ----

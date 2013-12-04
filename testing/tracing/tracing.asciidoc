@@ -9,7 +9,7 @@ is doing.
 
 ==== Solution
 
-Use the https://github.com/clojure/tools.trace[tools.trace]
+Use the https://github.com/clojure/tools.trace[+tools.trace+]
 libraries bevy of "trace" functions and macros to help examine your
 code as it runs.
 

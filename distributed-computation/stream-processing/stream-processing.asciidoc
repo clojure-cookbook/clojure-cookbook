@@ -205,7 +205,7 @@ is used below, ignoring the other two for now.
                 {:action :commented, :user :emma, :listing :green-hat}]]
 ----
 
-+defspout+'s body will be evaluated once, when the spout instance is
+++defspout++'s body will be evaluated once, when the spout instance is
 created, which gives us an opportunity to create in-memory state. In
 this case we'll create a list of events this spout will produce, but
 usually this will be a connection to a database or distributed queue.
@@ -257,7 +257,7 @@ by the +event-spout+:
   (ack! collector tuple))
 ----
 
-+defbolt+'s signature looks very similar to +defspout+ - the second
+++defbolt++'s signature looks very similar to +defspout+ - the second
 argument is a list of names that will be assigned to tuples generated
 by this bolt, and the third argument is a list of parameters. The
 first parameter will be bound to the input tuple, and may be

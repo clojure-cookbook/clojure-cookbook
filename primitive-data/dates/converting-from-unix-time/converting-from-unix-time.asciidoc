@@ -44,7 +44,7 @@ is construct a new +java.util.Date+ object using Clojure's Java interop
 functionality.
 
 If you are already using, or wish to use the
-https://github.com/clj-time/clj-time[clj-time] library, you can use +clj-time+
+https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+
 to obtain a +DateTime+ object from a Unix timestamp.
 
 [source,clojure]
