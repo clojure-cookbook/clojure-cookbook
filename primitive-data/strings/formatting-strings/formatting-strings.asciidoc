@@ -53,7 +53,6 @@ For greater control over how values are printed use the +format+ function.
 ;; First Name           | Last Name            | Employee ID
 ;; Ryan                 | Neufeld              | 2
 ;; Luke                 | Vanderhart           | 1
-;; -> [nil nil nil]
 ----
 <1> The +0+ flag indicates to pad a digit ("+d+") with zeroes (three, in this case.)
 <2> The +-+ flag indicates to left justify the string ("+s+") by 20 characters.
