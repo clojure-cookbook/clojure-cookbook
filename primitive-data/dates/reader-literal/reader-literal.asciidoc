@@ -16,7 +16,8 @@ time.
 ----
 (def ryans-birthday #inst "1987-02-18T18:00:00.000-00:00")
 
-ryans-birthday
+(println ryans-birthday)
+;; *out*
 ;; #inst "1987-02-18T18:00:00.000-00:00"
 ----
 
@@ -29,6 +30,7 @@ to reify instant literal strings into Date objects.
 ;; A faux communication channel that "receives" edn strings
 (require 'clojure.edn)
 (import '[java.io PushbackReader StringReader])
+
 (defn remote-server-receive-date []
   (-> "#inst \"1987-02-18T18:00:00.000-00:00\""
       (StringReader.)
