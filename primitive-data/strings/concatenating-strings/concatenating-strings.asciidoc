@@ -58,7 +58,7 @@ This apply...
 
 [source,clojure]
 ----
-(apply str ["a" "b" "c'])
+(apply str ["a" "b" "c"])
 ----
 
 ...is functionally equivalent to:
