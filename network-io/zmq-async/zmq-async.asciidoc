@@ -1,12 +1,12 @@
 [[sec_concurrent_zmq]]
-=== Concurrent ZeroMQ
+=== Using ZeroMQ Concurrently
 [role="byline"]
 by Kevin J. Lynagh
 
 ==== Problem
 
 You want to use ZeroMQ concurrently, but ZeroMQ sockets are not
-thread-safe. You _could_ manually set up mutual exclusion via locks or
+thread-safe. You *could* manually set up mutual exclusion via locks or
 other Java concurrency primitives, but you'd rather use a simpler
 method.
 
@@ -40,7 +40,7 @@ Downloads page].
 ====
 
 Before starting, add `[com.keminglabs/zmq-async "0.1.0"]` to your
-project's dependencies, or follow along in a REPL using lein-try:
+project's dependencies, or follow along in a REPL using +lein-try+:
 
 [source,clojure]
 ----

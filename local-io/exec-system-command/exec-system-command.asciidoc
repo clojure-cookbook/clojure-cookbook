@@ -9,10 +9,10 @@ its output.
 
 ==== Solution
 
-Use the clj-commons-exec library to run shell commands on your local
+Use the +clj-commons-exec library to run shell commands on your local
 system.
 
-To follow along, start a repl using lein-try:
+To follow along, start a repl using +lein-try+:
 
 [source,console]
 ----
@@ -56,7 +56,7 @@ the command vector as strings:
 Up until this point, we've neglected to mention that functionality
 equivalent to +exec/sh+ already exists in Clojure-proper (as
 +clojure.java.shell/sh+). Now that the cat is out of the bag, it must
-be asked: why use a library over a built-in? Simple: clj-commons-exec
+be asked: why use a library over a built-in? Simple: +clj-commons-exec
 is a functional veneer over the excellent
 http://commons.apache.org/proper/commons-exec/[Apache Commons Exec]
 library, providing capabilities like "piping" not available in
@@ -82,7 +82,7 @@ results
 ;; -> {:exit 0, :out "       2\n", :err nil}
 ----
 
-Like any reasonable shell-process library, clj-commons-exec allows you
+Like any reasonable shell-process library, +clj-commons-exec+ allows you
 to configure the environment in which your commands execute. To
 control the execution environment of either +sh+ or +sh-pipe+, specify
 options in a map as the final argument to either function. The +:dir+

@@ -56,7 +56,7 @@ Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your
 ==== Discussion
 
 This example uses the `wrap-cookies` and `wrap-params` middlewares
-included with ring-core. The first time the user visits a page, it
+included with +ring-core+. The first time the user visits a page, it
 shows the user a form for them to enter their name.  After their name
 is entered, it stores their name in a cookie and displays it as a
 instead, until the cookie is removed.

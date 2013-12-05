@@ -1,5 +1,5 @@
 [[sec_setting_keys_map]]
-=== Setting keys in a map
+=== Setting Keys in a Map
 [role="byline"]
 by Luke VanderHart
 

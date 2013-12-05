@@ -1,3 +1,4 @@
+[[sec_primitives_math_uuids]]
 === Generating Unique IDs
 [role="byline"]
 by Ryan Neufeld

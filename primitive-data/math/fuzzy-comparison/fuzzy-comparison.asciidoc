@@ -37,7 +37,7 @@ tolerance to 1000.
 
 Even with +fuzzy=+, you still need to take care when comparing
 floating point values, especially for values differing by numbers
-_very close_ to your tolerance. At differences bordering the supplied
+*very close* to your tolerance. At differences bordering the supplied
 tolerance you may find the results to be unexpected.
 
 [source,clojure]
@@ -53,7 +53,7 @@ As odd as this is, this isn't unexpected. The IEEE 754 specification
 for floating point values is a purposefully limited format, a tradeoff
 between accuracy and performance. If absolute precision is what you're
 after, then you should be using +BigDecimal+ or +BigInt+. See
-<<sec_primitives_arbitrary_precision>> for more information on those
+<<sec_primitives_math_arbitrary_precision>> for more information on those
 two types.
 
 The +fuzzy=+ function, as written, has a number of interesting side
@@ -97,6 +97,5 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance.
 * See the Wikipedia article on
   http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating
   Point] for more detailed information on floating point numbers.
-* See <<sec_primitives_arbitrary_precision>> for more general
+* See <<sec_primitives_math_arbitrary_precision>> for more general
   information on numeric precision.
-

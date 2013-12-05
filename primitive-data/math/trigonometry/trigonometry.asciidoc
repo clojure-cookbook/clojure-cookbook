@@ -1,4 +1,4 @@
-=== Performing trigonometry
+=== Performing Trigonometry
 [role="byline"]
 by Ryan Neufeld
 

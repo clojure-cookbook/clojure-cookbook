@@ -1,5 +1,5 @@
 [[sec_creating_a_list]]
-=== Creating a list
+=== Creating a List
 [role="byline"]
 by Luke VanderHart
 

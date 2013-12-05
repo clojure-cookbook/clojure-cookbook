@@ -1,5 +1,5 @@
 [[polymorphism_with_protocols]]
-=== Polymorphism
+=== Building Functions with Polymorphic Behavior
 [role="byline"]
 by Ryan Neufeld, originally submitted by David McNeil
 
@@ -232,7 +232,7 @@ method signature is made up of a few parts; the name, at least one
 type signature, and an optional docstring. The first argument of any
 type signature is always the object itself--Clojure dispatches on the
 type of this argument. Perhaps an example would be the easiest way to
-dig in to +defprotocol+'s syntax.
+dig in to ++defprotocol++'s syntax.
 
 [source,clojure]
 ----

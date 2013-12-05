@@ -1,5 +1,5 @@
 [[sec_adding_to_a_vector]]
-=== "Adding" an item to a vector
+=== "Adding" an Item to a Vector
 [role="byline"]
 by Luke VanderHart
 

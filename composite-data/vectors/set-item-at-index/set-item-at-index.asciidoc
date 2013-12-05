@@ -1,4 +1,4 @@
-=== Setting the value at an index
+=== Setting the Value at an Index
 [role="byline"]
 by Luke VanderHart
 
@@ -40,7 +40,7 @@ use a non-integer key will cause an +IllegalArgumentException+, and
 attempting to +assoc+ an index greater than one more than the size of
 the vector  will throw a +IndexOutOfBoundsException+.
 
-Note that it _is_ possible to +assoc+ to an index 1 greater than the
+Note that it *is* possible to +assoc+ to an index 1 greater than the
 current size of the vector, this will have the result of appending the item to the end. (see <<sec_adding_to_a_vector>>).
 
 ==== See also

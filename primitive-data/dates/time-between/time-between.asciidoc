@@ -10,11 +10,11 @@ You need to calculate the difference between two points in time.
 ==== Solution
 
 Since Java date and time classes have poor support for time zones and
-leap years, use the https://github.com/clj-time/clj-time[clj-time]
+leap years, use the https://github.com/clj-time/clj-time[+clj-time+]
 library for calculating the length of a time interval.
 
 Before starting, add `[clj-time "0.6.0"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----
@@ -60,7 +60,7 @@ since-april-first
 Calculating the length of an interval of times is one of the more
 complex operations you can perform with time. Time on planet Earth is
 a complex beast, complected by constructs like leap time and time
-zones; https://github.com/clj-time/clj-time[clj-time] is the only
+zones; https://github.com/clj-time/clj-time[+clj-time+] is the only
 library we're aware of that is capable of wrangling this complexity.
 
 The +clj-time.core/interval+ function takes two dates and returns a
@@ -70,10 +70,10 @@ that can present that time interval in different units. These helpers
 run the gambit in scale from +in-msecs+ to +in-years+, covering nearly
 every scale useful for non-specialized applications.
 
-One area clj-time lacks support is leap seconds. Joda Time's
+One area +clj-time+ lacks support is leap seconds. Joda Time's
 http://joda-time.sourceforge.net/faq.html[offical FAQ] explains why
 the feature is missing in greater detail. We're not aware of any
-Clojure that _can_ reason about time at this granularity. If this
+Clojure that *can* reason about time at this granularity. If this
 concerns you, then you're likely one of few people even capable of
 doing it right. Good luck to you.
 

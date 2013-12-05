@@ -1,4 +1,4 @@
-=== Read property file
+=== Read Properties From a File
 [role="byline"]
 by Tobias Bayer
 
@@ -40,7 +40,7 @@ props
 ----
 
 Instead of using the built-in +Properties+ api via interop, you could
-also use the Propertea library for simpler, more idiomatic Clojure
+also use the +propertea+ library for simpler, more idiomatic Clojure
 access to property files.
 
 Include the +[propertea "1.2.3"]+ dependency in your +project.clj+
@@ -62,21 +62,21 @@ props
 ==== Discussion
 
 Although using +java.util.Properties+ directly is more straightforward
-and doesn't require the addition of a dependency, propertea does
+and doesn't require the addition of a dependency, +propertea+ does
 provide some convenience. It returns an actual immutable Clojure map,
 instead of just a +java.util.Map+. Although both are perfectly usable
 from Clojure, an immutable map is probably preferable if you intend to
 do any further manipulation or updates on it.
 
-More importantly, propertea converts all string keys into keywords,
+More importantly, +propertea+ converts all string keys into keywords,
 which are more commonly used than strings as the keys of a map in
 Clojure.
 
-Additionally, propertea has several other features, such as the
+Additionally, +propertea+ has several other features, such as the
 capability to parse values into numbers or booleans, and providing
 default values.
 
-By default, propertea's +read-properties+ function treats all
+By default, ++propertea++'s +read-properties+ function treats all
 property values as strings. You can force parsing to other types by
 specifying the type for a property.
 
@@ -124,4 +124,4 @@ You can also be strict on required properties. If an expected property is missin
 ;; -> java.lang.RuntimeException: (:otherkey) are required ...
 ----
 ==== See Also
-See the https://github.com/jaycfields/propertea[propertea documentation] for more details.
+See the https://github.com/jaycfields/propertea[+propertea+ documentation] for more details.

@@ -22,7 +22,7 @@ specific parameters or headers, to handle redirects and other special
 circumstances, or to get specific details about the response.
 
 To follow along, add `[clj-http "0.7.7"]` to your project's
-dependencies, or use lein-try to start a REPL:
+dependencies, or use +lein-try+ to start a REPL:
 
 [source,shell]
 ----
@@ -70,7 +70,7 @@ HTML form via a web browser.
 +slurp+ works to make HTTP GET requests because its arguments are
 passed to +clojure.java.io/reader+, which in turn correctly handles
 opening URL strings. This is totally sufficient for issuing a quick
-HTTP GET to a well-behaved URL. Unfortunately, this is where +slurp+'s
+HTTP GET to a well-behaved URL. Unfortunately, this is where ++slurp++'s
 usefulness ends. Among other limitations, it will not behave correctly
 for responses with HTTP redirects.
 
@@ -94,7 +94,7 @@ manage complex failure scenarios involving external services.
 
 ==== See Also
 
-* See +clj-http+'s https://github.com/dakrone/clj-http[GitHub
+* See ++clj-http++'s https://github.com/dakrone/clj-http[GitHub
   repository] for more detailed information on the library.
 * For information on making asynchronous HTTP calls, see
   <<sec_async_http>>.

@@ -1,5 +1,5 @@
 [[sec_local_io_pdf]]
-=== Generating a PDF
+=== Generating PDF Files
 [role="byline"]
 by Dmitri Sotnikov
 
@@ -15,7 +15,7 @@ For example, you have a sequence of maps, such as those returned by a
 Use the +clj-pdf+ library to create the report.
 
 Before starting, add `[clj-pdf "1.11.6"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----
@@ -99,7 +99,7 @@ further processing on those values. The +:heading+ portion of the
 +employee-template+ does precisely this by calling +(.toUpperCase
 $name)+.
 
-In clj-pdf, a document is represented by a vector containing a map of
+In +clj-pdf+, a document is represented by a vector containing a map of
 metadata followed by the content. The content can in turn consist of
 strings, vectors or collections of vectors.
 
@@ -122,7 +122,7 @@ Under the hood, collections of content are automatically expanded.
 
 Apart from plain strings, each content element is represented as a
 vector. The first element of this vector is a keyword type, and
-everything that follows is the content itself. Some types clj-pdf
+everything that follows is the content itself. Some types +clj-pdf+
 includes: +:paragraph+, +:phrase+, +:list+ and +:table+.
 
 [source, clojure]
@@ -192,6 +192,6 @@ larger than the page margins will automatically be scaled to fit.
 
 ==== See Also
 
-* For more information on using clj-pdf, including a complete list of
+* For more information on using +clj-pdf+, including a complete list of
   element types, charting capabilities, etc. see the
-  https://github.com/yogthos/clj-pdf[clj-pdf] GitHub repository.
+  https://github.com/yogthos/clj-pdf[+clj-pdf+] GitHub repository.

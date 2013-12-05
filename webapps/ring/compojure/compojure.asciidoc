@@ -1,5 +1,5 @@
 [[sec_webapps_compojure_compojure]]
-=== Routing requests with Compojure
+=== Routing Requests with Compojure
 [role="byline"]
 by Adam Bard
 
@@ -62,7 +62,7 @@ it for the user. So, visiting `http://localhost:3000/Buenos%20Dias/` displays
 
 One caveat to be aware of is that Compojure routes are sensitive to a
 trailing slash: a route defined as `/users/:user/blog/` will not match
-the url `http://mysite.com/users/fred/blog` - but it _will_ match
+the url `http://mysite.com/users/fred/blog` - but it *will* match
 `http://mysite.com/users/fred/blog/`.
 
 The `[]` in each route is actually a syntactic sugar for intercepting these

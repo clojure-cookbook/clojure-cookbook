@@ -1,4 +1,4 @@
-=== Keeping multiple values for a key
+=== Keeping Multiple Values for a Key
 [role="byline"]
 by Luke VanderHart
 

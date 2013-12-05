@@ -4,4 +4,155 @@
 [preface]
 == Preface
 
+=== About this Book
+
+The most important thing your should understand about this book is
+that it is, first and foremost, a group effort. It is not authored by
+one or two people. It isn't even the work of a single, well defined
+group. Instead, it is the collaborative product of over sixty of the
+best Clojurists from all over the world, from all backgrounds. These
+authors use Clojure every day on real applications, ranging from
+aerospace to social media, banking to robotics, AI research to
+e-commerce.
+
+As such, you will see a lot of diversity in the recipes
+presented. Some are quick and to the point; "get stuff done, and move
+on!"  Others are more deliberate, presenting digestible yet
+penetrating insights into the philosophy and implementation of certain
+aspects of Clojure.
+
+We hope that there is something in this book for readers of diverse
+interests. We believe that it will be useful not only as a reference
+for looking up specific tasks, but as a worthwhile survey of the
+variety and expressitivity that Clojure is capable of. As we edited
+submissions, we were astonished at the at the number of concepts and
+techniques that were new to us, and will hopefully be new to our
+readers as well.
+
+Another fact that we discovered while writing and editing is how
+difficult it is to draw a circumference around what we wanted to
+cover. Every single recipe is a beautiful, endless fractal, touching
+multiple topics, each of which deserves a recipe, a chapter or a book
+of its own. But each recipe also needs to stand on its own. They each
+should provide some useful nugget of information which readers can
+understand and take away with them.
+
+We sincerely hope that we have balanced these goals appropriately, and
+that you find this book useful without being tedious, and insightful
+without being pendantic.
+
+=== Audience
+
+Anyone who uses Clojure will, we hope, be able get something out of
+this book. There are a lot of recipes on truly basic things that
+beginners will find useful, but there are a large number of recipes on
+more specialized topics that advanced users should find useful for
+getting a head start on implementation.
+
+That said, if you're completely new to Clojure, this probably isn't
+the book to start with. At least, not by itself. It covers a great
+many useful topics, but not as methodically or as thoroughly as a good
+introductory text. See the "Resources" section below for a list
+of general Clojure books you may find useful as prior or supplimental
+texts.
+
+=== Other Resources
+
+One thing that this book is not, and could never be, is
+complete. There is too much to cover, and by presenting information in
+a task-oriented recipe format we have inherently precluded ourselves
+from methodical, narrative explanation of the features and
+capabilities of the whole language.
+
+For a more linear, thorough explanation of Clojure and its features,
+we recommend one of the following books:
+
+- _Clojure Programming_ (O'Reilly, 2012) by Chas Emerick, Brian Carper
+  and Christophe Grand. A good, comprehensive general purpose Clojure
+  book focusing on the language and common tasks, oriented towards
+  beginner Clojure programmers.
+
+- _Programming Clojure_, 2nd ed. (Pragmatic Bookshelf, 2012) by Stuart
+  Halloway and Aaron Bedra. The first book on Clojure, this is a
+  clear, comprehensive introductory tutorial to the Clojure language.
+
+- _Practical Clojure_, (Apress, 2010) by Luke VanderHart and Stuart
+  Sierra. This is a terse, no-nonsense explanation of what Clojure and
+  what its features do.
+
+- _The Joy of Clojure_, (Manning, 2011) by Michael Fogus and Chris
+  Houser. A slightly more advanced text, this text really digs in to
+  the themes and philosophies of Clojure.
+
+- _ClojureScript: Up and Running_, (O'Reilly, 2012) by Stuart Sierra
+  and Luke VanderHart. While the _Clojure Cookbook_ and the other
+  Clojure books listed here focus mainly or entirely on Clojure
+  itself, ClojureScript (a dialect of Clojure which compiles to
+  JavaScript) has gained considerable uptake. This book introduces
+  ClojureScript, how to get started with it, and covers the
+  similarities and differences between it and Clojure.
+
+Finally, you should look at the source code for this book itself,
+which is freely available on Github at
+https://github.com/clojure-cookbook. The selection of recipes
+available online is larger than that in the print version, and we are
+still accepting pull requests for new recipes that might someday make
+it in to a future edition of this book.
+
+=== Structure
+
+The chapters in this book are for the most part groupings of recipes
+by theme, rather than strictly categorial. It is entirely possible for
+a recipe to be applicable to more than one chapter -- in these cases,
+we have simply tried to place it where we think the majority of
+readers would look first.
+
+<<ch_primitive_data>> and <<ch_composite_data>> cover Clojure's
+built-in primitive and composite data structures, and explain many
+common (and less common) ways one might want to use them.
+
+<<ch_general_computing>> is a grab bag of useful topics that are
+generally applicable in many different application areas and project
+domains, from Clojure features such as Protocols to alternate
+programming paradigms such as logic programming with +core.logic+ or
+asynchronous coordination with +core.async+.
+
+<<ch_local_io>> deals with all the ways in which your program can
+interact with the local computer upon which it is running. This
+includes reading and writing to standard input and output streams,
+creating and manipulating files, serializing and deserializing files,
+etc.
+
+<<ch_network_io>> contains recipes with similar themes to
+<<ch_local_io>>, but instead deals with _remote_ communication over a
+network. It includes recipes on a variety of network communication
+protocols and libraries.
+
+<<ch_databases>> demonstrates techniques and tools for connecting to
+and using a variety of databases. Special attention is given to
+Datomic, as a data store that shares and extends much of Clojure's
+underlying philosphy of value, state and identity to persistent
+storage.
+
+<<ch_webapps>> dives in depth to one of the most common applications
+for Clojure - buliding and maintaining dynamic websites. It provides
+comprehensive treatment of Ring (the most popular HTTP server library
+for Clojure), as well as tools for HTML templating and rendering.
+
+<<ch_deployment_and_distribution>> explains what to do with a Clojure
+program once you have one, going over common patterns for packaging,
+distributing, profiling, logging, and associated ongoing tasks over
+the lifetime of an application.
+
+<<ch_distributed>> goes in-depth on cloud computing, and
+using Clojure for heavyweight distributed data-crunching. Special
+attention is given to Cascalog, a declarative Clojure interface to the
+Hadoop map-reduce framework.
+
+Last but not least, <<ch_testing>> covers a variety of techniques for
+ensuring the integrity and correctness of your code and data, ranging
+from traditional unit and integration tests to more comprehensive
+generative and simulation testing, and even optional compile-time
+validations using static typing with +core.typed+.
+
 include::conventions.asciidoc[]

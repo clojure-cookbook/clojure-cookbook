@@ -1,5 +1,5 @@
 [[sec_composite_maps_as_seqs]]
-=== Maps as Sequences (and vice versa)
+=== Maps as Sequences (and Vice Versa)
 [role="byline"]
 by Luke VanderHart
 

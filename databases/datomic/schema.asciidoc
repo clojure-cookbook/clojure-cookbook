@@ -1,5 +1,5 @@
 [[sec_datomic_schema]]
-=== Define schema for a Datomic database
+=== Defining Schema for a Datomic Database
 [role="byline"]
 by Robert Stuttaford
 
@@ -95,7 +95,7 @@ We define a group as having:
     :db.install/_attribute :db.part/db}])
 ----
 
-Finally, _transact_ both schema definitions into a database via a
+Finally, +transact+ both schema definitions into a database via a
 connection.
 
 Transact the schema into the database.

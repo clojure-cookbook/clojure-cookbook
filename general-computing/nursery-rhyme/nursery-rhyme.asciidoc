@@ -1,4 +1,4 @@
-=== Nursery rhyme
+=== Playing a Nursery Rhyme
 [role="byline"]
 by Chris Ford
 
@@ -13,7 +13,7 @@ Use https://github.com/overtone/overtone[Overtone] to bring the song
 to life.
 
 Before starting, add `[overtone "0.8.1"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source, shell]
 ----

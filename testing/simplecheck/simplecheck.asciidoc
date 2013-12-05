@@ -1,4 +1,4 @@
-=== Finding values which cause failure
+=== Finding Values Which Cause Failure
 
 [role="byline"]
 by Luke VanderHart
@@ -10,11 +10,11 @@ all inputs, and find input values that violate those properties.
 
 ==== Solution
 
-Use simple-check, a property specification library for Clojure that
+Use +simple-check+, a property specification library for Clojure that
 is capable of "shrinking" the input case to find the minimal failing
 input.
 
-Start by adding a project dependency to the simple-check library:
+Start by adding a project dependency to the +simple-check+ library:
 +[reiddraper/simple-check "0.5.3"]+.
 
 Then, find a function to test. This example uses a contrived function
@@ -49,15 +49,15 @@ generators found in the +simple-check.generators+ namespaces.
 [NOTE]
 ====
 
-Unlike test.generative, simple-check generators are more complicated
+Unlike test.generative, +simple-check+ generators are more complicated
 than a single function which returns a value. Instead, they are a data
 structure that not only defines how random values are sampled, but how
 they converge on the "simplest" possible failing case.
 
-A full discussion of creating custom simple-check generators (other
+A full discussion of creating custom +simple-check+ generators (other
 than simple compositions of primitive generators) is beyond the scope
 of this recipe, but full documentation is available on the
-simple-check https://github.com/reiddraper/simple-check[GitHub page].
++simple-check+ https://github.com/reiddraper/simple-check[GitHub page].
 ====
 
 The actual test is defined using the +simple-check.properties/for-all+
@@ -118,30 +118,30 @@ Re-running the test now indicates success.
 
 ==== Discussion
 
-simple-check has the very useful property of not only returning
-_a_ failing sample input to a test, but returning the _minimal_
++simple-check+ has the very useful property of not only returning
+*a* failing sample input to a test, but returning the *minimal*
 failing sample. In the example program above, for instance, any time a
 zero occurs in the input sequence it causes an error. However, merely
 from looking at the sequence +(5 0 0 -8 1 -2)+ it might not be
 4apparent that zeros are the problem. Not knowing anything else about
 the function under test, the problem might be, for example, the
-negative numbers, or the value +5+. simple-check returns not just any
-arbitratry failing input, but _the_ specific input that will
+negative numbers, or the value +5+. +simple-check+ returns not just any
+arbitratry failing input, but *the* specific input that will
 consistently cause the program to fail. As useful as it is to know
 that there is an input that will provoke failure, it's even more
 useful to know the specific problematic value. And, the larger and
 more complex the inputs to the function, the more useful it is to be
 able to reduce the failing case.
 
-.Sidebar test.generative and simple-check
+.Sidebar test.generative and +simple-check+
 ****
-You may have observed that test.generative and simple-check cover a
+You may have observed that test.generative and +simple-check+ cover a
 lot of the same ground. They both generate a randomized distribution
 of inputs, and they both specify "success" conditions in terms of
 properties or qualities that must hold across all inputs and outputs
 rather than specific examples.
 
-However, there are a few key differences. simple-check minimizes the
+However, there are a few key differences. +simple-check+ minimizes the
 failing input before returning; test.generative bails the first time
 it sees a failure. However, the data generators of test.generative are
 simple functions, without any additionally specified behavior, which

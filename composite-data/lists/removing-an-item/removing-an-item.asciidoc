@@ -1,5 +1,5 @@
 [[sec_removing_an_item_list]]
-=== "Removing" an item from a list
+=== "Removing" an Item From a List
 [role="byline"]
 by Luke VanderHart
 

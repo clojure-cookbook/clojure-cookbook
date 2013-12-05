@@ -1,5 +1,5 @@
 [[sec_date_to_unix_timestamp]]
-=== Converting a Date to a Unix timestamp
+=== Converting a Date to a Unix Timestamp
 [role="byline"]
 by Steven Proctor
 
@@ -44,7 +44,7 @@ time.  Java's Date objects have a method +getTime+ which returns the
 date as a Unix time.
 
 If you are already using, or wish to use the
-https://github.com/clj-time/clj-time[clj-time] library, you can use +clj-time+
+https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+
 to obtain a Unix time formatted +DateTime+ object if you have a DateTime object.
 
 [source,clojure]
@@ -82,6 +82,5 @@ Unix time format.
 
 * See <<sec_date_from_unix_timestamp>> for how to convert a Unix time
   to a Date.
-* See <<sec_current_date>> to see how to get the current time in
+* See <<sec_primitives_dates_current_date>> to see how to get the current time in
   milliseconds, which can be converted to seconds.
-

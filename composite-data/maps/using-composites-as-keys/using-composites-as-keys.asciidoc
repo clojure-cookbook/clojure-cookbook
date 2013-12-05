@@ -1,5 +1,5 @@
 [[sec_composites_as_keys]]
-=== Using composite values as map keys
+=== Using Composite Values as Map Keys
 [role="byline"]
 by Luke VanderHart
 

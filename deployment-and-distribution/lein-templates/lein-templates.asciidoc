@@ -1,4 +1,4 @@
-=== Creating custom project templates
+=== Creating Custom Project Templates
 [role="byline"]
 by Travis Vachon
 
@@ -262,4 +262,4 @@ take templates for a spin today!
 
 * https://github.com/technomancy/leiningen/blob/master/doc/TEMPLATES.md[Leiningen template documentation]
 * The source of the https://github.com/technomancy/leiningen/blob/master/src/leiningen/new/templates.clj[leiningen.new.templates] namespace.
-* http://mustache.github.io/[mustache templates]
+* http://mustache.github.io/[+mustache+ templates]

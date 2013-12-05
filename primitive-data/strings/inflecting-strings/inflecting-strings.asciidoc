@@ -1,4 +1,4 @@
-=== Pluralizing Strings From a Quantity
+=== Pluralizing Strings Based on a Quantity
 [role="byline"]
 by Ryan Neufeld
 
@@ -10,7 +10,7 @@ You need to pluralize a word given some quantity, such as "0 eggs" or
 ==== Solution
 
 When you need to perform Ruby on Rails-style pluralization use Roman Scherer's
-https://github.com/r0man/inflections-clj[inflections] library.
+https://github.com/r0man/inflections-clj[+inflections+] library.
 
 Use +inflections.core/pluralize+ with a count to attempt to pluralize
 that word if count is not one.
@@ -47,9 +47,9 @@ Rails] set the gold standard for friendly and humanized text with its
 +ActiveSupport::Inflections+ class. +Inflections#pluralize+ is one
 such inflection, but +Inflections+ is chock full of cutesy-sounding
 methods ending in "ize" that change the inflection of strings.
-inflections provides nearly all of these capabilities in a Clojure context.
++inflections+ provides nearly all of these capabilities in a Clojure context.
 
-Two interesting functions in the inflections library are +plural+ and
+Two interesting functions in the +inflections+ library are +plural+ and
 +singular+. These functions work a bit like the +upper-case+ and
 +lower-case+ of pluralization; +plural+ transforms words to their
 plural form and +singular+ coerces words to their singular form. These
@@ -64,7 +64,7 @@ You can add your own rules for pluralization with +inflections.core/plural!+.
 ;; -> "boxes"
 
 ;; Words ending in 'ox' pluralize with 'en' (and not 'es')
-(inflections.plural/plural! #"(ox)(?i)$" "$1en")
+(inf/plural! #"(ox)(?i)$" "$1en")
 
 (inf/plural "box")
 ;; -> "boxen"
@@ -95,5 +95,5 @@ inflections also has support for inflections like +camelize+,
 ==== See Also
 
 * See
-  https://github.com/r0man/inflections-clj/blob/master/src/inflections/core.clj[inflections
+  https://github.com/r0man/inflections-clj/[inflections
   core.clj] for the most up-to-date listing of inflections available.

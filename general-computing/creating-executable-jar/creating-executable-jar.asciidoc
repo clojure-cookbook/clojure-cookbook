@@ -1,64 +1,82 @@
-=== Create an executable jar file
+=== Create an Executable JAR File
 [role="byline"]
 by Alan Busby
 
 ==== Problem
 
-You want to create an executable jar.
+You want to create an executable JAR.
 
 ==== Solution
 
-Using +Leiningen+ to create an "uberjar" (See the "Using Leiningen"
-recipe for instructions on obtaining and installing Leiningen)
+Use the Leiningen build tool to package your application as an
+_uberjar_, a JAR file that includes an application and all of its
+dependencies.
 
-Add a +:main+ and +:aot+ parameter to your +project.clj+.
+To follow along with this recipe, create a new Leiningen project:
 
+[source,console]
+----
+$ lein new foo
+----
+
+Configure the project to be executable by adding +:main+ and +:aot+
+parameters to the project's _+project.clj+_ file.
+
+._project.clj_
 [source,clojure]
 ----
-(defproject foo "1.0.0"
+(defproject foo "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]]
   :main foo.core
   :aot :all)
 ----
 
-Add a +(:gen-class)+ parameter to the namespace listed as +:main+ in your +project.clj+ file.
+To finish making the project executable, add a +-main+ function and
++:gen-class+ declaration to _src/foo/core.clj_. Remove the existing
++foo+ function.
 
+._src/foo/core.clj_
 [source,clojure]
 ----
 (ns foo.core
   (:gen-class))
-----
 
-Add a +-main+ function to the namespace.
-
-[source,clojure]
-----
-(defn -main [& args]
+(defn -main  [& args]
   (->> args
-       (interpose "\n")
+       (interpose " ")
        (apply str)
-       (println "Executed with the following args;\n")))
+       (println "Executed with the following args: ")))
 ----
 
-At the command line, call +lein uberjar+ to have Leiningen build an executable jar file.
+Run the application using the +lein run+ command to verify it is
+functioning correctly:
 
-[source,bash]
+[source,console]
+----
+$ lein run 1 2 3
+----
+
+To package the application with all of its dependencies included,
+invoke +lein uberjar+.
+
+[source,console]
 ----
 $ lein uberjar
-Created /tmp/foo/target/uberjar/foo-1.0.0.jar
-Created /tmp/foo/target/foo-1.0.0-standalone.jar
+Created /tmp/foo/target/uberjar/foo-0.1.0-SNAPSHOT.jar
+Created /tmp/foo/target/foo-0.1.0-SNAPSHOT-standalone.jar
 ----
 
-Then, you can execute the jar along with whatever parameters you'd like to provide.
+Execute the generated _target/foo-0.1.0-SNAPSHOT-standalone.jar_ JAR file by
+passing it as the +-jar+ option to the +java+ executable.
 
-[source,bash]
+[source,console]
 ----
-$ java -jar target/foo-1.0.0-standalone.jar 1 2 3 4
-Executed with the following args;
- 1
-2
-3
-4
+$ java -jar target/foo-1.0.0-standalone.jar 1 2 3
+Executed with the following args:  1 2 3
 ----
 
 ==== Discussion
@@ -90,6 +108,3 @@ reference or compile Clojure source files.
 * Using Leiningen
 * Running Clojure Programs
 * Ahead-of-time Compilation
-
-
-

@@ -1,4 +1,4 @@
-=== Handling form data with Ring
+=== Handling Form Data with Ring
 [role="byline"]
 by Adam Bard
 

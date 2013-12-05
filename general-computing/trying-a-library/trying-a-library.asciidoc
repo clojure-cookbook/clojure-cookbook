@@ -9,7 +9,7 @@ project's dependencies or create a new project.
 
 ==== Solution
 
-Use Ryan Neufeld's lein-try to launch the REPL. Library dependencies
+Use Ryan Neufeld's +lein-try+ to launch the REPL. Library dependencies
 will be met automatically.
 
 To gain this capability, first make sure you are using Leiningen >=
@@ -45,7 +45,7 @@ user=>
 ==== Discussion
 
 Notice that we did not have to give a version number for the library
-in the example. The lein-try will automatically grab the most recent
+in the example. The +lein-try+ will automatically grab the most recent
 released version of libraries.
 
 Of course you can specify a library version if you like. Just add the

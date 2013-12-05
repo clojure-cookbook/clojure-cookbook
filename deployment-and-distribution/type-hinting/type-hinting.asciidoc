@@ -89,7 +89,7 @@ to invoke. For seldom-invoked methods this isn't too big of a deal,
 but for methods executed frequently the cost of reflection can pile up
 quickly.
 
-Type hinting short-circuits this reflection. If you've hinted _all_ of
+Type hinting short-circuits this reflection. If you've hinted *all* of
 the arguments to a Java function, the Clojure compiler will no longer
 perform reflection. Instead, the function application will directly
 invoke the appropriate Java function. Of course, if you've gotten your

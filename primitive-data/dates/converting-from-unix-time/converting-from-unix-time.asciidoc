@@ -1,5 +1,5 @@
 [[sec_date_from_unix_timestamp]]
-=== Converting a Unix timestamp to a Date
+=== Converting a Unix Timestamp to a Date
 [role="byline"]
 by Steven Proctor
 
@@ -44,7 +44,7 @@ is construct a new +java.util.Date+ object using Clojure's Java interop
 functionality.
 
 If you are already using, or wish to use the
-https://github.com/clj-time/clj-time[clj-time] library, you can use +clj-time+
+https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+
 to obtain a +DateTime+ object from a Unix timestamp.
 
 [source,clojure]
@@ -76,5 +76,5 @@ get those timestamps into a date format used by the rest of the system?
 
 * See <<sec_date_to_unix_timestamp>> for how to convert a Date to a
   Unix time.
-* See <<sec_current_date>> to see how to get the current time in
+* See <<sec_primitives_dates_current_date>> to see how to get the current time in
   milliseconds, which can be converted to seconds.

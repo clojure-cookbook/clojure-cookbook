@@ -1,5 +1,5 @@
 [[sec_local-io_read_write_files]]
-=== Reading and writing text files
+=== Reading and Writing Text Files
 [role="byline"]
 by Stefan Karlsson
 

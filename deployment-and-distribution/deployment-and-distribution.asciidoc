@@ -1,3 +1,4 @@
+[[ch_deployment_and_distribution]]
 == Deployment and Distribution
 
 include::introduction.asciidoc[]
@@ -7,6 +8,10 @@ include::aot-compilation/aot-compilation.asciidoc[]
 include::war-file/war-file.asciidoc[]
 
 include::bare-bones/bare-bones.asciidoc[]
+
+include::type-hinting/type-hinting.asciidoc[]
+
+include::primitive-arrays/primitive-arrays.asciidoc[]
 
 include::profiling-with-timbre/profiling-with-timbre.asciidoc[]
 

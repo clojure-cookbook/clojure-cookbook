@@ -60,18 +60,18 @@
   (find [this x] "Check if a value exists in an RBT"))
 
 (deftype RedBlackTree [tree]
-  IRedBlackTree
-  (find [this n] (find-val tree n))
-  clojure.lang.ISeq
-  (cons [self v] (->RedBlackTree (insert-val tree v)))
-  (empty [self] (->RedBlackTree nil))
+  clojure.lang.IPersistentSet
+  (cons [self v] (RedBlackTree. (insert-val tree v)))
+  (empty [self] (RedBlackTree. nil))
   (equiv [self o] (if (instance? RedBlackTree o)
-                    (= (sort (seq self)) (sort (seq o)))
+                    (= tree (.tree o))
                     false))
-  (first [this] (first (rb-tree->seq tree)))
-  (next [this] (next (rb-tree->seq tree)))
-  (more [this] (rest (rb-tree->seq tree)))
   (seq [this] (if tree (rb-tree->seq tree)))
+  (get [this n] (find-val tree n))
+  (contains [this n] (boolean (get this n)))
+  ;; (disjoin [this n] ...) ;; Omitted due to complexity
+  clojure.lang.IFn
+  (invoke [this n] (get this n))
   Object
   (toString [this] (pr-str this)))
 

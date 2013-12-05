@@ -1,5 +1,5 @@
 [[sec_retrieving_multiple_keys]]
-=== Retrieving multiple keys from a map simultaneously
+=== Retrieving Multiple Keys From a Map Simultaneously
 [role="byline"]
 by Leonardo Borges
 

@@ -1,5 +1,5 @@
 [[sec_verify_hof]]
-=== Type Checking Higher-order Functions with core.typed
+=== Type Checking Higher-order Functions with +core.typed+
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 
@@ -11,10 +11,10 @@ feedback: compile time.
 
 ==== Solution
 
-Use _core.typed_ to type check higher-order functions.
+Use +core.typed+ to type check higher-order functions.
 
 To follow along with this recipe, create a file _core_typed_samples.cl_
-and start a REPL using lein-try:
+and start a REPL using +lein-try+:
 
 [source,console]
 ----
@@ -24,11 +24,11 @@ $ lein try org.clojure/core.typed
 
 [NOTE]
 ====
-This recipe is a little different than others because core.typed uses
+This recipe is a little different than others because +core.typed+ uses
 on-disk files to check namespaces.
 ====
 
-To demonstrate core.typed's abilities, define a typed higher-order
+To demonstrate ++core.typed++'s abilities, define a typed higher-order
 function +hash-of?+, which accepts two predicates and returns a new
 predicate. Use +clojure.core.typed/fn>+ to return an anonymous
 function with type annotations attached.
@@ -94,12 +94,12 @@ takes at most a +Number+ this is a type error.
 While Clojure's built-in pre/post conditions are useful for defining
 anonymous functions that fail fast, these checks only provide feedback
 at runtime. Why not type-check our higher-order functions as well?
-core.typed's type checking abilities aren't limited to only data
+++core.typed++'s type checking abilities aren't limited to only data
 types--it can also type-check functions as types themselves.
 
 By writing returning anonymous functions created with the
 +clojure.core.typed/fn>+ form instead of +fn+, it is possible to
-annotate function objects with core.typed's rich type-checking system.
+annotate function objects with ++core.typed++'s rich type-checking system.
 When defining functions with +fn>+, annotate types to its arguments
 with the +:-+ operator. For example, +(t/fn> [m :- Map] ...)+ would
 indicate an anonymous function that accepted a +Map+ as its sole
@@ -119,7 +119,7 @@ user=> (t/cf iterate)
   (Fn [(Fn [x -> x]) x -> (clojure.lang.LazySeq x)]))
 -----
 
-The +All+ around +iterate+'s type indicates that it is _polymorphic_
+The +All+ around ++iterate++'s type indicates that it is _polymorphic_
 in +x+. It reads, "for all types x, takes a function that accepts an x
 and returns an x, and takes an x, and returns a lazy sequence of x".
 
@@ -150,7 +150,7 @@ ExceptionInfo Type Checker: Found 2 errors  clojure.core/ex-info (core.clj:4327)
 [NOTE]
 ====
 In this experiment, the faulty invokation of +hash-of?+ is wrapped in
-an anonymous function. At the time of this writing, core.typed
+an anonymous function. At the time of this writing, +core.typed+
 evaluates code before it type checks it.
 
 Without this, the raw invokation `((hash-of? + number?))` woudl return
@@ -159,11 +159,11 @@ a regular Clojure +ArityException+.
 
 ==== See also
 
-* The https://github.com/clojure/core.typed[core.typed repository] on GitHub.
-* The core.typed user guide, in particular its sections on
+* The https://github.com/clojure/core.typed[+core.typed+ repository] on GitHub.
+* The +core.typed+ user guide, in particular its sections on
   https://github.com/clojure/core.typed/wiki/User-Guide#polymorphism[polymorphism]
   and
   https://github.com/clojure/core.typed/wiki/User-Guide#functions[function
   annotations].
 * Recipes <<sec_verify_java> and <<sec_avoid_null>> for further
-  examples of how to use core.typed.
+  examples of how to use +core.typed+.

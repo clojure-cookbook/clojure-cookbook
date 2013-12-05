@@ -1,4 +1,4 @@
-=== Browser Testing
+=== Running Browser-based Tests
 [role="byline"]
 by Matthew Maravillas
 
@@ -8,7 +8,7 @@ You want to run browser-based tests.
 
 ==== Solution
 
-Use _Selenium WebDriver_ via the _clj-webdriver_ library. This will
+Use Selenium WebDriver via the +clj-webdriver+ library. This will
 allow you to use clojure.test to test your application's behavior in
 actual browser environments.
 
@@ -117,18 +117,18 @@ inherent to manual tests. For example, a manual test could easily
 catch a positioning error that an automated test would likely miss if
 it were not explicitly tested for.
 
-To write browser tests in Clojure, use the clj-webdriver library with
-your preferred test framework, such as clojure.test. clj-webdriver
+To write browser tests in Clojure, use the +clj-webdriver+ library with
+your preferred test framework, such as clojure.test. +clj-webdriver+
 provides a clean Clojure interface to Selenium WebDriver, a tool used
 to control and automate browser actions.
 
 Some additional configuration may be required to use Selenium
-WebDriver or clj-webdriver with your browsers of choice. See the
+WebDriver or +clj-webdriver+ with your browsers of choice. See the
 http://code.google.com/p/selenium[Selenium WebDriver documentation]
-and the http://github.com/semperos/clj-webdriver/wiki[clj-webdriver wiki].
+and the http://github.com/semperos/clj-webdriver/wiki[+clj-webdriver+ wiki].
 
-Before you dive into testing, you can experiment with clj-webdriver at
-a REPL. Start up a REPL with clj-webdriver using lein-try:
+Before you dive into testing, you can experiment with +clj-webdriver+ at
+a REPL. Start up a REPL with +clj-webdriver+ using +lein-try+:
 
 [source,console]
 ----
@@ -183,7 +183,7 @@ using a +clojure.test+ fixture.
 test or once around the namespace's test run as a whole. Use the latter, as
 restarting the browser for each test will be far too slow.
 
-The +selenium-fixture+ function uses clj-webdriver's +set-driver!+ and +quit+
+The +selenium-fixture+ function uses ++clj-webdriver++'s +set-driver!+ and +quit+
 functions to start up a browser for each of the keywords it's provided and run
 the namespace's tests inside that browser.
 
@@ -209,7 +209,7 @@ you may find it useful to write this common reset behavior as an +:each+
 fixture.
 
 To begin writing tests, modify your project's _project.clj_ file to include the
-clj-webdriver dependency in the +:dev+ profile and +:test-selectors+ for
++clj-webdriver+ dependency in the +:dev+ profile and +:test-selectors+ for
 +:default+ and +browser+ convenience.
 
 .Your own _project.clj_
@@ -293,13 +293,13 @@ loaded, the test compares the title and URL as in the first test. Lastly, it
 finds the text content of the +#foot+ element containing the copyright and
 verifies that the text includes the expected name.
 
-clj-webdriver provides many other capabilities for interacting with your
++clj-webdriver+ provides many other capabilities for interacting with your
 application. For more information, see the
-https://github.com/semperos/clj-webdriver/wiki[clj-webdriver wiki].
+https://github.com/semperos/clj-webdriver/wiki[+clj-webdriver+ wiki].
 
 ==== See also
 
-* The clj-webdriver https://github.com/semperos/clj-webdriver[GitHub
+* The +clj-webdriver+ https://github.com/semperos/clj-webdriver[GitHub
   repository] and https://github.com/semperos/clj-webdriver/wiki[wiki].
 * https://code.google.com/p/selenium[Selenium]
 * See <<sec_unit_testing>> to learn more about unit testing in Clojure.

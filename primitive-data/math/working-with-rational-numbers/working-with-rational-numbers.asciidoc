@@ -1,5 +1,5 @@
 [[sec_primitives_rational_numbers]]
-=== Working With Rational Numbers
+=== Working with Rational Numbers
 [role="byline"]
 by Ryan Neufeld
 

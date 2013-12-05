@@ -14,19 +14,19 @@ Primitive Java arrays are the canonical way to store large collections
 of numbers compactly, and do math over them quickly (often 100x faster
 than Clojure sequences).
 
-The https://github.com/Prismatic/hiphip[hiphip (array)] library is a
+The https://github.com/Prismatic/hiphip[+hiphip+ (array)] library is a
 quick and easy way to manipulate primitive arrays of +double+, +long+, +float+, or
 +int+ members.
 
 Before starting, add `[prismatic/hiphip "0.1.0"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----
 $ lein try prismatic/hiphip
 ----
 
-Use one hiphip's +amap+ macros to perform fast math on typed
+Use one ++hiphip++'s +amap+ macros to perform fast math on typed
 arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
 
 // TODO: It would be nice for each example to show relative timing
@@ -51,7 +51,7 @@ arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
 ;; -> (2.0 6.0 12.0)
 ----
 
-To modify an array in-place, use one of hiphip's +afill!+ macros.
+To modify an array in-place, use one of ++hiphip++'s +afill!+ macros.
 
 [source,clojure]
 ----
@@ -66,7 +66,7 @@ To modify an array in-place, use one of hiphip's +afill!+ macros.
 ;; -> (1.0 3.0 5.0)
 ----
 
-For faster +reduce+-like operations, use one of Hiphip's +areduce+ and
+For faster +reduce+-like operations, use one of ++hiphip++'s +areduce+ and
 +asum+ macros:
 
 [source,clojure]
@@ -86,7 +86,7 @@ gains, but the JVM is a fickle beast when it comes to optimizations.
 We suggest using https://github.com/hugoduncan/criterium[criterium]
 when benchmarking to avoid common pitfalls.
 
-To see criterium benchmarks of hiphip, see
+To see criterium benchmarks of +hiphip+, see
 https://gist.github.com/w01fe/7132440[this gist].
 ====
 
@@ -110,7 +110,7 @@ using +asum+, primarily because +map+ produces sequences of
 an intermediate sequence, all arithmetic operations on boxed numbers
 are significantly slower than on their primitive counterparts.
 
-Hiphip's +amap+, +afill!+, +reduce+ and +asum+ macros (among others)
+++hiphip++'s +amap+, +afill!+, +reduce+ and +asum+ macros (among others)
 are availabe for +int+, +long+, +float+ and +double+ types. If you
 wanted to use +reduce+ over a array of floats, for example, you would
 use +hiphip.float/reduce+. These macros define the appropriate
@@ -154,7 +154,7 @@ If you're up to the challenge, you should keep these tips in mind:
 
 ==== See Also
 
-* Hiphip comes with a
+* +hiphip+ comes with a
   https://github.com/Prismatic/hiphip/blob/master/test/hiphip/type_impl_test.clj#L160[comprehensive
   suite of benchmarks] of its and Clojure's array operations for the
   main primitive types, including performance comparisons with

@@ -1,0 +1,184 @@
+[[sec_hiccup]]
+=== Templating with Hiccup
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You want to create HTML dynamically based on a template, written in
+pure Clojure data.
+
+==== Solution
+
+Use Hiccup, a library for representing and rendering HTML templates
+made up of regular Clojure data structures.
+
+To follow along with this recipe, start a REPL using +lein-try+:
+
+[source,console]
+----
+$ lein try hiccup
+----
+
+Hiccup represents HTML nodes as vectors. The first entry of the
+vector is the element's name; the second, an optional map of
+the element's attributes; and any remaining entries, the element's
+body.
+
+[source,clojure]
+----
+;; <h1 class="header">My Page Title</h1> in Hiccup...
+[:h1 {:class "header"} "My Page Title"]
+
+;; <ul>
+;;   <li>lions</li>
+;;   <li>tigers</li>
+;;   <li>bears</li>
+;; </ul> in Hiccup...
+[:ul
+  [:li "lions"]
+  [:li "tigers"]
+  [:li "bears"]] ;; oh my!
+----
+
+Render any Hiccup data structure to HTML using the +hiccup.core/html+
+function.
+
+[source,clojure]
+----
+(require '[hiccup.core :refer [html]])
+(html [:h1 {:class "header"} "My Page Title"])
+;; -> "<h1 class=\"header\">My Page Title</h1>"
+----
+
+Since nodes are represented as regular Clojure data, you can leverage
+any of Clojure's built-in functions or techniques to yield
+Hiccup-compliant vectors.
+
+[source,clojure]
+----
+(def pi 3.14)
+(html [:p (str "Pi is approximately: " pi)])
+;; -> "<p>Pi is approximately: 3.14</p>"
+
+(html [:ul
+        (for [animal ["lions" "tigers" "bears"]]
+          [:li animal])])
+;; -> "<ul><li>lions</li><li>tigers</li><li>bears</li></ul>"
+----
+
+Using all of the techniques above, it's possible to create a simple
+function to dynamically populate the contents of a minimal blog page
+using only Clojure functions and data.
+
+[source,clojure]
+----
+(defn blog-index
+  "Render a blog's index as Hiccup data"
+  [title author posts]
+  [:html
+    [:head
+      [:title title]]
+    [:body
+      [:h1 title]
+      [:h2 (str "By " author)]
+      (for [post posts]
+        [:article
+          [:h3 (:title post)]
+          [:p (:content post)]])]])
+
+(-> (blog-index "My First Blog"
+                "Ryan"
+                 [{:title "First post!" :content "I'm here!"}
+                  {:title "Second post." :content "Yawn, bored."}])
+
+    html)
+----
+
+.Formatted Output
+[source,html]
+----
+<html>
+  <head>
+    <title>My First Blog</title>
+  </head>
+  <body>
+    <h1>My First Blog</h1>
+    <h2>By Ryan</h2>
+    <article>
+      <h3>First post!</h3>
+      <p>I'm here!</p>
+    </article>
+    <article>
+      <h3>Second post.</h3>
+      <p>Yawn, bored.</p>
+    </article>
+  </body>
+</html>"
+----
+
+==== Discussion
+
+Hiccup is an easy, "no muss, no fuss," way of templating and rendering
+HTML from raw functions and data. This comes in particularly handy
+when, say: you don't have the time to learn a new DSL, or you prefer
+to work exclusively with Clojure.
+
+HTML nodes are represented in Hiccup as a vector of a few elements:
+
+* The node's name, represented as a keyword, e.g. +:h1+, +:article+,
+  or +:body+.
+* An optional map of the node's attributes, with attribute names
+  represented as keywords, e.g. +{:href "/posts/"}+ or +{:id "post-1"
+  :class "post"}+.
+* Any number of other nodes or string values, constituting the node's
+  body.
+
+Invoke +hiccup.core/html+ with a single node, snippet or entire page
+to render its contents as HTML. For content with special
+characters that should be escaped, wrap values in a +hiccup.core/h+
+invocation.
+
+[source,clojure]
+----
+(require '[hiccup.core :refer [h]])
+(html [:a {:href (h "/post/my<crazy>url")}])
+;; -> "<a href=\"/post/my&amp;lt;crazy&amp;gt;url\"></a>"
+----
+
+Hiccup also has basic support for rendering forms. Use
++form-to+ and a bevy of other helpers in the +hiccup.form+ namespace
+to simplify rendering form tags.
+
+[source,clojure]
+----
+(require '[hiccup.form :as f])
+
+(f/form-to [:post "/posts/new"]
+  (f/hidden-field :user-id 42)
+  (f/text-field :title)
+  (f/text-field :content))
+;; -> [:form {:method "POST", :action #<URI /posts/new>}
+;;      [:input {:type "hidden"
+;;               :name "user-id"
+;;               :id "user-id"
+;;               :value 42}]
+;;      [:input {:type "text"
+;;               :name "title"
+;;               :id "title"
+;;               :value nil}]
+;;      [:input {:type "text"
+;;               :name "content"
+;;               :id "content"
+;;               :value nil}]]
+----
+
+==== See Also
+
+* Hiccup's https://github.com/weavejester/hiccup/[GitHub Repository],
+ http://weavejester.github.io/hiccup/[API Documentation] and
+ https://github.com/weavejester/hiccup/wiki[Wiki].
+* If you have more complicated needs from your templating engine--like
+  consuming and populating existing HTML files--you'll need sharper
+  tools such as Enlive (<<sec_enlive>>) or Selmer
+  (<<sec_webapps_templating_with_selmer>>).

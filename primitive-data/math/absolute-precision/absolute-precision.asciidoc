@@ -40,7 +40,7 @@ Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotio
 
 Clojure has a number of numeric types; integer and long, double, and
 +BigInteger+ and +BigDecimal+. The bounded types (integer, long and
-double) all seamlessly transition as needed while inside the _total_
+double) all seamlessly transition as needed while inside the *total*
 bounds of those types. Exceeding those bounds causes one of two things
 to happen; for integers, an integer overflow error is raised, for
 floating point numbers, the result will become +Infinity+. With
@@ -53,14 +53,14 @@ of numeric operations won't help - you'll need to infect your
 operations with the +BigDecimal+ type. In Clojure, the +BigInteger+
 and +BigDecimal+ types are what you would call "contagious." Once a
 "big" number is introduced to an operation, it infects all of the
-follow-on results. You _could_ do something like multiplying a number
+follow-on results. You *could* do something like multiplying a number
 by a +BigDecimal+ 1, but its much easier to use the +bigdec+ or
 +bigint+ functions to promote a value manually.
 
 [source,clojure]
 ----
 (* 2 Double/MAX_VALUE)
-;; -> Infinity
+;; -> Double/POSITIVE_INFINITY
 
 (* 2 (bigdec Double/MAX_VALUE))
 ;; -> 3.5953862697246314E+308M
@@ -73,4 +73,4 @@ values will always return a floating point value.
 
 ==== See Also
 
-* See <<sec_primitives_rational_numbers> for information on maintaining accuracy with rational numbers.
+* See <<sec_primitives_rational_numbers>> for information on maintaining accuracy with rational numbers.

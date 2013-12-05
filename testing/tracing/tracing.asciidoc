@@ -1,4 +1,4 @@
-=== Tracing code
+=== Tracing Code Execution
 [role="byline"]
 by Stefan Karlsson
 
@@ -9,14 +9,14 @@ is doing.
 
 ==== Solution
 
-Use the https://github.com/clojure/tools.trace[tools.trace]
+Use the https://github.com/clojure/tools.trace[+tools.trace+]
 libraries bevy of "trace" functions and macros to help examine your
 code as it runs.
 
 Before starting, add `[org.clojure/tools.trace "0.7.6"]` to your
 project's dependencies under the +:development+ profile (in the vector
 at the `[:profiles :dev :dependencies]` path instead of the
-`[:dependencies]` path). Alternatively, start a REPL using lein-try:
+`[:dependencies]` path). Alternatively, start a REPL using +lein-try+:
 
 [source,shell]
 ----

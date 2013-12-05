@@ -1,4 +1,4 @@
-=== Inputting and Outputting Integers With Different Bases
+=== Inputting and Outputting Integers with Different Bases
 [role="byline"]
 by Ryan Neufeld
 
@@ -10,7 +10,7 @@ You need to enter numbers into a Clojure REPL or code in a different base (such 
 
 Specify the base or "radix" of a literal number by prefixing it with
 the radix number (e.g. 2, 16, etc.) and the letter +r+. Any base from
-2 to 36 is valid (there _are_ of course 10 digits and 26 letters available...)
+2 to 36 is valid (there *are* of course 10 digits and 26 letters available...)
 
 [source,clojure]
 ----

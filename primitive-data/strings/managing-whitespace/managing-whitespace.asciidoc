@@ -1,4 +1,4 @@
-=== Cleaning up whitespace in a string
+=== Cleaning up Whitespace in a String
 [role="byline"]
 by Ryan Neufeld
 
@@ -17,17 +17,17 @@ at the beginning and end of a string.
 ;; -> "Bacon ipsum dolor sit."
 ----
 
-To manage whitespace _inside_ a string you need to get more creative. Use
+To manage whitespace *inside* a string you need to get more creative. Use
 +clojure.string/replace+ to fix-up whitespace inside a string.
 
 [source,clojure]
 ----
 ;; Collapse whitespace into a single space
-(string/replace "Who\t\nput  all this\fwhitespace here?" #"\s+" " ")
+(clojure.string/replace "Who\t\nput  all this\fwhitespace here?" #"\s+" " ")
 ;; -> "Who put all this whitespace here?"
 
 ;; Replace Windows-style line-endings with Unix-style newlines"
-(string/replace "Line 1\r\nLine 2" "\r\n" "\n")
+(clojure.string/replace "Line 1\r\nLine 2" "\r\n" "\n")
 ;; -> "Line 1\nLine 2"
 ----
 
@@ -60,10 +60,10 @@ or right hand side of a string use +clojure.string/triml+ or
 
 [source,clojure]
 ----
-(string/triml " Column Header\t")
+(clojure.string/triml " Column Header\t")
 ;; -> "Column Header\t"
 
-(string/trimr "\t\t* Second-level bullet.\n")
+(clojure.string/trimr "\t\t* Second-level bullet.\n")
 ;; -> "\t\t* Second-level bullet."
 ----
 

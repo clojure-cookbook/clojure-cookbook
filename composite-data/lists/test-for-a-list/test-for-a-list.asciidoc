@@ -1,4 +1,4 @@
-=== Test for a list
+=== Test For a List
 [role="byline"]
 by Steve Miner
 

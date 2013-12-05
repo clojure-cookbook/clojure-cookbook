@@ -1,3 +1,4 @@
+[[ch_primitive_data]]
 == Primitive Data
 
 include::introduction.asciidoc[]
@@ -45,8 +46,6 @@ include::math/parsing-numbers/parsing-numbers.asciidoc[]
 include::math/rounding/rounding.asciidoc[]
 
 include::math/fuzzy-comparison/fuzzy-comparison.asciidoc[]
-
-include::math/type-hinting/type-hinting.asciidoc[]
 
 include::math/trigonometry/trigonometry.asciidoc[]
 

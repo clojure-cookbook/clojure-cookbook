@@ -1,4 +1,4 @@
-=== Converting Strings to numbers
+=== Converting Strings to Numbers
 [role="byline"]
 by Stefan Karlsson
 
@@ -38,6 +38,6 @@ For cases when you may want to have more control and flexibility of the conversi
 ----
 
 ==== Discussion
-Note that +read-string+, while simple and straight forward, can execute code (controlled by *read-eval*), and should therefor be used only with trusted sources.
+Note that +read-string+, while simple and straight forward, can execute code (controlled by *read-eval*), and should therefore be used only with trusted sources.
 
 A function like +to-number+ can be very useful when reading CSV files that contains numbers.

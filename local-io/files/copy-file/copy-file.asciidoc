@@ -1,4 +1,4 @@
-=== Copy a file
+=== Copying Files
 [role="byline"]
 by Stefan Karlsson
 

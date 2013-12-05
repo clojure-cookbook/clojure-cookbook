@@ -1,3 +1,4 @@
+[[sec_enlive]]
 === Templating HTML with Enlive
 [role="byline"]
 by Luke VanderHart
@@ -16,7 +17,7 @@ Hiccup, it doesn't use specialized DSLs. Instead, templates are plain
 old HTML files, and Enlive uses Clojure code to target specific areas
 for replacement or duplication based on incoming data.
 
-To follow along with this recipe, start a REPL using lein-try:
+To follow along with this recipe, start a REPL using +lein-try+:
 
 [source,console]
 ----
@@ -155,7 +156,7 @@ of elements in the input HTML, from the +<h1>+ element to the +<div
 class="post-body">+.
 
 Then, the +deftemplate+ for +all-posts-page+ uses the result of
-_mapping_ +post-snippet+ over the content of the +body+ element. Since
+mapping +post-snippet+ over the content of the +body+ element. Since
 there are three posts in the sample input data, the snippet is
 evaluated three times, and there are three posts output in the
 resulting HTML.
@@ -392,3 +393,5 @@ persistent, immutable data structures.
 - The Enlive https://github.com/cgrand/enlive/wiki[documentation]
 - David Nolen's https://github.com/swannodette/enlive-tutorial[tutorial]
 - The Enlive https://groups.google.com/forum/#!forum/enlive-clj[mailing list].
+- Alternative templating libraries Hiccup (<<sec_hiccup>>) and Selmer
+  (<<sec_webapps_templating_with_selmer>>).

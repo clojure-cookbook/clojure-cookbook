@@ -54,6 +54,6 @@ of the output file will match that of the input, the execution order
 is not guaranteed. Secondly, the process will become IO bound quite
 quickly as all the writes happen on one thread, so you may not get the
 speedup you expect unless the processing function is substantial.
-Finally, pmap is not perfectly efficient at allocating work, so the
+Finally, +pmap+ is not perfectly efficient at allocating work, so the
 degree of speedup you see might not correspond exactly to the number
 of processors on your system, as you might expect.

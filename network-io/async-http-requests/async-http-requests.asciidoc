@@ -1,5 +1,5 @@
 [[sec_async_http]]
-=== Perform an asynchronous HTTP request
+=== Performing Asynchronous HTTP Requests
 [role="byline"]
 by Alan Busby and Ryan Neufeld
 
@@ -9,18 +9,18 @@ You want to perform asynchronous HTTP requests.
 
 ==== Solution
 
-Use http://http-kit.org/[HTTP-Kit], a highly-performant event-driven
+Use http://http-kit.org/[HTTP Kit], a highly-performant event-driven
 HTTP client/server library.
 
 Before starting, add `[http-kit "2.1.12"]` to your project's
-dependencies, or follow along in a REPL using lein-try:
+dependencies, or follow along in a REPL using +lein-try+:
 
 [source,shell]
 ----
 $ lein try http-kit
 ----
 
-Use any of +org.httpkit.client+'s HTTP verb functions to perform
+Use any of ++org.httpkit.client++'s HTTP verb functions to perform
 asynchronous HTTP requests. In their base form, these functions return
 a promise which you can await with +deref+ or the +@+
 reader-shorthand.
@@ -52,7 +52,7 @@ connection and awaiting the server's response, asynchronous requests
 enable your application to continue working while awaiting the
 delivery of data.
 
-In this vein HTTP-Kit provides both a highly concurrent web server, as
+In this vein HTTP Kit provides both a highly concurrent web server, as
 well a powerful HTTP client. It offers both callbacks and promises for
 asynchronous requests, as well as persistent connections and alternate
 SSL Engines for dealing with unsigned SSL certificates.
@@ -90,6 +90,6 @@ request completion.
 
 ==== See Also
 
-* HTTP-Kit is heavily inspired by the API of
-  https://github.com/dakrone/clj-http[clj-http], see
+* HTTP Kit is heavily inspired by the API of
+  https://github.com/dakrone/clj-http[+clj-http+], see
   <<sec_http_request>> for more information on the library.

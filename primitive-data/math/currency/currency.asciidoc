@@ -55,7 +55,7 @@ imprecision by design.
 
 You should always use a library custom-tailored for dealing with
 money. The Money library wraps the trusted and battle-tested Java
-library Joda Money. Money provide a large amount of functionality
+library Joda Money. Money provides a large amount of functionality
 beyond arithmetic including rounding and currency conversion.
 
 [source,clojure]

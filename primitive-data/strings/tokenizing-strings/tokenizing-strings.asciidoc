@@ -1,4 +1,4 @@
-=== Splitting a string into parts
+=== Splitting a String into Parts
 [role="byline"]
 by Ryan Neufeld
 

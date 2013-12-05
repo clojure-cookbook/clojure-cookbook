@@ -36,7 +36,7 @@ Before starting, add `[org.clojure/java.jdbc "0.3.0-beta2"]` to your
 project's dependencies. You'll also need a JDBC-driver for the RDBMS
 of your choice. If you're following along with this sample, use
 `[org.postgresql/postgresql "9.2-1002-jdbc4"]`. To start a REPL using
-lein-try, enter the following Leiningen command:
++lein-try+, enter the following Leiningen command:
 
 [source,shell]
 ----

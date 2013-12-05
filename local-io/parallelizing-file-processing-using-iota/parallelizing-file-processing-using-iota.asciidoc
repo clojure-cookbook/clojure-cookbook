@@ -1,4 +1,4 @@
-=== Using Reducers with Files
+=== Parallelizing File Processing with Reducers
 [role="byline"]
 by Edmund Jackson
 
@@ -9,7 +9,7 @@ processing without loading the file into memory.
 
 ==== Solution
 
-Use the +Iota+ library ( https://github.com/thebusby/iota) in
+Use the https://github.com/thebusby/iota[Iota] library in
 conjunction with the +filter+, +map+ and +fold+ functions from the
 Clojure Reducers library in the +clojure.core.reducers+ namespace.
 

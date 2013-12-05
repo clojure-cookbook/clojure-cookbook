@@ -1,3 +1,4 @@
+[[ch_general_computing]]
 == General Computing
 
 include::introduction.asciidoc[]

@@ -1,5 +1,5 @@
 [[sec_parse_command_line_arguments]]
-=== Parse command line arguments
+=== Parsing Command Line Arguments
 [role="byline"]
 Originally submitted by Nicolas Bessi
 
@@ -10,11 +10,11 @@ arguments.
 
 ==== Solution
 
-Use the https://github.com/clojure/tools.cli[+org.clojure/tools.cli+]
+Use the https://github.com/clojure/tools.cli[+tools.cli+]
 library.
 
 Before starting, add `[org.clojure/tools.cli "0.2.4"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----
@@ -23,7 +23,7 @@ $ lein try org.clojure/tools.cli
 
 Use the +clojure.tools.cli/cli+ function in your project's +-main+
 function entry-point to parse command-line arguments footnote:[Since
-tools.cli is so cool this example can run entirely at the REPL.].
++tools.cli+ is so cool this example can run entirely at the REPL.].
 
 [source,clojure]
 ----
@@ -47,7 +47,7 @@ tools.cli is so cool this example can run entirely at the REPL.].
 
 ==== Discussion
 
-Clojure's tools.cli is a simple library, with only one function,
+Clojure's +tools.cli+ is a simple library, with only one function,
 +cli+, and a slim data-oriented API for specifying how arguments
 should be parsed. Handily enough, there isn't much special about this
 function; an arguments vector and specifications go in, a map of parsed
@@ -86,7 +86,7 @@ optional string following the final argument name.
 ----
 
 Everything after the argument name and description will be interpreted
-as options in key-value pairs. tools.cli provides the following
+as options in key-value pairs. +tools.cli+ provides the following
 options:
 
 * +:default+: The default value returned in the absence of user-input.
@@ -127,7 +127,7 @@ to specify it as such.
 ["-v" "--[no-]verbose" :default true]
 ----
 
-One thing the tools.cli library *doesn't* provide is a hook into the
+One thing the +tools.cli+ library *doesn't* provide is a hook into the
 application container's launch lifecycle. It is your responsiblity to
 add a +cli+ call to your +-main+ function and know when to print the
 help banner. A general pattern for use is to capture the results of
@@ -157,7 +157,7 @@ As with many applications, you may want to accept a variable number of
 arguments to your applications; for example, a list of file names.
 In most cases, you don't need to do anything special to capture these
 arguments--just supply them after any other options. These variadic
-arguments will be returned as the second item in +cli+'s returned vector.
+arguments will be returned as the second item in ++cli++'s returned vector.
 
 [source,clojure]
 ----
@@ -197,5 +197,5 @@ $ lein run -- -n 5 --no-verbose
 * Packaging applications (TODO: xref)
 * Handling STDIN/STDOUT streams (TODO: xref)
 * For building ncurses-style applications, see
-  http://sjl.bitbucket.org/clojure-lanterna/[clojure-lanterna], a wrapper
+  http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+], a wrapper
   around the Lanterna terminal output library.

@@ -45,7 +45,7 @@ Use +ns-publics+ to obtain a mapping of symbols to public vars in a namespace.
 ==== Discussion
 
 Namespaces in Clojure are dynamic mappings of symbols to vars. A
-namespace is not available until it is +require+'ed by something else,
+namespace is not available until it is required by something else,
 e.g. when starting a REPL or as a dependency in a +ns+
 declaration. Nothing is known about available Clojure libs and
 namespaces until runtime, which is in contrast to typical Java

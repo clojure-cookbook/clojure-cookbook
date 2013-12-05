@@ -116,5 +116,5 @@ every time.
 ==== See Also
 
 * The
-  https://github.com/nathanmarz/cascalog-contrib/tree/master/cascalog.checkpoint[cascalog.checkpoint
+  https://github.com/nathanmarz/cascalog-contrib/tree/master/cascalog.checkpoint[+cascalog.checkpoint+
   project page] on GitHub.

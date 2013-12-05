@@ -1,4 +1,4 @@
-=== Ring Middleware
+=== Using Ring Middleware
 [role="byline"]
 by Adam Bard
 

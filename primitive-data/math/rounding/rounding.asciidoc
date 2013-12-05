@@ -23,7 +23,7 @@ discards any decimal places without performing any rounding.
 
 If you still value some level of precision then rounding is probably
 what you're after. You can use +Math/round+ to perform simple
-rounding. 
+rounding.
 
 [source,clojure]
 ----
@@ -56,7 +56,7 @@ You'll notice these functions return decimal numbers. Wrap calls to
 
 ==== Discussion
 
-One of the most simple ways "round" numbers is truncation. +int+ will
+One of the most simple ways to "round" numbers is truncation. +int+ will
 do this for you, coercing floating-point numbers to integers by simply
 chopping off any trailing decimal places. This isn't necessarily
 mathematically correct, but it is certainly convenient if it is

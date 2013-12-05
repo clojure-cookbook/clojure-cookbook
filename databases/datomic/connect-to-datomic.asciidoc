@@ -1,5 +1,5 @@
 [[sec_datomic_connect_to_datomic]]
-=== Connect to a Datomic database
+=== Connecting to a Datomic Database
 [role="byline"]
 by Robert Stuttaford
 
@@ -11,7 +11,7 @@ You need to connect to a Datomic database.
 ==== Solution
 
 Before starting, add `[com.datomic/datomic-free "0.8.4218"]` to your project's
-dependencies or start a REPL using lein-try:
+dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----

@@ -1,5 +1,5 @@
 [[sec_red_black_part_i]]
-=== Implementing custom data structures: Red-Black Trees - Part I
+=== Implementing Custom Data Structures: Red-Black Trees - Part I
 [role="byline"]
 by Leonardo Borges
 
@@ -30,11 +30,11 @@ would be an appropriate data structure for the data set in question.
 
 The next step is to implement the data structure itself. The
 implementation of RBTs relies on pattern matching. Use
-https://github.com/clojure/core.match[_core.match_] to simplify the
+https://github.com/clojure/core.match[+core.match+] to simplify the
 implementation of a RBT.
 
 Add `[org.clojure/core.match "0.2.0"]` to your project's
-dependencies, or start a REPL with lein-try:
+dependencies, or start a REPL with +lein-try+:
 
 [source,console]
 ----
@@ -42,7 +42,7 @@ lein try core.match
 ----
 
 First, implement the core of a RBT, the +balance+ and +insert-val+
-functions. By using core.match it is possible to succinctly express
+functions. By using +core.match+ it is possible to succinctly express
 the required behaviors based on the shape of the tree.
 
 [source,clojure]
@@ -128,13 +128,13 @@ The reason for this is threefold:
 
 * Our Red-Black Tree is persistent: operations on it, such as insert
   and balance, are not destructive.
-* +balance+ and +find-val+ use core.match to codify logic as patterns
+* +balance+ and +find-val+ use +core.match+ to codify logic as patterns
   to match.
 * Nodes are represented as vectors.
 
 The two latter points are related, as you'll see below.
 
-Conveniently enough, core.match allows us to match on the shape and
+Conveniently enough, +core.match+ allows us to match on the shape and
 values of a data structure as well as perform structural binding at
 the same time. For example, the following tries to match +a-vector+
 against two clauses:

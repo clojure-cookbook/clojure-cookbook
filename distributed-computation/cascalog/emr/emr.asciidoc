@@ -1,5 +1,5 @@
 [[sec_cascalog_emr]]
-=== Running a Cascalog Job On Elastic MapReduce
+=== Running a Cascalog Job on Elastic MapReduce
 [role="byline"]
 by Alex Robbins
 

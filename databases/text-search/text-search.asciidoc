@@ -1,4 +1,4 @@
-=== Full text search with Lucene
+=== Performing Full-text Search with Lucene
 [role="byline"]
 by Osbert Feng
 
