@@ -54,7 +54,7 @@ file should now look like this:
   :aot [cookbook.etl])
 ----
 
-Create the file _src/cookbook/etl.clj_ and add a *query* to it.
+Create the file _src/cookbook/etl.clj_ and add a query to it.
 
 ._src/cookbook/etl.clj_
 [source,clojure]

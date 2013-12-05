@@ -10,7 +10,7 @@ format doesn't support records.
 
 ==== Solution
 
-You can use the _tagged_ library to read and print records as
+You can use the +tagged+ library to read and print records as
 +edn+ tagged literal values.
 
 Before starting, add `[com.velisco/tagged "0.3.0"]` to your project's
@@ -77,10 +77,10 @@ datatypes and makes high-fidelity data transfer a breeze,
 unfortunately it doesn't support records. This is easy enough to
 rectify, however; +edn+ is an extensible format by name, we just need to
 provide tag-style printing (+#tag <value>+) and an appropriate reader.
-The _tagged_ library makes both of these tasks quite easy.
+The +tagged+ library makes both of these tasks quite easy.
 
 As seen in the samples above, Clojure's default printed value for
-records is close, but not quite the _tagged-format_ +edn+ expects.
+records is close, but not quite the *tagged-format* +edn+ expects.
 Where Clojure prints +"#user.SimpleRecord{:a 42}"+ for a
 +SimpleRecord+, what is really needed for +edn+ is a tag-style string
 like +""#user/SimpleRecord {:a 42}"+. The
@@ -90,7 +90,7 @@ records in this format (to a +java.io.Writer+). By extending Clojure's
 always prints a record in a tagged-format.
 
 For reading this values back in, you need to tell the +edn+ reader how
-to parse your new record tags. By design, the _tagged_ library
+to parse your new record tags. By design, the +tagged+ library
 provides a +miner.tagged/tagged-default-reader+ function that can be
 used to extend +edn+ to read your record tags. When the +edn+ reader
 can't parse a tag it attempts to use a function specified by its

@@ -66,7 +66,7 @@ rapidly.)
 
 More importantly, using a global configuration means that any function
 that reads the config (most functions, in a sizeable application)
-_cannot be pure_. In Clojure, that is a lot to give up. One of the
+*cannot be pure*. In Clojure, that is a lot to give up. One of the
 main benefits of pure Clojure code is its local transparency; the
 behavior of a function can be determined solely by looking at its
 arguments and its code. If every function reads a global variable,

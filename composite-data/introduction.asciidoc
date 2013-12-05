@@ -7,7 +7,7 @@ together. As you'll see soon enough, data manipulation is one of
 Clojure's strong suits.
 
 What makes Clojure so good at manipulating collections? It comes down
-to three things: _immutability, _persistence_ and the _sequence_
+to three things: _immutability_, _persistence_ and the _sequence_
 abstraction. Every one of Clojure's built-in collection types have these
 properties and are thus unified in their API's appearance and
 behavior.
@@ -30,7 +30,7 @@ polymorphism.
 
 Immutability means that a Clojure data structure, once created, can
 never change. You can only "modify" an immutable data structure by
-creating a _new_ data structure which is a copy of the old, with the
+creating a *new* data structure which is a copy of the old, with the
 desired changes in place.
 
 Immutability means that Clojure data structures, however deeply
@@ -84,7 +84,7 @@ and +cons+ any data structure--even ones you build yourself--can
 participate in the +ISeq+ interface.
 
 Then, you can use Clojure's huge library of functions that can operate
-on sequences, with _any_ of the data structures. All of functional
+on sequences, with *any* of the data structures. All of functional
 programming's best-beloved functions (+map+, +reduce+, +filter+, etc)
 will work interchangably on any data structure. In essence, the
 sequence abstraction allows all the expressiveness of traditional

@@ -13,7 +13,7 @@ tedious and error prone.
 ==== Solution
 
 The +core.logic+ library is a Clojure implementation of the
-_miniKanren_ Domain Specific Langauge for logic programming. It's
+miniKanren Domain Specific Langauge for logic programming. It's
 declarative style is well suited for querying flattened hierarchical
 data.
 
@@ -115,13 +115,13 @@ at a given studio," create a number of dots (_logic variables_) using
 
 ==== Discussion
 
-_miniKanren_ is a Domain Specific Language written in Scheme, intended
+miniKanren is a Domain Specific Language written in Scheme, intended
 to give many of the benefits of a logic programming language (such as
-Prolog) from within Scheme. An implementation of _miniKanren_ was
+Prolog) from within Scheme. An implementation of miniKanren was
 created by David Nolen for Clojure, with a focus on performance. One
 of the benefits of logic programming languages is their very
-declarative style. By using +core.logic+ we are able to say _what_ we
-are looking for in the graph without saying _how_ +core.logic+ should go
+declarative style. By using +core.logic+ we are able to say *what* we
+are looking for in the graph without saying *how* +core.logic+ should go
 about finding it.
 
 In general, all +core.logic+ queries begin with one of the libraries
@@ -330,7 +330,7 @@ to generate a graph from the values:
 ====
 For small graphs, membero is fast enough. Larger graphs will
 experience performance problems as +core.logic+ will traverse the list
-many times to find the elements. Using _clojure.core.logic/to-stream_
+many times to find the elements. Using *clojure.core.logic/to-stream*
 with some basic indexing can greatly improve the query performance.
 ====
 
@@ -339,5 +339,5 @@ with some basic indexing can greatly improve the query performance.
 * The Reasoned Schemer - By Daniel P. Friedman, William E. Byrd and Oleg Kiselyov
 * https://github.com/clojure/core.logic/wiki[The +core.logic+ wiki]
 * http://minikanren.org/[The miniKanren] website
-* See https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using _clojure.core.logic/to-stream_
+* See https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using *clojure.core.logic/to-stream*
 * https://github.com/clojure/core.match[+core.match+], a (non-unification) matching library with some similar ideas, described briefly in <<sec_core_match_parser>>

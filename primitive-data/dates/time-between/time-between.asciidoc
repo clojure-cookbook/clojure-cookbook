@@ -73,7 +73,7 @@ every scale useful for non-specialized applications.
 One area +clj-time+ lacks support is leap seconds. Joda Time's
 http://joda-time.sourceforge.net/faq.html[offical FAQ] explains why
 the feature is missing in greater detail. We're not aware of any
-Clojure that _can_ reason about time at this granularity. If this
+Clojure that *can* reason about time at this granularity. If this
 concerns you, then you're likely one of few people even capable of
 doing it right. Good luck to you.
 

@@ -145,7 +145,7 @@ to values. Consider the following function definition and map:
 ----
 
 Using an invocation of the form +(square 3)+, the caller can actually
-be _agnostic_ as to whether +square+ is a "real" function or a map. Of
+be *agnostic* as to whether +square+ is a "real" function or a map. Of
 course, the normally-defined function has a number of advantages in
 this case; for one, it has an unlimited domain instead of just the
 keys enumerated. And the multiplication function is fairly fast, so
@@ -177,7 +177,7 @@ The exact behavior of the +contains?+ function is a frequent topic for
 confusion, especially since several other languages have a function
 with a similar name that does something different.
 
-In Clojure, +contains?+ is _not_ a search function; it does not
+In Clojure, +contains?+ is *not* a search function; it does not
 inspect a collection to see if the item is present. Rather, it is a
 _lookup_ function, and only works on associative or indexed
 collections. In other languages, it is frequently named +containsKey+

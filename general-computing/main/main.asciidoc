@@ -129,7 +129,7 @@ Hello, Alice!
 Hello, Bob!
 ----
 
-You'll also note the addition of _:src_ to the +-cp+ option. This
+You'll also note the addition of +:src+ to the +-cp+ option. This
 indicates to Java that the classpath for execution not only includes
 _clojure.jar_, but also the contents of the _src/_ directory on disk.
 

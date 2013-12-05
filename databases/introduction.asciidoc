@@ -12,7 +12,7 @@ connect you to the datastore, then promptly get out of your way.
 Libraries such as this don't do so out of laziness (at least, we
 hope), but rather out of separation of concern; I'll handle connecting
 to the database, you handle the domain (your data). In fact, the best
-apis are _built_ out of data, providing only one or two functions and
+APIs are *built* out of data, providing only one or two functions and
 letting you manipulate queries and data to be inserted directly as
 Clojure data structures.
 

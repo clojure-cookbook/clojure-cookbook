@@ -115,7 +115,7 @@ able to infer that each branch has the correct types by following the
 ==== Discussion
 
 While `java.io.File` is a relatively small API, careful inspection of
-Java types _and_ documentation is needed to confidently use foreign
+Java types *and* documentation is needed to confidently use foreign
 Java code correctly.
 
 Though the +File+ constructor is fairly innocous, consider writing
@@ -209,9 +209,9 @@ expects, however, all ambiguity is eliminated from the constructors,
 and the type hints inserted have enabled the Clojure compiler to
 generate efficient bytecode.
 
-It is valid to wonder why both type hints _and_ +core.typed+ annotations
+It is valid to wonder why both type hints *and* +core.typed+ annotations
 are needed to type check ambiguous Java calls. A type hint is a
-directive to the _compiler_, while type annotations are merely for
+directive to the compiler, while type annotations are merely for
 +core.typed+ to consume during type checking. +core.typed+ does not have
 influence over resolving reflection calls at compile time, so it
 chooses to assume all reflective calls to be ambiguous instead of

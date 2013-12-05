@@ -86,7 +86,7 @@ data-literal form for temporary IDs. The literal `#db/id
 form is most useful when you store transaction data in an _*.edn_
 file, which is most often the case with schema definitions. Again, you
 should use +d/tempid+ in your code, as the +#db/id+ literal will
-evaluate once at _compile time_, which means that any code that
+evaluate once at compile time, which means that any code that
 expects the ID value to change from one execution to the next will
 fail, because it'll only ever have one value.
 

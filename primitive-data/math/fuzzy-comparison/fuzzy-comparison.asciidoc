@@ -37,7 +37,7 @@ tolerance to 1000.
 
 Even with +fuzzy=+, you still need to take care when comparing
 floating point values, especially for values differing by numbers
-_very close_ to your tolerance. At differences bordering the supplied
+*very close* to your tolerance. At differences bordering the supplied
 tolerance you may find the results to be unexpected.
 
 [source,clojure]
