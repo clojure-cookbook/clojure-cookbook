@@ -81,16 +81,16 @@ When using +:db/retract+, you provide the value to retract so that in
 the case of cardinality-many attributes, it's clear which value to
 retract from the set of values for that attribute. Regardless of the
 cardinality, if you provide a value that isn't in storage, nothing
-will be retracted. This means that you have to know what _value_ you
+will be retracted. This means that you have to know what value you
 want to retract; you can't simply retract everything for an attribute
 by only providing the entity id and the attribute.
 
-If you retract values for an attribute that does _not_ use
+If you retract values for an attribute that does *not* use
 +:db/noHistory+, you will be able to query past database values to
 find past values for the attribute.
 
 If you retract values for an attribute that uses +:db/noHistory+, that
-data will be _permanently deleted_.
+data will be *permanently deleted*.
 
 When using +:db.fn/retractEntity+, all attribute values for all the
 attributes on that entity will be retracted, as will all +:db/ref+

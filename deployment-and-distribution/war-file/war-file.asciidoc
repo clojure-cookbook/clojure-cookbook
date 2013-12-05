@@ -39,7 +39,7 @@ pairs to your Leiningen +project.clj+ file:
 ----
 
 You'll also need to make sure that your application declares a
-dependency on the _javax servlet API_ library. Most webapp libraries
+dependency on the javax servlet API library. Most webapp libraries
 do include a transitive dependency, which you can verify by running
 +lein deps :tree+. If no other library you're using includes it, you
 can include it yourself by adding +[javax.servlet/servlet-api "2.5"]+
@@ -106,8 +106,8 @@ ring uberwar+, and when to use each.
 
 A bare WAR file does not contain any of your project's dependencies;
 only the application code itself. This means that your program will
-_not work_ unless you make sure that each and every JAR file your
-program depends on, _including Clojure itself_ is present on your web
+*not work* unless you make sure that each and every JAR file your
+program depends on, *including Clojure itself* is present on your web
 application's shared library path. Exactly how to do this depends on
 the application server you're using -- you'll have to refer to your
 system's documentation to determine how to make them available.

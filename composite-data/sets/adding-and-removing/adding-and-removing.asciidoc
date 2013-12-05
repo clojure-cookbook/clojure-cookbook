@@ -53,7 +53,7 @@ should also consider using the dedicated set manipulation functions
 from the +clojure.set+ namespace, particularly +clojure.set/union+,
 which can be used to add the items of multiple set together, and
 +clojure.set/difference+, which can be used to obtain a set of items
-_not_ contained in another set. These are typically a far more natural
+*not* contained in another set. These are typically a far more natural
 expression of set operations than many calls to +conj+ or +disj+, or
 invoking them with large numbers of arguments.
 

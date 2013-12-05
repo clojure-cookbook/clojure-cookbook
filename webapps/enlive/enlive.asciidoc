@@ -156,7 +156,7 @@ of elements in the input HTML, from the +<h1>+ element to the +<div
 class="post-body">+.
 
 Then, the +deftemplate+ for +all-posts-page+ uses the result of
-_mapping_ +post-snippet+ over the content of the +body+ element. Since
+mapping +post-snippet+ over the content of the +body+ element. Since
 there are three posts in the sample input data, the snippet is
 evaluated three times, and there are three posts output in the
 resulting HTML.

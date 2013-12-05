@@ -26,7 +26,7 @@ Loop). Type an expression and hit <Enter> to evaluate it. Press
 
 The fact that Clojure on the JVM is encapsulated in a simple JAR file
 has some great benefits. For one, it means that Clojure is never
-really _installed_. It's just a dependency like any other Java
+really installed. It's just a dependency like any other Java
 library. You can easily swap out one version of Clojure for another by
 replacing a single file.
 
@@ -49,7 +49,7 @@ clojure.main
 
 Here we are specifying the class which Java should load and execute
 the +main+ method. Yes, +clojure.main+ is really a Java class. The
-reason this doesn't _look_ like a typical Java invocation is because
+reason this doesn't *look* like a typical Java invocation is because
 Clojure namespaces, which are compiled to classes, do not
 conventionally use capitalized names like Java classes do.
 
