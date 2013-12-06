@@ -16,10 +16,10 @@ and any number of items to add.
 [source,clojure]
 ----
 (conj #{:a :b :c} :d)
-;; -> #{:a :b :c :d}
+;; -> #{:a :c :b :d}
 
 (conj #{:a :b :c} :d :e)
-;; -> #{:a :b :c :d :e}
+;; -> #{:a :c :b :d :e}
 ----
 
 To remove one or more items, use the +disj+ function, which is
@@ -62,4 +62,3 @@ invoking them with large numbers of arguments.
 * <<sec_adding_to_a_list>>
 * <<sec_adding_to_a_vector>>
 * <<sec_set_operations>>
-
