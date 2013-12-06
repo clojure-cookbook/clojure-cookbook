@@ -5,8 +5,8 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to perform operations on sets, such as taking union,
-intersection or difference of two sets. 
+You want to perform common operations on sets, such as taking the union,
+intersection or difference of two sets.
 
 Or, you want to test if one set is a subset or superset of another.
 
@@ -76,7 +76,18 @@ wherever they are applicable. Sets represent a sizable portion of the
 data most developers work with day to day, whether they are recognized
 and explicitly modeled as sets or not.
 
+There are a large number of bugs that can be caused by assumptions
+regarding the behaviors of collections. In programming, the type of
+data structure used for a given purpose is actually a _communication_,
+from the initial writer of the code to future programmers, that tells
+them a number of things about the nature of the collection. Sets are
+_unordered, unique_ collections - they emphasize that the important
+fact is whether an item is a member of the set, not the order or
+number of occurrences.
+
 If your data does represent a logical set, then model them using set
 data structures, and try to think about manipulating them in terms of
 set operations. In many cases, you will find that this makes your
-program substantially easier to reason about.
+program substantially easier to reason about, and makes it more
+self-documenting regarding the source and intended use of the data it
+contains.
