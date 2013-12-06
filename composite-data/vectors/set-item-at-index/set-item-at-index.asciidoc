@@ -46,5 +46,4 @@ current size of the vector, this will have the result of appending the item to t
 ==== See also
 
 * <<sec_adding_to_a_vector>>
-* <<sec_setting_keys_map>>
-
+* <<sec_composite_data_maps_setting_keys>>
