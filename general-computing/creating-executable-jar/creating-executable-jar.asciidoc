@@ -1,10 +1,10 @@
-=== Create an Executable JAR File
+=== Packaging a Project into a JAR File
 [role="byline"]
 by Alan Busby
 
 ==== Problem
 
-You want to create an executable JAR.
+You want to package a project into an executable JAR.
 
 ==== Solution
 
@@ -102,6 +102,89 @@ The +:gen-class+ in your namespace and the +:aot+ Leiningen option
 are required to precompile your Clojure source file into a JVM class
 file, since the "Main-Class" manifest entry doesn't know how to
 reference or compile Clojure source files.
+
+.Packaging JARs without their dependencies
+****
+Not only does Leiningen make it possible to package a project *with*
+its dependencies, it makes it possible to package them *without* its
+dependencies.
+
+The +jar+ command packages a project's code without any of its
+upstream dependencies. Not even Clojure itself is included in the JAR
+file--you'll need to BYOC footnote:[Bring your own Clojure!].
+
+By invoking the command *+lein jar+* in the foo project, you'll
+generate _target/foo-0.1.0-SNAPSHOT.jar_.
+
+[source,console]
+----
+$ lein jar
+Created /tmp/foo/target/jar/target/foo-0.1.0-SNAPSHOT.jar
+----
+
+Listing the contents of the JAR file using the *+unzip+* command
+footnote:[Available on most Unix-based systems.] you can see that very
+little is packaged; just a Maven _pom_ file, generated JVM class files
+and the project's miscellany
+
+ [source,console]
+----
+$ unzip -l target/foo-0.1.0-SNAPSHOT.jar
+Archive:  target/foo-0.1.0-SNAPSHOT.jar
+  Length     Date   Time    Name
+ --------    ----   ----    ----
+      113  12-06-13 10:26   META-INF/MANIFEST.MF
+     2595  12-06-13 10:26   META-INF/maven/foo/foo/pom.xml
+       91  12-06-13 10:26   META-INF/maven/foo/foo/pom.properties
+      292  12-06-13 10:26   META-INF/leiningen/foo/foo/project.clj
+      292  12-06-13 10:26   project.clj
+      229  12-06-13 10:26   META-INF/leiningen/foo/foo/README.md
+    11220  12-06-13 10:26   META-INF/leiningen/foo/foo/LICENSE
+        0  12-06-13 10:26   foo/
+     1210  12-06-13 10:26   foo/core$_main.class
+     1304  12-06-13 10:26   foo/core$fn__16.class
+     1492  12-06-13 10:26   foo/core$loading__4910__auto__.class
+     1755  12-06-13 10:26   foo/core.class
+     2814  12-06-13 10:26   foo/core__init.class
+      162  12-04-13 14:54   foo/core.clj
+ --------                   -------
+    23569                   14 files
+----
+
+The _target/foo-0.1.0-SNAPSHOT-standalone.jar_ listing, on the other
+hand, includes over 3000 files footnote:[All of which we won't be
+committing to print. Take a look for yourself with the command *+lein
+uberjar && unzip -l target/foo-0.1.0-SNAPSHOT-standalone.jar+*.].
+
+Since the packaged _pom.xml_ file includes a listing of the project's
+dependencies, build tools like Leiningen or Maven can resolve these
+dependencies on their own. This allows for efficient packaging of
+libraries. Can you imagine if each and every Clojure library
+included the entirety of its dependencies? It would be a bandwidth
+nightmare.
+
+By virtue of this property, lean JAR files such as this are what is
+deployed to remote repositories when you use the *+lein deploy+*
+command footnote:[See <<sec_deploy_clojars>> for more information on
+releasing libraries.].
+
+Without its dependencies included--namely Clojure--you'll need to do a bit more
+work to run the foo application. First, download Clojure 1.5.1 from
+_http://clojure.org/downloads_. Then invoke +foo.core+  via the *+java+*
+command, including _clojure-1.5.1.jar_ and _foo-0.1.0-SNAPSHOT.jar_ on the
+classpath (via the +-cp+ option).
+
+[source,console]
+----
+# Download Clojure
+$ wget http://repo1.maven.org/maven2/org/clojure/clojure/1.5.1/clojure-1.5.1.zip
+$ unzip clojure-1.5.1.zip
+
+# Execute the application
+$ java -cp target/foo-0.1.0-SNAPSHOT.jar:clojure-1.5.1/clojure-1.5.1.jar foo.core 1 2 3
+Executed with the following args:  1 2 3
+----
+****
 
 ==== See Also
 

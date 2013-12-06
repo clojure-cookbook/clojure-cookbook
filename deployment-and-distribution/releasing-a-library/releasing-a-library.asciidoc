@@ -1,3 +1,4 @@
+[[sec_deploy_clojars]]
 === Releasing a Library to Clojars
 [role="byline"]
 by Ryan Neufeld, originally submitted by Simon Mosciatti
