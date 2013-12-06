@@ -6,7 +6,7 @@ by Robert Stuttaford
 ==== Problem
 
 You need to define how your data will be modelled in Datomic. For
-example, you might need to model users and user groups, and relate the
+example, you might need to model users and user groups and relate the
 two in some way.
 
 [[sec_datomic_schema_solution]]
@@ -98,8 +98,6 @@ We define a group as having:
 Finally, +transact+ both schema definitions into a database via a
 connection.
 
-Transact the schema into the database.
-
 [source,clojure]
 ----
 (require '[datomic.api :as d])
@@ -113,12 +111,12 @@ Transact the schema into the database.
 
 ==== Discussions
 
-Datomic schema is represented as Clojure data, and is added to the
+Datomic schema is represented as Clojure data and is added to the
 database in a transaction, just like any other data we would store.
 The +:db.install/_attribute :db.part/db+ key/value is used by the
 transactor to make the schema available to the rest of the system.
 
-Schema is placed in the +db.part/db+ database partition, which is
+Schema is placed in the +:db.part/db+ database partition, which is
 reserved for schema. All user data is placed in user partition(s) -
 either the default of +:db.part/user+ or custom partitions. Partitions
 are useful for optimising how indexes sort data, which is useful for
@@ -128,8 +126,7 @@ Schema entities require that at least +:db/ident+, +:db/valueType+ and
 +:db/cardinality+ values are present.
 
 Aside from schema, Datomic does not enforce how attributes are
-combined for any given entity. Datomic only enforces that only defined
-schema can be used, as well as enforcing their type and uniqueness
+combined for any given entity. Datomic only requires that schema be defined up-front and enforces type and uniqueness
 constraints.
 
 Use namespaces in schema +:db/ident+ values to help classify entities
@@ -157,26 +154,26 @@ can be related to. This means that entities can relate to themselves!
 
 You also use +:db/valueType :db.type/ref+ and lone +:db/ident+ values
 to model enumerations, such as the user roles that you defined. These
-enumerations are not actually schema, they are normal entities with a
+enumerations are not actually schema; they are normal entities with a
 single attribute, +:db/ident+. Datomic allows you to use a shorthand
-for defining and querying on such enums, by proving the enum entity's
-+db/ident+ value directly instead of the enum entity's +:db/id+ value.
+for defining and querying on such enums by providing the enum entity's
++:db/ident+ value directly instead of the enum entity's +:db/id+ value.
 
 Attributes with +:db/valueType :db.type/ref+ and +:db/unique+ values
-are implicitly indexed, as though you had added +:db/index true+ to
+are implicitly indexed as though you had added +:db/index true+ to
 their definitions.
 
 It is also possible to use Lucene full-text indexing on string
-attributes, using +:db/fulltext true+ and using the system-defined
+attributes, using +:db/fulltext true+ and the system-defined
 +fulltext+ function in Datalog.
 
 There are two options for specifying a uniqueness constraint at
-+db/unique+; +:db.unique/value+ and +:db.unique/identity+.
++:db/unique+; +:db.unique/value+ and +:db.unique/identity+.
 
-* +:db.unique/value+: attempts to insert a duplicate value for a
-  different entity ID will fail.
-* +:db.unique/identity+: the attribute value is unique to each entity
-  and "upsert" is enabled; attempts to insert a duplicate value for a
+* +:db.unique/value+: disallows attempts to insert a duplicate value for a
+  different entity ID.
+* +:db.unique/identity+: designates that the attribute value is unique to each entity
+  and enables "upsert"; any attempts to insert a duplicate value for a
   temporary entity ID will cause all attributes associated with that
   temporary ID to be merged with the entity already in the database.
 
