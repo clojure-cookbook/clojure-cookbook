@@ -32,7 +32,7 @@ function entry-point to parse command-line arguments footnote:[Since
 (defn -main [& args]
   (let [[opts args banner] (cli args
                                 ["-h" "--help" "Print this help" :default false :flag true])]
-    (when (or (:help opts))
+    (when (:help opts)
       (println banner))))
 
 ;; Simulate entry into the -main at the command-line
@@ -194,8 +194,8 @@ $ lein run -- -n 5 --no-verbose
 
 ==== See Also
 
-* Packaging applications (TODO: xref)
-* Handling STDIN/STDOUT streams (TODO: xref)
+* <<sec_packaging_jars>>
+* <<sec_local_io_writing_to_stdout_and_stderr>>
 * For building ncurses-style applications, see
   http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+], a wrapper
   around the Lanterna terminal output library.
