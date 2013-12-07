@@ -55,9 +55,9 @@ calls its +accept+ method, which blocks until a TCP connection is
 established. When a client connects, it returns the session as an
 instance of +java.net.Socket+.
 
-It then passes the socket to the +recieve+ function, which opens up a
-reader on it and blocks until it recieves a full line of input,
-terminated by a newline character (+\n+). When it recives one, it
+It then passes the socket to the +receive+ function, which opens up a
+reader on it and blocks until it receives a full line of input,
+terminated by a newline character (+\n+). When it receives one, it
 calls the handler function with the resulting value, and calls +send+
 to send the response using a writer opened on the same socket. +send+
 also calls the +flush+ method on the writer, to ensure that all the
@@ -107,7 +107,7 @@ you will find that the +serve+ function has finally returned.
 
 This example uses readers and writers, which deal solely in textual
 data, to make the concepts of working with sockets easier to
-demonstrate. Of course, an actual socket is not limted to strings, and
+demonstrate. Of course, an actual socket is not limited to strings, and
 can send and receive any kind of binary data. To do this, simply use
 the +clojure.java.io/input-stream+ and +clojure.java.io/output-stream+
 functions instead of +clojure.java.io/reader+ and
