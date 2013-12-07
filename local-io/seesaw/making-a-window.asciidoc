@@ -24,7 +24,7 @@ Seesaw with the +native!+ function:
 
 [source,clojure]
 ----
-(ns simplegui.core 
+(ns simplegui.core
   (:require [seesaw.core :refer [native! frame show! config!
                                  pack! text scrollable]]))
 
@@ -59,7 +59,7 @@ actually display the frame, use +show!+:
 ;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
-image:gui/seesaw/window-only.png["",width=150]
+image:local-io/seesaw/window-only.png["",width=150]
 
 ==== Discussion
 
@@ -94,7 +94,7 @@ content:
 ;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
-image:gui/seesaw/content.png["",width=150]
+image:local-io/seesaw/content.png["",width=150]
 
 ==== Adding Scrollable Content
 
@@ -117,7 +117,7 @@ This content is too big to fit in the current window:
 ;; => #<JFrame$Tag$a79ba523 [...]>
 ----
 
-image:gui/seesaw/no-longer-yours.png["",width=150]
+image:local-io/seesaw/no-longer-yours.png["",width=150]
 
 Normally, one would call +pack!+ again to adjust the window size to
 the new content. However, the content will not fit comfortably on most
@@ -131,7 +131,7 @@ screens, so set the size explicitly and add scrollbars:
                                       :editable? false)))
 ----
 
-image:gui/seesaw/sonnets.png["",width=420]
+image:local-io/seesaw/sonnets.png["",width=420]
 
 The +:multi-line?+ option to the +text+ function selects +JTextArea+
 as the underlying object, rather than +JTextField+ (+JTextArea+ is
