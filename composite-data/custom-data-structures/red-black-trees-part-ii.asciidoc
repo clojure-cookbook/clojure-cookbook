@@ -16,7 +16,7 @@ all the functions necessary for creating an efficient Red-Black Tree.
 What's missing is participation in Clojure's sequence abstraction.
 
 The most important part of participating in sequence abstraction
-is the ability to expose values of a data structure sequently. The
+is the ability to expose values of a data structure sequentialy. The
 built-in +tree-seq+ is well suited for this task. One extra step is
 needed, however; +tree-seq+ returns a sequence of nodes, not values.
 The final +rb-tree->seq+ function 
