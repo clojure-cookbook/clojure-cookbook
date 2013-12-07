@@ -12,7 +12,7 @@ your application to run the background, in another system process.
 Use the Apache Commons Daemon library to write applications that can
 be executed in a background process. Daemon consists of two parts: the
 +Daemon+ interface, which your application must implement, and a
-system application footnote:[*+jsvc+* on Unix systems, *+procrun+* on
+system application footnote:[+jsvc+ on Unix systems, +procrun+ on
 Windows.] which runs +Daemon+-compliant applications as
 daemons.
 
@@ -103,14 +103,14 @@ tick
 # ... Type Ctrl-C to stop the madness
 ----
 
-Once you've verified your application works correctly install *+jsvc+*
+Once you've verified your application works correctly install +jsvc+
 footnote:[On OS X we suggest using http://http://brew.sh/[Homebrew] to
 *+brew install jsvc+*. If you're using Linux, you'll likely find a
-*+jsvc+* package in your favorite package manager. Windows users will
++jsvc+ package in your favorite package manager. Windows users will
 need to install and use
 http://commons.apache.org/proper/commons-daemon/procrun.html[procrun].].
 Finally, the moment of truth. Run your application as a daemon by
-invoking *+jsvc+* with all of the requisite parameters: the absolute
+invoking +jsvc+ with all of the requisite parameters: the absolute
 path of your Java home directory, uber JAR, output log file, and the
 namespace where your +Daemon+ implementation resides footnote:[Don't
 worry, we'll capture this all in a shell script soon...].
@@ -138,7 +138,7 @@ $ sudo jsvc -java-home "$JAVA_HOME" \
 If all is well, _out.txt_ should now contain a couple ticks.
 Congratulations! Daemon can be a little hard to get set up, but once
 you have it running it works fantastically. If you encounter any
-problems launching a daemon using *+jsvc+*, use the +-debug+ flag to
+problems launching a daemon using +jsvc+, use the +-debug+ flag to
 output more detailed diagnostic information.
 
 [NOTE]
@@ -178,7 +178,7 @@ applications lifecycle:
   Clojure applications if you've properly structured your application.
 
 It's easy enough to create a record (with +defrecord+) that implements
-the +Daemon+ interface--but that isn't enough though. *+jsvc+* expects
+the +Daemon+ interface--but that isn't enough though. +jsvc+ expects
 a +Daemon+-implementing *class* exist on the classpath. To provide
 this you must do two things: first, you need to enable ahead-of-time
 (AOT) compilation for your project--setting +:aot :all+ in your
@@ -239,12 +239,12 @@ all into a "standalone" JAR file.
 
 Last, but not least, you need to run the darn thing. Since JVM
 processes don't generally play nicely with low-level system calls,
-Daemon provides system applications, *+jsvc+* and *+procrun+*, that
+Daemon provides system applications, +jsvc+ and +procrun+, that
 act as intermediaries between the JVM and your computer's operating
 system. These applications, generally written in C, are capable of
 invoking the appropriate system calls to fork and execute your
 application in a background process. For simplicity, we'll limit our
-discussion to the *+jsvc+* tool for the remainder of the recipe.
+discussion to the +jsvc+ tool for the remainder of the recipe.
 
 Both of these tools have a dizzying number of configuration options,
 but only a handful of them are actually necessary for getting the ball
@@ -270,15 +270,15 @@ $ sudo jsvc -java-home "$JAVA_HOME" \
 
 [NOTE]
 ====
-Once you've started a daemon with *+jsvc+*, you can halt it by
-re-running *+jsvc+* with the +-stop+ option included.
+Once you've started a daemon with +jsvc+, you can halt it by
+re-running +jsvc+ with the +-stop+ option included.
 ====
 
-Since *+jsvc+* *re-launches* your application in a completely new
+Since +jsvc+ *re-launches* your application in a completely new
 process, it carries none of its original execution context. This means
 no environment variables, no current working directory, nothing; the
 process may not even be running as the same user. Because of this, it
-is extremely important to specify arguments to *+jsvc+* with their
+is extremely important to specify arguments to +jsvc+ with their
 absolute paths and correct permissions in place.
 
 For our sample, we've opted to use *+sudo+* to make this a less
@@ -287,7 +287,7 @@ user with more limited permissions. The running user should have write
 access to the PID, out and err files, and read access to Java and the
 classpath.
 
-*+jsvc+* and its ilk can be fickle beasts--the slightest
++jsvc+ and its ilk can be fickle beasts--the slightest
 misconfiguration will cause your daemon to fail silently, without
 warning. We highly suggest using the +-debug+ and +-nodetach+ flags
 while developing and configuring your daemon until you're *sure*
@@ -297,19 +297,19 @@ Once you've nailed an appropriate configuration, the final step is to
 automate the management of your daemon by writing a _daemon script_. A
 good daemon script captures configuration parameters, file paths and
 common operations, exposing them in a clean noise-free skin. Instead
-of the long *+jsvc+* commands you executed before, you would simply
+of the long +jsvc+ commands you executed before, you would simply
 invoke *+my-daemon start+* or *+my-daemon stop+*. In fact, many Linux
 distributions use scripts such as this to manage system daemons. To
-implement your own *+jsvc+* daemon script we suggest reading Sheldon
+implement your own +jsvc+ daemon script we suggest reading Sheldon
 Neilson's http://www.neilson.co.za/?p=253[Creating a Java Daemon ...].
 
 ==== See Also
 
 * The +Daemon+
   http://commons.apache.org/proper/commons-daemon/apidocs/index.html[documentation].
-* The contents of the *+jsvc+* man page, accessible via *+jsvc
+* The contents of the +jsvc+ man page, accessible via *+jsvc
   -help+*.
-* http://commons.apache.org/proper/commons-daemon/procrun.html[*+procrun+*], a Daemon runner for Windows.
+* http://commons.apache.org/proper/commons-daemon/procrun.html[+procrun+], a Daemon runner for Windows.
 * https://github.com/arohner/lein-daemon[lein-daemon], a Leiningen
   plugin for creating daemons that can be managed via a *+lein
   daemon+* command inside your project.

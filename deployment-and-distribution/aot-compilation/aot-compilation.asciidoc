@@ -1,4 +1,4 @@
-<<sec_aot_compilation>>
+[[sec_aot_compilation]]
 === AOT Compilation
 [role="byline"]
 by Luke VanderHart

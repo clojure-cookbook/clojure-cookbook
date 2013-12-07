@@ -1,4 +1,4 @@
-<<sec_packaging_jars>>
+[[sec_packaging_jars]]
 === Packaging a Project into a JAR File
 [role="byline"]
 by Alan Busby
