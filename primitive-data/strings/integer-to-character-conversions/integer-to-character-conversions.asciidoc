@@ -4,11 +4,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to convert characters to their respective code points (integer values) or vice versa.
+You need to convert characters to their respective unicode code points
+(as integer values) or vice versa.
 
 ==== Solution
 
-Use the +int+ function to coerce a character to its integer value.
+Use the +int+ function to convert a character to its integer value.
 
 [source,clojure]
 ----
@@ -18,11 +19,18 @@ Use the +int+ function to coerce a character to its integer value.
 (int \ø)
 ;; -> 248
 
+(int \α) ; greek letter alpha
+;; -> 945
+
+(int \u03B1) ; greek letter alpha (by code point)
+;; -> 945
+
 (map int "Hello, world!")
 ;; -> (72 101 108 108 111 44 32 119 111 114 108 100 33)
 ----
 
-Use the +char+ function to coerce an integer (or any other number type) back into a character.
+Use the +char+ function to return a character corresponding to the
+code point specified by the integer.
 
 [source,clojure]
 ----
@@ -32,6 +40,9 @@ Use the +char+ function to coerce an integer (or any other number type) back int
 (char 125)
 ;; -> \}
 
+(char 945)
+;; -> \α
+
 (reduce #(str %1 (char %2))
         ""
         [115 101 99 114 101 116 32 109 101 115 115 97 103 101 115])
@@ -40,8 +51,35 @@ Use the +char+ function to coerce an integer (or any other number type) back int
 
 ==== Discussion
 
-Converting between characters and integers is a simple matter in Clojure; merely use the +int+ and +char+ functions to coerce characters between their numerical and character forms.
+Clojure inherits the JVM's robust Unicode support. All strings are
+UTF-16 strings, and all characters are unicode
+characters. Conveniently, the first 256 Unicode code points are
+identical to ASCII, which makes standard ASCII text easy to work
+with. However, Clojure (and Java) do not actually privilege ASCII in
+any way the 1:1 correspondence between characters and integers
+indicating code points continues all the way up through the Unicode space.
+
+For example, the expression +(map char (range 0x0410 0x042F))+ prints
+out all the Cyrillic capital letters, which happen to lie on that
+range on the Unicode spectrum:
+
+[source,clojure]
+----
+(\А \Б \В \Г \Д \Е \Ж \З \И \Й \К \Л \М \Н \О \П \Р \С \Т \У \Ф
+\Х \Ц \Ч \Ш \Щ \Ъ \Ы \Ь \Э \Ю)
+----
+
+The +char+ and +int+ functions are useful primarily for coercing a
+number into either an instance of +java.lang.Integer+ or
++java.lang.Character+. Both +Integer+s and +Character+s are,
+ultimately, encoded as numbers, although +Character+'s support
+additional text-related methods, and cannot be used in mathematic
+expressions without first being converted to a true numeric type.
 
 ==== See Also
+
+* For truly comprehensive coverage of how unicode and
+  internationalization works, see
+  http://shop.oreilly.com/product/9780596101213.do[Unicode Explained], by Jukka K. Korpela.
 
 * See <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string.

@@ -1,4 +1,4 @@
-[[sec_setting_keys_map]]
+[[sec_composite_data_maps_setting_keys]]
 === Setting Keys in a Map
 [role="byline"]
 by Luke VanderHart

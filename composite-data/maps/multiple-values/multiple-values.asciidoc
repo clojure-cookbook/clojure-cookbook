@@ -1,21 +1,22 @@
+[[sec_composite_data_maps_multiple_values]]
 === Keeping Multiple Values for a Key
 [role="byline"]
 by Luke VanderHart
 
 ==== Problem
 
-While maps normally contain one value per key, you would like to be
-able to +assoc+ multiple values onto one key.
+Normally, maps are strictly one value per key; if you +assoc+ an
+existing key, the old value is replaced. However, sometimes it would
+be useful to have a map-like interface (a "multimap") which is capable
+of storing *multiple* values for the same key.
+
+You would like to create a map-like data structure that implements a
+multimap-like interfae in Clojure.
 
 ==== Solution
 
-Normally, maps are strictly one value per key; if you +assoc+ an
-existing key, the old value is replaced. It can be useful at times to
-have a map-like interface (a "multimap") which is capable of storing
-*multiple* values for the same key.
-
-To introduce such a capability to normal maps, create and extend a
-protocol +MultiAssociative+ that defines this behavior.
+To introduce such a capability on top of normal maps, create and
+extend a protocol +MultiAssociative+ that defines this behavior.
 
 [source,clojure]
 ----
@@ -188,4 +189,3 @@ or is itself a value.
 ==== See also
 
 * <<extend_built_in>>
-

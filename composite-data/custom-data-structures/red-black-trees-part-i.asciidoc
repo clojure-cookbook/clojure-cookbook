@@ -38,7 +38,7 @@ dependencies, or start a REPL with +lein-try+:
 
 [source,console]
 ----
-lein try core.match
+lein try org.clojure/core.match
 ----
 
 First, implement the core of a RBT, the +balance+ and +insert-val+
