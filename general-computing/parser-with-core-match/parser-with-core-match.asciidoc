@@ -115,7 +115,7 @@ expression.
 Writing your parser this way gives you succinct code that closely
 resembles the target input. Alternatively, you could write it
 using conditional expressions (+if+ or +cond+) and explicitly
-destructured the input. To illustrate the difference in length and
+destructure the input. To illustrate the difference in length and
 clarity of the code, consider this function that only parses the +fn+
 expressions of the Clojure subset:
 
