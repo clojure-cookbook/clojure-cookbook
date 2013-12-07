@@ -12,47 +12,50 @@ Print the documentation for a function at the REPL with the +doc+ macro.
 
 [source,console]
 ----
-user=> (doc conj)
- -------------------------
-clojure.core/conj
-([coll x] [coll x & xs])
-  conj[oin]. Returns a new collection with the xs
-    'added'. (conj nil item) returns (item).  The 'addition' may
-    happen at different 'places' depending on the concrete type.
+(doc conj)
+;; *out*
+;;  -------------------------
+;; clojure.core/conj
+;; ([coll x] [coll x & xs])
+;;   conj[oin]. Returns a new collection with the xs
+;;     'added'. (conj nil item) returns (item).  The 'addition' may
+;;     happen at different 'places' depending on the concrete type.
 ----
 
 Print the source code for a function at the REPL with the +source+ macro.
 
 [source,console]
 ----
-user=> (source reverse)
-(defn reverse
-  "Returns a seq of the items in coll in reverse order. Not lazy."
-  {:added "1.0"
-   :static true}
-  [coll]
-    (reduce1 conj () coll))
+(source reverse)
+;; *out*
+;; (defn reverse
+;;   "Returns a seq of the items in coll in reverse order. Not lazy."
+;;   {:added "1.0"
+;;    :static true}
+;;   [coll]
+;;     (reduce1 conj () coll))
 ----
 
 Find functions with documentation matching a given regular expression using +find-doc+.
 
 [source,console]
 ----
-user=> (find-doc #"defmacro")
- -------------------------
-clojure.core/definline
-([name & decl])
-Macro
-  Experimental - like defmacro, except defines a named function whose
-  body is the expansion, calls to which may be expanded inline as if
-  it were a macro. Cannot be used with variadic (&) args.
- -------------------------
-clojure.core/defmacro
-([name doc-string? attr-map? [params*] body] [name doc-string? attr-map? ([params*] body) + attr-map?])
-Macro
-  Like defn, but the resulting function name is declared as a
-  macro and will be used as a macro by the compiler when it is
-  called.
+(find-doc #"defmacro")
+;; *out*
+;; -------------------------
+;; clojure.core/definline
+;; ([name & decl])
+;; Macro
+;;   Experimental - like defmacro, except defines a named function whose
+;;   body is the expansion, calls to which may be expanded inline as if
+;;   it were a macro. Cannot be used with variadic (&) args.
+;; -------------------------
+;; clojure.core/defmacro
+;; ([name doc-string? attr-map? [params*] body] [name doc-string? attr-map? ([params*] body) + attr-map?])
+;; Macro
+;;   Like defn, but the resulting function name is declared as a
+;;   macro and will be used as a macro by the compiler when it is
+;;   called.
 ----
 
 ==== Discussion
@@ -68,15 +71,16 @@ to this level of introspection at runtime:
 
 [source,console]
 ----
-user=> (source source)
-(defmacro source
-  "Prints the source code for the given symbol, if it can find it.
-  This requires that the symbol resolve to a Var defined in a
-  namespace for which the .clj is in the classpath.
-
-  Example: (source filter)"
-  [n]
-  `(println (or (source-fn '~n) (str "Source not found"))))
+(source source)
+;; *out*
+;; (defmacro source
+;;   "Prints the source code for the given symbol, if it can find it.
+;;   This requires that the symbol resolve to a Var defined in a
+;;   namespace for which the .clj is in the classpath.
+;;
+;;   Example: (source filter)"
+;;   [n]
+;;   `(println (or (source-fn '~n) (str "Source not found"))))
 ----
 
 Keeping in mind that +source+ was defined in the +clojure.repl+
@@ -92,19 +96,18 @@ namespace
 
 [source,console]
 ----
-user=> (ns foo)
-foo=> (doc +)
+(ns foo)
+(doc +)
 CompilerException java.lang.RuntimeException: Unable to resolve symbol: doc in this context, compiling:(NO_SOURCE_PATH:1:1)
 
-foo=> (use 'clojure.repl)
-nil
-
-foo=> (doc +)
- -------------------------
-clojure.core/+
-([] [x] [x y] [x y & more])
-  Returns the sum of nums. (+) returns 0. Does not auto-promote
-  longs, will throw on overflow. See also: +'
+(use 'clojure.repl)
+(doc +)
+;; *out*
+;; -------------------------
+;; clojure.core/+
+;; ([] [x] [x y] [x y & more])
+;;   Returns the sum of nums. (+) returns 0. Does not auto-promote
+;;   longs, will throw on overflow. See also: +'
 ----
 
 Exploring Clojure in this way is a great way to learn about core
