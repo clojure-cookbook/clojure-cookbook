@@ -4,7 +4,9 @@ by Michael Fogus
 
 ==== Problem
 
-When maintaining a library that other programmers rely on to get their work done it behooves you to be thoughtful when making changes.  In the process of fixing bugs and making improvements to your library you will eventually wish to change its public interface.  Making changes to a public-facing portion of your library is no small matter, but assuming that you've determined its necessity then you'll want to _deprecate_ the functions that are obsolete.  The term deprecate basically means that a given function should be avoided in favor of some other, newer function.  This section details an approach to deprecating API functions and reporting existing deprecations using Clojure macros.
+When maintaining a library that other programmers rely on to get their work done it behooves you to be thoughtful when making changes.  In the process of fixing bugs and making improvements to your library you will eventually wish to change its public interface.  Making changes to a public-facing portion of your library is no small matter, but assuming that you've determined its necessity then you'll want to _deprecate_ the functions that are obsolete.  The term deprecate basically means that a given function should be avoided in favor of some other, newer function.  This recipe details an approach to deprecating API functions and reporting existing deprecations using Clojure macros.
+
+==== Solution
 
 Take for example the case of the Clojure contrib library https://www.github.com/clojure/core.memoize[+core.memoize+].  Without going into detail about what +core.memoize+ does, it's fine to know that at one point a segment of its public-facing API was a function named +memo-fifo+ that looked like the following:
 
@@ -19,8 +21,6 @@ Take for example the case of the Clojure contrib library https://www.github.com/
 Obviously the implementation has been elided to highlight only the parts that were planned for change in a later version -- namely the function's name and its available argument vectors.  The details of the new API are not important, but they were different enough to cause potential confusion to the users.  Likewise, to simply make the change without due notice in a new version would have been bad form, and genuine cause for bitterness.
 
 Therefore, the question arises: what can you do in the case where a feature is planned for deprecation that not only supports existing code in the interim, but also provides fair warning to the users of your library for an future breaking change?  In this section we'll discuss using macros to provide a nice mechanism for deprecating library functions and macros with minimal fuss.
-
-==== Solution
 
 In the case of the planned deprecation of +memo-fifo+, the new function, named simply +fifo+ was changed not only in name but also in its provided arities.  When deprecating portions of a library it's often a good idea to print warning messages that point to the new, preferred function to use instead.  Therefore, to start on the way to deprecating +memo-fifo+ the following function +!!+ was created to print a warning:
 

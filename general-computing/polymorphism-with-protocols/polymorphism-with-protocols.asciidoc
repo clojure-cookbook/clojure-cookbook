@@ -304,7 +304,7 @@ There you have it.
 
 For implementing protocols on existing types, you will want to use the
 +extend+ family of built-in functions (+extend+, +extend-type+ and
-+extend-protocol+). Insetad of creating a new type, these functions
++extend-protocol+). Instead of creating a new type, these functions
 define implementations for existing types.
 
 ==== See Also

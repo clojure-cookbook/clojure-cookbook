@@ -1,6 +1,6 @@
 === Reading and Writing Request & Response Headers in Ring
 [role="byline"]
-by Adam Bard
+originally submitted by Adam Bard
 
 ==== Problem
 
@@ -8,7 +8,8 @@ You need to read or write HTTP request or response headers.
 
 ==== Solution
 
-Read or write the `:headers` key in Ring request or response maps.
+Read from the `:headers` key in a Ring request map, or `assoc` values
+on to the response map before returning from a Ring handler function.
 
 [source, clojure]
 ----
@@ -31,14 +32,31 @@ Read or write the `:headers` key in Ring request or response maps.
 
 ==== Discussion
 
-Ring passes request headers as a `:headers` parameter in the request map, and
-accepts a `:headers` parameter in response maps as well.
-Headers are
-http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[as in HTTP].
+This example defines a Ring handler that returns the incoming
+`User-Agent` header as a JSON response. It gets the `User-Agent` from
+the request header map, and uses a `Content-Type` header in the response
+to indicate to the client that it should be parsed as JSON.
 
-The above example defines a Ring handler that simply echoes the User-Agent
-as a JSON response. It gets the User-Agent from the request header map, and
-uses a Content-Type header in the response to ensure it is parsed as JSON
-by a client.
+Ring passes request headers as a `:headers` parameter in the request
+map, and accepts a `:headers` parameter in response maps as well. The
+keys and values of the headers map should both be strings - Clojure
+keywords are not supported.
 
-Note that the keys of incoming headers are Strings, not Clojure keywords.
+You can use Ring to set any header that is
+http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[valid in
+HTTP].
+
+According to http://www.ietf.org/rfc/rfc2616.txt[RFC-2616], header
+names are _not_ case sensitive. To make it easier to consistently
+`get` values from the request map, no matter what their case, Ring
+passes in all header values as lower-case, regardless of what the
+client sent. You may wish to _send_ headers using the actual
+capitalization used in the specification, however, just in case the
+client you're communicating with is not compliant (following the
+classic robsutness principle; "be conservative in what you send, be
+liberal in what you accept".)
+
+
+
+
+
