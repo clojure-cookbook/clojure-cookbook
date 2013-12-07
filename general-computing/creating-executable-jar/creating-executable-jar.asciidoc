@@ -1,3 +1,4 @@
+[[sec_packaging_jars]]
 === Packaging a Project into a JAR File
 [role="byline"]
 by Alan Busby
@@ -181,7 +182,9 @@ $ wget http://repo1.maven.org/maven2/org/clojure/clojure/1.5.1/clojure-1.5.1.zip
 $ unzip clojure-1.5.1.zip
 
 # Execute the application
-$ java -cp target/foo-0.1.0-SNAPSHOT.jar:clojure-1.5.1/clojure-1.5.1.jar foo.core 1 2 3
+$ java -cp target/foo-0.1.0-SNAPSHOT.jar:clojure-1.5.1/clojure-1.5.1.jar \
+       foo.core \
+       1 2 3
 Executed with the following args:  1 2 3
 ----
 ****
