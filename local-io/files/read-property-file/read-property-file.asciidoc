@@ -43,8 +43,15 @@ Instead of using the built-in +Properties+ api via interop, you could
 also use the +propertea+ library for simpler, more idiomatic Clojure
 access to property files.
 
-Include the +[propertea "1.2.3"]+ dependency in your +project.clj+
-file, then read the property file and access its key-value pairs:
+Include the `[propertea "1.2.3"]` dependency in your +project.clj+
+file, or start a REPL using +lein-try+:
+
+[source,shell]
+----
+$ lein try propertea 1.2.3
+----
+
+Then read the property file and access its key-value pairs:
 
 [source,clojure]
 ----
