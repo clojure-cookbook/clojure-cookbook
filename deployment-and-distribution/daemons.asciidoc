@@ -1,3 +1,4 @@
+[[sec_daemons]]
 === Running an Application as a Daemon
 [role="byline"]
 by Ryan Neufeld

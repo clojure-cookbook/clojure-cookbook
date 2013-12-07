@@ -138,3 +138,5 @@ _clojure.jar_, but also the contents of the _src/_ directory on disk.
 * See <<sec_parse_command_line_arguments>> to learn how to cleanly
   expose multiple options and flags in your command-line
   applications.
+* See <<sec_command_line_applications>> to learn how to run Leiningen projects
+  from the command line.

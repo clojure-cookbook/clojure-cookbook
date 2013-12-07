@@ -9,6 +9,8 @@ include::exploring-namespaces/exploring-namespaces.asciidoc[]
 
 include::main/main.asciidoc[]
 
+include::running-programs-from-the-command-line.asciidoc[]
+
 include::creating-executable-jar/creating-executable-jar.asciidoc[]
 
 include::trying-a-library/trying-a-library.asciidoc[]

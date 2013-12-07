@@ -1,11 +1,11 @@
 [[sec_parse_command_line_arguments]]
-=== Parsing Command Line Arguments
+=== Parsing Command-Line Arguments
 [role="byline"]
 Originally submitted by Nicolas Bessi
 
 ==== Problem
 
-You want to write command line tools in Clojure that can parse input
+You want to write command-line tools in Clojure that can parse input
 arguments.
 
 ==== Solution
@@ -194,8 +194,11 @@ $ lein run -- -n 5 --no-verbose
 
 ==== See Also
 
-* Packaging applications (TODO: xref)
 * Handling STDIN/STDOUT streams (TODO: xref)
+* See <<sec_command_line_applications>> to learn more about invoking
+  applications from the command-line.
+* See <<sec_packaging_jars>> to learn how to package an application as
+  an executable JAR file.
 * For building ncurses-style applications, see
   http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+], a wrapper
   around the Lanterna terminal output library.
