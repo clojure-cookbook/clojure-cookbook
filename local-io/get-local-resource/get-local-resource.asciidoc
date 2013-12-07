@@ -5,7 +5,7 @@ by John Jacobsen with help from John Cromartie and Alex Petrov
 
 ==== Problem
 
-You want to include a resource files from the classpath in your
+You want to include a resource file from the classpath in your
 Clojure project.
 
 ==== Solution

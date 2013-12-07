@@ -49,7 +49,7 @@ exceptions thrown, you should put the call to +delete-file+ inside a
 ;; -> "exception: Couldn't delete ./file-that-do-not-exist.txt"
 ----
 
-+java.io.File+ have an +.exists+ property that simply give you a
++java.io.File+ has an +.exists+ property that simply gives you a
 boolean answer whether a file exists or not. You can put this property
 together with a +try-catch+ body to get a "safe" delete utility
 function. This function will first check to see if the file with the

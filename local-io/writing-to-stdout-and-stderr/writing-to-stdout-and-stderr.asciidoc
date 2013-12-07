@@ -1,3 +1,4 @@
+[[sec_local_io_writing_to_stdout_and_stderr]]
 === Writing to +STDOUT+ and +STDERR+
 [role="byline"]
 by Alan Busby
