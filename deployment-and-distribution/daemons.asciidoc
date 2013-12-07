@@ -310,8 +310,11 @@ Neilson's http://www.neilson.co.za/?p=253[Creating a Java Daemon ...].
 * The contents of the *+jsvc+* man page, accessible via *+jsvc
   -help+*.
 * http://commons.apache.org/proper/commons-daemon/procrun.html[*+procrun+*], a Daemon runner for Windows.
+* https://github.com/arohner/lein-daemon[lein-daemon], a Leiningen
+  plugin for creating daemons that can be managed via a *+lein
+  daemon+* command inside your project.
 * <<sec_packaging_jars>> for more information on packaging JAR files.
-* <<sec_aot_compilation>> for more information on AOT compilation.
+* <<sec_aot_compilation>> for more information on AOT compilation.
 * https://kotka.de/blog/2010/02/gen-class_how_it_works_and_how_to_use_it.html[gen-class – how it works and how to use it]
 * Stuart Sierra's https://github.com/stuartsierra/component[component]
   library, a tiny framework for managing the lifecycle of software
