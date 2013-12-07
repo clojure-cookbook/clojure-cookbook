@@ -124,22 +124,22 @@ declarative style. By using +core.logic+ we are able to say *what* we
 are looking for in the graph without saying *how* +core.logic+ should go
 about finding it.
 
-In general, all +core.logic+ queries begin with one of the libraries
+In general, all +core.logic+ queries begin with one of the library's
 +run+ macros; +clojure.core.logic/run+ returning a finite number of
 solutions, and +clojure.core.logic/run*+ returning *all* of the
-solutions. 
+solutions.
 
 The first argument to the +run+ macro is the _goal_, a variable used
 to store the result of the query. In the solution above, this was the
 +director-name+ variable. The rest is the body of the +core.logic+
 program. A program is made up _logic_variables_ (created using
-+clojure.core.logic/fresh+) ground to values or constrained by logic
++clojure.core.logic/fresh+) grounded to values or constrained by logic
 statements.
 
 +run+ is a clue that our programming paradigm is changing to logic
 programming. In a +core.logic+ program, _unification_ is used rather
 than traditional variable assignment and seqential expression
-evaluation. Unification uses substitution of variables for values in
+evaluation. Unification uses substitution of values for variables in
 an attempt to make two expressions syntactically identical. Statements
 in a +core.logic+ program can appear in any order. For example, you can use
 +clojure.core.logic/==+ to unify 1 and +q+:
