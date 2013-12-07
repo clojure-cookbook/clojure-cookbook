@@ -34,7 +34,7 @@ with the +miner.tagged/pr-tagged-record-on+ helper function.
 (def forty-two (->SimpleRecord 42))
 
 (pr-str forty-two)
-;; -> "#user.SimpleRecord{:a 42}" ;; Sadly, not a proper edn vale
+;; -> "#user.SimpleRecord{:a 42}" ;; Sadly, not a proper edn value
 
 (defmethod print-method user.SimpleRecord [this w]
   (tag/pr-tagged-record-on this w))
@@ -89,7 +89,7 @@ records in this format (to a +java.io.Writer+). By extending Clojure's
 +print-method+ multimethod with this function you ensure Clojure
 always prints a record in a tagged-format.
 
-For reading this values back in, you need to tell the +edn+ reader how
+For reading these values back in, you need to tell the +edn+ reader how
 to parse your new record tags. By design, the +tagged+ library
 provides a +miner.tagged/tagged-default-reader+ function that can be
 used to extend +edn+ to read your record tags. When the +edn+ reader
