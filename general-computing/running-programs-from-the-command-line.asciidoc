@@ -110,6 +110,8 @@ my-cli.core/add-main+*.
 [source,console]
 ----
 $ lein run -m my-cli.core/add-main 1 2 3
+The sum is: 6
+----
 
 ==== See Also
 
