@@ -53,8 +53,8 @@ files makes this a relatively simple task. However, while this is
 often a good way to persist data to disk, you should be aware of a few
 issues.
 
-.warning Reading, Security & EDN
-[TIP]
+Reading, Security & EDN
+[WARNING]
 ====
 The +read+ function is only appropriate for reading data from
 *trusted* sources. This is because the Clojure reader is not designed
