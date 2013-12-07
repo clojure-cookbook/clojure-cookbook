@@ -57,3 +57,16 @@ speedup you expect unless the processing function is substantial.
 Finally, +pmap+ is not perfectly efficient at allocating work, so the
 degree of speedup you see might not correspond exactly to the number
 of processors on your system, as you might expect.
+
+Another drawback to the +pmap+ approach is that the actual reading of
+the file is serialized, using a single +java.io.Reader+. Considerable
+gains can still be realized if the processing task is expensive
+compared to reading, but in lightweight tasks the bottleneck is likely
+to be reading the file itself, in which case parallelizing the
+processing work will give little to no gains in terms of total
+runtime.
+
+For an approach which parallelizes reading the file itself using
+memory mapping (as well as using Clojure Reducers for greater
+efficiency), see the next recipe,
+[[rec_local_io_parallelizing_using_iota]].
