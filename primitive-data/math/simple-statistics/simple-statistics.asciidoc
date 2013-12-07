@@ -169,7 +169,6 @@ breakdown.
 <3> the sum of this new list is +32+, divide this by +9 - 1+, the
     number of elements minus one. The result of +32/8+ is +4+.
 <4> finally, take the square root of +4+ and get back +2.0+.
-
 // TODO: This makes no sense (RN).
 <5> We have here covered the the _sample_ standard deviation, where we have a random
 sample of a larger population. If we have the complete population (_population_
