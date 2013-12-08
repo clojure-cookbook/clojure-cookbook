@@ -40,7 +40,7 @@ of your choice. If you're following along with this sample, use
 
 [source,shell]
 ----
-$ lein try org.clojure/java.jdbc "0.3.0-beta-2" \
+$ lein try org.clojure/java.jdbc "0.3.0-beta2" \
            java-jdbc/dsl "0.1.0" \
            org.postgresql/postgresql
 ----
