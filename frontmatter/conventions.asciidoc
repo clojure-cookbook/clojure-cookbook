@@ -96,9 +96,8 @@ plugin for http://leiningen.org/[Leiningen], Clojure's de facto
 project tool, that lets you quickly and easily try out various Clojure
 libraries.
 
-To use +lein-try+, follow along with Leiningen's
-http://leiningen.org/#install[installation instructions] to install
-the tool, then edit your user profile to look like so:
+To use +lein-try+, ensure you have Leiningen installed, then edit your
+user profile as follows:
 
 .~/.lein/profiles.clj
 [source,clojure]
@@ -106,8 +105,8 @@ the tool, then edit your user profile to look like so:
 {:user {:plugins [[lein-try "0.4.1"]]}}
 ----
 
-Now, inside of a project or out, you can use the *+lein try+* command to
-launch a REPL with access to whichever library you please.
+Now, inside of a project or out, you can use the *+lein try+* command
+to launch a REPL with access to whichever library you please.
 
 [source,console]
 ----
@@ -116,8 +115,13 @@ $ lein try clj-time
 user=>
 ----
 
-Long story short: You'll see instructions on which +lein-try+ command to
-execute above every recipe that uses third-party libraries.
+Long story short: Where possible, you'll see instructions on which
++lein-try+ command to execute above recipes that use third-party
+libraries.
+
+If a recipe *cannot* be run via +lein-try+ we have made efforts to
+include adequate instructions on how to run that recipe on your local
+machine.
 ****
 
 ==== Typesetting Conventions
