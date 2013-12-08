@@ -58,7 +58,7 @@ $ lein try clj-time 0.5.1
 user=>
 ----
 
-For a quick view of usage options, invoke +lein help try+:
+For a quick view of usage options, invoke *+lein help try+*:
 
 [source,console]
 ----

@@ -485,8 +485,8 @@ as you can see in +src/feeds/TopologySubmitter.clj+:
 ----
 
 This file uses Clojure's Java interop to generate a Java class with a
-+main+ method. Because the +project.clj+ file specifies that this file
-should be ahead-of-time compiled, when you use +lein uberjar+ to build
++main+ method. Because the _project.clj_ file specifies that this file
+should be ahead-of-time compiled, when you use *+lein uberjar+* to build
 a JAR suitable for submission to our cluster this file will be
 compiled to look like a normal Java classfile. You can upload this JAR
 to the machine running Storm's *Nimbus* daemon and submit it for

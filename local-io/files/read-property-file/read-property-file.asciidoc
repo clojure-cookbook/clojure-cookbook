@@ -15,7 +15,7 @@ just as any other map is.
 
 Here is an example +.properties+ file to load:
 
-.fruitcolors.properties
+._fruitcolors.properties_
 [source,text]
 ----
 banana=yellow
@@ -43,7 +43,7 @@ Instead of using the built-in +Properties+ api via interop, you could
 also use the +propertea+ library for simpler, more idiomatic Clojure
 access to property files.
 
-Include the `[propertea "1.2.3"]` dependency in your +project.clj+
+Include the `[propertea "1.2.3"]` dependency in your _project.clj_
 file, or start a REPL using +lein-try+:
 
 [source,shell]
@@ -87,7 +87,7 @@ By default, ++propertea++'s +read-properties+ function treats all
 property values as strings. You can force parsing to other types by
 specifying the type for a property.
 
-.other.properties
+._other.properties_
 [source,text]
 ----
 intkey=42

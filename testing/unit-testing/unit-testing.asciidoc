@@ -201,8 +201,8 @@ link:http://maven.apache.org/[Maven] to organize your project.
 
 In Leiningen, the default directory for your tests is a top-level
 _<project-root>/test_ folder and you can run your project's tests with
-+lein test+ at the command-line. Without any additional arguments the
-+lein test+ command will execute all of the tests in a project. 
+*+lein test+* at the command-line. Without any additional arguments the
+*+lein test+* command will execute all of the tests in a project. 
 
 [source,console]
 ----

@@ -52,7 +52,7 @@ Enter a keystroke:
 ----
 
 In order to connect the console's input correctly to the REPL, use
-+lein trampoline repl+ (+<r>+ below means user types the letter +r+):
+*+lein trampoline repl+* (+<r>+ below means user types the letter +r+):
 
 [source,console]
 ----
@@ -65,7 +65,7 @@ user=>
 
 ----
 
-+lein trampoline+ is necessary because, by default, a Leiningen REPL
+*+lein trampoline+* is necessary because, by default, a Leiningen REPL
 actually runs the REPL and its associated console I/O in a separate
 JVM process from your application code. Using the +trampoline+ option
 forces Leiningen to run your code in the same process as the REPL,

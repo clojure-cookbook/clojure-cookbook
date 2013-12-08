@@ -221,7 +221,7 @@ If you want to control the intensity of the test run, you can adjust
 the number of concurrent threads and the length of the run using the
 +clojure.test.generative.threads+ and +clojure.test.generative.msec+
 JVM system properties. Using leiningen, you must set these options in
-the +:jvm-opts+ key in +project.clj+ like so:
+the +:jvm-opts+ key in _project.clj_ like so:
 
 +clojure.test.generative.runner/-main+ will pick up any parameters
 provided in this way, and run accordingly.

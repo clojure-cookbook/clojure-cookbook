@@ -82,7 +82,7 @@ $ git checkout testing-complete
 ----
 ====
 
-Finally, run the tests with +lein midje+:
+Finally, run the tests with *+lein midje+*:
 
 [source,console]
 ----

@@ -56,7 +56,7 @@ implementations list] for a list of languages that speak edn; the list
 includes Clojure, Ruby and JavaScript so far, with many more
 implementations in the works.
 
-.clojure.core/read vs. clojure.edn/read
+.+clojure.core/read+ vs. +clojure.edn/read+
 ****
 While it may *seem* convenient to read strings using Clojure's
 built-in reader (+clojure.core/read+), it is NEVER safe to parse input

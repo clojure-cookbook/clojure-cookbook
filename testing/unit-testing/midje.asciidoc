@@ -161,7 +161,7 @@ development dependencies and `[lein-midje "3.1.2"]` to your
 development plugins. Your _project.clj_ should look something like
 this:
 
-.project.clj
+._project.clj_
 [source,clojure]
 ----
 (defproject example "1.0.0-SNAPSHOT"

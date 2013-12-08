@@ -12,7 +12,7 @@ Pass a file to +clojure.xml/parse+ to get a Clojure map representing the structu
 
 For example, when reading the following file:
 
-.simple.xml
+._simple.xml_
 [source,xml]
 ----
 <simple>

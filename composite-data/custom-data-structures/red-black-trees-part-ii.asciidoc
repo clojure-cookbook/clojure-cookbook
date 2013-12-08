@@ -132,7 +132,7 @@ is a historical name for constructing a new list by appending a value
 to an existing list. +seq+ is intended to produce a sequence from a
 collection, or +nil+ if empty.
 
-.IPersistentSet.java
+._IPersistentSet.java_
 [source,java]
 ----
 public interface IPersistentSet extends IPersistentCollection, Counted {
@@ -142,7 +142,7 @@ public interface IPersistentSet extends IPersistentCollection, Counted {
 }
 ----
 
-.IPersistentCollection.java
+._IPersistentCollection.java_
 [source,java]
 ----
 public interface IPersistentCollection extends Seqable {
@@ -153,7 +153,7 @@ public interface IPersistentCollection extends Seqable {
 }
 ----
 
-.Seqable.java
+._Seqable.java_
 [source,java]
 ----
 public interface Seqable {

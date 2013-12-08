@@ -181,10 +181,10 @@ your program.
 ----
 
 Once you've finished toying with your application's option-parsing at
-the REPL, you'll probably want to try invoking options via +lein run+.
+the REPL, you'll probably want to try invoking options via *+lein run+*.
 Just like your application needs to use +--+ to indicate arguments to
 pass onto subsequent programs, so too must you use +--+ to indicate to
-+lein run+ which arguments are for your program and which are for it.
+*+lein run+* which arguments are for your program and which are for it.
 
 [source,shell]
 ----
