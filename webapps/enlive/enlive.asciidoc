@@ -168,7 +168,7 @@ other libraries. There are several contributing factors to
 this:
 
 - It has a novel conceptual approach than other templating systems
-  (although it be bears a lot of simliarity to some other non-Clojure
+  (although it be bears a lot of similarity to some other non-Clojure
   templating techniques, such as XSLT).
 - It utilizes functional programming techniques to the fullest,
   including liberal use of higher order functions.
