@@ -73,7 +73,7 @@ comprehensive information on Java methods, but come with a greater
 performance penalty.
 
 Timbre's profiling is most useful when profiling a specific area of
-code, than than using profiling as an exploratory tool for tuning
+code, rather than using profiling as an exploratory tool for tuning
 performance. As profiling markers are just macros, they are flexible.
 For example, you could record how many times a particular +if+ branch
 was taken, all without leaving Clojure or suffering from mangled

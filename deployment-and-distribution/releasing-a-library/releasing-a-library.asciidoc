@@ -61,7 +61,7 @@ as a Leiningen dependency (`[my-first-project-ryan-neufeld
 
 ==== Discussion
 
-Release a library doesn't get much easier than this; just create an
+Releasing a library doesn't get much easier than this; just create an
 account and press the Big Red Button. Together, Leiningen and Clojars
 make it trivially easy for members of the Clojure community such as
 yourself to release their libraries to the masses.
