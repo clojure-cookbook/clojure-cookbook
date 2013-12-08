@@ -111,9 +111,8 @@ respectively.
 
 ===== External storage service options
 
-These storage services 
 * DynamoDB:
-  `"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"+`
+  `"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"`
 * Riak:
   `"datomic:riak://host[:port]/bucket/dbname[?interface=http|protobuf]"`
   (default is protobuf)
