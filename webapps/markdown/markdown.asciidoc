@@ -22,11 +22,11 @@ Use +markdown.core/md-to-html+ to read a Markdown document and generate as strin
 
 [source,clojure]
 ----
-(use 'markdown.core)
+(require '[markdown.core :as md])
 
-(md-to-html "input.md" "output.html")
+(md/md-to-html "input.md" "output.html")
 
-(md-to-html (input-stream "input.md") (output-stream "test.txt"))
+(md/md-to-html (input-stream "input.md") (output-stream "test.txt"))
 ----
 
 Use +markdown.core/md-to-html-string+ to convert a string
@@ -34,7 +34,7 @@ with Markdown content to its HTML representation:
 
 [source,clojure]
 ----
-(md-to-html-string "# This is a test\n\nsome code follows:\n```\n(defn foo [])\n```")
+(md/md-to-html-string "# This is a test\n\nsome code follows:\n```\n(defn foo [])\n```")
 ----
 
 [source,html]
@@ -65,7 +65,7 @@ will be decorated with a class compatible with the http://alexgorbatchev.com/Syn
 
 [source,clojure]
 ----
-(md-to-html-string "# This is a test\n\nsome code follows:\n```clojure\n(defn foo [])\n```")
+(md/md-to-html-string "# This is a test\n\nsome code follows:\n```clojure\n(defn foo [])\n```")
 ----
 
 [source,html]
@@ -89,7 +89,7 @@ When the +:heading-anchors+ is set to +true+ an anchor will be generated for eac
 
 [source,clojure]
 ----
-(markdown/md-to-html-string "###foo bar BAz" :heading-anchors true)
+(md/md-to-html-string "###foo bar BAz" :heading-anchors true)
 ----
 
 [source,html]
@@ -101,7 +101,7 @@ The +:code-style+ key allows overriding the default style hint for code blocks:
 
 [source,clojure]
 ----
-(md-to-html-string "```clojure\n(defn foo [])\n```" :code-style #(str "class=\"" % "\""))
+(md/md-to-html-string "```clojure\n(defn foo [])\n```" :code-style #(str "class=\"" % "\""))
 ----
 
 [source,html]
@@ -121,7 +121,7 @@ information such as what tags are currently active.
 (defn capitalize [text state]
   [(.toUpperCase text) state])
 
-(markdown/md-to-html-string "#foo" :custom-transformers [capitalize])
+(md/md-to-html-string "#foo" :custom-transformers [capitalize])
 ----
 
 [source,html]

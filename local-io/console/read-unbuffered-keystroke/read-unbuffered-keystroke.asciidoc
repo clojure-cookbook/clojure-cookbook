@@ -45,7 +45,7 @@ Beware, however, of testing +show-keystroke+ at the REPL:
 [source,console]
 ----
 $ lein repl
-user=> (use '[keystroke.core :only (show-keystroke)])
+user=> (require '[keystroke.core :refer [show-keystroke]])
 user=> (show-keystroke)
 Enter a keystroke:
 ;; HANGS!
@@ -57,7 +57,7 @@ In order to connect the console's input correctly to the REPL, use
 [source,console]
 ----
 $ lein trampoline repl
-user=> (use '[keystroke.core :only (show-keystroke)])
+user=> (require '[keystroke.core :refer [show-keystroke]])
 user=> (show-keystroke)
 Enter a keystroke: <r>Got 114 ('r')!
 nil

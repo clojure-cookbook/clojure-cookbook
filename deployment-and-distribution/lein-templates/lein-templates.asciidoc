@@ -64,7 +64,8 @@ list of files to be generated. Add +sanitize-ns+ to the namespace's
 [source,clojure]
 ----
 (ns leiningen.new.cookbook-sample-template-clojure-cookbook
-  (:use [leiningen.new.templates :only [renderer name-to-path ->files sanitize-ns]])) <1>
+  (:use [leiningen.new.templates :only [renderer name-to-path
+                                        ->files sanitize-ns]])) ; <1>
 
 (def render (renderer "cookbook-sample-template-clojure-cookbook"))
 
@@ -72,10 +73,10 @@ list of files to be generated. Add +sanitize-ns+ to the namespace's
   "FIXME: write documentation"
   [name]
   (let [data {:name name
-              :ns-name (sanitize-ns name) <2>
+              :ns-name (sanitize-ns name)                       ; <2>
               :sanitized (name-to-path name)}]
     (->files data
-             ["project.clj" (render "project.clj" data)] <3>
+             ["project.clj" (render "project.clj" data)]        ; <3>
              ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)])))
 ----
 

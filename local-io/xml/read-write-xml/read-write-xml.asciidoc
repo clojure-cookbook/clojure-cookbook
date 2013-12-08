@@ -23,7 +23,7 @@ For example, when reading the following file:
 
 [source,clojure]
 ----
-(use 'clojure.xml)
+(require '[clojure.xml :as xml])
 (clojure.xml/parse (clojure.java.io/file "simple.xml"))
 ;; -> {:tag :simple, :attrs nil, :content [
 ;;    {:tag :item, :attrs {:id "1"}, :content ["First"]} 
@@ -35,7 +35,7 @@ function from the +clojure.core+ namespace.
 
 [source,clojure]
 ----
-(xml-seq (clojure.xml/parse (clojure.java.io/file "simple.xml")))
+(xml/xml-seq (clojure.xml/parse (clojure.java.io/file "simple.xml")))
 ----
 
 +xml-seq+ returns a tree sequence of nodes; that is, a sequence of
