@@ -183,7 +183,7 @@ In this case we can specify custom tags by passing a map containing any of the f
 :custom-filters
 ----
 
-If we wanted to use +[+ and +]+ as our opening and closing tags, we could call the +render+ function as follows:
+If we wanted to use `[` and `]` as our opening and closing tags, we could call the +render+ function as follows:
 
 [source, clojure]
 ----

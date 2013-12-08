@@ -216,7 +216,7 @@ list and the list itself:
 ;; -> ((1 . _0))
 ----
 
-The first example is asking for any member of the list +[1]+, which
+The first example is asking for any member of the list `[1]`, which
 happens to only be 1. The second example is the opposite, any list
 where +1+ is a member. The dot notation indicates an improper tail
 with +_0+ in it. This means +1+ could be in a list by itself or +1+

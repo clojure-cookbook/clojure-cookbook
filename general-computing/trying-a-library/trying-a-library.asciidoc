@@ -13,8 +13,8 @@ Use Ryan Neufeld's +lein-try+ to launch the REPL. Library dependencies
 will be met automatically.
 
 To gain this capability, first make sure you are using Leiningen >=
-2.1.3. Then edit your _~/.lein/profiles.clj_ file, adding +[lein-try
-"0.4.1"]+ to the +:plugins+ vector of the +:user+ profile:
+2.1.3. Then edit your _~/.lein/profiles.clj_ file, adding `[lein-try "0.4.1"]`
+to the +:plugins+ vector of the +:user+ profile:
 
 .~/.lein/profiles.clj
 [source,clojure]

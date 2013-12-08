@@ -119,7 +119,7 @@ those keys on the original +employee+ map and assert that the return
 value equals +m+. Writing out multiple use cases in a declarative
 syntax makes it easier to catch errors and untreated edge-cases, such
 as the +NullPointerException+ that will be thrown for the
-+[:not-a-key] employee+ assertion pair in the test above.
+`[:not-a-key] employee` assertion pair in the test above.
 
 Unlike testing frameworks for other popular dynamic languages,
 Clojure's built-in assertions are minimal and simple. The +is+ and

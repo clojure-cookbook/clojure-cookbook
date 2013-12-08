@@ -120,4 +120,3 @@ can also be used with the +write+ and +read+ functions.
   +clojure.data.json+ for more information on read/write's. Options
   not covered in this recipe include +:eof-error?+, +:eof-value+ and
   +:bigdec+ on +read+ and  +:escape-unicode+ and +:escape-slash+ on +write+.
-;; TODO: Add explanations of these options to the recipe.

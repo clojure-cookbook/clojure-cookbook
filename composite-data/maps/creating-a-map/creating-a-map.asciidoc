@@ -54,8 +54,6 @@ will be that used in the final return map.
 
 Use +sorted-map-by+ to create a sorted map using a custom comparator.
 
-// TODO cross-reference recipe on sorting for more info on comparators
-
 [source,clojure]
 ----
 (sorted-map-by #(< (count %1) (count %2))
