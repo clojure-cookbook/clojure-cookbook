@@ -84,7 +84,7 @@ and pass them to a function:
   (GET "/" {params :params} (some-other-view params)))
 ----
 
-It is important to realize that compojure works on top of Ring. Your views
+It is important to realize that Compojure works on top of Ring. Your views
 should still return Ring response maps (although Compojure will wrap strings
 you return with a basic 200 response).
 

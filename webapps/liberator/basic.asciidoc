@@ -5,7 +5,7 @@ by Eric Normand
 ==== Problem
 
 You want to build a RESTful (RFC-2616 compliant) web application on top of Ring and
-Compojure at a higher level of abstracting, by defining resources.
+Compojure at a higher level of abstraction, by defining resources.
 
 ==== Solution
 
