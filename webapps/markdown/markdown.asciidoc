@@ -9,13 +9,13 @@ You need to render a Markdown document.
 
 ==== Solution
 
-You can use the +markdown-clj+ library (https://github.com/yogthos/markdown-clj)
+Use the +markdown-clj+ library (_https://github.com/yogthos/markdown-clj_) to render Markdown documents.
 
-Include the +markdown-clj+ dependency in the project:
+To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,clojure]
+[source,console]
 ----
-[markdown-clj "0.9.29"]
+$ lein try markdown-clj
 ----
 
 Use +markdown.core/md-to-html+ to read a Markdown document and generate as string containing HTML.
