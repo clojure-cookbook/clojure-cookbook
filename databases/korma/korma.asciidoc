@@ -80,8 +80,8 @@ database. You should only do this where strictly necessary.
 (exec-raw create-posts)
 ----
 
-Now that the posts table exists, you can invoke +insert+ against
-+posts+ with the maps +values+ returns to add records to the database.
+Now that the +posts+ table exists, you can invoke +insert+ against
++posts+ with a map's +values+ to add records to the database.
 Each record is represented by a map. The names of the keys in the map
 must match the names of the columns in the database.
 
