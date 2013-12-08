@@ -4,15 +4,15 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to send or recieve asynchronous UDP packets from your
+You want to send or receive asynchronous UDP packets from your
 application.
 
 ==== Solution
 
 Use Java interop with the +java.net.DatagramSocket+ and
-+java.net.DatagramPacket+ classes to send and recieve UDP messages.
++java.net.DatagramPacket+ classes to send and receive UDP messages.
 
-The following example demonstrates functions that send and recieve
+The following example demonstrates functions that send and receive
 short strings encoded into UDP packets.
 
 [source,clojure]
@@ -33,7 +33,7 @@ short strings encoded into UDP packets.
     (.send socket packet)))
 
 (defn receive
-  "Block until a UDP message is recieved on the given DatagramSocket, and
+  "Block until a UDP message is received on the given DatagramSocket, and
   returns the payload message as a string."
   [^DatagramSocket socket]
   (let [buffer (byte-array 512)
@@ -59,9 +59,9 @@ it generally isn't safe to attempt to send over 512 bytes of payload
 in a single UDP packet - although some network infrastructures may
 support it, others do not.
 
-The +recieve+ function creates an incoming byte array, adds it to a
+The +receive+ function creates an incoming byte array, adds it to a
 mutable empty +DatagramPacket+ instance, and invokes the +DatagramSocket.receive+
-method on the socket. When incoming data is recieved, the +receive+
+method on the socket. When incoming data is received, the +receive+
 method will return after populating the instance of
 +DatagramPacket+. The Clojure code then constructs and returns a new
 +String+ using the populated range of the byte array (that is, between
@@ -87,7 +87,7 @@ This creates a UDP socket on the specified port (in this case, 8888).
 
 Next, start up a listener using the +receive-loop+ function. For this
 example, simply pass it the +println+ function so it will print out
-all recieved values.
+all received values.
 
 [source,clojure]
 ----
@@ -102,8 +102,10 @@ message immediately.
 [source,clojure]
 ----
 (send socket "hello, world!" "localhost" 8888)
+;; *out*
+;; hello, world!
+;;
 ;; -> nil
-hello, world!
 ----
 
 In this case, sending to localhost, the message transmission happens
@@ -123,7 +125,7 @@ Before you do decide to use UDP, make sure your application is
 designed to continue working even if packets are dropped or corrupt.
 
 Because UDP uses asynchronous messages as its model, it is fairly easy
-to use +core.async+ to wrap the raw +DatagramSocket+s. +core.async+
+to use +core.async+ to wrap the raw +DatagramSocket+ instances. +core.async+
 provides a very nice _channel_ abstraction that lets you consume and
 produce inherently asynchronous eventes (such as UDP messages) in a
 clean, managed way.
@@ -140,8 +142,8 @@ documented
 http://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html[on
 Oracle's website] and would be redundant to reproduce here, since it
 is straightforward Java interop. After reading the example above,
-extending it to +MulticastSocket+ should be relatively self
-explanatory.
+extending it to +MulticastSocket+ should be relatively
+self-explanatory.
 
 ===== See Also
 

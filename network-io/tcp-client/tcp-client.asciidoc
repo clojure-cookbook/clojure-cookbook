@@ -39,7 +39,7 @@ This function obtains instances of +java.io.Writer+ and
 appending strings that conform to the HTTP specification to the
 writer, it forms a rudimentary HTTP client and executes a +GET+
 request to the specified endpoint. The results are then copied into an
-instance of + java.io.StringWriter+ using the +clojure.java.io/copy+ utility
+instance of +java.io.StringWriter+ using the +clojure.java.io/copy+ utility
 function, and returned as a string.
 
 Invoking +(send-request "google.com" 80 "/")+ at the REPL should
@@ -50,7 +50,7 @@ is the Google home page.
 
 This example uses the +clojure.java.io+ namespace to obtain
 instances of +java.io.Writer+ and +java.io.Reader+ to read and write
-textual data from the network socket. In point of fact, +Socket+s are
+textual data from the network socket. In point of fact, +Socket+ instances are
 not actually limited to textual data, and it would be possible to
 obtain raw binary input and output streams just as easily using
 +clojure.java.io/input-stream+ and +clojure.java.io/output-stream+,
@@ -75,6 +75,3 @@ within the context of a +with-open+ macro. This guarantees that the
 TCP connection. If the connection is not released, it will continue to
 consume resources on both the client and server, and may be subject to
 termination on the remote side.
-
-
-

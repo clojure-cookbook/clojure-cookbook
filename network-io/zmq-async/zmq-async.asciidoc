@@ -47,7 +47,7 @@ project's dependencies, or follow along in a REPL using +lein-try+:
 $ lein try com.keminglabs/zmq-async
 ----
 
-Here's a simple ping-pong between two asynchronously +go+ blocks in
+Here's a simple ping-pong between two asynchronous +go+ blocks in
 +core.async+, communicating via a ZeroMQ in-process socket:
 
 [source,clojure]

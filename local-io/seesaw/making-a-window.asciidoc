@@ -32,7 +32,7 @@ Seesaw with the +native!+ function:
                                pack! text scrollable]])
 
 (native!)
-;; => nil
+;; -> nil
 ----
 
 To create your window object, use +frame+ (which, under the covers, makes a
@@ -41,7 +41,7 @@ To create your window object, use +frame+ (which, under the covers, makes a
 [source,clojure]
 ----
 (frame :title "Lyrical Clojure" :content "Hello World")
-;; => #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523
+;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523
 ;; [frame0,0,22,0x0,invalid,hidden,layout=java.awt.BorderLayout,
 ;; title=Lyrical Clojure,resizable,normal,
 ;; defaultCloseOperation=HIDE_ON_CLOSE,
@@ -59,10 +59,10 @@ actually display the frame, use +show!+:
 (def f (frame :title "Lyrical Clojure"))
 
 (show! f)
-;; => #<JFrame$Tag$a79ba523 [...]>
+;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
-image:gui/seesaw/window-only.png["",width=150]
+image:local-io/seesaw/window-only.png["",width=150]
 
 ==== Discussion
 
@@ -74,7 +74,7 @@ You can change properties of the frame using +config!+:
 [source,clojure]
 ----
 (config! f :content "Actual content!")
-;; => #<JFrame$Tag$a79ba523 [...]>
+;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
 ==== Sizing the Window
@@ -84,7 +84,7 @@ You can also specify the size of the window at time of creation:
 [source,clojure]
 ----
 (def f (frame :title "Lyrical Clojure" :width 300 :height 150))
-;; => #<JFrame$Tag$a79ba523 [...]>
+;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
 However, it is common to instead call +pack!+ on the resulting frame
@@ -94,10 +94,10 @@ content:
 [source,clojure]
 ----
 (-> f pack! show!)
-;; => #<JFrame$Tag$a79ba523 [...]>
+;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
-image:gui/seesaw/content.png["",width=150]
+image:local-io/seesaw/content.png["",width=150]
 
 ==== Adding Scrollable Content
 
@@ -117,10 +117,10 @@ This content is too big to fit in the current window:
 [source,clojure]
 ----
 (config! f :content sonnet-text)
-;; => #<JFrame$Tag$a79ba523 [...]>
+;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
-image:gui/seesaw/no-longer-yours.png["",width=150]
+image:local-io/seesaw/no-longer-yours.png["",width=150]
 
 Normally, one would call +pack!+ again to adjust the window size to
 the new content. However, the content will not fit comfortably on most
@@ -134,7 +134,7 @@ screens, so set the size explicitly and add scrollbars:
                                       :editable? false)))
 ----
 
-image:gui/seesaw/sonnets.png["",width=420]
+image:local-io/seesaw/sonnets.png["",width=420]
 
 The +:multi-line?+ option to the +text+ function selects +JTextArea+
 as the underlying object, rather than +JTextField+ (+JTextArea+ is
