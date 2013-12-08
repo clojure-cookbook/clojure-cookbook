@@ -62,7 +62,7 @@ following situations:
 - You want to deliver the application binary, but don't want to
   include the original source code with it.
 - To marginally speed up an application's start time (since the
-  Clojure co de won't have to be compiled on the fly).
+  Clojure code won't have to be compiled on the fly).
 - You need to generate classes loadable directly from Java for interop
   purposes.
 - For platforms (such as Android) that do not support custom

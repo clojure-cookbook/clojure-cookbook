@@ -45,6 +45,9 @@ any needs you have.
   provided function must return a pair (a two-element sequence.)"
   [m f]
   (into {} (map (fn [[k v]] (f k v)) m)))
+
+(map-kv {"a" 1 "b" 1} (fn [k v] [(keyword k) (inc v)]))
+;; -> {:a 2, :b 2}
 ----
 
 ==== Discussion

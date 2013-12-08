@@ -104,7 +104,7 @@ indices, and conveniently lets you dive in any number of levels,
 "biting off" only the data you need.
 
 As with most Datomic functions, +datoms+ takes a +db+ as its first
-argument. You'll not in our examples, and elsewhere in the book, we
+argument. You'll note in our examples, and elsewhere in the book, we
 too accept a database as a value, and not a connection--this idiom
 allows API users to perform varying numbers of operations on the same
 database value. You should always try to do this yourself.
