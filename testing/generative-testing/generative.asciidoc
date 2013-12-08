@@ -12,34 +12,33 @@ that it works in all possible scenarios.
 Use the +test.generative+ library to specify a function's inputs, and
 test it across random generated values.
 
+To follow along with this recipe, start a REPL using +lein-try+:
+
+[source,clojure]
+----
+$ lein try org.clojure/test.generative "0.5.0"
+----
+
 Say you are trying to test the following function, which calculates
 the arithmatic mean of all the numbers in a sequence.
 
 [source,clj]
-.code.clj
 ----
-(ns example.code)
-
 (defn mean
   "Calculate the mean of the numbers in a sequence"
   [s]
   (/ (reduce + s) (count s)))
 ----
 
-Start by including +[org.clojure/test.generative "0.5.0"]+ in your
-+project.clj+.
 
 The following +test.generative+ code then defines a _specification_ for
 the +mean+ function:
 
 [source,clj]
-.generative_tests.clj
 ----
-(ns example.generative-tests
-  (:require [example.code :as code]
-            [clojure.test.generative :as t]
-            [clojure.test.generative.runner :as r]
-            [clojure.data.generators :as gen]))
+(require '[clojure.test.generative :as t]
+         '[clojure.test.generative.runner :as r]
+         '[clojure.data.generators :as gen])
 
 (defn number
   "Returns a random number, of a random type"
@@ -73,9 +72,8 @@ Running the above example at the REPL:
 
 [source,clj]
 ----
-> (r/run 2 5000 #'example.generative-tests/mean-spec)
-;; Throws exception!
-;; clojure.lang.ExceptionInfo: Generative test failed
+(r/run 2 5000 #'example.generative-tests/mean-spec)
+;; -> clojure.lang.ExceptionInfo: Generative test failed
 ----
 
 This shows the behavior when the generative test fails. The exact
@@ -91,8 +89,8 @@ error:
 
 [source,clj]
 ----
-> (ex-data *e)
-;; => {:exception #<ArithmeticException java.lang.ArithmeticException: 
+(ex-data *e)
+;; -> {:exception #<ArithmeticException java.lang.ArithmeticException: 
 ;;     Divide by zero>, :iter 7, :seed -875080314,
 ;;     :example.generative-tests/mean-spec, :input [#{}]}
 ----
@@ -117,9 +115,9 @@ Rerunning now shows a passing test:
 
 [source,clj]
 ----
-> (r/run 2 5000 #'example.generative-tests/mean-spec)
-;; {:iter 3931, :seed -1495229764, :test testgen-test.core/mean-spec}
-;; {:iter 3909, :seed -1154113663, :test testgen-test.core/mean-spec}
+(r/run 2 5000 #'example.generative-tests/mean-spec)
+;; -> {:iter 3931, :seed -1495229764, :test testgen-test.core/mean-spec}
+;;    {:iter 3909, :seed -1154113663, :test testgen-test.core/mean-spec}
 ----
 
 This output indicates that over the allotted five seconds, two threads

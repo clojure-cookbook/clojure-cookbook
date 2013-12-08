@@ -8,8 +8,11 @@ Your web application needs to read or set cookies on the user's browser (for exa
 
 ==== Solution
 
-Use the `ring.middleware.cookies.wrap-cookies` middleware to add cookies to your requests:
+Use the `ring.middleware.cookies/wrap-cookies` middleware to add cookies to your requests.
 
+To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+
+._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest

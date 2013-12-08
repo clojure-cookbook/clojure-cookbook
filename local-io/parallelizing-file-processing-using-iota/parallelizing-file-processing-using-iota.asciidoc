@@ -14,15 +14,20 @@ Use the https://github.com/thebusby/iota[Iota] library in
 conjunction with the +filter+, +map+ and +fold+ functions from the
 Clojure Reducers library in the +clojure.core.reducers+ namespace.
 
-For example, to count the words in a very large file:
+To follow along with this recipe, add `[iota "1.1.1"]` to your project's dependencies, or start a REPL with +lein-try+:
+
+[source,console]
+----
+$ lein try iota
+----
+
+To count the words in a very large file, for example:
 
 [source,clojure]
 ----
-(ns word-count-with-iota
-  "Give the word count for a text file using iota and reducers"
-  (:require [iota                  :as io]
-            [clojure.core.reducers :as r]
-            [clojure.string        :as str]))
+(require '[iota                  :as io]
+         '[clojure.core.reducers :as r]
+         '[clojure.string        :as str])
 
 
 ;; word counting functions

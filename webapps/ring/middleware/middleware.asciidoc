@@ -15,6 +15,9 @@ middleware as functions-returning-functions. Define a middleware that modifies
 the request by adding a parsed version of the query string to the request
 before passing it on to the handler:
 
+To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+
+._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest

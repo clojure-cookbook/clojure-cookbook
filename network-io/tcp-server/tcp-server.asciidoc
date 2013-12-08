@@ -15,9 +15,8 @@ socket.
 
 [source,clojure]
 ----
-(ns my-server
-  (:require [clojure.java.io :as io])
-  (:import [java.net ServerSocket]))
+(require '[clojure.java.io :as io])
+(import '[java.net ServerSocket])
 
 (defn receive
   "Read a line of textual data from the given socket"
@@ -158,11 +157,13 @@ false, and the loop will break.
 
 [source,clojure]
 ----
-my-server> (def a (serve-persistent 8888 #(.toUpperCase %)))
-#'my-server/a
+(def a (serve-persistent 8888 #(.toUpperCase %)))
+;; -> #'my-server/a
+
 ;; server is running, will respond to multiple requests
-my-server> (reset! a false)
-false
+
+(reset! a false)
+;; -> false
 ;; server is stopped, will stop serving requests after the next one
 ----
 

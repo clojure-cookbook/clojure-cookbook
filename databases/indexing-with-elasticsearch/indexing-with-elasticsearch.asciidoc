@@ -24,13 +24,11 @@ native transports.  This recipe will use HTTP transport client for
 examples and explain how to switch to the native transport in the
 Discussion section.
 
-To start, include Elastisch into your project file:
+To follow along with this recipe, add `[clojurewerkz/elastisch "1.2.0"]` to your project's dependencies, or start a REPL use +lein-try+:
 
-.project.clj
-[source,clojure]
+[source,console]
 ----
-(defproject elastisch-example "1.0.0-SNAPSHOT"
-              :dependencies [[clojurewerkz/elastisch "1.2.0"]])
+$ lein try clojurewerkz/elastisch
 ----
 
 Before you can index and search with Elastisch, it is necessary to
@@ -40,11 +38,9 @@ that takes an endpoint as its sole argument:
 
 [source,clojure]
 ----
-(ns elastisch-example
-  (:require [clojurewerkz.elastisch.rest :as esr]))
+(require '[clojurewerkz.elastisch.rest :as esr])
 
 (esr/connect! "http://127.0.0.1:9200")
-
 ----
 
 ===== Indexing
@@ -65,10 +61,7 @@ To create an index, use the *clojurewerkz.elastisch.rest.index/create* function:
 
 [source,clojure]
 ----
-(ns elastisch-example
-  (:require [clojurewerkz.elastisch.rest :as esr]
-            [clojurewerkz.elastisch.rest.index :as esi]))
-
+(require '[clojurewerkz.elastisch.rest.index :as esi])
 
 (esr/connect! "http://127.0.0.1:9200")
 
@@ -77,7 +70,6 @@ To create an index, use the *clojurewerkz.elastisch.rest.index/create* function:
 
 ;; creates an index with custom settings
 (esi/create "test2" :settings {"number_of_shards" 1}))
-
 ----
 
 A full explanation of the available indexing settings is outside the
@@ -97,10 +89,6 @@ Mapping types are specified when an index is created using the
 
 [source,clojure]
 ----
-(ns elastisch-example
-  (:require [clojurewerkz.elastisch.rest :as esr]
-            [clojurewerkz.elastisch.rest.index :as esi]))
-
 (esr/connect! "http://127.0.0.1:9200")
 
 ;; Mapping types map structure is the same as in the ElasticSearch API reference
@@ -126,10 +114,7 @@ cause a document id to be generated automatically:
 
 [source,clojure]
 ----
-(ns elastisch-example
-  (:require [clojurewerkz.elastisch.rest  :as esr]
-            [clojurewerkz.elastisch.rest.index :as esi]
-            [clojurewerkz.elastisch.rest.document :as esd]))
+(require '[clojurewerkz.elastisch.rest.document :as esd])
 
 (esr/connect! "http://127.0.0.1:9200")
 
@@ -157,7 +142,6 @@ cause a document id to be generated automatically:
 
 (esd/create "test4" "person" doc)
 ;; => {:ok true, :_index people, :_type person, :_id "2vr8sP-LTRWhSKOxyWOi_Q", :_version 1}
-
 ----
 
 *clojurewerkz.elastisch.rest.document/put* will add a document to the index but expects document id to be provided:

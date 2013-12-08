@@ -75,18 +75,6 @@ will be decorated with a class compatible with the http://alexgorbatchev.com/Syn
 </pre>
 ----
 
-When calling from ClojureScript, use +markdown.core/mdToHtml+ to generate HTML.
-It behaves equivalently to +md-t-html-string+:
-
-[source,clojure]
-----
-(ns myscript
-  (:require [markdown.core :as md]))
-
-(.log js/console
-  (md/mdToHtml "##This is a heading\nwith a paragraph following it"))
-----
-
 +markdown-clj+ supports all the standard Markdown tags with the exception of the reference style links due
 to the fact that the parser uses a single pass to generate the document.
 

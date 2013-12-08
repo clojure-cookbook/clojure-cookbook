@@ -12,11 +12,13 @@ single, unbuffered keystroke from the console.
 Use +ConsoleReader+ from the JLine footnote:[https://github.com/jline/jline2]
 library, a Java library for handling console input.
 
-JLine is similar to BSD editline and GNU readline. There are a few
-older versions of the library out there -- adding +[jline "2.11"]+ to
-your +:dependencies+ in +project.clj+ will pick up the latest version
-as of this writing.
+JLine is similar to BSD editline and GNU readline. To follow along with this
+recipe, create a new library using the command *+lein new keystroke+*.  Inside
+_project.clj_, add `[jline "2.11"]` to the +:dependencies+ vector.
 
+Inside the _src/keystroke/core.clj_ file, use +ConsoleReader+ to read characters from the terminal.
+
+._src/keystroke/core.clj_
 [source,clojure]
 ----
 (ns keystroke.core
@@ -40,11 +42,11 @@ input buffering.
 
 Beware, however, of testing +show-keystroke+ at the REPL:
 
-[source,clojure]
+[source,console]
 ----
-% lein repl
-(use '[keystroke.core :only (show-keystroke)])
-(show-keystroke)
+$ lein repl
+user=> (use '[keystroke.core :only (show-keystroke)])
+user=> (show-keystroke)
 Enter a keystroke:
 ;; HANGS!
 ----
@@ -52,11 +54,11 @@ Enter a keystroke:
 In order to connect the console's input correctly to the REPL, use
 +lein trampoline repl+ (+<r>+ below means user types the letter +r+):
 
-[source,clojure]
+[source,console]
 ----
-% lein trampoline repl
-(use '[keystroke.core :only (show-keystroke)])
-(show-keystroke)
+$ lein trampoline repl
+user=> (use '[keystroke.core :only (show-keystroke)])
+user=> (show-keystroke)
 Enter a keystroke: <r>Got 114 ('r')!
 nil
 user=> 

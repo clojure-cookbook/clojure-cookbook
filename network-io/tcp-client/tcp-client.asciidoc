@@ -17,10 +17,9 @@ string.
 
 [source,clojure]
 ----
-(ns tcp-client
-  (:require [clojure.java.io :as io])
-  (:import [java.io StringWriter]
-           [java.net Socket]))
+(require '[clojure.java.io :as io])
+(import '[java.io StringWriter]
+        '[java.net Socket])
 
 (defn send-request
   "Sends an HTTP GET request to the specified host, port and path"

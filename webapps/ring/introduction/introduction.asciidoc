@@ -12,6 +12,9 @@ You need to write an HTTP service with clojure
 Clojure has no built-in HTTP server, but the de-facto standard for
 serving basic, synchronous HTTP requests is the Ring library.
 
+To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+
+._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest

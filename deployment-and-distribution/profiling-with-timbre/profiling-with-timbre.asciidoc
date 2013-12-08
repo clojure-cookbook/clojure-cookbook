@@ -22,12 +22,11 @@ dependencies or start a REPL using +lein-try+:
 $ lein try com.taoensso/timbre
 ----
 
-// TODO: Use X to Y.
+Use the macros in the +taoensso.timbre.profiling+ namespace to collect benchmarking metrics in development.
 
 [source,clojure]
 ----
-(ns cookbook.profiling-timbre
-  (:require [taoensso.timbre.profiling :as p]))
+(require '[taoensso.timbre.profiling :as p])
 
 (defn bench-me [f]
   (p/p :bench/bench-me

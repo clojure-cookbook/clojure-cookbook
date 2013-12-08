@@ -13,8 +13,12 @@ Though Java's Swing library is the most common way to make Java GUIs
 provides a more idiomatic and functional interface, is the best tool
 for creating GUIs with Clojure.
 
-To get started with Seesaw, add +[seesaw "1.4.4"]+ to your project
-dependencies in +project.clj+.
+To follow along with this recipe, start a REPL using +lein-try+:
+
+[source,console]
+----
+$ lein try seesaw
+----
 
 Swing implements "programmable Look and Feel": the appearance of
 various widgets, and their behavior, can be modified, though it is
@@ -24,9 +28,8 @@ Seesaw with the +native!+ function:
 
 [source,clojure]
 ----
-(ns simplegui.core 
-  (:require [seesaw.core :refer [native! frame show! config!
-                                 pack! text scrollable]]))
+(require '[seesaw.core :refer [native! frame show! config!
+                               pack! text scrollable]])
 
 (native!)
 ;; => nil

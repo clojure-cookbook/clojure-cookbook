@@ -14,13 +14,11 @@ In order to successfully work through the examples in this recipe, you
 should have Cassandra installed. You can find details on how to
 install Cassandra at http://wiki.apache.org/cassandra/GettingStarted.
 
-Include the Cassaforte dependency in your +project.clj+:
+To follow along with this recipe, add `[clojurewerkz/cassaforte "1.1.0"]` to your project's dependencies, or start a REPL using +lein-try+:
 
-.project.clj
-[source,clojure]
+[source,console]
 ----
-(defproject cassaforte-example "1.0.0-SNAPSHOT"
-            :dependencies [[clojurewerkz/cassaforte "1.1.0"]])
+$ lein try clojurewerkz/cassaforte
 ----
 
 In order to connect to Cassandra cluster and create and use your first
@@ -31,10 +29,9 @@ connection, the other two provide a easy interface to execute queries.
 
 [source,clojure]
 ----
-(ns cassaforte.docs.examples
-  (:require [clojurewerkz.cassaforte.client :as client]
-            [clojurewerkz.cassaforte.cql :as cql]
-            [clojurewerkz.cassaforte.query :as q]))
+(require '[clojurewerkz.cassaforte.client :as client]
+         '[clojurewerkz.cassaforte.cql :as cql]
+         '[clojurewerkz.cassaforte.query :as q])
 
 ;; Connect to 2 nodes in a cluster
 (client/connect! ["localhost" "another.node.local"])

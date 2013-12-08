@@ -14,20 +14,17 @@ Use the Selmer library (https://github.com/yogthos/Selmer) to
 create your template and call it with a context map containing the
 dynamic content.
 
-First, add Selmer to your project file:
+To follow along with this recipe, start a REPL using +lein-try+:
 
-.project.clj
-[source,clojure]
+[source,console]
 ----
-(defproject selmer-templating "1.0.0-SNAPSHOT"
-            :dependencies [[org.clojure/clojure "1.5.1"]
-                           [selmer "0.4.0"]])
+$ lein try selmer
 ----
 
 A Selmer template is an HTML file with special tags that is populated with dynamic
 content at runtime. A simple template might look like the following:
 
-.src/views/templates/base.html
+._base.html_
 [source, html]
 ----
 <!DOCTYPE html>
@@ -55,11 +52,10 @@ The template can then be rendered by calling the +selmer.parser/render-file+ fun
 
 [source, clojure]
 ----
-(ns selmer-templating
-  (:require [selmer.parser :refer [render-file]]))
+(require '[selmer.parser :refer [render-file]])
 
 (println
-  (render-file "views/templates/base.html"
+  (render-file "base.html"
                {:header "Hello Selmer"
                 :nav-items [{:name "Home" :link "/"}
                             {:name "About" :link "/about"}]}))
@@ -81,7 +77,7 @@ Below, we use the +upper+ filter to convert our heading to upper case:
 We can extract parts of the template into individual snippets using the +include+ tag. For example,
 if we wanted to define the header in a separate file we could do the following:
 
-.src/views/templates/header.html
+._header.html_
 [source, html]
 ----
 <header>
@@ -100,14 +96,14 @@ if we wanted to define the header in a separate file we could do the following:
 </header>
 ----
 
-.src/views/templates/base.html
+._base.html_
 [source, html]
 ----
 <!DOCTYPE html>
 <html lang="en">
   <body>
 
-    {% include "views/templates/header.html" %}
+    {% include "header.html" %}
 
   </body>
 </html>
@@ -120,14 +116,14 @@ We can also extend our base template when we create individual pages.
 To do that we would first define a block in our base template. This will serve as an anchor
 for the child template to override.
 
-.src/views/templates/base.html
+._base.html_
 [source, html]
 ----
 <!DOCTYPE html>
 <html lang="en">
   <body>
 
-    {% include "views/templates/header.html" %}
+    {% include "header.html" %}
 
     {% block content %}
     {% endblock %}
@@ -139,10 +135,10 @@ for the child template to override.
 The child template will reference the parent using the +extends+ tag and define its own
 content for the +content+ block:
 
-.src/views/templates/home.html
+._home.html_
 [source, html]
 ----
-{% extends "views/templates/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -206,16 +202,15 @@ Selmer provides a rich set of filters that allow decorating the dynamic content.
 
 However, if you need a custom filter that's not part of the library you can trivially add one yourself.
 For example, if we wanted to parse Markdown using the https://github.com/yogthos/markdown-clj[markdown-clj] library
-and display it on the page we could write the following filter:
+and display it on the page we could write the following filter footnote:[you'll need to restart a new +lein-try+ REPL including +markdown-clj+ to try this...].
 
 [source, clojure]
 ----
-(ns myapp
- (:require [markdown.core :refer [md-to-html-string]]
-           [selmer.filters/add-filter!]))
- 
+(require '[markdown.core :refer [md-to-html-string]]
+         '[selmer.filters/add-filter!])
+
 (add-filter! :markdown md-to-html-string)
----- 
+----
 
 We can now use this filter in our templates to render our Markdown content:
 
@@ -247,9 +242,8 @@ Let's say we wish to add a tag that will capitalize its contents. We could do th
 
 [source, clojure]
 ----
-(ns myapp
- (:require [selmer.parser :refer [add-tag!]]))
- 
+(require '[selmer.parser :refer [add-tag!]])
+
 (add-tag! :uppercase
           (fn [args context-map content]
             (.toUpperCase (get-in content [:uppercase :content])))

@@ -14,8 +14,12 @@ Use +simple-check+, a property specification library for Clojure that
 is capable of "shrinking" the input case to find the minimal failing
 input.
 
-Start by adding a project dependency to the +simple-check+ library:
-+[reiddraper/simple-check "0.5.3"]+.
+To follow along with this recipe, add `[reiddraper/simple-check "0.5.3"]` to your project's dependencies, or start a REPL using +lein-try+:
+
+[source,console]
+----
+$ lein try reiddraper/simple-check
+----
 
 Then, find a function to test. This example uses a contrived function
 which calculates the sum of the reciprocals of a sequence of numbers:
@@ -30,10 +34,9 @@ The test code itself:
 
 [source,clj]
 ----
-(ns myapp.test
-  (:require [simple-check.core :as sc]
-            [simple-check.generators :as gen]
-            [simple-check.properties :as prop]))
+(require '[simple-check.core :as sc]
+         '[simple-check.generators :as gen]
+         '[simple-check.properties :as prop])
 
 (def seq-of-numbers (gen/one-of [(gen/vector gen/int)
                                  (gen/list gen/int)]))
@@ -75,7 +78,7 @@ passing it the defined property.
 (sc/quick-check 100 reciprocal-sum-check)
 ----
 
-+quick-check takes the number of samples to execute, and the property
++quick-check+ takes the number of samples to execute, and the property
 definition to execute. The body of the property definition will be
 sampled repeatedly, with randomized values bound to the symbols
 specified in the binding form.
@@ -113,7 +116,8 @@ Re-running the test now indicates success.
 
 [source,clj]
 ----
-{:result true, :num-tests 100, :seed 1384622907885}
+(sc/quick-check 100 reciprocal-sum-check)
+;; -> {:result true, :num-tests 100, :seed 1384622907885}
 ----
 
 ==== Discussion

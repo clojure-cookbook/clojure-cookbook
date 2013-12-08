@@ -11,9 +11,9 @@ You want an easy way to route URLs to specific Ring handler functions.
 
 Use the Compojure library (https://github.com/weavejester/compojure) to add routing to your app.
 
-Start by adding the Compojure dependency to leiningen by adding
-`[compojure "1.1.5"]` to `:dependencies` in the `project.clj`.
+To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
 
+._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
