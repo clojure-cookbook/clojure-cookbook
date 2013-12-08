@@ -17,12 +17,11 @@ instance of MongoDB to connect to. See MongoDB's
 http://docs.mongodb.org/manual/installation/[installation guide] for
 instructions on how to install MongoDB on your local system.
 
-When you're ready to write a Clojure MongoDB client, add Monger to your _project.clj_ file:
+When you're ready to write a Clojure MongoDB client, start a REPL using +lein-try+:
 
-[source,clojure]
+[source,console]
 ----
-(defproject mongo-time "1.0.0"
-  :dependencies [[com.novemberain/monger "1.6.0"]])
+$ lein try com.novemberain/monger
 ----
 
 To connect to MongoDB, use the `monger.core/connect!` function. This will store your connection in the `*mongodb-connection*` dynamic var. If you want to get a connection to use without storing it in a dynamic var, you can use `monger.core/connect` with the same options.

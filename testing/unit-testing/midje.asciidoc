@@ -202,7 +202,6 @@ group, or all of the tests in a single namespace:
 # Run all your tests
 $ lein midje
 
-
 # Run a group of namespaces
 $ lein midje com.example.*
 
