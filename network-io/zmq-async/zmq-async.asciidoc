@@ -155,6 +155,7 @@ then you'll need multiple zmq-async contexts.
 * Rich Hickey's http://www.youtube.com/watch?v=ROor6_NGIWU[Language of the System] talk, wherein he outlines the benefits of queues
 * The http://zguide.zeromq.org/[ZeroMQ guide] for architectural
   patterns and advice
+* <<sec_general_core_async>>
 * The
   http://clojure.com/blog/2013/06/28/clojure-core-async-channels.html[introductory
   blog post] for +core.async+, which provides a good overview.
