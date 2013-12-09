@@ -1,3 +1,4 @@
+[[sec_network_io_tcp_client]]
 === Creating a TCP Client
 [role="byline"]
 by Luke VanderHart
@@ -75,3 +76,8 @@ within the context of a +with-open+ macro. This guarantees that the
 TCP connection. If the connection is not released, it will continue to
 consume resources on both the client and server, and may be subject to
 termination on the remote side.
+
+==== See Also
+
+* <<sec_network_io_tcp_server>>
+* Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol].

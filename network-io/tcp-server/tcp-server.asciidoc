@@ -1,3 +1,4 @@
+[[sec_network_io_tcp_server]]
 === Creating a TCP Server
 [role="byline"]
 by Luke VanderHart
@@ -198,3 +199,5 @@ HTTP requests or JMS queues) actually work.
   documentation] for ServerSocket and Socket objects in Java.
 - The http://clojure.github.io/clojure/#clojure.java.io[API
   documentation] for the +clojure.java.io+ namespace.
+- <<sec_network_io_tcp_client>>
+-  Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol].
