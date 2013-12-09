@@ -7,11 +7,13 @@ include::interactive-docs/interactive-docs.asciidoc[]
 
 include::exploring-namespaces/exploring-namespaces.asciidoc[]
 
+include::trying-a-library/trying-a-library.asciidoc[]
+
 include::main/main.asciidoc[]
 
 include::running-programs-from-the-command-line.asciidoc[]
 
-include::trying-a-library/trying-a-library.asciidoc[]
+include::gparse-command-line-arguments/parse-command-line-arguments.asciidoc[]
 
 include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 

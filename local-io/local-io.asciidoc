@@ -9,8 +9,6 @@ include::writing-to-stdout-and-stderr/writing-to-stdout-and-stderr.asciidoc[]
 
 include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
 
-include::console/parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
-
 include::exec-system-command/exec-system-command.asciidoc[]
 
 // Files
