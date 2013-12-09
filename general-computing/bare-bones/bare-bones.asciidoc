@@ -1,4 +1,4 @@
-=== Bare-Bones Clojure
+=== Running a Minimal Clojure REPL
 [role="byline"]
 by John Cromartie
 

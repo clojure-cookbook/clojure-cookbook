@@ -11,8 +11,6 @@ include::war-file/war-file.asciidoc[]
 
 include::daemons.asciidoc[]
 
-include::bare-bones/bare-bones.asciidoc[]
-
 include::type-hinting/type-hinting.asciidoc[]
 
 include::primitive-arrays/primitive-arrays.asciidoc[]

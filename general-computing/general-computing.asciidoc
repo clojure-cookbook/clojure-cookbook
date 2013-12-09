@@ -3,6 +3,8 @@
 
 include::introduction.asciidoc[]
 
+include::bare-bones/bare-bones.asciidoc[]
+
 include::interactive-docs/interactive-docs.asciidoc[]
 
 include::exploring-namespaces/exploring-namespaces.asciidoc[]
