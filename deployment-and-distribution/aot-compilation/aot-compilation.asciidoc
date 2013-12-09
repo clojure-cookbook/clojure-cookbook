@@ -76,3 +76,9 @@ dissimilar from Java itself; it has always been the case that inner
 classes are compiled to seperate class files, and Clojure functions
 are effectively anonymous inner classes from the JVM's point of view.
 
+==== See Also
+
+* Clojure's official documentation on
+  http://clojure.org/compilation[AOT compilation].
+
+* <<sec_packaging_jars>>

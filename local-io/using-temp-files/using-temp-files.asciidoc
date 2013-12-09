@@ -1,4 +1,4 @@
-=== Using Temporary Files with Clojure
+=== Using Temporary Files
 [role="byline"]
 by Alan Busby
 

@@ -3,17 +3,21 @@
 
 include::introduction.asciidoc[]
 
+include::bare-bones/bare-bones.asciidoc[]
+
 include::interactive-docs/interactive-docs.asciidoc[]
 
 include::exploring-namespaces/exploring-namespaces.asciidoc[]
+
+include::trying-a-library/trying-a-library.asciidoc[]
 
 include::main/main.asciidoc[]
 
 include::running-programs-from-the-command-line.asciidoc[]
 
-include::creating-executable-jar/creating-executable-jar.asciidoc[]
+include::parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
 
-include::trying-a-library/trying-a-library.asciidoc[]
+include::lein-templates/lein-templates.asciidoc[]
 
 include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 
@@ -26,4 +30,6 @@ include::parser-with-core-match/parser-with-core-match.asciidoc[]
 include::core-logic/core-logic.asciidoc[]
 
 include::nursery-rhyme/nursery-rhyme.asciidoc[]
+
+
 

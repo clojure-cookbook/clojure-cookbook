@@ -1,3 +1,4 @@
+[[sec_general_core_async]]
 === Decoupling Consumers and Producers with +core.async+
 [role="byline"]
 by Daemian Mack

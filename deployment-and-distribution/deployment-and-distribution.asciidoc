@@ -1,15 +1,15 @@
 [[ch_deployment_and_distribution]]
-== Deployment and Distribution
+== Performance & Production
 
 include::introduction.asciidoc[]
 
 include::aot-compilation/aot-compilation.asciidoc[]
 
+include::creating-executable-jar/creating-executable-jar.asciidoc[]
+
 include::war-file/war-file.asciidoc[]
 
 include::daemons.asciidoc[]
-
-include::bare-bones/bare-bones.asciidoc[]
 
 include::type-hinting/type-hinting.asciidoc[]
 
@@ -19,10 +19,6 @@ include::profiling-with-timbre/profiling-with-timbre.asciidoc[]
 
 include::logging-with-timbre/logging-with-timbre.asciidoc[]
 
-include::lein-templates/lein-templates.asciidoc[]
-
 include::releasing-a-library/releasing-a-library.asciidoc[]
 
 include::deprecate-macro/deprecate-macro.asciidoc[]
-
-include::sending-email.asciidoc[]

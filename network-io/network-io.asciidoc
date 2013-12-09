@@ -11,6 +11,8 @@ include::ping/sending-a-ping-request.asciidoc[]
 
 include::rss/rss.asciidoc[]
 
+include::sending-email.asciidoc[]
+
 include::queueing-with-rabbitmq/queueing-with-rabbitmq.asciidoc[]
 
 include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
