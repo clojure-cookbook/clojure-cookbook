@@ -16,7 +16,7 @@ cumbersome Java APIs from Clojure.
 
 Use +core.typed+ to type check Java interop calls.
 
-To follow along with this recipe, create a file _core_typed_samples.cl_
+To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
 [source,console]
@@ -119,7 +119,7 @@ Java types *and* documentation is needed to confidently use foreign
 Java code correctly.
 
 Though the +File+ constructor is fairly innocous, consider writing
-+parent+, a thin wrapper over the +getParent+ method.
++file-parent+, a thin wrapper over the +getParent+ method.
 
 ._core_typed_samples.clj_
 [source,clojure]
@@ -136,7 +136,7 @@ Though the +File+ constructor is fairly innocous, consider writing
 The above implementation is free from reflective calls, so... all
 good? No. Checking this function with +core.typed+ tells another story;
 Java's return types are _nullable_ and +core.typed+ knows it. It is
-possible that +getParent+ return +nil+ instead of a +String+.
+possible that +getParent+ will return +nil+ instead of a +String+.
 
 [source,console]
 ----
