@@ -94,5 +94,6 @@ very small.
 
 ==== See also
 
+* <<sec_composite_data_maps_setting_keys>>
 * <<sec_composite_creating_sets>>
-* Comparators
+* <<sec_comparing_dates>> and <<sec_fuzzy_comparison>> to see more uses for +compare+

@@ -159,5 +159,6 @@ a map and conjoining to a vector in the same form.
 
 ==== See also
 
+* <<sec_composite_data_maps_multiple_values>>
 * <<sec_composite_maps_as_seqs>>
 * <<sec_composite_combining_maps>>

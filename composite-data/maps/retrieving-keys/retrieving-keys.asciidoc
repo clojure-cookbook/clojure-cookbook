@@ -193,4 +193,6 @@ throw an exception if used at all with a list or a sequence.
 
 ==== See also
 
+* <<sec_composite_data_maps_setting_keys>>
+* <<sec_retrieving_multiple_keys>>
 * <<sec_composite_maps_as_seqs>>

@@ -1,3 +1,4 @@
+[[sec_comparing_dates]]
 === Comparing Dates
 [role="byline"]
 by Ryan Neufeld

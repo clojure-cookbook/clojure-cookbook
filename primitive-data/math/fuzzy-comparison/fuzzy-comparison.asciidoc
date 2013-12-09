@@ -1,3 +1,4 @@
+[[sec_fuzzy_comparison]]
 === Performing Fuzzy Comparison
 [role="byline"]
 by Ryan Neufeld
