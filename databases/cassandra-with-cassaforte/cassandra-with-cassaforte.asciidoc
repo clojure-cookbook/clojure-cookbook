@@ -170,4 +170,4 @@ You can increment and decrement counters by using the +increment-by+ and +decrem
 
 ==== See Also
 
-See the http://clojurecassandra.info[Cassaforte documentation guides] for more details.
+* The http://clojurecassandra.info[Cassaforte documentation]

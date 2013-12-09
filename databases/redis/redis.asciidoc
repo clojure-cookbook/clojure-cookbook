@@ -154,12 +154,12 @@ Github project] for more information.
 
 ==== See Also
 
-* https://github.com/ptaoussanis/carmine[The Carmine Github project] for more information about
+* The https://github.com/ptaoussanis/carmine[Carmine Github project] for more information about
   Carmine.
-* http://redis.io/commands[The official Redis documentation] for a complete list of Redis
+* The http://redis.io/commands[official Redis documentation] for a complete list of Redis
   commands.
-* https://github.com/ptaoussanis/nippy[The Nippy Github project] for information about
+* The https://github.com/ptaoussanis/nippy[Nippy Github project] for information about
   Serialization.
-* http://clojuredocs.org/clojure_core/clojure.core/memoize[The Clojure core documentation] for
+* The http://clojuredocs.org/clojure_core/clojure.core/memoize[Clojure core documentation] for
   documentation of the +memoize+ function.
 

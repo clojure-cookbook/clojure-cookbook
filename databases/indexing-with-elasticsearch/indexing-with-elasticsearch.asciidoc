@@ -261,3 +261,8 @@ There is more to indexing and mapping options outside the scope of a
 single reciple. See the Elastisch
 http://clojureelasticsearch.info/articles/indexing.html[Indexing
 Documentation] for an exhaustive list of the capabilities provided.
+
+==== See Also
+
+* The official elasticsearch http://www.elasticsearch.org/guide/[Elasticsearch Guide]
+* The Elastisch http://clojureelasticsearch.info[Homepage].

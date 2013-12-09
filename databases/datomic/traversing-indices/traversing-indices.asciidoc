@@ -50,7 +50,6 @@ This will only work for attributes where +:db/index+ is true, or
 
 (:user/email barney)
 ;; -> "barney@example.com"
-
 ----
 
 To quickly determine all of the attributes an entity has, use the
@@ -139,3 +138,7 @@ value pair.
 
 What is returned by +datoms+ is a stream of +Datum+ objects. Each
 datum responds to +:a+, +:e+, +t+, +:v+ and +:added+ as functions.
+
+==== See Also
+
+* <<sec_datomic_transact_basics>>

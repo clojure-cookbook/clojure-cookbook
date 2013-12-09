@@ -160,7 +160,7 @@ in an SQL exception.
 
 ==== See Also
 
-* See <<sec_db_connecting_to_a_sql_database>> to learn about basic database connections with +clojure.java.jdbc+.
-* See <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
-* See the BoneCP http://jolbox.com/index.html?page=http://jolbox.com/configuration.html[documentation] and https://github.com/wwadge/bonecp[GitHub repository]
+* <<sec_db_connecting_to_a_sql_database>> to learn about basic database connections with +clojure.java.jdbc+.
+* <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
+* The BoneCP http://jolbox.com/index.html?page=http://jolbox.com/configuration.html[documentation] and https://github.com/wwadge/bonecp[GitHub repository]
 * Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.

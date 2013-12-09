@@ -133,3 +133,8 @@ distance, and document length.
 ;;     {:name "Eve", :location "Maryland, United States", :description "Eavesdropper"}
 ;;     {:name "Bob", :location "Berlin, Germany", :description "Clojure novice"})
 ----
+
+==== See Also
+
+* The http://lucene.apache.org/[Lucene project homepage].
+* The Clucy https://github.com/weavejester/clucy[GitHub repository].

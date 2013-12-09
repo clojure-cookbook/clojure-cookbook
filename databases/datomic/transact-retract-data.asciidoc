@@ -1,3 +1,4 @@
+[[sec_retract_data]]
 === Removing data from a Datomic Database
 [role="byline"]
 by Robert Stuttaford
@@ -112,5 +113,5 @@ data permanently.
 
 ==== See Also
 
-* http://blog.datomic.com/2013/05/excision.html, the
-  http://datomic.com blog post covering the excision feature.
+* _http://blog.datomic.com/2013/05/excision.html_, the
+  _http://datomic.com_ blog post covering the excision feature.

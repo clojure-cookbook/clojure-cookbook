@@ -143,5 +143,6 @@ to retrieve the realized ID.
 
 ==== See Also
 
-* See <<sec_datomic_schema>> for information on transacting schema.
-* <<sec_datomic_dry_run>> 
+* <<sec_datomic_schema>>
+* <<sec_retract_data>>
+* <<sec_datomic_dry_run>>

@@ -199,5 +199,5 @@ database.
 
 ==== See Also
 
-* See <<sec_datomic_transact_basics>> for more information on
+* <<sec_datomic_transact_basics>> for more information on
   transacting datoms (schema!)

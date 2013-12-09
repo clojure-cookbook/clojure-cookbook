@@ -350,9 +350,9 @@ directly construct and execute complex SQL statements.
 
 ==== See Also
 
-* See <<sec_db_connecting_to_a_sql_database>> to learn about basic
+* <<sec_db_connecting_to_a_sql_database>> to learn about basic
   database connections with +clojure.java.jdbc+.
-* See <<sec_db_connecting_with_a_connection_pooling>> to learn about
+* <<sec_db_connecting_with_a_connection_pooling>> to learn about
   pooling connections to an SQL database with BoneCP and
   +clojure.java.jdbc+.
 * Visit the +clojure.java.jdbc+
