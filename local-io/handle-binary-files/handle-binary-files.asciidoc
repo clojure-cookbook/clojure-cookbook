@@ -14,7 +14,7 @@ ByteBuffers, or Clojure libraries which wrap them.
 
 ==== Discussion
 
-While reading and writing text files (e.g. via `slurp` and `spit`) are
+While reading and writing text files (e.g. via `slurp` and `spit`) is
 easy in pure Clojure, writing binary data requires a little more Java interop.
 
 Clojure's `output-stream` wraps the `BufferedOutputStream` Java
@@ -125,6 +125,9 @@ library, see the Java NIO documentation, or Ron Hitchens, __Java NIO__
 - There is also a Clojure library,
   https://github.com/geoffsalmon/bytebuffer[+bytebuffer+], which provides a
 thin, more idiomatic wrapper for ByteBuffer operations.
+
+- The more recent https://github.com/clojurewerkz/buffy[Buffy] library provides
+a wrapper over the related Netty ByteBuffers.
 
 - Finally, the https://github.com/ztellman/gloss[Gloss] library provides a DSL
 for reading and writing binary streams of data (whether file-based, or

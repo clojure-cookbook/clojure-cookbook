@@ -9,7 +9,7 @@ its output.
 
 ==== Solution
 
-Use the +clj-commons-exec library to run shell commands on your local
+Use the +clj-commons-exec+ library to run shell commands on your local
 system.
 
 To follow along, start a repl using +lein-try+:
@@ -56,7 +56,7 @@ the command vector as strings:
 Up until this point, we've neglected to mention that functionality
 equivalent to +exec/sh+ already exists in Clojure-proper (as
 +clojure.java.shell/sh+). Now that the cat is out of the bag, it must
-be asked: why use a library over a built-in? Simple: +clj-commons-exec
+be asked: why use a library over a built-in? Simple: +clj-commons-exec+
 is a functional veneer over the excellent
 http://commons.apache.org/proper/commons-exec/[Apache Commons Exec]
 library, providing capabilities like "piping" not available in
@@ -134,7 +134,7 @@ processes complete. This may be desireable, but it may not. If it
 isn't desirable forcibly terminate your application by invoking
 +(System/exit)+ directly at the end of your +-main+ function.
 Additionally, set the option +:shutdown+ to +true+ for any
-sub-processes to ensure you leave your tidy and free of rogue
+sub-processes to ensure you leave your system tidy and free of rogue
 processes.
 
 To check if a sub-process has returned without waiting for it to
@@ -157,6 +157,6 @@ sequence of promises returned by +sh-pipe+.)
 
 ==== See Also
 
-* If you don't need piping or clj-common-execs advanced features,
+* If you don't need piping or +clj-common-execs+ advanced features,
   consider using
   http://richhickey.github.io/clojure/clojure.java.shell-api.html[clojure.java.shell].

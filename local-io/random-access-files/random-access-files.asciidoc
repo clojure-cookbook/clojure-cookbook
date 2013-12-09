@@ -35,7 +35,7 @@ the correct size:
 (require '[clojure.java.io :refer [file]])
 (.length (file "/tmp/longfile"))
 
-;;=> 1000000004
+;; -> 1000000004
 ----
 
 (You can also call +length+ of a +RandomAccessFile+ directly.)
@@ -52,7 +52,7 @@ the appropriate +read+ method.
   (.close raf)
   result)
 
-;;=> 1234
+;; -> 1234
 ----
 
 ==== Discussion
@@ -81,7 +81,6 @@ order bytes are stored at the lowest addresses.)
 
 ==== See Also
 
-* See <<sec_local_io_clojure_data_to_disk>> for information and reading entire files.
+* <<sec_local_io_clojure_data_to_disk>> for information on reading entire files.
 * http://docs.oracle.com/javase/7/docs/api/java/io/RandomAccessFile.html[+java.io.RandomAccessFile+] documentation
 * The Unix http://en.wikipedia.org/wiki/Od_(Unix)[+od+] command
-* https://github.com/clojure-cookbook/clojure-cookbook/pull/209[Sparse files]

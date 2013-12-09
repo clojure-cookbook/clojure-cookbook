@@ -161,7 +161,7 @@ development dependencies and `[lein-midje "3.1.2"]` to your
 development plugins. Your _project.clj_ should look something like
 this:
 
-.project.clj
+._project.clj_
 [source,clojure]
 ----
 (defproject example "1.0.0-SNAPSHOT"
@@ -201,7 +201,6 @@ group, or all of the tests in a single namespace:
 ----
 # Run all your tests
 $ lein midje
-
 
 # Run a group of namespaces
 $ lein midje com.example.*

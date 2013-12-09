@@ -21,7 +21,7 @@ $ lein new foo
 ----
 
 Configure the project to be executable by adding +:main+ and +:aot+
-parameters to the project's _+project.clj+_ file.
+parameters to the project's _project.clj_ file.
 
 ._project.clj_
 [source,clojure]
@@ -53,7 +53,7 @@ To finish making the project executable, add a +-main+ function and
        (println "Executed with the following args: ")))
 ----
 
-Run the application using the +lein run+ command to verify it is
+Run the application using the *+lein run+* command to verify it is
 functioning correctly:
 
 [source,console]
@@ -62,7 +62,7 @@ $ lein run 1 2 3
 ----
 
 To package the application with all of its dependencies included,
-invoke +lein uberjar+.
+invoke *+lein uberjar+*.
 
 [source,console]
 ----
@@ -95,7 +95,7 @@ executable jars contain metadata indicating which class contains the
 
 A Leiningen uberjar is a jar file that contains not only your program,
 but all the dependencies bundled in as well. When Leiningen builds an
-uberjar, it can detect from the +:main+ entry in +project.clj+ that
+uberjar, it can detect from the +:main+ entry in _project.clj_ that
 your program supplies a +main+ function, and writes an appropriate
 manifest that will ensure that the emitted jar file is executable.
 
@@ -191,6 +191,5 @@ Executed with the following args:  1 2 3
 
 ==== See Also
 
-* Using Leiningen
-* Running Clojure Programs
-* Ahead-of-time Compilation
+* <<sec_command_line_applications>> to learn about running Clojure programs from Leiningen.
+* <<sec_aot_compilation>>

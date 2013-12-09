@@ -1,11 +1,11 @@
 [[sec_parse_command_line_arguments]]
-=== Parsing Command Line Arguments
+=== Parsing Command-Line Arguments
 [role="byline"]
 Originally submitted by Nicolas Bessi
 
 ==== Problem
 
-You want to write command line tools in Clojure that can parse input
+You want to write command-line tools in Clojure that can parse input
 arguments.
 
 ==== Solution
@@ -32,7 +32,7 @@ function entry-point to parse command-line arguments footnote:[Since
 (defn -main [& args]
   (let [[opts args banner] (cli args
                                 ["-h" "--help" "Print this help" :default false :flag true])]
-    (when (or (:help opts))
+    (when (:help opts)
       (println banner))))
 
 ;; Simulate entry into the -main at the command-line
@@ -181,10 +181,10 @@ your program.
 ----
 
 Once you've finished toying with your application's option-parsing at
-the REPL, you'll probably want to try invoking options via +lein run+.
+the REPL, you'll probably want to try invoking options via *+lein run+*.
 Just like your application needs to use +--+ to indicate arguments to
 pass onto subsequent programs, so too must you use +--+ to indicate to
-+lein run+ which arguments are for your program and which are for it.
+*+lein run+* which arguments are for your program and which are for it.
 
 [source,shell]
 ----
@@ -194,8 +194,11 @@ $ lein run -- -n 5 --no-verbose
 
 ==== See Also
 
-* Packaging applications (TODO: xref)
-* Handling STDIN/STDOUT streams (TODO: xref)
+* <<sec_local_io_writing_to_stdout_and_stderr>> to learn about input and output streams.
+* <<sec_command_line_applications>> to learn more about invoking
+  applications from the command-line.
+* <<sec_packaging_jars>> to learn how to package an application as
+  an executable JAR file.
 * For building ncurses-style applications, see
   http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+], a wrapper
   around the Lanterna terminal output library.

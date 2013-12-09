@@ -76,3 +76,7 @@ time, for an average of 350 milliseconds. Of course, the list was in
 reverse order, and reversing either the input or the output negates
 the speed advantage. In the end, +into+ is only advantageous in
 situations where a reversed order is acceptable.
+
+==== See Also
+
+* <<sec_creating_a_list>>

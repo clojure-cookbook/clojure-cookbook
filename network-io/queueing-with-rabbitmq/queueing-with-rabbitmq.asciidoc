@@ -136,7 +136,7 @@ At this point, you've round-tripped a few messages to RabbitMQ, but
 you've barely scratched the surface of what Langohr/RabbitMQ are
 capable of. Langohr is a small RabbitMQ client wrapping the Java
 RabbitMQ library that supports AMQP 0-9-1, RabbitMQ extensions of
-AMQP, and provides HTTP API client.
+AMQP, and provides an HTTP API client.
 
 AMQP 0-9-1, and by extension, Langohr, centers around a few main
 concepts: *exchanges*, *queues* and *bindings*.
@@ -174,7 +174,7 @@ ultimately invoking +langohr.exchange/declare+.
 ----
 (require '[langohr.exchange :as le])
 
-;; Create a topic exchange for image processing completion
+;; Create a fanout exchange for image processing completion
 (le/fanout ch "imaging.complete")
 ----
 

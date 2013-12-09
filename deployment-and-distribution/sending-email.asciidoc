@@ -185,6 +185,6 @@ cat might look something like this:
 
 ==== See Also
 
-* ++postal++'s https://github.com/drewr/postal[GitHub Repository].
-* JavaMail's https://javamail.java.net/nonav/docs/api/[API Documentation].
+* ++postal++'s https://github.com/drewr/postal[GitHub repository].
+* JavaMail's https://javamail.java.net/nonav/docs/api/[API documentation].
 

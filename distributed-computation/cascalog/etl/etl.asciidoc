@@ -109,7 +109,7 @@ $ git checkout etl-sample
 ----
 ====
 
-You can now execute the job locally with +lein run+, providing an
+You can now execute the job locally with *+lein run+*, providing an
 input and output file.
 
 [source,console]

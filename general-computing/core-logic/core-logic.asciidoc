@@ -216,7 +216,7 @@ list and the list itself:
 ;; -> ((1 . _0))
 ----
 
-The first example is asking for any member of the list +[1]+, which
+The first example is asking for any member of the list `[1]`, which
 happens to only be 1. The second example is the opposite, any list
 where +1+ is a member. The dot notation indicates an improper tail
 with +_0+ in it. This means +1+ could be in a list by itself or +1+
@@ -337,7 +337,7 @@ with some basic indexing can greatly improve the query performance.
 ==== See Also
 
 * The Reasoned Schemer - By Daniel P. Friedman, William E. Byrd and Oleg Kiselyov
-* https://github.com/clojure/core.logic/wiki[The +core.logic+ wiki]
-* http://minikanren.org/[The miniKanren] website
-* See https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using *clojure.core.logic/to-stream*
+* The https://github.com/clojure/core.logic/wiki[+core.logic+ wiki]
+* _http://minikanren.org/_
+* The https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using *clojure.core.logic/to-stream*
 * https://github.com/clojure/core.match[+core.match+], a (non-unification) matching library with some similar ideas, described briefly in <<sec_core_match_parser>>

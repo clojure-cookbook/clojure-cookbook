@@ -102,3 +102,8 @@ lazy sequence are still open as long as the sequence has any
 readers. Typically, the latter approach involves manually tracking
 which streams are still open rather than relying on a +try/finally+ or
 +with-open+ block.
+
+==== See Also
+
+* <<sec_local_io_clojure_data_to_disk>>
+* The documentation for http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html[+java.io.Reader] and http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html[+java.io.Writer+]r] and http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html[+java.io.Writer+].

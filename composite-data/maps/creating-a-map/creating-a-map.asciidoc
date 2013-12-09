@@ -54,8 +54,6 @@ will be that used in the final return map.
 
 Use +sorted-map-by+ to create a sorted map using a custom comparator.
 
-// TODO cross-reference recipe on sorting for more info on comparators
-
 [source,clojure]
 ----
 (sorted-map-by #(< (count %1) (count %2))
@@ -96,5 +94,7 @@ very small.
 
 ==== See also
 
+* <<sec_composite_data_maps_setting_keys>>
 * <<sec_composite_creating_sets>>
-* Comparators
+* <<sec_primitives_dates_comparing>> and <<sec_primitives_numbers_fuzzy_comparison>> to see more uses for +compare+
+* TODO: reference not-yet-written comparator recipe

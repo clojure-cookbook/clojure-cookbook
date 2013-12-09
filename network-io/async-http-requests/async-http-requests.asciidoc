@@ -52,8 +52,8 @@ connection and awaiting the server's response, asynchronous requests
 enable your application to continue working while awaiting the
 delivery of data.
 
-In this vein HTTP Kit provides both a highly concurrent web server, as
-well a powerful HTTP client. It offers both callbacks and promises for
+In this vein, HTTP Kit provides both a highly concurrent web server, as
+well as a powerful HTTP client. It offers both callbacks and promises for
 asynchronous requests, as well as persistent connections and alternate
 SSL Engines for dealing with unsigned SSL certificates.
 

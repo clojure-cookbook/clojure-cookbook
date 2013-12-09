@@ -54,5 +54,7 @@ It's almost always better to use +seq?+ instead of +list?+.
 
 ==== See Also
 
+* <<sec_creating_a_list>>
 * <<sec_adding_to_a_list>>
+* <<sec_test_collection_with_set>>
 

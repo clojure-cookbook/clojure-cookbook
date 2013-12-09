@@ -39,7 +39,7 @@ understand and take away with them.
 
 We sincerely hope that we have balanced these goals appropriately, and
 that you find this book useful without being tedious, and insightful
-without being pendantic.
+without being pedantic.
 
 === Audience
 
@@ -77,12 +77,12 @@ we recommend one of the following books:
   clear, comprehensive introductory tutorial to the Clojure language.
 
 - _Practical Clojure_, (Apress, 2010) by Luke VanderHart and Stuart
-  Sierra. This is a terse, no-nonsense explanation of what Clojure and
-  what its features do.
+  Sierra. This is a terse, no-nonsense explanation of what Clojure is
+  and what its features do.
 
 - _The Joy of Clojure_, (Manning, 2011) by Michael Fogus and Chris
-  Houser. A slightly more advanced text, this text really digs in to
-  the themes and philosophies of Clojure.
+  Houser. A slightly more advanced text that really digs into the
+  themes and philosophies of Clojure.
 
 - _ClojureScript: Up and Running_, (O'Reilly, 2012) by Stuart Sierra
   and Luke VanderHart. While the _Clojure Cookbook_ and the other
@@ -94,18 +94,32 @@ we recommend one of the following books:
 
 Finally, you should look at the source code for this book itself,
 which is freely available on Github at
-https://github.com/clojure-cookbook. The selection of recipes
-available online is larger than that in the print version, and we are
-still accepting pull requests for new recipes that might someday make
-it in to a future edition of this book.
+_https://github.com/clojure-cookbook/clojure-cookbook_. The selection
+of recipes available online is larger than that in the print version,
+and we are still accepting pull requests for new recipes that might
+someday make it in to a future edition of this book.
 
 === Structure
 
-The chapters in this book are for the most part groupings of recipes
+The chapters in this book are for the most part groupings of _recipes_
 by theme, rather than strictly categorial. It is entirely possible for
 a recipe to be applicable to more than one chapter -- in these cases,
 we have simply tried to place it where we think the majority of
 readers would look first.
+
+A _recipe_ consists of three primary parts and one secondary: problem,
+solution, discussion and "see also". A recipe's problem statement lays
+a task or obstacle to be overcome. Its solution tackles the problem
+head on, illustrating a particular technique or library that
+effectively accomplishes the task. The discussion rounds everything
+out, exploring the solution and any caveats that may come with it.
+Finally, we tie the recipe off with a "See Also" section, pointing
+you, the reader, at any additional resources or recipes that will
+assist you in enacting the described solution.
+
+==== Chapter Listing
+
+The book is composed of the following chapters:
 
 <<ch_primitive_data>> and <<ch_composite_data>> cover Clojure's
 built-in primitive and composite data structures, and explain many
@@ -130,7 +144,7 @@ protocols and libraries.
 
 <<ch_databases>> demonstrates techniques and tools for connecting to
 and using a variety of databases. Special attention is given to
-Datomic, as a data store that shares and extends much of Clojure's
+Datomic, a data store that shares and extends much of Clojure's
 underlying philosphy of value, state and identity to persistent
 storage.
 
@@ -154,5 +168,44 @@ ensuring the integrity and correctness of your code and data, ranging
 from traditional unit and integration tests to more comprehensive
 generative and simulation testing, and even optional compile-time
 validations using static typing with +core.typed+.
+
+=== Software Prerequisites
+
+To follow along with the recipes in this book you will need valid
+installations of the Java Development Kit (6 or higher) and Clojure's de facto
+build tool, Leiningen (version 2.2 or higher).
+
+If you don't have Java installed (or would like to upgrade), visit
+_http://www.oracle.com/technetwork/java/javase/downloads/index.html_ for
+instructions on downloading and installing the Java JDK. 
+
+To install Leiningen, follow the installation instructions on
+Leiningen's website (_http://leiningen.org/_). If you already have
+Leiningen installed, get the latest version by executing the command
+*+lein upgrade+*.
+
+The one thing you *won't* need to manually install is Clojure itself,
+Leiningen will do this for you on an ad hoc basis. To verify your
+installation, run *+lein repl+* and check your Clojure version.
+
+[source,console]
+----
+$ lein repl
+# ...
+user=> *clojure-version*
+{:major 1, :minor 5, :incremental 1, :qualifier nil}
+----
+
+[NOTE]
+====
+Some recipes have accompanying online materials available on GitHub.
+If you do not have Git installed on your system, follow the
+instructions at _https://help.github.com/articles/set-up-git_ to
+enable you to checkout a GitHub repository locally.
+====
+
+Some recipes--such as the database recipes--require further software
+installations. Where this occurs, recipes will include additional
+information on installing those tools.
 
 include::conventions.asciidoc[]

@@ -9,24 +9,24 @@ You need to render a Markdown document.
 
 ==== Solution
 
-You can use the +markdown-clj+ library (https://github.com/yogthos/markdown-clj)
+Use the +markdown-clj+ library (_https://github.com/yogthos/markdown-clj_) to render Markdown documents.
 
-Include the +markdown-clj+ dependency in the project:
+To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,clojure]
+[source,console]
 ----
-[markdown-clj "0.9.29"]
+$ lein try markdown-clj
 ----
 
 Use +markdown.core/md-to-html+ to read a Markdown document and generate as string containing HTML.
 
 [source,clojure]
 ----
-(use 'markdown.core)
+(require '[markdown.core :as md])
 
-(md-to-html "input.md" "output.html")
+(md/md-to-html "input.md" "output.html")
 
-(md-to-html (input-stream "input.md") (output-stream "test.txt"))
+(md/md-to-html (input-stream "input.md") (output-stream "test.txt"))
 ----
 
 Use +markdown.core/md-to-html-string+ to convert a string
@@ -34,7 +34,7 @@ with Markdown content to its HTML representation:
 
 [source,clojure]
 ----
-(md-to-html-string "# This is a test\n\nsome code follows:\n```\n(defn foo [])\n```")
+(md/md-to-html-string "# This is a test\n\nsome code follows:\n```\n(defn foo [])\n```")
 ----
 
 [source,html]
@@ -65,7 +65,7 @@ will be decorated with a class compatible with the http://alexgorbatchev.com/Syn
 
 [source,clojure]
 ----
-(md-to-html-string "# This is a test\n\nsome code follows:\n```clojure\n(defn foo [])\n```")
+(md/md-to-html-string "# This is a test\n\nsome code follows:\n```clojure\n(defn foo [])\n```")
 ----
 
 [source,html]
@@ -73,18 +73,6 @@ will be decorated with a class compatible with the http://alexgorbatchev.com/Syn
 <h1> This is a test</h1><p>some code follows:</p><pre class="brush: clojure">
 &#40;defn foo &#91;&#93;&#41;
 </pre>
-----
-
-When calling from ClojureScript, use +markdown.core/mdToHtml+ to generate HTML.
-It behaves equivalently to +md-t-html-string+:
-
-[source,clojure]
-----
-(ns myscript
-  (:require [markdown.core :as md]))
-
-(.log js/console
-  (md/mdToHtml "##This is a heading\nwith a paragraph following it"))
 ----
 
 +markdown-clj+ supports all the standard Markdown tags with the exception of the reference style links due
@@ -101,7 +89,7 @@ When the +:heading-anchors+ is set to +true+ an anchor will be generated for eac
 
 [source,clojure]
 ----
-(markdown/md-to-html-string "###foo bar BAz" :heading-anchors true)
+(md/md-to-html-string "###foo bar BAz" :heading-anchors true)
 ----
 
 [source,html]
@@ -113,7 +101,7 @@ The +:code-style+ key allows overriding the default style hint for code blocks:
 
 [source,clojure]
 ----
-(md-to-html-string "```clojure\n(defn foo [])\n```" :code-style #(str "class=\"" % "\""))
+(md/md-to-html-string "```clojure\n(defn foo [])\n```" :code-style #(str "class=\"" % "\""))
 ----
 
 [source,html]
@@ -133,7 +121,7 @@ information such as what tags are currently active.
 (defn capitalize [text state]
   [(.toUpperCase text) state])
 
-(markdown/md-to-html-string "#foo" :custom-transformers [capitalize])
+(md/md-to-html-string "#foo" :custom-transformers [capitalize])
 ----
 
 [source,html]

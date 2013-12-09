@@ -12,12 +12,17 @@ were fully loaded into memory, without actually loading the whole thing.
 Use the https://github.com/thebusby/clj-mmap[+clj-mmap+] library,
 which wraps the memory mapping functionality provided by Java's NIO library.
 
-Start by importing the library in your +project.clj+:
+Before starting, add `[clj-mmap "1.1.2"]` to your project’s dependen‐
+cies or start a REPL using +lein-try+:
+
+[source,shell]
+----
+$ lein try clj-mmap
+----
 
 [source,clojure]
 ----
-(ns io-with-clj-mmap
-  (:require [clj-mmap :as mmap]))
+(require '[clj-mmap :as mmap])
 ----
 
 To read the first and last N bytes of UTF-8 encoded text file, use the
@@ -61,3 +66,8 @@ While Clojure makes it simple to work with Java's NIO primitives directly,
 NIO makes working with files larger than 2GB especially difficult. +clj-mmap+
 wraps this complexity, but at the same time doesn't expose all the features
 that NIO does. The NIO Java api is still available via interop, should it be needed.
+
+==== See Also
+
+* The http://en.wikipedia.org/wiki/Mmap[mmap Wikipedia article].
+* The +clj-mmap+ https://github.com/thebusby/clj-mmap[GitHub repository].

@@ -145,6 +145,6 @@ much easier to read and maintain.
 
 ==== See Also
 
-* See the +core.match+ wiki's
+* The +core.match+ wiki's
   https://github.com/clojure/core.match/wiki/Overview[Overview page] for a
-  more broad pass over all of the library's capabilities.
+  more broad view over all of the library's capabilities.

@@ -14,13 +14,11 @@ In order to successfully work through the examples in this recipe, you
 should have Cassandra installed. You can find details on how to
 install Cassandra at http://wiki.apache.org/cassandra/GettingStarted.
 
-Include the Cassaforte dependency in your +project.clj+:
+To follow along with this recipe, add `[clojurewerkz/cassaforte "1.1.0"]` to your project's dependencies, or start a REPL using +lein-try+:
 
-.project.clj
-[source,clojure]
+[source,console]
 ----
-(defproject cassaforte-example "1.0.0-SNAPSHOT"
-            :dependencies [[clojurewerkz/cassaforte "1.1.0"]])
+$ lein try clojurewerkz/cassaforte
 ----
 
 In order to connect to Cassandra cluster and create and use your first
@@ -31,10 +29,9 @@ connection, the other two provide a easy interface to execute queries.
 
 [source,clojure]
 ----
-(ns cassaforte.docs.examples
-  (:require [clojurewerkz.cassaforte.client :as client]
-            [clojurewerkz.cassaforte.cql :as cql]
-            [clojurewerkz.cassaforte.query :as q]))
+(require '[clojurewerkz.cassaforte.client :as client]
+         '[clojurewerkz.cassaforte.cql :as cql]
+         '[clojurewerkz.cassaforte.query :as q])
 
 ;; Connect to 2 nodes in a cluster
 (client/connect! ["localhost" "another.node.local"])
@@ -90,7 +87,7 @@ Alternatively, if you want to retrieve information about a single person, by giv
 
 Cassandra is an open source implementations of many of the ideas in Amazon's landmark http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf[Dynamo Paper]. It's a key-value data store, and it's not aware of any relationships between tables and data points. Cassandra is a distributed data store and designed to be highly available. For that, it replicates data within the cluster. The data is stored redundantly on multiple nodes. In case one node fails, data is still available for retrieval from a different node or multiple nodes.
 
-Cassandra starts making most sense when your data is rather big. Because it was built for distribution, you can scale your reads and writes, and fine-tune and manage your database consistency and availability. Cassandra handles network partitions well, so even when your several nodes are unavailable for some time, you will still be able to read and write data until the network partition heals. If your dataset is rather small, and you don't expect it to grow significantly any time soon, and you need to run many ad-hoc queries against the dataset, then Cassandra may not make sense.
+Cassandra starts making sense when your data is rather big. Because it was built for distribution, you can scale your reads and writes, and fine-tune and manage your database consistency and availability. Cassandra handles network partitions well, so even when your several nodes are unavailable for some time, you will still be able to read and write data until the network partition heals. If your dataset is rather small, and you don't expect it to grow significantly any time soon, and you need to run many ad-hoc queries against the dataset, then Cassandra may not make sense.
 
 Consistency/Availability are tunable values: you can get better availability by sacrificing data consistency, which means that due to network partitions not all the nodes will hold the latest snapshot of data at all times, but you'll be still able to respond to writes and receive reads. If you choose to have strong consistency, the latency will increase, since more nodes should respond successfully for reads and writes. Eventual consistency guarantees that, if no conflicting writes are made for the data point, eventually all nodes will hold the latest value.
 
@@ -107,7 +104,7 @@ Cassandra uses two different communication protocols; an older binary protocol c
 ;; INSERT INTO users (name, city) VALUES ('Munich', 26);
 ----
 
-There's much more to Cassandra than just creating tables and inserting values. If you want to update records in your database, you cancall the +update+ function:
+There's much more to Cassandra than just creating tables and inserting values. If you want to update records in your database, you can call the +update+ function:
 
 [source,clojure]
 ----

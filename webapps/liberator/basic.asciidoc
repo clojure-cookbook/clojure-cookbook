@@ -5,29 +5,30 @@ by Eric Normand
 ==== Problem
 
 You want to build a RESTful (RFC-2616 compliant) web application on top of Ring and
-Compojure at a higher level of abstracting, by defining resources.
+Compojure at a higher level of abstraction, by defining resources.
 
 ==== Solution
 
 Use https://github.com/clojure-liberator/liberator[Liberator] to
 create HTTP-compliant, RESTful web apps.
 
-// TODO: Extend instructions for this recipe.
+To follow along with this recipe, create a new project using the command *+lein new liberator-test+*.
 
-In your dependencies:
+Inside your _project.clj_, add the following dependencies to your +:dependencies+ key:
 
 [source, clojure]
 ----
-
 [compojure "1.0.2"]
 [ring/ring-jetty-adapter "1.1.0"]
 [liberator "0.9.0"]
-
 ----
 
+Then, modify _src/liberator_test/core.clj_ to match the following contents:
+
+._src/liberator_test/core.clj_
 [source, clojure]
 ----
-(ns liberatortest
+(ns liberator-test.core
   (:require [compojure.core :refer [defroutes ANY]]
             [ring.adapter.jetty :as jetty]
             [liberator.core :refer [defresource]]))
@@ -44,8 +45,6 @@ In your dependencies:
 ; Server
 (defn -main []
  (jetty/run-jetty main-routes {:port 3000}))
-
-
 ----
 
 ==== Discussion

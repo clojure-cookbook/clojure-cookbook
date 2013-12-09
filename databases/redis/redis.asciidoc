@@ -13,25 +13,20 @@ Use https://github.com/ptaoussanis/carmine[Carmine] to connect to and interact w
 [NOTE]
 To use this recipe you should first install Redis and have it running locally. You can find
 details on how to install  Redis at http://redis.io/download[the official Redis download page].  If
-you are on windows you will want to look at https://github.com/MSOpenTech/redis[the Microsoft Open
+you are on Windows you will want to look at https://github.com/MSOpenTech/redis[the Microsoft Open
 Tech Github Redis project].
 
-First add Carmine to your project.
+To follow along with this recipe, add `[com.taoensso/carmine "2.2.0"]` to your project's dependencies, or start REPL using +lein-try+:
 
-.project.clj
+[source,console]
+----
+$ lein try com.taoensso/carmine
+----
+
+To use Carmine, you must first define a connection spec.
+
 [source,clojure]
 ----
-(defproject redis-example "1.0.0-SNAPSHOT"
-              :dependencies [[com.taoensso/carmine "2.2.0"]])
-----
-
-To use Carmine pull in the +carmine+ namespace and define a connection spec.
-
-[source,clojure]
-----
-(ns redis-example.core
-  (:require [taoensso.carmine :as car :refer (wcar)]))
-
 (def server-connection {:pool {:max-active 8}
                         :spec {:host     "localhost"
                                :port     6379
@@ -45,6 +40,8 @@ you already know and love:
 
 [source,clojure]
 ----
+(require `[taoensso.carmine :as car :refer (wcar)])
+
 (wcar server-connection (car/set "Nick" "Nack"))
 ;; -> "OK"
 (wcar server-connection (car/get "Nick"))

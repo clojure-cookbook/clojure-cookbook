@@ -14,15 +14,20 @@ Use the https://github.com/thebusby/iota[Iota] library in
 conjunction with the +filter+, +map+ and +fold+ functions from the
 Clojure Reducers library in the +clojure.core.reducers+ namespace.
 
-For example, to count the words in a very large file:
+To follow along with this recipe, add `[iota "1.1.1"]` to your project's dependencies, or start a REPL with +lein-try+:
+
+[source,console]
+----
+$ lein try iota
+----
+
+To count the words in a very large file, for example:
 
 [source,clojure]
 ----
-(ns word-count-with-iota
-  "Give the word count for a text file using iota and reducers"
-  (:require [iota                  :as io]
-            [clojure.core.reducers :as r]
-            [clojure.string        :as str]))
+(require '[iota                  :as io]
+         '[clojure.core.reducers :as r]
+         '[clojure.string        :as str])
 
 
 ;; word counting functions
@@ -88,8 +93,13 @@ the internal structure of Clojure's persistent data structures and can
 leverate that to efficiently distribute worker processes across the
 data.
 
-Under the hood, Iota uses the Java +NIO+ IO libraries to provide a
+Under the hood, Iota uses the Java NIO libraries to provide a
 _memory mapped_ view of the file being processed, that provides
 efficient random access. Iota is also aware of the Reducers framework,
 and Iota sequences are structured in such a way that Reducers can
 effictively distribute worker processes across them.
+
+==== See Also
+
+* The +iota+ https://github.com/thebusby/iota[GitHub repository].
+* http://docs.oracle.com/javase/7/docs/api/java/nio/package-summary.html[NIO's documentation].

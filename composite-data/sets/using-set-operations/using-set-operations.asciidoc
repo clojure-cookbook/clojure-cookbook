@@ -91,3 +91,8 @@ set operations. In many cases, you will find that this makes your
 program substantially easier to reason about, and makes it more
 self-documenting regarding the source and intended use of the data it
 contains.
+
+==== See Also
+
+* <<sec_testing_set_membership>>
+* <<sec_test_collection_with_set>>

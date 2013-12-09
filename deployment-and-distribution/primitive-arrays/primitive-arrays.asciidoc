@@ -26,7 +26,7 @@ dependencies or start a REPL using +lein-try+:
 $ lein try prismatic/hiphip
 ----
 
-Use one ++hiphip++'s +amap+ macros to perform fast math on typed
+Use one of ++hiphip++'s +amap+ macros to perform fast math on typed
 arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
 
 [source,clojure]
@@ -39,11 +39,11 @@ arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
 (seq (map-sqrt (double-array (range 1000))))
 ;; -> (2.0 3.0 4.0)
 
-(defn pointwise-product 
+(defn pointwise-product
   "Produce a new double array with the product of corresponding elements of xs and ys"
   [xs ys]
   (hiphip.double/amap [x xs y ys] (* x y)))
-(seq (pointwise-product (double-array [1.0 2.0 3.0]) 
+(seq (pointwise-product (double-array [1.0 2.0 3.0])
                         (double-array [2.0 3.0 4.0])))
 ;; -> (2.0 6.0 12.0)
 ----
@@ -52,10 +52,10 @@ To modify an array in-place, use one of ++hiphip++'s +afill!+ macros.
 
 [source,clojure]
 ----
-(defn add-in-place! 
+(defn add-in-place!
   "Modify xs, incrementing each element by the corresponding element of ys"
   [xs ys]
-  (hiphip.double/afill! [x xs y ys] (+ x y))) 
+  (hiphip.double/afill! [x xs y ys] (+ x y)))
 
 (let [xs (double-array [1.0 2.0 3.0])]
   (add-in-place! xs (double-array [0.0 1.0 2.0]))
@@ -68,12 +68,12 @@ For faster +reduce+-like operations, use one of ++hiphip++'s +areduce+ and
 
 [source,clojure]
 ----
-(defn dot-product [ws xs] 
+(defn dot-product [ws xs]
   (hiphip.double/asum [x xs w ws] (* x w)))
 
-(dot-product (double-array [1.0 2.0 3.0]) 
+(dot-product (double-array [1.0 2.0 3.0])
              (double-array [2.0 3.0 4.0]))
-;; -> 20.0 
+;; -> 20.0
 ----
 
 [WARNING]
@@ -134,7 +134,7 @@ is reflection, which can easily bring you from 100x faster to 10x
 slower with one small typo or missing type hint.
 
 If you're up to the challenge, you should keep these tips in mind:
- 
+
 * Use `*warn-on-reflection*` religiously, but be aware that it won't
   warn you about many of the ways your code can be slow.
 * A solid profiler, or at least a comprehensive benchmark suite, are a

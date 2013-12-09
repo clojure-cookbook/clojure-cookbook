@@ -19,7 +19,7 @@ dependencies or start a REPL using +lein-try+:
 
 [source,shell]
 ----
-$ lein try clj-time
+$ lein try clj-pdf
 ----
 
 For the purpose of illustration, imagine we want to render a vector
@@ -140,7 +140,7 @@ includes: +:paragraph+, +:phrase+, +:list+ and +:table+.
    ["foo2" "bar2" "baz2"]]
 ----
 
-Some element accept optional styling metadata. You can provide this
+Some elements accept optional styling metadata. You can provide this
 style information as a map immediately following the type parameter
 (the second item in the vector).
 

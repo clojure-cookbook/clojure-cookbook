@@ -167,8 +167,8 @@ Enlive can be slightly difficult to get the hang of, compared to some
 other libraries. There are several contributing factors to
 this:
 
-- It has a novel conceptual approach than other templating systems
-  (althouth it be bears a lot of simliarity to some other non-Clojure
+- It has a more novel conceptual approach than other templating systems
+  (although it bears a lot of similarity to some other non-Clojure
   templating techniques, such as XSLT).
 - It utilizes functional programming techniques to the fullest,
   including liberal use of higher order functions.
@@ -265,7 +265,7 @@ selector http://enlive.cgrand.net/syntax.html[specification] for
 complete documentation.
 
 However, the following selector patterns should be sufficient to get
-your started:
+you started:
 
 - `[:div]` selects all +<div>+ element nodes.
 

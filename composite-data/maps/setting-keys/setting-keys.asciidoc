@@ -72,20 +72,27 @@ like the following:
 
 Obviously, this is inconvenient, and difficult to read.
 
-// TODO: This is a bit of a mouthful, we may want to try rewording this.
 Fortunately, Clojure provides a function, +update-in+, for
-specifically this purpose. It takes a map, a sequence of keys, and a
-function to apply to the existing value (optionally, arguments to the
-function can be passed as variadic arguments). It uses the key
-sequence to make successive lookups in a nested data structure,
-applies the function and any arguments to the value at the specified
-location, and returns the fully nested data structure with the update
-in place. In the example above:
+specifically this purpose. Instead of accepting a key and value, +update-in+
+accepts a _key path_ and an _update function_. A _key path_
+is a sequence of keys, applied recursively to retrieve a deeply nested value.
+The _update function_ is then invoked with the retrieved value and any optional
+arguments that followed the function.
+
+Perhaps it is best to illustrate with an example:
 
 [source,clojure]
 ----
-(update-in book [:author :residence] assoc :country "Canada")
+(update-in book                 ; <1>
+           [:author :residence] ; <2>
+           assoc                ; <3>
+           :country "Canada")   ; <4>
 ----
+
+<1> The map
+<2> The _key path_
+<3> The _update function_
+<4> Additional arguments to +assoc+
 
 This first looks up the map associated with the +:residence+ key in
 the nested data structure, then invokes the +assoc+ function on it,
@@ -152,5 +159,6 @@ a map and conjoining to a vector in the same form.
 
 ==== See also
 
+* <<sec_composite_data_maps_multiple_values>>
 * <<sec_composite_maps_as_seqs>>
 * <<sec_composite_combining_maps>>

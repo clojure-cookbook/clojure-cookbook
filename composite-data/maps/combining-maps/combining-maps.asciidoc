@@ -99,7 +99,5 @@ find shared values of multiple sets, and a recursive function
 
 ==== See also
 
-* See <<sec_composite_data_maps_setting_keys>> to learn more about
-  manipulating maps.
-* See <<sec_composite_data_maps_multiple_values>> for information on
-  creating multiple value maps using a Clojure protocol.
+* <<sec_composite_data_maps_setting_keys>>
+* <<sec_composite_data_maps_multiple_values>>

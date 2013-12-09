@@ -11,8 +11,8 @@ files, rather than as Clojure source code.
 ==== Solution
 
 Use the +:aot+ (Ahead Of Time) compilation key in your project's
-+project.clj+ to specify which namespaces should be compiled to
-+.class+ files. The value of the +:aot+ key is a vector of either
+_project.clj_ to specify which namespaces should be compiled to
+_.class_ files. The value of the +:aot+ key is a vector of either
 symbols indicating specific namespaces to be compiled, or regular
 expression literals specifying that any namespace with a matching name
 should be compiled.
@@ -21,19 +21,19 @@ Alternatively, instead of a vector, you can use the keyword +:all+ as
 a value, which will AOT compile every namespace in the project.
 
 [source,clojure]
-.project.clj
+._project.clj_
 ----
 :aot [foo.bar foo.baz]
 ----
 
 [source,clojure]
-.project.clj
+._project.clj_
 ----
 :aot [#"foo\.b.+"] ; compile all NS starting with "foo.b"
 ----
 
 [source,clojure]
-.project.clj
+._project.clj_
 ----
 :aot :all
 ----
@@ -43,7 +43,7 @@ will AOT compile it by default whether or not it is present in an :aot
 directive.
 
 Once your project is configured for AOT compilation, you can compile
-by invoking +lein compile+ at the command line. All emitted classes
+by invoking *+lein compile+* at the command line. All emitted classes
 will be placed in the +target/classes+ directory, unless you've
 overriden the output directory with the +:target-path+ or
 +:compile-path+ options.
@@ -62,7 +62,7 @@ following situations:
 - You want to deliver the application binary, but don't want to
   include the original source code with it.
 - To marginally speed up an application's start time (since the
-  Clojure co de won't have to be compiled on the fly).
+  Clojure code won't have to be compiled on the fly).
 - You need to generate classes loadable directly from Java for interop
   purposes.
 - For platforms (such as Android) that do not support custom

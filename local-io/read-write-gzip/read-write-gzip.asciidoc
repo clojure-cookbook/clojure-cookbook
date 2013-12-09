@@ -64,6 +64,8 @@ compression format, using the +java.util.zip.ZipInputStream+ and
 
 ==== See Also
 
-* See <<sec_local_io_clojure_data_to_disk>> for information on reading
+* <<sec_local_io_clojure_data_to_disk>> for information on reading
   Clojure data from files on disk.
-
+* The +GZIPInputStream+
+  http://docs.oracle.com/javase/7/docs/api/java/util/zip/GZIPInputStream.html[API
+  Documentation].

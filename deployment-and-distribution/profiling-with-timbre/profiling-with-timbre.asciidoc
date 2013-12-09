@@ -22,12 +22,11 @@ dependencies or start a REPL using +lein-try+:
 $ lein try com.taoensso/timbre
 ----
 
-// TODO: Use X to Y.
+Use the macros in the +taoensso.timbre.profiling+ namespace to collect benchmarking metrics in development.
 
 [source,clojure]
 ----
-(ns cookbook.profiling-timbre
-  (:require [taoensso.timbre.profiling :as p]))
+(require '[taoensso.timbre.profiling :as p])
 
 (defn bench-me [f]
   (p/p :bench/bench-me
@@ -74,7 +73,7 @@ comprehensive information on Java methods, but come with a greater
 performance penalty.
 
 Timbre's profiling is most useful when profiling a specific area of
-code, than than using profiling as an exploratory tool for tuning
+code, rather than using profiling as an exploratory tool for tuning
 performance. As profiling markers are just macros, they are flexible.
 For example, you could record how many times a particular +if+ branch
 was taken, all without leaving Clojure or suffering from mangled

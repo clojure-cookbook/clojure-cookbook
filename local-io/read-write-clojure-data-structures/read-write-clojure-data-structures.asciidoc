@@ -53,8 +53,8 @@ files makes this a relatively simple task. However, while this is
 often a good way to persist data to disk, you should be aware of a few
 issues.
 
-.warning Reading, Security & EDN
-[TIP]
+Reading, Security & EDN
+[WARNING]
 ====
 The +read+ function is only appropriate for reading data from
 *trusted* sources. This is because the Clojure reader is not designed
@@ -93,7 +93,8 @@ configuration data and other types of simple structures.
 Reading and writing from streams is far more efficient, because it
 buffers input and output, dealing with data a few bytes at a time.
 
-IMPORTANT: See "Reading and Writing Files" for notes on managing streams.
+IMPORTANT: See <<sec_local-io_read_write_files>> for notes on managing
+streams.
 
 In addition to reading and writing a single data structure in a file,
 you can also append additional data structures to the same file and
@@ -134,4 +135,6 @@ must continue to call +read+ until it has reached the end.
 
 ==== See Also
 
+* <<sec_local_io_get_local_resource>>
+* <<sec_edn_configs>>
 * <<sec_default_data_reader>>

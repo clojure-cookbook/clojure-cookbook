@@ -11,9 +11,9 @@ You want an easy way to route URLs to specific Ring handler functions.
 
 Use the Compojure library (https://github.com/weavejester/compojure) to add routing to your app.
 
-Start by adding the Compojure dependency to leiningen by adding
-`[compojure "1.1.5"]` to `:dependencies` in the `project.clj`.
+To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
 
+._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
@@ -84,7 +84,7 @@ and pass them to a function:
   (GET "/" {params :params} (some-other-view params)))
 ----
 
-It is important to realize that compojure works on top of Ring. Your views
+It is important to realize that Compojure works on top of Ring. Your views
 should still return Ring response maps (although Compojure will wrap strings
 you return with a basic 200 response).
 

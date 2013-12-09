@@ -1,3 +1,4 @@
+<<sec_interactive_docs>>
 === Interactive Documentation
 [role="byline"]
 by John Cromartie
@@ -111,3 +112,8 @@ Exploring Clojure in this way is a great way to learn about core
 functions and advanced Clojure programming techniques. The
 +clojure.core+ namespace is chock full of high-quality and
 high-performance code at your fingertips.
+
+==== See Also
+
+* +clojure.repl+ http://clojure.github.io/clojure/clojure.repl-api.html[API Documentation].
+* <<sec_exploring_namespaces>>

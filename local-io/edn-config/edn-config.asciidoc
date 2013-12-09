@@ -1,3 +1,4 @@
+[[sec_edn_configs]]
 === Using +edn+ for Configuration Files
 [role="byline"]
 by Luke VanderHart
@@ -15,8 +16,8 @@ For example, the +edn+ configuration of an application that needs to
 know its own hostname and connection info for a relational database
 might look something like this:
 
+._config.edn_
 [source,clj]
-.config.edn
 ----
 {:hostname "localhost"
  :database {:host "my.db.server"
@@ -30,10 +31,8 @@ The basic function to read this data into a Clojure map is trivial
 using the +edn+ reader.
 
 [source,clj]
-.config.clj
 ----
-(ns myapp.config
-  (:require [clojure.edn :as edn]))
+(require '[clojure.edn :as edn])
 
 (defn load-config
   "Given a filename, load & return a config file"
@@ -108,7 +107,6 @@ then merge them into a single configuration map before passing it on
 to the application. This typically uses a simple deep-merge function:
 
 [source,clj]
-.config.clj
 ----
 (defn deep-merge
   "Deep merge two maps"
@@ -126,7 +124,6 @@ Then, you can rewrite the config loader to accept multiple config
 files, and merge them together:
 
 [source,clj]
-.config.clj
 ----
 (defn load-config
   [& filenames]
@@ -136,8 +133,8 @@ files, and merge them together:
 
 Using it on two seperate +edn+ config files yields a merged map:
 
+._config-public.edn_
 [source,clj]
-.config-public.edn
 ----
 {:hostname "localhost"
  :database {:host "my.db.server"
@@ -146,19 +143,24 @@ Using it on two seperate +edn+ config files yields a merged map:
             :user "root"}}
 ----
 
+._config-private.edn_
 [source,clj]
-.config-private.edn
 ----
 {:database {:password "s3cr3t"}}
 ----
 
 [source,clj]
 ----
-=> (load-config "config-public.edn" "config-private.edn")
+(load-config "config-public.edn" "config-private.edn")
 ;; -> {:hostname "localhost", :database {:password "s3cr3t",
 ;;     :host "my.db.server", :port 5432, :name "my-app", :user "root"}}
-
 ----
 
 Be aware that any values present in both configuration files will be
 overridden by the "rightmost" file passed to +load-config+.
+
+==== See Also
+
+* <<sec_local_io_get_local_resource>>
+* <<sec_edn_record>>
+* <<sec_default_data_reader>>

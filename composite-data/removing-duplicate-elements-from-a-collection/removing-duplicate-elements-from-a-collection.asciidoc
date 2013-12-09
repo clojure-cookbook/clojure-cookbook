@@ -67,4 +67,4 @@ slowest, while simply calling `set` is about 2X faster.
 
 ==== See Also
 
-* See <<sec_composite_creating_sets>> for more information on creating sets.
+* <<sec_composite_creating_sets>>

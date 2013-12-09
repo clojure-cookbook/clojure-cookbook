@@ -71,7 +71,7 @@ We'll talk a bit about the goals of the +defn-deprecated+ macro in the "Discussi
   ([f limit base] ... )
 ----
 
-The only change to the definition of +memo-fifo+ is the use of the +defn-deprecated+ macro instead of +defn+ directly, the use of the +:as fifo+ directive and the addition (or change) of the docstring to describe the deprecation.  The +defdeprecation+ macro takes care of assembling the parts in the macro body to print the warning on use:
+The only change to the definition of +memo-fifo+ is the use of the +defn-deprecated+ macro instead of +defn+ directly, the use of the +:as fifo+ directive and the addition (or change) of the docstring to describe the deprecation.  The +defn-deprecated+ macro takes care of assembling the parts in the macro body to print the warning on use:
 
 [source,clojure]
 ----
@@ -119,7 +119,7 @@ Let's be honest, the exception stack traces that Clojure can produce can, at tim
 
 .Metadata
 
-Using a near 1-for-1 replacement macro like +defdeprecated+ allows you to preserve the metadata on a function.  Observe:
+Using a near 1-for-1 replacement macro like +defn-deprecated+ allows you to preserve the metadata on a function.  Observe:
 
 [source,clojure]
 ----
@@ -163,7 +163,7 @@ The +depr+ function, because it's required to handle any function that you give 
 
 .Compile time warnings
 
-The operation of +def-deprecated+ is such that the deprecation warning is printed every time that the function is called.  This could be problematic if the function requires high-speed.  Very few things slow a function down like a console print.  Therefore, we can change +def-deprecate+ slightly to report its warning at compile time rather than runtime:
+The operation of +defn-deprecated+ is such that the deprecation warning is printed every time that the function is called.  This could be problematic if the function requires high-speed.  Very few things slow a function down like a console print.  Therefore, we can change +defn-deprecate+ slightly to report its warning at compile time rather than runtime:
 
 [source,clojure]
 ----
@@ -196,7 +196,7 @@ This approach will work well if you distribute libraries as source code rather t
 
 .Turning it off
 
-The real beauty of macros is not that they allow you to change the semantics of your programs, but that they allow you to avoid doing so whenever it's not appropriate.  For example, when using macros you can run any code available to Clojure at compile-time.  Thankfully, the full Clojure language is available at compile-time.  Therefore, we can check a boolean flag attached to a namespace as metadata to decide whether to report a compile-time deprecation warning.  We can change the newest +def-deprecated+ to illustrate this technique:
+The real beauty of macros is not that they allow you to change the semantics of your programs, but that they allow you to avoid doing so whenever it's not appropriate.  For example, when using macros you can run any code available to Clojure at compile-time.  Thankfully, the full Clojure language is available at compile-time.  Therefore, we can check a boolean flag attached to a namespace as metadata to decide whether to report a compile-time deprecation warning.  We can change the newest +defn-deprecated+ to illustrate this technique:
 
 [source,clojure]
 ----
@@ -211,12 +211,11 @@ The real beauty of macros is not that they allow you to change the semantics of 
  1. Lookup the metadata on the current namespace
  2. Only report the deprecation warning if the flag is not set to silence-mode
 
-The +def-deprecated+ macro checks the status of the +:silence-deprecations+ metadata property on the current namespace and reports (or not) the deprecation warning based on it.  If you wind up using this approach then you can turn-off the deprecation warning on a per-namespace basis by adding the following to your +ns+ declaration:
+The +defn-deprecated+ macro checks the status of the +:silence-deprecations+ metadata property on the current namespace and reports (or not) the deprecation warning based on it.  If you wind up using this approach then you can turn-off the deprecation warning on a per-namespace basis by adding the following to your +ns+ declaration:
 
 [source,clojure]
 ----
 (ns ^:silence-deprecations my.awesome.lib)
 ----
 
-Now, any use of +def-deprecated+ in that namespace will not print the warning.  Future versions of Clojure will provide a cleaner way of creating and managing compile-time flags, but for now this is a decent compromise.
-
+Now, any use of +defn-deprecated+ in that namespace will not print the warning.  Future versions of Clojure will provide a cleaner way of creating and managing compile-time flags, but for now this is a decent compromise.

@@ -16,14 +16,13 @@ automatically generate customized project boilerplate with a single
 shell command. We'll explore them by creating a template for a simple
 web service.
 
-First, generate a new template with `lein new ...`. Replace
-+github_user+ with your own GitHub username; you'll be publishing this
+First, generate a new template with *+lein new template
+cookbook-sample-template-<github_user>+*. Replace +github_user+ with
+your own GitHub username; you'll be publishing this
 template to Clojars and it will need a unique name.
 
 [source,console]
 ----
-# Use a command like `lein new template cookbook-sample-template-<github-user>`
-# with your own GitHub username...
 $ lein new template cookbook-sample-template-clojure-cookbok
 Generating fresh 'lein new' template project.
 
@@ -33,7 +32,7 @@ $ cd cookbook-sample-template-clojure-cookbook
 Create a new project file template with the following contents in
 _src/leiningen/new/<project-name>/project.clj_.
 
-.src/leiningen/new/cookbook_sample_template_clojure_cookbook/project.clj
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook/project.clj_
 [source,clojure]
 ----
 (defproject {{ns-name}} "0.1.0"
@@ -60,11 +59,12 @@ Next, open the template definition
 list of files to be generated. Add +sanitize-ns+ to the namespace's
 +:use+ directive to expose a sanitized namespace string.
 
-.src/leiningen/new/cookbook_sample_template_clojure_cookbook.clj
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook.clj_
 [source,clojure]
 ----
 (ns leiningen.new.cookbook-sample-template-clojure-cookbook
-  (:use [leiningen.new.templates :only [renderer name-to-path ->files sanitize-ns]])) <1>
+  (:use [leiningen.new.templates :only [renderer name-to-path
+                                        ->files sanitize-ns]])) ; <1>
 
 (def render (renderer "cookbook-sample-template-clojure-cookbook"))
 
@@ -72,10 +72,10 @@ list of files to be generated. Add +sanitize-ns+ to the namespace's
   "FIXME: write documentation"
   [name]
   (let [data {:name name
-              :ns-name (sanitize-ns name) <2>
+              :ns-name (sanitize-ns name)                       ; <2>
               :sanitized (name-to-path name)}]
     (->files data
-             ["project.clj" (render "project.clj" data)] <3>
+             ["project.clj" (render "project.clj" data)]        ; <3>
              ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)])))
 ----
 
@@ -87,7 +87,7 @@ A good template gives users a basic skeleton on which to build. Create
 a new file at _src/leiningen/new/<project-name>/site.clj_ with some
 bare-bones web server logic:
 
-.src/leiningen/new/cookbook_sample_template_clojure_cookbook/site.clj
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook/site.clj_
 [source,clojure]
 ----
 (ns {{ns-name}}.site
@@ -107,7 +107,7 @@ Back in the template's _project.clj_ file, add a key-value for the
 +:main+ option to indicate +my-website.site+ is the core runnable
 namespace for the project:
 
-.src/leiningen/new/cookbook_sample_template_clojure_cookbook/project.clj
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook/project.clj_
 [source,clojure]
 ----
   :main {{ns-name}}.site
@@ -117,7 +117,7 @@ Go back to your template definition (_<project-name>.clj_) and change
 both +foo.clj+ references to +site.clj+. Delete the
 _src/leiningen/new/<project-name>/foo.clj_ file as well.
 
-.src/leiningen/new/cookbook_sample_template_clojure_cookbook.clj
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook.clj_
 [source,clojure]
 ----
 ;; ...
@@ -133,7 +133,7 @@ $ lein install
 $ lein new cookbook-sample-template-clojure-cookbook my-first-website
 $ cd my-first-website
 $ lein run
-# ... Leiningen noisely fetching dependencies ...
+# ... Leiningen noisily fetching dependencies ...
 2013-08-22 16:41:43.337:INFO:oejs.Server:jetty-7.6.8.v20121106
 2013-08-22 16:41:43.379:INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:3000
 ----
@@ -148,7 +148,7 @@ $ lein deploy clojars
 ----
 
 Other users can now create projects using your template name as the
-first argument to +lein new+. Leiningen will automatically fetch your
+first argument to *+lein new+*. Leiningen will automatically fetch your
 project template from Clojars.
 
 [source,console]
@@ -159,7 +159,7 @@ $ lein new cookbook-sample-template-clojure-cookbook my-second-website
 ==== Discussion
 
 Leiningen uses Clojars as a well known source of templates. When you
-pass a template name to +lein new+, it first looks for a template by
+pass a template name to *+lein new+*, it first looks for a template by
 name in the local Maven repository. If it doesn't find it there it
 will look for an appropriately named template on +clojars.org+. If it
 finds one it will download the template and use it to create the new
@@ -232,7 +232,7 @@ from that name and a sanitized path based on that name.
              ["src/{{sanitized}}/site.clj" (render "site.clj" data)])))
 ----
 
-Finally, we pass the +->files+ (pronounces "to files") function a list
+Finally, we pass the +->files+ (pronounced "to files") function a list
 of filename/content tuples. The filename determines where in the new
 project a file will end up. Content is generated using the +render+
 function we defined earlier. +render+ accepts a relative path to the
