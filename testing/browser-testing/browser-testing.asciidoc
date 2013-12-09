@@ -302,4 +302,4 @@ https://github.com/semperos/clj-webdriver/wiki[+clj-webdriver+ wiki].
 * The +clj-webdriver+ https://github.com/semperos/clj-webdriver[GitHub
   repository] and https://github.com/semperos/clj-webdriver/wiki[wiki].
 * https://code.google.com/p/selenium[Selenium]
-* See <<sec_unit_testing>> to learn more about unit testing in Clojure.
+* <<sec_unit_testing>> to learn more about unit testing in Clojure.
