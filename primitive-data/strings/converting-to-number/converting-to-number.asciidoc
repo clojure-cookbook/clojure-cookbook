@@ -1,3 +1,4 @@
+[[sec_primitives_strings_converting_strings_numbers]]
 === Converting Strings to Numbers
 [role="byline"]
 by Stefan Karlsson
@@ -41,3 +42,7 @@ For cases when you may want to have more control and flexibility of the conversi
 Note that +read-string+, while simple and straight forward, can execute code (controlled by *read-eval*), and should therefore be used only with trusted sources.
 
 A function like +to-number+ can be very useful when reading CSV files that contains numbers.
+
+==== See Also
+
+- <<sec_primitives_converting_characters_integers>>

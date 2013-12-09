@@ -1,4 +1,4 @@
-[[sec_primitives_strings_find_replace]]
+[[sec_deployment_primitive_arrays]]
 === Fast Math with Primitive Java Arrays
 [role="byline"]
 by Jason Wolfe
@@ -28,9 +28,6 @@ $ lein try prismatic/hiphip
 
 Use one ++hiphip++'s +amap+ macros to perform fast math on typed
 arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
-
-// TODO: It would be nice for each example to show relative timing
-//       comparisons
 
 [source,clojure]
 ----

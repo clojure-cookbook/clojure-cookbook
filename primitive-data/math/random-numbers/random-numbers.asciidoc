@@ -78,3 +78,11 @@ receive a random permutation of your collection.
 (shuffle [1 2 3 4 5 6])
 ;; -> [3 1 4 5 2 6]
 ----
+
+==== See Also
+
+* The
+  http://docs.oracle.com/javase/7/docs/api/java/util/Random.html[API
+  documentation] for +java.util.Random+
+
+* <<sec_testing_generative>>

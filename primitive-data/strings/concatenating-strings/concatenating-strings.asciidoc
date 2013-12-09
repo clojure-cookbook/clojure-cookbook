@@ -102,3 +102,15 @@ Without, it returns each item squashed together similar to what
 (clojure.string/join [1 2 3 4])
 ;; -> "1234"
 ----
+
+==== See Also
+
+- <<sec_primitives_strings_formatting_strings>>
+
+- The +clojure.string+ namespace
+  http://clojure.github.io/clojure/#clojure.string[API documentation]
+
+- The +java.lang.String+
+  http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[API
+  documentation].
+

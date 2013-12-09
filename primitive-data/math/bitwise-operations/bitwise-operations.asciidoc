@@ -1,3 +1,4 @@
+[[sec_primitives_math_bitwise]]
 === Performing Bitwise Operations
 [role="byline"]
 by Ryan Neufeld
@@ -80,3 +81,6 @@ you're interested in. This drastically simplifies the above example.
 ;; -> "111111"
 ----
 
+==== See Also
+
+* <<sec_deployment_primitive_arrays>>

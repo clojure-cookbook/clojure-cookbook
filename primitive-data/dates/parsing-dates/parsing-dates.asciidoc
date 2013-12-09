@@ -74,5 +74,10 @@ pass to +formatter+.
 
 ==== See Also
 
-* See <<sec_primitives_dates_formatting_dates>> for information on how
+* <<sec_primitives_dates_formatting_dates>> for information on how
   to use formatters to unparse strings.
+
+* The official
+  http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[API
+  documentation] for Java's simple date formatter.
+

@@ -96,5 +96,7 @@ third
 
 ==== See Also
 
+* <<sec_primitives_math_bitwise>>
 * <<sec_primitives_dates_reader_literal>> for information on +#inst+,
-  another reader literal for dates.
+  another example of a reader literal, for dates.
+

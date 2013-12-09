@@ -1,3 +1,4 @@
+[[sec_primitives_numbers_fuzzy_comparison]]
 === Performing Fuzzy Comparison
 [role="byline"]
 by Ryan Neufeld
@@ -97,5 +98,5 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance.
 * See the Wikipedia article on
   http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating
   Point] for more detailed information on floating point numbers.
-* See <<sec_primitives_math_arbitrary_precision>> for more general
-  information on numeric precision.
+* <<sec_primitives_math_arbitrary_precision>>
+* <<sec_primitives_numbers_truncating_rounding>>

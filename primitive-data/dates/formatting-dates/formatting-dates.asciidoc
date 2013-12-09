@@ -94,5 +94,13 @@ Joda Time instances into other formats.
 
 ==== See Also
 
-* See <<sec_primitives_dates_parsing_dates>> for more detailing
+* The +clj-time+ https://github.com/clj-time/clj-time[project page] on
+  Github.
+
+* <<sec_primitives_dates_parsing_dates>> for more detailed
   information on +formatter+ and +formatters+.
+
+* The official
+  http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[API
+  documentation] for Java's simple date formatter.
+

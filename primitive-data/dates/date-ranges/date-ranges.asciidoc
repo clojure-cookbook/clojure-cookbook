@@ -1,3 +1,4 @@
+[[sec_primitives_dates_ranges]]
 === Generating Ranges of Dates and Times
 [role="byline"]
 by Ryan Neufeld
@@ -77,3 +78,11 @@ stepped appropriately by the provided +step+ value.
 
 Imagine trying to build something similar in a language
 without first-class laziness.
+
+==== See Also
+
+* <<sec_primitives_dates_comparing>>
+
+* <<sec_primitives_dates_time_between>>
+
+* <<sec_primitives_dates_relative>>
