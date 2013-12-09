@@ -92,3 +92,8 @@ As well as setting the value of the cookie, you can also set additional attribut
 * `:max-age` - the number of seconds until the cookie expires
 * `:expires` - a specific date and time the cookie expires
 ____
+
+==== See Also
+
+* <<sec_ring_middleware>>
+* Ring's https://github.com/ring-clojure/ring/wiki/Cookies[Cookie Documentation]

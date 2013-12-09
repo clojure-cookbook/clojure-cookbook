@@ -81,3 +81,4 @@ the recipe and point a browser at http://localhost:3000.
   Ring.
 * <<sec_webapps_compojure_compojure>> for more information on
   Compojure routes.
+* Liberator's http://clojure-liberator.github.io/liberator/[Homepage].

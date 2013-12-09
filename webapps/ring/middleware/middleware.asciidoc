@@ -1,3 +1,4 @@
+[[sec_ring_middleware]]
 === Using Ring Middleware
 [role="byline"]
 by Adam Bard
@@ -109,3 +110,7 @@ with several middlewares is to use the `->` macro:
     wrap-params
     wrap-session))
 ----
+
+==== See Also
+
+* https://github.com/ring-clojure/ring/wiki/Concepts#middleware[Middleware Concepts]

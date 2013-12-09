@@ -139,5 +139,5 @@ Finally, we could provide a custom set of transformers to replace the built in o
 
 ==== See Also
 
-* Visit the https://github.com/yogthos/markdown-clj[+markdown-clj+] GitHub repository for more information on the library.
+* The +markdown-clj+ https://github.com/yogthos/markdown-clj[GitHub repository] for more information on the library.
 

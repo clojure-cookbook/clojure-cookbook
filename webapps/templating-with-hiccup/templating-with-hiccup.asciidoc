@@ -176,8 +176,8 @@ to simplify rendering form tags.
 ==== See Also
 
 * Hiccup's https://github.com/weavejester/hiccup/[GitHub repository],
- http://weavejester.github.io/hiccup/[API documentation] and
- https://github.com/weavejester/hiccup/wiki[Wiki].
+  http://weavejester.github.io/hiccup/[API documentation] and
+  https://github.com/weavejester/hiccup/wiki[Wiki].
 * If you have more complicated needs from your templating engine--like
   consuming and populating existing HTML files--you'll need sharper
   tools such as Enlive (<<sec_enlive>>) or Selmer
