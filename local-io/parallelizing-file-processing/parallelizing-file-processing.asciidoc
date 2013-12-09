@@ -65,7 +65,10 @@ to be reading the file itself, in which case parallelizing the
 processing work will give little to no gains in terms of total
 runtime.
 
-For an approach which parallelizes reading the file itself using
+==== See Also
+
+* <<rec_local_io_parallelizing_using_iota>> for a similar approach which parallelizes reading the file itself using
 memory mapping (as well as using Clojure Reducers for greater
-efficiency), see the next recipe,
-[[rec_local_io_parallelizing_using_iota]].
+efficiency).
+
+

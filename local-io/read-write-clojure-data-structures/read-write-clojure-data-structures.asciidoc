@@ -135,4 +135,6 @@ must continue to call +read+ until it has reached the end.
 
 ==== See Also
 
+* <<sec_local_io_get_local_resource>>
+* <<sec_edn_configs>>
 * <<sec_default_data_reader>>

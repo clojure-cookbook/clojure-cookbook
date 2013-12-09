@@ -61,3 +61,10 @@ You can also specify an alternative (or additional) resource directories using t
 ----
 :resource-paths ["my-resources" "src/other-resources"]
 ----
+
+==== See Also
+
+* The Leiningen
+  https://github.com/technomancy/leiningen/blob/41f7a297b4daf4b3676048b5172a9c80c89e9266/sample.project.clj#L247[_sample.project.clj_],
+  which includes a more detailed description of how the +:resource-paths+ option works.
+* <<sec_local_io_clojure_data_to_disk>>

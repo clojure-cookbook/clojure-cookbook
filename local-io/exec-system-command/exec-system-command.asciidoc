@@ -157,6 +157,6 @@ sequence of promises returned by +sh-pipe+.)
 
 ==== See Also
 
-* If you don't need piping or clj-common-execs advanced features,
+* If you don't need piping or +clj-common-execs+ advanced features,
   consider using
   http://richhickey.github.io/clojure/clojure.java.shell-api.html[clojure.java.shell].

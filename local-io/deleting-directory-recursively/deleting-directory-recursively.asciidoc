@@ -38,3 +38,7 @@ false if it is unable to delete the file. This could be caused by file
 permissions, mount properties, etc; and in that case you'll need to
 determine what to do. The example code throws an exception for
 handling further up the call stack.
+
+==== See Also
+
+* The +java.io.File+ http://docs.oracle.com/javase/7/docs/api/java/io/File.html[API Documentation].

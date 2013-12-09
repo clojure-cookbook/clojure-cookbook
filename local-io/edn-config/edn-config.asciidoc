@@ -1,3 +1,4 @@
+[[sec_edn_configs]]
 === Using +edn+ for Configuration Files
 [role="byline"]
 by Luke VanderHart
@@ -157,3 +158,9 @@ Using it on two seperate +edn+ config files yields a merged map:
 
 Be aware that any values present in both configuration files will be
 overridden by the "rightmost" file passed to +load-config+.
+
+==== See Also
+
+* <<sec_local_io_get_local_resource>>
+* <<sec_edn_record>>
+* <<sec_default_data_reader>>

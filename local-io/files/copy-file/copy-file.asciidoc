@@ -97,4 +97,6 @@ The same efficiency considerations that apply to reading and writing to a file i
 
 By default a buffer size of 1024 bytes is used when calling +copy+. That is the amount of data that will be read from the source and written to the destination in one pass. This is done until the complete source has been copied. The buffer size used can be changed with the +:buffer-size+ option. Keeping this number low would cause more file access operations but would keep less data in memory. On the other hand increasing the buffer-size will lower the number of file accesses but will require more data to be loaded into memory.
 
+==== See Also
 
+* ++clojure.java.io++'s http://richhickey.github.io/clojure/clojure.java.io-api.html[API Documentation].

@@ -61,3 +61,6 @@ longer being used:
 (.delete my-temp-file)
 ----
 
+==== See Also
+
+* The +java.io.File+ http://docs.oracle.com/javase/7/docs/api/java/io/File.html[API Documentation].

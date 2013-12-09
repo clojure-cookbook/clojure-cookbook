@@ -130,5 +130,8 @@ You can also be strict on required properties. If an expected property is missin
 (def props (read-properties "other.properties" :required [:otherkey]))
 ;; -> java.lang.RuntimeException: (:otherkey) are required ...
 ----
+
 ==== See Also
-See the https://github.com/jaycfields/propertea[+propertea+ documentation] for more details.
+
+* The https://github.com/jaycfields/propertea[+propertea+ documentation] for more details.
+* The http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html[+Properties+ documentation].

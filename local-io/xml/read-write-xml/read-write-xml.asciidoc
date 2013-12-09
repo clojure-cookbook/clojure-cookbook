@@ -87,6 +87,6 @@ with XML.
 ==== See also
 
 * <<sec_local-io_read_write_files>>
-* <<zippers>>
+* The http://richhickey.github.io/clojure/clojure.zip-api.html[+clojure.zip+] namespace.
 
 

@@ -93,8 +93,13 @@ the internal structure of Clojure's persistent data structures and can
 leverate that to efficiently distribute worker processes across the
 data.
 
-Under the hood, Iota uses the Java +NIO+ IO libraries to provide a
+Under the hood, Iota uses the Java NIO libraries to provide a
 _memory mapped_ view of the file being processed, that provides
 efficient random access. Iota is also aware of the Reducers framework,
 and Iota sequences are structured in such a way that Reducers can
 effictively distribute worker processes across them.
+
+==== See Also
+
+* The +iota+ https://github.com/thebusby/iota[GitHub repository].
+* http://docs.oracle.com/javase/7/docs/api/java/nio/package-summary.html[NIO's documentation].
