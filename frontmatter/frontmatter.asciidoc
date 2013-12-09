@@ -182,7 +182,9 @@ instructions on downloading and installing the Java JDK.
 To install Leiningen, follow the installation instructions on
 Leiningen's website (_http://leiningen.org/_). If you already have
 Leiningen installed, get the latest version by executing the command
-*+lein upgrade+*.
+*+lein upgrade+*. If you aren't familiar with Leiningen, visit the
+https://github.com/technomancy/leiningen/blob/stable/doc/TUTORIAL.md[tutorial]
+to learn more.
 
 The one thing you *won't* need to manually install is Clojure itself,
 Leiningen will do this for you on an ad hoc basis. To verify your
