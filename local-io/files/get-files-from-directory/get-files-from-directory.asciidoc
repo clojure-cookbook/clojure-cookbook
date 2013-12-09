@@ -80,7 +80,7 @@ in a directory.
 
 ==== See Also
 
-* See the documentation for the
+* The documentation for the
   http://docs.oracle.com/javase/7/docs/api/java/io/File.html[File
   class] for a complete list of properties and methods available on
   +File+ objects.
