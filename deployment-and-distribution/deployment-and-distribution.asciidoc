@@ -5,6 +5,8 @@ include::introduction.asciidoc[]
 
 include::aot-compilation/aot-compilation.asciidoc[]
 
+include::creating-executable-jar/creating-executable-jar.asciidoc[]
+
 include::war-file/war-file.asciidoc[]
 
 include::daemons.asciidoc[]

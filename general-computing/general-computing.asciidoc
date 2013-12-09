@@ -11,8 +11,6 @@ include::main/main.asciidoc[]
 
 include::running-programs-from-the-command-line.asciidoc[]
 
-include::creating-executable-jar/creating-executable-jar.asciidoc[]
-
 include::trying-a-library/trying-a-library.asciidoc[]
 
 include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
