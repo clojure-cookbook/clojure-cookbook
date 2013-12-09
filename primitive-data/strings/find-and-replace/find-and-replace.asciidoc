@@ -75,7 +75,10 @@ to produce regexps that are both difficult to interpret and at a high
 risk of being incorrect. You should use regular expressions sparingly,
 and only if you fully understand their syntax.
 
+http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] is a fantastic book for learning and mastering Regular Expression syntax.
+
 ==== See Also
 
+* <<sec_primitives_strings_re_find>>
+
 * +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurrence of +match+.
-* http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] is a fantastic book for learning and mastering Regular Expression syntax.

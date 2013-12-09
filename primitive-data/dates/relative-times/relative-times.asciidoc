@@ -1,3 +1,4 @@
+[[sec_primitives_dates_relative]]
 === Retrieving Dates Relative to One Another
 [role="byline"]
 by Ryan Neufeld
@@ -77,3 +78,9 @@ the threading macro +->+ threads each value as an argument to the next
 producing +(t/from-now (t/years 1))+. It's up to you to arrange your
 function calls as you see fit, but know that it is quite possible to
 produce readable deep nested-calls like this.
+
+==== See Also
+
+* <<sec_primitives_dates_comparing>>
+
+* <<sec_primitives_dates_ranges>>

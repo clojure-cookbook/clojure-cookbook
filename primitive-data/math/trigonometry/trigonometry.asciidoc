@@ -68,4 +68,7 @@ javadocs].
 
 ==== See Also
 
-* See <<sec_primitives_math_type_hinting>> for information on improving performance of heavy math.
+* <<sec_primitives_math_type_hinting>> for tips on improving
+  performance.
+
+

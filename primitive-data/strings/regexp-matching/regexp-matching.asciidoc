@@ -48,5 +48,10 @@ only if the *entire* string matches the pattern.
 
 ==== See Also
 
+* The
+  http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
+  documentation] for +java.lang.Pattern+, which defines the exact
+  regex syntax supported by Java (and Clojure.)
+
 * <<sec_primitives_strings_re_matches>> for information on extracting
   values from a string using regular expressions.

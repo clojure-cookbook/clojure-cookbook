@@ -130,3 +130,6 @@ how to choose among them is another topic. But it's quite common to need to
 convert among them, so +keyword+, +symbol+, +str+, +namespace+, and +name+ are
 handy to have in your toolbelt.
 
+==== See Also
+
+- <<sec_primitives_converting_characters_integers>>

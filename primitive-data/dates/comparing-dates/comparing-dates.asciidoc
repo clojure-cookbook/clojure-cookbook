@@ -1,4 +1,4 @@
-[[sec_comparing_dates]]
+[[sec_primitives_dates_comparing]]
 === Comparing Dates
 [role="byline"]
 by Ryan Neufeld
@@ -63,3 +63,6 @@ Joda Time objects in hand, then all of this still applies. If you wish
 to compare Joda time objects to Java time objects, however, you will
 have to coerce them to one uniform type using the functions in +clj-time.coerce+.
 
+==== See Also
+
+* TODO: reference to comparator recipe

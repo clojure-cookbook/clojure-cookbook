@@ -88,3 +88,9 @@ by changing the binding of *+data-readers+*. By varying the binding of
   (class (read-string instant)))
 ;; -> java.sql.Timestamp
 ----
+
+==== See Also
+
+* <<sec_primitives_math_uuids>> for another example of a reader
+  literal included with Clojure.
+

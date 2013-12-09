@@ -1,4 +1,4 @@
-[[sec_primitives_strings_find_replace]]
+[[sec_deployment_primitive_arrays]]
 === Fast Math with Primitive Java Arrays
 [role="byline"]
 by Jason Wolfe

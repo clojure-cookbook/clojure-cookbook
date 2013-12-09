@@ -65,3 +65,5 @@ collapse them into a string.
 ==== See Also
 
 * <<sec_primitives_building_strings_from_parts>>
+
+* <<sec_primitives_converting_characters_integers>>

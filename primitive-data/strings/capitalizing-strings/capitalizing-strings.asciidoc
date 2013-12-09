@@ -53,3 +53,13 @@ possible for capitalization functions to change case appropriately.
 (clojure.string/upper-case "Dépêchez-vous, l'ordinateur!")
 ;; -> "DÉPÊCHEZ-VOUS, L'ORDINATEUR!"
 ----
+
+==== See Also
+
+- The +clojure.string+ namespace
+  http://clojure.github.io/clojure/#clojure.string[API documentation]
+
+- The +java.lang.String+
+  http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[API
+  documentation].
+

@@ -74,7 +74,5 @@ get those timestamps into a date format used by the rest of the system?
 
 ==== See Also
 
-* See <<sec_date_to_unix_timestamp>> for how to convert a Date to a
-  Unix time.
-* See <<sec_primitives_dates_current_date>> to see how to get the current time in
-  milliseconds, which can be converted to seconds.
+* <<sec_date_to_unix_timestamp>>
+* <<sec_primitives_dates_current_date>>

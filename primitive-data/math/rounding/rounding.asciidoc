@@ -1,3 +1,4 @@
+[[sec_primitives_numbers_truncating_rounding]]
 === Truncating and Rounding Numbers
 [role="byline"]
 by Ryan Neufeld
@@ -120,3 +121,5 @@ your expressions with literal values (+3M+) or by means of the
 
 * See <<sec_primitives_math_arbitrary_precision>> for more information
   on +BigDecimal+, specifically type-contagion.
+
+* <<sec_primitives_numbers_fuzzy_comparison>>

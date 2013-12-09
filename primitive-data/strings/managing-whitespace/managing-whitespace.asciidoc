@@ -69,6 +69,6 @@ or right hand side of a string use +clojure.string/triml+ or
 
 ==== See Also
 
-* Primitives section (composing strings) for adding whitespace to a
-string, particularly justification.
+* See <<sec_primitives_building_strings_from_parts>> for how to use
+  string concatnation to _add_ whitespace to a string.
 

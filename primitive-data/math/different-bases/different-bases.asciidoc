@@ -65,3 +65,5 @@ wrapper around +Integer/toString+ to accomplish this.
 * <<sec_primitives_strings_formatting_strings>> for information on
   +format+. The 'o' and 'x' specifiers print integers in octal and
   hexadecimal, respectively.
+
+* <<sec_primitives_numbers_parsing_numbers>>
