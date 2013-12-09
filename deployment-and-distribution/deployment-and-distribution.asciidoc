@@ -1,5 +1,5 @@
 [[ch_deployment_and_distribution]]
-== Deployment and Distribution
+== Performance & Production
 
 include::introduction.asciidoc[]
 
@@ -18,8 +18,6 @@ include::primitive-arrays/primitive-arrays.asciidoc[]
 include::profiling-with-timbre/profiling-with-timbre.asciidoc[]
 
 include::logging-with-timbre/logging-with-timbre.asciidoc[]
-
-include::lein-templates/lein-templates.asciidoc[]
 
 include::releasing-a-library/releasing-a-library.asciidoc[]
 

@@ -15,7 +15,9 @@ include::main/main.asciidoc[]
 
 include::running-programs-from-the-command-line.asciidoc[]
 
-include::gparse-command-line-arguments/parse-command-line-arguments.asciidoc[]
+include::parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
+
+include::lein-templates/lein-templates.asciidoc[]
 
 include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
 
@@ -28,4 +30,6 @@ include::parser-with-core-match/parser-with-core-match.asciidoc[]
 include::core-logic/core-logic.asciidoc[]
 
 include::nursery-rhyme/nursery-rhyme.asciidoc[]
+
+
 
