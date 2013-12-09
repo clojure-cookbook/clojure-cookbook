@@ -164,5 +164,5 @@ starting point for further investigation of the Seesaw library.
 
 ==== See Also
 
-* The Seesaw https://github.com/daveray/seesaw[GitHub Repository].
+* The Seesaw https://github.com/daveray/seesaw[GitHub repository].
 * J. Elliott et. al., "Java Swing, 2nd Ed.", O'Reilly Media.
