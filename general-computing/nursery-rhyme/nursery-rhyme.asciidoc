@@ -205,4 +205,4 @@ hope your children agree.
 
 ==== See also
 
-* https://github.com/overtone/overtone[Overtone] is a music environment for Clojure.
+* https://github.com/overtone/overtone[Overtone], a music environment for Clojure.

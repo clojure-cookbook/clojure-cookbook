@@ -191,6 +191,5 @@ Executed with the following args:  1 2 3
 
 ==== See Also
 
-* Using Leiningen
-* Running Clojure Programs
-* Ahead-of-time Compilation
+* <<sec_command_line_applications>> to learn about running Clojure programs from Leiningen.
+* <<sec_aot_compilation>>

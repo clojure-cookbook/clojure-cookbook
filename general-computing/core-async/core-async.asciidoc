@@ -223,6 +223,6 @@ producer would not be able to put further values onto the channels.
 * +core.async+ has more advanced facilities for layout and coordination
   of channels. For more details, see the
   http://clojure.github.io/core.async/[+core.async+ overview].
-* See <<sec_concurrent_zmq>> to see how to use +core.async+ to communicate
+* <<sec_concurrent_zmq>> to see how to use +core.async+ to communicate
   over ZeroMQ.
 

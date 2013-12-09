@@ -1,3 +1,4 @@
+[[sec_exploring_namespaces]]
 === Exploring Namespaces
 [role="byline"]
 by John Cromartie
@@ -54,3 +55,8 @@ time).
 
 The downside of this dynamic nature is that you need to at least know
 which namespaces to load in order to explore them.
+
+==== See Also
+
+* +clojure.repl+ http://clojure.github.io/clojure/clojure.repl-api.html[API Documentation].
+* <<sec_interactive_docs>>

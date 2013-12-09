@@ -181,7 +181,7 @@ rectify this situation by participating in the core sequence abstraction.
 
 * The second part of this recipe, <<sec_red_black_part_ii>>, where we
   add sequence functionality to our RBT.
-* See http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-Black
+* http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-Black
   Trees on Wikipedia] for a more traditional take on this interesting
   data structure.
 * For the functional approach used in this recipe, the book

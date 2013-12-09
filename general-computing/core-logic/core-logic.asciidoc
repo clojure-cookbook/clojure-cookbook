@@ -337,7 +337,7 @@ with some basic indexing can greatly improve the query performance.
 ==== See Also
 
 * The Reasoned Schemer - By Daniel P. Friedman, William E. Byrd and Oleg Kiselyov
-* https://github.com/clojure/core.logic/wiki[The +core.logic+ wiki]
-* http://minikanren.org/[The miniKanren] website
-* See https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using *clojure.core.logic/to-stream*
+* The https://github.com/clojure/core.logic/wiki[+core.logic+ wiki]
+* _http://minikanren.org/_
+* The https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using *clojure.core.logic/to-stream*
 * https://github.com/clojure/core.match[+core.match+], a (non-unification) matching library with some similar ideas, described briefly in <<sec_core_match_parser>>

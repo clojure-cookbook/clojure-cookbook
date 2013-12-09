@@ -115,8 +115,9 @@ The sum is: 6
 
 ==== See Also
 
-* See <<sec_packaging_jars>> to learn how to package an application as an
+* <<sec_running_programs>> to learn how to run plain Clojure files with *+java+*.
+* <<sec_packaging_jars>> to learn how to package an application as an
   executable JAR.
-* See <<sec_parse_command_line_arguments>> to learn how to parse
+* <<sec_parse_command_line_arguments>> to learn how to parse
   command-line arguments using +tools.cli+.
-* See <<sec_daemons>> to learn how to daemonize applications.
+* <<sec_daemons>> to learn how to daemonize applications.

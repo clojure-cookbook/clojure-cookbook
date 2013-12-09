@@ -317,6 +317,7 @@ define implementations for existing types.
 * The official documentation for
   http://clojure.org/protocols[Protocols], which covers protocols in
   depth, including information on how protocols relate to interfaces.
-* See <<extend_built_in>> for examples of using +extend+ and its
+* <<extend_built_in>> for examples of using +extend+ and its
   convenience macros +extend-type+ and +extend-protocol+.
+* <<sec_red_black_part_ii>> for a concrete example of implementing a protocol.
 
