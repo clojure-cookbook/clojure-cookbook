@@ -5,7 +5,7 @@ by Adam Bard
 
 ==== Problem
 
-You need to write an HTTP service with clojure
+You need to write an HTTP service with Clojure
 
 ==== Solution
 
@@ -91,3 +91,7 @@ as long as the server is running. If you call it from the REPL, you
 should wrap it in a `future` (or use some other concurrency mechanism)
 so the server runs on another thread and your REPL does not become
 unresponsive.
+
+==== See Also
+
+* Ring's https://github.com/ring-clojure/ring[GitHub repository].

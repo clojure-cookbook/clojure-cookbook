@@ -107,4 +107,7 @@ To set the value of `:session`, just pass it along with your response. If you do
 need the session changed,  leave `:session` out of your response. If you want to actually clear the
 session, pass `nil` as your the value of the `:session` key.
 
+==== See Also
 
+* <<sec_ring_middleware>>
+* Ring's https://github.com/ring-clojure/ring/wiki/Sessions[Session documentation].

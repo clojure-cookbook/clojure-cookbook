@@ -70,3 +70,7 @@ works with any kind of parameter (form or URL encoded), `:form-params`
 only works for form parameters.
 
 Note that the form keys are passed in as Strings, not keywords.
+
+==== See Also
+
+* <<sec_ring_middleware>>

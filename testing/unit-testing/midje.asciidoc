@@ -13,7 +13,7 @@ dependencies such as http services or databases.
 Use https://github.com/marick/Midje[Midje], a testing framework which
 provides ways to mock functions and return fakes.
 
-To follow along with this recipe, start a REPL using +lein-try+. 
+To follow along with this recipe, start a REPL using +lein-try+:
 
 [source,shell]
 ----
@@ -211,5 +211,6 @@ $ lein midje com.example.t-core
 
 ==== See Also
 
-* See <<sec_unit_testing>> for information on more basic unit testing
+* <<sec_unit_testing>> for information on more basic unit testing
   in Clojure.
+* The Midje https://github.com/marick/Midje[GitHub repository].

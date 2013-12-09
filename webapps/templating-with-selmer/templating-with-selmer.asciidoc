@@ -262,5 +262,5 @@ child will override any other blocks with the same name.
 
 ===== See Also
 
-To see more on using Selmer as a templating engine, see the https://github.com/yogthos/Selmer[Selmer] GitHub repository.
+* The Selmer https://github.com/yogthos/Selmer[GitHub repository].
 

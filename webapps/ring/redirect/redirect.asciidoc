@@ -45,3 +45,6 @@ According to the HTTP specification, if the response method is a POST, PUT, or D
    :body ""})
 ----
 
+==== See Also
+
+* https://github.com/ring-clojure/ring/wiki/Concepts[Ring Concepts].

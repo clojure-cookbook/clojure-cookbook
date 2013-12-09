@@ -533,5 +533,5 @@ code and happy programmers.
 ==== See also
 
 * http://storm-project.net/[Storm's website]
-* https://github.com/travis/lein-storm-project-template[the Storm project template]
-* https://github.com/nathanmarz/storm-deploy[the +storm-deploy+ project, for easy Storm deployment]
+* The Storm https://github.com/travis/lein-storm-project-template[project template]
+* https://github.com/nathanmarz/storm-deploy[+storm-deploy+], a tool for easy Storm deployment.

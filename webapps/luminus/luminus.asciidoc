@@ -95,4 +95,4 @@ The application can be packaged as a standalone _jar_ using *+lein ring uberjar+
 
 ==== See Also
 
-* To see more details on using Luminus, visit the http://www.luminusweb.net/[Luminus] project page.
+* Visit the http://www.luminusweb.net/[Luminus] project page.

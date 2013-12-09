@@ -1,3 +1,4 @@
+<<sec_simplecheck>>
 === Finding Values Which Cause Failure
 
 [role="byline"]
@@ -163,5 +164,8 @@ over runtime, and how likely you are to need to extend the set of
 generated primitives.
 ****
 
+==== See Also
 
-
+* <<sec_unit_testing>>
+* <<sec_testing_generative>>
+* QuickCheck, the Haskell library that inspired SimpleCheck (http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2[Introduction to QuickCheck]).

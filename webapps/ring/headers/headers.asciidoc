@@ -59,7 +59,6 @@ client you're communicating with is not compliant (following the
 classic robsutness principle; "be conservative in what you send, be
 liberal in what you accept".)
 
+==== See Also
 
-
-
-
+* https://github.com/ring-clojure/ring/wiki/Concepts[Ring Concepts].
