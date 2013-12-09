@@ -103,5 +103,6 @@ the sequence.
 
 ==== See Also
 
-* See <<sec_read_write_xml>> for more information on reading and
+* <<sec_http_request>>
+* <<sec_read_write_xml>> for more information on reading and
   writing XML data like RSS feeds.
