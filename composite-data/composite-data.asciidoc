@@ -68,6 +68,8 @@ include::maps/combining-maps/combining-maps.asciidoc[]
 Miscellaneous
 ////
 
+include::sorting/sorting.asciidoc[]
+
 include::removing-duplicate-elements-from-a-collection/removing-duplicate-elements-from-a-collection.asciidoc[]
 
 include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
