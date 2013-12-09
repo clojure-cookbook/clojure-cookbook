@@ -125,4 +125,4 @@ possible.
 
 ==== See Also
 
-* Learn more about Midje in <<sec_midje>>.
+* <<sec_midje>>

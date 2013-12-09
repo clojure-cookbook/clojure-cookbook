@@ -247,5 +247,6 @@ pipelines, it might help to follow this process:
 
 ==== See Also
 
+* http://ianrumford.github.io/blog/2012/09/29/using-cascalog-for-extract-transform-and-load/[Using Cascalog for Extract Transform and Load].
 * https://github.com/clojure/core.logic[+core.logic+] - A logic
   programming library for Clojure
