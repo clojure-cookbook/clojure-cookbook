@@ -37,8 +37,8 @@ _test/browser_testing/core_test.clj_, overwriting its content.
 [source,clojure]
 ----
 (ns browser-testing.core-test
-  (:use clojure.test)
-  (:require [clj-webdriver.taxi :as t]))
+  (:require [clojure.test :refer :all]
+            [clj-webdriver.taxi :as t]))
 
 ;; A simple fixture that sets up test driver
 (defn selenium-fixture
@@ -67,8 +67,6 @@ _test/browser_testing/core_test.clj_, overwriting its content.
   (is (re-find #"Rich Hickey" (t/text {:id "foot"}))))
 ----
 
-Run the tests on the command line:
-
 [NOTE]
 ====
 A complete version of this repository is available on GitHub at _https://github.com/clojure-cookbook/browser-testing_.
@@ -81,6 +79,8 @@ $ git clone https://github.com/clojure-cookbook/browser-testing
 $ cd browser-testing
 ----
 ====
+
+Run the tests on the command line:
 
 [source,console]
 ----

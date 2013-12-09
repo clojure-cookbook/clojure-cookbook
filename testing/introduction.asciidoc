@@ -10,7 +10,7 @@ passes."
 In addition to tests, several other tools have recently sprung up in
 the Clojure space aimed at improving program reliability. Often, these
 focus on validating that data looks as expected, to guard programs
-from recieving input they don't know how to handle. These solutions
+from receiving input they don't know how to handle. These solutions
 range from optional static typing with algabraic types analyzed at
 compile time, down to simple preconditions.
 
@@ -25,5 +25,5 @@ This chapter covers all of the above. As much as we'd love to push the
 envelope, nothing beats a good old fashion unit test suite from
 time-to-time. At the same time, as we build more and more gargantuan
 applications, it is clear that simple unit tests are not always
-sufficient. We hope now matter your skill level or focus, you find new
+sufficient. We hope no matter your skill level or focus, you find new
 tools to add to your testing arsenal in this chapter.

@@ -128,7 +128,7 @@ errors or assertion failures.
 ==== Discussion
 
 There are two key parts of the test definition above: the +defspec+
-form itself, which defines the genrative test, and functions used to
+form itself, which defines the generative test, and functions used to
 generate random data. In this case, the data generator functions are
 built from primitive data generation functions found in the
 +clojure.data.generators+ namespace.
@@ -167,7 +167,7 @@ any type of value you want to pass to the function under test.
 The motivation for reusing +:tag+ in this way is mostly
 historical. +test.generative+ is largely inspired by a library called
 QuickCheck, which is written in Haskell. Because Haskell is strongly
-and statically typed, QuickCheck truly can use the type signature
+and statically typed, QuickCheck truly can use the type signature as
 sufficient information on how to generate input data.
 
 The link isn't quite as strong in Clojure, and arguably is more

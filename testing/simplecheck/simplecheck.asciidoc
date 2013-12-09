@@ -128,7 +128,7 @@ Re-running the test now indicates success.
 failing sample. In the example program above, for instance, any time a
 zero occurs in the input sequence it causes an error. However, merely
 from looking at the sequence +(5 0 0 -8 1 -2)+ it might not be
-4apparent that zeros are the problem. Not knowing anything else about
+apparent that zeros are the problem. Not knowing anything else about
 the function under test, the problem might be, for example, the
 negative numbers, or the value +5+. +simple-check+ returns not just any
 arbitratry failing input, but *the* specific input that will
