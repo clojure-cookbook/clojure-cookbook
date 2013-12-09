@@ -19,7 +19,8 @@ The most important part of participating in sequence abstraction
 is the ability to expose values of a data structure sequentialy. The
 built-in +tree-seq+ is well suited for this task. One extra step is
 needed, however; +tree-seq+ returns a sequence of nodes, not values.
-The final +rb-tree->seq+ function 
+
+The final +rb-tree->seq+ function:
 
 [source,clojure]
 ----
