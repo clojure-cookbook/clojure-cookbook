@@ -279,7 +279,7 @@ rbt-string
 
 ==== See Also
 
-* <The first part of this recipe, <sec_red_black_part_i>>, where we define the initial
+* The first part of this recipe, <sec_red_black_part_i>>, where we define the initial
   Red-Black Tree implementation.
 * <<sec_local_io_clojure_data_to_disk>> and
   <<sec_default_data_reader>> for more information on reading Clojure
