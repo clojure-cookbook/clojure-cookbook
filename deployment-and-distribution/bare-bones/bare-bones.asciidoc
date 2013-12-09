@@ -4,8 +4,8 @@ by John Cromartie
 
 ==== Problem
 
-You want to use Clojure but you don't want to install additional
-tools.
+You want to play with a Clojure REPL but you don't want to install
+additional tools.
 
 ==== Solution
 
@@ -65,5 +65,6 @@ compared to installing more complex packages.
 
 ==== See Also
 
-* Leiningen
-* Running Clojure Programs
+* The http://leiningen.org/[Leiningen] website.
+
+* <<sec_command_line_applications>>

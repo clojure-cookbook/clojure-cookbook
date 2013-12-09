@@ -215,6 +215,7 @@ on packaging Web Archives.
 
 ==== See Also
 
-- recipe: "building a JAR file"
+- <<sec_packaging_jars>>
+- <<sec_aot_compilation>>
 - ++lein-ring++'s https://github.com/weavejester/lein-ring[project page].
 - Oracle's J2EE http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html[tutorial].
