@@ -13,7 +13,7 @@ feedback: compile time.
 
 Use +core.typed+ to type check higher-order functions.
 
-To follow along with this recipe, create a file _core_typed_samples.cl_
+To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
 [source,console]

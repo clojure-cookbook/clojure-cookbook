@@ -65,4 +65,4 @@ have to coerce them to one uniform type using the functions in +clj-time.coerce+
 
 ==== See Also
 
-* TODO: reference to comparator recipe
+* <<sec_composite_sorting>>

@@ -13,7 +13,7 @@ potential null-pointer exceptions.
 Use +core.typed+, an optional type system for Clojure, to annotate and
 check a namespace for misuses of `nil`.
 
-To follow along with this recipe, create a file _core_typed_samples.cl_
+To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
 [source,console]
@@ -44,7 +44,7 @@ annotate it with +clojure.core.typed/ann+ to accept the union (+U+) of the +nil+
   (+ a 20))
 -----
 
-Verify the functions correctness at the REPL using +clojure.core.typed/check-ns+.
+Verify the function's correctness at the REPL using +clojure.core.typed/check-ns+.
 
 [source,clojure]
 ----
@@ -106,7 +106,7 @@ user=> (t/check-ns 'core-typed-samples)
 :ok
 -----
 
-Now that there is no way +nil+ could accidentally be returned by this
+Now that there is no way +nil+ could accidentally be passed to `+` by this
 code, a null-pointer exception is impossible.
 
 ==== Discussion

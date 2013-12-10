@@ -26,7 +26,7 @@ command to create a database for this recipe:
 [source,bash]
 ----
 # On Mac
-$ /Applications/Postgres.app/Contents/MacOS/bin/createdb cookbook_experiments
+$ /Applications/Postgres93.app/Contents/MacOS/bin/createdb cookbook_experiments
 
 # Everyone else:
 $ createdb cookbook_experiments
@@ -36,14 +36,14 @@ Before starting, add `[org.clojure/java.jdbc "0.3.0-beta2"]` and
 `[java-jdbc/dsl "0.1.0"]` to your project's dependencies. You'll also
 need a JDBC-driver for the RDBMS of your choice. If you're following
 along with this sample, use `[org.postgresql/postgresql
-"9.2-1002-jdbc4"]`. To start a REPL using +lein-try+, enter the
+"9.2-1003-jdbc4"]`. To start a REPL using +lein-try+, enter the
 following Leiningen command:
 
 [source,shell]
 ----
 $ lein try org.clojure/java.jdbc "0.3.0-beta2" \
            java-jdbc/dsl "0.1.0" \
-           org.postgresql/postgresql
+           org.postgresql/postgresql "9.2-1003-jdbc4"
 ----
 
 Then, define how the database should be accessed.
@@ -209,7 +209,7 @@ If an exception is thrown, the transaction is rolled back:
     (:count (first result))))
 
 (fruit-count db-spec)
-;; -> 7
+;; -> 11
 
 (jdbc/db-transaction [trans-conn db-spec]
   (jdbc/insert! trans-conn :fruit
@@ -224,7 +224,7 @@ If an exception is thrown, the transaction is rolled back:
 
 ;; The table still has the same number of items:
 (fruit-count db-spec)
-;; -> 7
+;; -> 11
 ----
 
 Transactions can be explicitly set to rollback with the
@@ -236,14 +236,16 @@ function.
 [source,clojure]
 ----
 (fruit-count db-spec)
+;; -> 11
 
 (jdbc/db-transaction [trans-conn db-spec]
   (jdbc/db-set-rollback-only! trans-conn)
   (jdbc/insert! trans-conn :fruit {:name "Pear" :cost 69}))
+;; -> ({:grade nil, :unit nil, :cost 69, :appearance nil, :name "Pear"})
 
 ;; the table still has the same number of items:
 (fruit-count db-spec)
-;; -> 7
+;; -> 11
 ----
 
 ===== Reading and Processing Records
@@ -278,7 +280,7 @@ order-by clauses.
       (sql/order-by :f.name))))
 
 (fresh-fruit)
-;; -> ({:name "Peach"})
+;; -> ({:name "Kiwifruit"} {:name "Peach"})
 ----
 
 The use of the SQL DSL is entirely optional. For more direct control,
@@ -320,7 +322,7 @@ result row as the result is constructed. The default argument is the
 (defn add-tax [row] (assoc row :tax (* 0.08 (row :cost))))
 
 (jdbc/query db-spec ["select name,cost from fruit where cost = 12"] :row-fn add-tax)
-;; -> ({:tax 0.96, :cost 12, :name "Fig"} {:tax 0.96, :cost 12, :name "Plum"})
+;; -> ({:tax 0.96, :cost 12, :name "Plum"} {:tax 0.96, :cost 12, :name "Fig"})
 ----
 
 The boolean +:as-arrays?+ parameter indicates whether to return the
