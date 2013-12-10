@@ -67,7 +67,7 @@ The +clj-time.core/interval+ function takes two dates and returns a
 representation of that discrete interval of time. From there, the
 +clj-time.core+ namespace includes a myriad of +in-<unit>+ functions
 that can present that time interval in different units. These helpers
-run the gambit in scale from +in-msecs+ to +in-years+, covering nearly
+run the gamut in scale from +in-msecs+ to +in-years+, covering nearly
 every scale useful for non-specialized applications.
 
 One area +clj-time+ lacks support is leap seconds. Joda Time's

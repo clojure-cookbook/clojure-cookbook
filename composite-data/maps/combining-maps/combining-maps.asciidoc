@@ -50,8 +50,7 @@ have changed.
 ;; Favorite ice cream flavor votes throughout the day
 (def votes-am {:vanilla 3 :chocolate 5})
 (def votes-pm {:vanilla 4 :neapoliton 2})
-(merge votes-am
-       votes-pm)
+(merge votes-am votes-pm)
 ;; -> {:vanilla 4, :chocolate 5, :neapoliton 2}
 ----
 
