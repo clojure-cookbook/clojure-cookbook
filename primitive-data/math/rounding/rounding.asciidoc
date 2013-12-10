@@ -87,7 +87,7 @@ of course, so why not!?) When not specified the default rounding mode
 is +HALF_UP+, but any of the values +CEILING+, +FLOOR+, +HALF_UP+,
 +HALF_DOWN+, +HALF_EVEN+, +UP+, +DOWN+ or +UNNECESSARY+ are allowed.
 See
-http://docs.oracle.com/javase/1.5.0/docs/api/java/math/RoundingMode.html[RoundingMode]
+http://docs.oracle.com/javase/7/docs/api/java/math/RoundingMode.html[RoundingMode]
 for more detailed descriptions of each mode.
 
 [source,clojure]
