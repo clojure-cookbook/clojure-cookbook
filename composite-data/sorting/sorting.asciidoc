@@ -236,6 +236,8 @@ and so one is not provided.
 
 ==== See Also
 
-- comparing dates
-- comparing numbers
+- The API documentation for http://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html[java.lang.Comparable].
+- The API documentation for http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html[java.util.Comparator].
+- <<sec_primitives_dates_comparing>>
+- <<sec_primitives_numbers_fuzzy_comparison>>
 

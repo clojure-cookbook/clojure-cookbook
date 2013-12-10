@@ -97,4 +97,4 @@ very small.
 * <<sec_composite_data_maps_setting_keys>>
 * <<sec_composite_creating_sets>>
 * <<sec_primitives_dates_comparing>> and <<sec_primitives_numbers_fuzzy_comparison>> to see more uses for +compare+
-* TODO: reference not-yet-written comparator recipe
+* <<sec_composite_sorting>>
