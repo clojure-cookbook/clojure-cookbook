@@ -172,12 +172,14 @@ validations using static typing with +core.typed+.
 === Software Prerequisites
 
 To follow along with the recipes in this book you will need valid
-installations of the Java Development Kit (6 or higher) and Clojure's de facto
-build tool, Leiningen (version 2.2 or higher).
+installations of the Java Development Kit and Clojure's de facto
+build tool, Leiningen. We recommend version 7 of the JDK, but a
+minimum of 6 will do. For Leiningen, you should have at least
+version 2.2.
 
 If you don't have Java installed (or would like to upgrade), visit
 _http://www.oracle.com/technetwork/java/javase/downloads/index.html_ for
-instructions on downloading and installing the Java JDK. 
+instructions on downloading and installing the Java JDK.
 
 To install Leiningen, follow the installation instructions on
 Leiningen's website (_http://leiningen.org/_). If you already have
