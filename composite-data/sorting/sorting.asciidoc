@@ -110,7 +110,7 @@ work. Specifically, it must:
 
 - Have a consistent total order for all the members being sorted. If
   +x+ is sorted before +y+, and +y+ is sorted before +z+, then +x+
-  must _always_ be sorted before +z+. In other words, there must
+  must *always* be sorted before +z+. In other words, there must
   always be a single fully deterministic sort order for a given
   collection and comparator, without any contradictions or
   inconsistencies caused by the compare function.
