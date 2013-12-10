@@ -4,9 +4,9 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to deploy a Clojure web application as a standard Web Archive
-(WAR) file in a commonly-used Java EE container such as Tomcat, JBoss,
-WebLogic, etc.
+You want to deploy a Clojure web application built using Ring as a
+standard Web Archive (WAR) file in a commonly-used Java EE container
+such as Tomcat, JBoss, WebLogic, etc.
 
 ==== Solution
 
@@ -15,7 +15,7 @@ Compojure), the easiest way to structure your project to build as a
 WAR file is to use the +lein-ring+ plugin for Leiningen.
 
 Say that your project has a Ring handler function defined in a
-namespace called +warsample.core+ footnote:[If you don't happen to already have a similarly named project, create a new one with *+lein new warsample+*], like so:
+namespace called +warsample.core+ footnote:[If you don't happen to already have a similarly named project, and you want to follow along, create a new one with *+lein new warsample+*], like so:
 
 [source,clojure]
 ._src/warsample/core.clj_
@@ -184,10 +184,10 @@ If you aren't using Ring, or if you have a good reason not to use the
 is much more hands-on. Fortunately, a WAR file is essentially a JAR
 file with a different extension and some additional internal structure
 and configuration files, so you can use the standard *+lein jar+* tool
-to generate one provided you add the required files as root-level
-classpath resources.
+to generate one provided you add the files listed below at the
+appropriate locations in the archive.
 
-You'll also need to define some classes implementing
+You'll also need to define some AOT classes implementing
 +javax.servlet.Servlet+ yourself, and have these call into your
 Clojure application. Then, you'll need to wire them up to the
 application server using a deployment descriptor (+web.xml+).
@@ -212,6 +212,10 @@ A full explanation of all of these elements is beyond the scope of
 this recipe. For a full explanation, see Oracle's J2EE
 http://docs.oracle.com/javaee/7/tutorial/doc/packaging003.htm[tutorial]
 on packaging Web Archives.
+
+Other web server libraries (for example, Pedestal Server) that include
+tooling for Leiningen will also often have a utility for building WAR
+files - check the documentation of the library you're using.
 
 ==== See Also
 
