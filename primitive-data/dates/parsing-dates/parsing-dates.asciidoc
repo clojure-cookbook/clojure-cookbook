@@ -48,7 +48,7 @@ strings into +DateTime+ objects.
 
 ==== Discussion
 
-+clj-time+'s +formatter+ function is a powerful little function that
+++clj-time++'s +formatter+ function is a powerful little function that
 takes a date/time format string and returns an object capable of
 parsing date/time strings in that format. This format string can
 include any number of symbols representing portions of a time or date.

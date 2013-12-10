@@ -57,7 +57,7 @@ While there is no ready-made, out-of-the-box +time-range+ solution in
 Clojure, it is trivial to construct such a function with purely lazy
 semantics.
 
-The basis for our lazy +time-range+ function is a infinite sequences of values
+The basis for our lazy +time-range+ function is an infinite sequences of values
 with a fixed starting time.
 
 [source,clojure]

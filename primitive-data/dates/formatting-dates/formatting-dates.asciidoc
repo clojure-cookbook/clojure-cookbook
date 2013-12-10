@@ -1,5 +1,5 @@
 [[sec_primitives_dates_formatting_dates]]
-=== Formatting Dates using clj-time
+=== Formatting Dates using +clj-time+
 [role="byline"]
 by Ryan Neufeld
 
@@ -21,8 +21,10 @@ dependencies or start a REPL using +lein-try+:
 $ lein try clj-time
 ----
 
-Use +clj-time.format/unparse+ with any +clj-time+ +DateTimeFormatter+,
-custom or built-in, to output a date/time as a string.
+To output a date/time as a string, use +clj-time.format/unparse+ with a
++DateTimeFormatter+. There are a number of built-in formatters available via
++clj-time.format/formatters+, or you can build your own with
++clj-time.format/formatter+.
 
 [source,clojure]
 ----
@@ -39,14 +41,13 @@ custom or built-in, to output a date/time as a string.
 
 ==== Discussion
 
-It is certainly possible to format pure Java dates and times but, in
-our experience, it often isn't worth the hassle; the syntax is ugly,
-and the workflow is overly verbose. +clj-time+, and its backing library
-Joda Time have a track record for making it easy to work with dates
-and times on the JVM.
+It is certainly possible to format pure Java dates and times; however, in our
+experience it isn't worth the hassle--the syntax is ugly, and the workflow is
+overly verbose. +clj-time+ and its backing library Joda Time have a track
+record for making it easy to work with dates and times on the JVM.
 
 The +formatter+ function is quite the gem, not only does it produce a
-"format" capable of printing or unparseing a date, it is also
+"format" capable of printing or "unparseing" a date, it is also
 capable of parsing strings back into dates. In other words,
 +DateTimeFormatter+ is capable of roundtripping from string to +Date+
 and back again. Much of how +formatter+ and +formatters+ work is
