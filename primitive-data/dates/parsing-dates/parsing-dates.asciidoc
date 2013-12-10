@@ -48,7 +48,7 @@ strings into +DateTime+ objects.
 
 ==== Discussion
 
-++clj-time++'s +formatter+ function is a powerful little function that
++clj-time+'s +formatter+ function is a powerful little function that
 takes a date/time format string and returns an object capable of
 parsing date/time strings in that format. This format string can
 include any number of symbols representing portions of a time or date.
@@ -58,8 +58,8 @@ available in the Joda Time
 http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html[DateTimeFormat]
 javadoc.
 
-More often than not the dates and times you're parsing may be strange,
-but not so strange that no one has seen them before. For this +clj-time+
+More often than not, the dates and times you're parsing may be strange,
+but not so strange that no one has seen them before. For this, +clj-time+
 includes a large number of built-in formatters. Use
 +clj-time.format/show-formatters+ to print out a list of built-in
 formats and a sample date/time in that format. Once you've picked a

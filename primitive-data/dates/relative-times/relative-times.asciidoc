@@ -44,8 +44,8 @@ similar functionality.
 ;; -> #<DateTime 2013-04-03T20:37:06.844Z>
 ----
 
-The +clj-time.core+ functions +from-now+ and +ago+ are just sugar over
- of +plus+ and +minus+.
+The +clj-time.core+ functions +from-now+ and +ago+ are just syntactic sugar
+over +plus+ and +minus+.
 
 [source,clojure]
 ----
