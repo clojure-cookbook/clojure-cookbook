@@ -47,7 +47,7 @@ overly verbose. +clj-time+ and its backing library Joda Time have a track
 record for making it easy to work with dates and times on the JVM.
 
 The +formatter+ function is quite the gem, not only does it produce a
-"format" capable of printing or "unparseing" a date, it is also
+"format" capable of printing or ++unparse++ing a date, it is also
 capable of parsing strings back into dates. In other words,
 +DateTimeFormatter+ is capable of roundtripping from string to +Date+
 and back again. Much of how +formatter+ and +formatters+ work is
