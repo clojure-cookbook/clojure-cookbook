@@ -31,15 +31,15 @@ using the +slurp+ function).
 
 [source,clojure]
 ----
-(require '[clojure.java.io :as io])
+(require '[clojure.java.io :as io]
+         '[clojure.edn :as edn])
 
 (->> "people.edn"
      io/resource
      slurp
-     read-string
-     (map :language)))
-
-;; -> (Lisp Python Clojure)
+     edn/read-string
+     (map :language))
+;; -> ("Lisp" "Python" "Clojure")
 ----
 
 ==== Discussion
