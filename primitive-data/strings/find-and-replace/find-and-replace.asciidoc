@@ -40,9 +40,12 @@ literals (+#"..."+) to specify a pattern as a regular expression.
                           #"#(\d+)"
                           (str "[#$1](https://github.com/" repo "/issues/$1)")))
 
-(linkify-comment "next/big-thing" "As soon as we fix #42 and #1337 we should be set to release!")
-;; -> "As soon as we fix [#42](https://github.com/next/big-thing/issues/42 and
-;;     [#1337](https://github.com/next/big-thing/issues/1337 we should be set to release!"
+(linkify-comment "next/big-thing" "As soon as we fix #42 and #1337 we
+should be set to release!")
+;; -> "As soon as we fix
+;;     [#42](https://github.com/next/big-thing/issues/42) and
+;;     [#1337](https://github.com/next/big-thing/issues/1337) we
+;;     should be set to release!"
 ----
 
 ==== Discussions
