@@ -72,32 +72,52 @@ like the following:
 
 Obviously, this is inconvenient, and difficult to read.
 
-Fortunately, Clojure provides a function, +update-in+, for
-specifically this purpose. Instead of accepting a key and value, +update-in+
-accepts a _key path_ and an _update function_. A _key path_
-is a sequence of keys, applied recursively to retrieve a deeply nested value.
-The _update function_ is then invoked with the retrieved value and any optional
-arguments that followed the function.
-
-Perhaps it is best to illustrate with an example:
+The +assoc-in+ function removes this inconvenience, allowing you to
+specify a _key path_ instead of a sole key. Instead of changing a
+value one key deep, a _key path_ lists a sequence of keys, applied
+recursively to change a deeply nested value.
 
 [source,clojure]
 ----
-(update-in book                 ; <1>
-           [:author :residence] ; <2>
-           assoc                ; <3>
-           :country "Canada")   ; <4>
+(assoc-in book
+          [:author :residence :country]
+          "Canada")
+;; -> {:author {:name "Ryan Neufeld"
+;;              :residence {:country "Canada"}}
+;;              :title "Clojure Cookbook"}
+----
+
+The sample above first looks up the map associated with the
++:residence+ key in the nested data structure, then associates
++"Canada"+ with the +:country+ key. Finally, the entire data structure
+is returned.
+
+What if you needed to *update* a value based on its previous value,
+instead of just changing it?
+
+Fortunately, Clojure provides +update-in+ expressly for this purpose.
+Instead of taking a new value, +update-in+ takes an _update function_.
+This function is invoked with the value retrieved at _key path_ and
+any trailing arguments passed to +update-in+. It's a perculiar
+function to wrap your head around at first, perhaps it is best to
+illustrate with an example:
+
+[source,clojure]
+----
+(def website {:clojure-cookbook {:hits 1236}})
+
+;; Register 101 new hits to the Cookbook website
+(update-in website                   ; <1>
+           [:clojure-cookbook :hits] ; <2>
+           +                         ; <3>
+           101)                      ; <4>
+;; -> {:clojure-cookbook {:hits 1337}}
 ----
 
 <1> The map
 <2> The _key path_
-<3> The _update function_
-<4> Additional arguments to +assoc+
-
-This first looks up the map associated with the +:residence+ key in
-the nested data structure, then invokes the +assoc+ function on it,
-using the arguments +:country+ and +"Canada"+, returning the outer
-data structure.
+<3> The _update function_, `+`
+<4> Additional arguments to `+`
 
 +update-in+ will also actually create maps for any of the keys in the
 vector that don't exist. This means it can be used to create structure
