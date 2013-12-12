@@ -59,12 +59,38 @@ results. The Bash prompt, +irb+, and the +python+ prompt are examples
 of REPLs. Nearly every recipe in this book is designed to be run at a
 Clojure REPL.
 
-While Clojure REPLs are traditionally displayed as `user> ...`, this
+While Clojure REPLs are traditionally displayed as `user=> ...`, this
 book aims for readers to be able to copy-paste all of the examples in
-a recipe and see the indicated results. As such, samples omit `user>`
+a recipe and see the indicated results. As such, samples omit `user=>`
 and comment-out any output to make things easier. This is especially
 helpful if you're following along on a computer; You can blindly
 copy-paste code samples without worrying about trying to run non-code.
+
+When an example is *only* relevant in the context of a REPL, we will
+retain the traditional REPL style (with `user=>`). What follows is an
+example of each, a REPL-only sample and its simplified version.
+
+.REPL-only
+[source,clojure]
+----
+user=> (+ 1 2)
+3
+user=> (println "Hello!")
+Hello!
+nil
+----
+
+.Simplified
+[source, console]
+----
+(+ 1 2)
+;; -> 3
+
+(println "Hello!")
+;; *out*
+;; Hello!
+----
+
 
 ==== Console/Terminal Sessions
 
