@@ -1,15 +1,15 @@
 [[sec_composite_retrieving_keys_map]]
-=== Retrieving Keys From a Map
+=== Retrieving Values From a Map
 [role="byline"]
 by Luke VanderHart
 
 ==== Problem
 
-You want to get the value stored at a particular key in a map.
+You want to retrieve the value stored at a particular key in a map.
 
 ==== Solution
 
-As with sets, there are several ways to retrieve keys by values.
+As with sets, there are several ways to retrieve the value of a key.
 
 The most straightforward way is to use the +get+ function, which, given
 a map and a key, returns the value stored at the key or +nil+ if the
