@@ -23,7 +23,7 @@ To follow along with this recipe, clone the _https://github.com/clojure-cookbook
     [ring.middleware.session :refer [wrap-session]]
     [ring.middleware.params :refer [wrap-params]]))
 
-(def LOGIN_FORM
+(def login-form
   (str
     "<html>"
     "  <form action='' method='post'>"
@@ -34,7 +34,7 @@ To follow along with this recipe, clone the _https://github.com/clojure-cookbook
     "</html>"))
 
 (defn show-form []
-  {:body LOGIN_FORM
+  {:body login-form
    :status 200 })
 
 (defn show-name
