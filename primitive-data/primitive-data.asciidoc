@@ -31,8 +31,6 @@ include::strings/inflecting-strings/inflecting-strings.asciidoc[]
 
 include::strings/converting-stringlike-data/converting-stringlike-data.asciidoc[]
 
-include::strings/converting-to-number/converting-to-number.asciidoc[]
-
 ///////
 Numbers
 ///////
