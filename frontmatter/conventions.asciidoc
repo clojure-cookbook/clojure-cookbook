@@ -143,7 +143,8 @@ user=>
 
 Long story short: Where possible, you'll see instructions on which
 +lein-try+ command to execute above recipes that use third-party
-libraries.
+libraries. You'll find an example of trying recipes with +lein-try+ in
+<<sec_try_library>>.
 
 If a recipe *cannot* be run via +lein-try+ we have made efforts to
 include adequate instructions on how to run that recipe on your local

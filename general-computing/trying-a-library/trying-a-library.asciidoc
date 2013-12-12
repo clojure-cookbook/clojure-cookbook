@@ -1,3 +1,4 @@
+[[sec_try_library]]
 === Trying a Library Without Explicit Dependencies
 [role="byline"]
 by Mark Whelan
