@@ -9,6 +9,12 @@ times) beginning on a specific date and time.
 
 ==== Solution
 
+++++
+<remark>A number of fixed-width function names like "repeatedly" are
+being split across lines. Is there any way we can force monospaced
+text to not wrap?</remark>
+++++
+
 You can use Java's +java.util.GregorianCalendar+ class coupled with
 Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
 calendar dates. You can then use +java.text.SimpleDateFormat+ to format the
