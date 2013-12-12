@@ -12,6 +12,13 @@ You need to pluralize a word given some quantity, such as "0 eggs" or
 When you need to perform Ruby on Rails-style pluralization use Roman Scherer's
 https://github.com/r0man/inflections-clj[+inflections+] library.
 
+To follow along with this recipe, start a REPL using +lein-try+:
+
+[source,console]
+----
+lein try inflections
+----
+
 Use +inflections.core/pluralize+ with a count to attempt to pluralize
 that word if count is not one.
 
