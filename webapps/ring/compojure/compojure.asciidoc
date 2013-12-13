@@ -74,8 +74,14 @@ parameters. You can also use `req` or any other symbol to get the whole request:
   (GET "/" req (some-view req)))
 ----
 
-You can even use Clojure's destructuring syntax to extract parts of the request.
-For example, if you're using the `wrap-params` middleware, you can grab the params
+You can even use Clojure's destructuring syntax footnote:[If you're
+not familiar with Clojure's destructuring syntax, we suggest Jay
+Fields'
+http://blog.jayfields.com/2010/07/clojure-destructuring.html[Clojure:
+Destructuring] blog article. For a more extensive resource, pick up a
+copy of http://www.clojurebook.com/[Clojure Programming], which covers
+destructuring in depth.] to extract parts of the request. For example,
+if you're using the `wrap-params` middleware, you can grab the params
 and pass them to a function:
 
 [source, clojure]
@@ -94,7 +100,7 @@ specifying the route using the relevant Compojure directive:
 in addition to `compojure.core/GET`.
 
 Compojure provides a few other helpful tools:
-http://weavejester.github.io/compojure/compojure.route.html[`compojure.routes`],
+http://weavejester.github.io/compojure/compojure.route.html[`compojure.route`],
 which provides helpers for serving resources, files and 404 responses; and
 http://weavejester.github.io/compojure/compojure.handler.html[`compojure.handler`],
 which bundles a number of ring middlewares into one convenient wrapper.
