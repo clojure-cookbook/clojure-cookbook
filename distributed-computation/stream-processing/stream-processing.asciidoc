@@ -30,7 +30,7 @@ First create a new Storm project using its Leiningen template:
 
 [source,console]
 ----
-$ lein new storm-project feeds
+$ lein new cookbook-storm-project feeds
 ----
 
 In the project directory, run the default storm topology (which the
@@ -131,11 +131,11 @@ and bolts together:
 
 [source,clojure]
 ----
-(defn topology []
+(defn storm-topology []
   (topology
    {"events" (spout-spec event-spout)}
 
-   {"active users" (bolt-spec {"eventst" :shuffle} active-user-bolt :p 2)
+   {"active users" (bolt-spec {"events" :shuffle} active-user-bolt :p 2)
     "follows" (bolt-spec {"active users" :shuffle} follow-bolt :p 2)
     "feeds" (bolt-spec {"follows" ["user"]} feed-bolt :p 2)}))
 ----
@@ -149,9 +149,6 @@ You'll also need to update the +:require+ statement in that file:
              [bolts :refer [active-user-bolt follow-bolt feed-bolt]]]
             [backtype.storm [clojure :refer [topology spout-spec bolt-spec]] [config :refer :all]])
 ----
-
-Now delete the old stormy-topology function, and change the +run!+
-function to point to the new +topology+ function you just defined.
 
 Run the topology again. Feeds will be printed to the console by the
 final bolts in the topology:
@@ -461,7 +458,7 @@ A simple deployment strategy is built into the Storm library:
     (.submitTopology "my first topology"
                      {TOPOLOGY-DEBUG (Boolean/parseBoolean debug)
                       TOPOLOGY-WORKERS (Integer/parseInt workers)}
-                     (topology)))
+                     (storm-topology)))
 ----
 
 +LocalCluster+ is an in-memory implementation of a Storm cluster. You can
@@ -481,7 +478,7 @@ as you can see in +src/feeds/TopologySubmitter.clj+:
    "feeds topology"
    {TOPOLOGY-DEBUG (Boolean/parseBoolean debug)
     TOPOLOGY-WORKERS (Integer/parseInt workers)}
-   (topology)))
+   (storm-topology)))
 ----
 
 This file uses Clojure's Java interop to generate a Java class with a
