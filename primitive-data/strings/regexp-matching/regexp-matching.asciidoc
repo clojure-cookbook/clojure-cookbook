@@ -9,7 +9,10 @@ You need to test a string to see if parts of it match a pattern.
 
 ==== Solution
 
-To check for the presence of a pattern inside a string, use +re-find+.
+To check for the presence of a pattern inside a string, invoke
++re-find+ with a desired pattern and the string to test. Express the
+desired pattern using a regular expression literal (like +#"foo"+ or
+++#"\d+"++).
 
 [source,clojure]
 ----
@@ -51,7 +54,8 @@ only if the *entire* string matches the pattern.
 * The
   http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
   documentation] for +java.lang.Pattern+, which defines the exact
-  regex syntax supported by Java (and Clojure.)
+  regex syntax supported by Java (and Clojure's regular expression literals.)
 
 * <<sec_primitives_strings_re_matches>> for information on extracting
   values from a string using regular expressions.
+* <<sec_primitives_strings_find_replace>>

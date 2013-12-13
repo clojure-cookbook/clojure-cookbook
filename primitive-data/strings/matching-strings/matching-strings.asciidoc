@@ -9,7 +9,8 @@ You need to extract portions of a string matching a given pattern.
 
 ==== Solution
 
-Use +re-seq+ with a regular expression pattern and string to retrieve a sequence of successive matches.
+Use +re-seq+ with a regular expression pattern and string to retrieve
+a sequence of successive matches.
 
 [source,clojure]
 ----
@@ -81,3 +82,8 @@ not to.
   presence of a pattern.
 * <<sec_primitives_strings_find_replace>> for information on using
   regular expressions to find and replace portions of a string.
+* The
+  http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
+  documentation] for +java.lang.Pattern+, which defines the exact
+  regex syntax supported by Java (and Clojure's regular expression literals.)
+
