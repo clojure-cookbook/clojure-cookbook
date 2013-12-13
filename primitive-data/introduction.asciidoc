@@ -6,11 +6,14 @@ abstractions until we've tackled some of the world's most difficult
 problems with ease. Like chemistry, every great Clojure program boils
 down to simple atoms--these are our primitives.
 
-Standing on the shoulders of the Java giants from days of yore, Clojure
-leverages a fantastic array of battle-hardened types present in the
-JVM; strings, numeric types, dates, UUIDs, you name it, Clojure has
-it all. This chapter dives in to the primitives of Clojure and how to
-accomplish common tasks.
+Standing on the shoulders of the Java giants from days of yore,
+Clojure leverages a fantastic array of battle-hardened types present
+in the JVM footnote:[JVM is short for Java Virtual Machine. The JVM is
+where Java bytecode is executed. The Clojure compiler targets the JVM by emitting bytecode
+to be run there, thus your have all of the native Java types at your
+disposal.]; strings, numeric types, dates, UUIDs, you name it, Clojure
+has it all. This chapter dives in to the primitives of Clojure and how
+to accomplish common tasks.
 
 ==== Strings
 
@@ -42,9 +45,13 @@ using the built-in string methods is usually just as easy as invoking
 a Clojure function.
 
 We suggest you "require as" the +clojure.string+ namespace when you
-need it. Blindly ++:use++ing a namespace is always annoying, and often
-results in collisions/confusion. Prefixing everything with
-+clojure.string+ is kind of odd, so we prefer to alias it to +str+ or +s+.
+need it. Blindly ++:use++ing a namespace is always annoying
+footnote:[By using +use+, you introduce numerous new symbols into your
+project's namespaces without leaving any clues as to where they came
+from. This is often confusing and frustrating for maintainers of the
+codebase. We highly suggest you avoid +use+.], and often results in
+collisions/confusion. Prefixing everything with +clojure.string+ is
+kind of odd, so we prefer to alias it to +str+ or +s+.
 
 [source,clojure]
 ----
