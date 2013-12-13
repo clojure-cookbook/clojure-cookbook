@@ -156,8 +156,12 @@ several Hadoop enabled queries in the same file.
 ----
 
 Inside the +Main+ function is a Cascalog operator, +?<-+, that defines
-and executes a query. This operator takes an output tap, a result
-vector and a series of logic predicates.
+and executes a query footnote:[While queries *look* like regular Clojure,
+they are in fact a DSL. If you're not familiar with Cascalog queries,
+learn more in Nathan Marz's
+http://nathanmarz.com/blog/introducing-cascalog-a-clojure-based-query-language-for-hado.html[Introducing
+Cascalog] article]. This operator takes an output tap, a result vector
+and a series of logic predicates.
 
 [source,clojure]
 ----
