@@ -157,10 +157,82 @@ Using it on two seperate +edn+ config files yields a merged map:
 ----
 
 Be aware that any values present in both configuration files will be
-overridden by the "rightmost" file passed to +load-config+.
+overridden by the "rightmost" file passed to +load-config+. 
+
+===== Different configurations for different environments
+
+If your system runs in multiple environments you may want to vary your
+configuration based on the current running environment. For example,
+you may want to connect to a local database while developing your system,
+but a production database when running your system in production.
+
+You can use Leiningen's _profiles_ feature to achieve this end. By
+providing different +:resource-paths+ options for each _profile_ in
+your project's configuration, you can vary which configuration file is
+read per environment footnote:[To follow along, create your own
+project with *+lein new my-great-app+*].
+
+._project.clj_
+[source,clojure]
+----
+(defproject my-great-app "0.1.0-SNAPSHOT"
+  {;; ...
+  :profiles {:dev {:resource-paths ["resources/dev"]}
+             :prod {:resource-paths ["resources/prod"]}}})
+----
+
+With a project configuration similar to the above, you can then
+create two different configurations with the same base file name:
+_resources/dev/config.edn_ and _resources/prod/config.edn_.
+
+._resource/dev/config.edn_
+[source,clojure]
+----
+{:database-host "localhost"}
+----
+
+._resources/prod/config.edn_
+[source,clojure]
+----
+{:database-host "production.example.com"}
+----
+
+If you're following along on your own, add the +load-config+ function
+to one of your project's namespaces.
+
+._src/my_great_app/core.clj_
+[source,clojure]
+----
+(ns my-great-app.core
+  (:require [clojure.edn :as edn]))
+
+(defn load-config
+    "Given a filename, load & return a config file"
+    [filename]
+    (edn/read-string  (slurp filename)))
+----
+
+Now, the configuration your application loads will depend on which
+_profile_ your project is running in.
+
+[source,console]
+----
+# "dev" is one of Leiningen's default profiles
+$ lein repl
+user=> (require '[my-great-app.core :refer [load-config]])
+user=> (load-config (clojure.java.io/resource "config.edn"))
+{:database-host "localhost"}
+user=> (exit)
+
+$ lein trampoline with-profile prod repl
+user=> (require '[my-great-app.core :refer [load-config]])
+user=> (load-config (clojure.java.io/resource "config.edn"))
+{:database-host "production.example.com"}
+----
 
 ==== See Also
 
 * <<sec_local_io_get_local_resource>>
 * <<sec_edn_record>>
 * <<sec_default_data_reader>>
+* https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#profiles[Leiningen Profiles]
