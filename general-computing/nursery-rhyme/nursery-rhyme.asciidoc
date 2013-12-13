@@ -13,7 +13,11 @@ Use https://github.com/overtone/overtone[Overtone] to bring the song
 to life.
 
 Before starting, add `[overtone "0.8.1"]` to your project's
-dependencies or start a REPL using +lein-try+:
+dependencies or start a REPL using +lein-try+ footnote:[There are some
+additional installation concerns if you are running Overtone on Linux.
+See the Overtone wiki
+(_https://github.com/overtone/overtone/wiki#installation_) for more
+detailed installation instructions.]:
 
 [source, shell]
 ----
