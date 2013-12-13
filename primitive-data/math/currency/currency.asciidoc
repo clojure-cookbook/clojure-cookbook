@@ -11,6 +11,14 @@ You need to manipulate values that represent currency.
 Use the https://github.com/clojurewerkz/money[Money] library for
 representing, manipulating and storing values in monetary units.
 
+To follow along with this recipe, add `[clojurewerkz/money "1.4.0"]`
+to your project's dependencies, or start a REPL using +lein-try+:
+
+[source,clojure]
+----
+$ lein try clojurewerkz/money
+----
+
 The +clojurewerkz.money.amounts+ namespace contains functions for
 creating, modifying and comparing units of currency.
 
