@@ -19,8 +19,6 @@ include::files/copy-file/copy-file.asciidoc[]
 
 include::files/delete-file/delete-file.asciidoc[]
 
-include::deleting-directory-recursively/deleting-directory-recursively.asciidoc[]
-
 include::files/get-files-from-directory/get-files-from-directory.asciidoc[]
 
 include::memory-map-files/memory-map-files.asciidoc[]

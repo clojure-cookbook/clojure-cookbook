@@ -1,4 +1,4 @@
-=== Delete a File
+=== Deleting Files or Directories
 [role="byline"]
 by Stefan Karlsson
 
@@ -83,7 +83,8 @@ must first delete all files in the given directory.
 (defn delete-directory [directory-path]
   (let [directory-contents (file-seq (clojure.java.io/file directory-path))
         files-to-delete (filter #(.isFile %) directory-contents)]
-    (doall (map #(safe-delete (.getPath %)) files-to-delete))
+    (doseq [file files-to-delete]
+      (safe-delete (.getPath file)))
     (safe-delete directory-path)))
 
 (delete-directory "./dir-to-delete")
