@@ -1,11 +1,13 @@
-=== Generate an Infinite Lazy Sequence of Gregorian Calendar Dates
+=== Generate Ranges of Dates and Times using Native Java Types
 [role="byline"]
 by Tom Hicks
 
 ==== Problem
 
-You would like to generate a lazy sequence of Gregorian calendar dates (or
-times) beginning on a specific date and time.
+You would like to generate a lazy sequence of dates (or times)
+beginning on a specific date and time. Further, unlike
+<<sec_primitives_dates_ranges>>, you would like to do this using only
+built-in types.
 
 ==== Solution
 
@@ -20,19 +22,23 @@ Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
 calendar dates. You can then use +java.text.SimpleDateFormat+ to format the
 dates, with a huge variety of output formats available.
 
-This example creates an infinite lazy sequence of Gregorian calendar dates
-beginning on January 1, 1970 and each spanning a single day. The core +take+
-and +drop+ functions are then used to select the last two days of February.
-(Be careful not to evaluate the infinite sequence itself in the REPL).
+This example creates an infinite lazy sequence of Gregorian calendar
+dates footnote:["Gregorian" is the formal name for the style of
+calendar we all know and love. Read more on
+http://en.wikipedia.org/wiki/Gregorian_calendar[Wikipedia].] beginning
+on January 1, 1970 and each spanning a single day. The core +take+ and
++drop+ functions are then used to select the last two days of
+February. (Be careful not to evaluate the infinite sequence itself in
+the REPL).
 
 [source,clojure]
 ----
 (def daily-from-epoch
-  (let [ start-date (java.util.GregorianCalendar. 1970 0 0 0 0) ]
+  (let [start-date (java.util.GregorianCalendar. 1970 0 0 0 0) ]
     (repeatedly
       (fn []
         (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
-        (.clone start-date) ))))
+        (.clone start-date)))))
 
 (take 2 (drop 57 daily-from-epoch))
 ;; -> (#inst "1970-02-27T00:00:00.000-07:00" #inst "1970-02-28T00:00:00.000-07:00")
@@ -144,7 +150,9 @@ Sundays in a year:
 
 ==== See also
 
-* See <<sec_primitives_dates_current_date>> for information on using
+* <<sec_primitives_dates_ranges>> for an alternative that utilizes
+  +clj-time+/Joda Time.
+* <<sec_primitives_dates_current_date>> for information on using
   +java.util.Date+ from Clojure.
-* See <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
+* <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
   reader literal for date/times.
