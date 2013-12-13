@@ -26,7 +26,7 @@ insert data.
                :user/name "Martin Fowler"
                :user/roles [:user.roles/author :user.roles/editor]}])
 
-(def tx-result @(d/transact conn tx-data)) ;; Keep this for later...
+@(d/transact conn tx-data)
 
 (q '[:find ?name
      :where [?e :user/name ?name]]
@@ -50,7 +50,7 @@ new-id
                [:db/add new-id :user/name "Ryan Neufeld"]
                [:db/add new-id :user/roles [:user.roles/author :user.roles/editor]]])
 
-(d/transact conn tx-data2)
+(def tx-result @(d/transact conn tx-data2)) ;; Keep this for later...
 
 (q '[:find ?name
      :where [?e :user/name ?name]]
