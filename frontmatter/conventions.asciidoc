@@ -107,6 +107,7 @@ $ lein version
 Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
 ----
 
+[[sec_lein_try]]
 .Our Golden Boy, +lein-try+
 ****
 Clojure is not known for its extensive standard library. Unlike
