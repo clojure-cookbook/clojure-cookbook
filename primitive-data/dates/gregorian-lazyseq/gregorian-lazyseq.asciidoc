@@ -1,3 +1,4 @@
+[[sec_date_range_native_types]]
 === Generate Ranges of Dates and Times using Native Java Types
 [role="byline"]
 by Tom Hicks
