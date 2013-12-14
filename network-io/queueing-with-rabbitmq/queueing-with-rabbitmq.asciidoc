@@ -20,8 +20,6 @@ project's dependencies, or follow along in a REPL using +lein-try+:
 $ lein try com.novemberain/langohr
 ----
 
-[NOTE]
-====
 In order to follow along with this recipe, you need to have RabbitMQ
 installed and running. You can find details on how to install RabbitMQ
 here: _http://www.rabbitmq.com/download.html_.
@@ -33,7 +31,6 @@ Once installed, start a standalone RabbitMQ server with the command
 ----
 $ rabbitmq-server
 ----
-====
 
 Prior to performing any operations against RabbitMQ you must connect 
 to a server and open a communication channel. A channel is the medium
@@ -150,10 +147,12 @@ on both the exchange type and the bindings between the
 exchange/queues.
 
 There are multiple exchange types, each with its own routing
-semantics. Custom exchange types can be created to deal with
-sophisticated routing scenarios (e.g. routing based on content or
-geolocation data) or just for convenience.
+semantics--see <<tab_builtin_exchange_types>> for a complete listing.
+Custom exchange types can be created to deal with sophisticated
+routing scenarios (e.g. routing based on content or geolocation data)
+or just for convenience.
 
+[[tab_builtin_exchange_types]]
 .Built-in Exchange Types
 [options="header"]
 |===============================

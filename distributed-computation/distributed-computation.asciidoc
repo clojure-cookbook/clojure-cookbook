@@ -9,8 +9,6 @@ include::stream-processing/stream-processing.asciidoc[]
 Cascalog
 ////////
 
-include::cascalog/cascalog-intro.asciidoc[]
-
 include::cascalog/etl/etl.asciidoc[]
 
 include::cascalog/aggregating-large-files/aggregating-large-files.asciidoc[]

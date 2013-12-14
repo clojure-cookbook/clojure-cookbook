@@ -134,9 +134,9 @@ dependencies. If this is the case, then you may have to fall back to
 using a non-uber WAR file and managing your dependencies in your
 application server's shared library pool by hand.
 
-[CAUTION]
-====
-Althought modern J2EE application servers do a pretty good job of
+.Dependency Collisions 
+****
+Although modern J2EE application servers do a pretty good job of
 keeping the classpaths and bundled libraries of different applications
 isolated from one another, you do have to be careful of the scenario
 where your application depends on a library that is part of the core
@@ -153,9 +153,9 @@ tries to call into classes that are different than the ones it was
 built against.
 
 In this scenario, you will need to reconcile the dependency versions
-used by your appliaction container and your application, to make sure
+used by your application container and your application, to make sure
 they are compatible.
-====
+****
 
 ===== Other +lein-ring+ options.
 

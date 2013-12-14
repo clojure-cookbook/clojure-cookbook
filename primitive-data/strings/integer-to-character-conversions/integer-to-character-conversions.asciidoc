@@ -85,4 +85,4 @@ expressions without first being converted to a true numeric type.
 
 * See <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string.
 
-* <<sec_primitives_strings_converting_strings_numbers>>
+* <<sec_primitives_numbers_parsing_numbers>>

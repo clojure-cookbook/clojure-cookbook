@@ -326,13 +326,10 @@ to generate a graph from the values:
 ;; -> ([_0 :name "Newmarket Films"] [_0 :type :FilmStudio] [_0 :filmsCollection _1] ...)
 ----
 
-[NOTE]
-====
 For small graphs, membero is fast enough. Larger graphs will
 experience performance problems as +core.logic+ will traverse the list
 many times to find the elements. Using *clojure.core.logic/to-stream*
 with some basic indexing can greatly improve the query performance.
-====
 
 ==== See Also
 

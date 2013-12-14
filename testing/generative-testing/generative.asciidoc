@@ -157,8 +157,8 @@ function. Each time the test driver calls the function, it will use a
 random value for each argument pulled from its corresponding generator
 function.
 
-[NOTE]
-====
+.Why ++:tag++?
+****
 You may find the use of +:tag+ metadata may be a bit
 confusing. Normally, +:tag+ is a type hint and returns a JVM
 _class_. In +test.generative+, it should be a _function_ that can return
@@ -175,7 +175,7 @@ confusing than helpful. Just remember that, in the context of
 +test.generative+, +:tag+ refers not to the actual system type, but to a
 function that returns an object of the type(s) you want to pass to the
 function to test.
-====
+****
 
 The body of a +defspec+ simply contains expressions that may throw an
 exception if some condition is not met. It is executed on each

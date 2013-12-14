@@ -1,9 +1,7 @@
 [preface]
 == Preface
 
-=== About this Book
-
-The most important thing your should understand about this book is
+The most important thing you should understand about this book is
 that it is, first and foremost, a group effort. It is not authored by
 one or two people. It isn't even the work of a single, well defined
 group. Instead, it is the collaborative product of over sixty of the
@@ -119,7 +117,7 @@ assist you in enacting the described solution.
 The book is composed of the following chapters:
 
 ++++
-<remark>
+<lremark>
 Cross reference links like <<ch_primitive_data>> *used* to
 include a descriptive title like "Primitive Data Chapter on Pg. X",
 but now they just say "Chapter 1" or "Recipe 1.2".

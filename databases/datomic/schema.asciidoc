@@ -109,7 +109,7 @@ connection.
 ;;     :tempids {-... ..., ...}}
 ----
 
-==== Discussions
+==== Discussion
 
 Datomic schema is represented as Clojure data and is added to the
 database in a transaction, just like any other data we would store.

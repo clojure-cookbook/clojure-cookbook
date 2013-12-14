@@ -46,7 +46,8 @@ When writing, as with +read-csv+, you can configure the separator, quote, newlin
 [source,clojure]
 ----
 (with-open [out-file (clojure.java.io/writer "out.csv")]
-            (clojure.data.csv/write-csv out-file [["this" "is"] ["a" "test"]] :separator \$ :quote \-))
+            (clojure.data.csv/write-csv out-file [["this" "is"] ["a" "test"]]
+                                        :separator \$ :quote \-))
 ;; -> nil
 ----
 

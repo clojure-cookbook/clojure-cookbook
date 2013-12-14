@@ -103,7 +103,7 @@ collection--in particular, instances act like sets.
 ;; -> (4 2 1 3 6 5 8 7 9 10)
 ----
 
-==== Discussions
+==== Discussion
 
 In the end, it doesn't take a lot to participate in the sequence
 abstraction. By implementing a small handful of interface functions, the

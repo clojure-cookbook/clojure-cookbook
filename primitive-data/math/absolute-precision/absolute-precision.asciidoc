@@ -30,7 +30,7 @@ Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotio
 [source,clojure]
 ----
 (* 9999 9999 9999 9999 9999)
-;; ArithmeticException integer overflow  clojure.lang.Numbers.throwIntOverflow (Numbers.java:1388)
+;; ArithmeticException integer overflow  clojure.lang.Numbers.throwIntOverflow
 
 (*' 9999 9999 9999 9999 9999)
 ;; -> 99950009999000049999N

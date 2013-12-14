@@ -1,4 +1,4 @@
-<<sec_interactive_docs>>
+[[sec_interactive_docs]]
 === Interactive Documentation
 [role="byline"]
 by John Cromartie
@@ -49,7 +49,8 @@ Macro
   it were a macro. Cannot be used with variadic (&) args.
  -------------------------
 clojure.core/defmacro
-([name doc-string? attr-map? [params*] body] [name doc-string? attr-map? ([params*] body) + attr-map?])
+([name doc-string? attr-map? [params*] body]
+ [name doc-string? attr-map? ([params*] body) + attr-map?])
 Macro
   Like defn, but the resulting function name is declared as a
   macro and will be used as a macro by the compiler when it is
@@ -95,7 +96,8 @@ namespace
 ----
 user=> (ns foo)
 foo=> (doc +)
-CompilerException java.lang.RuntimeException: Unable to resolve symbol: doc in this context, compiling:(NO_SOURCE_PATH:1:1)
+CompilerException java.lang.RuntimeException: Unable to resolve symbol: doc 
+in this context, compiling:(NO_SOURCE_PATH:1:1)
 
 foo=> (use 'clojure.repl)
 nil

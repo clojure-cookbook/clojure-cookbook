@@ -48,7 +48,7 @@ should be set to release!")
 ;;     should be set to release!"
 ----
 
-==== Discussions
+==== Discussion
 
 As far as string functions go, +replace+ is one of the more powerful and most complex ones. The majority of this complexity arises from the varying +match+ and +replacement+ types it can operate with.
 

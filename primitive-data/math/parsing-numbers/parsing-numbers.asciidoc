@@ -45,5 +45,3 @@ that matter) into infinite precision containers.
 ==== See Also
 
 * Documentation for http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#parseInt(java.lang.String)[+Integer/parseInt+] and http://docs.oracle.com/javase/7/docs/api/java/lang/Double.html#parseDouble(java.lang.String)[+Double/parseDouble+]
-
-* <<sec_primitives_strings_converting_strings_numbers>>

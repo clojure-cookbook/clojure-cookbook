@@ -53,9 +53,8 @@ files makes this a relatively simple task. However, while this is
 often a good way to persist data to disk, you should be aware of a few
 issues.
 
-Reading, Security & EDN
-[WARNING]
-====
+.Reading, Security & EDN
+****
 The +read+ function is only appropriate for reading data from
 *trusted* sources. This is because the Clojure reader is not designed
 nor guaranteed to be safe or free from side-effects. Binding
@@ -72,7 +71,7 @@ programs written in any language, much like XML or JSON. The
 It works much the same as the Clojure reader and writer, however, it
 provides additional security guaranteess that the Clojure reader does
 not, and should always be used for any external or untrusted input.
-====
+****
 
 The simple case of +slurp+ and +spit+ becomes unusable when the data
 is very large, because it creates a very large string in memory all at
@@ -91,10 +90,9 @@ this approach is perfectly suitable. It is a good way to load
 configuration data and other types of simple structures.
 
 Reading and writing from streams is far more efficient, because it
-buffers input and output, dealing with data a few bytes at a time.
-
-IMPORTANT: See <<sec_local-io_read_write_files>> for notes on managing
-streams.
+buffers input and output, dealing with data a few bytes at a time
+footnote:[See <<sec_local-io_read_write_files>> for notes on managing
+streams.].
 
 In addition to reading and writing a single data structure in a file,
 you can also append additional data structures to the same file and

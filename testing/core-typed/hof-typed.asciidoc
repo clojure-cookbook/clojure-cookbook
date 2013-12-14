@@ -165,5 +165,5 @@ a regular Clojure +ArityException+.
   and
   https://github.com/clojure/core.typed/wiki/User-Guide#functions[function
   annotations].
-* Recipes <<sec_verify_java> and <<sec_avoid_null>> for further
+* Recipes <<sec_verify_java>> and <<sec_avoid_null>> for further
   examples of how to use +core.typed+.

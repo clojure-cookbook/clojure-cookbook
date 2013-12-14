@@ -1,7 +1,5 @@
 === Conventions Used in This Book
 
-==== Programming Conventions
-
 Being a book full of solutions, you'll find no shortage of Clojure
 source code in the book. Clojure source code appears in a monospace
 font, like this:

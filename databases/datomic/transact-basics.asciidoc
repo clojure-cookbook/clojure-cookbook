@@ -34,7 +34,7 @@ insert data.
 ;; -> #{["Martin Fowler"]}
 ----
 
-==== Discussions
+==== Discussion
 
 This map-based syntax for representing the data expands to a series of
 +:db/add+ statements. This transaction is identical to the previous

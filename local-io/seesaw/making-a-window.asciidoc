@@ -62,6 +62,7 @@ actually display the frame, use +show!+:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
+.A simple window
 image:local-io/seesaw/window-only.png["",width=150]
 
 ==== Discussion
@@ -97,6 +98,7 @@ content:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
+.A window with basic content
 image:local-io/seesaw/content.png["",width=150]
 
 ==== Adding Scrollable Content
@@ -120,6 +122,7 @@ This content is too big to fit in the current window:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
+.A window with more text than space
 image:local-io/seesaw/no-longer-yours.png["",width=150]
 
 Normally, one would call +pack!+ again to adjust the window size to
@@ -134,6 +137,7 @@ screens, so set the size explicitly and add scrollbars:
                                       :editable? false)))
 ----
 
+.A larger window with a scroll bar
 image:local-io/seesaw/sonnets.png["",width=420]
 
 The +:multi-line?+ option to the +text+ function selects +JTextArea+

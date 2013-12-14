@@ -77,8 +77,9 @@ from above.
 ----
 
 You'll find an _employees.pdf_ in the directory you ran your
-project/REPL--it looks something like this:
+project/REPL--it looks something like <<fig_employees_pdf>>:
 
+[[fig_employees_pdf]]
 ._employees.pdf_
 image::local-io/pdf/employees.pdf.png["Contents of the employees.pdf file"]
 

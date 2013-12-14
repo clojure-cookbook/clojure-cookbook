@@ -224,6 +224,6 @@ desirable in larger code bases.
 * https://github.com/clojure/core.typed[+core.typed+ Home]
 * http://clojure.github.io/core.typed/[+core.typed+ API Reference],
   particularly documentation for +non-nil-return+ and +nilable-param+.
-* Recipes <<sec_avoid_null> and <<sec_verify_hof>> for further
+* Recipes <<sec_avoid_null>> and <<sec_verify_hof>> for further
   examples of how to use +core.typed+.
 

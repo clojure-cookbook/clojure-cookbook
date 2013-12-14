@@ -9,8 +9,8 @@ You need to read or write some binary data.
 
 ==== Solution
 
-Use Java's `BufferedInputStream` / `BufferedOutputStream` and
-ByteBuffers, or Clojure libraries which wrap them.
+Use Java's +BufferedInputStream+, +BufferedOutputStream+ and
++ByteBuffer+ classes to work directly with binary data.
 
 ==== Discussion
 
@@ -44,8 +44,8 @@ function, which wraps `BufferedInputStream`:
 
 Writing zeros and reading in fixed-length blocks is obviously not very
 interesting. We want to prepare our byte array with some actual
-content. A common way to prepare byte arrays is using ByteBuffers and
-filling them with data from various types. Let's assume we want to
+content. A common way to prepare byte arrays is to use a +ByteBuffer+,
+filling it with data from various types. Let's assume we want to
 write "strings" in the following format:
 
 1. A version number (byte; 66 in our example)
@@ -87,7 +87,7 @@ Writing data in this format is then as simple as
   (.write out (prepare-string "hello world")))
 ----
 
-To get the data back, a `ByteBuffer` again provides a way of unpacking
+To get the data back, `ByteBuffer` provides a way of unpacking
 multiple types out of a stream (array) of bytes:
 
 [source,clojure]
@@ -113,18 +113,18 @@ multiple types out of a stream (array) of bytes:
 ----
 
 Note that for both writing and reading, the `flip` operation on the
-ByteBuffers resets the position to the beginning of the buffer to
++ByteBuffer+ resets the position to the beginning of the buffer to
 prepare it for reading, and writing, respectively.  
 
 ==== See Also
 
-- For more details on ByteBuffers, which play a key role in Java's NIO
+- For more details on +ByteBuffer+, which plays a key role in Java's NIO
 library, see the Java NIO documentation, or Ron Hitchens, __Java NIO__
 (http://shop.oreilly.com/product/9780596002886.do).
 
-- There is also a Clojure library,
+- The Clojure library,
   https://github.com/geoffsalmon/bytebuffer[+bytebuffer+], which provides a
-thin, more idiomatic wrapper for ByteBuffer operations.
+thin, more idiomatic wrapper for +ByteBuffer+ operations.
 
 - The more recent https://github.com/clojurewerkz/buffy[Buffy] library provides
 a wrapper over the related Netty ByteBuffers.

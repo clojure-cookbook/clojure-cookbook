@@ -76,7 +76,7 @@ To retract entire entities, use the +:db.fn/retractEntity+ built-in transactor f
 ;; -> #{}
 ----
 
-==== Discussions
+==== Discussion
 
 When using +:db/retract+, you provide the value to retract so that in
 the case of cardinality-many attributes, it's clear which value to

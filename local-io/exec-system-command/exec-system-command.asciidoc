@@ -128,14 +128,16 @@ There are a number of other options available in +sh+ and +sh-pipe+:
 +:result-handler-fn+::
   A custom function to be used to handle results.
 
-A word of warning: if you initiate long-running sub-processes inside
-of a +-main+ function, your application will hang until those
-processes complete. This may be desireable, but it may not. If it
-isn't desirable forcibly terminate your application by invoking
+[WARNING]
+====
+If you initiate long-running sub-processes inside of a +-main+
+function, your application will hang until those processes complete.
+If it isn't desirable forcibly terminate your application by invoking
 +(System/exit)+ directly at the end of your +-main+ function.
 Additionally, set the option +:shutdown+ to +true+ for any
 sub-processes to ensure you leave your system tidy and free of rogue
 processes.
+====
 
 To check if a sub-process has returned without waiting for it to
 finish, invoke the +realized?+ function on the promise returned by

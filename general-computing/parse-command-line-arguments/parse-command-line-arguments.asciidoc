@@ -31,7 +31,8 @@ function entry-point to parse command-line arguments footnote:[Since
 
 (defn -main [& args]
   (let [[opts args banner] (cli args
-                                ["-h" "--help" "Print this help" :default false :flag true])]
+                                ["-h" "--help" "Print this help"
+                                 :default false :flag true])]
     (when (:help opts)
       (println banner))))
 
@@ -146,7 +147,8 @@ there is no +:required+ option.)
 
 (defn -main [& args]
   (let [[opts args banner] (cli args
-                                ["-h" "--help" "Print this help" :default false :flag true]
+                                ["-h" "--help" "Print this help"
+                                 :default false :flag true]
                                 ["-p" "--port" :parse-fn #(Integer. %)])]
     (when (or (:help opts)
               (missing-required? opts))

@@ -99,7 +99,7 @@ As you can see, the current database remains unaffected by this
 transaction, but the database at +db-after+ now displays the new
 value.
 
-==== Discussions
+==== Discussion
 
 Databases produced by +d/with+ can be used with any of the other API
 functions that accept a database, including +d/with+ itself. This
