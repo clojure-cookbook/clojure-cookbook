@@ -14,12 +14,10 @@ Use https://github.com/weavejester/clucy[Clucy], a Clojure wrapper for
 Lucene. Clucy provides the tools to build and query indexes from
 within a Clojure process.
 
-To follow along with this recipe, add `[clucy "0.4.0"]` to your project's dependencies, or start a REPL using +lein-try+:
-
-[source,console]
-----
-$ lein try clucy
-----
+To follow along with this recipe, create a new project (*+lein new
+text-search+*), add `[clucy "0.4.0"]` to its dependencies and start a
+REPL using *+lein repl+* footnote:[We would normally suggest using
++lein-try+, but the plugin is currently incompatible with Clucy.].
 
 The following code creates and queries a simple in-memory index:
 
