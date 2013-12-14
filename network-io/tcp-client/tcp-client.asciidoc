@@ -60,14 +60,12 @@ sense to use the higher-level features of +Reader+ and +Writer+.
 
 [CAUTION]
 ====
-
 This example uses HTTP because it's a protocol that many readers are
 familiar with. In the real world, using a raw TCP socket for HTTP
 requests is almost certainly a terrible idea. There are a plethora of
 libraries that provide a much higher-level interface to HTTP requests
 and responses, and encapsulate lot of pesky details such as escaping,
 encoding and formatting.
-
 ====
 
 Also note that the reader, the writer and the socket itself are bound
@@ -76,6 +74,37 @@ within the context of a +with-open+ macro. This guarantees that the
 TCP connection. If the connection is not released, it will continue to
 consume resources on both the client and server, and may be subject to
 termination on the remote side.
+
+When returning lazy sequences from of a +with-open+ context it is
+important to fully realize those sequences using +doall+. This is
+because resources opened by +with-open+ are *only available* inside
+the +with-open+ block. The +doall+ function fully realizes a
+collection, retaining its entire contents in memory.
+
+[source,clojure]
+----
+(realized? (range 100))
+;; -> false
+
+(realized? (doall (range 100)))
+;; -> true
+----
+
+Depending on your application, you may prefer to use the +doseq+
+macro. Instead of retaining the entire sequence, +doseq+ executes its
+body for each element of the sequence. This is useful if you need to
+cause side-effects for each element of a sequence, but need to
+hang on to the entire thing.
+
+[source,clojure]
+----
+(doseq [n (range 3)]
+  (println n))
+;; *out*
+;; 0
+;; 1
+;; 2
+----
 
 ==== See Also
 
