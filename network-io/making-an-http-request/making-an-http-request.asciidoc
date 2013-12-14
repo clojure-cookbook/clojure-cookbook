@@ -94,8 +94,8 @@ manage complex failure scenarios involving external services.
 
 ==== See Also
 
-* See ++clj-http++'s https://github.com/dakrone/clj-http[GitHub
-  repository] for more detailed information on the library.
+* ++clj-http++'s https://github.com/dakrone/clj-http[GitHub
+  repository].
 * For information on making asynchronous HTTP calls, see
   <<sec_async_http>>.
 * When building production systems that interact with external

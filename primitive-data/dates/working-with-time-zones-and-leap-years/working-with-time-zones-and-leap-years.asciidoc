@@ -91,6 +91,6 @@ local time zone.
 
 ==== See Also
 
-* See <<sec_primitives_dates_time_between>>
+* <<sec_primitives_dates_time_between>>
 
 * <<sec_primitives_dates_relative>>

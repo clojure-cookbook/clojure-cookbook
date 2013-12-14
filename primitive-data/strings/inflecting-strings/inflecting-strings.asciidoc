@@ -103,6 +103,5 @@ inflections also has support for inflections like +camelize+,
 
 ==== See Also
 
-* See
-  https://github.com/r0man/inflections-clj/[inflections
+*  https://github.com/r0man/inflections-clj/[inflections
   core.clj] for the most up-to-date listing of inflections available.

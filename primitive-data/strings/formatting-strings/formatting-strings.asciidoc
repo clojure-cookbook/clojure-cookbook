@@ -105,4 +105,4 @@ Visit http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html[+java.ut
 ==== See Also
 
 * <<sec_primitives_building_strings_from_parts>>
-* See <<sec_primitives_dates_formatting_dates>> for more detailed information on using +format+ with dates.
+* <<sec_primitives_dates_formatting_dates>>

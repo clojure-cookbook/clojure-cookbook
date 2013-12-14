@@ -119,7 +119,7 @@ your expressions with literal values (+3M+) or by means of the
 
 ==== See Also
 
-* See <<sec_primitives_math_arbitrary_precision>> for more information
+* <<sec_primitives_math_arbitrary_precision>> for more information
   on +BigDecimal+, specifically type-contagion.
 
 * <<sec_primitives_numbers_fuzzy_comparison>>

@@ -175,6 +175,6 @@ standard deviation by dividing by +total+ instead of +(- total 1)+.
 
 ==== See Also
 
-* See the Wikipedia article on
+* The Wikipedia article on
 http://en.wikipedia.org/wiki/Standard_deviation[Standard deviation] for more
 information on standard deviation and what it can be used for.

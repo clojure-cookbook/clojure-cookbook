@@ -48,6 +48,5 @@ return timing values with every ping.
 [[sec_sending_ping_see_also]]
 ==== See Also
 
-* See the
-  http://docs.oracle.com/javase/7/docs/api/java/net/InetAddress.html#isReachable(int)[InetAddress/isReachable
-  documentation] for more details.
+* http://docs.oracle.com/javase/7/docs/api/java/net/InetAddress.html#isReachable(int)[InetAddress/isReachable
+  documentation].

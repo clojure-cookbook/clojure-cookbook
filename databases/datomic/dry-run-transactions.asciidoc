@@ -114,6 +114,6 @@ values of the database.
 
 ==== See Also
 
-* See <<sec_datomic_transact_basics>> for more general information on
+* <<sec_datomic_transact_basics>> for more general information on
   transacting data.
 

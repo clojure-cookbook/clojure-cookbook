@@ -83,6 +83,6 @@ expressions without first being converted to a true numeric type.
   internationalization works, see
   http://shop.oreilly.com/product/9780596101213.do[Unicode Explained], by Jukka K. Korpela.
 
-* See <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string.
+* <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string.
 
 * <<sec_primitives_numbers_parsing_numbers>>

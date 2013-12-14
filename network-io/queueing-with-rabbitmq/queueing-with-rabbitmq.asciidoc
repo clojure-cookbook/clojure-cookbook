@@ -355,11 +355,9 @@ and more. To learn more, see RabbitMQ and Langohr documentation sites.
 
 ==== See Also
 
-* See http://clojurerabbitmq.info[Langohr documentation] and
-  http://rabbitmq.com/getstarted.html[RabbitMQ tutorials] to learn
-  more.
-* Langohr http://reference.clojurerabbitmq.info[API reference] is also
-  available.
+* http://clojurerabbitmq.info[Langohr documentation].
+* Langohr's http://reference.clojurerabbitmq.info[API reference].
+* http://rabbitmq.com/getstarted.html[RabbitMQ tutorials].
 * If you need low-level access to RabbitMQ, you may want to
   investigate using Clojure's Java interop to interact with the
   http://www.rabbitmq.com/java-client.html[RabbitMQ Java Client], the
