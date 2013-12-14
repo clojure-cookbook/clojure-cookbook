@@ -30,7 +30,7 @@ First create a new Storm project using its Leiningen template:
 
 [source,console]
 ----
-$ lein new storm-project feeds
+$ lein new cookbook-storm-project feeds
 ----
 
 In the project directory, run the default storm topology (which the
@@ -109,7 +109,7 @@ and only if the user is following the user who triggered the event:
 
 Finally, add a bolt that accepts a user and an event and stores the event
 in a hash of sets like +{:user1 #{event1 event2} :user2 #{event1 event2}}+ -
-these are the activity streams we'll present to users.
+these are the activity streams you'll present to users.
 
 [source,clojure]
 ----
@@ -124,18 +124,18 @@ these are the activity streams we'll present to users.
               (ack! collector tuple)))))
 ----
 
-This gives us all the pieces you'll need, but you'll still need
+This gives you all the pieces you'll need, but you'll still need
 to assemble them together into a computational topology. Open up
 +src/feeds/topology.clj+ and use the topology DSL to wire the spouts
 and bolts together:
 
 [source,clojure]
 ----
-(defn topology []
+(defn storm-topology []
   (topology
    {"events" (spout-spec event-spout)}
 
-   {"active users" (bolt-spec {"eventst" :shuffle} active-user-bolt :p 2)
+   {"active users" (bolt-spec {"events" :shuffle} active-user-bolt :p 2)
     "follows" (bolt-spec {"active users" :shuffle} follow-bolt :p 2)
     "feeds" (bolt-spec {"follows" ["user"]} feed-bolt :p 2)}))
 ----
@@ -149,9 +149,6 @@ You'll also need to update the +:require+ statement in that file:
              [bolts :refer [active-user-bolt follow-bolt feed-bolt]]]
             [backtype.storm [clojure :refer [topology spout-spec bolt-spec]] [config :refer :all]])
 ----
-
-Now delete the old stormy-topology function, and change the +run!+
-function to point to the new +topology+ function you just defined.
 
 Run the topology again. Feeds will be printed to the console by the
 final bolts in the topology:
@@ -191,7 +188,7 @@ better picture of how these primitives work together.
 +defspout+ looks much like Clojure's standard +defn+ with one
 difference - the second argument to +defspout+ is a list of names that
 will be assigned to elements of each tuple this spout produces. This
-lets us use tuples like vectors or maps interchangeably. The third
+lets you use tuples like vectors or maps interchangeably. The third
 argument to +defspout+ is a list of arguments that will be bound
 various components of Storm's operational infrastructure - +collector+
 is used below, ignoring the other two for now.
@@ -206,8 +203,8 @@ is used below, ignoring the other two for now.
 ----
 
 ++defspout++'s body will be evaluated once, when the spout instance is
-created, which gives us an opportunity to create in-memory state. In
-this case we'll create a list of events this spout will produce, but
+created, which gives you an opportunity to create in-memory state. In
+this case you'll create a list of events this spout will produce, but
 usually this will be a connection to a database or distributed queue.
 
 [source,clojure]
@@ -245,7 +242,7 @@ the seller of the item. In this world, you need to consider a variety
 of factors for each user in the system for every event and determine
 whether the event should be added to that user's feed.
 
-THe first bolt starts this process by generating a tuple of +(user,
+The first bolt starts this process by generating a tuple of +(user,
 event)+ for each user in the system every time an event is generated
 by the +event-spout+:
 
@@ -308,8 +305,8 @@ provides the actual bolt definition inside a call to +bolt+:
 
 Note that the tuple argument is inside the bolt's definition of
 +execute+ in this case, and may be destructured as usual. In cases
-where the event's user is not following the user in the tuple, we do
-not emit a new tuple and simply acknowledge that we received our
+where the event's user is not following the user in the tuple, it does
+not emit a new tuple and simply acknowledges that it received the
 input.
 
 As noted earlier, this particular system could be implemented much
@@ -444,8 +441,8 @@ create.
 
 ===== deployment
 
-The real magic of Storm comes out in deployment. Storm gives the
-tools us to build small, independent components that make no
+The real magic of Storm comes out in deployment. Storm gives you the
+tools to build small, independent components that make no
 assumptions about how many identical instances are running in the same
 topology. This means that the topology itself is essentially
 infinitely scalable. The edges of the system, which receive data
@@ -461,7 +458,7 @@ A simple deployment strategy is built into the Storm library:
     (.submitTopology "my first topology"
                      {TOPOLOGY-DEBUG (Boolean/parseBoolean debug)
                       TOPOLOGY-WORKERS (Integer/parseInt workers)}
-                     (topology)))
+                     (storm-topology)))
 ----
 
 +LocalCluster+ is an in-memory implementation of a Storm cluster. You can
@@ -481,7 +478,7 @@ as you can see in +src/feeds/TopologySubmitter.clj+:
    "feeds topology"
    {TOPOLOGY-DEBUG (Boolean/parseBoolean debug)
     TOPOLOGY-WORKERS (Integer/parseInt workers)}
-   (topology)))
+   (storm-topology)))
 ----
 
 This file uses Clojure's Java interop to generate a Java class with a
@@ -499,7 +496,7 @@ $ storm jar path/to/thejariuploaded.jar feeds.TopologySubmitter "workers" 5
 
 This command will tell the cluster to allocate 5 dedicated workers for
 this topology and begin polling +nextTuple+ on all of its spouts, as
-it did when we used +LocalCluster+. A cluster may run any number of
+it did when you used +LocalCluster+. A cluster may run any number of
 topologies simultaneously - each worker is a physical JVM and may end
 up running instances of many different bolts and spouts.
 
