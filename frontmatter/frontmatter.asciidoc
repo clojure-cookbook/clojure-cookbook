@@ -117,7 +117,14 @@ assist you in enacting the described solution.
 The book is composed of the following chapters:
 
 ++++
-<remark> Cross reference links like <<ch_primitive_data>> *used* to include a descriptive title like "Primitive Data Chapter on Pg. X", but now they just say "Chapter 1" or "Recipe 1.2".  We really need to get this descriptive text back, or we will need to do a pass over the book adding our own.</remark>
+<remark>
+Cross reference links like \<\<ch_primitive_data\>\> *used* to
+include a descriptive title like "Primitive Data Chapter on Pg. X",
+but now they just say "Chapter 1" or "Recipe 1.2".
+
+We really need to get this descriptive text back, or we will need to
+do a pass over the book adding our own.
+</remark>
 ++++
 
 <<ch_primitive_data>> and <<ch_composite_data>> cover Clojure's
