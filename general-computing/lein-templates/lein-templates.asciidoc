@@ -140,12 +140,7 @@ $ lein run
 ----
 
 If +lein+ prints an error about not being able to find your template you should
-make sure you're on the latest version with
-
-[source,console]
-----
-$ lein upgrade
-----
+make sure you're on the latest version with *+lein upgrade+*.
 
 To make the template available to other users you'll need to publish it
 to Clojars. First, open up the template project's +project.clj+ and change
