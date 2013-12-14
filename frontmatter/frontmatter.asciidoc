@@ -118,7 +118,7 @@ The book is composed of the following chapters:
 
 ++++
 <remark>
-Cross reference links like \<\<ch_primitive_data\>\> *used* to
+Cross reference links like ch_primitive_data used to
 include a descriptive title like "Primitive Data Chapter on Pg. X",
 but now they just say "Chapter 1" or "Recipe 1.2".
 
