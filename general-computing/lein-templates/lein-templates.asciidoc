@@ -19,11 +19,12 @@ web service.
 First, generate a new template with *+lein new template
 cookbook-sample-template-<github_user>+*. Replace +github_user+ with
 your own GitHub username; you'll be publishing this
-template to Clojars and it will need a unique name.
+template to Clojars and it will need a unique name. In the examples
+we'll use `clojure-cookbook` as our GitHub username.
 
 [source,console]
 ----
-$ lein new template cookbook-sample-template-clojure-cookbok
+$ lein new template cookbook-sample-template-clojure-cookbook
 Generating fresh 'lein new' template project.
 
 $ cd cookbook-sample-template-clojure-cookbook
@@ -57,14 +58,14 @@ add them to the +:dependencies+ section:
 Next, open the template definition
 (_src/leiningen/new/<project-name>.clj_) and add +project.clj+ to the
 list of files to be generated. Add +sanitize-ns+ to the namespace's
-+:use+ directive to expose a sanitized namespace string.
++:require+ directive to expose a sanitized namespace string.
 
 ._src/leiningen/new/cookbook_sample_template_clojure_cookbook.clj_
 [source,clojure]
 ----
 (ns leiningen.new.cookbook-sample-template-clojure-cookbook
-  (:use [leiningen.new.templates :only [renderer name-to-path
-                                        ->files sanitize-ns]])) ; <1>
+  (:require [leiningen.new.templates :refer [renderer name-to-path ->files sanitize-ns]]
+            [leiningen.core.main :as main])) ; <1>
 
 (def render (renderer "cookbook-sample-template-clojure-cookbook"))
 
@@ -79,7 +80,7 @@ list of files to be generated. Add +sanitize-ns+ to the namespace's
              ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)])))
 ----
 
-<1> Add +sanitize-ns+ to the +:use+ declaration.
+<1> Add +sanitize-ns+ to the +:require+ declaration.
 <2> Expose +:ns-name+ as the sanitized +name+.
 <3> Add _project.clj_ to the list of files in the template.
 
@@ -130,7 +131,7 @@ project and run:
 [source,console]
 ----
 $ lein install
-$ lein new cookbook-sample-template-clojure-cookbook my-first-website
+$ lein new cookbook-sample-template-clojure-cookbook my-first-website --snapshot
 $ cd my-first-website
 $ lein run
 # ... Leiningen noisily fetching dependencies ...
@@ -138,8 +139,27 @@ $ lein run
 2013-08-22 16:41:43.379:INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:3000
 ----
 
+If +lein+ prints an error about not being able to find your template you should
+make sure you're on the latest version with
+
+[source,console]
+----
+$ lein upgrade
+----
+
 To make the template available to other users you'll need to publish it
-to Clojars. Visit http://clojars.org[clojars.org] to create a
+to Clojars. First, open up the template project's +project.clj+ and change
+the version to a release version - by default +lein+ will only use non-SNAPSHOT
+templates:
+
+._project.clj_
+[source,clojure]
+----
+(defproject cookbook-sample-template-clojure-cookbook/lein-template "0.1.0"
+;; ...
+----
+
+Next, visit http://clojars.org[clojars.org] to create a
 Clojars account and then deploy from the template project root:
 
 [source,console]
