@@ -54,7 +54,7 @@ Unix-derived systems such as Linux or OS X.
 +pmap+ functions identically to +map+, and applies a function to each
 item in a sequence, returning a lazy sequence of return values. The
 difference is that as it applies the mapping function, it does so in a
-seperate thread for each item in the collection (up to a certain fixed
+separate thread for each item in the collection (up to a certain fixed
 number of threads related to the number of CPUs on your system.)
 Threads realizing the sequence will block if the values are not ready
 yet.
@@ -95,7 +95,7 @@ gains can still be realized if the processing task is expensive
 compared to reading, but in lightweight tasks the bottleneck is likely
 to be reading the file itself, in which case parallelizing the
 processing work will give little to no gains in terms of total
-runtime (or even make it worse.)
+runtime (or even make it worse).
 
 ==== See Also
 

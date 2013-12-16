@@ -44,10 +44,10 @@ you're using to test a collection with. Consider the following:
 ;; -> :user/not-found
 ----
 
-Because the +some+ function returns the _value_ returned from the
+Because the +some+ function returns the *value* returned from the
 predicate function, not just +true+ or +false+, using it with sets
 that contain +nil+ or +false+ probably isn't what you want. It will
-return +nil+ or +false if the item actually _is_ in the set.
+return +nil+ or +false if the item actually *is* in the set.
 
 The simplest solution is to test for +nil+ or +false+ seperately,
 using the +nil?+ or +false?+ predicate functions built in to Clojure.

@@ -59,7 +59,7 @@ The Iota library creates sequences from files on the local file
 system. Unlike the purely sequential lazy sequences produced from
 something like +file-seq+, the sequences returned by Iota are
 optimized for use with Clojure's reducers library, which uses the Java
-Fork/Join work stealing frameworkfootnote:[For more information, see
+Fork/Join work stealing framework footnote:[For more information, see
 the Java
 http://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html[tutorial]
 on Fork/Join and work stealing.] under the hood to provide efficient
