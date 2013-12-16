@@ -39,6 +39,38 @@ A quick win using +pmap+ over a sequence returned by +line-seq+.
 
 ==== Discussion
 
+The key functions used in this example (beyond basic Clojure
+constructs like +map+ or +dorun+) are +line-seq+ and +pmap+.
+
++line-seq+, given an instance of +java.io.BufferedReader+ (which
++clojure.java.io/reader+ returns), will return a lazy sequence of
+strings. Each string is a line in the input file. What constitutes a
+newline for the purposes of line-splitting is deterimined by the
++line.separator+ JVM option, which will be set in a platform-specific
+way. Specifically, it will be a carriage return character followed by
+a line feed character in Windows, and a single newline character in
+Unix-derived systems such as Linux or OS X.
+
++pmap+ functions identically to +map+, and applies a function to each
+item in a sequence, returning a lazy sequence of return values. The
+difference is that as it applies the mapping function, it does so in a
+seperate thread for each item in the collection (up to a certain fixed
+number of threads related to the number of CPUs on your system.)
+Threads realizing the sequence will block if the values are not ready
+yet.
+
++pmap+ can yield substantial performance improvements by distributing
+work across multiple CPU cores and performing it concurrently, but it
+isn't a magic bullet. Specifically, it incurs a certain amount of
+coordination overhead to schedule the multithreaded
+operations. Typically, it gives the most benefit when performing very
+heavyweight operations, where the mapping function is so
+computationally expensive that it makes the coordination overhead
+worth it. For simple functions that complete very quickly (such as
+basic operations on primitives), the coordination overhead is likely
+to be much larger than any performance gains, and +pmap+ will actually
+be much slower than +map+ in that case.
+
 The idea is to use +pmap+ to map over the sequence of file rows in
 parallel. However, you then need to pass each processed row through
 +(map #(.write wtr %) ...)+ in order to ensure the rows are written
@@ -63,7 +95,7 @@ gains can still be realized if the processing task is expensive
 compared to reading, but in lightweight tasks the bottleneck is likely
 to be reading the file itself, in which case parallelizing the
 processing work will give little to no gains in terms of total
-runtime.
+runtime (or even make it worse.)
 
 ==== See Also
 
