@@ -56,17 +56,51 @@ To count the words in a very large file, for example:
 ==== Discussion
 
 The Iota library creates sequences from files on the local file
-system. Unlike the purely lazy sequences produced from something like
-+file-seq+, the sequences returned by Iota are optimized for use with
-Clojure's reducers library, which uses the Java fork/join work
-stealing framework under the hood to provide efficient parallel
-processing.
+system. Unlike the purely sequential lazy sequences produced from
+something like +file-seq+, the sequences returned by Iota are
+optimized for use with Clojure's reducers library, which uses the Java
+Fork/Join work stealing frameworkfootnote:[For more information, see
+the Java
+http://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html[tutorial]
+on Fork/Join and work stealing.] under the hood to provide efficient
+parallel processing.
 
 The +keyword-count+ function first creates a reducible sequence of
 lines in the file and filters out blank lines (using the +identity+
 function to eliminate nil values from the sequence). Then, it applies
 the +count-map+ function in parallel, and finally aggregates the
 results by folding with the +add-maps+ function.
+
++r/filter+ and +r/map+ function exactly the same as their non-reducer
+counterparts; the only difference is one of performance, and how the
+Reducers library is able to break down and combine operations. They
+also return Reducible sequences, that can be utilized efficiently by
+other operations from the Reducers library.
+
++r/fold+ is the core function of the Reducers library, and in its
+basic form is functionally very similar to the built in +reduce+
+function. Given a function and a reducible collection, it returns a
+value that is the result of applying the folding function to each item
+in the collection and an accumulator value.
+
+Unlike normal +reduce+, however, there is no guaranteed execution
+order, which is why +fold+ doesn't take a single "starting" value as
+an argument. It wouldn't make sense, given that the computation can
+"start" in several places at once, concurrently. This means that the
+function passed to +fold+ (when passed a single function) must also
+be capable of taking *zero* arguments - the result of the no-arg
+invocation of the provided will be used as the seed value for each
+branch of the computation.
+
+If you need more flexibility than this provides, +fold+ allows you to
+specify both a +reduce+ function and a +combine+ function, as seperate
+arguments. Exactly what these do is inextricably tied with how
+Reducers themselves work, so a full explanation is beyond the scope of
+this recipe. See the
+http://clojure.github.io/clojure/clojure.core-api.html#clojure.core.reducers/fold[documentation
+for the +fold+ function] and the information linked from the
+http://clojure.org/reducers[reducers] page on Clojure's website for
+more information.
 
 ===== About Reducers
 
