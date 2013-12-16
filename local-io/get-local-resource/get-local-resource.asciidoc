@@ -62,6 +62,36 @@ You can also specify an alternative (or additional) resource directories using t
 :resource-paths ["my-resources" "src/other-resources"]
 ----
 
+Using classpath based resources is very convenient, but it does have
+its drawbacks.
+
+Be aware that in the context of a web application, any change to
+resources is likely to require a full redeployment, because they are
+included wholesale in the JAR or WAR file that will be
+deployed. Typically, this means it's best to use resources only for
+items that really are completely static. For example, though it's
+possible to place your application's configuration files in the
++resources+ directory and load them from there, to do so is really to
+make them part of your application's source code, which rather defeats
+the point. You may wish to load that kind of (relatively) frequently
+changing resource in a known file system location and load from there
+instead, rather than using the classpath.
+
+Also, there are sometimes additional reasons to *not* serve from the
+classpath. For example, consider static images on a website. If you
+place them in your web application's classpath, then they will be
+served by your application server container (Jetty, Tomcat, JBoss,
+etc.) Typically, these applications are optimized for serving dynamic
+HTML resources, not larger binary blobs. Serving larger static files
+is often more suited to the _HTTP server_ level of your architecture
+than the _application server_ level, and should be delegated to
+Apache, Nginx or whatever other HTTP server you're using. Or, you
+might even want to split them off and serve them via a seperate
+mechanism entirely, such as a CDN (content delivery network). In
+either case, it is difficult to set up the HTTP server or CDN to
+introspect resources *inside* of your application's JAR file - it's
+usually better to store them elsewhere, from the start.
+
 ==== See Also
 
 * The Leiningen
