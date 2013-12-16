@@ -23,12 +23,13 @@ Use +some+, along with a set.
 
 ==== Discussion
 
-Since sets can act like functions, they can be used as predicates.
-This idiom will test each item in a collection, returning either the
-first match, or +nil+ if a match couldn't be found.
+Since sets can act like functions, they can be used as predicates,
+testing whether the argument is a member of the set. This idiom will
+test each item in a collection, returning either the first match, or
++nil+ if a match couldn't be found.
 
-However, a problem arises when you search for +nil+ or +false+ in a
-collection. Consider the following:
+However, a problem arises when +nil+ or +false+ is a member of the set
+you're using to test a collection with. Consider the following:
 
 [source,clojure]
 ----
@@ -43,11 +44,34 @@ collection. Consider the following:
 ;; -> :user/not-found
 ----
 
-The solution, in this case, is to use a map:
+Because the +some+ function returns the _value_ returned from the
+predicate function, not just +true+ or +false+, using it with sets
+that contain +nil+ or +false+ probably isn't what you want. It will
+return +nil+ or +false if the item actually _is_ in the set.
+
+The simplest solution is to test for +nil+ or +false+ seperately,
+using the +nil?+ or +false?+ predicate functions built in to Clojure.
 
 [source,clojure]
 ----
-(if (some {nil true, false true} [nil false])
+(if (some nil? [nil false])
+  ::found
+  ::not-found)
+;; -> :user/found
+
+(if (some false? [nil false])
+  ::found
+  ::not-found)
+;; -> :user/found
+----
+
+Or, to test both at once;
+
+[source,clojure]
+----
+(if (some #(or (false? %)
+               (nil? %))
+      [nil false])
   ::found
   ::not-found)
 ;; -> :user/found
