@@ -43,7 +43,7 @@ logger. Alternatively, you can follow along in a REPL using +lein-try+:
 [source,shell]
 ----
 $ lein try com.jolbox/bonecp "0.8.0.RELEASE" \
-           org.clojure/java.jdbc "0.3.0-beta2" \
+           org.clojure/java.jdbc "0.3.0" \
            java-jdbc/dsl "0.1.0" \
            org.postgresql/postgresql "9.2-1003-jdbc4" \
            org.slf4j/slf4j-nop  # Just do not log anything

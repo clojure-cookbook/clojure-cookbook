@@ -32,7 +32,7 @@ $ /Applications/Postgres93.app/Contents/MacOS/bin/createdb cookbook_experiments
 $ createdb cookbook_experiments
 ----
 
-Before starting, add `[org.clojure/java.jdbc "0.3.0-beta2"]` to your
+Before starting, add `[org.clojure/java.jdbc "0.3.0"]` to your
 project's dependencies. You'll also need a JDBC-driver for the RDBMS
 of your choice. If you're following along with this sample, use
 `[org.postgresql/postgresql "9.2-1003-jdbc4"]`. To start a REPL using
@@ -40,7 +40,7 @@ of your choice. If you're following along with this sample, use
 
 [source,shell]
 ----
-$ lein try org.clojure/java.jdbc "0.3.0-beta2" \
+$ lein try org.clojure/java.jdbc "0.3.0" \
            java-jdbc/dsl "0.1.0" \
            org.postgresql/postgresql "9.2-1003-jdbc4"
 ----
@@ -120,17 +120,15 @@ and plain strings. For example, a complete URI string may be provided under the
 
 [source,clojure]
 ----
-(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/clojure_experiments"}))
+;; As a spec string
+(def db-spec "jdbc:postgresql://bilbo:secret@localhost:5432/cookbook_experiment")
 
-;; If you had a username and password...
-(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/clojure_experiments?user=bilbo&password=secret"})
-----
+;; As a connection URI map...
+;; ... with a username and password
+(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/cookbook_experiments?user=bilbo&password=secret"})
 
-Or provided directly as the database specification itself:
-
-[source,clojure]
-----
-(def db-spec "jdbc:postgresql://bilbo:secret@localhost:5432/clojure_experiment")
+;; ... or without
+(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/cookbook_experiments"})
 ----
 
 Database records are represented as Clojure maps, with the table's column names

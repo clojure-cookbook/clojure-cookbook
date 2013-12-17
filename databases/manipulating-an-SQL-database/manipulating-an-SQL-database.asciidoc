@@ -32,7 +32,7 @@ $ /Applications/Postgres93.app/Contents/MacOS/bin/createdb cookbook_experiments
 $ createdb cookbook_experiments
 ----
 
-Before starting, add `[org.clojure/java.jdbc "0.3.0-beta2"]` and
+Before starting, add `[org.clojure/java.jdbc "0.3.0"]` and
 `[java-jdbc/dsl "0.1.0"]` to your project's dependencies. You'll also
 need a JDBC-driver for the RDBMS of your choice. If you're following
 along with this sample, use `[org.postgresql/postgresql
@@ -41,7 +41,7 @@ following Leiningen command:
 
 [source,shell]
 ----
-$ lein try org.clojure/java.jdbc "0.3.0-beta2" \
+$ lein try org.clojure/java.jdbc "0.3.0" \
            java-jdbc/dsl "0.1.0" \
            org.postgresql/postgresql "9.2-1003-jdbc4"
 ----
@@ -191,7 +191,7 @@ connection for the duration of the transaction:
 [source,clojure]
 ----
 ;; insert two new fruits atomically
-(jdbc/db-transaction [trans-conn db-spec]
+(jdbc/with-db-transaction [trans-conn db-spec]
   (jdbc/insert! trans-conn :fruit {:name "Fig" :cost 12})
   (jdbc/insert! trans-conn :fruit {:name "Date" :cost 14}))
 ;; -> ({:grade nil, :unit nil, :cost 14, :appearance nil, :name "Date"})
@@ -202,7 +202,7 @@ If an exception is thrown, the transaction is rolled back:
 [source,clojure]
 ----
 ;; Query how many items the table has now:
-(defn fruit-count 
+(defn fruit-count
   "Query how many items are in the fruit table." 
   [db-spec]
   (let [result (jdbc/query db-spec (sql/select "count(*)" :fruit))]
@@ -211,7 +211,7 @@ If an exception is thrown, the transaction is rolled back:
 (fruit-count db-spec)
 ;; -> 11
 
-(jdbc/db-transaction [trans-conn db-spec]
+(jdbc/with-db-transaction [trans-conn db-spec]
   (jdbc/insert! trans-conn :fruit
     [:name :cost]
     ["Grape" 86]
@@ -238,7 +238,7 @@ function.
 (fruit-count db-spec)
 ;; -> 11
 
-(jdbc/db-transaction [trans-conn db-spec]
+(jdbc/with-db-transaction [trans-conn db-spec]
   (jdbc/db-set-rollback-only! trans-conn)
   (jdbc/insert! trans-conn :fruit {:name "Pear" :cost 69}))
 ;; -> ({:grade nil, :unit nil, :cost 69, :appearance nil, :name "Pear"})
