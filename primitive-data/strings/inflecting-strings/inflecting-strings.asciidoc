@@ -29,7 +29,7 @@ that word if count is not one.
 (require '[inflections.core :as inf])
 
 (inf/pluralize 1 "monkey")
-;; -> "1 virus"
+;; -> "1 monkey"
 
 (inf/pluralize 12 "monkey")
 ;; -> "12 monkeys"
