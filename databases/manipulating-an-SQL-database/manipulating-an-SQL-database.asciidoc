@@ -184,7 +184,7 @@ updated.
 
 Database transactions are available to ensure that multiple operations
 are performed atomically (i.e. all or none). The
-+clojure.java.jdbc/db-transaction+ macro creates a transaction-aware
++clojure.java.jdbc/with-db-transaction+ macro creates a transaction-aware
 connection from the database specification. Use the transaction-aware
 connection for the duration of the transaction:
 
