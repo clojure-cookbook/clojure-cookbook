@@ -1,4 +1,4 @@
-<<sec_simplecheck>>
+[[sec_simplecheck]]
 === Finding Values Which Cause Failure
 
 [role="byline"]
