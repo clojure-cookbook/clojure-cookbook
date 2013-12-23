@@ -33,14 +33,14 @@ For greater control over how values are printed use the +format+ function.
 ----
 ;; Produce a filename with a zero-padded sortable index
 (defn filename [name i]
-  (format "%03d-%s" i name)) <1>
+  (format "%03d-%s" i name)) ; <1>
 
 (filename "my-awesome-file.txt" 42)
 ;; -> "042-my-awesome-file.txt"
 
 ;; Create a table using justification
 (defn tableify [row]
-  (apply format "%-20s | %-20s | %-20s" row)) <2>
+  (apply format "%-20s | %-20s | %-20s" row)) ; <2>
 
 (def header ["First Name", "Last Name", "Employee ID"])
 (def employees [["Ryan", "Neufeld", 2]

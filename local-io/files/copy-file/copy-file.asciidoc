@@ -55,11 +55,11 @@ will catch any exceptions and optionally overwrite.
 (defn safe-copy [source-path destination-path & opts]
   (let [source (clojure.java.io/file source-path)
         destination (clojure.java.io/file destination-path)
-        options (merge {:overwrite false} (apply hash-map opts))] <1>
-    (if (and (.exists source)	   	  	 	  	  <2>
+        options (merge {:overwrite false} (apply hash-map opts))] ; <1>
+    (if (and (.exists source)	   	  	 	  	  ; <2>
              (or (:overwrite options) (= false (.exists destination))))
       (try
-        (= nil (clojure.java.io/copy source destination))	  <3>
+        (= nil (clojure.java.io/copy source destination))	  ; <3>
         (catch Exception e (str "exception: " (.getMessage e))))
       false)))
 

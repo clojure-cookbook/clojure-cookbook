@@ -42,11 +42,11 @@ considering the mean of the *two* middle values.
         cnt (count sorted)
         halfway (int (/ cnt 2))]
     (if (odd? cnt)
-      (nth sorted halfway) <1>
+      (nth sorted halfway) ; <1>
       (let [bottom (dec halfway)
             bottom-val (nth sorted bottom)
             top-val (nth sorted halfway)]
-        (mean [bottom-val top-val]))))) <2>
+        (mean [bottom-val top-val]))))) ; <2>
 
 (median [5 2 4 1 3])
 ;; -> 3
