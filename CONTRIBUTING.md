@@ -228,7 +228,7 @@ A common one is related to callouts like <1> at the end of a line of code.
 asciidoc: WARNING: formatting-strings.asciidoc: line 57: no callouts refer to list item 1
 ```
 
-To prevent this warning, the callout needs to be commented using the comment character(s) specific to the code type.
+To prevent this warning, the callout needs to be commented using the comment character(s) specific to the code type. This also keeps the code runnable in the REPL when pasted.
 
 Clojure Example:
 ```
