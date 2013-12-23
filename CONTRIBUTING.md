@@ -163,7 +163,7 @@ This is by no means a final list, but it should serve to give a general idea the
 
 ### How to Setup AsciiDoc and Source Highlight
 
-This is the basic guide to setting up enough of asciidoc and source-highlight setupo to allow previewing/proof-reading in a browser.
+This is the basic guide to setting up enough of asciidoc and source-highlight setupo to allow previewing/proofreading in a browser.
 
 It's not the ultimate setup and you probably don't want to publish anything with it but it works well enough for beginners to get started. These instructions are tested on Mac OS X. Linux should be pretty close after you get asciidoc and source-highlight installed with the appropriate package manager.
 
