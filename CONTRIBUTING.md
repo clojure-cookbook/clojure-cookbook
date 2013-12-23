@@ -161,4 +161,98 @@ ClojureScript             | Clojure in the browser
 
 This is by no means a final list, but it should serve to give a general idea the shape of the book.
 
+### How to Setup AsciiDoc and Source Highlight
+
+This is the basic guide to setting up enough of asciidoc and source-highlight setupo to allow previewing/proof-reading in a browser.
+
+It's not the ultimate setup and you probably don't want to publish anything with it but it works well enough for beginners to get started. These instructions are tested on Mac OS X. Linux should be pretty close after you get asciidoc and source-highlight installed with the appropriate package manager.
+
+* Install asciidoc
+```
+brew install asciidoc
+```
+
+* Install source-highlight
+```
+brew install source-highlight
+```
+
+* For Clojure highlighting, copy
+https://gist.github.com/265810/78857041d922c21488415a9b7ec0300aece47009
+and paste it into /usr/local/share/source-highlight/clojure.lang
+
+* For JSON highlighting, copy the following json.lang and json.style files to /usr/local/share/source-highlight
+https://github.com/freeformsystems/rlx/blob/master/highlight/json.lang
+https://github.com/freeformsystems/rlx/blob/master/highlight/json.style
+
+* For CSV/text/plain highlighting, paste the following into
+/usr/local/share/source-highlight/plain.lang. This is to avoid errors more than actually highlight anything.
+```
+include "number.lang"
+include "symbols.lang"
+cbracket = "{|}"
+```
+
+* Edit /usr/local/share/source-highlight/lang.map  and add the following mappings
+```
+clojure = clojure.lang
+clj = clojure.lang
+console = sh.lang
+csv = plain.lang
+json = json.lang
+plain = plain.lang
+terminal = sh.lang
+text = plain.lang
+```
+
+* Run asciidoc
+```
+asciidoc -b html5 conventions.asciidoc
+```
+
+* Preview it
+```
+open conventions.html
+```
+
+#### Handling Warnings
+
+The only acceptable warning you should see is the following which is related to structure of the book sections. It's ok to ignore this one.
+```
+asciidoc: WARNING: conventions.asciidoc: line 1: section title out of sequence: expected level 1, got level 2
+```
+
+Anything else should be fixed.
+A common one is related to callouts like <1> at the end of a line of code.
+```
+asciidoc: WARNING: formatting-strings.asciidoc: line 57: no callouts refer to list item 1
+```
+
+To prevent this warning, the callout needs to be commented using the comment character(s) specific to the code type.
+
+Clojure Example:
+```
+(defn foo [] "bar" ) <1>
+```
+needs a semicolon before the callout reference
+```
+(defn foo [] "bar" ) ; <1>
+```
+
+Console Example:
+```
+Username: <1>
+```
+should be
+```
+Username: #<1>
+```
+
+#### Test all AsciiDoc
+```
+find ./  -name \*.asciidoc -ls -exec adoc.sh {} \; 2>&1 |grep -v "section title out of seq"
+```
+The only thing you should see is the file names.
+
+
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/clojure-cookbook/clojure-cookbook/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
