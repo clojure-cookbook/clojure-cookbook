@@ -33,8 +33,8 @@ WARNING: please set :description in project.clj.
 WARNING: please set :url in project.clj.
 No credentials found for clojars (did you mean `lein deploy clojars`?)
 See `lein help deploy` for how to configure credentials.
-Username: <1>
-Password: <2>
+Username: #<1>
+Password: #<2>
 Wrote .../my-first-project-ryan-neufeld/pom.xml
 Created .../my-first-project-ryan-neufeld-0.1.0-SNAPSHOT.jar
 Could not find metadata my-first-project-ryan-neufeld:.../0.1.0-SNAPSHOT/maven-metadata.xml \
