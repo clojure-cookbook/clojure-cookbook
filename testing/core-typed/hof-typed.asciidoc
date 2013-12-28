@@ -149,11 +149,11 @@ ExceptionInfo Type Checker: Found 2 errors  clojure.core/ex-info (core.clj:4327)
 
 [NOTE]
 ====
-In this experiment, the faulty invokation of +hash-of?+ is wrapped in
+In this experiment, the faulty invocation of +hash-of?+ is wrapped in
 an anonymous function. At the time of this writing, +core.typed+
 evaluates code before it type checks it.
 
-Without this, the raw invokation `((hash-of? + number?))` woudl return
+Without this, the raw invocation `((hash-of? + number?))` would return
 a regular Clojure +ArityException+.
 ====
 

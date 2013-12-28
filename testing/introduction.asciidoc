@@ -9,9 +9,9 @@ passes."
 
 In addition to tests, several other tools have recently sprung up in
 the Clojure space aimed at improving program reliability. Often, these
-focus on validating that data looks as expected, to guard programs
+focus on validating that data looks as expected to guard programs
 from receiving input they don't know how to handle. These solutions
-range from optional static typing with algabraic types analyzed at
+range from optional static typing with algebraic types analyzed at
 compile time, down to simple preconditions.
 
 Admittedly, testing is a bit of hot-button topic in the Clojure
