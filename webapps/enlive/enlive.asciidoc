@@ -24,7 +24,7 @@ To follow along with this recipe, start a REPL using +lein-try+:
 $ lein try enlive
 ---- 
 
-To begin, create a file _post.hml_ to serve as an Enlive template.
+To begin, create a file _post.html_ to serve as an Enlive template.
 
 NOTE: Place this file in the _resources/_ directory, if you're using enlive in the context of a project.
 
