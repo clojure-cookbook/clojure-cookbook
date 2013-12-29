@@ -13,6 +13,65 @@ Every author of an accepted contribution will receive a *free digital copy of th
 
 **No contribution is too small**. We welcome anything from typo fixes or ideas for recipes all the way to complete recipes and anything in between. You can find more information on how to contribute in our [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
+### Preview and Verify Changes
+
+We have a script to setup asciidoc and source-highlight on Mac OS X to allow previewing/proofreading in a browser.  Linux should be similar after asciidoc and source-highlight are installed with the appropriate package manager. Using asciidoc html5 output with your browser makes it very easy to review changes. Please verify changes before submitting a pull request.
+
+* Setup asciidoc, source-highlight and language specific mappings
+```
+./setup_os_x_asciidoc_support.sh
+```
+
+* Run asciidoc
+```
+asciidoc -b html5 conventions.asciidoc
+```
+
+* Preview it
+```
+open conventions.html
+```
+
+#### Test all AsciiDoc
+To verify the asciidoc files are without error/warning, run the following:
+```
+./test_all_asciidoc.sh
+```
+The only output should be the file detail.
+
+#### Fixing Asciidoc Warnings/Errors
+
+The only acceptable warning is related to structure of the book sections. It's ok to ignore this one.
+```
+asciidoc: WARNING: conventions.asciidoc: line 1: section title out of sequence: expected level 1, got level 2
+```
+
+Please correct all others or ask for guidance if the error message is unclear.
+A common one is related to callouts like "<1>" at the end of a line of code.
+```
+asciidoc: WARNING: formatting-strings.asciidoc: line 57: no callouts refer to list item 1
+```
+
+To prevent this warning, the callout must be commented using the language appropriate comment character(s). This also keeps the code runnable in the REPL when pasted.
+
+Clojure Example:
+```
+(defn foo [] "bar" ) <1>
+```
+requires a semicolon before the callout reference
+```
+(defn foo [] "bar" ) ; <1>
+```
+
+Console Example:
+```
+Username: <1>
+```
+should be
+```
+Username: #<1>
+```
+
 #### Trusted Contributors
 
 The following users are trusted contributors (push access) that have proven themselves through excellent judgement and outstanding contributions to the book. We support and strongly encourage these users to make corrections and improvements to the book at will (recipes aside.)
