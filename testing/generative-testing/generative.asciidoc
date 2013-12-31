@@ -23,7 +23,7 @@ $ lein try org.clojure/test.generative "0.5.0"
 Say you are trying to test the following function, which calculates
 the arithmatic mean of all the numbers in a sequence.
 
-[source,clj]
+[source,clojure]
 ----
 (defn mean
   "Calculate the mean of the numbers in a sequence"
@@ -35,7 +35,7 @@ the arithmatic mean of all the numbers in a sequence.
 The following +test.generative+ code then defines a _specification_ for
 the +mean+ function:
 
-[source,clj]
+[source,clojure]
 ----
 (require '[clojure.test.generative :as t]
          '[clojure.test.generative.runner :as r]
@@ -71,7 +71,7 @@ to run, and the _var_ referring to a spec.
 
 Running the above example at the REPL:
 
-[source,clj]
+[source,clojure]
 ----
 (r/run 2 5000 #'example.generative-tests/mean-spec)
 ;; -> clojure.lang.ExceptionInfo: Generative test failed
@@ -88,7 +88,7 @@ the special +*e+ symbol to retrieve the most recent exception. Calling
 +ex-data+ on it returns information on the test case that provoked the
 error:
 
-[source,clj]
+[source,clojure]
 ----
 (ex-data *e)
 ;; -> {:exception #<ArithmeticException java.lang.ArithmeticException: 
@@ -103,7 +103,7 @@ Once highlighted in this way, the problem is easy to see; the +mean+
 function will divide by zero if +(count s)+ is zero. Fix the bug by
 rewriting the +mean+ function to handle that case:
 
-[source,clj]
+[source,clojure]
 ----
 (defn mean
   [s]
@@ -114,7 +114,7 @@ rewriting the +mean+ function to handle that case:
 
 Rerunning now shows a passing test:
 
-[source,clj]
+[source,clojure]
 ----
 (r/run 2 5000 #'example.generative-tests/mean-spec)
 ;; -> {:iter 3931, :seed -1495229764, :test testgen-test.core/mean-spec}

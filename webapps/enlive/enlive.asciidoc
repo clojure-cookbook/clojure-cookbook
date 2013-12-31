@@ -19,7 +19,7 @@ for replacement or duplication based on incoming data.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,console]
+[source,shell]
 ----
 $ lein try enlive
 ---- 
@@ -45,7 +45,7 @@ NOTE: Place this file in the _resources/_ directory, if you're using enlive in t
 
 The following Clojure code defines an Enlive template based on the contents of _post.html_.
 
-[source,clj]
+[source,clojure]
 ----
 (require '[net.cgrand.enlive-html :as html])
 
@@ -68,7 +68,7 @@ To apply the template to the data, invoke the function defined by
 applications you'll probably want to concatenate the results into a
 single string.
 
-[source,clj]
+[source,clojure]
 ----
 (reduce str (post-page sample-post))
 ----
@@ -98,7 +98,7 @@ input data. Enlive provides _snippets_ for this task -- selections
 from an input HTML which can then be repeated as many times as desired
 in the output of another template.
 
-[source,clj]
+[source,clojure]
 ----
 (def sample-post-list
   [{:author "Luke VanderHart"
@@ -127,7 +127,7 @@ in the output of another template.
 Invoking the defined +all-posts-page+ function now returns an HTML
 page populated with all three sample posts:
 
-[source,clj]
+[source,clojure]
 ----
 (reduce str (all-posts-page sample-post-list))
 ----

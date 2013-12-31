@@ -15,7 +15,7 @@ for creating GUIs with Clojure.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,console]
+[source,shell]
 ----
 $ lein try seesaw
 ----

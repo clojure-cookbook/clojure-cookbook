@@ -59,7 +59,7 @@ At the time of writing, the +into+ technique is about three times
 faster than +set+ for large collections of objects. Use it whenever
 you're working with large sets where performance is a concern.
 
-[source,text]
+[source,plain]
 ----
 user=> (def largeseq (doall (range 1e5)))
 #'user/largeseq

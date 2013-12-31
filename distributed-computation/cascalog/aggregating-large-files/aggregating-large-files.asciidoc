@@ -130,7 +130,7 @@ $ git checkout aggregation-complete
 
 You can now execute the job locally:
 
-[source,terminal]
+[source,shell]
 ----
 $ lein run -m cookbook.aggregation.Main samples/posts/posts.csv samples/posts/output
 

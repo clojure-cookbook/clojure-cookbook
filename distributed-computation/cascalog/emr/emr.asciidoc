@@ -28,7 +28,7 @@ $ git checkout etl-sample
 
 Once you have a Cascalog project, package it into an uberjar.
 
-[source,terminal]
+[source,shell]
 ----
 $ lein compile
 $ lein uberjar

@@ -17,7 +17,7 @@ input.
 
 To follow along with this recipe, add `[reiddraper/simple-check "0.5.3"]` to your project's dependencies, or start a REPL using +lein-try+:
 
-[source,console]
+[source,shell]
 ----
 $ lein try reiddraper/simple-check
 ----
@@ -33,7 +33,7 @@ which calculates the sum of the reciprocals of a sequence of numbers:
 
 The test code itself:
 
-[source,clj]
+[source,clojure]
 ----
 (require '[simple-check.core :as sc]
          '[simple-check.generators :as gen]
@@ -74,7 +74,7 @@ only if the test passes for a particular set of values.
 To run the test, invoke the +simple-check.core/quick-check+ function,
 passing it the defined property.
 
-[source,clj]
+[source,clojure]
 ----
 (sc/quick-check 100 reciprocal-sum-check)
 ----
@@ -89,7 +89,7 @@ problem: it will throw a "divide by zero" error if a zero is present
 in the input sequence. The +quick-check+ function returns a data
 structure showcasing the problem.
 
-[source,clj]
+[source,clojure]
 ----
 {:result
  #<ArithmeticException java.lang.ArithmeticException: Divide by zero>,
@@ -106,7 +106,7 @@ structure showcasing the problem.
 
 Fix the function by eliminating zero values:
 
-[source,clj]
+[source,clojure]
 ----
 (defn reciprocal-sum [s]
   (reduce + (map (partial / 1)
@@ -115,7 +115,7 @@ Fix the function by eliminating zero values:
 
 Re-running the test now indicates success.
 
-[source,clj]
+[source,clojure]
 ----
 (sc/quick-check 100 reciprocal-sum-check)
 ;; -> {:result true, :num-tests 100, :seed 1384622907885}

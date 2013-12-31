@@ -42,7 +42,7 @@ input buffering.
 
 Beware, however, of testing +show-keystroke+ at the REPL:
 
-[source,console]
+[source,shell]
 ----
 $ lein repl
 user=> (require '[keystroke.core :refer [show-keystroke]])
@@ -54,7 +54,7 @@ Enter a keystroke:
 In order to connect the console's input correctly to the REPL, use
 *+lein trampoline repl+* (+<r>+ below means user types the letter +r+):
 
-[source,console]
+[source,shell]
 ----
 $ lein trampoline repl
 user=> (require '[keystroke.core :refer [show-keystroke]])
