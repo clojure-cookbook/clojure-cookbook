@@ -25,7 +25,7 @@ $ lein try reiddraper/simple-check
 Then, find a function to test. This example uses a contrived function
 which calculates the sum of the reciprocals of a sequence of numbers:
 
-[source,clj]
+[source,clojure]
 ----
 (defn reciprocal-sum [s]
   (reduce + (map (partial / 1) s)))
