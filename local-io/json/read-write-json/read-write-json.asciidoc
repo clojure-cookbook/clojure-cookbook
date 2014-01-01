@@ -49,8 +49,8 @@ same parameters and options as their string-brethren.
 ----
         
 By virtue of JavaScript's simpler types, JSON notation has a much
-lower fidelity than Clojure data. As such, you may find you want tweak
-the way keys or values are interpeted.
+lower fidelity than Clojure data. As such, you may find you want to tweak
+the way keys or values are interpreted.
 
 One common example of this is converting JSON's string-only keys to
 proper Clojure keywords. You can apply a function to each processed

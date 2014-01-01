@@ -51,7 +51,7 @@ short strings encoded into UDP packets.
 ----
 
 The +send+ function is fairly straightforward - most of its content is
-devoted to constructring a byte array as a payload for the
+devoted to constructing a byte array as a payload for the
 +DatagramPacket+, and invoking constructor forms. The most interesting
 thing is its limitation of the payload size to 512 bytes, using the
 +length+ argument to the +DatagramPacket+ constructor. This is because

@@ -19,7 +19,7 @@ to accomplish common tasks.
 
 Almost every programming language knows how to work with and deal in
 strings. Clojure is no exception and, despite a few differences,
-Clojure provides the same general capabilites as most other
+Clojure provides the same general capabilities as most other
 languages. Here are a few key differences we think you should know
 about:
 
