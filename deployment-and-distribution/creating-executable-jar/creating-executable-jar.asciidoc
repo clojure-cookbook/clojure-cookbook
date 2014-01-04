@@ -171,7 +171,7 @@ releasing libraries.].
 
 Without its dependencies included--namely Clojure--you'll need to do a bit more
 work to run the foo application. First, download Clojure 1.5.1 from
-_http://clojure.org/downloads_. Then invoke +foo.core+  via the *+java+*
+http://clojure.org/downloads. Then invoke +foo.core+  via the *+java+*
 command, including _clojure-1.5.1.jar_ and _foo-0.1.0-SNAPSHOT.jar_ on the
 classpath (via the +-cp+ option).
 

@@ -16,7 +16,7 @@ argument to +clojure.main+.
 [NOTE]
 ====
 To follow along with this recipe, you can download a version of
-_clojure.jar_ at _http://clojure.org/downloads_.
+_clojure.jar_ at http://clojure.org/downloads.
 ====
 
 For example, given a file _my_clojure_program.clj_ with the contents:
