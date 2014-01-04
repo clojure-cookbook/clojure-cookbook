@@ -23,7 +23,7 @@ generate one with the command *+lein new
 my-first-project-<firstname>-<lastname>+*, replacing +<firstname>+ and
 +<lastname>+ with your own name.
 
-You can now use the command *+lein deploy cloajrs+* to release your
+You can now use the command *+lein deploy clojars+* to release your
 library to Clojars.
 
 [source,shell]
@@ -96,7 +96,7 @@ Code-signing is another important concern in the deployment process.
 Signing the artifacts you release lets your users know the artifacts
 were created by someone they trust (you) and contain exactly what you
 intended (i.e. they have not be tampered with). Leiningein includes
-the facitilies to sign release artifacts using GPG and include the
+the facilities to sign release artifacts using GPG and include the
 relevant _.asc_ signature files in *+lein deploy+* publications.
 Enabling code-signing is described in the GPG section of Leiningen's
 https://github.com/technomancy/leiningen/blob/stable/doc/DEPLOY.md#gpg[Deploying
