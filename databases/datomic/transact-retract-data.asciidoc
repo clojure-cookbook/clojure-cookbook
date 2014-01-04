@@ -113,5 +113,5 @@ data permanently.
 
 ==== See Also
 
-* _http://blog.datomic.com/2013/05/excision.html_, the
-  _http://datomic.com_ blog post covering the excision feature.
+* http://blog.datomic.com/2013/05/excision.html, the
+  http://datomic.com blog post covering the excision feature.

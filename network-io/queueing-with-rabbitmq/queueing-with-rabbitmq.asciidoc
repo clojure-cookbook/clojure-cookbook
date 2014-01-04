@@ -22,7 +22,7 @@ $ lein try com.novemberain/langohr
 
 In order to follow along with this recipe, you need to have RabbitMQ
 installed and running. You can find details on how to install RabbitMQ
-here: _http://www.rabbitmq.com/download.html_.
+here: http://www.rabbitmq.com/download.html.
 
 Once installed, start a standalone RabbitMQ server with the command
 +rabbitmq-server+.

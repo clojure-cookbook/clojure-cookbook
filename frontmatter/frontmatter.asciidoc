@@ -89,7 +89,7 @@ we recommend one of the following books:
 
 Finally, you should look at the source code for this book itself,
 which is freely available on Github at
-_https://github.com/clojure-cookbook/clojure-cookbook_. The selection
+https://github.com/clojure-cookbook/clojure-cookbook. The selection
 of recipes available online is larger than that in the print version,
 and we are still accepting pull requests for new recipes that might
 someday make it in to a future edition of this book.
@@ -184,11 +184,11 @@ minimum of 6 will do. For Leiningen, you should have at least
 version 2.2.
 
 If you don't have Java installed (or would like to upgrade), visit
-_http://www.oracle.com/technetwork/java/javase/downloads/index.html_ for
+http://www.oracle.com/technetwork/java/javase/downloads/index.html for
 instructions on downloading and installing the Java JDK.
 
 To install Leiningen, follow the installation instructions on
-Leiningen's website (_http://leiningen.org/_). If you already have
+Leiningen's website (http://leiningen.org/). If you already have
 Leiningen installed, get the latest version by executing the command
 *+lein upgrade+*. If you aren't familiar with Leiningen, visit the
 https://github.com/technomancy/leiningen/blob/stable/doc/TUTORIAL.md[tutorial]
@@ -210,7 +210,7 @@ user=> *clojure-version*
 ====
 Some recipes have accompanying online materials available on GitHub.
 If you do not have Git installed on your system, follow the
-instructions at _https://help.github.com/articles/set-up-git_ to
+instructions at https://help.github.com/articles/set-up-git to
 enable you to checkout a GitHub repository locally.
 ====
 

@@ -11,7 +11,7 @@ You want an easy way to route URLs to specific Ring handler functions.
 
 Use the Compojure library (https://github.com/weavejester/compojure) to add routing to your app.
 
-To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_.
 
 ._src/ringtest.clj_
 [source, clojure]
@@ -107,4 +107,4 @@ which bundles a number of ring middlewares into one convenient wrapper.
 
 ==== See Also
 
-* _http://compojure.org_
+* http://compojure.org

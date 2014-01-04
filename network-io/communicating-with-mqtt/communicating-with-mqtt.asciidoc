@@ -189,14 +189,14 @@ some actions based on an alarm that the code has received.
 
 ==== See Also
 
-* The details on MQTT protocol at _http://mqtt.org/_
+* The details on MQTT protocol at http://mqtt.org/
 * http://clojuremqtt.info/[Machine Head Documentation] of the
   https://github.com/clojurewerkz/machine_head[Machine_Head] library
 * http://www.eclipse.org/paho/[Eclipse Paho library], the Java
   library, that Machine Head uses under the hood to communicate using
   MQTT.
 * Mosquitto, an open source message broker that implements MQTT 
-  protocol at _http://mosquitto.org/_
+  protocol at http://mosquitto.org/
 * http://www.redbooks.ibm.com/abstracts/sg248054.html[Building Smarter
   Planet Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM
   Redbooks publication] explains MQTT in more details.
