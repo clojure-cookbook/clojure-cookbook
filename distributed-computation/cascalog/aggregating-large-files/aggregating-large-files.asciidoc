@@ -250,7 +250,7 @@ The +combine-aggregate-stats+ function takes the output of invoking
 the +init-aggregate-stats+ function on all the inputs and combines
 them. This function will be called over and over, combining the output
 of +init-aggregate-stats+ functions and the output of other
-invokations of itself. Its output should be the same form as its
+invocations of itself. Its output should be the same form as its
 input, since this function will be called on pairs of output until
 there is only one piece of data left. This function merges the nested
 maps, adding the values together when they are in the same key.

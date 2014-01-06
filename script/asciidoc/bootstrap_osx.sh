@@ -69,6 +69,7 @@ grep clojure "$LANG_MAP_FILE" >/dev/null || {
 
   echo "********** Appending to $LANG_MAP_FILE"
   cat <<END >> "$LANG_MAP_FILE"
+
 clojure = clojure.lang
 csv = plain.lang
 json = json.lang

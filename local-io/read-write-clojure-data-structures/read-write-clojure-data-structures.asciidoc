@@ -69,7 +69,7 @@ programs written in any language, much like XML or JSON. The
 +clojure.edn+ library is EDNs implementation for Clojure.
 
 It works much the same as the Clojure reader and writer, however, it
-provides additional security guaranteess that the Clojure reader does
+provides additional security guarantees that the Clojure reader does
 not, and should always be used for any external or untrusted input.
 ****
 

@@ -41,7 +41,7 @@ sequence.
 
 For example, the following code breaks down a string into a sequence
 of characters (+sort+ calls +seq+ on its argument), then sorts
-them. The result is concatnated back to a string, for better
+them. The result is concatenated back to a string, for better
 readability.
 
 [source,clojure]
