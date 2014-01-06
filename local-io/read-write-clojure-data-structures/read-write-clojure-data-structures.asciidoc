@@ -81,8 +81,8 @@ than that while reading or writing.
 
 [source,clojure]
 ----
-user=> (spit "data.clj" (pr-str (repeatedly 1e6 rand)))
-OutOfMemoryError Java heap space  java.util.Arrays.copyOf (Arrays.java:2882)
+(spit "data.clj" (pr-str (repeatedly 1e6 rand)))
+;; -> OutOfMemoryError Java heap space  java.util.Arrays.copyOf (Arrays.java:2882)
 ----
 
 But, if you know you are only dealing with a small amount of data,
