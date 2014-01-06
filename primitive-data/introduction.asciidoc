@@ -19,7 +19,7 @@ to accomplish common tasks.
 
 Almost every programming language knows how to work with and deal in
 strings. Clojure is no exception and, despite a few differences,
-Clojure provides the same general capabilites as most other
+Clojure provides the same general capabilities as most other
 languages. Here are a few key differences we think you should know
 about:
 
@@ -38,9 +38,9 @@ library is unexpectedly small. You'll find that small set of very
 string-specific functions in the +clojure.string+ namespace.
 
 Clojure also embraces its host platform (the JVM), and does not
-duplicate functionality already adequalty performed by Java's
+duplicate functionality already adequately performed by Java's
 +java.lang.String+ class. Using Java interop in Clojure is not a
-failure--the langauge is designed to make it straightforward, and
+failure--the language is designed to make it straightforward, and
 using the built-in string methods is usually just as easy as invoking
 a Clojure function.
 

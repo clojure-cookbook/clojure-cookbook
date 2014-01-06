@@ -19,7 +19,7 @@ aspects of Clojure.
 We hope that there is something in this book for readers of diverse
 interests. We believe that it will be useful not only as a reference
 for looking up specific tasks, but as a worthwhile survey of the
-variety and expressitivity that Clojure is capable of. As we edited
+variety and expressivity that Clojure is capable of. As we edited
 submissions, we were astonished at the at the number of concepts and
 techniques that were new to us, and will hopefully be new to our
 readers as well.
@@ -48,7 +48,7 @@ That said, if you're completely new to Clojure, this probably isn't
 the book to start with. At least, not by itself. It covers a great
 many useful topics, but not as methodically or as thoroughly as a good
 introductory text. See the "Resources" section below for a list
-of general Clojure books you may find useful as prior or supplimental
+of general Clojure books you may find useful as prior or supplemental
 texts.
 
 === Other Resources
