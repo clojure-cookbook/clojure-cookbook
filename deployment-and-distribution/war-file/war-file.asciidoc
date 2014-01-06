@@ -194,7 +194,7 @@ application server using a deployment descriptor (+web.xml+).
 
 The structure of a WAR file is:
 
-[source,shell]
+[source,plain]
 ----
 <war root>
 |-- <static resources>
