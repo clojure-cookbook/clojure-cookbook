@@ -131,7 +131,7 @@ from looking at the sequence +(5 0 0 -8 1 -2)+ it might not be
 apparent that zeros are the problem. Not knowing anything else about
 the function under test, the problem might be, for example, the
 negative numbers, or the value +5+. +simple-check+ returns not just any
-arbitratry failing input, but *the* specific input that will
+arbitrary failing input, but *the* specific input that will
 consistently cause the program to fail. As useful as it is to know
 that there is an input that will provoke failure, it's even more
 useful to know the specific problematic value. And, the larger and

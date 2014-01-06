@@ -21,7 +21,7 @@ techniques, including the SQLs, full-text search, Mongo, Redis and
 Datomic.
 
 Datomic is one of the more interesting recent developments in the
-database landscape. It is invented and maintainted by Rich Hickey (who
+database landscape. It is invented and maintained by Rich Hickey (who
 you will probably recognize as the same person who wrote Clojure
 itself.) It is a scalable, transactional, value-oriented, time-aware
 database built around the same principles and philosophies as
