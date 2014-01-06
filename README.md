@@ -77,7 +77,7 @@ asciidoc: WARNING: conventions.asciidoc: line 1: section title out of sequence: 
 ```
 
 Please correct all others or ask for guidance if the error message is unclear.
-A common one is related to callouts like "<1>" at the end of a line of code.
+A common one is related to callouts like "\<1\>" at the end of a line of code.
 
 ```
 asciidoc: WARNING: formatting-strings.asciidoc: line 57: no callouts refer to list item 1
