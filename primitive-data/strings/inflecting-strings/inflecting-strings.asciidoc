@@ -83,7 +83,7 @@ You can add your own rules for pluralization with +inflections.core/plural!+.
 ;; -> "2 boxen"
 ----
 
-Inflections also has support for inflections like +camelize+,
+inflections also has support for inflections like +camelize+,
 +parameterize+ and +ordinalize+.
 
 [source,clojure]
