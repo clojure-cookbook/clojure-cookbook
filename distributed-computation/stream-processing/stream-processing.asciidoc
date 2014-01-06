@@ -321,7 +321,7 @@ choose to emit a tuple once it received scores from each type of
 scoring bolt in the system. In this world, adjusting the factors
 determining the makeup of a user's feed and their relative weights
 would be trivial - indeed, production experience with just such a
-system was, in the opinion of the authors, delightful.
+system was, in the opinion of the authors, delightful (see https://github.com/utahstreetlabs/risingtide).
 
 ===== feed-bolt
 
@@ -532,3 +532,4 @@ code and happy programmers.
 * http://storm-project.net/[Storm's website]
 * The Storm https://github.com/travis/lein-storm-project-template[project template]
 * https://github.com/nathanmarz/storm-deploy[+storm-deploy+], a tool for easy Storm deployment.
+* https://github.com/utahstreetlabs/risingtide Rising Tide, the feed generation service on which this recipe is based
