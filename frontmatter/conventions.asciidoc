@@ -69,7 +69,7 @@ retain the traditional REPL style (with `user=>`). What follows is an
 example of each, a REPL-only sample and its simplified version.
 
 .REPL-only
-[source,clojure]
+[source,shell]
 ----
 user=> (+ 1 2)
 3
@@ -79,7 +79,7 @@ nil
 ----
 
 .Simplified
-[source,shell]
+[source,clojure]
 ----
 (+ 1 2)
 ;; -> 3
