@@ -72,7 +72,7 @@ range on the Unicode spectrum:
 
 The +char+ and +int+ functions are useful primarily for coercing a
 number into either an instance of +java.lang.Integer+ or
-+java.lang.Character+. Both +Integer+s and +Character+s are,
++java.lang.Character+. Both ++Integer++s and ++Character++s are,
 ultimately, encoded as numbers, although +Character+'s support
 additional text-related methods, and cannot be used in mathematic
 expressions without first being converted to a true numeric type.
