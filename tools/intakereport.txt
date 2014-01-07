@@ -1,0 +1,62 @@
+Clojure Cookbook, 1E / 9781449366179
+RT # [ FILL IN ]
+
+Stylesheet: cookbook
+Toolchain: Atlas/csspdf
+
+Atlas URL: http://atlas.labs.oreilly.com/books/[ FILL IN ATLAS BOOK ID ]
+
+Incoming format: Asciidoc
+Outgoing format: Asciidoc
+
+Preliminary pagecount: x + n = TOTAL  [ FILL IN / With or without figs? ]
+
+
+Resources
+=========
+
+** Intake PDFs: 
+   (Git repo) pdf/drafts/intake.pdf
+   (Git repo) pdf/drafts/intake_with_remarks.pdf
+
+** Figs: Illustrations [ FILL IN: has posted the figs / is still working on the figs]. 
+   7 total. (0 are informal; 0 are inline.)
+
+   Once the figs are processed on /work, you'll need to add them to the book's repo in Git.
+
+** Intake Report:
+   (Git repo) tools/intakereport.txt
+
+** MS Snapshot:
+    To view the submitted files, you'll need to checkout the git tag named 'manuscript_to_prod' 
+    by running the following command in your checkout:
+    
+    $ git checkout manuscript_to_prod
+    
+    This will temporarily switch the files in your repo to the state they were in when the manuscript_to_prod tag 
+    was created. 
+    To switch the files back to the current state, run:
+    
+    $ git checkout master
+  
+  
+Notes from Tools:
+=================
+
+** Syntax highlighting: applied to [ FILL IN ] out of [ FILL IN ] code listings.
+
+** Please let Tools know ASAP if there are any other global problems for which we can help automate a fix.
+
+
+Notes from Dan:
+==================
+
+
+
+==================
+
+Please let me know about any other issues.
+
+Thanks,
+[ FILL IN ]
+
