@@ -3,3 +3,7 @@
 = Clojure Cookbook
 
 include::clojure-cookbook.asciidoc[]
+
+include::index.asciidoc[]
+
+include::colo.asciidoc[]
