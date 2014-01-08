@@ -1,15 +1,15 @@
 Clojure Cookbook, 1E / 9781449366179
-RT # [ FILL IN ]
+RT # [ 173052 ]
 
 Stylesheet: cookbook
 Toolchain: Atlas/csspdf
 
-Atlas URL: http://atlas.labs.oreilly.com/books/[ FILL IN ATLAS BOOK ID ]
+Atlas URL: http://atlas.labs.oreilly.com/books/1234000001500
 
 Incoming format: Asciidoc
 Outgoing format: Asciidoc
 
-Preliminary pagecount: x + n = TOTAL  [ FILL IN / With or without figs? ]
+Preliminary pagecount (without figs): 18 + 432 = 450  
 
 
 Resources
@@ -19,7 +19,7 @@ Resources
    (Git repo) pdf/drafts/intake.pdf
    (Git repo) pdf/drafts/intake_with_remarks.pdf
 
-** Figs: Illustrations [ FILL IN: has posted the figs / is still working on the figs]. 
+** Figs: Illustrations is still working on the figs. 
    7 total. (0 are informal; 0 are inline.)
 
    Once the figs are processed on /work, you'll need to add them to the book's repo in Git.
@@ -43,7 +43,9 @@ Resources
 Notes from Tools:
 =================
 
-** Syntax highlighting: applied to [ FILL IN ] out of [ FILL IN ] code listings.
+** Syntax highlighting: applied to 921 out of 932 code listings.
+
+** Note: I fixed syntax highlighting that wasn't working, but "[source,csv]" isn't supported by Pygments.  Prod, check in with the author about using something else. 
 
 ** Please let Tools know ASAP if there are any other global problems for which we can help automate a fix.
 
@@ -51,12 +53,39 @@ Notes from Tools:
 Notes from Dan:
 ==================
 
+This book is ready for intake.
 
+Meg noted that the book has multiple authors with differing writing abilities. Please have the copyeditor watch for inconsistencies of
+style.
+
+Meg asked to have print versions for ClojureBridge (Feb 28). Not sure if it's possible. It's not a deal breaker on her part. The rough
+schedule I made doesn't have it out in time.
+
+Tools: see the author comment in the Preface (under "Chapter Listing") regarding rendering of cross references.
+
+[We're still working on rendering cross references differently. --Tools]
+
+Prod: I didn't see an Acknowledgements section. Better double check with the authors.
+
+Please add boilerplate Sarai and Using Code sections.
+
+[Done. --Tools]
+
+Prod: watch for code blocks that don't have syntax highlighting. It could be that the particular author of that section didn't know how
+to use the feature.
+
+[Fixed syntax highlighting that wasn't working, but "[source,csv]" isn't supported by Pygments.  Prod, check in with the author about using something else. --Tools]
+
+Prod: watch figure sizes. Some are too big as they are appearing initially.
+
+I see quite a few long code lines.
+
+Figure 9-1 is way too small in the incoming PDF. I can't tell whether illustrations will need to redraw it or not. Prod: alert!
 
 ==================
 
 Please let me know about any other issues.
 
 Thanks,
-[ FILL IN ]
+Chris
 
