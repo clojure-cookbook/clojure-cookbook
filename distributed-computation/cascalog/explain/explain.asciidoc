@@ -31,7 +31,7 @@ $ dot -Tpng -oslow-query.png slow-query.dot
 Now open _slow-query.png_ to see a diagram of your query.
 
 ._slow-query.png_
-image::distributed-computation/cascalog/explain/slow-query.png["",width=150]
+image::distributed-computation/cascalog/explain/clcb_0901.png["",width=150]
 
 ==== Discussion
 
