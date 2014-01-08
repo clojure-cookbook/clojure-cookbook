@@ -16,7 +16,7 @@ library.
 Before starting, add `[org.clojure/tools.cli "0.2.4"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try org.clojure/tools.cli
 ----
@@ -188,7 +188,7 @@ Just like your application needs to use +--+ to indicate arguments to
 pass onto subsequent programs, so too must you use +--+ to indicate to
 *+lein run+* which arguments are for your program and which are for it.
 
-[source,shell]
+[source,shell-session]
 ----
 # If app-specs were rigged up to a project...
 $ lein run -- -n 5 --no-verbose

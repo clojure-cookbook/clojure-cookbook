@@ -19,7 +19,7 @@ See the Overtone wiki
 (_https://github.com/overtone/overtone/wiki#installation_) for more
 detailed installation instructions.]:
 
-[source, shell]
+[source,shell-session]
 ----
 $ lein try overtone
 ----

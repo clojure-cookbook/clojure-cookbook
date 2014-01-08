@@ -17,7 +17,7 @@ in production.
 Before starting, add `[com.taoensso/timbre "2.6.3"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try com.taoensso/timbre
 ----

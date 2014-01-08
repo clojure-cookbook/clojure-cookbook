@@ -15,7 +15,7 @@ provides ways to mock functions and return fakes.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try midje clj-http
 ----

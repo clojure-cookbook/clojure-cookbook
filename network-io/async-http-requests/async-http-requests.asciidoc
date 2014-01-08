@@ -15,7 +15,7 @@ HTTP client/server library.
 Before starting, add `[http-kit "2.1.12"]` to your project's
 dependencies, or follow along in a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try http-kit
 ----

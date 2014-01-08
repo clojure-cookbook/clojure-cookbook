@@ -76,7 +76,7 @@ repository].
 
 Check out that branch to retrieve a full working copy with sample data.
 
-[source,shell]
+[source,shell-session]
 ----
 $ git checkout testing-complete
 ----

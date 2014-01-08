@@ -43,7 +43,7 @@ GitHub repository] and checkout the +aggregation-begin+ branch. This
 will give you a basic Cascalog project as created in
 <<sec_cascalog_etl>>.
 
-[source,shell]
+[source,shell-session]
 ----
 $ git clone https://github.com/clojure-cookbook/cascalog-samples.git
 $ cd cascalog-samples
@@ -122,7 +122,7 @@ repository.
 
 Check out that branch to retrieve a full working copy with sample data.
 
-[source,shell]
+[source,shell-session]
 ----
 $ git checkout aggregation-complete
 ----
@@ -130,7 +130,7 @@ $ git checkout aggregation-complete
 
 You can now execute the job locally:
 
-[source,terminal]
+[source,shell-session]
 ----
 $ lein run -m cookbook.aggregation.Main samples/posts/posts.csv samples/posts/output
 

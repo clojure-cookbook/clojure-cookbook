@@ -16,7 +16,7 @@ You can use the +tagged+ library to read and print records as
 Before starting, add `[com.velisco/tagged "0.3.0"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try com.velisco/tagged
 ----

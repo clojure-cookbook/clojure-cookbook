@@ -19,7 +19,7 @@ of recipes in this chapter that can help you create a complete
 Cascalog job. If you don't have your own, you can clone
 <<sec_cascalog_etl>>.
 
-[source,shell]
+[source,shell-session]
 ----
 $ git clone https://github.com/clojure-cookbook/cascalog-samples.git
 $ cd cascalog-samples
@@ -28,7 +28,7 @@ $ git checkout etl-sample
 
 Once you have a Cascalog project, package it into an uberjar.
 
-[source,terminal]
+[source,shell-session]
 ----
 $ lein compile
 $ lein uberjar

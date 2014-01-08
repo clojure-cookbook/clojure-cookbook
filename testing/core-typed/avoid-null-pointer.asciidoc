@@ -160,5 +160,5 @@ argument types with each arity until one matches.
   http://clojure.github.io/core.typed/#clojure.core.typed/AnyInteger[clojure.core.typed/AnyInteger].
 * Valid types are documented on the
   https://github.com/clojure/core.typed/wiki/Types[Types] wiki page.
-* Recipes <<sec_verify_java> and <<sec_verify_hof>> for further
+* Recipes <<sec_verify_java>> and <<sec_verify_hof>> for further
   examples of how to use +core.typed+.

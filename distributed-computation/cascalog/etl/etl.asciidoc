@@ -29,7 +29,7 @@ locally for small jobs or on a Hadoop cluster for larger jobs.
 
 To follow along with this recipe, create a new Leiningen project.
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein new cookbook
 ----
@@ -101,7 +101,7 @@ repository.
 To retrieve a copy of the working project, clone the project from
 GitHub and checkout the +etl-sample+ branch.
 
-[source,shell]
+[source,shell-session]
 ----
 $ git clone https://github.com/clojure-cookbook/cascalog-samples.git
 $ cd cascalog-samples

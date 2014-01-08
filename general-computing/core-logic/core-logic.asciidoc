@@ -224,7 +224,7 @@ could be followed by any other sequence of numbers/strings/lists etc.
 +_0+ is an unbound variable, since there was no further restriction on
 the list, other than +1+ being an element.
 
-[WARN]
+[WARNING]
 ====
 +clojure.core.logic/run*+ is a macro that asks for all possible
 solutions. Asking for all of the lists that contain a +1+ will not

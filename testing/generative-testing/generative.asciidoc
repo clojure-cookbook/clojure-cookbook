@@ -213,7 +213,7 @@ For example, if you've placed your generative tests in a
 execute tests by running the following at the shell, from your
 project's root directory:
 
-[source,shell]
+[source,shell-session]
 ----
 lein run -m clojure.test.generative.runner tests/generative
 ----
@@ -231,5 +231,5 @@ provided in this way, and run accordingly.
 
 - The https://github.com/clojure/test.generative[+test.generative+] page on Github
 - The QuickCheck Haskell library
-- <sec_simplecheck>> on SimpleCheck, a property-based testing library for Clojure with some overlap with +test.generative+ and some unique features.
+- <<sec_simplecheck>> on SimpleCheck, a property-based testing library for Clojure with some overlap with +test.generative+ and some unique features.
 

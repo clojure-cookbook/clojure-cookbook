@@ -46,7 +46,7 @@ access to property files.
 Include the `[propertea "1.2.3"]` dependency in your _project.clj_
 file, or start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try propertea 1.2.3
 ----

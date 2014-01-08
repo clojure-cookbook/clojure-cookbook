@@ -17,7 +17,7 @@ Use the +clj-pdf+ library to create the report.
 Before starting, add `[clj-pdf "1.11.6"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try clj-pdf
 ----

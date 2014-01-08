@@ -77,7 +77,7 @@ To connect to the sever, you can use a _telnet_ client, which is
 installed by default on nearly every operating system. To use it, open
 up a command line window:
 
-[source,shell]
+[source,shell-session]
 ----
 $ telnet localhost 8888
 Trying ::1...
@@ -88,7 +88,7 @@ Escape character is '^]'.
 At this point you can type anything you like. When you finish, make
 sure you type "enter" or "return" to send a newline character.
 
-[source,shell]
+[source,shell-session]
 ----
 $ telnet localhost 8888
 Trying ::1...

@@ -44,7 +44,7 @@ the rest of the document.
 
 To write an XML file, pass an XML structure map to
 +clojure.xml/emit+. +emit+ spits the XML to the currently bound output
-stream (+*out*+), so to write to a file either bind +*out*+ to the
+stream (*+out+*), so to write to a file either bind *+out+* to the
 file's output stream, or capture the output stream to a string with the
 +with-out-str+ macro, which you can then +spit+ to a file:
 
