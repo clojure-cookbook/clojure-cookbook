@@ -58,7 +58,7 @@ would be the fully qualified class name to execute,
 URI for the output.
 
 .Specify Parameters
-image::distributed-computation/cascalog/emr/clcb_0902.png["",width="350"]
+image::images/clcb_0902.png["",width="350"]
 
 The next few wizard windows allow your to specify additional
 configuration options for the job. Select "Continue" until you reach
