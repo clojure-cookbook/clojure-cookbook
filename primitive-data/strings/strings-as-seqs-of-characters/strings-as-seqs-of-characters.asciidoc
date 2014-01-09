@@ -18,7 +18,7 @@ Use +seq+ on a string to expose the sequence of characters representing it.
 ----
 
 You don't need to call +seq+ every time you want to get at a strings
-characters, though. Any function taking a function will naturally
+characters, though. Any function taking a sequence will naturally
 coerce a string into a sequence of characters.
 
 [source,clojure]

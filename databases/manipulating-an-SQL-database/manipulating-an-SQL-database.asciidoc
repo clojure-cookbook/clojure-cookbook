@@ -23,7 +23,7 @@ Wiki].]
 After you have PostgreSQL running (presumably on _localhost:5432_) run the following
 command to create a database for this recipe:
 
-[source,bash]
+[source,shell]
 ----
 # On Mac
 $ /Applications/Postgres93.app/Contents/MacOS/bin/createdb cookbook_experiments
@@ -184,7 +184,7 @@ updated.
 
 Database transactions are available to ensure that multiple operations
 are performed atomically (i.e. all or none). The
-+clojure.java.jdbc/db-transaction+ macro creates a transaction-aware
++clojure.java.jdbc/with-db-transaction+ macro creates a transaction-aware
 connection from the database specification. Use the transaction-aware
 connection for the duration of the transaction:
 

@@ -65,7 +65,7 @@ Examining the file using the Unix `od` program to do a hex dump from the
 command line shows that the file consists of zeros with our +1234+ at
 the end:
 
-[source,bash]
+[source,shell]
 ----
 $ od -Ad -tx4 /tmp/longfile
 0000000          00000000        00000000        00000000        00000000

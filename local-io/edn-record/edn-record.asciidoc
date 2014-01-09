@@ -96,7 +96,7 @@ used to extend +edn+ to read your record tags. When the +edn+ reader
 can't parse a tag it attempts to use a function specified by its
 +:default+ option to re-hydrate tags. By providing the
 +tagged-default-reader+ as this +:default+ option you allow the +edn+
-reader to properly interpet your tagged record values.
+reader to properly interpret your tagged record values.
 
 ==== See Also
 

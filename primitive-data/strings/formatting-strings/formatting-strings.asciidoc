@@ -33,14 +33,14 @@ For greater control over how values are printed use the +format+ function.
 ----
 ;; Produce a filename with a zero-padded sortable index
 (defn filename [name i]
-  (format "%03d-%s" i name)) <1>
+  (format "%03d-%s" i name)) ; <1>
 
 (filename "my-awesome-file.txt" 42)
 ;; -> "042-my-awesome-file.txt"
 
 ;; Create a table using justification
 (defn tableify [row]
-  (apply format "%-20s | %-20s | %-20s" row)) <2>
+  (apply format "%-20s | %-20s | %-20s" row)) ; <2>
 
 (def header ["First Name", "Last Name", "Employee ID"])
 (def employees [["Ryan", "Neufeld", 2]
@@ -80,7 +80,7 @@ which implements +printf+ style value substitution.
 A format string is a normal string with any number of embedded format
 specifiers. A format specifier is a placeholder to be replaced by a
 value some time later. In its simplest form this is a +%+ followed by
-a type specifier character, for example "+%d+" for a integer ('d' is for digit), or "+%f%"
+a type specifier character, for example "+%d+" for a integer ('d' is for digit), or "+%f+"
 for a float. Beyond specifiers for strings, integers and floats, there are specifiers for characters, dates, and numbers of different bases (octal, hexadecimal) to name a few.
 
 What makes these format specifiers special is that you may indicate

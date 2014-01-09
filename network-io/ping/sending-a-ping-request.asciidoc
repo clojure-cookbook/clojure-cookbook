@@ -26,7 +26,7 @@ most cases will be blocked by a firewall. More information can be
 found in the Java docs (see <<sec_sending_ping_see_also>>).
 
 A common need when pinging another machine is to time the ping. You
-can wrap an +.isReachable+ invokation in a function +timed-ping+ to
+can wrap an +.isReachable+ invocation in a function +timed-ping+ to
 return timing values with every ping.
 
 [source,clojure]

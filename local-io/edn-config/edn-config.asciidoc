@@ -17,7 +17,7 @@ know its own hostname and connection info for a relational database
 might look something like this:
 
 ._config.edn_
-[source,clj]
+[source,clojure]
 ----
 {:hostname "localhost"
  :database {:host "my.db.server"
@@ -30,7 +30,7 @@ might look something like this:
 The basic function to read this data into a Clojure map is trivial
 using the +edn+ reader.
 
-[source,clj]
+[source,clojure]
 ----
 (require '[clojure.edn :as edn])
 
@@ -106,7 +106,7 @@ configuration files, each handling a different type of concern, and
 then merge them into a single configuration map before passing it on
 to the application. This typically uses a simple deep-merge function:
 
-[source,clj]
+[source,clojure]
 ----
 (defn deep-merge
   "Deep merge two maps"
@@ -123,7 +123,7 @@ the resulting map.
 Then, you can rewrite the config loader to accept multiple config
 files, and merge them together:
 
-[source,clj]
+[source,clojure]
 ----
 (defn load-config
   [& filenames]
@@ -134,7 +134,7 @@ files, and merge them together:
 Using it on two seperate +edn+ config files yields a merged map:
 
 ._config-public.edn_
-[source,clj]
+[source,clojure]
 ----
 {:hostname "localhost"
  :database {:host "my.db.server"
@@ -144,12 +144,12 @@ Using it on two seperate +edn+ config files yields a merged map:
 ----
 
 ._config-private.edn_
-[source,clj]
+[source,clojure]
 ----
 {:database {:password "s3cr3t"}}
 ----
 
-[source,clj]
+[source,clojure]
 ----
 (load-config "config-public.edn" "config-private.edn")
 ;; -> {:hostname "localhost", :database {:password "s3cr3t",
@@ -215,7 +215,7 @@ to one of your project's namespaces.
 Now, the configuration your application loads will depend on which
 _profile_ your project is running in.
 
-[source,console]
+[source,shell]
 ----
 # "dev" is one of Leiningen's default profiles
 $ lein repl

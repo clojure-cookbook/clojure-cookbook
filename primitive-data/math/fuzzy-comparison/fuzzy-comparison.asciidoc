@@ -81,9 +81,9 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance.
 ----
 (defn fuzzy-comparator [tolerance]
   (fn [x y]
-    (if (fuzzy= tolerance x y) <1>
+    (if (fuzzy= tolerance x y) ; <1>
       0
-      (compare x y)))) <2>
+      (compare x y)))) ; <2>
 
 (sort (fuzzy-comparator 10) [100 11 150 10 9])
 ;; -> (11 10 9 100 150) ; 100 and 150 have moved, but not 11, 10, 9

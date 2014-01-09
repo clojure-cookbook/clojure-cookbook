@@ -54,7 +54,7 @@ Ring handler function.
 +lein-ring+ provides a handy way to run your application locally, for
 development and testing. At the command line, simply type:
 
-[source,bash]
+[source,shell]
 ----
 $ lein ring server
 ----
@@ -68,12 +68,12 @@ Once you think the application is running correctly, you can build a
 WAR file using the *+lein ring war+* or *+lein ring uberwar+*
 commands. Both take the name of the war file to emit.
 
-[source,bash]
+[source,shell]
 ----
 $ lein ring war warsample.war
 ----
 
-[source,bash]
+[source,shell]
 ----
 $ lein ring uberwar warsample-with-deps.war
 ----
@@ -194,7 +194,7 @@ application server using a deployment descriptor (+web.xml+).
 
 The structure of a WAR file is:
 
-[source,console]
+[source,plain]
 ----
 <war root>
 |-- <static resources>

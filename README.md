@@ -13,6 +13,103 @@ Every author of an accepted contribution will receive a *free digital copy of th
 
 **No contribution is too small**. We welcome anything from typo fixes or ideas for recipes all the way to complete recipes and anything in between. You can find more information on how to contribute in our [CONTRIBUTING.md](CONTRIBUTING.md) document.
 
+## Building the Book
+
+You can build a PDF/MOBI/EPUB/HTML version of the book with the `asciidoc`
+command-line utility.  (You must also have the `source-highlight` application
+installed and properly configured.)
+
+### Pre-requisites
+
+You must have the `asciidoc` and `source-highlight` command-line utilities
+installed and configured before attempting to build the book.
+
+To install and configure the tools on OS X,
+run the included [`bootstrap_osx.sh`](script/asciidoc/bootstrap_osx.sh) script:
+
+```sh
+$ ./script/asciidoc/bootstrap_osx.sh
+```
+
+Linux users will need to follow a similar process to
+[`bootstrap_osx.sh`](script/asciidoc/bootstrap_osx.sh), but we have not
+automated it yet. The most important part after installing `asciidoc` and
+`source-highlight` is to obtain and configure the proper bindings for Clojure
+(and other) syntax highlighting.
+
+### Rendering
+
+With installation and configuration complete, all that is left is to run the `asciidoc` command.
+
+* To render a single document:
+
+    ```sh
+    $ asciidoc -b html5 conventions.asciidoc
+    # ... outputs conventions.html
+    ```
+
+* To render the entire book:
+
+    ```sh
+    $ asciidoc -b html5 clojure-cookbook.asciidoc
+    # ... outputs clojure-cookbook.html
+    ```
+
+**NOTE**: Rendered out put is *similar* to the final book, but does not include O'Reilly style sheets.
+
+### Testing
+
+To verify asciidoc files are without error/warning, run the following:
+
+```sh
+$ ./script/asciidoc/check.sh
+```
+The only output should be the file detail.
+
+
+#### Fixing Asciidoc Warnings/Errors
+
+The only acceptable warning is related to structure of the book sections. It's
+OK to ignore this one:
+
+```
+asciidoc: WARNING: conventions.asciidoc: line 1: section title out of sequence: expected level 1, got level 2
+```
+
+Please correct all others or ask for guidance if the error message is unclear.
+A common one is related to callouts like "\<1\>" at the end of a line of code.
+
+```
+asciidoc: WARNING: formatting-strings.asciidoc: line 57: no callouts refer to list item 1
+```
+
+To prevent this warning, the callout must be commented using the language
+appropriate comment character(s). This also keeps the code runnable in the REPL
+when pasted.
+
+Clojure Example:
+
+```clojure
+(defn foo [] "bar" ) <1>
+```
+
+requires a semicolon before the callout reference
+
+```clojure
+(defn foo [] "bar" ) ; <1>
+```
+
+Console Example:
+```sh
+Username: <1>
+```
+
+should be
+
+```sh
+Username: #<1>
+```
+
 #### Trusted Contributors
 
 The following users are trusted contributors (push access) that have proven themselves through excellent judgement and outstanding contributions to the book. We support and strongly encourage these users to make corrections and improvements to the book at will (recipes aside.)

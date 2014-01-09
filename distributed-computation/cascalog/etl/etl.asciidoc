@@ -84,10 +84,10 @@ Create the file _src/cookbook/etl.clj_ and add a query to it.
     (vec->csv ?authors :> ?out-csv)))
 ----
 
-Create a file with input data in _samples/books/books.csv_.
+Create a file with input data in _samples/books/books.json_.
 
-._samples/books/books.csv_
-[source,csv]
+._samples/books/books.json_
+[source,json]
 ----
 {"name": "Clojure Cookbook", "authors": ["Ryan", "Luke"]}
 ----
@@ -112,7 +112,7 @@ $ git checkout etl-sample
 You can now execute the job locally with *+lein run+*, providing an
 input and output file.
 
-[source,console]
+[source,shell]
 ----
 $ lein run -m cookbook.etl.Main samples/books/books.json samples/books/output
 

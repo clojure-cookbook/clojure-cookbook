@@ -14,7 +14,7 @@ system.
 
 To follow along, start a repl using +lein-try+:
 
-[source,console]
+[source,shell]
 ----
 $ lein try org.clojars.hozumi/clj-commons-exec "1.0.6"
 ----

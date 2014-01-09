@@ -85,7 +85,7 @@ touching the +Daemon+ interface.
 Package all of the necessary dependencies and generated classes by
 invoking the Leiningen +uberjar+ command.
 
-[source,console]
+[source,shell]
 ----
 $ lein uberjar
 Compiling my-daemon.core
@@ -95,7 +95,7 @@ Created /tmp/my-daemon/target/my-daemon-0.1.0-SNAPSHOT-standalone.jar
 
 Before proceeding, test your application by running it with *+java+*.
 
-[source,console]
+[source,shell]
 ----
 $ java -jar target/my-daemon-0.1.0-SNAPSHOT-standalone.jar
 tick
@@ -116,7 +116,7 @@ path of your Java home directory, uber JAR, output log file, and the
 namespace where your +Daemon+ implementation resides footnote:[Don't
 worry, we'll capture this all in a shell script soon...].
 
-[source,console]
+[source,shell]
 ----
 $ sudo jsvc -java-home "$JAVA_HOME" \
             -cp "$(pwd)/target/my-daemon-0.1.0-SNAPSHOT-standalone.jar" \
@@ -258,7 +258,7 @@ respectively. Any arguments following the name of the class to invoke
 will be passed into +-init+ as a +DaemonContext+.
 
 .A more complete example
-[source,console]
+[source,shell]
 ----
 $ sudo jsvc -java-home "$JAVA_HOME" \
             -cp "$(pwd)/target/my-daemon-0.1.0-SNAPSHOT-standalone.jar" \

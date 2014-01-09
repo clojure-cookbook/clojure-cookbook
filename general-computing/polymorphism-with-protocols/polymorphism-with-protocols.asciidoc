@@ -34,7 +34,7 @@ map-based dispatch using functions like +cond+ or +condp+.
 This approach is a little raw, though; +area+ ties together dispatch
 and multiple shapes' area implementations, all under one function. Use
 the +defmulti+ and +defmethod+ macros to define a multimethod,
-separatating dispatch from implementation, and introducing a measure
+separating dispatch from implementation, and introducing a measure
 of extensibility.
 
 [source,clojure]
@@ -97,7 +97,7 @@ extend it with concrete implementations.
 As you've seen in this recipe, there are a multitude of different ways
 to implement polymorphism in Clojure. While the example above
 settled on protocols as a method for implementing polymorphism, there
-are no hard and fast rules about which techinique to use. Each
+are no hard and fast rules about which technique to use. Each
 approach has its own unique set of trade-offs that need to be
 considered when introducing polymorphism.
 
@@ -108,7 +108,7 @@ uses. This approach is best used in-the-small; you could use +cond+ to
 prototype early iterations of a protocol at the REPL, or in places
 where you aren't defining new types.
 
-It's important to note, there are techiniques beyond +cond+ for
+It's important to note, there are techniques beyond +cond+ for
 implementing map-based dispatch. One such technique is a dispatch
 map, generally implemented as a map of keys to functions.
 

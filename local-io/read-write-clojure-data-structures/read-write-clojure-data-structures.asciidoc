@@ -69,7 +69,7 @@ programs written in any language, much like XML or JSON. The
 +clojure.edn+ library is EDNs implementation for Clojure.
 
 It works much the same as the Clojure reader and writer, however, it
-provides additional security guaranteess that the Clojure reader does
+provides additional security guarantees that the Clojure reader does
 not, and should always be used for any external or untrusted input.
 ****
 
@@ -81,8 +81,8 @@ than that while reading or writing.
 
 [source,clojure]
 ----
-user=> (spit "data.clj" (pr-str (repeatedly 1e6 rand)))
-OutOfMemoryError Java heap space  java.util.Arrays.copyOf (Arrays.java:2882)
+(spit "data.clj" (pr-str (repeatedly 1e6 rand)))
+;; -> OutOfMemoryError Java heap space  java.util.Arrays.copyOf (Arrays.java:2882)
 ----
 
 But, if you know you are only dealing with a small amount of data,

@@ -62,8 +62,8 @@ which, supply a descriptive name string as the first argument to
 At its core, the +tools.trace+ library is all about introspecting upon
 the execution of a body of code. The +trace+ function is the simplest
 and most low-level tracing operation. Wrapping a value in an
-invokation of +trace+ does two things: it logs a tracer message to
-STDOUT, and, most importantly, returns the original value unadultered.
+invocation of +trace+ does two things: it logs a tracer message to
+STDOUT, and, most importantly, returns the original value unadulterated.
 +tools.trace+ provides a number of other granularities for tracing
 execution.
 

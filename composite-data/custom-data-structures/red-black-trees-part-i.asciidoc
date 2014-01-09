@@ -36,7 +36,7 @@ implementation of a RBT.
 Add `[org.clojure/core.match "0.2.0"]` to your project's
 dependencies, or start a REPL with +lein-try+:
 
-[source,console]
+[source,shell]
 ----
 lein try org.clojure/core.match
 ----

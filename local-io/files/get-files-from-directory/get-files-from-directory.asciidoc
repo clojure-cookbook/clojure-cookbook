@@ -17,7 +17,7 @@ of +java.io.File+ objects.
 To follow along with this recipe, create some sample files and folders
 using these commands (on Linux or Mac):
 
-[source,console]
+[source,shell]
 ----
 $ mkdir -p next-gen
 $ touch next-gen/picard.jpg next-gen/locutus.bmp next-gen/data.txt

@@ -34,7 +34,7 @@ Wiki].]
 After you have PostgreSQL running (presumably on _localhost:5432_) run the following
 command to create a database for this recipe:
 
-[source,bash]
+[source,shell]
 ----
 # On Mac
 $ /Applications/Postgres.app/Contents/MacOS/bin/createdb learn_korma

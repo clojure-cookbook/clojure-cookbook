@@ -23,18 +23,18 @@ generate one with the command *+lein new
 my-first-project-<firstname>-<lastname>+*, replacing +<firstname>+ and
 +<lastname>+ with your own name.
 
-You can now use the command *+lein deploy cloajrs+* to release your
+You can now use the command *+lein deploy clojars+* to release your
 library to Clojars.
 
-[source,console]
+[source,shell]
 ----
 $ lein deploy clojars
 WARNING: please set :description in project.clj.
 WARNING: please set :url in project.clj.
 No credentials found for clojars (did you mean `lein deploy clojars`?)
 See `lein help deploy` for how to configure credentials.
-Username: <1>
-Password: <2>
+Username: #<1>
+Password: #<2>
 Wrote .../my-first-project-ryan-neufeld/pom.xml
 Created .../my-first-project-ryan-neufeld-0.1.0-SNAPSHOT.jar
 Could not find metadata my-first-project-ryan-neufeld:.../0.1.0-SNAPSHOT/maven-metadata.xml \
@@ -96,7 +96,7 @@ Code-signing is another important concern in the deployment process.
 Signing the artifacts you release lets your users know the artifacts
 were created by someone they trust (you) and contain exactly what you
 intended (i.e. they have not be tampered with). Leiningein includes
-the facitilies to sign release artifacts using GPG and include the
+the facilities to sign release artifacts using GPG and include the
 relevant _.asc_ signature files in *+lein deploy+* publications.
 Enabling code-signing is described in the GPG section of Leiningen's
 https://github.com/technomancy/leiningen/blob/stable/doc/DEPLOY.md#gpg[Deploying

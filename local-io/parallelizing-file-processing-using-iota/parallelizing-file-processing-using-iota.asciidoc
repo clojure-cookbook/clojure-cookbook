@@ -16,7 +16,7 @@ Clojure Reducers library in the +clojure.core.reducers+ namespace.
 
 To follow along with this recipe, add `[iota "1.1.1"]` to your project's dependencies, or start a REPL with +lein-try+:
 
-[source,console]
+[source,shell]
 ----
 $ lein try iota
 ----

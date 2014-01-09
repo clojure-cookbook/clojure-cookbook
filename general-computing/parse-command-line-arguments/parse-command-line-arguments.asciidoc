@@ -129,7 +129,7 @@ to specify it as such.
 ----
 
 One thing the +tools.cli+ library *doesn't* provide is a hook into the
-application container's launch lifecycle. It is your responsiblity to
+application container's launch lifecycle. It is your responsibility to
 add a +cli+ call to your +-main+ function and know when to print the
 help banner. A general pattern for use is to capture the results of
 +cli+ in a +let+-block and determine if help needs to be printed. This
