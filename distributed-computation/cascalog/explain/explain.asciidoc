@@ -23,7 +23,7 @@ Next, you'll want to view the dotfile. There are many ways to do that,
 but the easiest is probably by using +dot+, one of the graphviz tools,
 to convert a dotfile to a PNG or GIF.
 
-[source,shell]
+[source,shell-session]
 ----
 $ dot -Tpng -oslow-query.png slow-query.dot
 ----

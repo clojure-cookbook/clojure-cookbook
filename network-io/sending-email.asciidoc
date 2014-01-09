@@ -13,7 +13,7 @@ messages.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try com.draines/postal
 ----

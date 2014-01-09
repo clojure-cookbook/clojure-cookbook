@@ -16,7 +16,7 @@ To follow along with this recipe, start a REPL using +lein-try+ footnote:[If
 you haven't already installed +lein-try+, follow the instructions in
 <<sec_lein_try>>]:
 
-[source,shell]
+[source,shell-session]
 ----
 lein try inflections
 ----

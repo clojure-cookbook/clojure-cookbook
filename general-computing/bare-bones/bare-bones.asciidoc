@@ -13,7 +13,7 @@ Obtain the Clojure JAR file by downloading and unzipping a release
 from http://clojure.org/downloads. Using a terminal, navigate to
 where you extracted the JAR, and start a Clojure REPL.
 
-[source,shell]
+[source,shell-session]
 ----
 $ java -cp "clojure-1.5.1.jar" clojure.main
 ----

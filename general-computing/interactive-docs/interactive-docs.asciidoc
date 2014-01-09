@@ -11,7 +11,7 @@ From a REPL, you want to read documentation for a function.
 
 Print the documentation for a function at the REPL with the +doc+ macro.
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (doc conj)
  -------------------------
@@ -24,7 +24,7 @@ clojure.core/conj
 
 Print the source code for a function at the REPL with the +source+ macro.
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (source reverse)
 (defn reverse
@@ -37,7 +37,7 @@ user=> (source reverse)
 
 Find functions with documentation matching a given regular expression using +find-doc+.
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (find-doc #"defmacro")
  -------------------------
@@ -68,7 +68,7 @@ You can peek under the hood at almost everything in Clojure at any
 time. The next example may be a bit mind-expanding if you're not used
 to this level of introspection at runtime:
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (source source)
 (defmacro source
@@ -92,7 +92,7 @@ available.  You can get around this by namespacing the macros
 (+clojure.repl/doc+ instead of +doc+,) or, for extended use, by ++use++'ing the
 namespace
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (ns foo)
 foo=> (doc +)

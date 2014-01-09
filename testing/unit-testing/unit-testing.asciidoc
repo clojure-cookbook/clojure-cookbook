@@ -204,7 +204,7 @@ _<project-root>/test_ folder and you can run your project's tests with
 *+lein test+* at the command-line. Without any additional arguments the
 *+lein test+* command will execute all of the tests in a project. 
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein test
 
@@ -218,7 +218,7 @@ Ran 10 tests containing 20 assertions.
 To limit the scope of tests Leiningen runs, use the +:only+ option,
 followed by a fully-qualified namespace or function name.
 
-[source,shell]
+[source,shell-session]
 ----
 # To run an entire namespace
 $ lein test :only com.example.core-test

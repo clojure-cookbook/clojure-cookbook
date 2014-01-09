@@ -28,7 +28,7 @@ easily extended to solve real world problems.
 
 First create a new Storm project using its Leiningen template:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein new cookbook-storm-project feeds
 ----
@@ -36,7 +36,7 @@ $ lein new cookbook-storm-project feeds
 In the project directory, run the default storm topology (which the
 lein template has generated for you):
 
-[source,shell]
+[source,shell-session]
 ----
 $ cd feeds
 $ lein run -m feeds.topology/run!
@@ -153,7 +153,7 @@ You'll also need to update the +:require+ statement in that file:
 Run the topology again. Feeds will be printed to the console by the
 final bolts in the topology:
 
-[source,shell]
+[source,shell-session]
 $ lein run -m feeds.topology/run!
 
 ==== Discussion
@@ -490,7 +490,7 @@ compiled to look like a normal Java classfile. You can upload this JAR
 to the machine running Storm's *Nimbus* daemon and submit it for
 execution using the +storm+ command:
 
-[source,shell]
+[source,shell-session]
 ----
 $ storm jar path/to/thejariuploaded.jar feeds.TopologySubmitter "workers" 5
 ----

@@ -51,7 +51,7 @@ higher-order function +f+ which takes zero or one argument.
 
 Timbre outputs rich profiling information in a convenient table.
 
-[source,shell]
+[source,shell-session]
 ----
 2013-Aug-25 11:23:31 +0800 ambrose-VirtualBox INFO [book.profiling-timbre] - Profiling :taoensso.timbre.profiling/Bench-f
                         Name  Calls       Min        Max       MAD      Mean   Time% Time

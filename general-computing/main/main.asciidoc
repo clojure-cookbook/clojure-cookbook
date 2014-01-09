@@ -29,7 +29,7 @@ For example, given a file _my_clojure_program.clj_ with the contents:
 
 Invoke the +java+ command with _my_clojure_program.clj_ as the final argument:
 
-[source,shell]
+[source,shell-session]
 ----
 $ java -cp clojure.jar clojure.main my_clojure_program.clj
 Hi.
@@ -50,7 +50,7 @@ To load and run the +-main+ function, specify the desired namespace
 with the +-m+/+--main+ option and add _src_ to the classpath list (via
 +-cp+).
 
-[source,shell]
+[source,shell-session]
 ----
 $ java -cp clojure.jar:src clojure.main --main com.example.my-program
 Hey!
@@ -82,7 +82,7 @@ file called _hello.clj_.
 
 Invoking this Clojure program directly will yield predictable output.
 
-[source,shell]
+[source,shell-session]
 ----
 $ java -cp clojure.jar clojure.main hello.clj Alice Bob
 Hello, Alice!
@@ -123,7 +123,7 @@ provides a +-main+ function, like so:
 When you invoke Clojure with +foo.core+ as the "main" namespace, it
 calls the +-main+ function with the provided command line arguments.
 
-[source,shell]
+[source,shell-session]
 ----
 $ java -cp clojure.jar:src clojure.main --main foo Alice Bob
 Hello, Alice!

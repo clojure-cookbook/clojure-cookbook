@@ -22,7 +22,7 @@ your own GitHub username; you'll be publishing this
 template to Clojars and it will need a unique name. In the examples
 we'll use `clojure-cookbook` as our GitHub username.
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein new template cookbook-sample-template-clojure-cookbook
 Generating fresh 'lein new' template project.
@@ -128,7 +128,7 @@ _src/leiningen/new/<project-name>/foo.clj_ file as well.
 To test the template locally, change directories to the root of your template
 project and run:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein install
 $ lein new cookbook-sample-template-clojure-cookbook my-first-website --snapshot
@@ -157,7 +157,7 @@ templates:
 Next, visit http://clojars.org[clojars.org] to create a
 Clojars account and then deploy from the template project root:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein deploy clojars
 ----
@@ -166,7 +166,7 @@ Other users can now create projects using your template name as the
 first argument to *+lein new+*. Leiningen will automatically fetch your
 project template from Clojars.
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein new cookbook-sample-template-clojure-cookbook my-second-website
 ----

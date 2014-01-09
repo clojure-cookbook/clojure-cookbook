@@ -17,7 +17,7 @@ input.
 
 To follow along with this recipe, add `[reiddraper/simple-check "0.5.3"]` to your project's dependencies, or start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try reiddraper/simple-check
 ----

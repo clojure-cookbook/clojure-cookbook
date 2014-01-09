@@ -16,7 +16,7 @@ Use +core.typed+ to type check higher-order functions.
 To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ touch core_typed_samples.clj
 $ lein try org.clojure/core.typed
@@ -52,7 +52,7 @@ function taking anything and returning anything.
 
 Verifying +hash-of?+ confirms that the type annotations above are correct.
 
-[source,shell]
+[source,shell-session]
 -----
 user=> (require '[clojure.core.typed :as t])
 user=> (t/check-ns 'core-typed-samples)
@@ -64,7 +64,7 @@ Using the +clojure.core.typed/cf+ macro you can type check individual
 forms at the REPL (or under test). Invoking +hash-of?+ with two
 predicates verifies as expected, outputting the resulting type.
 
-[source,shell]
+[source,shell-session]
 -----
 user=> (require '[core-typed-samples :refer [hash-of?]])
 user=> (t/cf (hash-of? number? number?))
@@ -73,7 +73,7 @@ user=> (t/cf (hash-of? number? number?))
 
 Passing `+` as a predicate, however, is a type error.
 
-[source,shell]
+[source,shell-session]
 -----
 user=> (t/cf (hash-of? + number?))
 Type Error (user:1:7) Type mismatch:
@@ -112,7 +112,7 @@ only for checking your code, but investigating built-in functions.
 Invoking +cf+ on any of Clojure' higher-order functions reveals their
 type signatures.
 
-[source,shell]
+[source,shell-session]
 -----
 user=> (t/cf iterate)
 (All [x] 
@@ -126,7 +126,7 @@ and returns an x, and takes an x, and returns a lazy sequence of x".
 The +cf+ macro can also detect when the wrong number of arguments are
 being passed to a function returned by another function.
 
-[source,shell]
+[source,shell-session]
 -----
 user=> (t/cf (fn [] ((hash-of? + number?))))
 Type Error (user:1:15) Type mismatch:

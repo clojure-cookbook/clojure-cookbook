@@ -26,7 +26,7 @@ to the +:plugins+ vector of the +:user+ profile:
 Now you can experience nearly instant gratification with the library
 of your choice:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try clj-time
 Retrieving clj-time/clj-time/0.6.0/clj-time-0.6.0.pom from clojars
@@ -52,7 +52,7 @@ released version of libraries.
 Of course you can specify a library version if you like. Just add the
 version number afterward:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try clj-time 0.5.1
 #...
@@ -61,7 +61,7 @@ user=>
 
 For a quick view of usage options, invoke *+lein help try+*:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein help try
 Launch REPL with specified dependencies available.

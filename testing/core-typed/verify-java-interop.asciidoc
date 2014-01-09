@@ -19,7 +19,7 @@ Use +core.typed+ to type check Java interop calls.
 To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ touch core_typed_samples.clj
 $ lein try org.clojure/core.typed
@@ -54,7 +54,7 @@ us that there is a reflective call to the `java.io.File` constructor.
 Checking this namespace at the REPL with +clojure.core.typed/check-ns+ will
 tell report the same information, albeit in the form of a type error.
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (require '[clojure.core.typed :as t])
 user=> (t/check-ns 'core-typed-samples)
@@ -83,7 +83,7 @@ Add a type hint to call the `public File(String pathname)` constructor
 
 Checking again, core.type is satisfied.
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (t/check-ns 'core-typed-samples)
 # ...
@@ -138,7 +138,7 @@ good? No. Checking this function with +core.typed+ tells another story;
 Java's return types are _nullable_ and +core.typed+ knows it. It is
 possible that +getParent+ will return +nil+ instead of a +String+.
 
-[source,shell]
+[source,shell-session]
 ----
 user=> (t/check-ns 'core-typed-samples)
 # ...

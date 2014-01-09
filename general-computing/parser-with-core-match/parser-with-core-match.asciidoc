@@ -34,7 +34,7 @@ expression represented as maps of maps.
 Before starting, add `[org.clojure/core.match "0.2.0"]` to your
 project's dependencies, or start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try org.clojure/core.match
 ----

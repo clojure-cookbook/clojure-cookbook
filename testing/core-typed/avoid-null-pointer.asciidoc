@@ -16,7 +16,7 @@ check a namespace for misuses of `nil`.
 To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ touch core_typed_samples.clj
 $ lein try org.clojure/core.typed

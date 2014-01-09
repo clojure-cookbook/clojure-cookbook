@@ -26,7 +26,7 @@ Discussion section.
 
 To follow along with this recipe, add `[clojurewerkz/elastisch "1.2.0"]` to your project's dependencies, or start a REPL use +lein-try+:
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein try clojurewerkz/elastisch
 ----

@@ -112,7 +112,7 @@ $ git checkout etl-sample
 You can now execute the job locally with *+lein run+*, providing an
 input and output file.
 
-[source,shell]
+[source,shell-session]
 ----
 $ lein run -m cookbook.etl.Main samples/books/books.json samples/books/output
 

@@ -215,7 +215,7 @@ to one of your project's namespaces.
 Now, the configuration your application loads will depend on which
 _profile_ your project is running in.
 
-[source,shell]
+[source,shell-session]
 ----
 # "dev" is one of Leiningen's default profiles
 $ lein repl
