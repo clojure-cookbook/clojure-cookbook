@@ -63,7 +63,7 @@ LANG_MAP_FILE="$SOURCE_HIGHLIGHT_DIR/lang.map"
 
 # Add mappings to $SOURCE_HIGHLIGHT_DIR/lang.map
 # DO NOT REMOVE lang.map -- it has other mappings
-grep clojure "$LANG_MAP_FILE" >/dev/null || {
+grep shell-session "$LANG_MAP_FILE" >/dev/null || {
   echo "********** Backing up original $LANG_MAP_FILE to ${LANG_MAP_FILE}.bak"
   cp "$LANG_MAP_FILE" "${LANG_MAP_FILE}.bak"
 
@@ -74,6 +74,7 @@ clojure = clojure.lang
 csv = plain.lang
 json = json.lang
 plain = plain.lang
+shell-session=sh.lang
 END
 
   echo "Cleaning $LANG_MAP_FILE"
