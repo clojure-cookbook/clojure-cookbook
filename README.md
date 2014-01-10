@@ -2,9 +2,9 @@
 
 *Clojure Cookbook* marks Clojure's entry into O'Reilly's prestigious [Cookbook Series](http://shop.oreilly.com/category/series/cookbooks.do). The book details a large number of Clojure recipes – pairs of problems and solutions – covering a wide number of common topics.
 
-Clojure Cookbook doesn't just teach you Clojure, it also shows you how to use the language and many of its common libraries. The most difficult part of mastering any language is knowing how to apply it, in an idiomatic way, to tasks that real software developers encounter every day. This is especially true of Clojure.
+*Clojure Cookbook* doesn't just teach you Clojure, it also shows you how to use the language and many of its common libraries. The most difficult part of mastering any language is knowing how to apply it, in an idiomatic way, to tasks that real software developers encounter every day. This is especially true of Clojure.
 
-With code recipes that teach you how to use the language in a variety of domains, Clojure Cookbook goes beyond simply teaching Clojure syntax and semantics. It contains annotated example code with detailed analysis and explanation for hundreds of real programming tasks. You can read the book straight through to gain insights about Clojure, or use it as a reference to solve particular problems
+With code recipes that teach you how to use the language in a variety of domains, *Clojure Cookbook* goes beyond simply teaching Clojure syntax and semantics. It contains annotated example code with detailed analysis and explanation for hundreds of real programming tasks. You can read the book straight through to gain insights about Clojure, or use it as a reference to solve particular problems
 
 ## Contributing
 
