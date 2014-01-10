@@ -90,7 +90,7 @@ we recommend one of the following books:
 
 Finally, you should look at the source code for this book itself,
 which is freely available on Github at
-https://github.com/clojure-cookbook/clojure-cookbook. The selection
+_https://github.com/clojure-cookbook/clojure-cookbook_. The selection
 of recipes available online is larger than that in the print version,
 and we are still accepting pull requests for new recipes that might
 someday make it in to a future edition of this book.
