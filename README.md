@@ -1,19 +1,14 @@
-# Clojure Cookbook Contribution Hub
+# Clojure Cookbook
 
-We're building a book, and we want your help!
+*Clojure Cookbook* marks Clojure's entry into O'Reilly's prestigious [Cookbook Series](http://shop.oreilly.com/category/series/cookbooks.do). The book details a large number of Clojure recipes – pairs of problems and solutions – covering a wide number of common topics.
 
-*Clojure Cookbook* is set to be O'Reilly's next book in the [Cookbook Series](http://shop.oreilly.com/category/series/cookbooks.do). The book details a large number of Clojure recipes – pairs of problems and solutions – covering a wide number of common topics.
+Clojure Cookbook doesn't just teach you Clojure, it also shows you how to use the language and many of its common libraries. The most difficult part of mastering any language is knowing how to apply it, in an idiomatic way, to tasks that real software developers encounter every day. This is especially true of Clojure.
 
+With code recipes that teach you how to use the language in a variety of domains, Clojure Cookbook goes beyond simply teaching Clojure syntax and semantics. It contains annotated example code with detailed analysis and explanation for hundreds of real programming tasks. You can read the book straight through to gain insights about Clojure, or use it as a reference to solve particular problems
 
 ## Contributing
 
-**As of Jan. 10, 2014 we are preparing the book for print. See [CONTRIBUTING.md](CONTRIBUTING.md) for more info.**
-
-The goal behind the *Clojure Cookbook* is to build the **best** cookbook we can. We plan to do this by leveraging the breadth of experience across the entire community. We hope the rest of the community will rise to the occasion and contribute their best Clojure recipes.
-
-Every author of an accepted contribution will receive a *free digital copy of the book* and abundant credit in the book. Authors of five or more recipes will receive a signed physical copy of the book (and major kudos!) Write a whole chapter and we might have to see if we can get your name on the cover :wink:.
-
-**No contribution is too small**. We welcome anything from typo fixes or ideas for recipes all the way to complete recipes and anything in between. You can find more information on how to contribute in our [CONTRIBUTING.md](CONTRIBUTING.md) document.
+As of Jan. 10, 2014 we are preparing the book for print. See [CONTRIBUTING.md](CONTRIBUTING.md) for more info.
 
 ## Building the Book
 
