@@ -2,9 +2,9 @@
 
 ---
 
-**NOTE: As of 2013-10-11 we are *not* soliciting any new recipe submissions. At this point Luke and I are editing the book for publication.**
+**NOTE: As of 2014-01-10 we are *not* soliciting any new recipe submissions. We are now working with O'Reilly to prepare the book for final publication.**
 
-We will begin accepting whole recipes again in the middle of December once we have shipped a completed manuscript to O'Reilly.
+We will begin accepting whole recipes again once the book is published and we can begin working on the online resource complimentary to the print book.
 
 ---
 
