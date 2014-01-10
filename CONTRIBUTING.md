@@ -2,7 +2,7 @@
 
 ---
 
-**NOTE: As of 2014-01-10 we are *not* soliciting any new recipe submissions. We are now working with O'Reilly to prepare the book for final publication.**
+**NOTE: As of 2014-01-10 we are *not* soliciting any new recipe submissions *or corrections*. We are now working with O'Reilly to prepare the book for final publication. (This includes copyediting, quality assurance, indexing, etc.)**
 
 We will begin accepting whole recipes again once the book is published and we can begin working on the online resource complimentary to the print book.
 
