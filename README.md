@@ -2,10 +2,12 @@
 
 We're building a book, and we want your help!
 
-*Clojure Cookbook* is set to be O'Reilly's next book in the [Cookbook Series](http://shop.oreilly.com/category/series/cookbooks.do). The book will detail a large number of Clojure recipes – pairs of problems and solutions – covering a wide number of common topics.
+*Clojure Cookbook* is set to be O'Reilly's next book in the [Cookbook Series](http://shop.oreilly.com/category/series/cookbooks.do). The book details a large number of Clojure recipes – pairs of problems and solutions – covering a wide number of common topics.
 
 
 ## Contributing
+
+**As of Jan. 10, 2014 we are preparing the book for print. See [CONTRIBUTING.md](CONTRIBUTING.md) for more info.**
 
 The goal behind the *Clojure Cookbook* is to build the **best** cookbook we can. We plan to do this by leveraging the breadth of experience across the entire community. We hope the rest of the community will rise to the occasion and contribute their best Clojure recipes.
 
@@ -109,12 +111,6 @@ should be
 ```sh
 Username: #<1>
 ```
-
-#### Trusted Contributors
-
-The following users are trusted contributors (push access) that have proven themselves through excellent judgement and outstanding contributions to the book. We support and strongly encourage these users to make corrections and improvements to the book at will (recipes aside.)
-
-* @jcromartie
 
 ## Who we are
 
