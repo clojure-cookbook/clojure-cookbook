@@ -143,22 +143,4 @@ If you have any questions or concerns about the licensing model, please don't he
 
 You'll find a list of ideas under the [ideas tag](../../issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`.
 
-To get you started, here is a rough list of the chapters we hope to cover in the final book:
-
-Chapter                   | Description
-------------------------- | ------------------------------------------------------------------------
-Primitive Data            | strings, numbers, dates, etc.
-Composite Data            | plural data and the manipulation thereof
-Databases and Persistence | this one's all remembering things.
-Local I/O                 | reading/writing to the console, files and other fun system calls.
-Network I/O               | communication via web requests, socket connections or otherwise.
-Distributed Computing     | performing work across multiple machines or processes.
-GUI applications          | building desktop/mobile software.
-Packaging and Deployment  | "shipping it," so to speak. Also leiningen project-management goodness.
-Testing and Profiling     | How to make it right *and* tight.
-Web Applications          | Building web applications
-ClojureScript             | Clojure in the browser
-
-This is by no means a final list, but it should serve to give a general idea the shape of the book.
-
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/clojure-cookbook/clojure-cookbook/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
