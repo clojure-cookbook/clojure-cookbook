@@ -1,5 +1,114 @@
 === Acknowledgments
 
-++++
-<remark>Fill in...</remark>
-++++
+This book would not have been possible had it not been for the
+selfless contributions of many within the Clojure community. Over 65
+Clojurists rose to the occasion, submitting recipes, proofreading, and
+offering their input on the direction of the book. Ultimately, this is
+the community's book--we're just honored to have been able to help put
+it together. Those contributors are:
+
+* Adam Bard, https://github.com/adambard[adambard] on GitHub
+* Alan Busby, https://github.com/thebusby[thebusby] on GitHub
+* Alex Miller, https://github.com/puredanger[puredanger] on GitHub
+* Alex Petrov, https://github.com/ifesdjeen[ifesdjeen] on GitHub
+* Alex Robbins, https://github.com/alexrobbins[alexrobbins] on GitHub
+* Alex Vzorov, https://github.com/0rca[0rca] on GitHub
+* Ambrose Bonnaire-Sergeant, https://github.com/frenchy64[frenchy64] on GitHub
+* https://github.com/arosequist[arosequist]
+* Chris Allen, https://github.com/bitemyapp[bitemyapp] on GitHub
+* Chris Ford, https://github.com/ctford[ctford] on GitHub
+* Chris Frisz, https://github.com/cjfrisz[cjfrisz] on GitHub
+* Clinton Dreisbach, https://github.com/cndreisbach[cndreisbach] on GitHub
+* Colin Jones, https://github.com/trptcolin[trptcolin] on GitHub
+* Craig McDaniel, https://github.com/cpmcdaniel[cpmcdaniel] on GitHub
+* Daemian Mack, https://github.com/daemianmack[daemianmack] on GitHub
+* Dan Allen, https://github.com/mojavelinux[mojavelinux] on GitHub
+* Daniel Gregoire, https://github.com/semperos[semperos] on GitHub
+* Dmitri Sotnikov, https://github.com/yogthos[yogthos] on GitHub
+* Edmund Jackson, https://github.com/ejackson[ejackson] on GitHub
+* Eric Norman, https://github.com/ericnormand[ericnormand] on GitHub
+* Federico Ramirez, https://github.com/gosukiwi[gosukiwi] on GitHub
+* Filippo Diotalevi, https://github.com/fdiotalevi[fdiotalevi] on GitHub
+* https://github.com/fredericksgary[fredericksgary]
+* Gabriel Horner, https://github.com/cldwalker[cldwalker] on GitHub
+* Gerrit, https://github.com/gerritjvv[gerritjvv] on GitHub
+* Guewen Baconnier, https://github.com/guewen[guewen] on GitHub
+* Jason Webb, https://github.com/bigjason[bigjason] on GitHub
+* Jason Wolfe, https://github.com/w01fe[w01fe] on GitHub
+* Jean Niklas L'orange, https://github.com/hyPiRion[hyPiRion] on GitHub
+* Joey Yang, https://github.com/joeyyang[joeyyang] on GitHub
+* John Cromartie, https://github.com/jcromartie[jcromartie] on GitHub
+* John Jacobsen, https://github.com/eigenhombre[eigenhombre] on GitHub
+* John Touron, https://github.com/jwtouron[jwtouron] on GitHub
+* Joseph Wilk, https://github.com/josephwilk[josephwilk] on GitHub
+* https://github.com/jungziege[jungziege]
+* https://github.com/jwhitlark[jwhitlark]
+* Kevin Burnett, https://github.com/burnettk[burnettk] on GitHub
+* Kevin Lynagh, https://github.com/lynaghk[lynaghk] on GitHub
+* Lake Denman, https://github.com/ldenman[ldenman] on GitHub
+* Leonardo Borges, https://github.com/leonardoborges[leonardoborges] on GitHub
+* Mark Whelan, https://github.com/mrwhelan[mrwhelan] on GitHub
+* Martin Janiczek, https://github.com/Janiczek[Janiczek] on GitHub
+* Matthew Maravillas, https://github.com/maravillas[maravillas] on GitHub
+* Michael Fogus, https://github.com/fogus[fogus] on GitHub
+* Michael Klishin, https://github.com/michaelklishin[michaelklishin] on GitHub
+* Michael Mullis, https://github.com/mmullis[mmullis] on GitHub
+* Michael O'Church, https://github.com/michaelochurch[michaelochurch] on GitHub
+* Mosciatti S., https://github.com/siscia[siscia] on GitHub
+* https://github.com/nbessi[nbessi]
+* Neil Laurance, https://github.com/toolkit[toolkit] on GitHub
+* Nurullah Akkaya, https://github.com/nakkaya[nakkaya] on GitHub
+* Osbert Feng, https://github.com/osbert[osbert] on GitHub
+* Prathamesh Sonpatki, https://github.com/prathamesh[prathamesh-sonpatki] on GitHub
+* R.T. Lechow, https://github.com/rtlechow[rtlechow] on GitHub
+* Ravindra R. Jaju, https://github.com/jaju[jaju] on GitHub
+* Robert Stuttaford, https://github.com/robert[robert] on GitHub-stuttaford
+* Russ Olsen, https://github.com/russolsen[russolsen] on GitHub
+* Ryan Senior, https://github.com/senior[senior] on GitHub
+* Sam Umbach, https://github.com/sumbach[sumbach] on GitHub
+* Sandeep Nangia, https://github.com/nangia[nangia] on GitHub
+* Steve Miner, https://github.com/miner[miner] on GitHub
+* Steven Proctor, https://github.com/stevenproctor[stevenproctor] on GitHub
+* https://github.com/temacube[temacube]
+* Tobias Bayer, https://github.com/codebrickie[codebrickie] on GitHub
+* Tom White, https://github.com/dribnet[dribnet] on GitHub
+* Travis Vachon, https://github.com/travis[travis] on GitHub
+* Stefan Karlsson, https://github.com/zclj[zclj]
+
+Special thanks are also deserved by our biggest contributors; Adam
+Bard, Alan Busby, Alex Robbins, Ambrose Bonnaire-Sergeant, Dmitri Sotnikov,
+John Cromartie, John Jacobsen, Robert Stuttaford, Stefan Karlsson and
+Tom Hicks. All together, these outstanding individuals contributed
+almost 1/3 of the final book's recipe count.
+
+Thanks to our technical reviewers, Alex Robbins, Travis Vachon and
+Thomas Hicks. These fine gentlemen scoured the book for technical
+errors in record time, in the 11th hour no less. Where a regular
+technical reviewer would merely submit textual descriptions of
+problems, these folks went above and beyond, often submitting pull
+requests _fixing_ the very errors they were reporting. All in all,
+they were a pleasure to work with and the book is much better because
+of their involvement.
+
+Finally, thanks to our employer, Cognitect, for giving us time to work
+on the book and all of our colleagues, who offered advice, feedback
+and best of all, more recipes!
+
+==== Ryan Neufeld
+
+First, a huge thanks to Luke. It was Luke who originally pitched the
+idea for the book, and I'm very gracious that he extended an
+invitation for me to join him in authoring it. They say the best way
+to learn something is to write a book on it--this couldn't be any
+closer to the truth. Working on the book has really rounded out my
+Clojure skills and taken them to the next level.
+
+And most importantly, I have to thank my family for putting up with me
+through the process of writing the book. Getting this thing off the
+ground has been a Herculean task and I couldn't have done it without
+the love and support of my wife Jackie and daugther Elody. If it
+hadn't been for the hundreds upon hundreds of hours of evenings,
+weekends and vacation time I usurped from them, I wouldn't have been
+able to write this book.
+
+==== Luke VanderHart
