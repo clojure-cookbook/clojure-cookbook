@@ -324,4 +324,4 @@ Follow us on Twitter: link:$$http://twitter.com/oreillymedia$$[]
 
 Watch us on YouTube: link:$$http://www.youtube.com/oreillymedia$$[]
 
-include::acknowledgments.asciidoc[]
+include::acknowledgements.asciidoc[]
