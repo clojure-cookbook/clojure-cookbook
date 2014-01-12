@@ -193,4 +193,6 @@ Executed with the following args:  1 2 3
 
 * <<sec_command_line_applications>> to learn about running Clojure programs from Leiningen.
 * <<sec_aot_compilation>>
-* https://github.com/Raynes/lein-bin[lein-bin] A Leiningen plugin for producing standalone console executables that work on OS X, Linux, and Windows.
+* https://github.com/Raynes/lein-bin[lein-bin], a Leiningen plugin for
+  producing standalone console executables that work on OS X, Linux, and
+  Windows.

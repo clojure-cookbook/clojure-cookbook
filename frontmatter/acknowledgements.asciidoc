@@ -33,6 +33,7 @@ it together. Those contributors are:
 * Gabriel Horner, https://github.com/cldwalker[cldwalker] on GitHub
 * Gerrit, https://github.com/gerritjvv[gerritjvv] on GitHub
 * Guewen Baconnier, https://github.com/guewen[guewen] on GitHub
+* Hoàng Minh Thắng, https://github.com/myguidingstar[myguidingstar] on GitHub
 * Jason Webb, https://github.com/bigjason[bigjason] on GitHub
 * Jason Wolfe, https://github.com/w01fe[w01fe] on GitHub
 * Jean Niklas L'orange, https://github.com/hyPiRion[hyPiRion] on GitHub
