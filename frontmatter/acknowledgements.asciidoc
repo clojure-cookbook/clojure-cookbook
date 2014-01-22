@@ -113,3 +113,12 @@ weekends and vacation time I usurped from them, I wouldn't have been
 able to write this book.
 
 ==== Luke VanderHart
+
+Most of all, I'd like ot thank my co-author Ryan, who worked incredibly
+hard to make the book happen.
+
+Also, all of my co-workers at Cognitect provided lots of thoughts and
+ideas, and most importantly were a sounding board for the many
+questions that arose during the writing and editing process. Many
+thanks for that, as well as for providing the opportunity to write
+code in Clojure all day, every day.
