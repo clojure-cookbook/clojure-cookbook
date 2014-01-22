@@ -2,7 +2,28 @@
 
 == Preface
 
-The most important thing you should understand about this book is
+The primary goal of this book is to provide mid-length examples of
+Clojure code that go beyond the basics, with a focus on real-world,
+everyday applications (as opposed to more conceptual or academic
+issues.)
+
+Unlike many of the other books on Clojure written to date, the
+organizing theme of this book is not the language itself, or its
+features and capabilities. Instead, it focuses on specific _tasks_
+that developers face (regardless of what language they're using) and
+shows an example of how to use Clojure to solve those specific
+problems.
+
+As such, this book is not and cannot be truly comprehensive; there are
+infinite possible example problems. However, we do hope we've
+documented some of the more common ones that most programmers
+encounter frequently, and that by induction the reader will be able to
+learn some common patterns, approaches and techniques that will serve
+them well as they design solutions for their own unique problems.
+
+=== How This Book was Written
+
+An important thing you should understand about this book is
 that it is, first and foremost, a group effort. It is not authored by
 one or two people. It isn't even the work of a single, well defined
 group. Instead, it is the collaborative product of over sixty of the
