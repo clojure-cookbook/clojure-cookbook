@@ -22,8 +22,10 @@ For simple patterns use +replace+ with a normal string as its matcher.
 
 (defn de-canadianize [s]
   (clojure.string/replace s "ou" "o"))
-(de-canadianize "Those Canadian neighbours have coloured behaviour when it comes to word endings")
-;; -> "Those Canadian neighbors have colored behavior when it comes to word endings"
+(de-canadianize (str "Those Canadian neighbours have coloured behaviour"
+                     " when it comes to word endings"))
+;; -> "Those Canadian neighbors have colored behavior when it comes to word
+;;     endings"
 ----
 
 Plain string replacement will only get you so far. When you need to

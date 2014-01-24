@@ -53,7 +53,7 @@ files makes this a relatively simple task. However, while this is
 often a good way to persist data to disk, you should be aware of a few
 issues.
 
-.Reading, Security & EDN
+.Reading, Security & edn
 ****
 The +read+ function is only appropriate for reading data from
 *trusted* sources. This is because the Clojure reader is not designed
@@ -62,11 +62,11 @@ nor guaranteed to be safe or free from side-effects. Binding
 read Clojure data structures from *untrusted* sources, i.e. anything
 you did not write yourself, then see the +clojure.edn+ library.
 
-EDN (Extensible Data Notation) is a specification of Clojure's data
+edn (Extensible Data Notation) is a specification of Clojure's data
 structure serialization format with multiple implementations, so it
 can be used as a transport and persistence format and consumed from
 programs written in any language, much like XML or JSON. The
-+clojure.edn+ library is EDNs implementation for Clojure.
++clojure.edn+ library is edn's implementation for Clojure.
 
 It works much the same as the Clojure reader and writer, however, it
 provides additional security guarantees that the Clojure reader does
