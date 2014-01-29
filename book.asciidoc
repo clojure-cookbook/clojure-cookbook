@@ -2,7 +2,27 @@
 
 = Clojure Cookbook
 
-include::clojure-cookbook.asciidoc[]
+include::00_frontmatter/frontmatter.asciidoc[]
+
+include::01_primitive-data/ch01_primitive-data.asciidoc[]
+
+include::02_composite-data/ch02_composite-data.asciidoc[]
+
+include::03_general-computing/ch03_general-computing.asciidoc[]
+
+include::04_local-io/ch04_local-io.asciidoc[]
+
+include::05_network-io/ch05_network-io.asciidoc[]
+
+include::06_databases/ch06_databases.asciidoc[]
+
+include::07_webapps/ch07_webapps.asciidoc[]
+
+include::08_deployment-and-distribution/ch08_deployment-and-distribution.asciidoc[]
+
+include::09_distributed-computation/ch09_distributed-computation.asciidoc[]
+
+include::10_testing/ch10_testing.asciidoc[]
 
 include::index.asciidoc[]
 
