@@ -41,7 +41,8 @@ file.
 If required, an encoding can be specified by the +:encoding+ option.
 [source,clojure]
 ----
-(clojure.java.io/copy "some text" (clojure.java.io/file "./str-test.txt") :encoding "UTF-8")
+(clojure.java.io/copy "some text" (clojure.java.io/file "./str-test.txt") 
+                                                        :encoding "UTF-8")
 ----
 
 ==== Discussion

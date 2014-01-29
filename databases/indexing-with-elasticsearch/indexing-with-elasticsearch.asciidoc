@@ -101,7 +101,8 @@ Mapping types are specified when an index is created using the
                                  :planet     {:type "string"}
                                  :biography  {:type "string"
                                               :analyzer "snowball"
-                                              :term_vector "with_positions_offsets"}}}})
+                                              :term_vector 
+                                              "with_positions_offsets"}}}})
 
 (esi/create "test3" :mappings mapping-types)))
 ----
@@ -127,7 +128,8 @@ cause a document id to be generated automatically:
                                  :planet     {:type "string"}
                                  :biography  {:type "string"
                                               :analyzer "snowball"
-                                              :term_vector "with_positions_offsets"}}}})
+                                              :term_vector 
+                                              "with_positions_offsets"}}}})
 
 (esi/create "test4" :mappings mapping-types)
 
@@ -141,7 +143,8 @@ cause a document id to be generated automatically:
 
 
 (esd/create "test4" "person" doc)
-;; => {:ok true, :_index people, :_type person, :_id "2vr8sP-LTRWhSKOxyWOi_Q", :_version 1}
+;; => {:ok true, :_index people, :_type person, 
+       :_id "2vr8sP-LTRWhSKOxyWOi_Q", :_version 1}
 ----
 
 *clojurewerkz.elastisch.rest.document/put* will add a document to the index but expects document id to be provided:
@@ -244,7 +247,8 @@ When it is necessary to update mapping for an index, you can use the
 [source,clojure]
 ----
 (esi/update-mapping "myapp_development" "person"
-                    :mapping {:properties {:first-name {:type "string" :store "no"}}})
+                    :mapping {:properties {:first-name 
+                                          {:type "string" :store "no"}}})
 ----
 
 In a mapping configuration, settings are passed as maps where keys are

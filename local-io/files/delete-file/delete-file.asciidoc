@@ -21,7 +21,7 @@ will be thrown.
 
 [source,clojure]
 ----
-(clojure.java.io/delete-file "./file-that-do-not-exist.txt")
+(clojure.java.io/delete-file "./file-that-does-not-exist.txt")
 ;; -> java.io.IOException: Couldn't delete
 ----
 
@@ -31,7 +31,7 @@ file could not be deleted for whatever reason, you can add the
 
 [source,clojure]
 ----
-(clojure.java.io/delete-file "./file-that-do-not-exist.txt" true)
+(clojure.java.io/delete-file "./file-that-does-not-exist.txt" true)
 ;; -> true
 ----
 
@@ -44,9 +44,9 @@ exceptions thrown, you should put the call to +delete-file+ inside a
 [source,clojure]
 ----
 (try
-  (clojure.java.io/delete-file "./file-that-do-not-exist.txt")
+  (clojure.java.io/delete-file "./file-that-does-not-exist.txt")
   (catch Exception e (str "exception: " (.getMessage e))))
-;; -> "exception: Couldn't delete ./file-that-do-not-exist.txt"
+;; -> "exception: Couldn't delete ./file-that-does-not-exist.txt"
 ----
 
 +java.io.File+ has an +.exists+ property that simply gives you a
@@ -64,7 +64,7 @@ path from the argument do exist before trying to delete it.
       (catch Exception e (str "exception: " (.getMessage e))))
     false))
 
-(safe-delete "./file-that-do-not-exist.txt")
+(safe-delete "./file-that-does-not-exist.txt")
 ;; -> false
 (safe-delete "./file-to-delete.txt")
 ;; -> true

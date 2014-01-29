@@ -76,7 +76,8 @@ fulfill as each sub-command completes execution.
 
 results
 ;; -> (#<core$promise$reify__6310@71eed8d: {:exit 0, :out nil, :err nil}>
-       #<core$promise$reify__6310@7f7dc7a1: {:exit 0, :out "       2\n", :err nil}>)
+       #<core$promise$reify__6310@7f7dc7a1: {:exit 0, :out "       2\n", 
+                                             :err nil}>)
 
 @(last results)
 ;; -> {:exit 0, :out "       2\n", :err nil}

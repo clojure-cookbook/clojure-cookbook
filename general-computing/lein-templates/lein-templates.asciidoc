@@ -64,7 +64,10 @@ list of files to be generated. Add +sanitize-ns+ to the namespace's
 [source,clojure]
 ----
 (ns leiningen.new.cookbook-sample-template-clojure-cookbook
-  (:require [leiningen.new.templates :refer [renderer name-to-path ->files sanitize-ns]]
+  (:require [leiningen.new.templates :refer [renderer 
+                                             name-to-path 
+                                             ->files 
+                                             sanitize-ns]]
             [leiningen.core.main :as main])) ; <1>
 
 (def render (renderer "cookbook-sample-template-clojure-cookbook"))
@@ -136,7 +139,8 @@ $ cd my-first-website
 $ lein run
 # ... Leiningen noisily fetching dependencies ...
 2013-08-22 16:41:43.337:INFO:oejs.Server:jetty-7.6.8.v20121106
-2013-08-22 16:41:43.379:INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:3000
+2013-08-22 16:41:43.379
+  :INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:3000
 ----
 
 If +lein+ prints an error about not being able to find your template you should
@@ -191,7 +195,10 @@ some of the tools available to the template developer.
 [source,clojure]
 ----
 (ns leiningen.new.cookbook-sample-template-clojure-cookbook
-  (:require [leiningen.new.templates :refer [renderer name-to-path ->files sanitize-ns]]))
+  (:require [leiningen.new.templates :refer [renderer 
+                                            name-to-path 
+                                            ->files 
+                                            sanitize-ns]]))
 ----
 
 We first declare a namespace that matches the template name and

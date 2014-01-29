@@ -132,7 +132,8 @@ You can now execute the job locally:
 
 [source,shell-session]
 ----
-$ lein run -m cookbook.aggregation.Main samples/posts/posts.csv samples/posts/output
+$ lein run -m cookbook.aggregation.Main 
+  samples/posts/posts.csv samples/posts/output
 
 # Or, on a Hadoop cluster
 $ lein uberjar

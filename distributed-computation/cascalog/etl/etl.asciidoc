@@ -11,7 +11,9 @@ to CSV for later processing. For example:
 .Input
 [source,json]
 ----
-{"name": "Clojure Programming", "authors": ["Chas Emerick", "Brian Carper", "Christophe Grand"]}
+{"name": "Clojure Programming", "authors": ["Chas Emerick", 
+                                            "Brian Carper", 
+                                            "Christophe Grand"]}
 {"name": "The Joy of Clojure", "authors": ["Michael Fogus", "Chris Houser"]}
 ----
 
@@ -118,7 +120,8 @@ $ lein run -m cookbook.etl.Main samples/books/books.json samples/books/output
 
 # Or, on a Hadoop cluster
 $ lein uberjar
-$ hadoop jar target/cookbook-standalone.jar cookbook.etl.Main books.json books.csv
+$ hadoop jar target/cookbook-standalone.jar cookbook.etl.Main books.json 
+books.csv
 ----
 
 The results in _samples/books/output/part-00000_ are as follows:

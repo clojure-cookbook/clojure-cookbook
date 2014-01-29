@@ -150,7 +150,8 @@ column names as keys:
   {:name "Peach" :appearance "fresh" :cost 37 :unit "pallet"})
 ;; -> ({:grade nil, :unit nil, :cost 35, :appearance "spotting", :name "Banana"}
 ;;     {:grade 1.4, :unit nil, :cost 10, :appearance "rotten", :name "Tomato"}
-;;     {:grade nil, :unit "pallet", :cost 37, :appearance "fresh", :name "Peach"})
+;;     {:grade nil, :unit "pallet", :cost 37, :appearance "fresh", 
+        :name "Peach"})
 ----
 
 If you want to insert rows but only specify some columns' values, you
@@ -292,7 +293,8 @@ the SQL statement:
 [source,clojure]
 ----
 (defn find-low-quality [acceptable]
-  (jdbc/query db-spec ["select name, grade from fruit where grade < ?" acceptable]))
+  (jdbc/query db-spec ["select name, grade from fruit where grade < ?" 
+                       acceptable]))
 
 (find-low-quality 3.0)
 ;; -> ({:grade 1.4, :name "Tomato"})
@@ -308,7 +310,8 @@ sequence) before it is returned. The default argument is the +doall+ function.
 (defn hi-lo [rs] [(first rs) (last rs)])
 
 ;; Find the highest and lowest cost fruits
-(jdbc/query db-spec ["select * from fruit order by cost desc"] :result-set-fn hi-lo)
+(jdbc/query db-spec ["select * from fruit order by cost desc"] 
+                     :result-set-fn hi-lo)
 ;; -> [{:grade nil, :unit nil, :cost 77, :appearance nil, :name "Kumquat"}
 ;;     {:grade 1.4, :unit nil, :cost 10, :appearance "rotten", :name "Tomato"}]
 ----
@@ -321,7 +324,8 @@ result row as the result is constructed. The default argument is the
 ----
 (defn add-tax [row] (assoc row :tax (* 0.08 (row :cost))))
 
-(jdbc/query db-spec ["select name,cost from fruit where cost = 12"] :row-fn add-tax)
+(jdbc/query db-spec ["select name,cost from fruit where cost = 12"] 
+                     :row-fn add-tax)
 ;; -> ({:tax 0.96, :cost 12, :name "Plum"} {:tax 0.96, :cost 12, :name "Fig"})
 ----
 
@@ -332,7 +336,8 @@ results as a set of vectors or not. The default argument value is
 [source,clojure]
 ----
 (jdbc/query db-spec
-  ["select name,cost,grade from fruit where appearance = 'spotting'"] :as-arrays? true)
+  ["select name,cost,grade from fruit where appearance = 'spotting'"] 
+   :as-arrays? true)
 ;; -> ([:name :cost :grade] ["Banana" 35 nil] ["Mango" 75 7.0])
 ----
 

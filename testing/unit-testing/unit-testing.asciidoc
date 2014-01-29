@@ -59,7 +59,8 @@ Run the test with the +clojure.test/run-tests+ function:
 ;;
 ;; FAIL in (test-capitalize-entries) (NO_SOURCE_FILE:13)
 ;; expected: (= (capitalize-entries employee :office) {})
-;;   actual: (not (= {:last-name "smith", :office "Seattle", :level 5, :job-title "engineer"} {}))
+;;   actual: (not (= {:last-name "smith", :office "Seattle", 
+                      :level 5, :job-title "engineer"} {}))
 ;;
 ;; Ran 1 tests containing 2 assertions.
 ;; 1 failures, 0 errors.

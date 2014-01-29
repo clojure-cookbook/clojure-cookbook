@@ -30,13 +30,15 @@ The following code creates and queries a simple in-memory index:
 
 
 (clucy/add index
-   {:name "Alice" :description "Clojure expert" :location "North Carolina, United States"}
+   {:name "Alice" :description "Clojure expert" 
+    :location "North Carolina, United States"}
    {:name "Bob" :description "Clojure novice" :location "Berlin, Germany"}
    {:name "Eve" :description "Eavesdropper" :location "Maryland, United States"})
 ;; -> nil
 
 (clucy/search index "description:clojure AND location:\"united states\"" 10)
-;; -> ({:name "Alice", :location "North Carolina, United States", :description "Clojure expert"})
+;; -> ({:name "Alice", 
+        :location "North Carolina, United States", :description "Clojure expert"})
 ----
 
 ==== Discussion
@@ -127,8 +129,10 @@ distance, and document length.
 [source,clojure]
 ----
 (clucy.core/search index "clojure united states" 10)
-;; -> ({:name "Alice", :location "North Carolina, United States", :description "Clojure expert"}
-;;     {:name "Eve", :location "Maryland, United States", :description "Eavesdropper"}
+;; -> ({:name "Alice", :location "North Carolina, United States", 
+        :description "Clojure expert"}
+;;     {:name "Eve", :location "Maryland, United States", 
+        :description "Eavesdropper"}
 ;;     {:name "Bob", :location "Berlin, Germany", :description "Clojure novice"})
 ----
 

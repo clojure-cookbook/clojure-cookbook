@@ -54,15 +54,15 @@ Timbre outputs rich profiling information in a convenient table.
 [source,shell-session]
 ----
 2013-Aug-25 11:23:31 +0800 ambrose-VirtualBox INFO [book.profiling-timbre] - Profiling :taoensso.timbre.profiling/Bench-f
-                        Name  Calls       Min        Max       MAD      Mean   Time% Time
-             :bench/bench-me      1      13ms       13ms       0ns      13ms      95 13ms
-                :bench/sleep      1      11ms       11ms       0ns      11ms      76 11ms
-:bench/call-f-10-times-outer      1     970μs      970μs       0ns     970μs       7 970μs
-          :bench/call-f-once      1     610μs      610μs       0ns     610μs       4 610μs
-:bench/call-f-10-times-inner     10      20μs      214μs      35μs      39μs       3 394μs
-             :bench/no-arg-f     11       5μs      163μs      26μs      20μs       2 215μs
-                [Clock] Time                                                     100 14ms
-              Accounted Time                                                     186 26ms
+                        Name  Calls    Min    Max   MAD   Mean Time%   Time
+             :bench/bench-me      1   13ms   13ms   0ns   13ms    95   13ms
+                :bench/sleep      1   11ms   11ms   0ns   11ms    76   11ms
+:bench/call-f-10-times-outer      1  970μs  970μs   0ns  970μs     7  970μs
+          :bench/call-f-once      1  610μs  610μs   0ns  610μs     4  610μs
+:bench/call-f-10-times-inner     10   20μs  214μs  35μs   39μs     3  394μs
+             :bench/no-arg-f     11    5μs  163μs  26μs   20μs     2  215μs
+                [Clock] Time                                     100   14ms
+              Accounted Time                                     186   26ms
 ----
 
 ==== Discussion
