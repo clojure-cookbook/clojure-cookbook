@@ -1,0 +1,272 @@
+=== Indexing Data with ElasticSearch
+[role="byline"]
+by Michael Klishin
+
+==== Problem
+
+You want to index data using the the
+http://elasticsearch.org[ElasticSearch] indexing and search engine.
+
+==== Solution
+
+Use http://clojureelasticsearch.info[Elastisch], a minimalistic
+Clojure wrapper around the ElasticSearch Java APIs.
+
+In order to successfully work through the examples in this recipe, you
+should have ElasticSearch installed and running on your local
+system. You can find details on how to install it on
+http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html[the
+ElasticSearch website].
+
+ElasticSearch supports multiple transports (e.g. HTTP, native
+Netty-based transport, Memcached, etc). Elastisch supports HTTP and
+native transports.  This recipe will use HTTP transport client for
+examples and explain how to switch to the native transport in the
+Discussion section.
+
+To follow along with this recipe, add `[clojurewerkz/elastisch "1.2.0"]` to your project's dependencies, or start a REPL use +lein-try+:
+
+[source,shell-session]
+----
+$ lein try clojurewerkz/elastisch
+----
+
+Before you can index and search with Elastisch, it is necessary to
+tell Elastisch what ElasticSearch node to use. To use the HTTP
+transport, you use the +clojurewerkz.elastisch.rest/connect!+ function
+that takes an endpoint as its sole argument:
+
+[source,clojure]
+----
+(require '[clojurewerkz.elastisch.rest :as esr])
+
+(esr/connect! "http://127.0.0.1:9200")
+----
+
+===== Indexing
+
+Before data can be searched over, it needs to be indexed. Indexing is
+the process of scanning the text and building a list of search terms
+and data structures called a +search index+. Search index allows
+search engines such as ElasticSearch to retrieve relevant documents
+for a query efficiently.
+
+The process of indexing involves a few steps:
+
+ * Create an index
+ * [Optionally] Defining *mappings* (how documents should be indexed)
+ * Submitting documents for indexing via HTTP or other APIs
+
+To create an index, use the *clojurewerkz.elastisch.rest.index/create* function:
+
+[source,clojure]
+----
+(require '[clojurewerkz.elastisch.rest.index :as esi])
+
+(esr/connect! "http://127.0.0.1:9200")
+
+;; creates an index with given settings and no custom mapping types.
+(esi/create "test1")
+
+;; creates an index with custom settings
+(esi/create "test2" :settings {"number_of_shards" 1}))
+----
+
+A full explanation of the available indexing settings is outside the
+scope of this recipe. Please refer to the
+http://clojureelasticsearch/articles/indexing.html[Elastisch
+documentation on indexing] for full details.
+
+===== Creating Mappings
+
+Mappings define which fields in documents are indexed, if and how they are
+tokenized, analyzed and so on. Each index in ElasticSearch may have
+one or more +mapping types+. Mapping types can be thought of as
+tables in a database (although this analogy does not always hold).
+
+Mapping types are specified when an index is created using the
++:mapping+ option:
+
+[source,clojure]
+----
+(esr/connect! "http://127.0.0.1:9200")
+
+;; Mapping types map structure is the same as in the ElasticSearch API reference
+(def mapping-types {"person"
+                    {:properties {:username  {:type "string" :store "yes"}
+                                 :first-name {:type "string" :store "yes"}
+                                 :last-name  {:type "string"}
+                                 :age        {:type "integer"}
+                                 :title      {:type "string" :analyzer "snowball"}
+                                 :planet     {:type "string"}
+                                 :biography  {:type "string"
+                                              :analyzer "snowball"
+                                              :term_vector 
+                                              "with_positions_offsets"}}}})
+
+(esi/create "test3" :mappings mapping-types)))
+----
+
+===== Indexing documents
+
+To add a document to an index, use the
++clojurewerkz.elastisch.rest.document/create+ function. This will
+cause a document id to be generated automatically:
+
+[source,clojure]
+----
+(require '[clojurewerkz.elastisch.rest.document :as esd])
+
+(esr/connect! "http://127.0.0.1:9200")
+
+(def mapping-types {"person"
+                    {:properties {:username  {:type "string" :store "yes"}
+                                 :first-name {:type "string" :store "yes"}
+                                 :last-name  {:type "string"}
+                                 :age        {:type "integer"}
+                                 :title      {:type "string" :analyzer "snowball"}
+                                 :planet     {:type "string"}
+                                 :biography  {:type "string"
+                                              :analyzer "snowball"
+                                              :term_vector 
+                                              "with_positions_offsets"}}}})
+
+(esi/create "test4" :mappings mapping-types)
+
+(def doc {:username "happyjoe"
+          :first-name "Joe"
+          :last-name "Smith"
+          :age 30
+          :title "The Boss"
+          :planet "Earth"
+          :biography "N/A"})
+
+
+(esd/create "test4" "person" doc)
+;; => {:ok true, :_index people, :_type person, 
+       :_id "2vr8sP-LTRWhSKOxyWOi_Q", :_version 1}
+----
+
+*clojurewerkz.elastisch.rest.document/put* will add a document to the index but expects document id to be provided:
+
+[source,clojure]
+----
+(esr/put "test4" "person" "happyjoe" doc)
+----
+
+==== Discussion
+
+Whenever a document is added to the ElasticSearch index, it is first
+analyzed.
+
+*Analysis* is a process of several stages:
+
+ * Tokenization: breaking field values into *tokens*
+ * Filtering or modifying tokens
+ * Combining them with field names to produce *terms*
+
+How exactly a document was analyzed defines what search queries will
+match (find) it. ElasticSearch is based on
+http://lucene.apache.org[Apache Lucene] and offers several analyzers
+developers can use to achieve the kind of search quality and
+performance requirements they need. For example, different languages
+require different analyzers: English, Mandarin Chinese, Arabic and
+Russian cannot be analyzed the same way.
+
+It is possible to skip performing analysis for fields and specify if
+field values are stored in the index or not. Fields that are not
+stored still can be searched over but will not be included into search
+results.
+
+ElasticSearch allows users to define how exactly different kinds of
+documents are indexed, analyzed and stored.
+
+ElasticSearch has excellent support for *multi-tenancy*: an
+ElasticSearch cluster can have a virtually unlimited number of indexes
+and mapping types.  For example, you can use a separate index per user
+account or organization in a SaaS (software as a service) product.
+
+There are two ways to index a document with ElasticSearch: submit it
+for indexing without the id or update a document with a provided id,
+in which case if the document already exists, it will be updated (a
+new version will be created).
+
+While it is fine and common to use automatically created indexes early
+in development, manually creating indexes lets you configure a lot
+about how ElasticSearch will index your data and, in turn, what kind
+of queries it will be possible to execute against it.
+
+How your data is indexed is primarily controlled by *mappings*. They define which fields
+in documents are indexed, if/how they are analyzed and if they are
+stored. Each index in ElasticSearch may have one or more *mapping
+types*. Mapping types can be thought of as tables in a database
+(although this analogy does not always stand).  Mapping types is the
+heart of indexing in ElasticSearch and provide access to a lot of
+ElasticSearch functionality.
+
+For example, a blogging application may have types such as "article",
+"comment" and "person". Each has distinct *mapping settings* that
+define a set of fields documents of the type have, how they are
+supposed to be indexed (and, in turn, what kind of queries will be
+possible over them), what language each field is in and so on. Getting
+mapping types right for your application is the key to good search
+experience. It also takes time and experimentation.
+
+Mapping types define document fields and of what core types
+(e.g. string, integer or date/time) they are. Settings are provided to
+ElasticSearch as a JSON document and this is how they are documented
+on the
+http://www.elasticsearch.org/guide/reference/mapping/[ElasticSearch
+site].
+
+With Elastisch, mapping settings are specified as Clojure maps with
+the same structure (schema). A very minimalistic example:
+
+[source,clojure]
+----
+{"tweet" {:properties {:username  {:type "string" :index "not_analyzed"}}}}
+----
+
+Here is a brief and very incomplete list of things that you can define
+via mapping settings:
+
+ * Document fields, their types, whether they are analyzed
+ * Document time-to-live (TTL)
+ * Whether document type is indexed
+ * Special fields (`"_all"`, default field, etc)
+ * http://www.elasticsearch.org/guide/reference/mapping/boost-field.html[Document-level boosting]
+ * http://www.elasticsearch.org/guide/reference/mapping/timestamp-field.html[Timestamp field]
+
+When an index is created using the
+`clojurewerkz.elastisch.rest.index/create` function, mapping settings
+are passed with the `:mappings` option, as seen above.
+
+When it is necessary to update mapping for an index, you can use the
+*clojurewerkz.elastisch.rest.index/update-mapping* function:
+
+[source,clojure]
+----
+(esi/update-mapping "myapp_development" "person"
+                    :mapping {:properties {:first-name 
+                                          {:type "string" :store "no"}}})
+----
+
+In a mapping configuration, settings are passed as maps where keys are
+names (strings or keywords) and values are maps of the actual
+settings. In this example, the only setting is `:properties` which
+defines a single field which is a string that is not analyzed:
+
+[source,clojure]
+----
+{"tweet" {:properties {:username  {:type "string" :index "not_analyzed"}}}}
+----
+
+There is more to indexing and mapping options outside the scope of a
+single reciple. See the Elastisch
+http://clojureelasticsearch.info/articles/indexing.html[Indexing
+Documentation] for an exhaustive list of the capabilities provided.
+
+==== See Also
+
+* The official elasticsearch http://www.elasticsearch.org/guide/[Elasticsearch Guide]
+* The Elastisch http://clojureelasticsearch.info[Homepage].

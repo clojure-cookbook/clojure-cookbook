@@ -1,0 +1,120 @@
+[[sec_datomic_dry_run]]
+=== Trying Datomic Transactions without Committing Them
+[role="byline"]
+by Robert Stuttaford
+
+==== Problem
+
+You want to test a transaction prior to committing it using Datalog or
+the entity API.
+
+==== Solution
+
+Build your transaction as usual, but instead of calling +d/transact+
+or +d/transact-async+, use +d/with+ to produce an in-memory database
+that includes the changes your transaction provides.
+
+To follow along with this recipe, complete the steps in
+<<sec_datomic_connect_to_datomic_solution>> and
+<<sec_datomic_schema_solution>>. After doing this you will have a
+connection, +conn+, and a schema installed against which you can
+insert data.
+
+First, add some data to the database about Fred Flintstone. As of
+about 4000 BCE Fred didn't have an email, but we at least know his
+name.
+
+[source,clojure]
+----
+(require '[datomic.api :as d])
+
+(def new-id (d/tempid :db.part/user))
+
+
+(def tx-result @(d/transact conn
+                            [{:db/id new-id
+                              :user/name "Fred Flintstone"}]))
+
+----
+
+Fast forward to today: Fred is thawed, after having been frozen in ice
+for 6000 years, and he gets his first email address. Prepare a
+transaction to add an email to the Fred entity.
+
+[source,clojure]
+----
+;; Grab Fred's ID from the original transaction
+(def fred-id (d/resolve-tempid (:db-after tx-result)
+                               (:tempids tx-result)
+                               new-id))
+
+fred-id
+;; -> 17592186045421
+
+(def add-freds-email-tx [[:db/add fred-id 
+                          :user/email "twinkletoes@example.com"]])
+----
+
+Now, prepare an in-memory database with this new transaction applied.
+First, get the current database value to use as a basis, then create
+an in-memory database. Finally grab the +:db-after+ value so that
+you can test that the email was properly added:
+
+[source,clojure]
+----
+(defn db-with
+  "Return a new database with tx applied"
+  [db tx]
+  (-> (d/with db tx)
+      :db-after))
+
+
+(def db-after (db-with (d/db conn) add-freds-email-tx))
+----
+
+Now, compare the value of Fred's email in the current database with
+that of Fred's email in the in-memory database:
+
+[source,clojure]
+----
+(defn users-email
+  "Retrieve a user's email given their name."
+  [db name]
+  (-> (d/q '[:find ?email
+            :in $ ?name
+            :where 
+            [?entity :user/name ?name]
+            [?entity :user/email ?email]]
+          db
+          name)
+       ffirst))
+
+(users-email db-after "Fred Flintstone")
+;; -> "twinkletoes@example.com"
+
+(users-email (d/db conn) "Fred Flintstone")
+;; -> nil
+----
+
+As you can see, the current database remains unaffected by this
+transaction, but the database at +db-after+ now displays the new
+value.
+
+==== Discussion
+
+Databases produced by +d/with+ can be used with any of the other API
+functions that accept a database, including +d/with+ itself. This
+means that you can layer multiple transactions on top of each other
+without first having to commit them to the transactor!
+
+One of the things that makes Datomic so powerful is its ability to
+treat a database as a value. For this reason, the helper functions
+we've written take a database as an argument, not a connection. Now,
+it is not only possible to query the current database, but other
+values of the database.
+
+==== See Also
+
+* <<sec_datomic_transact_basics>> for more general information on
+  transacting data.
+

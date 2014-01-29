@@ -1,0 +1,138 @@
+[[sec_local_io_clojure_data_to_disk]]
+=== Reading and Writing Clojure Data
+[role="byline"]
+by John Cromartie
+
+==== Problem
+
+You need to store and retrieve Clojure data structures on disk.
+
+==== Solution
+
+Use +pr-str+ and +spit+ to serialize small amounts of data.
+
+[source,clojure]
+----
+(spit "data.clj" (pr-str [:a :b :c]))
+----
+
+Use +read-string+ and +slurp+ to read small amounts of data.
+
+[source,clojure]
+----
+(read-string (slurp "data.clj"))
+;; -> [:a :b :c]
+----
+
+Use +pr+ to efficiently write large data structures to a stream.
+
+[source,clojure]
+----
+(with-open [w (clojure.java.io/writer "data.clj")]
+  (binding [*out* w]
+    (pr large-data-structure)))
+----
+
+Use +read+ to efficiently read large data structures from a stream.
+
+[source,clojure]
+----
+(with-open [r (java.io.PushbackReader. (clojure.java.io/reader "data.clj"))]
+  (binding [*read-eval* false]
+    (read r)))
+----
+
+==== Discussion
+
+// This is very similar to local-io/read-write-files, I am trying to
+// harmonize the differences --JC
+
+The fact that "code is data" in Clojure, and that you have runtime
+access to the same reader the language uses to load source code from
+files makes this a relatively simple task. However, while this is
+often a good way to persist data to disk, you should be aware of a few
+issues.
+
+.Reading, Security & edn
+****
+The +read+ function is only appropriate for reading data from
+*trusted* sources. This is because the Clojure reader is not designed
+nor guaranteed to be safe or free from side-effects. Binding
++pass:[*read-eval*]+ to +false+ is just a small safeguard. If you need to
+read Clojure data structures from *untrusted* sources, i.e. anything
+you did not write yourself, then see the +clojure.edn+ library.
+
+edn (Extensible Data Notation) is a specification of Clojure's data
+structure serialization format with multiple implementations, so it
+can be used as a transport and persistence format and consumed from
+programs written in any language, much like XML or JSON. The
++clojure.edn+ library is edn's implementation for Clojure.
+
+It works much the same as the Clojure reader and writer, however, it
+provides additional security guarantees that the Clojure reader does
+not, and should always be used for any external or untrusted input.
+****
+
+The simple case of +slurp+ and +spit+ becomes unusable when the data
+is very large, because it creates a very large string in memory all at
+once. For instance: serializing one million random numbers (created
+with +rand+) results in an 18MB file, and consumes much more memory
+than that while reading or writing.
+
+[source,clojure]
+----
+(spit "data.clj" (pr-str (repeatedly 1e6 rand)))
+;; -> OutOfMemoryError Java heap space
+----
+
+But, if you know you are only dealing with a small amount of data,
+this approach is perfectly suitable. It is a good way to load
+configuration data and other types of simple structures.
+
+Reading and writing from streams is far more efficient, because it
+buffers input and output, dealing with data a few bytes at a time
+footnote:[See <<sec_local-io_read_write_files>> for notes on managing
+streams.].
+
+In addition to reading and writing a single data structure in a file,
+you can also append additional data structures to the same file and
+read them back as a sequence later.
+
+[source,clojure]
+----
+(spit "data.clj" (prn-str [1 2 3]))
+(spit "data.clj" (prn-str [:a :b :c]) :append true)
+;; data.clj now contains two serialized structures
+----
+
+This is useful for appending small amounts of data to a file over
+time, such as for an event or transaction log.
+
+However +read-string+ will not suffice for reading multiple objects
+from a single string. To read a series of objects from a stream, you
+must continue to call +read+ until it has reached the end.
+
+[source,clojure]
+----
+(defn- read-one
+  [r]
+  (try
+    (read r)
+    (catch java.lang.RuntimeException e
+      (if (= "EOF while reading" (.getMessage e))
+        ::EOF
+        (throw e)))))
+
+(defn read-seq-from-file
+  "Reads a sequence of top-level objects in file at path."
+  [path]
+  (with-open [r (java.io.PushbackReader. (clojure.java.io/reader path))]
+    (binding [*read-eval* false]
+      (doall (take-while #(not= ::EOF %) (repeatedly #(read-one r)))))))
+----
+
+==== See Also
+
+* <<sec_local_io_get_local_resource>>
+* <<sec_edn_configs>>
+* <<sec_default_data_reader>>

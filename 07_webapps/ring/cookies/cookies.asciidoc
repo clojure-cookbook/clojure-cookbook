@@ -1,0 +1,100 @@
+=== Handling Cookies with Ring
+[role="byline"]
+by Adam Bard
+
+==== Problem
+
+Your web application needs to read or set cookies on the user's browser (for example, to remember a user's name.)
+
+==== Solution
+
+Use the `ring.middleware.cookies/wrap-cookies` middleware to add cookies to your requests.
+
+To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+
+._src/ringtest.clj_
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [ring.adapter.jetty :as jetty]
+    [ring.middleware.cookies :refer [wrap-cookies]]
+    [ring.middleware.params :refer [wrap-params]]))
+
+(defn set-name-form
+  "A response showing a form for the user to enter their name."
+  []
+  {:body "<html><form action=''>Name: <input type='text' name='name'>
+  <input type='submit'></form></html>"
+   :status 200
+   :content-type "text/html"
+   })
+
+(defn show-name
+  "A response showing that we know the user's name"
+  [name]
+  {:body (str "Hello, " name)
+   :cookies {"name" {:value name}} ; Preserve the cookies
+   :status 200 })
+
+(defn handler
+  "If we know the user's name, show it; else, show a form to get it."
+  [req]
+  (let [name (or
+              (get-in req [:cookies "name" :value])
+              (get-in req [:params "name"]))]
+    (if name
+      (show-name name)
+      (set-name-form))))
+
+(def wrapped-handler
+  (-> handler
+      wrap-cookies
+      wrap-params))
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty wrapped-handler {:port 3000}))
+----
+
+==== Discussion
+
+This example uses the `wrap-cookies` and `wrap-params` middlewares
+included with +ring-core+. The first time the user visits a page, it
+shows the user a form for them to enter their name.  After their name
+is entered, it stores their name in a cookie and displays it as a
+instead, until the cookie is removed.
+
+The example uses `wrap-cookies` to retrieve the user's stored name
+from the cookie map, or if it's not there, `wrap-params` to retrieve
+the user's name from the request parameters.
+
+Ring's cookie middleware simply adds an extra parameter, `:cookies`,
+onto the incoming request map, and sets any cookies you pass out as the
+`:cookies` parameter on the response. The `:cookies` parameter is a
+map that looks something like this:
+
+[source, clojure]
+----
+{"name" {:value "Some Guy"}}
+----
+
+You can add other optional parameters to each cookie, along with `:value`. From the
+https://github.com/ring-clojure/ring/wiki/Cookies[Ring Cookie Documentation]:
+
+[quote, Ring Docs]
+____
+As well as setting the value of the cookie, you can also set additional attributes:
+
+* `:domain` - restrict the cookie to a specific domain
+* `:path` - restrict the cookie to a specific path
+* `:secure` - restrict the cookie to HTTPS URLs if true
+* `:http-only` - restrict the cookie to HTTP if true (not accessible via e.g. JavaScript)
+* `:max-age` - the number of seconds until the cookie expires
+* `:expires` - a specific date and time the cookie expires
+____
+
+==== See Also
+
+* <<sec_ring_middleware>>
+* Ring's https://github.com/ring-clojure/ring/wiki/Cookies[Cookie Documentation]

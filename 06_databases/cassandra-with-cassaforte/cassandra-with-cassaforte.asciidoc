@@ -1,0 +1,175 @@
+=== Working with Cassandra
+[role="byline"]
+by Alex Petrov
+
+==== Problem
+
+You want to work with data stored in Cassandra.
+
+==== Solution
+
+Use the http://clojurecassandra.info/[Cassaforte] library for connecting to Cassandra cluster and work with the records in the database.
+
+In order to successfully work through the examples in this recipe, you
+should have Cassandra installed. You can find details on how to
+install Cassandra at http://wiki.apache.org/cassandra/GettingStarted.
+
+To follow along with this recipe, add `[clojurewerkz/cassaforte "1.1.0"]` to your project's dependencies, or start a REPL using +lein-try+:
+
+[source,shell-session]
+----
+$ lein try clojurewerkz/cassaforte
+----
+
+In order to connect to Cassandra cluster and create and use your first
+keyspace, you will need the +clojurewerkz.cassaforte.client+,
++clojurewerkz.cassaforte.cql+ and +clojurewerkz.cassaforte.query+
+namespaces. +clojurewerkz.cassaforte.client+ is responsible for
+connection, the other two provide a easy interface to execute queries.
+
+[source,clojure]
+----
+(require '[clojurewerkz.cassaforte.client :as client]
+         '[clojurewerkz.cassaforte.cql :as cql]
+         '[clojurewerkz.cassaforte.query :as q])
+
+;; Connect to 2 nodes in a cluster
+(client/connect! ["localhost" "another.node.local"])
+
+;; Creates a keyspace name `cassaforte_keyspace`, 
+using Simple Replication Strategy and replication factor of 2
+(cql/create-keyspace "cassaforte_keyspace"
+                     (q/with {:replication
+                              {:class "SimpleStrategy"
+                              :replication_factor 2 }}))
+
+;; Switch to the keyspace
+(cql/use-keyspace "cassaforte_keyspace")
+----
+
+Now, you can create tables and start inserting data into them. For that, invoke the +create-table+ and +insert+ functions of the +clojurewerkz.cassaforte.cql+ namespace.
+
+[source,clojure]
+----
+(cql/create-table "users"
+                  (q/column-definitions {:name :varchar
+                                         :city :varchar
+                                         :age  :int
+                                         :primary-key [:name]}))
+----
+
+Now, insert several users into the table:
+
+[source,clojure]
+----
+(cql/insert "users" {:name "Alex" :city "Munich" :age (int 26)})
+(cql/insert "users" {:name "Robert" :city "Brussels" :age (int 30)})
+----
+
+You can access these records using +select+ query. For example, if you want to retrieve all the users from the table or use +limit+ in your query, you can run:
+
+[source,clojure]
+----
+;; Will retrieve all the users
+(cql/select "users")
+
+;; Will retrieve top 10 users
+(cql/select "users" (q/limit 10))
+----
+
+Alternatively, if you want to retrieve information about a single person, by given +name+, you can add a +where+ clause to it:
+
+[source,clojure]
+----
+(cql/select "users" (q/where :name "Alex"))
+----
+
+==== Discussion
+
+Cassandra is an open source implementations of many of the ideas in Amazon's landmark http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf[Dynamo Paper]. It's a key-value data store, and it's not aware of any relationships between tables and data points. Cassandra is a distributed data store and designed to be highly available. For that, it replicates data within the cluster. The data is stored redundantly on multiple nodes. In case one node fails, data is still available for retrieval from a different node or multiple nodes.
+
+Cassandra starts making sense when your data is rather big. Because it was built for distribution, you can scale your reads and writes, and fine-tune and manage your database consistency and availability. Cassandra handles network partitions well, so even when your several nodes are unavailable for some time, you will still be able to read and write data until the network partition heals. If your dataset is rather small, and you don't expect it to grow significantly any time soon, and you need to run many ad-hoc queries against the dataset, then Cassandra may not make sense.
+
+Consistency/Availability are tunable values: you can get better availability by sacrificing data consistency, which means that due to network partitions not all the nodes will hold the latest snapshot of data at all times, but you'll be still able to respond to writes and receive reads. If you choose to have strong consistency, the latency will increase, since more nodes should respond successfully for reads and writes. Eventual consistency guarantees that, if no conflicting writes are made for the data point, eventually all nodes will hold the latest value.
+
+Like most data stores, Cassandra has concepts of separate databases (keyspaces in Cassandra terminology). Every keyspace holds tables (that are sometimes called column families). Tables hold rows, and rows consist of columns. Each column has a key (column name), value, write timestamp and time-to live.
+
+Cassandra uses two different communication protocols; an older binary protocol called Thrift, and CQL (Cassandra Query Language). All query operators in Cassaforte generate CQL code under the hood. Here are a couple of examples of how these operations translate to CQL internally:
+
+[source,clojure]
+----
+(cql/select "users" (q/where :name "Alex"))
+;; SELECT * FROM users WHERE name='Alex';
+
+(cql/insert "users" {:name "Alex" :city "Munich" :age (int 26)})
+;; INSERT INTO users (name, city) VALUES ('Munich', 26);
+----
+
+There's much more to Cassandra than just creating tables and inserting values. If you want to update records in your database, you can call the +update+ function:
+
+[source,clojure]
+----
+(cql/update "users"
+             {:city "Berlin"}
+             (q/where :name "Alex"))
+----
+
+Deleting records from the database is just as easy:
+
+[source,clojure]
+----
+;; Will delete just one user
+(cql/delete :users (q/where :name "Alex"))
+
+;; Will delete all users whose names match within IN clause
+(cql/delete :users (q/where :name [:in ["Alex" "Robert"]]))
+----
+
+If you'd like to execute some arbitrary CQL statements, outside of
+Cassaforte's macro-based DSL, you can pass a string to the
++client/execute+ function:
+
+[source,clojure]
+----
+(client/execute "INSERT INTO users (name, city, age) 
+                 VALUES ('Alex', 'Munich', 19);")
+----
+
+For each issued write you can specify an optional +TTL+ (time to live) to expire the data after certain period of time. It's useful for caching and data that you only want to hold for certain period of time (like user sessions, for example). For example, if you want the record to live for just 60 seconds, you can run:
+
+[source,clojure]
+----
+(cql/insert "users" {:name "Alex" :city "Munich" :age (int 26)}
+                    (q/using :ttl 60))
+----
+
+Another concept that people like about Cassandra is distributed
+counters. Counter columns provide an efficient way to count or sum
+anything you need. It is achieved by using atomic increment/decrement
+operations on values. In order to create a table with a counter from
+Cassaforte, you can use the +:counter+ column type:
+
+[source,clojure]
+----
+(cql/create-table :scores
+                  (q/column-definitions {:username :varchar
+                                         :score    :counter
+                                         :primary-key [:username]}))
+----
+
+You can increment and decrement counters by using the +increment-by+ and +decrement-by+ queries:
+
+[source,clojure]
+----
+(cql/update :scores
+            {:score (q/increment-by 50)}
+            (q/where :name "Alex"))
+
+(cql/update :scores
+            {:score (q/decrement-by 5)}
+            (q/where :name "Robert"))
+----
+
+==== See Also
+
+* The http://clojurecassandra.info[Cassaforte documentation]

@@ -1,0 +1,250 @@
+[[sec_unit_testing]]
+=== Unit Testing
+[role="byline"]
+by Daniel Gregoire
+
+==== Problem
+
+You want to test individual units of Clojure code.
+
+==== Solution
+
+Clojure includes a unit testing framework in its +clojure.test+
+namespace. It provides ways to name and group tests, make assertions,
+report results and orchestrate test suites. 
+
+For demonstration, imagine you had a +capitalize-entries+ function
+that capitalized values in a map. To test this function, define a test
+using +clojure.test/deftest+.
+
+[source,clojure]
+----
+;; A function in namespace com.example.core
+(defn capitalize-entries
+  "Returns a new map with values for keys 'ks' in the map 'm' capitalized."
+  [m & ks]
+  (reduce (fn [m k] (update-in m [k] clojure.string/capitalize)) m ks))
+
+
+;; The corresponding test in namespace com.example.core-test
+(require '[clojure.test :refer :all])
+
+;; In a real test namespace, you would also :refer all of the target namespace
+;; (require '[com.example.core :refer :all])
+
+(deftest test-capitalize-entries
+  (let [employee {:last-name "smith"
+                  :job-title "engineer"
+                  :level 5
+                  :office "seattle"}]
+    ;; Passes
+    (is (= (capitalize-entries employee :job-title :last-name)
+           {:job-title "Engineer"
+            :last-name "Smith"
+            :office "seattle"
+            :level 5}))
+    ;; Fails
+    (is (= (capitalize-entries employee :office)
+           {}))))
+----
+
+Run the test with the +clojure.test/run-tests+ function:
+
+[source,clojure]
+----
+(run-tests)
+;; -> {:type :summary, :pass 1, :test 1, :error 0, :fail 1}
+;; *out*
+;; Testing user
+;;
+;; FAIL in (test-capitalize-entries) (NO_SOURCE_FILE:13)
+;; expected: (= (capitalize-entries employee :office) {})
+;;   actual: (not (= {:last-name "smith", :office "Seattle", 
+                      :level 5, :job-title "engineer"} {}))
+;;
+;; Ran 1 tests containing 2 assertions.
+;; 1 failures, 0 errors.
+----
+
+==== Discussion
+
+The example above only scratches the surface of what +clojure.test+
+provides for unit testing. Let us take a bottom-up look at its other
+features.
+
+First, you can improve reporting when an assertion fails by providing
+a second argument that explains what the assertion is intended to
+test. When you run this test you will see an extended description of
+how the code was expected to behave.
+
+[source,clojure]
+----
+
+(is (= (capitalize-entries {:office "space"} :office) {})
+    "The employee's office entry should be capitalized.")
+;; -> false
+;; * out*
+;; FAIL in clojure.lang.PersistentList$EmptyList@1 (NO_SOURCE_FILE:1)
+;; The employee's office entry should be capitalized.
+;; expected: (= (capitalize-entries {:office "space"} :office) {})
+;;   actual: (not (= {:office "Space"} {}))
+----
+
+For testing a function like +capitalize-entries+ thoroughly, several
+use cases need to be considered. To more concisely test numerous
+similar cases, use the +clojure.test/are+ macro:
+
+[source,clojure]
+----
+(deftest test-capitalize-entries
+  (let [employee {:last-name "smith"
+                  :job-title "engineer"
+                  :level 5
+                  :office "seattle"}]
+    (are [ks m] (= (apply capitalize-entries employee ks) m)
+         [] employee
+         [:not-a-key] employee
+         [:job-title] {:job-title "Engineer"
+                       :last-name "smith"
+                       :level 5
+                       :office "seattle"}
+         [:last-name :office] {:last-name "Smith"
+                               :office "Seattle"
+                               :level 5
+                               :job-title "engineer"})))
+----
+
+The first two parameters to +are+ set up a testing pattern: given a
+sequence of keys +ks+ and a map +m+, call +capitalize-entries+ for
+those keys on the original +employee+ map and assert that the return
+value equals +m+. Writing out multiple use cases in a declarative
+syntax makes it easier to catch errors and untreated edge-cases, such
+as the +NullPointerException+ that will be thrown for the
+`[:not-a-key] employee` assertion pair in the test above.
+
+Unlike testing frameworks for other popular dynamic languages,
+Clojure's built-in assertions are minimal and simple. The +is+ and
++are+ macros check test expressions for "truthiness", i.e., that those
+expressions return neither +false+ nor +nil+, in which case they pass.
+Beyond this, you can also check for +thrown?+ or +thrown-with-msg?+ to
+test that a certain +java.lang.Throwable+ (error or exception) is
+expected:
+
+[source,clojure]
+----
+(is (thrown? IndexOutOfBoundsException (nth [] 1)))
+----
+
+Above the level of individual assertions, +clojure.test+ also provides
+facilities for calling functions before or after tests run. In the
++test-capitalize-entries+ test we defined an ad hoc +employee+ map for
+testing, but you could also read in external data to be shared across
+multiple tests by registering a data-loading function as a "fixture."
+The +clojure.test/use-fixtures+ multimethod allows registering Clojure
+functions to be called either before or after each test, or before or
+after an entire namespace's test suite. The following example defines
+and registers three fixture functions:
+
+[source,clojure]
+----
+(require '[clojure.edn :as edn])
+
+(def test-data (atom nil))
+
+;; Assuming you have a test-data.edn file...
+(defn load-data "Read a Clojure map from test data in a file."
+  [test-fn]
+  (reset! test-data (edn/read-string (slurp "test-data.edn")))
+  (test-fn))
+
+(defn add-test-id "Add a unique id to the data before each test."
+  [test-fn]
+  (swap! test-data assoc :id (java.util.UUID/randomUUID))
+  (test-fn))
+
+(defn inc-count "Increment a counter in the data after each test runs."
+  [test-fn]
+  (test-fn)
+  (swap! test-data update-in [:count] (fnil inc 0)))
+
+(use-fixtures :once load-data)
+(use-fixtures :each add-test-id inc-count)
+
+;; Tests...
+----
+
+You can think about fixture functions as forming a pipeline through
+which each test is passed as a parameter, which we called +test-fn+ in
+the example above. Take +inc-count+ for example, It is the job of this
+fixture 1) invoke the +test-fn+ function, continuing the pipeline, and
+aftewards, 2) increment a count (e.g. "do some work"). Each fixture
+decides whether to invoke +test-fn+ before or after its own work
+(compare the +add-test-id+ function with the +inc-count+ function),
+while the +clojure.test/use-fixtures+ multimethod controls whether
+each registered fixture function is run only once for all tests in a
+namespace or once for each test.
+
+Finally, with a firm understanding of how to develop individual
+Clojure test suites, it is important to consider how you organize and
+run those suites as part of your project's build. Although Clojure
+allows defining tests for functions anywhere in your code base, you
+should keep your testing code in a separate directory that is only
+added to the JVM classpath when needed (e.g., during development and
+testing). It is conventional to name your test namespaces after the
+namespaces they test, so that a file located at
+_<project-root>/src/com/example/core.clj_ with namespace
++com.example.core+ has a corresponding test file at
+_<project-root>/test/com/example/core_test.clj_ with namespace
++com.example.core-test+. To control the location of your source and
+test directories and their inclusion on the JVM classpath, you should
+use a build tool like link:http://leiningen.org/[Leiningen] or
+link:http://maven.apache.org/[Maven] to organize your project.
+
+In Leiningen, the default directory for your tests is a top-level
+_<project-root>/test_ folder and you can run your project's tests with
+*+lein test+* at the command-line. Without any additional arguments the
+*+lein test+* command will execute all of the tests in a project. 
+
+[source,shell-session]
+----
+$ lein test
+
+lein test com.example.core-test
+lein test com.example.util-test
+
+Ran 10 tests containing 20 assertions.
+0 failures, 0 errors.
+----
+
+To limit the scope of tests Leiningen runs, use the +:only+ option,
+followed by a fully-qualified namespace or function name.
+
+[source,shell-session]
+----
+# To run an entire namespace
+$ lein test :only com.example.core-test
+
+lein test com.example.core-test
+
+Ran 5 tests containing 10 assertions.
+0 failures, 0 errors.
+
+# To run one, specific test:
+$ lein test :only com.example.core-test/test-capitalize-entries
+
+lein test com.example.core-test
+
+Ran 1 tests containing 2 assertions.
+0 failures, 0 errors.
+----
+
+==== See Also
+
+* The +clojure.test+ http://richhickey.github.io/clojure/clojure.test-api.html[API documentation].
+* If you are instead using Maven, use the
+  https://github.com/talios/clojure-maven-plugin[clojure-maven-plugin]
+  to run Clojure tests. This plugin will incorporate your Clojure
+  tests located in the Maven standard _src/test/clojure_ directory as
+  part of the +test+ phase in the Maven build life-cycle. You can
+  optionally use the plugin's +clojure:test-with-junit+ goal to
+  produce JUnit-style reporting output for your Clojure test runs.

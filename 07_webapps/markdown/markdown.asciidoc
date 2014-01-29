@@ -1,0 +1,146 @@
+[[sec_webapps__markdown]]
+=== Rendering Markdown Documents
+[role="byline"]
+by Dmitri Sotnikov
+
+==== Problem
+
+You need to render a Markdown document.
+
+==== Solution
+
+Use the +markdown-clj+ library (_https://github.com/yogthos/markdown-clj_) to render Markdown documents.
+
+To follow along with this recipe, start a REPL using +lein-try+:
+
+[source,shell-session]
+----
+$ lein try markdown-clj
+----
+
+Use +markdown.core/md-to-html+ to read a Markdown document and generate as string containing HTML.
+
+[source,clojure]
+----
+(require '[markdown.core :as md])
+
+(md/md-to-html "input.md" "output.html")
+
+(md/md-to-html (input-stream "input.md") (output-stream "test.txt"))
+----
+
+Use +markdown.core/md-to-html-string+ to convert a string
+with Markdown content to its HTML representation:
+
+[source,clojure]
+----
+(md/md-to-html-string 
+  "# This is a test\n\nsome code follows:\n```\n(defn foo [])\n```")
+----
+
+[source,html]
+----
+<h1> This is a test</h1><p>some code follows:</p><pre>
+&#40;defn foo &#91;&#93;&#41;
+</pre>
+----
+==== Discussion
+
+Markdown is a popular lightweight markup language that's easy to read and write and
+can be converted to structurally valid HTML.
+
+Since Markdown leaves many aspects of rendering the HTML open to interpretation it's
+not guaranteed that different parsers will produce the same representation.
+
+This can be a problem if you render a Markdown preview on the client using one
+parser and then later generate HTML on a server using a different parser.
+
+By virtue of compiling to both Clojure and ClojureScript +markdown-clj+ avoids this problem.
+With it you can use the same parser on both the server and the client and be guaranteed
+that the documents will be rendered consistently.
+
+Let's take a look at some more examples of using the library below.
+
+The code blocks can be annotated with the language hints, In this case it will the +pre+ tags
+will be decorated with a class compatible with the http://alexgorbatchev.com/SyntaxHighlighter/[SyntaxHighlighter].
+
+[source,clojure]
+----
+(md/md-to-html-string "# This is a test\n\nsome code follows:\n```clojure\n(defn foo [])\n```")
+----
+
+[source,html]
+----
+<h1> This is a test</h1><p>some code follows:</p><pre class="brush: clojure">
+&#40;defn foo &#91;&#93;&#41;
+</pre>
+----
+
++markdown-clj+ supports all the standard Markdown tags with the exception of the reference style links due
+to the fact that the parser uses a single pass to generate the document.
+
+The +markdown.core/md-to-html+ processes the input line by line and the entirety of the content
+does not need to be stored in memory when processing. On the other hand both +md-to-html-string+ and +mdToHTML+ 
+functions load the entire contents into memory.
+
+The parser accepts additional formatting options. These include +:heading-anchors+, +:code-style+,
++:custom-transformers+ and +:replacement-transformers+.
+
+When the +:heading-anchors+ is set to +true+ an anchor will be generated for each heading tag:
+
+[source,clojure]
+----
+(md/md-to-html-string "###foo bar BAz" :heading-anchors true)
+----
+
+[source,html]
+----
+<h3><a name=\"heading\" class=\"anchor\" href=\"#foo&#95;bar&#95;baz></a>
+  foo bar BAz</h3>
+----
+
+The +:code-style+ key allows overriding the default style hint for code blocks:
+
+[source,clojure]
+----
+(md/md-to-html-string "```clojure\n(defn foo [])\n```" 
+                      :code-style #(str "class=\"" % "\""))
+----
+
+[source,html]
+----
+<pre class="clojure">
+&#40;defn foo &#91;&#93;&#41;
+</pre>
+----
+
+We can specify transformers for custom tags by using the +:custom-transformers+ key. The
+transformer function should accept the +text+ parameter which is the current line and the
++state+ parameter containing the current state of the parser. The state can be used to store
+information such as what tags are currently active.
+
+[source,clojure]
+----
+(defn capitalize [text state]
+  [(.toUpperCase text) state])
+
+(md/md-to-html-string "#foo" :custom-transformers [capitalize])
+----
+
+[source,html]
+----
+<H1>FOO</H1>
+----
+
+Finally, we could provide a custom set of transformers to replace the built in ones using the
++:replacement-transformers+ key:
+
+[source,clojure]
+----
+(markdown/md-to-html-string "#foo" :replacement-transformers [capitalize])
+----
+
+==== See Also
+
+* The +markdown-clj+ https://github.com/yogthos/markdown-clj[GitHub repository] for more information on the library.
+

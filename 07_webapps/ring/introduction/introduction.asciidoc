@@ -1,0 +1,98 @@
+[[sec_webapps_ring_introduction]]
+=== Introduction to Ring
+[role="byline"]
+by Adam Bard
+
+==== Problem
+
+You need to write an HTTP service with Clojure
+
+==== Solution
+
+Clojure has no built-in HTTP server, but the de-facto standard for
+serving basic, synchronous HTTP requests is the Ring library.
+
+To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+
+._src/ringtest.clj_
+[source, clojure]
+----
+(ns ringtest
+  (:require
+    [ring.adapter.jetty :as jetty]
+    clojure.pprint))
+
+;; Echo (with pretty-print) the request received.
+(defn handler [request]
+  {:status 200
+   :headers {"content-type" "text/clojure"}
+   :body (with-out-str (clojure.pprint/pprint request))})
+
+(defn -main []
+  ;; Run the server on port 3000
+  (jetty/run-jetty handler {:port 3000}))
+----
+
+==== Discussion
+
+https://github.com/ring-clojure/ring[Ring] is the basis for most web
+applications in clojure. It provides a low-level and straightforward request-
+response API, where requests and responses are plain old clojure maps.
+
+Ring applications are architected around handlers; functions that accept
+requests and return responses. The above example defines a single handler
+that just echos the response it receives.
+
+A basic response map consists of 3 keys: `:status`, the status code of
+the response, `:headers`, an optional string-string map of the
+response headers you want, and `:body`, the string you want as your
+response body. Here, `:status` is 200 and `:body` is a pretty-printed
+string of the request. Therefore, the following sample response from
+hitting the url `http://localhost:3000/test/path/?qs=1` on the authors
+machine demonstrates the structure of a request:
+
+[source, clojure]
+----
+{:ssl-client-cert nil,
+ :remote-addr "0:0:0:0:0:0:0:1",
+ :scheme :http,
+ :request-method :get,
+ :query-string "qs=1",
+ :content-type nil,
+ :uri "/test/path/",
+ :server-name "localhost",
+ :headers
+ {"accept-encoding" "gzip,deflate,sdch",
+  "connection" "keep-alive",
+  "user-agent"
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 
+  (KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36",
+  "accept-language" "en-US,en;q=0.8",
+  "accept"
+  "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "host" "localhost:3000",
+  "cookie" ""},
+ :content-length nil,
+ :server-port 3000,
+ :character-encoding nil,
+ :body #<HttpInput org.eclipse.jetty.server.HttpInput@43efe432>}
+----
+
+You can see that this is comprehensive, but low level, with the
+salient features of the request parsed into Clojure data structures
+without additional abstraction. Typically, additional code or
+libraries are used to extract meaningful information from this data
+structure.
+
+The jetty adapter is used to run an embedded Jetty server. Ring also
+comes with adapters to run as a servlet in any Java servlet container.
+
+Note that the call to `run-jetty` is synchronous, and will not return
+as long as the server is running. If you call it from the REPL, you
+should wrap it in a `future` (or use some other concurrency mechanism)
+so the server runs on another thread and your REPL does not become
+unresponsive.
+
+==== See Also
+
+* Ring's https://github.com/ring-clojure/ring[GitHub repository].
