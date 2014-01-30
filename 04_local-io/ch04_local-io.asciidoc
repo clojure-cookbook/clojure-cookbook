@@ -19,7 +19,7 @@ include::4-5_copy-file.asciidoc[]
 
 include::4-6_delete-file.asciidoc[]
 
-include::files/4-7_get-files-from-directory/4-7_get-files-from-directory.asciidoc[]
+include::4-7_get-files-from-directory/4-7_get-files-from-directory.asciidoc[]
 
 include::4-8_memory-map-files.asciidoc[]
 

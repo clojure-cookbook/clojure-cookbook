@@ -60,7 +60,7 @@ include::2-20_as-sequences.asciidoc[]
 
 include::2-21_applying-functions-to.asciidoc[]
 
-include::maps/2-22_multiple-values/2-22_multiple-values.asciidoc[]
+include::2-22_multiple-values/2-22_multiple-values.asciidoc[]
 
 include::2-23_combining-maps.asciidoc[]
 
@@ -74,6 +74,6 @@ include::2-25_removing-duplicate-elements-from-a-collection.asciidoc[]
 
 include::2-26_determining-if-a-collection-holds-one-of-several-values.asciidoc[]
 
-include::custom-data-structures/2-27_red-black-trees-part-i.asciidoc[]
+include::2-27_and_2-28_custom-data-structures/2-27_red-black-trees-part-i.asciidoc[]
 
-include::custom-data-structures/2-28_red-black-trees-part-ii.asciidoc[]
+include::2-27_and_2-28_custom-data-structures/2-28_red-black-trees-part-ii.asciidoc[]

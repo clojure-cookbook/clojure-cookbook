@@ -17,6 +17,6 @@ include::9-4_testing.asciidoc[]
 
 include::9-5_checkpoint.asciidoc[]
 
-include::cascalog/9-6_explain/9-6_explain.asciidoc[]
+include::9-6_explain/9-6_explain.asciidoc[]
 
-include::cascalog/9-7_emr/9-7_emr.asciidoc[]
+include::9-7_emr/9-7_emr.asciidoc[]
