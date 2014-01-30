@@ -1,0 +1,149 @@
+[[sec_datomic_transact_basics]]
+=== Writing Data to Datomic
+[role="byline"]
+by Robert Stuttaford
+
+==== Problem
+
+You need to add data to your Datomic database.
+
+==== Solution
+
+Use a Datomic connection to transact data.
+
+To follow along with this recipe, complete the steps in
+<<sec_datomic_connect_to_datomic_solution>> and
+<<sec_datomic_schema_solution>>. After doing this you will have a
+connection, +conn+, and a schema installed against which you can
+insert data.
+
+[source,clojure]
+----
+(require '[datomic.api :as d :refer [q db]])
+
+(def tx-data [{:db/id (d/tempid :db.part/user)
+               :user/email "fowler@acm.org"
+               :user/name "Martin Fowler"
+               :user/roles [:user.roles/author :user.roles/editor]}])
+
+@(d/transact conn tx-data)
+
+(q '[:find ?name
+     :where [?e :user/name ?name]]
+   (:db-after tx-result))
+;; -> #{["Martin Fowler"]}
+----
+
+==== Discussion
+
+This map-based syntax for representing the data expands to a series of
++:db/add+ statements. This transaction is identical to the previous
+one:
+
+[source,clojure]
+----
+(def new-id (d/tempid :db.part/user))
+new-id
+;; -> #db/id[:db.part/user -1000013]
+
+(def tx-data2 [[:db/add new-id :user/email "ryan@cognitect.com"]
+               [:db/add new-id :user/name "Ryan Neufeld"]
+               [:db/add new-id :user/roles [:user.roles/author
+                                            :user.roles/editor]]])
+
+(def tx-result @(d/transact conn tx-data2)) ;; Keep this for later...
+
+(q '[:find ?name
+     :where [?e :user/name ?name]]
+   (db conn))
+;; -> #{["Ryan Neufeld"] ["Martin Fowler"]}
+----
+
+Of course, you can provide statements like these yourself, as well
+using the map syntax in the Solution, or any mix of the two. This is
+also how you would transact multiple entries (e.g. `(d/transact conn
+[person1-map person2-map])`).
+
+One difference you'll note between the map and the expanded form is
+the lack of a +:db/add+ statement for the +:db/id+ key. In the
+expanded form this value comes immediately after the action
+(+:db/add+) and *must* be identical between all statements to
+correlate attributes to a single entity. When specifying an entity as
+a map you provide a single ID which the transactor transparently
+affixes to each attribute.
+
+What is an appropriate ID? Any IDs for new entities are assigned
+temporary, negative ID values, which can be used to model
+relationships within the transaction. Upon successfully completing a
+transaction, all the temporary IDs are assigned in-storage positive ID
+values. When working with code, the correct approach is to use the
++datomic.api/tempid+ function to obtain a temporary ID. The
++datomic.api/tempid+ function takes a partition keyword as its
+arguments; for most purposes +:db.part/user+ will suffice
+
+When working with non-executable data, you'll need to use the
+data-literal form for temporary IDs. The literal `#db/id
+[:db.part/user]` is equivalent to `(d/tempid :db.part/user)`. This
+form is most useful when you store transaction data in an _*.edn_
+file, which is most often the case with schema definitions. Again, you
+should use +d/tempid+ in your code, as the +#db/id+ literal will
+evaluate once at compile time, which means that any code that
+expects the ID value to change from one execution to the next will
+fail, because it'll only ever have one value.
+
+.An example file: _user-bootstrap.edn_
+[source,clojure]
+----
+[{:db/id #db/id [:db.part/user]
+  :user/email "fowler@acm.org"
+  :user/name "Martin Fowler"
+  :user/roles [:user.roles/author :user.roles/editor]}]
+----
+
+When a transaction completes, you'll receive a completed future. If you
+prefer to transact asynchronously, you can also use +d/transact-async+
+instead, which will return its future immediately. In this case, as
+with all futures, when you dereference it, it will block until the
+transaction completes. Either way, dereferencing the future returns a
+map, with four keys:
+
+* +:db-before+: the value of the database just before the transaction
+  was committed.
+* +:db-after+: the value of the database just after the transaction
+  was committed.
+* +:tx-data+: a vector of all the datoms that were transacted.
+* +:tempids+: a mapping of the temporary ids to the in-storage ids,
+  one per temporary id in the transaction.
+
+You can use the +:db-after+ database to query the database directly
+after the transaction:
+
+[source,clojure]
+----
+(def db-after-tx (:db-after tx-result))
+
+(q '[:find ?name :in $ ?email :where
+     [?entity :user/email ?email]
+     [?entity :user/name ?name]]
+   db-after-tx
+   "fowler@acm.org")
+;; -> #{["Martin Fowler"]}
+----
+
+You can use the +:tempids+ map to find the in-storage IDs for any new
+entities you care about, much like you would when retrieving the last
+insert ID in SQL databases. Invoke +datomic.api/resolve-tempid+ with
+the +:db-after+ value, +:tempids+ value and the original temporary ID
+to retrieve the realized ID.
+
+[source,clojure]
+----
+(d/resolve-tempid db-after-tx (:tempids tx-result) new-id)
+;; -> 17592186045421
+----
+
+==== See Also
+
+* <<sec_datomic_schema>>
+* <<sec_retract_data>>
+* <<sec_datomic_dry_run>>

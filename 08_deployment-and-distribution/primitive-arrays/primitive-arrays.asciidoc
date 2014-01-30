@@ -1,0 +1,167 @@
+[[sec_deployment_primitive_arrays]]
+=== Fast Math with Primitive Java Arrays
+[role="byline"]
+by Jason Wolfe
+
+==== Problem
+
+You need to perform fast numerical operations over significant amounts
+of data.
+
+==== Solution
+
+Primitive Java arrays are the canonical way to store large collections
+of numbers compactly, and do math over them quickly (often 100x faster
+than Clojure sequences).
+
+The https://github.com/Prismatic/hiphip[+hiphip+ (array)] library is a
+quick and easy way to manipulate primitive arrays of +double+, +long+, +float+, or
++int+ members.
+
+Before starting, add `[prismatic/hiphip "0.1.0"]` to your project's
+dependencies or start a REPL using +lein-try+:
+
+[source,shell-session]
+----
+$ lein try prismatic/hiphip
+----
+
+Use one of ++hiphip++'s +amap+ macros to perform fast math on typed
+arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
+
+[source,clojure]
+----
+(require 'hiphip.double)
+
+(defn map-sqrt [xs]
+  (hiphip.double/amap [x xs] (Math/sqrt x)))
+
+(seq (map-sqrt (double-array (range 1000))))
+;; -> (2.0 3.0 4.0)
+
+(defn pointwise-product
+  "Produce a new double array with the product of corresponding elements of
+  xs and ys"
+  [xs ys]
+  (hiphip.double/amap [x xs y ys] (* x y)))
+(seq (pointwise-product (double-array [1.0 2.0 3.0])
+                        (double-array [2.0 3.0 4.0])))
+;; -> (2.0 6.0 12.0)
+----
+
+To modify an array in-place, use one of ++hiphip++'s +afill!+ macros.
+
+[source,clojure]
+----
+(defn add-in-place!
+  "Modify xs, incrementing each element by the corresponding element of ys"
+  [xs ys]
+  (hiphip.double/afill! [x xs y ys] (+ x y)))
+
+(let [xs (double-array [1.0 2.0 3.0])]
+  (add-in-place! xs (double-array [0.0 1.0 2.0]))
+  (seq xs))
+;; -> (1.0 3.0 5.0)
+----
+
+For faster +reduce+-like operations, use one of ++hiphip++'s +areduce+ and
++asum+ macros:
+
+[source,clojure]
+----
+(defn dot-product [ws xs]
+  (hiphip.double/asum [x xs w ws] (* x w)))
+
+(dot-product (double-array [1.0 2.0 3.0])
+             (double-array [2.0 3.0 4.0]))
+;; -> 20.0
+----
+
+[WARNING]
+====
+We'd love to throw in a quick +time+ benchmark to demonstrate the
+gains, but the JVM is a fickle beast when it comes to optimizations.
+We suggest using https://github.com/hugoduncan/criterium[criterium]
+when benchmarking to avoid common pitfalls.
+
+To see criterium benchmarks of +hiphip+, see
+https://gist.github.com/w01fe/7132440[this gist].
+====
+
+==== Discussion
+
+Most of the time, Clojure's sequence abstraction is all you need to
+get the job done. The above +dot-product+ can be written succinctly in
+ordinary Clojure, and this is generally what you should try first.
+
+[source,clojure]
+----
+(defn dot-product [ws xs]
+  (reduce + (map * ws xs))
+----
+
+Once you identify a bottleneck in your mathematical operations,
+however, primitive arrays may be the only way to go. The above
++dot-product+ implementation can be made more than 100x faster by
+using +asum+, primarily because +map+ produces sequences of
+'boxed' Java Double objects. In addition to the cost of constructing
+an intermediate sequence, all arithmetic operations on boxed numbers
+are significantly slower than on their primitive counterparts.
+
+++hiphip++'s +amap+, +afill!+, +reduce+ and +asum+ macros (among others)
+are availabe for +int+, +long+, +float+ and +double+ types. If you
+wanted to use +reduce+ over a array of floats, for example, you would
+use +hiphip.float/reduce+. These macros define the appropriate
+type-hints and optimizations per-type.
+
+Clojure also comes with
+http://clojure.org/java_interop#Java%20Interop-Arrays[built-in
+functions] for operating on arrays, although greater care must be
+taken to ensure maximal performance (via appropriate type hints and
+use of `*unchecked-math*`).
+
+[source,clojure]
+----
+(set! *unchecked-math* true)
+(defn map-inc [^doubles xs]
+  (amap xs i ret (aset ret i (inc (aget xs i)))))
+----
+
+Working with primitive arrays in Clojure isn't for the faint of heart:
+if you don't get *everything* right, you can easily end up with code
+that's both much uglier and no faster (or even slower) than the
+straightforward sequence version. The biggest issue to watch out for
+is reflection, which can easily bring you from 100x faster to 10x
+slower with one small typo or missing type hint.
+
+If you're up to the challenge, you should keep these tips in mind:
+
+* Use `*warn-on-reflection*` religiously, but be aware that it won't
+  warn you about many of the ways your code can be slow.
+* A solid profiler, or at least a comprehensive benchmark suite, are a
+  must; otherwise you won't know which function is using 99% of your
+  runtime.
+* Especially if you're not using +hiphip+, experiment with
+  `*unchecked-math*`; it almost always makes your code faster, if
+  you're willing to give up the safety of overflow checks.
+* If you want your array code to go
+  https://github.com/technomancy/leiningen/wiki/Faster#tiered-compilation[fast
+  under Leiningen], you probably want to add the following to your
+  _project.clj_: +:jvm-opts ^:replace []+.
+
+
+==== See Also
+
+* +hiphip+ comes with a
+  https://github.com/Prismatic/hiphip/blob/master/test/hiphip/type_impl_test.clj#L160[comprehensive
+  suite of benchmarks] of its and Clojure's array operations for the
+  main primitive types, including performance comparisons with
+  hand-coded Java alternatives.
+* https://github.com/ztellman/vertigo[Vertigo] goes beyond simple
+  arrays of primitives to full C-style structs, which may be a good
+  choice if you need to manipulate structured data (i.e., not just
+  sequences of ++double++s) with maximal performance.
+* <<sec_primitives_math_type_hinting>> to learn more about
+  type-hinting and unchecked-math.
+* <<sec_profiling_timbre>> to learn about using Timbre to output
+  profiling statistics from your code.

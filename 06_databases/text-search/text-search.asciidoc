@@ -1,0 +1,149 @@
+=== Performing Full-text Search with Lucene
+[role="byline"]
+by Osbert Feng
+
+==== Problem
+
+You want to support flexible full text search over a unstructured or
+semi-structured dataset using Lucene. For example, return all people
+that have "Clojure" anywhere in their job descriptions in the "United States".
+
+==== Solution
+
+Use https://github.com/weavejester/clucy[Clucy], a Clojure wrapper for
+Lucene. Clucy provides the tools to build and query indexes from
+within a Clojure process.
+
+To follow along with this recipe, create a new project (*+lein new
+text-search+*), add `[clucy "0.4.0"]` to its dependencies and start a
+REPL using *+lein repl+* footnote:[We would normally suggest using
++lein-try+, but the plugin is currently incompatible with Clucy.].
+
+The following code creates and queries a simple in-memory index:
+
+[source,clojure]
+----
+(require '[clucy.core :as clucy])
+
+(def index (clucy/memory-index))
+;; -> #'user/index
+
+
+(clucy/add index
+   {:name "Alice" :description "Clojure expert" 
+    :location "North Carolina, United States"}
+   {:name "Bob" :description "Clojure novice"
+    :location "Berlin, Germany"}
+   {:name "Eve" :description "Eavesdropper"
+    :location "Maryland, United States"})
+;; -> nil
+
+(clucy/search index "description:clojure AND location:\"united states\"" 10)
+;; -> ({:name "Alice",
+;;      :location "North Carolina, United States",
+;;      :description "Clojure expert"})
+----
+
+==== Discussion
+
+Lucene is a Java library for information retrieval. To use Lucene, you
+generate documents and index them for later retrieval. Documents
+consist of fields and terms. In this example the documents are quite
+small, but Lucene is capable of efficiently indexing large numbers of
+very large documents as well.
+
+Clucy wraps Lucene in a convenient manner for use in Clojure, and is
+capable of generating Lucene documents directly from simple Clojure
+maps, where keys map to fields and values map to textual data to be
+indexed.
+
++clucy.core/search+ takes an index, a query string, and the number of
+results to return as parameters. Lucene is able to efficiently query
+in part because it is not necessary to return all matching documents,
+just the top +n+ best matches.
+
+[NOTE]
+Clucy does not work as well out of the box with nested values in your
+maps. Be sure to flatten out values into simple strings for proper
+indexing and retrieval.
+
+This example uses a +memory-index+, which stores the index in system
+memory. In most real applications, you'll want to persist the index to
+disk, allowing it to grow larger than the available memory, and
+allowing you to restart your process without re-indexing. Clucy lets
+you construct a Lucene disk index via the +disk-index+ function.
+
+[source,clojure]
+----
+(def index (clucy.core/disk-index "/tmp/index"))
+----
+
+As part of the process for generating documents, Lucene calls an
+analyzer on your strings to generate tokens for indexing. The default
++StandardAnalyzer+ is sufficient for most purposes, and can be
+customized with a list of "stop words" to be ignored during token
+generation.
+
+[source,clojure]
+----
+(import 'org.apache.lucene.analysis.standard.StandardAnalyzer)
+;; -> org.apache.lucene.analysis.standard.StandardAnalyzer
+
+(import 'org.apache.lucene.analysis.util.CharArraySet)
+;; -> org.apache.lucene.analysis.util.CharArraySet
+
+(def stop-words
+  (doto (CharArray. clucy.core/*version* 3 true)
+    (.add "do")
+    (.add "not")
+    (.add "index")))
+
+(binding [clucy.core/*analyzer* (StandardAnalyzer.
+                                 clucy.core/*version*
+                                 stop-words)]
+  ;; invoke index add and search forms here, within the binding
+  )
+----
+
+However, in other situations you may need to use a different Analyzer
+or write your own. For example, the +EnglishAnalyzer+ uses Porter stemming and
+other techniques more well suited for taking into account pluralization or
+possessives.
+
+[source,clojure]
+----
+(import org.apache.lucene.analysis.en.EnglishAnalyzer)
+;; -> org.apache.lucene.analysis.en.EnglishAnalyzer
+
+(binding [clucy.core/*analyzer* (EnglishAnalyzer. clucy.core/*version*)]
+  ;; invoke index add and search forms here, within the binding
+  )
+----
+
+The basic search query syntax is +field:term+. By default multiple
+clauses will perform an +OR+ search, so an explicit +AND+ is required
+if both clauses must be true.
+
+If no field is specified, there an implicit field _content that
+indexes all map values. Documents returned are ordered by Lucene's
+default relevance algorithm which takes into account term frequency,
+distance, and document length.
+
+[source,clojure]
+----
+(clucy.core/search index "clojure united states" 10)
+;; -> ({:name "Alice",
+;;      :location "North Carolina, United States",
+;;      :description "Clojure expert"}
+;;     {:name "Eve",
+;;      :location "Maryland, United States",
+;;      :description "Eavesdropper"}
+;;     {:name "Bob",
+;;      :location "Berlin, Germany",
+;;      :description "Clojure novice"})
+----
+
+==== See Also
+
+* The http://lucene.apache.org/[Lucene project homepage].
+* The Clucy https://github.com/weavejester/clucy[GitHub repository].

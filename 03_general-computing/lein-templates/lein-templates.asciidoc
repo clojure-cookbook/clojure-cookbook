@@ -1,0 +1,287 @@
+=== Creating Custom Project Templates
+[role="byline"]
+by Travis Vachon
+
+==== Problem
+
+You regularly create new, similar projects and want an easy way to
+generate customized boilerplate. Or, you work on an open source
+project and want to give users an easy way to get started with your
+software.
+
+==== Solution
+
+Leiningen templates give Clojure programmers an easy way to
+automatically generate customized project boilerplate with a single
+shell command. We'll explore them by creating a template for a simple
+web service.
+
+First, generate a new template with *+lein new template
+cookbook-sample-template-<github_user>+*. Replace +github_user+ with
+your own GitHub username; you'll be publishing this
+template to Clojars and it will need a unique name. In the examples
+we'll use `clojure-cookbook` as our GitHub username.
+
+[source,shell-session]
+----
+$ lein new template cookbook-sample-template-clojure-cookbook
+Generating fresh 'lein new' template project.
+
+$ cd cookbook-sample-template-clojure-cookbook
+----
+
+Create a new project file template with the following contents in
+_src/leiningen/new/<project-name>/project.clj_.
+
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook/project.clj_
+[source,clojure]
+----
+(defproject {{ns-name}} "0.1.0"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.5.1"]])
+----
+
+Since you are creating a template for a web service, you'll want
+Clojure's `ring` and `ring-jetty-adapter` to be available by default,
+add them to the +:dependencies+ section:
+
+[source,clojure]
+----
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [ring "1.1.8"]
+                 [ring/ring-jetty-adapter "1.2.0"]]
+----
+
+Next, open the template definition
+(_src/leiningen/new/<project-name>.clj_) and add +project.clj+ to the
+list of files to be generated. Add +sanitize-ns+ to the namespace's
++:require+ directive to expose a sanitized namespace string.
+
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook.clj_
+[source,clojure]
+----
+(ns leiningen.new.cookbook-sample-template-clojure-cookbook
+  (:require [leiningen.new.templates :refer [renderer
+                                             name-to-path
+                                             ->files
+                                             sanitize-ns]]
+            [leiningen.core.main :as main])) ; <1>
+
+(def render (renderer "cookbook-sample-template-clojure-cookbook"))
+
+(defn cookbook-sample-template-clojure-cookbook
+  "FIXME: write documentation"
+  [name]
+  (let [data {:name name
+              :ns-name (sanitize-ns name)                       ; <2>
+              :sanitized (name-to-path name)}]
+    (->files data
+             ["project.clj" (render "project.clj" data)]        ; <3>
+             ["src/{{sanitized}}/foo.clj" (render "foo.clj" data)])))
+----
+
+<1> Add +sanitize-ns+ to the +:require+ declaration.
+<2> Expose +:ns-name+ as the sanitized +name+.
+<3> Add _project.clj_ to the list of files in the template.
+
+A good template gives users a basic skeleton on which to build. Create
+a new file at _src/leiningen/new/<project-name>/site.clj_ with some
+bare-bones web server logic:
+
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook/site.clj_
+[source,clojure]
+----
+(ns {{ns-name}}.site
+    "My website! It will rock!"
+    (:require [ring.adapter.jetty :refer [run-jetty]]))
+
+(defn handler [request]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body "Hello World"})
+
+(defn -main []
+  (run-jetty handler {:port 3000}))
+----
+
+Back in the template's _project.clj_ file, add a key-value for the
++:main+ option to indicate +my-website.site+ is the core runnable
+namespace for the project:
+
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook/project.clj_
+[source,clojure]
+----
+  :main {{ns-name}}.site
+----
+
+Go back to your template definition (_<project-name>.clj_) and change
+both +foo.clj+ references to +site.clj+. Delete the
+_src/leiningen/new/<project-name>/foo.clj_ file as well.
+
+._src/leiningen/new/cookbook_sample_template_clojure_cookbook.clj_
+[source,clojure]
+----
+;; ...
+["src/{{sanitized}}/site.clj" (render "site.clj" data)])))
+----
+
+To test the template locally, change directories to the root of your template
+project and run:
+
+[source,shell-session]
+----
+$ lein install
+$ lein new cookbook-sample-template-clojure-cookbook my-first-website --snapshot
+$ cd my-first-website
+$ lein run
+# ... Leiningen noisily fetching dependencies ...
+2013-08-22 16:41:43.337:INFO:oejs.Server:jetty-7.6.8.v20121106
+2013-08-22 16:41:43.379:
+  INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:3000
+----
+
+If +lein+ prints an error about not being able to find your template you should
+make sure you're on the latest version with *+lein upgrade+*.
+
+To make the template available to other users you'll need to publish it
+to Clojars. First, open up the template project's +project.clj+ and change
+the version to a release version - by default +lein+ will only use non-SNAPSHOT
+templates:
+
+._project.clj_
+[source,clojure]
+----
+(defproject cookbook-sample-template-clojure-cookbook/lein-template "0.1.0"
+;; ...
+----
+
+Next, visit http://clojars.org[clojars.org] to create a
+Clojars account and then deploy from the template project root:
+
+[source,shell-session]
+----
+$ lein deploy clojars
+----
+
+Other users can now create projects using your template name as the
+first argument to *+lein new+*. Leiningen will automatically fetch your
+project template from Clojars.
+
+[source,shell-session]
+----
+$ lein new cookbook-sample-template-clojure-cookbook my-second-website
+----
+
+==== Discussion
+
+Leiningen uses Clojars as a well known source of templates. When you
+pass a template name to *+lein new+*, it first looks for a template by
+name in the local Maven repository. If it doesn't find it there it
+will look for an appropriately named template on +clojars.org+. If it
+finds one it will download the template and use it to create the new
+project. The result is an almost magic-seeming project creation
+interface which lends itself extremely well to getting Clojure
+programmers going with new technology very quickly.
+
+Once a project template has been downloaded, Leiningen will use
++src/leiningen/new/<project-name>.clj+ to create a new project.
+This file can be customized extensively to create sophisticated
+templates that match your needs. We'll review this file and talk about
+some of the tools available to the template developer.
+
+[source,clojure]
+----
+(ns leiningen.new.cookbook-sample-template-clojure-cookbook
+  (:require [leiningen.new.templates :refer [renderer
+                                            name-to-path
+                                            ->files
+                                            sanitize-ns]]))
+----
+
+We first declare a namespace that matches the template name and
+require some useful functions provided by Leiningen for template
+development. +leiningen.new.templates+ contains a variety of other
+functions you may find useful, and is worth reviewing before you
+develop your own templates - problems you encounter during development
+may already be solved by the library. In this case, +name-to-path+ and
++sanitize-ns+ will help us create strings that we'll substitute into
+file templates in a number of places.
+
+[source,clojure]
+----
+(def render (renderer "cookbook-sample-template-clojure-cookbook"))
+----
+
+A new project is generated by loading a set of
+http://mustache.github.io/[mustache] template files and rendering them
+in the context of a named set of strings. The +renderer+ function
+creates a function that looks for mustache templates in a place
+determined by the name of your template. In this case it will look for
+templates in
+_src/leiningen/new/cookbook_sample_template_clojure_cookbook/_.
+
+[source,clojure]
+----
+(defn cookbook-sample-template-clojure-cookbook
+  "FIXME: write documentation"
+  [name]
+----
+
+Continuing the spirit of "convention over configuration", Leiningen
+will search this namespace for a function with the same name as your
+template. You may execute arbitrary Clojure code in this function,
+which means you can make project generation arbitrarily sophisticated.
+
+[source,clojure]
+----
+  (let [data {:name name
+              :ns-name (sanitize-ns name)
+              :sanitized (name-to-path name)}]
+----
+
+This is the data our renderer will use to create your new project
+files from the templates your provide. In this case we give our
+templates access to the project name, the namespace that will result
+from that name and a sanitized path based on that name.
+
+[source,clojure]
+----
+    (->files data
+             ["project.clj" (render "project.clj" data)]
+             ["src/{{sanitized}}/site.clj" (render "site.clj" data)])))
+----
+
+Finally, we pass the +->files+ (pronounced "to files") function a list
+of filename/content tuples. The filename determines where in the new
+project a file will end up. Content is generated using the +render+
+function we defined earlier. +render+ accepts a relative path to the
+template file and the key/value map we created above.
+
+Mustache templates are very simple, implementing nothing more than
+simple key substitution. For example, the following snippet is used to
+generate the +ns+ statement for our new project's main file,
++site.clj+:
+
+[source,clojure]
+----
+(ns {{ns-name}}.site
+    "My website! It will rock!"
+    (:require [ring.adapter.jetty :refer [run-jetty]]))
+----
+
+Leiningen templates are a powerful tool for saving Clojure developers
+from the drudgery of project setup. More importantly, they are an
+invaluable tool for open source developers to showcase their projects
+and make it incredibly easy for potential users to get started with an
+unfamiliar piece of software. If you've been developing Clojure for a
+while, or even if you've just started, it's well worth your time to
+take templates for a spin today!
+
+==== See also
+
+* https://github.com/technomancy/leiningen/blob/master/doc/TEMPLATES.md[Leiningen template documentation]
+* The source of the https://github.com/technomancy/leiningen/blob/master/src/leiningen/new/templates.clj[leiningen.new.templates] namespace.
+* http://mustache.github.io/[+mustache+ templates]

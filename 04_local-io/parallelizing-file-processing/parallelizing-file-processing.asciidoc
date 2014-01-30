@@ -1,0 +1,107 @@
+=== Parallelizing File Processing
+[role="byline"]
+by Edmund Jackson
+
+==== Problem
+
+You want to transform a text file, line-by-line but using all cores and
+without loading it into memory.
+
+==== Solution
+
+A quick win using +pmap+ over a sequence returned by +line-seq+.
+
+[source,clojure]
+----
+(require ['clojure.java.io :as 'jio])
+
+(defn pmap-file
+  "Process input-file in a parallel, applying processing-fn to each row
+  outputting into output-file"
+  [processing-fn input-file output-file]
+  (with-open [rdr (jio/reader input-file)
+              wtr (jio/writer output-file)]
+    (let [lines (line-seq rdr)]
+      (dorun
+       (map #(.write wtr %)
+            (pmap processing-fn lines))))))
+
+;; Example of calling this
+(def accumulator (atom 0))
+
+(defn- example-row-fn
+  "Trivial example"
+  [row-string]
+  (str row-string "," (swap! accumulator inc) "\n"))
+
+;; Call it
+(pmap-file example-row-fn "input.txt" "output.txt")
+----
+
+==== Discussion
+
+The key functions used in this example (beyond basic Clojure
+constructs like +map+ or +dorun+) are +line-seq+ and +pmap+.
+
++line-seq+, given an instance of +java.io.BufferedReader+ (which
++clojure.java.io/reader+ returns), will return a lazy sequence of
+strings. Each string is a line in the input file. What constitutes a
+newline for the purposes of line-splitting is deterimined by the
++line.separator+ JVM option, which will be set in a platform-specific
+way. Specifically, it will be a carriage return character followed by
+a line feed character in Windows, and a single newline character in
+Unix-derived systems such as Linux or OS X.
+
++pmap+ functions identically to +map+, and applies a function to each
+item in a sequence, returning a lazy sequence of return values. The
+difference is that as it applies the mapping function, it does so in a
+separate thread for each item in the collection (up to a certain fixed
+number of threads related to the number of CPUs on your system.)
+Threads realizing the sequence will block if the values are not ready
+yet.
+
++pmap+ can yield substantial performance improvements by distributing
+work across multiple CPU cores and performing it concurrently, but it
+isn't a magic bullet. Specifically, it incurs a certain amount of
+coordination overhead to schedule the multithreaded
+operations. Typically, it gives the most benefit when performing very
+heavyweight operations, where the mapping function is so
+computationally expensive that it makes the coordination overhead
+worth it. For simple functions that complete very quickly (such as
+basic operations on primitives), the coordination overhead is likely
+to be much larger than any performance gains, and +pmap+ will actually
+be much slower than +map+ in that case.
+
+The idea is to use +pmap+ to map over the sequence of file rows in
+parallel. However, you then need to pass each processed row through
++(map #(.write wtr %) ...)+ in order to ensure the rows are written
+one-at-a-time (put the write in the processing function to see what
+happens otherwise!). Finally, as these are lazy sequences we need to
+realise their side-effects before exiting the +with-open+ block or the
+file will be closed by the time we wish to evaluate them. This is
+accomplished by calling +dorun+.
+
+There are couple of caveats here. Firstly, although the row ordering
+of the output file will match that of the input, the execution order
+is not guaranteed. Secondly, the process will become IO bound quite
+quickly as all the writes happen on one thread, so you may not get the
+speedup you expect unless the processing function is substantial.
+Finally, +pmap+ is not perfectly efficient at allocating work, so the
+degree of speedup you see might not correspond exactly to the number
+of processors on your system, as you might expect.
+
+Another drawback to the +pmap+ approach is that the actual reading of
+the file is serialized, using a single +java.io.Reader+. Considerable
+gains can still be realized if the processing task is expensive
+compared to reading, but in lightweight tasks the bottleneck is likely
+to be reading the file itself, in which case parallelizing the
+processing work will give little to no gains in terms of total
+runtime (or even make it worse).
+
+==== See Also
+
+* <<rec_local_io_parallelizing_using_iota>> for a similar approach which parallelizes reading the file itself using
+memory mapping (as well as using Clojure Reducers for greater
+efficiency).
+
+

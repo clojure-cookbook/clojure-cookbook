@@ -1,0 +1,135 @@
+[[sec_local-io_handle_binary_files]]
+=== Reading and Writing Binary Files
+[role="byline"]
+by John Jacobsen
+
+==== Problem
+
+You need to read or write some binary data.
+
+==== Solution
+
+Use Java's +BufferedInputStream+, +BufferedOutputStream+ and
++ByteBuffer+ classes to work directly with binary data.
+
+==== Discussion
+
+While reading and writing text files (e.g. via `slurp` and `spit`) is
+easy in pure Clojure, writing binary data requires a little more Java interop.
+
+Clojure's `output-stream` wraps the `BufferedOutputStream` Java
+object. `BufferedOutputStream` has a `write` method which accepts Java byte
+arrays. The following writes 1000 zeros (bytes) to `/tmp/zeros`:
+
+[source,clojure]
+----
+(require '[clojure.java.io :refer [file output-stream input-stream]])
+
+(with-open [out (output-stream (file "/tmp/zeros"))]
+  (.write out (byte-array 1000)))
+----
+
+To read the bytes in again, use the corresponding `input-stream`
+function, which wraps `BufferedInputStream`:
+
+[source,clojure]
+----
+(with-open [in (input-stream (file "/tmp/zeros"))]
+  (let [buf (byte-array 1000)
+        n (.read in buf)]
+    (println "Read" n "bytes.")))
+
+;;=> Read 1000 bytes.
+----
+
+Writing zeros and reading in fixed-length blocks is obviously not very
+interesting. We want to prepare our byte array with some actual
+content. A common way to prepare byte arrays is to use a +ByteBuffer+,
+filling it with data from various types. Let's assume we want to
+write "strings" in the following format:
+
+1. A version number (byte; 66 in our example)
+2. A string length (big-endian int)
+3. the bytes for the string (in this case, "hello world")
+
+Then the following function will "pack" the bytes into an array
+using an intermediate `ByteBuffer`:
+
+[source,clojure]
+----
+(import '[java.nio ByteBuffer])
+
+(defn prepare-string [strdata]
+  (let [strlen (count strdata)
+        version 66
+        buflen (+ 1 4 (count strdata))
+        bb (ByteBuffer/allocate buflen)
+        buf (byte-array buflen)]
+    (doto bb
+      (.put (.byteValue version))
+      (.putInt (.intValue strlen))
+      (.put (.getBytes strdata))
+      (.flip)         ;; Prepare bb for reading
+      (.get buf))
+    buf))
+
+(prepare-string "hello world")
+;;=> #<byte[] [B@5ccab0e8>
+(into [] (prepare-string "hello world"))
+;;=> [66 0 0 0 11 104 101 108 108 111 32 119 111 114 108 100]
+----
+
+Writing data in this format is then as simple as
+
+[source,clojure]
+----
+(with-open [out (output-stream "/tmp/mystring")]
+  (.write out (prepare-string "hello world")))
+----
+
+To get the data back, `ByteBuffer` provides a way of unpacking
+multiple types out of a stream (array) of bytes:
+
+[source,clojure]
+----
+(defn unpack-buf [n buf]
+  (let [bb (ByteBuffer/allocate n)]
+    (.put bb buf 0 n)                     ;; Fill ByteBuffer with array contents
+    (.flip bb)                            ;; Prepare for reading
+    (let [version (.get bb 0)]
+      (.position bb 1)                    ;; Skip version byte
+      (let [buflen (.getInt bb)
+            strbytes (byte-array buflen)] ;; Prepare buffer to hold string 
+                                          ;; data...
+        (.get bb strbytes)                ;; ... and read it.
+        [version buflen (apply str (map char strbytes))]))))
+
+
+(with-open [in (input-stream "/tmp/mystring")]
+  (let [buf (byte-array 1024)
+        n (.read in buf)]
+    (unpack-buf n buf)))
+
+;=> [66 11 "hello world"]
+----
+
+Note that for both writing and reading, the `flip` operation on the
++ByteBuffer+ resets the position to the beginning of the buffer to
+prepare it for reading, and writing, respectively.  
+
+==== See Also
+
+- For more details on +ByteBuffer+, which plays a key role in Java's NIO
+library, see the Java NIO documentation, or Ron Hitchens, __Java NIO__
+(http://shop.oreilly.com/product/9780596002886.do).
+
+- The Clojure library,
+  https://github.com/geoffsalmon/bytebuffer[+bytebuffer+], which provides a
+thin, more idiomatic wrapper for +ByteBuffer+ operations.
+
+- The more recent https://github.com/clojurewerkz/buffy[Buffy] library provides
+a wrapper over the related Netty ByteBuffers.
+
+- Finally, the https://github.com/ztellman/gloss[Gloss] library provides a DSL
+for reading and writing binary streams of data (whether file-based, or
+network-based).
