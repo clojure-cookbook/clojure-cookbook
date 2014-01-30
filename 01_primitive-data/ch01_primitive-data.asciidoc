@@ -1,88 +1,88 @@
 [[ch_primitive_data]]
 == Primitive Data
 
-include::introduction.asciidoc[]
+include::1-0_introduction.asciidoc[]
 
 ////////////////////
 Strings & Characters
 ////////////////////
 
-include::strings/1-1_capitalizing-strings/1-1_capitalizing-strings.asciidoc[]
+include::1-1_capitalizing-strings.asciidoc[]
 
-include::strings/1-2_managing-whitespace/1-2_managing-whitespace.asciidoc[]
+include::1-2_managing-whitespace.asciidoc[]
 
-include::strings/1-3_concatenating-strings/1-3_concatenating-strings.asciidoc[]
+include::1-3_concatenating-strings.asciidoc[]
 
-include::strings/1-4_strings-as-seqs-of-characters/1-4_strings-as-seqs-of-characters.asciidoc[]
+include::1-4_strings-as-seqs-of-characters.asciidoc[]
 
-include::strings/1-5_integer-to-character-conversions/1-5_integer-to-character-conversions.asciidoc[]
+include::1-5_integer-to-character-conversions.asciidoc[]
 
-include::strings/1-6_formatting-strings/1-6_formatting-strings.asciidoc[]
+include::1-6_formatting-strings.asciidoc[]
 
-include::strings/1-7_regexp-matching/1-7_regexp-matching.asciidoc[]
+include::1-7_regexp-matching.asciidoc[]
 
-include::strings/1-8_matching-strings/1-8_matching-strings.asciidoc[]
+include::1-8_matching-strings.asciidoc[]
 
-include::strings/1-9_find-and-replace/1-9_find-and-replace.asciidoc[]
+include::1-9_find-and-replace.asciidoc[]
 
-include::strings/1-10_tokenizing-strings/1-10_tokenizing-strings.asciidoc[]
+include::1-10_tokenizing-strings.asciidoc[]
 
-include::strings/1-11_inflecting-strings/1-11_inflecting-strings.asciidoc[]
+include::1-11_inflecting-strings.asciidoc[]
 
-include::strings/1-12_converting-stringlike-data/1-12_converting-stringlike-data.asciidoc[]
+include::1-12_converting-stringlike-data.asciidoc[]
 
 ///////
 Numbers
 ///////
 
-include::math/1-13_absolute-precision/1-13_absolute-precision.asciidoc[]
+include::1-13_absolute-precision.asciidoc[]
 
-include::math/1-14_working-with-rational-numbers/1-14_working-with-rational-numbers.asciidoc[]
+include::1-14_working-with-rational-numbers.asciidoc[]
 
-include::math/1-15_parsing-numbers/1-15_parsing-numbers.asciidoc[]
+include::1-15_parsing-numbers.asciidoc[]
 
-include::math/1-16_rounding/1-16_rounding.asciidoc[]
+include::1-16_rounding.asciidoc[]
 
-include::math/1-17_fuzzy-comparison/1-17_fuzzy-comparison.asciidoc[]
+include::1-17_fuzzy-comparison.asciidoc[]
 
-include::math/1-18_trigonometry/1-18_trigonometry.asciidoc[]
+include::1-18_trigonometry.asciidoc[]
 
-include::math/1-19_different-bases/1-19_different-bases.asciidoc[]
+include::1-19_different-bases.asciidoc[]
 
-include::math/1-20_simple-statistics/1-20_simple-statistics.asciidoc[]
+include::1-20_simple-statistics.asciidoc[]
 
-include::math/1-21_bitwise-operations/1-21_bitwise-operations.asciidoc[]
+include::1-21_bitwise-operations.asciidoc[]
 
-include::math/1-22_random-numbers/1-22_random-numbers.asciidoc[]
+include::1-22_random-numbers.asciidoc[]
 
-include::math/1-23_currency/1-23_currency.asciidoc[]
+include::1-23_currency.asciidoc[]
 
-include::math/1-24_uuids/1-24_uuids.asciidoc[]
+include::1-24_uuids.asciidoc[]
 
 /////
 Dates
 /////
 
-include::dates/1-25_current-date/1-25_current-date.asciidoc[]
+include::1-25_current-date.asciidoc[]
 
-include::dates/1-26_reader-literal/1-26_reader-literal.asciidoc[]
+include::1-26_reader-literal.asciidoc[]
 
-include::dates/1-27_parsing-dates/1-27_parsing-dates.asciidoc[]
+include::1-27_parsing-dates.asciidoc[]
 
-include::dates/1-28_formatting-dates/1-28_formatting-dates.asciidoc[]
+include::1-28_formatting-dates.asciidoc[]
 
-include::dates/1-29_comparing-dates/1-29_comparing-dates.asciidoc[]
+include::1-29_comparing-dates.asciidoc[]
 
-include::dates/1-30_time-between/1-30_time-between.asciidoc[]
+include::1-30_time-between.asciidoc[]
 
-include::dates/1-31_date-ranges/1-31_date-ranges.asciidoc[]
+include::1-31_date-ranges.asciidoc[]
 
-include::dates/1-32_gregorian-lazyseq/1-32_gregorian-lazyseq.asciidoc[]
+include::1-32_gregorian-lazyseq.asciidoc[]
 
-include::dates/1-33_relative-times/1-33_relative-times.asciidoc[]
+include::1-33_relative-times.asciidoc[]
 
-include::dates/1-34_working-with-time-zones-and-leap-years/1-34_working-with-time-zones-and-leap-years.asciidoc[]
+include::1-34_working-with-time-zones-and-leap-years.asciidoc[]
 
-include::dates/1-35_converting-from-unix-time/1-35_converting-from-unix-time.asciidoc[]
+include::1-35_converting-from-unix-time.asciidoc[]
 
-include::dates/1-36_converting-to-unix-time/1-36_converting-to-unix-time.asciidoc[]
+include::1-36_converting-to-unix-time.asciidoc[]
