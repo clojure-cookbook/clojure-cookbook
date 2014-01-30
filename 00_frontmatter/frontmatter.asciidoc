@@ -25,32 +25,31 @@ them well as they design solutions for their own unique problems.
 
 An important thing you should understand about this book is
 that it is, first and foremost, a group effort. It is not authored by
-one or two people. It isn't even the work of a single, well defined
-group. Instead, it is the collaborative product of over sixty of the
+one or two people. It isn't even the work of a single, well-defined
+group. Instead, it is the collaborative product of more than sixty of the
 best Clojurists from all over the world, from all backgrounds. These
 authors use Clojure every day on real applications, ranging from
 aerospace to social media, banking to robotics, AI research to
 e-commerce.
 
 As such, you will see a lot of diversity in the recipes
-presented. Some are quick and to the point; "get stuff done, and move
-on!"  Others are more deliberate, presenting digestible yet
+presented. Some are quick and to the point.  Others are more deliberate, presenting digestible yet
 penetrating insights into the philosophy and implementation of certain
 aspects of Clojure.
 
 We hope that there is something in this book for readers of diverse
 interests. We believe that it will be useful not only as a reference
-for looking up specific tasks, but as a worthwhile survey of the
+for looking up specific tasks, but also as a worthwhile survey of the
 variety and expressivity that Clojure is capable of. As we edited
-submissions, we were astonished at the at the number of concepts and
+submissions, we were astonished by the number of concepts and
 techniques that were new to us, and will hopefully be new to our
 readers as well.
 
 Another fact that we discovered while writing and editing is how
 difficult it is to draw a circumference around what we wanted to
 cover. Every single recipe is a beautiful, endless fractal, touching
-multiple topics, each of which deserves a recipe, a chapter or a book
-of its own. But each recipe also needs to stand on its own. They each
+multiple topics, each of which deserves a recipe, a chapter, or a book
+of its own. But each recipe also needs to stand on its own. Each one
 should provide some useful nugget of information which readers can
 understand and take away with them.
 
@@ -62,14 +61,14 @@ without being pedantic.
 
 Anyone who uses Clojure will, we hope, be able get something out of
 this book. There are a lot of recipes on truly basic things that
-beginners will find useful, but there are a large number of recipes on
+beginners will find useful, but there are many recipes on
 more specialized topics that advanced users should find useful for
 getting a head start on implementation.
 
 That said, if you're completely new to Clojure, this probably isn't
 the book to start with. At least, not by itself. It covers a great
 many useful topics, but not as methodically or as thoroughly as a good
-introductory text. See the "Resources" section below for a list
+introductory text. See the resources section below for a list
 of general Clojure books you may find useful as prior or supplemental
 texts.
 
@@ -77,31 +76,31 @@ texts.
 
 One thing that this book is not, and could never be, is
 complete. There is too much to cover, and by presenting information in
-a task-oriented recipe format we have inherently precluded ourselves
+a task-oriented recipe format, we have inherently precluded ourselves
 from methodical, narrative explanation of the features and
 capabilities of the whole language.
 
 For a more linear, thorough explanation of Clojure and its features,
-we recommend one of the following books:
+we recommend one of the following books: 
 
-- _Clojure Programming_ (O'Reilly, 2012) by Chas Emerick, Brian Carper
-  and Christophe Grand. A good, comprehensive general purpose Clojure
-  book focusing on the language and common tasks, oriented towards
+- pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/0636920013754.do">Clojure Programming</ulink></emphasis>] (O'Reilly, 2012), by Chas Emerick, Brian Carper,
+  and Christophe Grand. A good, comprehensive, general-purpose Clojure
+  book focusing on the language and common tasks, oriented toward
   beginner Clojure programmers.
 
-- _Programming Clojure_, 2nd ed. (Pragmatic Bookshelf, 2012) by Stuart
+- _Programming Clojure_, 2nd ed. (Pragmatic Bookshelf, 2012), by Stuart
   Halloway and Aaron Bedra. The first book on Clojure, this is a
   clear, comprehensive introductory tutorial to the Clojure language.
 
-- _Practical Clojure_, (Apress, 2010) by Luke VanderHart and Stuart
+- _Practical Clojure_ (Apress, 2010), by Luke VanderHart and Stuart
   Sierra. This is a terse, no-nonsense explanation of what Clojure is
   and what its features do.
 
-- _The Joy of Clojure_, (Manning, 2011) by Michael Fogus and Chris
+- _The Joy of Clojure_ (Manning, 2011), by Michael Fogus and Chris
   Houser. A slightly more advanced text that really digs into the
   themes and philosophies of Clojure.
 
-- _ClojureScript: Up and Running_, (O'Reilly, 2012) by Stuart Sierra
+- pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/0636920025139.do">ClojureScript: Up and Running</ulink></emphasis>] (O'Reilly, 2012), by Stuart Sierra
   and Luke VanderHart. While the _Clojure Cookbook_ and the other
   Clojure books listed here focus mainly or entirely on Clojure
   itself, ClojureScript (a dialect of Clojure which compiles to
@@ -125,13 +124,13 @@ we have simply tried to place it where we think the majority of
 readers would look first.
 
 A _recipe_ consists of three primary parts and one secondary: problem,
-solution, discussion and "see also". A recipe's problem statement lays
+solution, discussion, and "see also." A recipe's problem statement lays
 a task or obstacle to be overcome. Its solution tackles the problem
-head on, illustrating a particular technique or library that
+head-on, illustrating a particular technique or library that
 effectively accomplishes the task. The discussion rounds everything
 out, exploring the solution and any caveats that may come with it.
-Finally, we tie the recipe off with a "See Also" section, pointing
-you, the reader, at any additional resources or recipes that will
+Finally, we tie the recipe off with a "see also" section, pointing
+you, the reader, to any additional resources or recipes that will
 assist you in enacting the described solution.
 
 ==== Chapter Listing
@@ -172,12 +171,12 @@ protocols and libraries.
 
 <<ch_databases>> demonstrates techniques and tools for connecting to
 and using a variety of databases. Special attention is given to
-Datomic, a data store that shares and extends much of Clojure's
-underlying philosphy of value, state and identity to persistent
+Datomic, a datastore that shares and extends much of Clojure's
+underlying philosphy of value, state, and identity to persistent
 storage.
 
 <<ch_webapps>> dives in depth to one of the most common applications
-for Clojure - buliding and maintaining dynamic websites. It provides
+for Clojure: building and maintaining dynamic websites. It provides
 comprehensive treatment of Ring (the most popular HTTP server library
 for Clojure), as well as tools for HTML templating and rendering.
 
@@ -186,8 +185,8 @@ program once you have one, going over common patterns for packaging,
 distributing, profiling, logging, and associated ongoing tasks over
 the lifetime of an application.
 
-<<ch_distributed>> goes in-depth on cloud computing, and
-using Clojure for heavyweight distributed data-crunching. Special
+<<ch_distributed>> goes in depth on cloud computing and
+using Clojure for heavyweight distributed data crunching. Special
 attention is given to Cascalog, a declarative Clojure interface to the
 Hadoop map-reduce framework.
 
@@ -206,19 +205,18 @@ minimum of 6 will do. For Leiningen, you should have at least
 version 2.2.
 
 If you don't have Java installed (or would like to upgrade), visit
-_http://www.oracle.com/technetwork/java/javase/downloads/index.html_ for
+http://www.oracle.com/technetwork/java/javase/downloads/index.html[the Java Download Page] for
 instructions on downloading and installing the Java JDK.
 
-To install Leiningen, follow the installation instructions on
-Leiningen's website (_http://leiningen.org/_). If you already have
+To install Leiningen, follow the installation instructions on http://leiningen.org/[Leiningen's website]. If you already have
 Leiningen installed, get the latest version by executing the command
 *+lein upgrade+*. If you aren't familiar with Leiningen, visit the
 https://github.com/technomancy/leiningen/blob/stable/doc/TUTORIAL.md[tutorial]
 to learn more.
 
-The one thing you *won't* need to manually install is Clojure itself,
+The one thing you *won't* need to manually install is Clojure itself;
 Leiningen will do this for you on an ad hoc basis. To verify your
-installation, run *+lein repl+* and check your Clojure version.
+installation, run *+lein repl+* and check your Clojure version:
 
 [source,shell-session]
 ----

@@ -1,6 +1,6 @@
 === Acknowledgments
 
-This book would not have been possible had it not been for the
+This book would not have been possible without the
 selfless contributions of many within the Clojure community. Over 65
 Clojurists rose to the occasion, submitting recipes, proofreading, and
 offering their input on the direction of the book. Ultimately, this is
@@ -76,13 +76,13 @@ it together. Those contributors are:
 * Travis Vachon, https://github.com/travis[travis] on GitHub
 * Stefan Karlsson, https://github.com/zclj[zclj]
 
-Special thanks are also deserved by our biggest contributors; Adam
+Special thanks are also deserved by our biggest contributors: Adam
 Bard, Alan Busby, Alex Robbins, Ambrose Bonnaire-Sergeant, Dmitri Sotnikov,
-John Cromartie, John Jacobsen, Robert Stuttaford, Stefan Karlsson and
+John Cromartie, John Jacobsen, Robert Stuttaford, Stefan Karlsson, and
 Tom Hicks. All together, these outstanding individuals contributed
-almost 1/3 of the final book's recipe count.
+almost a third of the book's recipes.
 
-Thanks to our technical reviewers, Alex Robbins, Travis Vachon and
+Thanks to our technical reviewers, Alex Robbins, Travis Vachon, and
 Thomas Hicks. These fine gentlemen scoured the book for technical
 errors in record time, in the 11th hour no less. Where a regular
 technical reviewer would merely submit textual descriptions of
@@ -92,13 +92,13 @@ they were a pleasure to work with and the book is much better because
 of their involvement.
 
 Finally, thanks to our employer, Cognitect, for giving us time to work
-on the book and all of our colleagues, who offered advice, feedback
+on the book, and all of our colleagues, who offered advice, feedback,
 and best of all, more recipes!
 
 ==== Ryan Neufeld
 
 First, a huge thanks to Luke. It was Luke who originally pitched the
-idea for the book, and I'm very gracious that he extended an
+idea for the book, and I'm very grateful that he extended an
 invitation for me to join him in authoring it. They say the best way
 to learn something is to write a book on it--this couldn't be any
 closer to the truth. Working on the book has really rounded out my
@@ -109,7 +109,7 @@ through the process of writing the book. Getting this thing off the
 ground has been a Herculean task and I couldn't have done it without
 the love and support of my wife Jackie and daugther Elody. If it
 hadn't been for the hundreds upon hundreds of hours of evenings,
-weekends and vacation time I usurped from them, I wouldn't have been
+weekends, and vacation time I usurped from them, I wouldn't have been
 able to write this book.
 
 ==== Luke VanderHart
@@ -117,7 +117,7 @@ able to write this book.
 Most of all, I'd like ot thank my co-author Ryan, who worked incredibly
 hard to make the book happen.
 
-Also, all of my co-workers at Cognitect provided lots of thoughts and
+Also, all of my coworkers at Cognitect provided lots of thoughts and
 ideas, and most importantly were a sounding board for the many
 questions that arose during the writing and editing process. Many
 thanks for that, as well as for providing the opportunity to write

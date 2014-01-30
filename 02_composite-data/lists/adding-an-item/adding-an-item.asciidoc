@@ -61,7 +61,7 @@ structure* operation, which will not change the concrete type of the
 data structure it is applied to, while +cons+ is a *sequence*
 operation and only guarantees that it will return a sequence: in fact,
 it returns a cons cell (+clojure.lang.Cons+) which implements the
-sequence interface, no matter what type of seq-able collection you
+sequence interface, no matter what type of _seq-able_ collection you
 gave it to start with.
 
 Unlike +conj+, +cons+ is also guaranteed to return a sequence with the

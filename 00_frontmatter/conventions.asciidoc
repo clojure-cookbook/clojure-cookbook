@@ -23,7 +23,7 @@ appear on the command line:
 
 Where appropriate, code samples may omit or ellipsize return value
 comments. The two most common places you'll see this are when defining
-a function/var or shortening lengthy output.
+a function/var or shortening lengthy output:
 
 [source,clojure]
 ----
@@ -34,9 +34,9 @@ a function/var or shortening lengthy output.
 ;; -> [1 2 ... 20]
 ----
 
-When an expression produces output to +STDOUT+ or +STDERR+ it is
+When an expression produces output to +STDOUT+ or +STDERR+, it is
 denoted by a comment (`*out*` and `*error*`, respectively), followed
-by a comment with each line of output.
+by a comment with each line of output:
 
 [source,clojure]
 ----
@@ -50,8 +50,8 @@ by a comment with each line of output.
 
 ==== REPL Sessions
 
-Seeing that _REPL-driven Development_ is in vogue at present, it
-follows that this be a REPL-driven book. REPLs (Read-Eval-Print Loops)
+Seeing that _REPL-driven development_ is in vogue at present, it
+follows that this be a REPL-driven book. REPLs (read-eval-print loops)
 are interactive prompts that evaluate expressions and print their
 results. The Bash prompt, +irb+, and the +python+ prompt are examples
 of REPLs. Nearly every recipe in this book is designed to be run at a
@@ -60,15 +60,15 @@ Clojure REPL.
 While Clojure REPLs are traditionally displayed as `user=> ...`, this
 book aims for readers to be able to copy-paste all of the examples in
 a recipe and see the indicated results. As such, samples omit `user=>`
-and comment-out any output to make things easier. This is especially
-helpful if you're following along on a computer; You can blindly
-copy-paste code samples without worrying about trying to run non-code.
+and comment out any output to make things easier. This is especially
+helpful if you're following along on a computer: you can blindly
+copy-paste code samples without worrying about trying to run noncode.
 
 When an example is *only* relevant in the context of a REPL, we will
 retain the traditional REPL style (with `user=>`). What follows is an
 example of each, a REPL-only sample and its simplified version.
 
-.REPL-only
+.REPL-only:
 [source,shell-session]
 ----
 user=> (+ 1 2)
@@ -78,7 +78,7 @@ Hello!
 nil
 ----
 
-.Simplified
+.Simplified:
 [source,clojure]
 ----
 (+ 1 2)
@@ -92,12 +92,12 @@ nil
 
 ==== Console/Terminal Sessions
 
-Console sessions (e.g. shell commands) are denoted by monospace font,
+Console sessions (e.g., shell commands) are denoted by monospace font,
 with lines beginning with a dollar sign (+$+) indicating a shell
-prompt. Output is printed without a leading "+$+".
+prompt. Output is printed without a leading +$+.
 
 A backslash (+\+) at the end of a command indicates to the console that the
-command continues on the next line.
+command continues on the next line:
 
 [source,shell-session]
 ----
@@ -106,18 +106,18 @@ Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
 ----
 
 [[sec_lein_try]]
-.Our Golden Boy, +lein-try+
+.Our Golden Boy, lein-try
 ****
 Clojure is not known for its extensive standard library. Unlike
 languages like Perl or Ruby, Clojure's standard library is
 comparatively small; Clojure chose _simplicity_ and _power_ instead.
 As such, Clojure is a language full of libraries, not built-ins (well,
-except for Java...)
+except for Java).
 
 Since so many of the solutions in this book rely on third-party
 libraries, we developed
 https://github.com/rkneufeld/lein-try[+lein-try+]. +lein-try+ is a small
-plugin for http://leiningen.org/[Leiningen], Clojure's de facto
+plug-in for http://leiningen.org/[Leiningen], Clojure's de facto
 project tool, that lets you quickly and easily try out various Clojure
 libraries.
 
@@ -131,7 +131,7 @@ user profile as follows:
 ----
 
 Now, inside of a project or out, you can use the *+lein try+* command
-to launch a REPL with access to whichever library you please.
+to launch a REPL with access to whichever library you please:
 
 [source,shell-session]
 ----
@@ -140,12 +140,12 @@ $ lein try clj-time
 user=>
 ----
 
-Long story short: Where possible, you'll see instructions on which
+Long story short: where possible, you'll see instructions on which
 +lein-try+ command to execute above recipes that use third-party
 libraries. You'll find an example of trying recipes with +lein-try+ in
 <<sec_try_library>>.
 
-If a recipe *cannot* be run via +lein-try+ we have made efforts to
+If a recipe *cannot* be run via +lein-try+, we have made efforts to
 include adequate instructions on how to run that recipe on your local
 machine.
 ****
@@ -157,23 +157,23 @@ The following typographic conventions are used in this book:
 // These conventions *roughly* follow standards layed out as the O'Reilly
 // standard.
 
-*Bold*::
-  is used to emphasize a word or phrase.
+pass:[<emphasis role="strong">Bold</emphasis>]::
+  Used to emphasize a word or phrase.
 _Italic_::
-  is used for URLs, filenames, and file extensions. New terms are also
+  Used for URLs, filenames, and file extensions. New terms are also
   italicized when they first appear in the text.
-+Constant Width+::
-  is used for function and method names and their arguments; in
-  examples to show both input and output; and in regular text to show
++Constant width+::
+  Used for function and method names and their arguments, in
+  examples to show both input and output, and in regular text to show
   literal code.
-*+Constant Width Bold+*::
-  is used to indicate commands that you should enter literally at the
-  command-line.
+*+Constant width bold+*::
+  Used to indicate commands that you should enter literally at the
+  command line.
 
 The names of libraries follow one of two conventions: libraries with proper
-names are displayed in capitalized plain text (e.g. "Hiccup" or "Swing"), while
+names are displayed in capitalized plain text (e.g., "Hiccup" or "Swing"), while
 libraries with names meant to mimic code symbols are displayed in constant
-width text (e.g. +core.async+ or +clj-commons-exec+).
+width text (e.g., +core.async+ or +clj-commons-exec+).
 
 [TIP]
 ====
