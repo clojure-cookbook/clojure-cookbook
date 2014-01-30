@@ -46,7 +46,9 @@ convert degrees to radians.
            [lat2 long2] (degrees->radians p2)]
        (* radius
           (Math/acos (+ (* (Math/sin lat1) (Math/sin lat2))
-                        (* (Math/cos lat1) (Math/cos lat2) (Math/cos (- long1 long2)))))))))
+                        (* (Math/cos lat1)
+                           (Math/cos lat2)
+                           (Math/cos (- long1 long2)))))))))
 
 (distance-between [49.2000 -98.1000] [35.9939, -78.8989])
 ;; -> 2139.42827188432

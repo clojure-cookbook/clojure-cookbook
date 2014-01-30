@@ -59,7 +59,8 @@ tell report the same information, albeit in the form of a type error.
 user=> (require '[clojure.core.typed :as t])
 user=> (t/check-ns 'core-typed-samples)
 # ...
-ExceptionInfo Internal Error (core-typed-samples:6) Unresolved constructor invocation java.io.File.
+ExceptionInfo Internal Error (core-typed-samples:6)
+  Unresolved constructor invocation java.io.File.
 
 Hint: add type hints.
 

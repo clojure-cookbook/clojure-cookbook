@@ -21,7 +21,9 @@ number of binary flags into a single value.
 [source,clojure]
 ----
 ;; Modelling a subset of Unix filesystem flags in a single integer
-(def fs-flags [:owner-read :owner-write :group-read :group-write :global-read :global-write])
+(def fs-flags [:owner-read :owner-write
+               :group-read :group-write
+               :global-read :global-write])
 
 ;; Fold flags into a map of flag->bit
 (def bitmap (zipmap fs-flags
@@ -65,7 +67,10 @@ you're interested in. This drastically simplifies the above example.
 [source,clojure]
 ----
 ;; Modelling a subset of Unix filesystem flags in a single integer
-(def fs-flags [:owner-read :owner-write :group-read :group-write :global-read :global-write])
+(def fs-flags [:owner-read :owner-write
+               :group-read :group-write
+               :global-read :global-write])
+
 (def bitmap (zipmap fs-flags
                     (map #(.indexOf fs-flags %) fs-flags)))
 

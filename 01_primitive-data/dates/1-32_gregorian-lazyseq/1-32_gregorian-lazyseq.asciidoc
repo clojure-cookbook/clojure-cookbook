@@ -42,7 +42,8 @@ the REPL).
         (.clone start-date)))))
 
 (take 2 (drop 57 daily-from-epoch))
-;; -> (#inst "1970-02-27T00:00:00.000-07:00" #inst "1970-02-28T00:00:00.000-07:00")
+;; -> (#inst "1970-02-27T00:00:00.000-07:00"
+;;     #inst "1970-02-28T00:00:00.000-07:00")
 ----
 
 
@@ -87,7 +88,8 @@ argument but defaults to some convenient year if the argument is not provided:
 [source,clojure]
 ----
 (defn daily-from-year [& [start-year]]
-  (let [ start-date (java.util.GregorianCalendar. (or start-year 1970) 0 0 0 0) ]
+  (let [start-date (java.util.GregorianCalendar. (or start-year 1970)
+                                                 0 0 0 0)]
     (repeatedly
       (fn []
         (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
@@ -99,7 +101,8 @@ argument but defaults to some convenient year if the argument is not provided:
 ;;     #inst "1999-01-03T00:00:00.000-07:00")
 
 (take 2 (daily-from-year))
-;; -> (#inst "1970-01-01T00:00:00.000-07:00" #inst "1970-01-02T00:00:00.000-07:00")
+;; -> (#inst "1970-01-01T00:00:00.000-07:00"
+;;     #inst "1970-01-02T00:00:00.000-07:00")
 ----
 
 
@@ -130,8 +133,8 @@ the function takes optional starting year and date format string arguments:
   "Return an infinite sequence of formatted Gregorian day strings
   starting on January 1st of the given year (default 1970)"
   [& [start-year date-format]]
-  (let [ gd-format (java.text.SimpleDateFormat. (or date-format "EEE M/d/yyyy"))
-         start-date (java.util.GregorianCalendar. (or start-year 1970) 0 0 0 0) ]
+  (let [gd-format (java.text.SimpleDateFormat. (or date-format "EEE M/d/yyyy"))
+        start-date (java.util.GregorianCalendar. (or start-year 1970) 0 0 0 0)]
     (repeatedly
       (fn []
         (.add start-date java.util.Calendar/DAY_OF_YEAR 1)

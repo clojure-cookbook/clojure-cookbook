@@ -69,7 +69,8 @@ concise solutions to common problems. For example, by merging with
 ----
 (def Alice {:loves #{:clojure :lisp :scheme} :hates #{:fortran :c :c++}})
 (def Bob   {:loves #{:clojure :scheme}       :hates #{:c :c++ :algol}})
-(def Ted   {:loves #{:clojure :lisp :scheme} :hates #{:algol :basic :c :c++ :fortran}})
+(def Ted   {:loves #{:clojure :lisp :scheme} :hates #{:algol :basic :c
+                                                      :c++ :fortran}})
 
 (merge-with clojure.set/intersection Alice Bob Ted)
 ;; -> {:loves #{:scheme :clojure}, :hates #{:c :c++}}

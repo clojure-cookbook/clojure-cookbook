@@ -178,7 +178,8 @@ classpath (via the +-cp+ option).
 [source,shell-session]
 ----
 # Download Clojure
-$ wget http://repo1.maven.org/maven2/org/clojure/clojure/1.5.1/clojure-1.5.1.zip
+$ wget \
+  http://repo1.maven.org/maven2/org/clojure/clojure/1.5.1/clojure-1.5.1.zip
 $ unzip clojure-1.5.1.zip
 
 # Execute the application

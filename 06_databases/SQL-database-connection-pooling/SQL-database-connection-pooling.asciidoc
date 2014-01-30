@@ -74,16 +74,18 @@ specification map.
 (defn pooled-datasource [db-spec]
   (let [{:keys [classname subprotocol subname user password
                 init-pool-size max-pool-size idle-time partitions]} db-spec
-         cpds (doto (BoneCPDataSource.)
-                    (.setDriverClass classname)
-                    (.setJdbcUrl (str "jdbc:" subprotocol ":" subname))
-                    (.setUsername user)
-                    (.setPassword password)
-                    (.setMinConnectionsPerPartition (inc (int (/ init-pool-size partitions))))
-                    (.setMaxConnectionsPerPartition (inc (int (/ max-pool-size partitions))))
-                    (.setPartitionCount partitions)
-                    (.setStatisticsEnabled true)
-                    (.setIdleMaxAgeInMinutes (or idle-time 60)))]
+        min-connections (inc (int (/ init-pool-size partitions)))
+        max-connections (inc (int (/ max-pool-size partitions)))
+        cpds (doto (BoneCPDataSource.)
+                   (.setDriverClass classname)
+                   (.setJdbcUrl (str "jdbc:" subprotocol ":" subname))
+                   (.setUsername user)
+                   (.setPassword password)
+                   (.setMinConnectionsPerPartition min-connections)
+                   (.setMaxConnectionsPerPartition max-connections)
+                   (.setPartitionCount partitions)
+                   (.setStatisticsEnabled true)
+                   (.setIdleMaxAgeInMinutes (or idle-time 60)))]
        {:datasource cpds}))
 ----
 
