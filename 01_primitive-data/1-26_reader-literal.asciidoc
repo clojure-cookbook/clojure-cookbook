@@ -10,7 +10,7 @@ You need represent instances of time in a readable and serializable form.
 ==== Solution
 
 Use Clojure's +#inst+ literals in source to represent fixed points in
-time.
+time:
 
 [source,clojure]
 ----
@@ -22,8 +22,8 @@ time.
 ----
 
 When communicating with other Clojure processes (or anything else that
-speaks https://github.com/edn-format/edn[edn]) use +clojure.edn/read+
-to reify instant literal strings into Date objects.
+speaks https://github.com/edn-format/edn[edn]), use +clojure.edn/read+
+to reify instant literal strings into +Date+ objects:
 
 [source,clojure]
 ----
@@ -40,28 +40,28 @@ to reify instant literal strings into Date objects.
 ;; -> #inst "1987-02-18T18:00:00.000-00:00"
 ----
 
-In the above example +remote-server-receive-date+ emulates a
+In the preceding example, +remote-server-receive-date+ emulates a
 communications channel upon which you may receive edn data.
 
 ==== Discussion
 
-Since Clojure 1.4 instants in time have been represented via
+Since Clojure 1.4, instants in time have been represented via
 the +#inst+ reader literal. This means dates are no longer represented
-by code that must be evaluated, but a textual representation that is both
+by code that must be evaluated, but instead a textual representation that is both
 consistent and serializable. This standard allows any process capable
-of communicating in edn, or "extensible data notation" of speaking
+of communicating in edn, or "extensible data notation," to speak
 clearly about instants of time. See the
 https://github.com/edn-format/edn/wiki/Implementations[edn
 implementations list] for a list of languages that speak edn; the list
-includes Clojure, Ruby and JavaScript so far, with many more
+includes Clojure, Ruby, and JavaScript so far, with many more
 implementations in the works.
 
-.+clojure.core/read+ vs. +clojure.edn/read+
+.clojure.core/read vs. clojure.edn/read
 ****
 While it may *seem* convenient to read strings using Clojure's
 built-in reader (+clojure.core/read+), it is NEVER safe to parse input
 from an untrusted source using this reader. If you need to receive
-simple Clojure data from an external source it is best to use the edn
+simple Clojure data from an external source, it is best to use the edn
 reader (+clojure.edn/read+).
 
 +clojure.core/read+ isn't safe, because it was only designed for
@@ -73,8 +73,8 @@ security in mind.
 
 It's also possible to vary how the reader evaluate +#inst+ literals
 by changing the binding of *+data-readers+*. By varying the binding of
-*+data-readers+* it is possible to reader +#inst+ literals as
-+java.util.Calendar+ or +java.util.Timestamp+ if you so desire.
+*+data-readers+*, it is possible to reader +#inst+ literals as
++java.util.Calendar+ or +java.util.Timestamp+, if you so desire:
 
 [source,clojure]
 ----
@@ -92,5 +92,5 @@ by changing the binding of *+data-readers+*. By varying the binding of
 ==== See Also
 
 * <<sec_primitives_math_uuids>> for another example of a reader
-  literal included with Clojure.
+  literal included with Clojure
 

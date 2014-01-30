@@ -10,7 +10,7 @@ You need to gracefully handle times and dates in a number of time zones.
 
 The JVM's built-in time and date classes don't work well with the notion
 of time zones. For one, +Date+ treats every value as UTC, and +Calendar+ is
-cumbersome to work with in Clojure (or Java, for that matter.) Use
+cumbersome to work with in Clojure (or Java, for that matter). Use
 https://github.com/clj-time/clj-time[+clj-time+] to properly deal with
 time zones.
 
@@ -48,15 +48,15 @@ australia-bday
 ==== Discussion
 
 Unlike Java built-ins, +clj-time+ knows a lot about time zones.
-http://joda-time.sourceforge.net/[Joda Time], the library +clj-time+
+http://joda-time.sourceforge.net/[Joda-Time], the library +clj-time+
 wraps, bundles the internationally recognized
-http://www.twinsun.com/tz/tz-link.htm[tz database]. This database
+http://www.twinsun.com/tz/tz-link.htm[+tz+ database]. This database
 captures the ID and time offsets for nearly every location on the
 planet.
 
-The tz database also captures information about Daylight Saving Time.
-For example, Los Angeles is UTC-08:00 in the winter, and UTC-07:00
-during the summer. This is accurately reflected when using +clj-time+
+The tz database also captures information about daylight saving time.
+For example, Los Angeles is UTC-08:00 in the winter and UTC-07:00
+during the summer. This is accurately reflected when using +clj-time+:
 
 [source,clojure]
 ----
@@ -74,7 +74,7 @@ during the summer. This is accurately reflected when using +clj-time+
 
 The +clj-time.core/from-time-zone+ function takes any +DateTime+ and
 modifies its time zone to the desired time zone. This is useful
-in cases where you receive a date, time and time zone separately,
+in cases where you receive a date, time, and time zone separately
 and want to combine them an accurate +DateTime+ instance.
 
 The +clj-time.core/to-time-zone+ has the same signature as

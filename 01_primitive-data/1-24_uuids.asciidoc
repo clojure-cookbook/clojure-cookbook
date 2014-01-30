@@ -10,7 +10,7 @@ You need to generate a unique ID.
 ==== Solution
 
 Use Java's +java.util.UUID/randomUUID+ to generate a universally
-unique ID (UUID).
+unique ID (UUID):
 
 [source,clojure]
 ----
@@ -23,21 +23,21 @@ unique ID (UUID).
 
 ==== Discussion
 
-Often times when building systems you want to assign a unique ID to
-objects and records. Often times IDs are simple integers that
-monotonically increase with time. This isn't without its problems
-though; You can't mingle IDs of objects from different origins and
+Often times when building systems, you want to assign a unique ID to
+objects and records. IDs are usually simple integers that
+monotonically increase with time. This isn't without its problems,
+though. You can't mingle IDs of objects from different origins; and
 worse, they reveal information about the amount and input volume of
 your data.
 
-This is where UUIDs come in. UUIDs, or Universally Unique Identifiers, are
+This is where UUIDs come in. UUIDs, or universally unique identifiers, are
 128-bit random numbers almost certainly unique across the entire
-universe. A bold claim, of course - see
+universe. A bold claim, of course--see
 http://www.ietf.org/rfc/rfc4122.txt[RFC 4122] for more detailed
 information on UUIDs, how they're generated, and the math behind them.
 
 You may have noticed Clojure prints UUIDs with a +#uuid+ in front of
-them. This is a reader literal tag, it acts as a shortcut for the
+them. This is a reader literal tag. It acts as a shortcut for the
 Clojure reader to read and initialize UUID objects. Reader literals
 are a lot like string or number literals like +"Hi"+ or +42+, but they
 can capture more complex data types. This makes it possible for
@@ -52,7 +52,7 @@ One thing you will lose with the move from sequential IDs to UUIDs is
 the implicit sortability of a chronologically increasing number. What
 if you could generate UUIDs that were both unique *and* sortable?
 Datomic does something similar with its +datomic.api/squuid+ function.
-It's simple to write a function that behaves similarly.
+It's simple to write a function that behaves similarly:
 
 [source,clojure]
 ----
@@ -67,11 +67,11 @@ It's simple to write a function that behaves similarly.
     (java.util.UUID. timed-msb lsb)))
 ----
 
-This approximation of Datomic's +squuid+ splits and re-assembles a
+This approximation of Datomic's +squuid+ splits and reassembles a
 random UUID, using +bit-or+ to merge the current time with the most
-significant 32-bits of the UUID. The two halves of the UUID
-are then re-assembled using the +java.util.UUID.+ constructor,
-yielding UUIDs that increase sequentially over time.
+significant 32 bits of the UUID. The two halves of the UUID
+are then reassembled using the +java.util.UUID.+ constructor,
+yielding UUIDs that increase sequentially over time:
 
 [source,clojure]
 ----
@@ -98,5 +98,5 @@ third
 
 * <<sec_primitives_math_bitwise>>
 * <<sec_primitives_dates_reader_literal>> for information on +#inst+,
-  another example of a reader literal, for dates.
+  another example of a reader literal, for dates
 

@@ -9,7 +9,7 @@ You need to insert values into a string, formatting how those values appear in t
 
 ==== Solution
 
-The quickest method for formatting values into a string with the +str+ function.
+The quickest method for formatting values into a string is the +str+ function:
 
 [source,clojure]
 ----
@@ -27,7 +27,7 @@ default "++.toString()++" appearance. Not only that, it can sometimes be
 difficult to look at a +str+ form and interpret what the intended
 output is.
 
-For greater control over how values are printed use the +format+ function.
+For greater control over how values are printed, use the +format+ function:
 
 [source,clojure]
 ----
@@ -54,16 +54,16 @@ For greater control over how values are printed use the +format+ function.
 ;; Ryan                 | Neufeld              | 2
 ;; Luke                 | Vanderhart           | 1
 ----
-<1> The +0+ flag indicates to pad a digit ("+d+") with zeroes (three, in this case.)
+<1> The +0+ flag indicates to pad a digit (+d+) with zeroes (three, in this case).
 <2> The +-+ flag indicates to left justify the string ("+s+") by 20 characters.
 
 ==== Discussion
 
-When it comes to inserting values into a string you have two very
+When it comes to inserting values into a string, you have two very
 different options. You could use +str+, which is great for a quick
-fix, but lacks control over how values are presented. Or, you could
+fix but lacks control over how values are presented. Or you could
 use +format+, which exposes fine-grained control over how values are
-displayed, but requires knowledge of C and Java-style formatting
+displayed but requires knowledge of C and Java-style formatting
 strings. Ultimately, you should use only as much tooling/complexity
 as is necessary for the task at hand: stick to +str+ when the default
 formatting for a value will suffice, and use +format+ when you need
@@ -72,24 +72,24 @@ more control over how values display.
 .Format Strings
 ****
 The first argument passed to +format+ is what is
-called a "format string." The syntax for these strings isn't new or
+called a _format string_. The syntax for these strings isn't new or
 unique to Clojure or even Java, but in fact comes from C's +printf+
 function. Clojure's +format+ function uses Java's +String/format+,
 which implements +printf+ style value substitution.
 
 A format string is a normal string with any number of embedded format
 specifiers. A format specifier is a placeholder to be replaced by a
-value some time later. In its simplest form this is a +%+ followed by
-a type specifier character, for example "+%d+" for a integer ('d' is for digit), or "+%f+"
-for a float. Beyond specifiers for strings, integers and floats, there are specifiers for characters, dates, and numbers of different bases (octal, hexadecimal) to name a few.
+value some time later. In its simplest form, this is a +%+ followed by
+a type specifier character, for example, +%d+ for a integer ('d' is for digit) or +%f+
+for a float. Beyond specifiers for strings, integers, and floats, there are specifiers for characters, dates, and numbers of different bases (octal and hexadecimal), to name a few.
 
 What makes these format specifiers special is that you may indicate
 any number of flags and options between the percent sign and the
-specifier character. From the above examples: "+%-10s+" indicates the
+specifier character. From the preceding examples: "+%-10s+" indicates the
 provided string (+s+) should be left justified (+-+) with a total
 minimum width of 10. "+%07.3f+" would turn a number into zero-padded
 number that was seven characters wide and included three decimal
-places (just like the Dewey Decimal system.)
+places (just like the Dewey decimal system):
 
 [source,clojure]
 ----

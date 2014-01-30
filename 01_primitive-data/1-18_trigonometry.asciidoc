@@ -10,7 +10,7 @@ You need to implement mathematical functions that require trigonometry.
 
 All of the trigonometric functions are accessible via +java.util.Math+,
 which is available as +Math+. Use them like you would any other
-namespaced function.
+namespaced function:
 
 [source,clojure]
 ----
@@ -27,7 +27,7 @@ namespaced function.
 Trigonometric functions operate on values measured in radians. If you
 have values measured in degrees, such as latitude or longitude, then
 you'll need to convert them to radians first. Use +Math/toRadians+ to
-convert degrees to radians.
+convert degrees to radians:
 
 [source,clojure]
 ----
@@ -55,13 +55,13 @@ convert degrees to radians.
 ==== Discussion
 
 It may be surprising to some that Clojure doesn't have its own internal
-math namespace, but why re-invent the wheel? Despite its tainted
+math namespace, but why reinvent the wheel? Despite its tainted
 reputation, Java can perform, especially when it comes to math;
 Clojure's Java interop forms and typing sugar make doing math using
 +java.util.Math+ almost pleasant.
 
-+java.lang.Math+ isn't only for trigonometry, it also contains a
-number of functions useful for dealing with exponentiation, logarithms
++java.lang.Math+ isn't only for trigonometry. It also contains a
+number of functions useful for dealing with exponentiation, logarithms,
 and roots. A full list of methods is available in the
 http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[java.util.Math
 javadocs].
@@ -69,6 +69,5 @@ javadocs].
 ==== See Also
 
 * <<sec_primitives_math_type_hinting>> for tips on improving
-  performance.
-
+  performance
 

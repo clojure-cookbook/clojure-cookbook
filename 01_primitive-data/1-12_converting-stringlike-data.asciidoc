@@ -1,4 +1,4 @@
-=== Converting Between Strings, Symbols and Keywords
+=== Converting Between Strings, Symbols, and Keywords
 [role="byline"]
 by Colin Jones
 
@@ -9,7 +9,7 @@ different one of these string-like data types.
 
 ==== Solution
 
-To convert from a string to a symbol, use the +symbol+ function.
+To convert from a string to a symbol, use the +symbol+ function:
 
 [source,clojure]
 ----
@@ -17,7 +17,7 @@ To convert from a string to a symbol, use the +symbol+ function.
 ;; -> valid?
 ----
 
-To convert from a symbol to a string, use +str+.
+To convert from a symbol to a string, use +str+:
 
 [source,clojure]
 ----
@@ -26,7 +26,7 @@ To convert from a symbol to a string, use +str+.
 ----
 
 When you have a keyword and want a string, you can use +name+, or +str+ if you
-want the leading colon.
+want the leading colon:
 
 [source,clojure]
 ----
@@ -38,7 +38,7 @@ want the leading colon.
 ;; -> ":triumph"
 ----
 
-To convert from a symbol or string to a keyword, use +keyword+.
+To convert from a symbol or string to a keyword, use +keyword+:
 
 [source,clojure]
 ----
@@ -49,7 +49,7 @@ To convert from a symbol or string to a keyword, use +keyword+.
 ;; -> :fantastic
 ----
 
-You'll need an intermediate step through +name+, to go from keyword to symbol.
+You'll need an intermediate step through +name+, to go from keyword to symbol:
 
 [source,clojure]
 ----
@@ -60,7 +60,7 @@ You'll need an intermediate step through +name+, to go from keyword to symbol.
 
 ==== Discussion
 
-The primary conversion functions here are +str+, +keyword+, and +symbol+ - each
+The primary conversion functions here are +str+, +keyword+, and +symbol+&#x2014;each
 named for the data type they return. One of these, +symbol+, is a bit more
 strict in terms of the input it allows: it must take a string, which is why you
 need the extra step in the keyword-to-symbol conversion.
@@ -68,7 +68,7 @@ need the extra step in the keyword-to-symbol conversion.
 There is another class of differences among these types: namely, that keywords
 and symbols may be namespaced, signified by a slash in the middle. For these
 kinds of keywords and symbols, the +name+ function may or may not be
-sufficient to convert to a string, depending on your use case.
+sufficient to convert to a string, depending on your use case:
 
 [source,clojure]
 ----
@@ -81,11 +81,11 @@ sufficient to convert to a string, depending on your use case.
 ;; -> "user"
 ----
 
-Very often, you actually want both parts. You could collect them separately,
+Very often, you actually want both parts. You could collect them separately
 and concatenate the strings, with a +/+ in the middle, but there's an easier
 way. Java has a rich set of performant methods for dealing with immutable
 strings. You can take the leading-colon string and lop off the first
-character with +java.lang.String.substring(int)+.
+character with +java.lang.String.substring(int)+:
 
 [source,clojure]
 ----
@@ -96,11 +96,11 @@ character with +java.lang.String.substring(int)+.
 ;; -> "user/valid?"
 ----
 
-See http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[+java.lang.String+] for more String methods.
+See http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[+java.lang.String+] for more string methods.
 
 You can convert namespaced symbols to keywords just as easily as their
 non-namespaced counterparts, but again, converting in the other direction
-(keyword to symbol) takes an extra step.
+(keyword to symbol) takes an extra step:
 
 [source,clojure]
 ----
@@ -111,10 +111,10 @@ non-namespaced counterparts, but again, converting in the other direction
 ;; -> produce/onions
 ----
 
-And finally, both the +keyword+ and +symbol+ functions have 2-argument versions
+And finally, both the +keyword+ and +symbol+ functions have two-argument versions
 that allow you to pass in the namespace and name separately. Sometimes this is
-nicer, for example when you already have one or both of the values bound in a
-+def+, +let+, or other binding.
+nicer, for example, when you already have one or both of the values bound in a
++def+, +let+, or other binding:
 
 [source,clojure]
 ----

@@ -12,7 +12,7 @@ You need to test a string to see if parts of it match a pattern.
 To check for the presence of a pattern inside a string, invoke
 +re-find+ with a desired pattern and the string to test. Express the
 desired pattern using a regular expression literal (like +#"foo"+ or
-++#"\d+"++).
+++#"\d+"++):
 
 [source,clojure]
 ----
@@ -30,10 +30,10 @@ desired pattern using a regular expression literal (like +#"foo"+ or
 of a pattern. It takes a regular expression pattern and a string, then
 returns either the first match of that pattern or nil.
 
-If your criterion is more stringent and you require the _entire_
-string match a pattern use +re-matches+. Unlike +re-find+,
+If your criterion is more stringent and you require that the *entire*
+string match a pattern, use +re-matches+. Unlike +re-find+,
 which matches any portion of a string, +re-matches+ matches if and
-only if the *entire* string matches the pattern.
+only if the *entire* string matches the pattern:
 
 [source,clojure]
 ----
@@ -54,8 +54,8 @@ only if the *entire* string matches the pattern.
 * The
   http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
   documentation] for +java.lang.Pattern+, which defines the exact
-  regex syntax supported by Java (and Clojure's regular expression literals.)
+  regex syntax supported by Java (and Clojure's regular expression literals)
 
 * <<sec_primitives_strings_re_matches>> for information on extracting
-  values from a string using regular expressions.
+  values from a string using regular expressions
 * <<sec_primitives_strings_find_replace>>

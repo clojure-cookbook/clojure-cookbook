@@ -10,7 +10,7 @@ You need to extract portions of a string matching a given pattern.
 ==== Solution
 
 Use +re-seq+ with a regular expression pattern and string to retrieve
-a sequence of successive matches.
+a sequence of successive matches:
 
 [source,clojure]
 ----
@@ -24,7 +24,7 @@ a sequence of successive matches.
 ----
 
 Regular expressions with matching groups (parentheses) will return a
-vector for each total match.
+vector for each total match:
 
 [source,clojure]
 ----
@@ -41,12 +41,12 @@ Provided a simple pattern (one without matching groups), +re-seq+
 will return a flat sequence of matches. Fully expressing the power of Clojure, this is a
 lazy sequence. Calling +re-seq+ on a gigantic string will not scan the
 entire string right away; you're free to consume those values
-bit-by-bit, or defer evaluation to some other constituent part of your
+incrementally, or defer evaluation to some other constituent part of your
 application further down the road.
 
-When given a regular expression containing matching groups +re-seq+ will do
+When given a regular expression containing matching groups, +re-seq+ will do
 something a little different. Don't worry, the resulting sequence is
-still lazy, but instead of flat strings its values will be vectors.
+still lazy, but instead of flat strings, its values will be vectors.
 The first value of the vector will always be the whole match, grouped
 or not; subsequent values will be the strings captured by matching
 group parenthesis. These captured values will appear in the order their
@@ -79,11 +79,11 @@ not to.
 ==== See Also
 
 * <<sec_primitives_strings_re_find>> for testing a string for the
-  presence of a pattern.
+  presence of a pattern
 * <<sec_primitives_strings_find_replace>> for information on using
-  regular expressions to find and replace portions of a string.
+  regular expressions to find and replace portions of a string
 * The
   http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
   documentation] for +java.lang.Pattern+, which defines the exact
-  regex syntax supported by Java (and Clojure's regular expression literals.)
+  regex syntax supported by Java (and Clojure's regular expression literals)
 

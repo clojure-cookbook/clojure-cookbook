@@ -30,7 +30,7 @@ http://en.wikipedia.org/wiki/Gregorian_calendar[Wikipedia].] beginning
 on January 1, 1970 and each spanning a single day. The core +take+ and
 +drop+ functions are then used to select the last two days of
 February. (Be careful not to evaluate the infinite sequence itself in
-the REPL).
+the REPL.)
 
 [source,clojure]
 ----
@@ -57,19 +57,19 @@ sequence by repeatedly calling the argument function it is given and returning
 a sequence of the function's results. Because you do not provide the optional,
 limiting argument to +repeatedly+, the result sequences produced are
 infinite. Consequently, in the REPL environment, you must be careful to evaluate
-your result sequences in contexts (such as +take+ and +drop+) which
+your result sequences in contexts (such as +take+ and +drop+), which
 limit the values produced.
 
 Since the function given to +repeatedly+ is a function of no arguments, it is
-presumed to achieve its goals by side-effects (making it an impure function).
+presumed to achieve its goals by side effects (making it an impure function).
 Here, the impurity occurs as the argument function creates a Gregorian calendar
 date and repeatedly increments it by a single +java.util.Calendar+ day
-unit. For each call of the function it returns a copy of the Gregorian calendar
-object (to avoid mysterious and unintended side-effects, it is advisable to
+unit. For each call of the function, it returns a copy of the Gregorian calendar
+object (to avoid mysterious and unintended side effects, it is advisable to
 avoid returning the mutated object directly).
 
 The date values in the result sequence are of type
-+java.util.GregorianCalendar+ but the +print+ function of the REPL displays
++java.util.GregorianCalendar+, but the +print+ function of the REPL displays
 them as an +#inst+ reader literal. You can verify that the sequence elements
 are Gregorian calenders by mapping the +class+ (or +type+) function onto the
 sequence:
@@ -103,7 +103,7 @@ argument but defaults to some convenient year if the argument is not provided:
 ----
 
 
-Using the +java.text.SimpleDateFormat+ class you can then format the dates in a
+Using the +java.text.SimpleDateFormat+ class, you can then format the dates in a
 wide variety of different formats:
 
 [source,clojure]
@@ -151,9 +151,9 @@ Sundays in a year:
 
 ==== See also
 
-* <<sec_primitives_dates_ranges>> for an alternative that utilizes
-  +clj-time+/Joda Time.
 * <<sec_primitives_dates_current_date>> for information on using
-  +java.util.Date+ from Clojure.
+  +java.util.Date+ from Clojure
 * <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
-  reader literal for date/times.
+  reader literal for date/times
+* <<sec_primitives_dates_ranges>> for an alternative that utilizes
+  +clj-time+/Joda-Time.

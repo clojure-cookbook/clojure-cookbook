@@ -5,12 +5,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You have multiple strings, values or collections that you need to
+You have multiple strings, values, or collections that you need to
 combine into one string.
 
 ==== Solution
 
-Use the +str+ function to concatenate strings and/or values.
+Use the +str+ function to concatenate strings and/or values:
 
 [source,clojure]
 ----
@@ -27,7 +27,7 @@ Use the +str+ function to concatenate strings and/or values.
 ----
 
 Use +apply+ with +str+ to concatenate a collection of values into a
-single string.
+single string:
 
 [source,clojure]
 ----
@@ -43,25 +43,25 @@ single string.
 
 ==== Discussion
 
-Clojure's +str+ is like a good Unix tool; It has one job, and it does it
+Clojure's +str+ is like a good Unix tool: it has one job, and it does it
 well. When provided with one or more argument, +str+ invokes Java's
 +.toString()+ method on each of its arguments, tacking each result on to
-the next. When provided +nil+ or invoked without arguments +str+ will
+the next. When provided +nil+ or invoked without arguments, +str+ will
 return the identity value for strings, the empty string.
 
-When it comes to string concatenation Clojure takes a fairly hands-off
-approach. There is nothing string-specific about `(apply str ...)`, it
+When it comes to string concatenation, Clojure takes a fairly hands-off
+approach. There is nothing string-specific about `(apply str ...)`. It
 is merely the higher-order function +apply+ being used to emulate
 calling +str+ with a variable number of arguments.
 
-This apply...
+This +apply+:
 
 [source,clojure]
 ----
 (apply str ["a" "b" "c"])
 ----
 
-...is functionally equivalent to:
+is functionally equivalent to:
 
 [source,clojure]
 ----
@@ -69,11 +69,11 @@ This apply...
 ----
 
 Since Clojure injects little opinion into joining strings, you're free
-to inject your own with the plethora collection manipulating functions
-Clojure provides. Take for example constructing a CSV from a header and
+to inject your own with the plethora collection of manipulating functions
+Clojure provides. For example, take constructing a CSV from a header and
 a number of rows. This example is particularly well suited for +apply+,
 as you can prefix the header without having to insert it on to the front
-of your rows collection.
+of your rows collection:
 
 [source,clojure]
 ----
@@ -91,7 +91,7 @@ function for simple string joins. The +join+ function takes a collection
 and an optional separator. With a separator, +join+ returns a string
 with each item of the collection separated by the provided separator.
 Without, it returns each item squashed together similar to what
-+(apply str coll)+ would return.
++(apply str coll)+ would return:
 
 [source,clojure]
 ----
@@ -112,5 +112,5 @@ Without, it returns each item squashed together similar to what
 
 - The +java.lang.String+
   http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[API
-  documentation].
+  documentation]
 

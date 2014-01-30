@@ -8,10 +8,10 @@ You need to generate a random number.
 
 ==== Solution
 
-Clojure has a number of pseudo-random number generating functions
+Clojure has a number of pseudorandom number-generating functions
 available for your disposal.
 
-For generating random floating point numbers from +0.0+ up to (but not including) +1.0+, use +rand+.
+For generating random floating point numbers from +0.0+ up to (but not including) +1.0+, use +rand+:
 
 [source, clojure]
 ----
@@ -22,7 +22,7 @@ For generating random floating point numbers from +0.0+ up to (but not including
 ;; -> 0.9242089829055088
 ----
 
-For generating random integers use +rand-int+.
+For generating random integers, use +rand-int+:
 
 [source, clojure]
 ----
@@ -41,14 +41,14 @@ For generating random integers use +rand-int+.
 
 In addition to generating a number from +0.0+ to +1.0+, +rand+ also
 accepts an optional argument that specifies the exclusive maximum
-value. For example, +(rand 5)+ would return a floating point number
+value. For example, +(rand 5)+ would return a floating-point number
 ranging from +0.0+ (inclusive) to +5.0+ (exclusive).
 
 +(rand-int 5)+, on the other hand, would return a random *integer* between +0+
-(inclusive) and +5+ (exclusive). At first blush +rand-int+ might seem like an
+(inclusive) and +5+ (exclusive). At first blush, +rand-int+ might seem like an
 ideal way to select a random element from a vector or list. This is a lot of
-ceremony though, use +rand-nth+ instead to get a random element from any
-sequential collection (i.e. the collection responds to +nth+).
+ceremony though. Use +rand-nth+ instead to get a random element from any
+sequential collection (i.e., the collection responds to +nth+):
 
 [source,clojure]
 ----
@@ -59,10 +59,10 @@ sequential collection (i.e. the collection responds to +nth+).
 ;; -> :c
 ----
 
-This won't work for sets or hash-maps however. If you want to retrieve
-a random element from a non-sequential collection like a set, use
+This won't work for sets or hash maps, however. If you want to retrieve
+a random element from a nonsequential collection like a set, use
 +seq+ to transform that collection into a sequence before calling
-+rand-nth+ on it.
++rand-nth+ on it:
 
 [source,clojure]
 ----
@@ -71,7 +71,7 @@ a random element from a non-sequential collection like a set, use
 ----
 
 If you're trying to randomly sort a collection, use +shuffle+ to
-receive a random permutation of your collection.
+receive a random permutation of your collection:
 
 [source,clojure]
 ----

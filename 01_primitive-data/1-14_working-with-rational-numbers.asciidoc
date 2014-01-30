@@ -9,7 +9,7 @@ You need to manipulate fractional numbers with absolute precision.
 
 ==== Solution
 
-When manipulating integers (or other rationals) you can expect to maintain precision, including recurring fractions like 1/3 (0.333...).
+When manipulating integers (or other rationals), you can expect to maintain precision, including recurring fractions like 1/3 (0.333...):
 
 [source,clojure]
 ----
@@ -23,7 +23,7 @@ When manipulating integers (or other rationals) you can expect to maintain preci
 ;; -> 1N
 ----
 
-Use +rationalize+ on doubles to coerce them to rationals to avoid losing precision.
+Use +rationalize+ on doubles to coerce them to rationals to avoid losing precision:
 
 [source,clojure]
 ----
@@ -40,16 +40,16 @@ Use +rationalize+ on doubles to coerce them to rationals to avoid losing precisi
 ==== Discussion
 
 Clojure does its best to help you retain accuracy when working with
-numbers, especially integers. When dividing integers Clojure maintains
-accuracy by expressing the quotient as an accuracy maintaining ratio
+numbers, especially integers. When dividing integers, Clojure maintains
+accuracy by expressing the quotient as an accurate ratio
 of integers instead of a lossy double. This accuracy isn't without a
 cost though; operations on rational numbers are much slower than
 operations on more simple types. As is discussed in
 <<sec_primitives_math_arbitrary_precision>>, accuracy is always a
-trade off for performance, and something you need to consider given
+trade-off for performance, and is something you need to consider given
 the problem at hand.
 
-When operating on both doubles and rationals at the same time care is
+When operating on both doubles and rationals at the same time, care is
 advised; on account of the way type-contagion works in Clojure,
 performing an operation over both types will cause the rational number
 to be coerced to a double. This transition isn't necessarily inaccurate
@@ -57,7 +57,7 @@ for a single operation, but the change in type introduces the
 possibility for inaccuracy to creep in.
 
 To maintain accuracy when working with doubles, use the +rationalize+
-function. This function returns the rational value of any number. Calling +rationalize+ on any values that might possibly be a double will allow you to maintain absolute accuracy (at the cost of performance.)
+function. This function returns the rational value of any number. Calling +rationalize+ on any values that might possibly be a double will allow you to maintain absolute accuracy (at the cost of performance).
 
 ==== See Also
 

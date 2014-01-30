@@ -10,8 +10,8 @@ You need to test for equality with some tolerance for minute differences. This i
 ==== Solution
 
 Clojure has no built-in functions for fault-tolerant equality or "fuzzy
-comparison" as it is often called. It's trivial to implement your own
-+fuzzy=+ function.
+comparison," as it is often called. It's trivial to implement your own
++fuzzy=+ function:
 
 [source,clojure]
 ----
@@ -28,18 +28,18 @@ comparison" as it is often called. It's trivial to implement your own
 
 ==== Discussion
 
-+fuzzy=+ works like most other fuzzy comparison algorithms do; first,
-it finds the absolute difference between the two operands, and second,
++fuzzy=+ works like most other fuzzy comparison algorithms do: first,
+it finds the absolute difference between the two operands; and second,
 it tests whether that difference falls beneath the given tolerance.
 Of course, there's nothing dictating that the tolerance needs to be
 some minute fractional number. If you were comparing large numbers and
-wanted to ignore variations under a thousand you could set the
+wanted to ignore variations under a thousand, you could set the
 tolerance to +1000+.
 
 Even with +fuzzy=+, you still need to take care when comparing
 floating point values, especially for values differing by numbers
 *very close* to your tolerance. At differences bordering the supplied
-tolerance you may find the results to be unexpected.
+tolerance, you may find the results to be unexpected:
 
 [source,clojure]
 ----
@@ -51,7 +51,7 @@ tolerance you may find the results to be unexpected.
 ----
 
 As odd as this is, this isn't unexpected. The IEEE 754 specification
-for floating point values is a purposefully limited format, a tradeoff
+for floating-point values is a purposefully limited format, a trade-off
 between accuracy and performance. If absolute precision is what you're
 after, then you should be using +BigDecimal+ or +BigInt+. See
 <<sec_primitives_math_arbitrary_precision>> for more information on those
@@ -60,7 +60,7 @@ two types.
 The +fuzzy=+ function, as written, has a number of interesting side
 effects. First and foremost, having tolerance as the first
 argument makes it use +partial+ to produce partially applied equals
-functions tuned to a specific tolerance.
+functions tuned to a specific tolerance:
 
 [source,clojure]
 ----
@@ -75,7 +75,7 @@ functions tuned to a specific tolerance.
 
 What if you wanted to sort using fuzzy comparison? The +sort+ function
 takes as an optional argument a predicate or comparator. Let's write a
-function +fuzzy-comparator+ that returns a comparator with a given tolerance.
+function +fuzzy-comparator+ that returns a comparator with a given tolerance:
 
 [source,clojure]
 ----
@@ -91,12 +91,12 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance.
 
 <1> If the two values being compared are within +tolerance+ of each
     other, return +0+ to indicate they are equal.
-<2> Otherwise fallback to normal +compare+
+<2> Otherwise fallback to normal +compare+.
 
 ==== See Also
 
 * The Wikipedia article on
   http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating
-  Point].
+  Point]
 * <<sec_primitives_math_arbitrary_precision>>
 * <<sec_primitives_numbers_truncating_rounding>>

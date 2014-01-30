@@ -8,7 +8,7 @@ You need to split a string into a number of parts.
 
 ==== Solution
 
-Use +clojure.string/split+ to tokenize a string into a vector of tokens. +split+ takes two arguments, a string to tokenize and a regular expression to split on.
+Use +clojure.string/split+ to tokenize a string into a vector of tokens. +split+ takes two arguments, a string to tokenize and a regular expression to split on:
 
 [source,clojure]
 ----
@@ -21,7 +21,7 @@ Use +clojure.string/split+ to tokenize a string into a vector of tokens. +split+
 
 ==== Discussion
 
-In addition to just naively splitting on a regular expression +split+
+In addition to just naively splitting on a regular expression, +split+
 allows you to control how many (or how few) times to split the
 provided string. You can control this with the optional +limit+
 argument. The most obvious effect of +limit+ is to limit the number
@@ -30,7 +30,7 @@ doesn't always work like you would expect, and even the absence of
 this argument carries a meaning.
 
 Without +limit+, the +split+ function will return every possible
-delimitation, but exclude any trailing empty matches.
+delimitation but exclude any trailing empty matches:
 
 [source,clojure]
 ----
@@ -39,7 +39,7 @@ delimitation, but exclude any trailing empty matches.
 ;; -> ["field1" "field2" "field3"]
 ----
 
-If you indeed do want absolutely every match, including trailing empty ones, the you can specify +-1+ as the limit. 
+If you indeed want absolutely every match, including trailing empty ones, then you can specify +-1+ as the limit:
 
 [source,clojure]
 ----
@@ -48,7 +48,7 @@ If you indeed do want absolutely every match, including trailing empty ones, the
 ;; -> ["ryan" "neufeld" ""]
 ----
 
-Specifying some other positive number as a +limit+ will cause +split+ to return at maximum +limit+ sub-strings.
+Specifying some other positive number as a +limit+ will cause +split+ to return at maximum +limit+ substrings:
 
 [source,clojure]
 ----

@@ -10,11 +10,11 @@ You need to generate a lazy sequence covering a range of dates and/or times.
 ==== Solution
 
 This problem has no *easy* solution in Java, nor does it have one in
-Clojure - third-party libraries included. It is possible to use
+Clojure--third-party libraries included. It is possible to use
 https://github.com/clj-time/clj-time[+clj-time+] to get close, though.
-By composing ++clj-time++'s +Interval+ and +periodic-seq+ functionality
+By composing ++clj-time++'s +Interval+ and +periodic-seq+ functionality,
 you can create a function +time-range+ that mimics ++range++'s
-capabilities but for DateTimes.
+capabilities but for pass:[<literal>DateTime</literal>s]:
 
 [source,clojure]
 ----
@@ -58,7 +58,7 @@ Clojure, it is trivial to construct such a function with purely lazy
 semantics.
 
 The basis for our lazy +time-range+ function is an infinite sequences of values
-with a fixed starting time.
+with a fixed starting time:
 
 [source,clojure]
 ----
@@ -72,12 +72,12 @@ with a fixed starting time.
     (take-while below-end? inf-range)))                            ; <3>
 ----
 
-<1> Acquire a lazy infinite sequence
-<2> Create a predicate to terminate the sequence
+<1> Acquire a lazy infinite sequence.
+<2> Create a predicate to terminate the sequence.
 <3> Modify the infinite sequence to terminate when +below-end?+ fails (lazily, of course).
 
-Invoking +periodic-seq+ with +start+ and +step+, returns an infinite lazy
-sequence of values beginning at +start+ - each subsequent value one +step+
+Invoking +periodic-seq+ with +start+ and +step+ returns an infinite lazy
+sequence of values beginning at +start+, each subsequent value one +step+
 later than the last.
 
 Having a lazy sequence to infinite is one thing, but we need a lazy way to
@@ -98,5 +98,5 @@ without first-class laziness.
 
 * <<sec_primitives_dates_comparing>>
 * <<sec_primitives_dates_time_between>>
+* <<sec_date_range_native_types>> for an alternative that uses only native types
 * <<sec_primitives_dates_relative>>
-* <<sec_date_range_native_types>> for an alternative that uses only native types.

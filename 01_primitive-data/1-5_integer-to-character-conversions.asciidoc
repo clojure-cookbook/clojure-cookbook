@@ -5,12 +5,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to convert characters to their respective unicode code points
+You need to convert characters to their respective Unicode code points
 (as integer values) or vice versa.
 
 ==== Solution
 
-Use the +int+ function to convert a character to its integer value.
+Use the +int+ function to convert a character to its integer value:
 
 [source,clojure]
 ----
@@ -31,7 +31,7 @@ Use the +int+ function to convert a character to its integer value.
 ----
 
 Use the +char+ function to return a character corresponding to the
-code point specified by the integer.
+code point specified by the integer:
 
 [source,clojure]
 ----
@@ -53,7 +53,7 @@ code point specified by the integer.
 ==== Discussion
 
 Clojure inherits the JVM's robust Unicode support. All strings are
-UTF-16 strings, and all characters are unicode
+UTF-16 strings, and all characters are Unicode
 characters. Conveniently, the first 256 Unicode code points are
 identical to ASCII, which makes standard ASCII text easy to work
 with. However, Clojure (and Java) do not actually privilege ASCII in
@@ -74,15 +74,15 @@ The +char+ and +int+ functions are useful primarily for coercing a
 number into either an instance of +java.lang.Integer+ or
 +java.lang.Character+. Both ++Integer++s and ++Character++s are,
 ultimately, encoded as numbers, although +Character+'s support
-additional text-related methods, and cannot be used in mathematic
+additional text-related methods and cannot be used in mathematic
 expressions without first being converted to a true numeric type.
 
 ==== See Also
 
-* For truly comprehensive coverage of how unicode and
+* For truly comprehensive coverage of how Unicode and
   internationalization works, see
-  http://shop.oreilly.com/product/9780596101213.do[Unicode Explained], by Jukka K. Korpela.
+  http://shop.oreilly.com/product/9780596101213.do[_Unicode Explained_], by Jukka K. Korpela (O'Reilly Media)
 
-* <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string.
+* <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string
 
 * <<sec_primitives_numbers_parsing_numbers>>

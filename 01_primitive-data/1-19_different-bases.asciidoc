@@ -9,8 +9,8 @@ You need to enter numbers into a Clojure REPL or code in a different base (such 
 ==== Solution
 
 Specify the base or "radix" of a literal number by prefixing it with
-the radix number (e.g. 2, 16, etc.) and the letter +r+. Any base from
-2 to 36 is valid (there *are* of course 10 digits and 26 letters available...)
+the radix number (e.g., 2, 16, etc.) and the letter +r+. Any base from
+2 to 36 is valid (there *are* of course 10 digits and 26 letters available):
 
 [source,clojure]
 ----
@@ -27,7 +27,7 @@ the radix number (e.g. 2, 16, etc.) and the letter +r+. Any base from
 ;; -> 624567473
 ----
 
-To output integers use the Java method +Integer/toString+.
+To output integers, use the Java method +Integer/toString+:
 
 [source,clojure]
 ----
@@ -45,9 +45,9 @@ To output integers use the Java method +Integer/toString+.
 
 Unlike the
 ordering of most Clojure functions, this method takes an integer
-first, and the optional base second, making it hard to partially
+first and the optional base second, making it hard to partially
 apply without wrapping it in another function. You can write a small
-wrapper around +Integer/toString+ to accomplish this.
+wrapper around +Integer/toString+ to accomplish this:
 
 [source,clojure]
 ----
@@ -63,7 +63,7 @@ wrapper around +Integer/toString+ to accomplish this.
 ==== See Also
 
 * <<sec_primitives_strings_formatting_strings>> for information on
-  +format+. The 'o' and 'x' specifiers print integers in octal and
-  hexadecimal, respectively.
+  +format+ (the 'o' and 'x' specifiers print integers in octal and
+  hexadecimal, respectively)
 
 * <<sec_primitives_numbers_parsing_numbers>>

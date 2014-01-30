@@ -1,5 +1,5 @@
 [[sec_primitives_dates_formatting_dates]]
-=== Formatting Dates using +clj-time+
+=== Formatting Dates Using clj-time
 [role="byline"]
 by Ryan Neufeld
 
@@ -9,8 +9,8 @@ You need to print dates or times in a particular format.
 
 ==== Solution
 
-While it is possible to format Java Date-like instances (+Date+,
-+Calendar+ and +Timestamp+) with +clojure.core/format+, you should
+While it is possible to format Java date-like instances (+Date+,
++Calendar+, and +Timestamp+) with +clojure.core/format+, you should
 use https://github.com/clj-time/clj-time[+clj-time+] to format dates.
 
 Before starting, add `[clj-time "0.6.0"]` to your project's
@@ -24,7 +24,7 @@ $ lein try clj-time
 To output a date/time as a string, use +clj-time.format/unparse+ with a
 +DateTimeFormatter+. There are a number of built-in formatters available via
 +clj-time.format/formatters+, or you can build your own with
-+clj-time.format/formatter+.
++clj-time.format/formatter+:
 
 [source,clojure]
 ----
@@ -42,11 +42,10 @@ To output a date/time as a string, use +clj-time.format/unparse+ with a
 ==== Discussion
 
 It is certainly possible to format pure Java dates and times; however, in our
-experience it isn't worth the hassle--the syntax is ugly, and the workflow is
-overly verbose. +clj-time+ and its backing library Joda Time have a track
+experience, it isn't worth the hassle--the syntax is ugly, and the workflow is verbose. +clj-time+ and its backing library Joda-Time have a track
 record for making it easy to work with dates and times on the JVM.
 
-The +formatter+ function is quite the gem, not only does it produce a
+The +formatter+ function is quite the gem. Not only does it produce a
 "format" capable of printing or ++unparse++ing a date, it is also
 capable of parsing strings back into dates. In other words,
 +DateTimeFormatter+ is capable of roundtripping from string to +Date+
@@ -54,9 +53,9 @@ and back again. Much of how +formatter+ and +formatters+ work is
  covered in <<sec_primitives_dates_parsing_dates>>.
 
 One format symbol used less frequently in parsing is the textual
-day of week (i.e. "Tuesday" or "Tue"). Use "++E++" in your format
+day of week (i.e., "Tuesday" or "Tue"). Use "++E++" in your format
 string to output the abbreviated day of week, and "++EEEE++" for the
-full length day of week.
+full length day of week:
 
 [source,clojure]
 ----
@@ -71,7 +70,7 @@ full length day of week.
 
 If you need to format native Java date/time instances, you can use the
 functions in the +clj-time.coerce+ namespace to coerce any number of
-Java date/time instances into Joda Time instances.
+Java date/time instances into Joda-Time instances:
 
 [source,clojure]
 ----
@@ -81,8 +80,8 @@ Java date/time instances into Joda Time instances.
 ;; -> #<DateTime 2013-04-06T17:03:16.872Z>
 ----
 
-Similarly, you can use +clj-time.coerce+ to coerce instances _from_
-Joda Time instances into other formats.
+Similarly, you can use +clj-time.coerce+ to coerce instances *from*
+Joda-Time instances into other formats:
 
 [source,clojure]
 ----
@@ -96,12 +95,12 @@ Joda Time instances into other formats.
 ==== See Also
 
 * The +clj-time+ https://github.com/clj-time/clj-time[project page] on
-  Github.
+  Github
 
 * <<sec_primitives_dates_parsing_dates>> for more detailed
-  information on +formatter+ and +formatters+.
+  information on +formatter+ and +formatters+
 
 * The official
   http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[API
-  documentation] for Java's simple date formatter.
+  documentation] for Java's simple date formatter
 

@@ -8,7 +8,7 @@ You need to change the capitalization of a string.
 
 ==== Solution
 
-Use +clojure.string/capitalize+ to capitalize the first character in a string.
+Use +clojure.string/capitalize+ to capitalize the first character in a string:
 
 [source,clojure]
 ----
@@ -16,8 +16,8 @@ Use +clojure.string/capitalize+ to capitalize the first character in a string.
 ;; -> "This is a proper sentence."
 ----
 
-When you need to change the case of all characters in a string use
-+clojure.string/lower-case+ or +clojure.string/upper-case+.
+When you need to change the case of all characters in a string, use
++clojure.string/lower-case+ or +clojure.string/upper-case+:
 
 [source,clojure]
 ----
@@ -31,9 +31,9 @@ When you need to change the case of all characters in a string use
 ==== Discussion
 
 Capitalization functions only affect letters. While the functions
-+capitalize+, +lower-case+ and +upper-case+ may modify letters,
-characters like punctuation marks, digits or otherwise will remain
-untouched.
++capitalize+, +lower-case+, and +upper-case+ may modify letters,
+characters like punctuation marks or digits will remain
+untouched:
 
 [source,clojure]
 ----
@@ -42,11 +42,10 @@ untouched.
 ----
 
 Clojure uses UTF-16 for all strings and as such its definition of what
-a letter is is liberal enough to include accented characters. Take for
-example the phrase "Hurry up, computer!" which includes the letter
+a letter is is liberal enough to include accented characters. Take the phrase, "Hurry up, computer!" which includes the letter
 'e' with both acute (é) and circumflex (ê) accents when translated
-to French. Since these special characters are considered letters it is
-possible for capitalization functions to change case appropriately.
+to French. Since these special characters are considered letters, it is
+possible for capitalization functions to change case appropriately:
 
 [source,clojure]
 ----
@@ -61,5 +60,5 @@ possible for capitalization functions to change case appropriately.
 
 - The +java.lang.String+
   http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[API
-  documentation].
+  documentation]
 

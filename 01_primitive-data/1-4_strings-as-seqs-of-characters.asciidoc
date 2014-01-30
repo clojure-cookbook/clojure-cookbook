@@ -9,7 +9,7 @@ You need to work with the individual characters in a string.
 
 ==== Solution
 
-Use +seq+ on a string to expose the sequence of characters representing it.
+Use +seq+ on a string to expose the sequence of characters representing it:
 
 [source,clojure]
 ----
@@ -19,7 +19,7 @@ Use +seq+ on a string to expose the sequence of characters representing it.
 
 You don't need to call +seq+ every time you want to get at a strings
 characters, though. Any function taking a sequence will naturally
-coerce a string into a sequence of characters.
+coerce a string into a sequence of characters:
 
 [source,clojure]
 ----
@@ -43,18 +43,18 @@ coerce a string into a sequence of characters.
 
 ==== Discussion
 
-In Computer Science "string" literally means "sequence of characters"
+In computer science, "string" means "sequence of characters"
 and Clojure treats strings exactly as such. Because Clojure strings
 are sequences under the covers, you may substitute a string anywhere a
 collection is expected. When you do so, the string will be interpreted
 as a collection of characters. There's nothing special about +(seq
-string)+, the +seq+ function is merely returning a seq of the
+string)+. The +seq+ function is merely returning a seq of the
 collection of characters that the string is.
 
 More often than not, after you've done some work on the characters
-within a string you'll want to transform that collection back into a
+within a string, you'll want to transform that collection back into a
 string. Use +apply+ with +str+ on a collection of characters to
-collapse them into a string.
+collapse them into a string:
 
 [source,clojure]
 ----

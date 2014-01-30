@@ -9,12 +9,12 @@ You need to pluralize a word given some quantity, such as "0 eggs" or
 
 ==== Solution
 
-When you need to perform Ruby on Rails-style pluralization use Roman Scherer's
+When you need to perform Ruby on Rails-style pluralization, use Roman Scherer's
 https://github.com/r0man/inflections-clj[+inflections+] library.
 
-To follow along with this recipe, start a REPL using +lein-try+ footnote:[If
+To follow along with this recipe, start a REPL using +lein-try+:footnote:[If
 you haven't already installed +lein-try+, follow the instructions in
-<<sec_lein_try>>]:
+<<sec_lein_try>>.]
 
 [source,shell-session]
 ----
@@ -22,7 +22,7 @@ lein try inflections
 ----
 
 Use +inflections.core/pluralize+ with a count to attempt to pluralize
-that word if count is not one.
+that word if count is not one:
 
 [source,clojure]
 ----
@@ -35,8 +35,8 @@ that word if count is not one.
 ;; -> "12 monkeys"
 ----
 
-If you have a special or non-standard pluralization you can provide
-your own pluralization as an optional third argument to +pluralize+.
+If you have a special or nonstandard pluralization, you can provide
+your own pluralization as an optional third argument to +pluralize+:
 
 [source,clojure]
 ----
@@ -60,12 +60,12 @@ methods ending in "ize" that change the inflection of strings.
 
 Two interesting functions in the +inflections+ library are +plural+ and
 +singular+. These functions work a bit like the +upper-case+ and
-+lower-case+ of pluralization; +plural+ transforms words to their
-plural form and +singular+ coerces words to their singular form. These
++lower-case+ of pluralization; +plural+ transforms words into their
+plural form, and +singular+ coerces words to their singular form. These
 transformations are based on a number of rules in
 +inflections.plural+.
 
-You can add your own rules for pluralization with +inflections.core/plural!+.
+You can add your own rules for pluralization with +inflections.core/plural!+:
 
 [source,clojure]
 ----
@@ -84,7 +84,7 @@ You can add your own rules for pluralization with +inflections.core/plural!+.
 ----
 
 The library also has support for inflections like +camelize+,
-+parameterize+ and +ordinalize+.
++parameterize+, and +ordinalize+:
 
 [source,clojure]
 ----
@@ -104,4 +104,4 @@ The library also has support for inflections like +camelize+,
 ==== See Also
 
 *  https://github.com/r0man/inflections-clj/[inflections
-  core.clj] for the most up-to-date listing of inflections available.
+  core.clj] for the most up-to-date listing of inflections available

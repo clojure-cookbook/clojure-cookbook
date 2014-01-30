@@ -11,7 +11,7 @@ You need to truncate or round a decimal number to a lower precision number.
 
 If the integer portion of a number is all you are concerned with, use
 +int+ to coerce a number to an integer. Of course, this completely
-discards any decimal places without performing any rounding.
+discards any decimal places without performing any rounding:
 
 [source,clojure]
 ----
@@ -22,9 +22,9 @@ discards any decimal places without performing any rounding.
 ;; -> 2
 ----
 
-If you still value some level of precision then rounding is probably
+If you still value some level of precision, then rounding is probably
 what you're after. You can use +Math/round+ to perform simple
-rounding.
+rounding:
 
 [source,clojure]
 ----
@@ -40,8 +40,8 @@ rounding.
 ----
 
 If you want to perform an unbalanced rounding, such as unconditionally
-"rounding up" or "rounding down" then you should use +Math/ceil+ or
-+Math/floor+ respectively.
+"rounding up" or "rounding down," then you should use +Math/ceil+ or
++Math/floor+, respectively:
 
 [source,clojure]
 ----
@@ -64,31 +64,31 @@ mathematically correct, but it is certainly convenient if it is
 accurate enough for the problem at hand.
 
 +Math/round+ is the next step up in rounding technology. Like many
-other primitive manipulation functions in Clojure the language prefers
-*not* to re-invent the wheel. +Math/round+ is a Java function that
+other primitive manipulation functions in Clojure, the language prefers
+*not* to reinvent the wheel. +Math/round+ is a Java function that
 rounds by adding 1/2 to a number before dropping decimal places
 similarly to +int+.
 
 For more advanced rounding, such as controlling number of decimal
 places or complex rounding modes, you may need to resort to using
 +with-precision+ function. You likely already know +BigDecimal+
-numbers are backed by Java classes, but you might not have know that
+numbers are backed by Java classes, but you might not have known that
 Java exposes a number of knobs for tweaking +BigDecimal+ calculations;
 +with-precision+ exposes these knobs.
 
-+with-precision+ is a macro that accepts a +BigDecimal+ "precision"
++with-precision+ is a macro that accepts a +BigDecimal+ precision
 mode and any number of expressions, executing those expressions in a
 +BigDecimal+ context tuned to that precision. So what does precision
 look like? Well, it's a little strange. The most basic precision is
-simple a positive integer "scale" value - this value specifies the
+simple a positive integer "scale" value. This value specifies the
 number decimal places to work with. More complex precisions involve a
 +:rounding+ value, specified like a key-value pair like +:rounding FLOOR+ (this *is* a macro
-of course, so why not!?) When not specified the default rounding mode
+of course, so why not?). When not specified, the default rounding mode
 is +HALF_UP+, but any of the values +CEILING+, +FLOOR+, +HALF_UP+,
-+HALF_DOWN+, +HALF_EVEN+, +UP+, +DOWN+ or +UNNECESSARY+ are allowed.
++HALF_DOWN+, +HALF_EVEN+, +UP+, +DOWN+, or +UNNECESSARY+ are allowed.
 See
 http://docs.oracle.com/javase/7/docs/api/java/math/RoundingMode.html[RoundingMode]
-for more detailed descriptions of each mode.
+for more detailed descriptions of each mode:
 
 [source,clojure]
 ----
@@ -106,7 +106,7 @@ One notable "gotcha" with +with-precision+ is that it only changes the
 behavior of +BigDecimal+ arithmetic, leaving regular arithmetic
 unchanged. You'll either have to introduce +BigDecimal+ values into
 your expressions with literal values (+3M+) or by means of the
-+bigdec+ function.
++bigdec+ function:
 
 [source,clojure]
 ----
@@ -120,6 +120,6 @@ your expressions with literal values (+3M+) or by means of the
 ==== See Also
 
 * <<sec_primitives_math_arbitrary_precision>> for more information
-  on +BigDecimal+, specifically type-contagion.
+  on +BigDecimal+, specifically type contagion
 
 * <<sec_primitives_numbers_fuzzy_comparison>>

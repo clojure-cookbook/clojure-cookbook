@@ -22,10 +22,10 @@ dependencies or start a REPL using +lein-try+:
 $ lein try clj-time
 ----
 
-If you've used the Ruby on Rails framework then you're likely
+If you've used the Ruby on Rails framework, then you're likely
 accustomed to statements like +1.day.from_now+, +3.days.ago+ or
 +some_date - 2.years+. You'll be pleased to know that +clj-time+ exposes
-similar functionality.
+similar functionality:
 
 [source,clojure]
 ----
@@ -45,7 +45,7 @@ similar functionality.
 ----
 
 The +clj-time.core+ functions +from-now+ and +ago+ are just syntactic sugar
-over +plus+ and +minus+.
+over +plus+ and +minus+:
 
 [source,clojure]
 ----
@@ -65,19 +65,19 @@ Despite how difficult dates and times can sometimes be in Java,
 +clj-time+ manages to expose a joyful syntax for adding and
 subtracting from dates.
 
-The functions +plus+, +minus+, +from-now+ and +ago+ all take a period
+The functions +plus+, +minus+, +from-now+, and +ago+ all take a period
 of time and adjust a +DateTime+ by that amount (be that time "now," as
-in +from-now+ or +ago+, or some provided time.) +clj-time.core+
+in +from-now+ or +ago+, or some provided time). +clj-time.core+
 includes a number of useful period helpers ranging from +millis+ to
 +years+ that produce a time period at a given scale.
 
 Depending on your use case, it's even possible to arrange operation,
-time period and time in such a manner that they almost read like a
-sentence. Take +(-> 1 t/years t/from-now)+ for example. In this case
+time period, and time in such a manner that they almost read like a
+sentence. Take +(-> 1 t/years t/from-now)+ for example. In this case,
 the threading macro +->+ threads each value as an argument to the next
 producing +(t/from-now (t/years 1))+. It's up to you to arrange your
 function calls as you see fit, but know that it is quite possible to
-produce readable deep nested-calls like this.
+produce readable deep-nested calls like this.
 
 ==== See Also
 

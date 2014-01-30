@@ -23,7 +23,7 @@ $ lein try clj-time
 
 Use +interval+ along with the numerous +in-<unit>+ helper functions in
 the +clj-time.core+ namespace to calculate the difference between
-times.
+times:
 
 [source,clojure]
 ----
@@ -58,7 +58,7 @@ since-april-first
 ==== Discussion
 
 Calculating the length of an interval of times is one of the more
-complex operations you can perform with time. Time on planet Earth is
+complex operations you can perform with time. Time on Earth is
 a complex beast, complected by constructs like leap time and time
 zones; https://github.com/clj-time/clj-time[+clj-time+] is the only
 library we're aware of that is capable of wrangling this complexity.
@@ -68,9 +68,9 @@ representation of that discrete interval of time. From there, the
 +clj-time.core+ namespace includes a myriad of +in-<unit>+ functions
 that can present that time interval in different units. These helpers
 run the gamut in scale from +in-msecs+ to +in-years+, covering nearly
-every scale useful for non-specialized applications.
+every scale useful for nonspecialized applications.
 
-One area +clj-time+ lacks support is leap seconds. Joda Time's
+One area +clj-time+ lacks support is leap seconds. Joda-Time's
 http://joda-time.sourceforge.net/faq.html[offical FAQ] explains why
 the feature is missing in greater detail. We're not aware of any
 Clojure that *can* reason about time at this granularity. If this
