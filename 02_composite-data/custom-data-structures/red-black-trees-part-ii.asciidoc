@@ -1,7 +1,7 @@
 [[sec_red_black_part_ii]]
 === Implementing Custom Data Structures: Red-Black Trees - Part II
 [role="byline"]
-originally submitted by Leonardo Borges
+by Ryan Neufeld and Leonardo Borges
 
 ==== Problem
 

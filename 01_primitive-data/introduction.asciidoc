@@ -1,6 +1,6 @@
 === Introduction
 
-Clojure is a fantastic language for tackling *hard* problems. Its
+Clojure is a fantastic language for tackling hard problems. Its
 _simple_ tools let us software developers build up layer upon layer of
 abstractions until we've tackled some of the world's most difficult
 problems with ease. Like chemistry, every great Clojure program boils
