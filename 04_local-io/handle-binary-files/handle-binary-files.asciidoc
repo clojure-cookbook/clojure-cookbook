@@ -100,7 +100,7 @@ multiple types out of a stream (array) of bytes:
       (.position bb 1)                    ;; Skip version byte
       (let [buflen (.getInt bb)
             strbytes (byte-array buflen)] ;; Prepare buffer to hold string 
-                                             data...
+                                          ;; data...
         (.get bb strbytes)                ;; ... and read it.
         [version buflen (apply str (map char strbytes))]))))
 

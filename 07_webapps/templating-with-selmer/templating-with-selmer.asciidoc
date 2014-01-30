@@ -187,8 +187,8 @@ If we wanted to use `[` and `]` as our opening and closing tags, we could call t
 
 [source, clojure]
 ----
-(render "[% for ele in foo %] 
-        {{I'm not a tag, but the next one is}} [{ele}] [%endfor%]"
+(render (str "[% for ele in foo %] "
+             "{{I'm not a tag, but the next one is}} [{ele}] [%endfor%]")
         {:foo [1 2 3]}
         {:tag-open \[
          :tag-close \]})

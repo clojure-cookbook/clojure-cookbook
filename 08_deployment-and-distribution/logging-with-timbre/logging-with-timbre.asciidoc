@@ -57,12 +57,12 @@ will see output like the following in your REPL.
 
 (div-4 0)
 ;; -> 2013-Nov-22 10:34:47 -0500 laptop ERROR [user] - 
-oh no! java.lang.ArithmeticException: Divide by zero
+;;      oh no! java.lang.ArithmeticException: Divide by zero
 ;; -> nil
 ;; *out* 
 ;; 2013-Nov-22 10:34:21 -0500 laptop INFO [user] - Starting
 ;; 2013-Nov-22 10:34:21 -0500 laptop ERROR [user] - 
-oh no! java.lang.ArithmeticException: Divide by zero
+;;   oh no! java.lang.ArithmeticException: Divide by zero
 ;; ... Exception stacktrace
 ;; 2013-Nov-22 10:34:21 -0500 laptop INFO [user] - Ending
 ----

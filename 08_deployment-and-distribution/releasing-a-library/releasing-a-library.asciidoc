@@ -37,8 +37,8 @@ Username: #<1>
 Password: #<2>
 Wrote .../my-first-project-ryan-neufeld/pom.xml
 Created .../my-first-project-ryan-neufeld-0.1.0-SNAPSHOT.jar
-Could not find metadata my-first-project-ryan-neufeld:...
-/0.1.0-SNAPSHOT/maven-metadata.xml \
+Could not find metadata my-first-project-ryan-neufeld:
+    .../0.1.0-SNAPSHOT/maven-metadata.xml \
     in clojars (https://clojars.org/repo/)
 Sending .../my-first-project-ryan-neufeld-0.1.0-20131113.123334-1.pom (3k)
     to https://clojars.org/repo/

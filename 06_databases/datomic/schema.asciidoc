@@ -102,7 +102,7 @@ connection.
 ----
 (require '[datomic.api :as d])
 
-@(d/transact (d/connect "datomic:mem://sample-database") 
+@(d/transact (d/connect "datomic:mem://sample-database")
              (concat user-schema group-schema))
 ;; -> {:db-before datomic.db.Db@25b48c7b,
 ;;     :db-after datomic.db.Db@5d81650c,

@@ -45,8 +45,8 @@ Compiling feeds.TopologySubmitter
 Emitting: spout default [:bizarro]
 Processing received message source: spout:4, stream: default, id: {}, [:bizarro]
 Emitting: stormy-bolt default ["I'm bizarro Stormy!"]
-Processing received message source: stormy-bolt:5, 
-stream: default, id: {}, [I'm bizarro Stormy!]
+Processing received message source: stormy-bolt:5,
+  stream: default, id: {}, [I'm bizarro Stormy!]
 Emitting: feeds-bolt default ["feeds produced: I'm bizarro Stormy!"]
 ----
 
@@ -148,7 +148,7 @@ You'll also need to update the +:require+ statement in that file:
   (:require [feeds
              [spouts :refer [event-spout]]
              [bolts :refer [active-user-bolt follow-bolt feed-bolt]]]
-            [backtype.storm [clojure :refer [topology spout-spec bolt-spec]] 
+            [backtype.storm [clojure :refer [topology spout-spec bolt-spec]]
                             [config :refer :all]])
 ----
 

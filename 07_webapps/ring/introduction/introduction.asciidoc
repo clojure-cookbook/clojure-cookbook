@@ -65,7 +65,7 @@ machine demonstrates the structure of a request:
  {"accept-encoding" "gzip,deflate,sdch",
   "connection" "keep-alive",
   "user-agent"
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36
   (KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36",
   "accept-language" "en-US,en;q=0.8",
   "accept"

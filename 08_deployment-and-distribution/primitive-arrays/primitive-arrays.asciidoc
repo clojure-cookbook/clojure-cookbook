@@ -40,7 +40,7 @@ arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
 ;; -> (2.0 3.0 4.0)
 
 (defn pointwise-product
-  "Produce a new double array with the product of corresponding elements of 
+  "Produce a new double array with the product of corresponding elements of
   xs and ys"
   [xs ys]
   (hiphip.double/amap [x xs y ys] (* x y)))

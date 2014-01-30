@@ -41,7 +41,7 @@ To follow along with this recipe, clone the _https://github.com/clojure-cookbook
    :status 200})
 
 (defn handler
-  "Show a form requesting the user's name, or greet them if they 
+  "Show a form requesting the user's name, or greet them if they
   submitted the form"
   [req]
   (let [name (get-in req [:params "name"])]

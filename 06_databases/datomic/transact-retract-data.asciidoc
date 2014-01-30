@@ -50,7 +50,7 @@ To retract Barney's email, transact a transaction with the
 
 [source,clojure]
 ----
-(def retract-tx-result @(d/transact conn [[:db/retract barney-id 
+(def retract-tx-result @(d/transact conn [[:db/retract barney-id
                                            :user/email "barney@example.com"]]))
 
 (def after-retract-db (:db-after retract-tx-result))
@@ -67,7 +67,7 @@ To retract entire entities, use the +:db.fn/retractEntity+ built-in transactor f
 [source,clojure]
 ----
 (def retract-entity-tx-result 
-     @(d/transact conn [[:db.fn/retractEntity barney-id]]))
+  @(d/transact conn [[:db.fn/retractEntity barney-id]]))
 
 (def after-retract-entity-db (:db-after retract-entity-tx-result))
 

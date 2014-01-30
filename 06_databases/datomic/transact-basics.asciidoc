@@ -48,7 +48,7 @@ new-id
 
 (def tx-data2 [[:db/add new-id :user/email "ryan@cognitect.com"]
                [:db/add new-id :user/name "Ryan Neufeld"]
-               [:db/add new-id :user/roles [:user.roles/author 
+               [:db/add new-id :user/roles [:user.roles/author
                                             :user.roles/editor]]])
 
 (def tx-result @(d/transact conn tx-data2)) ;; Keep this for later...

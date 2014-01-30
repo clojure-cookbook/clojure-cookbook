@@ -121,16 +121,18 @@ and plain strings. For example, a complete URI string may be provided under the
 [source,clojure]
 ----
 ;; As a spec string
-(def db-spec "jdbc:postgresql://bilbo:secret@localhost:5432/cookbook_experiment")
+(def db-spec
+  "jdbc:postgresql://bilbo:secret@localhost:5432/cookbook_experiment")
 
 ;; As a connection URI map...
 ;; ... with a username and password
-(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/
-cookbook_experiments?user=bilbo&password=secret"})
+(def db-spec
+  {:connection-uri (str "jdbc:postgresql://localhost:5432/cookbook_experiments?"
+                       "user=bilbo&password=secret")})
 
 ;; ... or without
-(def db-spec {:connection-uri "jdbc:postgresql://localhost:5432/
-cookbook_experiments"})
+(def db-spec
+  {:connection-uri "jdbc:postgresql://localhost:5432/cookbook_experiments"})
 ----
 
 Database records are represented as Clojure maps, with the table's column names

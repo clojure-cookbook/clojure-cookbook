@@ -16,7 +16,7 @@ A quick win using +pmap+ over a sequence returned by +line-seq+.
 (require ['clojure.java.io :as 'jio])
 
 (defn pmap-file
-  "Process input-file in a parallel, applying processing-fn to each row 
+  "Process input-file in a parallel, applying processing-fn to each row
   outputting into output-file"
   [processing-fn input-file output-file]
   (with-open [rdr (jio/reader input-file)

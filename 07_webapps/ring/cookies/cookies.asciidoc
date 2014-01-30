@@ -24,11 +24,14 @@ To follow along with this recipe, clone the _https://github.com/clojure-cookbook
 (defn set-name-form
   "A response showing a form for the user to enter their name."
   []
-  {:body "<html><form action=''>Name: <input type='text' name='name'>
-  <input type='submit'></form></html>"
+  {:body "<html>
+            <form action=''>
+              Name: <input type='text' name='name'>
+              <input type='submit'>
+            </form>
+          </html>"
    :status 200
-   :content-type "text/html"
-   })
+   :content-type "text/html"})
 
 (defn show-name
   "A response showing that we know the user's name"

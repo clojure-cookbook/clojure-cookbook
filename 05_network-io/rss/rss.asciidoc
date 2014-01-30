@@ -25,10 +25,11 @@ retrieve that feed and parse it into Clojure data.
 ----
 (require '[feedparser-clj.core :as rss])
 
-(rss/parse-feed "https://github.com/clojure-cookbook/clojure-cookbook/commits/
-master.atom")
+(rss/parse-feed (str "https://github.com/clojure-cookbook/clojure-cookbook/"
+                     "commits/master.atom"))
 ;; -> {:authors [...] 
-       :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} ...] ...}
+;;     :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} ...]
+;;      ...}
 ----
 
 You can also invoke +parse-feed+ with a java.io.InputStream to read
@@ -38,13 +39,14 @@ from a file or other location.
 ----
 (with-open [writer (clojure.java.io/writer "master.atom")]
   (spit writer
-        (slurp "https://github.com/clojure-cookbook/clojure-cookbook/commits/
-        master.atom")))
+        (slurp (str "https://github.com/clojure-cookbook/clojure-cookbook/"
+                    "commits/master.atom"))))
 
 (with-open [stream (clojure.java.io/input-stream "master.atom")]
   (rss/parse-feed stream))
-;; -> {:authors [...] 
-       :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} ...] ...}
+;; -> {:authors [...]
+;;     :entries [{:link "LINK" :title "TITLE" :contents "CONTENT"} ...]
+;;     ...}
 ----
 
 ==== Discussion

@@ -323,9 +323,10 @@ to generate a graph from the values:
     
       (cl/membero [director :type :Person] graph)
       (cl/membero [director :name "Baz"] graph))))
-;; -> ([_0 :name "Newmarket Films"] 
-       [_0 :type :FilmStudio] 
-       [_0 :filmsCollection _1] ...)
+;; -> ([_0 :name "Newmarket Films"]
+;;     [_0 :type :FilmStudio]
+;;     [_0 :filmsCollection _1]
+;;     ...)
 ----
 
 For small graphs, membero is fast enough. Larger graphs will

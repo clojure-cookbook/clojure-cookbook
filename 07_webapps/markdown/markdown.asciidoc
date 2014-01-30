@@ -34,7 +34,7 @@ with Markdown content to its HTML representation:
 
 [source,clojure]
 ----
-(md/md-to-html-string 
+(md/md-to-html-string
   "# This is a test\n\nsome code follows:\n```\n(defn foo [])\n```")
 ----
 
@@ -95,15 +95,17 @@ When the +:heading-anchors+ is set to +true+ an anchor will be generated for eac
 
 [source,html]
 ----
-<h3><a name=\"heading\" class=\"anchor\" href=\"#foo&#95;bar&#95;baz></a>
-  foo bar BAz</h3>
+<h3>
+  <a name=\"heading\" class=\"anchor\" href=\"#foo&#95;bar&#95;baz></a>
+  foo bar BAz
+</h3>
 ----
 
 The +:code-style+ key allows overriding the default style hint for code blocks:
 
 [source,clojure]
 ----
-(md/md-to-html-string "```clojure\n(defn foo [])\n```" 
+(md/md-to-html-string "```clojure\n(defn foo [])\n```"
                       :code-style #(str "class=\"" % "\""))
 ----
 

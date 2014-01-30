@@ -36,8 +36,8 @@ connection, the other two provide a easy interface to execute queries.
 ;; Connect to 2 nodes in a cluster
 (client/connect! ["localhost" "another.node.local"])
 
-;; Creates a keyspace name `cassaforte_keyspace`, 
-using Simple Replication Strategy and replication factor of 2
+;; Creates a keyspace name `cassaforte_keyspace`,
+;; using Simple Replication Strategy and replication factor of 2
 (cql/create-keyspace "cassaforte_keyspace"
                      (q/with {:replication
                               {:class "SimpleStrategy"
@@ -131,8 +131,8 @@ Cassaforte's macro-based DSL, you can pass a string to the
 
 [source,clojure]
 ----
-(client/execute "INSERT INTO users (name, city, age) 
-                 VALUES ('Alex', 'Munich', 19);")
+(client/execute
+  "INSERT INTO users (name, city, age) VALUES ('Alex', 'Munich', 19);")
 ----
 
 For each issued write you can specify an optional +TTL+ (time to live) to expire the data after certain period of time. It's useful for caching and data that you only want to hold for certain period of time (like user sessions, for example). For example, if you want the record to live for just 60 seconds, you can run:
