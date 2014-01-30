@@ -13,7 +13,8 @@ all inputs, and find input values that violate those properties.
 
 Use +simple-check+, a property specification library for Clojure that
 is capable of "shrinking" the input case to find the minimal failing
-input.
+input. footnote:[It is important to note, +simple-check+ finds a
+*local* minima, not the *global* minimum.]
 
 To follow along with this recipe, add `[reiddraper/simple-check "0.5.3"]` to your project's dependencies, or start a REPL using +lein-try+:
 
