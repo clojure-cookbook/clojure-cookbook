@@ -1,0 +1,96 @@
+=== Working with Time Zones
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to gracefully handle times and dates in a number of time zones.
+
+==== Solution
+
+The JVM's built-in time and date classes don't work well with the notion
+of time zones. For one, +Date+ treats every value as UTC, and +Calendar+ is
+cumbersome to work with in Clojure (or Java, for that matter). Use
+https://github.com/clj-time/clj-time[+clj-time+] to properly deal with
+time zones.
+
+Before starting, add `[clj-time "0.6.0"]` to your project's
+dependencies or start a REPL using +lein-try+:
+
+[source,shell-session]
+----
+$ lein try clj-time
+----
+
+[source,clojure]
+----
+(require '[clj-time.core :as t])
+
+;; My birth-time, in the correct time-zone
+(def bday (t/from-time-zone (t/date-time 2012 02 18 18)
+                            (t/time-zone-for-offset -6)))
+
+bday
+;; -> #<DateTime 2012-02-18T18:00:00.000-06:00>
+
+;; What time was it in Brisbane when I was born?
+(def australia-bday
+  (t/to-time-zone bday (t/time-zone-for-id "Australia/Brisbane")))
+
+australia-bday
+;; -> #<DateTime 2012-02-19T10:00:00.000+10:00>
+
+;; Yet there are the same instant in time.
+(compare bday australia-bday)
+;; -> 0
+----
+
+==== Discussion
+
+Unlike Java built-ins, +clj-time+ knows a lot about time zones.
+http://joda-time.sourceforge.net/[Joda-Time], the library +clj-time+
+wraps, bundles the internationally recognized
+http://www.twinsun.com/tz/tz-link.htm[+tz+ database]. This database
+captures the ID and time offsets for nearly every location on the
+planet.
+
+The tz database also captures information about daylight saving time.
+For example, Los Angeles is UTC-08:00 in the winter and UTC-07:00
+during the summer. This is accurately reflected when using +clj-time+:
+
+[source,clojure]
+----
+(def la-tz (t/time-zone-for-id "America/Los_Angeles"))
+
+;; LA is UTC-08:00 in winter
+(t/from-time-zone (t/date-time 2012 01 01) la-tz)
+;; -> #<DateTime 2012-01-01T00:00:00.000-08:00>
+
+;; ... and UTC-07:00 in summer
+(t/from-time-zone (t/date-time 2012 06 01) la-tz)
+;; -> #<DateTime 2012-06-01T00:00:00.000-07:00>
+----
+
+
+The +clj-time.core/from-time-zone+ function takes any +DateTime+ and
+modifies its time zone to the desired time zone. This is useful
+in cases where you receive a date, time, and time zone separately
+and want to combine them an accurate +DateTime+ instance.
+
+The +clj-time.core/to-time-zone+ has the same signature as
++from-time-zone+, but returns a +DateTime+ for the exact same point in
+time, but from the perspective of another time zone. This is useful
+for presenting time and date information from disparate sources to a
+user in their preferred time zone.
+
+Some times you may only want to deal with machine-local time. The
++clj-time.local+ namespace provides a number of functions to that end,
+including +local-now+ for getting a time in the local time zone, and
++to-local-date-time+, which shifts the perspective of a time to the
+local time zone.
+
+==== See Also
+
+* <<sec_primitives_dates_time_between>>
+
+* <<sec_primitives_dates_relative>>

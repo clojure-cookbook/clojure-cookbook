@@ -1,0 +1,107 @@
+=== Pluralizing Strings Based on a Quantity
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to pluralize a word given some quantity, such as "0 eggs" or
+"1 chicken."
+
+==== Solution
+
+When you need to perform Ruby on Rails-style pluralization, use Roman Scherer's
+https://github.com/r0man/inflections-clj[+inflections+] library.
+
+To follow along with this recipe, start a REPL using +lein-try+:footnote:[If
+you haven't already installed +lein-try+, follow the instructions in
+<<sec_lein_try>>.]
+
+[source,shell-session]
+----
+lein try inflections
+----
+
+Use +inflections.core/pluralize+ with a count to attempt to pluralize
+that word if count is not one:
+
+[source,clojure]
+----
+(require '[inflections.core :as inf])
+
+(inf/pluralize 1 "monkey")
+;; -> "1 monkey"
+
+(inf/pluralize 12 "monkey")
+;; -> "12 monkeys"
+----
+
+If you have a special or nonstandard pluralization, you can provide
+your own pluralization as an optional third argument to +pluralize+:
+
+[source,clojure]
+----
+(inf/pluralize 1 "box" "boxen")
+;; -> "1 box"
+
+(inf/pluralize 3 "box" "boxen")
+;; -> "3 boxen"
+----
+
+==== Discussion
+
+When it comes to user-facing text, inflection is key. Humanizing the
+output of your programs or websites goes a long way to building a
+trustworthy and professional image. http://rubyonrails.org[Ruby on
+Rails] set the gold standard for friendly and humanized text with its
++ActiveSupport::Inflections+ class. +Inflections#pluralize+ is one
+such inflection, but +Inflections+ is chock full of cutesy-sounding
+methods ending in "ize" that change the inflection of strings.
++inflections+ provides nearly all of these capabilities in a Clojure context.
+
+Two interesting functions in the +inflections+ library are +plural+ and
++singular+. These functions work a bit like the +upper-case+ and
++lower-case+ of pluralization; +plural+ transforms words into their
+plural form, and +singular+ coerces words to their singular form. These
+transformations are based on a number of rules in
++inflections.plural+.
+
+You can add your own rules for pluralization with +inflections.core/plural!+:
+
+[source,clojure]
+----
+(inf/plural "box")
+;; -> "boxes"
+
+;; Words ending in 'ox' pluralize with 'en' (and not 'es')
+(inf/plural! #"(ox)(?i)$" "$1en")
+
+(inf/plural "box")
+;; -> "boxen"
+
+;; plural is also the basis for pluralize...
+(inf/pluralize 2 "box")
+;; -> "2 boxen"
+----
+
+The library also has support for inflections like +camelize+,
++parameterize+, and +ordinalize+:
+
+[source,clojure]
+----
+;; Convert "snake_case" to "CamelCase"
+(inf/camelize "my_object")
+;; -> "MyObject"
+
+;; Clean strings for usage as URL parameters
+(inf/parameterize "My most favorite URL!")
+;; -> "my-most-favorite-url"
+
+;; Turn numbers into ordinal numbers
+(inf/ordinalize 42)
+;; -> "42nd"
+----
+
+==== See Also
+
+*  https://github.com/r0man/inflections-clj/[inflections
+  core.clj] for the most up-to-date listing of inflections available

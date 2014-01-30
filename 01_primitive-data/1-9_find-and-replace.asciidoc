@@ -1,0 +1,93 @@
+[[sec_primitives_strings_find_replace]]
+=== Performing Find and Replace on Strings
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to modify portions of a string that match some well-defined pattern.
+
+==== Solution
+
+The versatile +clojure.string/replace+ is the function you should
+reach for when you need to selectively replace portions of a string.
+
+For simple patterns, use +replace+ with a normal string as its matcher:
+
+[source,clojure]
+----
+(def about-me "My favorite color is green!")
+(clojure.string/replace about-me "green" "red")
+;; -> "My favorite color is red!"
+
+(defn de-canadianize [s]
+  (clojure.string/replace s "ou" "o"))
+(de-canadianize (str "Those Canadian neighbours have coloured behaviour"
+                     " when it comes to word endings"))
+;; -> "Those Canadian neighbors have colored behavior when it comes to word
+;;     endings"
+----
+
+Plain string replacement will only get you so far. When you need to
+replace a pattern with some variability to it, you'll need to reach for
+the big guns: regular expressions. Use Clojure's regular expression
+literals (+#"..."+) to specify a pattern as a regular expression:
+
+[source,clojure]
+----
+(defn linkify-comment
+  "Add Markdown-style links for any GitHub issue numbers present in comment"
+  [repo comment]
+  (clojure.string/replace comment
+                          #"#(\d+)"
+                          (str "[#$1](https://github.com/" repo "/issues/$1)")))
+
+(linkify-comment "next/big-thing" "As soon as we fix #42 and #1337 we
+should be set to release!")
+;; -> "As soon as we fix
+;;     [#42](https://github.com/next/big-thing/issues/42) and
+;;     [#1337](https://github.com/next/big-thing/issues/1337) we
+;;     should be set to release!"
+----
+
+==== Discussion
+
+As far as string functions go, +replace+ is one of the more powerful and most complex ones. The majority of this complexity arises from the varying +match+ and +replacement+ types it can operate with.
+
+When passed a string match, +replace+ expects a string +replacement+. Any occurrences of +match+ in the supplied string will be replaced directly with +replacement+.
+
+When passed a character match (such as +\c+ or +\n+), +replace+ expects a character +replacement+. Like string/string, the character/character mode of +replace+ replaces item directly.
+
+When passed a regular expression for a match, +replace+ gets much more interesting. One possible +replacement+ for a regex match is a string just like the +linkify-comment+ example; This string interprets special character combinations like +$1+ or +$2+ as variables to be replaced by matching groups in the match. In the +linkify-comment+ example, any contiguous digits (+\d++) following a number sign (+#+) are captured in parenthesis and are available as +$1+ in the replacement.
+
+When passing a regex +match+, you can also provide a function for replacement instead of a string. In Clojure, the world is your oyster when you can pass a function as an argument: you could capture your replacement in a reusable (and testable) function, you could pass different functions in depending on the circumstances, or you could even pass a map that dictated replacements:
+
+[source,clojure]
+----
+;; linkify-comment re-written with linkification as a separate function
+(defn linkify [repo [full-match id]]
+  (str "[" full-match "](https://github.com/" repo "/issues/" id ")"))
+
+(defn linkify-comment [repo comment]
+  (clojure.string/replace comment #"#(\d+)" (partial linkify repo)))
+----
+
+If you've not used regular expressions before, then you're in for a
+treat. Regexps are a powerful tool for modifying strings with
+unbounded flexibility. Like any powerful new tool, it's easy to
+overdo it. Because of their terse and compact syntax, it's very easy
+to produce regexps that are both difficult to interpret and at a high
+risk of being incorrect. You should use regular expressions sparingly
+and only if you fully understand their syntax.
+
+http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] (O'Reilly) is a fantastic book for learning and mastering regular expression syntax.
+
+==== See Also
+
+
+* <<sec_primitives_strings_re_find>>
+* +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurrence of +match+
+* The
+  http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
+  documentation] for +java.lang.Pattern+, which defines the exact
+  regex syntax supported by Java (and Clojure's regular-expression literals)

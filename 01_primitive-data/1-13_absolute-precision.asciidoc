@@ -1,0 +1,76 @@
+[[sec_primitives_math_arbitrary_precision]]
+=== Maintaining Accuracy with Extremely Large/Small Numbers
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to work precisely with numbers, especially those that are
+very large or very small, without the imprecision implied by using
+floating-point representations such as +double+ values.
+
+==== Solution
+
+First, know that Clojure supports exponents as literal numbers, allowing you to succinctly express large/small numbers:
+
+[source,clojure]
+----
+;; Avogadro's number
+6.0221413e23
+;; -> 6.0221413E23
+
+;; 1 Angstrom in meters
+1e-10
+;; -> 1.0E-10
+----
+
+Integer values passing the upper bound of a size-bounded type (like long) will raise an integer overflow error.
+Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotion to "+Big+" types:
+
+[source,clojure]
+----
+(* 9999 9999 9999 9999 9999)
+;; ArithmeticException integer overflow  clojure.lang.Numbers.throwIntOverflow
+
+(*' 9999 9999 9999 9999 9999)
+;; -> 99950009999000049999N
+----
+
+==== Discussion
+
+Clojure has a number of numeric types: integer and long, double, and
++BigInteger+ and +BigDecimal+. The bounded types (integer, long, and
+double) all seamlessly transition as needed while inside the *total*
+bounds of those types. Exceeding those bounds causes one of two things
+to happen. For integers, an integer overflow error is raised. For
+floating point numbers, the result will become +Infinity+. With
+integers, you can avoid this error by using quote versions of `+`,
++-+, +*+, and +/+. These operations support arbitrary precision and
+will promote integers to +BigInteger+ if necessary.
+
+Floating-point values are a little more tricky. The "quote" versions
+of numeric operations won't help. You'll need to infect your
+operations with the +BigDecimal+ type. In Clojure, the +BigInteger+
+and +BigDecimal+ types are what you would call "contagious." Once a
+"big" number is introduced to an operation, it infects all of the
+follow-on results. You *could* do something like multiplying a number
+by a +BigDecimal+ 1, but it's much easier to use the +bigdec+ or
++bigint+ functions to promote a value manually:
+
+[source,clojure]
+----
+(* 2 Double/MAX_VALUE)
+;; -> Double/POSITIVE_INFINITY
+
+(* 2 (bigdec Double/MAX_VALUE))
+;; -> 3.5953862697246314E+308M
+----
+
+Contagion doesn't only affect +Big+ types, it also pops up in the
+integer-to-floating-point boundary: floating point numbers are
+contagious to integers. Arithmetic involving *any* floating point
+values will always return a floating point value.
+
+==== See Also
+
+* <<sec_primitives_rational_numbers>> for information on maintaining accuracy when using rational numbers

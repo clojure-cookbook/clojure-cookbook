@@ -1,0 +1,84 @@
+[[sec_date_to_unix_timestamp]]
+=== Converting a Date to a Unix Timestamp
+[role="byline"]
+by Steven Proctor
+
+==== Problem
+
+You need to get a Unix timestamp representation for a +Date+ object.
+
+==== Solution
+
+Many systems will express timestamps in Unix time format, and when
+you have to interact with these systems, you have to give them date
+and time information in the format they desire.
+
+Fortunately with Clojure's ability for nice interoperability with Java,
+you have an easy solution at hand:
+
+[source,clojure]
+----
+(defn to-unix-time
+  "Returns a Unix time representation expressed in whole seconds
+   given a java.util.Date."
+  [date]
+  (.getTime date))
+----
+
+This is how you can use the +to-unix-time+ function:
+
+[source,clojure]
+----
+(def date (read-string "#inst \"2013-04-16T15:52:00.000-00:00\""))
+;; #'user/date
+
+(to-unix-time date)
+;; 1366127520000
+----
+
+==== Discussion
+
+When you have a +java.util.Date+ object, you can use the Java interop
+provided by Clojure as an easy way to get the time represented as Unix
+time.  Java's +Date+ objects have a method +getTime+, which returns the
+date as a Unix time.
+
+If you are already using or wish to use the
+https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+
+to obtain a Unix time formatted +DateTime+ object if you have a +DateTime+ object:
+
+[source,clojure]
+----
+(require '[clj-time.coerce :as timec])
+
+(defn datetime-to-unix-time
+  "Returns a Unix time representation expressed in whole seconds
+   given a DateTime."
+  [datetime]
+  (timec/to-long datetime))
+----
+
+And using the +datetime-to-unix-time+ function, you can see you get a
+Unix time format for a +DateTime+ object:
+
+[source,clojure]
+----
+(def datetime (clj-time.core/date-time 2013 04 16 15 52))
+;; #'user/datetime
+
+(datetime-to-unix-time datetime)
+;; 1366127520000
+----
+
+By using +clj-time.coerce+, all that is needed is to use the function
++to-long+ to get a Joda-Time +DateTime+ object into a Unix time format.
+
+Your system may never need to interact with other systems that expect
+timestamps expressed in Unix time, but if you are designing a system
+which does, Clojure makes it very easy to express a +Date+, or +DateTime+, in
+Unix time format.
+
+==== See Also
+
+* <<sec_primitives_dates_current_date>>
+* <<sec_date_from_unix_timestamp>>

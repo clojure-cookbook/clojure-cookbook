@@ -1,0 +1,83 @@
+[[sec_primitives_dates_parsing_dates]]
+=== Parsing Date and Times Using clj-time
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to parse dates from a string.
+
+==== Solution
+
+Working directly with Java's date and time classes is like pulling
+teeth. We suggest using
+https://github.com/clj-time/clj-time[+clj-time+], a Clojure wrapper
+over the excellent http://joda-time.sourceforge.net/[Joda-Time]
+library.
+
+Before starting, add `[clj-time "0.6.0"]` to your project's
+dependencies or start a REPL using +lein-try+:
+
+[source,shell-session]
+----
+$ lein try clj-time
+----
+
+
+Use +clj-time.format/formatter+ to create custom date/time
+representations capable of parsing candidate strings. Use the
++clj-time.format/parse+ function with those formatters to parse
+strings into +DateTime+ objects:
+
+[source,clojure]
+----
+(require '[clj-time.format :as tf])
+
+;; To parse dates like: "02/18/87"
+(def government-forms-date (tf/formatter "MM/dd/yy"))
+
+(tf/parse government-forms-date "02/18/87")
+;; -> #<DateTime 1987-02-18T00:00:00.000Z>
+
+(def wonky-format (tf/formatter "HH:mm:ss:SS' on 'yyyy-MM-dd"))
+;; -> #'user/wonky-format
+
+(tf/parse wonky-format "16:13:49:06 on 2013-04-06")
+;; -> #<DateTime 2013-04-06T16:13:49.060Z>
+----
+
+==== Discussion
+
+The +formatter+ function is a powerful little function that
+takes a date/time format string and returns an object capable of
+parsing date/time strings in that format. This format string can
+include any number of symbols representing portions of a time or date.
+Some example symbols include year ("yy" or "yyyy"), day ("dd") or even
+a literal string like "'on'&#8221;. The full list of these symbols is
+available in the Joda-Time
+http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html[DateTimeFormat]
+javadoc.
+
+More often than not, the dates and times you're parsing may be strange,
+but not so strange that no one has seen them before. For this, +clj-time+
+includes a large number of built-in formatters. Use
++clj-time.format/show-formatters+ to print out a list of built-in
+formats and a sample date/time in that format. Once you've picked a
+suitable format, use +clj-time.formater/formatters+ with its keyword to
+receive the appropriate +DateTimeFormatter+.
+
+By default, +formatter+ always parses strings into +DateTime+ objects
+with a UTC time zone. +formatter+ optionally takes a time zone as its
+second argument. You can use +clj-time.core/time-zone-for-offset+ or
++clj-time.core/time-zone-for-id+ to receive a +DateTimeZone+ object to
+pass to +formatter+.
+
+==== See Also
+
+* <<sec_primitives_dates_formatting_dates>> for information on how
+  to use formatters to unparse strings
+
+* The official
+  http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[API
+  documentation] for Java's simple date formatter
+

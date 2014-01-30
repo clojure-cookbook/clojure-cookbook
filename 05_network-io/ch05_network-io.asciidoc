@@ -1,26 +1,26 @@
 [[ch_network_io]]
 == Network IO & Web Services
 
-include::introduction.asciidoc[]
+include::5-0_introduction.asciidoc[]
 
-include::making-an-http-request/making-an-http-request.asciidoc[]
+include::5-1_making-an-http-request.asciidoc[]
 
-include::async-http-requests/async-http-requests.asciidoc[]
+include::5-2_async-http-requests.asciidoc[]
 
-include::ping/sending-a-ping-request.asciidoc[]
+include::5-3_sending-a-ping-request.asciidoc[]
 
-include::rss/rss.asciidoc[]
+include::5-4_rss.asciidoc[]
 
-include::sending-email.asciidoc[]
+include::5-5_sending-email.asciidoc[]
 
-include::queueing-with-rabbitmq/queueing-with-rabbitmq.asciidoc[]
+include::5-6_queueing-with-rabbitmq.asciidoc[]
 
-include::communicating-with-mqtt/communicating-with-mqtt.asciidoc[]
+include::5-7_communicating-with-mqtt.asciidoc[]
 
-include::zmq-async/zmq-async.asciidoc[]
+include::5-8_zmq-async.asciidoc[]
 
-include::tcp-client/tcp-client.asciidoc[]
+include::5-9_tcp-client.asciidoc[]
 
-include::tcp-server/tcp-server.asciidoc[]
+include::5-10_tcp-server.asciidoc[]
 
-include::udp/udp.asciidoc[]
+include::5-11_udp.asciidoc[]

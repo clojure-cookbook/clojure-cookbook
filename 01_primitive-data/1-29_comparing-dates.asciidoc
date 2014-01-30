@@ -1,0 +1,68 @@
+[[sec_primitives_dates_comparing]]
+=== Comparing Dates
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to compare one date to another, or you need to sort a sequence of dates.
+
+==== Solution
+
+You can compare Java Dates using the +compare+ function:
+
+[source,clojure]
+----
+(defn now [] (java.util.Date.))
+(def one-second-ago (now))
+(Thread/sleep 1000)
+
+;; Now is greater than (1) one second ago.
+(compare (now) one-second-ago)
+;; -> 1
+
+;; One second ago is less than (-1) now.
+(compare one-second-ago (now))
+;; -> -1
+
+;; "Equal" manifests as 0.
+(compare one-second-ago one-second-ago)
+;; -> 0
+----
+
+==== Discussion
+
+Why not just compare dates using Clojure's built-in comparison
+operators (+$$<=$$+, +>+, etc.)? The problem with these operators is that
+they utilize +clojure.lang.Numbers+ and attempt to coerce their
+arguments to numerical types.
+
+Since regular comparison won't work, it's necessary to use the
++compare+ function. The +compare+ function takes two arguments and
+returns a number indicating that the first argument was either
+less than (-1), equal to (0), or greater than (+1) the second argument.
+
+Clojure's +sort+ functions use +compare+ under the hood, so no extra
+work is required to sort a collection of dates:
+
+[source,clojure]
+----
+(def occurrences
+  [#inst "2013-04-06T17:40:57.688-00:00"
+   #inst "2002-12-25T00:40:57.688-00:00"
+   #inst "2025-12-25T11:23:31.123-00:00"])
+
+(sort occurrences)
+;; -> (#inst "2002-12-25T00:40:57.688-00:00"
+;;     #inst "2013-04-06T17:40:57.688-00:00"
+;;     #inst "2025-12-25T11:23:31.123-00:00")
+----
+
+If you've been doing more complex work with dates and times and have
+Joda-Time objects in hand, then all of this still applies. If you wish
+to compare Joda-Time objects to Java time objects, however, you will
+have to coerce them to one uniform type using the functions in +clj-time.coerce+.
+
+==== See Also
+
+* <<sec_composite_sorting>>

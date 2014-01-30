@@ -1,0 +1,135 @@
+=== Converting Between Strings, Symbols, and Keywords
+[role="byline"]
+by Colin Jones
+
+==== Problem
+
+You have a string, a symbol, or a keyword, and you'd like to convert it into a
+different one of these string-like data types.
+
+==== Solution
+
+To convert from a string to a symbol, use the +symbol+ function:
+
+[source,clojure]
+----
+(symbol "valid?")
+;; -> valid?
+----
+
+To convert from a symbol to a string, use +str+:
+
+[source,clojure]
+----
+(str 'valid?)
+;; -> "valid?"
+----
+
+When you have a keyword and want a string, you can use +name+, or +str+ if you
+want the leading colon:
+
+[source,clojure]
+----
+(name :triumph)
+;; -> "triumph"
+
+;; Or, to include the leading colon:
+(str :triumph)
+;; -> ":triumph"
+----
+
+To convert from a symbol or string to a keyword, use +keyword+:
+
+[source,clojure]
+----
+(keyword "fantastic")
+;; -> :fantastic
+
+(keyword 'fantastic)
+;; -> :fantastic
+----
+
+You'll need an intermediate step through +name+, to go from keyword to symbol:
+
+[source,clojure]
+----
+(symbol (name :wonderful))
+;; -> wonderful
+----
+
+
+==== Discussion
+
+The primary conversion functions here are +str+, +keyword+, and +symbol+&#x2014;each
+named for the data type they return. One of these, +symbol+, is a bit more
+strict in terms of the input it allows: it must take a string, which is why you
+need the extra step in the keyword-to-symbol conversion.
+
+There is another class of differences among these types: namely, that keywords
+and symbols may be namespaced, signified by a slash in the middle. For these
+kinds of keywords and symbols, the +name+ function may or may not be
+sufficient to convert to a string, depending on your use case:
+
+[source,clojure]
+----
+;; If you only want the name part of a keyword
+(name :user/valid?)
+;; -> "valid?"
+
+;; If you only want the namespace
+(namespace :user/valid?)
+;; -> "user"
+----
+
+Very often, you actually want both parts. You could collect them separately
+and concatenate the strings, with a +/+ in the middle, but there's an easier
+way. Java has a rich set of performant methods for dealing with immutable
+strings. You can take the leading-colon string and lop off the first
+character with +java.lang.String.substring(int)+:
+
+[source,clojure]
+----
+(str :user/valid?)
+;; -> ":user/valid?"
+
+(.substring (str :user/valid?) 1)
+;; -> "user/valid?"
+----
+
+See http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[+java.lang.String+] for more string methods.
+
+You can convert namespaced symbols to keywords just as easily as their
+non-namespaced counterparts, but again, converting in the other direction
+(keyword to symbol) takes an extra step:
+
+[source,clojure]
+----
+(keyword 'produce/onions)
+;; -> :produce/onions
+
+(symbol (.substring (str :produce/onions) 1))
+;; -> produce/onions
+----
+
+And finally, both the +keyword+ and +symbol+ functions have two-argument versions
+that allow you to pass in the namespace and name separately. Sometimes this is
+nicer, for example, when you already have one or both of the values bound in a
++def+, +let+, or other binding:
+
+[source,clojure]
+----
+(def shopping-area "bakery")
+(keyword shopping-area "bagels")
+;; -> :bakery/bagels
+(symbol shopping-area "cakes")
+;; -> bakery/cakes
+----
+
+These three string-like data types are all great for different situations, and
+how to choose among them is another topic. But it's quite common to need to
+convert among them, so +keyword+, +symbol+, +str+, +namespace+, and +name+ are
+handy to have in your toolbelt.
+
+==== See Also
+
+- <<sec_primitives_converting_characters_integers>>

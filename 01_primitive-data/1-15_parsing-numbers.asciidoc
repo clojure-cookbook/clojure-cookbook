@@ -1,0 +1,47 @@
+[[sec_primitives_numbers_parsing_numbers]]
+=== Parsing Numbers
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to parse numbers out of strings.
+
+==== Solution
+
+For "normal&#8221;-sized large or precise numbers, use +Integer/parseInt+ or
++Double/parseDouble+ to parse them:
+
+[source,clojure]
+----
+(Integer/parseInt "-42")
+;; -> -42
+
+(Double/parseDouble "3.14")
+;; -> 3.14
+----
+
+==== Discussion
+
+What is a "normal&#8221;-sized number? For +Integer/parseInt+, normal is anything below
++Integer/MAX_VALUE+ (2147483647); and for +Double/parseDouble+, anything below
++Double/MAX_VALUE+ (around 1.79 x 10^308).
+
+When the numbers you are parsing are either abnormally large or
+abnormally precise, then you'll need to parse them with +BigInteger+
+or +BigDecimal+ to avoid losing precision. The versatile +bigint+ and
++bigdec+ functions can coerce strings (or any other numerical type for
+that matter) into infinite precision containers:
+
+[source,clojure]
+----
+(bigdec "3.141592653589793238462643383279502884197")
+;; -> 3.141592653589793238462643383279502884197M
+
+(bigint "122333444455555666666777777788888888999999999")
+;; -> 122333444455555666666777777788888888999999999N
+----
+
+==== See Also
+
+* Documentation for http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#parseInt(java.lang.String)[+Integer/parseInt+] and http://docs.oracle.com/javase/7/docs/api/java/lang/Double.html#parseDouble(java.lang.String)[+Double/parseDouble+]

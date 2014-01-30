@@ -1,34 +1,34 @@
 [[ch_databases]]
 == Databases
 
-include::introduction.asciidoc[]
+include::6_0_introduction.asciidoc[]
 
-include::connecting-to-an-SQL-database/connecting-to-an-SQL-database.asciidoc[]
+include::6-1_connecting-to-an-SQL-database.asciidoc[]
 
-include::SQL-database-connection-pooling/SQL-database-connection-pooling.asciidoc[]
+include::6-2_SQL-database-connection-pooling.asciidoc[]
 
-include::manipulating-an-SQL-database/manipulating-an-SQL-database.asciidoc[]
+include::6-3_manipulating-an-SQL-database.asciidoc[]
 
-include::korma/korma.asciidoc[]
+include::6-4_korma.asciidoc[]
 
-include::text-search/text-search.asciidoc[]
+include::6-5_text-search.asciidoc[]
 
-include::indexing-with-elasticsearch/indexing-with-elasticsearch.asciidoc[]
+include::6-6_indexing-with-elasticsearch.asciidoc[]
 
-include::cassandra-with-cassaforte/cassandra-with-cassaforte.asciidoc[]
+include::6-7_cassandra-with-cassaforte.asciidoc[]
 
-include::mongo/mongo.asciidoc[]
+include::6-8_mongo.asciidoc[]
 
-include::redis/redis.asciidoc[]
+include::6-9_redis.asciidoc[]
 
-include::datomic/connect-to-datomic.asciidoc[]
+include::6-10_connect-to-datomic.asciidoc[]
 
-include::datomic/schema.asciidoc[]
+include::6-11_schema.asciidoc[]
 
-include::datomic/transact-basics.asciidoc[]
+include::6-12_transact-basics.asciidoc[]
 
-include::datomic/transact-retract-data.asciidoc[]
+include::6-13_transact-retract-data.asciidoc[]
 
-include::datomic/dry-run-transactions.asciidoc[]
+include::6-14_dry-run-transactions.asciidoc[]
 
-include::datomic/traversing-indices/traversing-indices.asciidoc[]
+include::6-15_traversing-indices.asciidoc[]

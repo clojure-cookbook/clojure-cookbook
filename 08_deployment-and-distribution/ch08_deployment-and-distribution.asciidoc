@@ -1,24 +1,24 @@
 [[ch_deployment_and_distribution]]
 == Performance & Production
 
-include::introduction.asciidoc[]
+include::8-0_introduction.asciidoc[]
 
-include::aot-compilation/aot-compilation.asciidoc[]
+include::8-1_aot-compilation.asciidoc[]
 
-include::creating-executable-jar/creating-executable-jar.asciidoc[]
+include::8-2_creating-executable-jar/8-2_creating-executable-jar.asciidoc[]
 
-include::war-file/war-file.asciidoc[]
+include::8-3_war-file.asciidoc[]
 
-include::daemons.asciidoc[]
+include::8-4_daemons.asciidoc[]
 
-include::type-hinting/type-hinting.asciidoc[]
+include::8-5_type-hinting.asciidoc[]
 
-include::primitive-arrays/primitive-arrays.asciidoc[]
+include::8-6_primitive-arrays.asciidoc[]
 
-include::profiling-with-timbre/profiling-with-timbre.asciidoc[]
+include::8-7_profiling-with-timbre.asciidoc[]
 
-include::logging-with-timbre/logging-with-timbre.asciidoc[]
+include::8-8_logging-with-timbre.asciidoc[]
 
-include::releasing-a-library/releasing-a-library.asciidoc[]
+include::8-9_releasing-a-library.asciidoc[]
 
-include::deprecate-macro/deprecate-macro.asciidoc[]
+include::8-10_deprecate-macro.asciidoc[]

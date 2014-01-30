@@ -1,64 +1,64 @@
 [[ch_local_io]]
 == Local IO
 
-include::introduction.asciidoc[]
+include::4-0_introduction.asciidoc[]
 
 // Console
 
-include::writing-to-stdout-and-stderr/writing-to-stdout-and-stderr.asciidoc[]
+include::4-1_writing-to-stdout-and-stderr.asciidoc[]
 
-include::console/read-unbuffered-keystroke/read-unbuffered-keystroke.asciidoc[]
+include::4-2_read-unbuffered-keystroke.asciidoc[]
 
-include::exec-system-command/exec-system-command.asciidoc[]
+include::4-3_exec-system-command.asciidoc[]
 
 // Files
 
-include::get-local-resource/get-local-resource.asciidoc[]
+include::4-4_get-local-resource.asciidoc[]
 
-include::files/copy-file/copy-file.asciidoc[]
+include::4-5_copy-file.asciidoc[]
 
-include::files/delete-file/delete-file.asciidoc[]
+include::4-6_delete-file.asciidoc[]
 
-include::files/get-files-from-directory/get-files-from-directory.asciidoc[]
+include::4-7_get-files-from-directory/4-7_get-files-from-directory.asciidoc[]
 
-include::memory-map-files/memory-map-files.asciidoc[]
+include::4-8_memory-map-files.asciidoc[]
 
-include::read-write-files/read-write-files.asciidoc[]
+include::4-9_read-write-files.asciidoc[]
 
-include::using-temp-files/using-temp-files.asciidoc[]
+include::4-10_using-temp-files.asciidoc[]
 
-include::random-access-files/random-access-files.asciidoc[]
+include::4-11_random-access-files.asciidoc[]
 
-include::parallelizing-file-processing/parallelizing-file-processing.asciidoc[]
+include::4-12_parallelizing-file-processing.asciidoc[]
 
-include::parallelizing-file-processing-using-iota/parallelizing-file-processing-using-iota.asciidoc[]
+include::4-13_parallelizing-file-processing-using-iota.asciidoc[]
 
 // Clojure data + edn
 
-include::read-write-clojure-data-structures/read-write-clojure-data-structures.asciidoc[]
+include::4-14_read-write-clojure-data-structures.asciidoc[]
 
-include::edn-config/edn-config.asciidoc[]
+include::4-15_edn-config.asciidoc[]
 
-include::edn-record/edn-record.asciidoc[]
+include::4-16_edn-record.asciidoc[]
 
-include::unknown-reader-literals/unknown-reader-literals.asciidoc[]
+include::4-17_unknown-reader-literals.asciidoc[]
 
 // Specific Formats
 
-include::files/read-property-file/read-property-file.asciidoc[]
+include::4-18_read-property-file.asciidoc[]
 
-include::handle-binary-files/handle-binary-files.asciidoc[]
+include::4-19_handle-binary-files.asciidoc[]
 
-include::csv/read-write-csv/read-write-csv.asciidoc[]
+include::4-20_read-write-csv.asciidoc[]
 
-include::read-write-gzip/read-write-gzip.asciidoc[]
+include::4-21_read-write-gzip.asciidoc[]
 
-include::xml/read-write-xml/read-write-xml.asciidoc[]
+include::4-22_read-write-xml.asciidoc[]
 
-include::json/read-write-json/read-write-json.asciidoc[]
+include::4-23_read-write-json.asciidoc[]
 
-include::pdf/pdf.asciidoc[]
+include::4-24_pdf/4-24_pdf.asciidoc[]
 
 // GUI
 
-include::seesaw/making-a-window.asciidoc[]
+include::4-25_seesaw/4-25_making-a-window.asciidoc[]

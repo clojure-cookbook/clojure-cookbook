@@ -1,22 +1,22 @@
 [[ch_distributed]]
 == Distributed Computation
 
-include::introduction.asciidoc[]
+include::9-0_introduction.asciidoc[]
 
-include::stream-processing/stream-processing.asciidoc[]
+include::9-1_stream-processing.asciidoc[]
 
 ////////
 Cascalog
 ////////
 
-include::cascalog/etl/etl.asciidoc[]
+include::9-2_etl.asciidoc[]
 
-include::cascalog/aggregating-large-files/aggregating-large-files.asciidoc[]
+include::9-3_aggregating-large-files.asciidoc[]
 
-include::cascalog/testing/testing.asciidoc[]
+include::9-4_testing.asciidoc[]
 
-include::cascalog/checkpoint/checkpoint.asciidoc[]
+include::9-5_checkpoint.asciidoc[]
 
-include::cascalog/explain/explain.asciidoc[]
+include::9-6_explain/9-6_explain.asciidoc[]
 
-include::cascalog/emr/emr.asciidoc[]
+include::9-7_emr/9-7_emr.asciidoc[]

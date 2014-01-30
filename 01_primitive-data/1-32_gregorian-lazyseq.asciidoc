@@ -1,0 +1,162 @@
+[[sec_date_range_native_types]]
+=== Generate Ranges of Dates and Times using Native Java Types
+[role="byline"]
+by Tom Hicks
+
+==== Problem
+
+You would like to generate a lazy sequence of dates (or times)
+beginning on a specific date and time. Further, unlike
+<<sec_primitives_dates_ranges>>, you would like to do this using only
+built-in types.
+
+==== Solution
+
+++++
+<remark>A number of fixed-width function names like "repeatedly" are
+being split across lines. Is there any way we can force monospaced
+text to not wrap?</remark>
+++++
+
+You can use Java's +java.util.GregorianCalendar+ class coupled with
+Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
+calendar dates. You can then use +java.text.SimpleDateFormat+ to format the
+dates, with a huge variety of output formats available.
+
+This example creates an infinite lazy sequence of Gregorian calendar
+dates footnote:["Gregorian" is the formal name for the style of
+calendar we all know and love. Read more on
+http://en.wikipedia.org/wiki/Gregorian_calendar[Wikipedia].] beginning
+on January 1, 1970 and each spanning a single day. The core +take+ and
++drop+ functions are then used to select the last two days of
+February. (Be careful not to evaluate the infinite sequence itself in
+the REPL.)
+
+[source,clojure]
+----
+(def daily-from-epoch
+  (let [start-date (java.util.GregorianCalendar. 1970 0 0 0 0) ]
+    (repeatedly
+      (fn []
+        (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
+        (.clone start-date)))))
+
+(take 2 (drop 57 daily-from-epoch))
+;; -> (#inst "1970-02-27T00:00:00.000-07:00"
+;;     #inst "1970-02-28T00:00:00.000-07:00")
+----
+
+
+==== Discussion
+
+Clojure has no date type of its own but, by default, relies on its
+ability to easily interoperate with Java (but see the +clj-time+ library
+for alternatives to Java's date, time, and calendar classes).
+
+This solution is based on the core +repeatedly+ function, which creates a lazy
+sequence by repeatedly calling the argument function it is given and returning
+a sequence of the function's results. Because you do not provide the optional,
+limiting argument to +repeatedly+, the result sequences produced are
+infinite. Consequently, in the REPL environment, you must be careful to evaluate
+your result sequences in contexts (such as +take+ and +drop+), which
+limit the values produced.
+
+Since the function given to +repeatedly+ is a function of no arguments, it is
+presumed to achieve its goals by side effects (making it an impure function).
+Here, the impurity occurs as the argument function creates a Gregorian calendar
+date and repeatedly increments it by a single +java.util.Calendar+ day
+unit. For each call of the function, it returns a copy of the Gregorian calendar
+object (to avoid mysterious and unintended side effects, it is advisable to
+avoid returning the mutated object directly).
+
+The date values in the result sequence are of type
++java.util.GregorianCalendar+, but the +print+ function of the REPL displays
+them as an +#inst+ reader literal. You can verify that the sequence elements
+are Gregorian calenders by mapping the +class+ (or +type+) function onto the
+sequence:
+
+[source,clojure]
+----
+(def end-of-feb (take 2 (drop 57 daily-from-epoch)))
+(map class end-of-feb)
+;; -> (java.util.GregorianCalendar java.util.GregorianCalendar)
+----
+
+You can generalize the solution to a function which takes a starting year
+argument but defaults to some convenient year if the argument is not provided:
+
+[source,clojure]
+----
+(defn daily-from-year [& [start-year]]
+  (let [start-date (java.util.GregorianCalendar. (or start-year 1970)
+                                                 0 0 0 0)]
+    (repeatedly
+      (fn []
+        (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
+        (.clone start-date) ))))
+
+(take 3 (daily-from-year 1999))
+;; -> (#inst "1999-01-01T00:00:00.000-07:00"
+;;     #inst "1999-01-02T00:00:00.000-07:00"
+;;     #inst "1999-01-03T00:00:00.000-07:00")
+
+(take 2 (daily-from-year))
+;; -> (#inst "1970-01-01T00:00:00.000-07:00"
+;;     #inst "1970-01-02T00:00:00.000-07:00")
+----
+
+
+Using the +java.text.SimpleDateFormat+ class, you can then format the dates in a
+wide variety of different formats:
+
+[source,clojure]
+----
+(def end-of-days (take 3 (drop 353 (daily-from-year 2012))))
+(def cal-format (java.text.SimpleDateFormat. "EEE M/d/yyyy"))
+(def iso8601-format (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ss'Z'"))
+
+(map #(.format cal-format (.getTime %)) end-of-days)
+;; -> ("Wed 12/19/2012" "Thu 12/20/2012" "Fri 12/21/2012")
+
+(map #(.format iso8601-format (.getTime %)) end-of-days)
+;; -> ("2012-12-19T00:00:00Z" "2012-12-20T00:00:00Z" "2012-12-21T00:00:00Z")
+----
+
+
+To put it all together, create a function which generates an
+infinite lazy sequence of formatted Gregorian date strings. For convenience,
+the function takes optional starting year and date format string arguments:
+
+[source,clojure]
+----
+(defn gregorian-day-seq
+  "Return an infinite sequence of formatted Gregorian day strings
+  starting on January 1st of the given year (default 1970)"
+  [& [start-year date-format]]
+  (let [gd-format (java.text.SimpleDateFormat. (or date-format "EEE M/d/yyyy"))
+        start-date (java.util.GregorianCalendar. (or start-year 1970) 0 0 0 0)]
+    (repeatedly
+      (fn []
+        (.add start-date java.util.Calendar/DAY_OF_YEAR 1)
+        (.format gd-format (.getTime start-date)) ))))
+----
+
+
+To test the function, select the last Sunday of the year by finding all of the
+Sundays in a year:
+
+[source,clojure]
+----
+(def y2k (take 366 (gregorian-day-seq 2000)))
+(last (filter #(.startsWith % "Sun") y2k))
+;; -> "Sun 12/31/2000"
+----
+
+==== See also
+
+* <<sec_primitives_dates_current_date>> for information on using
+  +java.util.Date+ from Clojure
+* <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
+  reader literal for date/times
+* <<sec_primitives_dates_ranges>> for an alternative that utilizes
+  +clj-time+/Joda-Time.

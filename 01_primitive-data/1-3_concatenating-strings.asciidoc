@@ -1,0 +1,116 @@
+[[sec_primitives_building_strings_from_parts]]
+=== Building a String from Parts
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You have multiple strings, values, or collections that you need to
+combine into one string.
+
+==== Solution
+
+Use the +str+ function to concatenate strings and/or values:
+
+[source,clojure]
+----
+(str "John" " " "Doe")
+;; -> "John Doe"
+
+;; Str also works with vars, or any other values
+(def first-name "John")
+(def last-name "Doe")
+(def age 42)
+
+(str last-name ", " first-name " - age: " age)
+;; -> "Doe, John - age: 42"
+----
+
+Use +apply+ with +str+ to concatenate a collection of values into a
+single string:
+
+[source,clojure]
+----
+;; To collapse a sequence of characters back into a string
+(apply str "ROT13: " [\W \h \y \v \h \f \  \P \n \r \f \n \e])
+;; -> "ROT13: Whyvhf Pnrfne"
+
+;; Or, to reconstitute a file from lines (if they already have newlines...)
+(def lines ["#! /bin/bash\n", "du -a ./ | sort -n -r\n"])
+(apply str lines)
+;; -> "#! /bin/bash\ndu -a ./ | sort -n -r\n"
+----
+
+==== Discussion
+
+Clojure's +str+ is like a good Unix tool: it has one job, and it does it
+well. When provided with one or more argument, +str+ invokes Java's
++.toString()+ method on each of its arguments, tacking each result on to
+the next. When provided +nil+ or invoked without arguments, +str+ will
+return the identity value for strings, the empty string.
+
+When it comes to string concatenation, Clojure takes a fairly hands-off
+approach. There is nothing string-specific about `(apply str ...)`. It
+is merely the higher-order function +apply+ being used to emulate
+calling +str+ with a variable number of arguments.
+
+This +apply+:
+
+[source,clojure]
+----
+(apply str ["a" "b" "c"])
+----
+
+is functionally equivalent to:
+
+[source,clojure]
+----
+(str "a" "b" "c")
+----
+
+Since Clojure injects little opinion into joining strings, you're free
+to inject your own with the plethora collection of manipulating functions
+Clojure provides. For example, take constructing a CSV from a header and
+a number of rows. This example is particularly well suited for +apply+,
+as you can prefix the header without having to insert it on to the front
+of your rows collection:
+
+[source,clojure]
+----
+;; Constructing a CSV from a header string and vector of rows
+(def header "first_name,last_name,employee_number\n")
+(def rows ["luke,vanderhart,1","ryan,neufeld,2"])
+
+(apply str header (interpose "\n" rows))
+;; -> "first_name,last_name,employee_number\nluke,vanderhart,1\nryan,neufeld,2"
+----
+
++apply+ and +interpose+ can be a lot of ceremony when you're not doing
+anything too fancy. It is often easier to use the +clojure.string/join+
+function for simple string joins. The +join+ function takes a collection
+and an optional separator. With a separator, +join+ returns a string
+with each item of the collection separated by the provided separator.
+Without, it returns each item squashed together similar to what
++(apply str coll)+ would return:
+
+[source,clojure]
+----
+(def food-items ["milk" "butter" "flour" "eggs"])
+(clojure.string/join ", " food-items)
+;; -> "milk, butter, flour, eggs"
+
+(clojure.string/join [1 2 3 4])
+;; -> "1234"
+----
+
+==== See Also
+
+- <<sec_primitives_strings_formatting_strings>>
+
+- The +clojure.string+ namespace
+  http://clojure.github.io/clojure/#clojure.string[API documentation]
+
+- The +java.lang.String+
+  http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[API
+  documentation]
+

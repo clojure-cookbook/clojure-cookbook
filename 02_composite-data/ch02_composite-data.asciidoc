@@ -1,79 +1,79 @@
 [[ch_composite_data]]
 == Composite Data
 
-include::introduction.asciidoc[]
+include::2-0_introduction.asciidoc[]
 
 /////
 Lists
 /////
 
-include::lists/creating-a-list/creating-a-list.asciidoc[]
+include::2-1_creating-a-list.asciidoc[]
 
-include::lists/creating-a-list-from-existing/creating-a-list-from-existing.asciidoc[]
+include::2-2_creating-a-list-from-existing.asciidoc[]
 
-include::lists/adding-an-item/adding-an-item.asciidoc[]
+include::2-3_adding-an-item.asciidoc[]
 
-include::lists/removing-an-item/removing-an-item.asciidoc[]
+include::2-4_removing-an-item.asciidoc[]
 
-include::lists/test-for-a-list/test-for-a-list.asciidoc[]
+include::2-5_test-for-a-list.asciidoc[]
 
 ///////
 Vectors
 ///////
-include::vectors/creating-a-vector/creating-a-vector.asciidoc[]
+include::2-6_creating-a-vector.asciidoc[]
 
-include::vectors/adding-an-item/adding-an-item.asciidoc[]
+include::2-7_adding-an-item.asciidoc[]
 
-include::vectors/removing-an-item/removing-an-item.asciidoc[]
+include::2-8_removing-an-item.asciidoc[]
 
-include::vectors/get-item-at-index/get-item-at-index.asciidoc[]
+include::2-9_get-item-at-index.asciidoc[]
 
-include::vectors/set-item-at-index/set-item-at-index.asciidoc[]
+include::2-10_set-item-at-index.asciidoc[]
 
 ////
 Sets
 ////
 
-include::sets/creating-a-set/creating-a-set.asciidoc[]
+include::2-11_creating-a-set.asciidoc[]
 
-include::sets/adding-and-removing/adding-and-removing.asciidoc[]
+include::2-12_adding-and-removing.asciidoc[]
 
-include::sets/testing-set-membership/testing-set-membership.asciidoc[]
+include::2-13_testing-set-membership.asciidoc[]
 
-include::sets/using-set-operations/using-set-operations.asciidoc[]
+include::2-14_using-set-operations.asciidoc[]
 
 ////
 Maps
 ////
 
-include::maps/creating-a-map/creating-a-map.asciidoc[]
+include::2-15_creating-a-map.asciidoc[]
 
-include::maps/retrieving-keys/retrieving-keys.asciidoc[]
+include::2-16_retrieving-keys.asciidoc[]
 
-include::maps/retrieving-multiple-keys/retrieving-multiple-keys.asciidoc[]
+include::2-17_retrieving-multiple-keys.asciidoc[]
 
-include::maps/setting-keys/setting-keys.asciidoc[]
+include::2-18_setting-keys.asciidoc[]
 
-include::maps/using-composites-as-keys/using-composites-as-keys.asciidoc[]
+include::2-19_using-composites-as-keys.asciidoc[]
 
-include::maps/as-sequences/as-sequences.asciidoc[]
+include::2-20_as-sequences.asciidoc[]
 
-include::maps/applying-functions-to/applying-functions-to.asciidoc[]
+include::2-21_applying-functions-to.asciidoc[]
 
-include::maps/multiple-values/multiple-values.asciidoc[]
+include::2-22_multiple-values/2-22_multiple-values.asciidoc[]
 
-include::maps/combining-maps/combining-maps.asciidoc[]
+include::2-23_combining-maps.asciidoc[]
 
 ////
 Miscellaneous
 ////
 
-include::sorting/sorting.asciidoc[]
+include::2-24_sorting.asciidoc[]
 
-include::removing-duplicate-elements-from-a-collection/removing-duplicate-elements-from-a-collection.asciidoc[]
+include::2-25_removing-duplicate-elements-from-a-collection.asciidoc[]
 
-include::determining-if-a-collection-holds-one-of-several-values/determining-if-a-collection-holds-one-of-several-values.asciidoc[]
+include::2-26_determining-if-a-collection-holds-one-of-several-values.asciidoc[]
 
-include::custom-data-structures/red-black-trees-part-i.asciidoc[]
+include::2-27_and_2-28_custom-data-structures/2-27_red-black-trees-part-i.asciidoc[]
 
-include::custom-data-structures/red-black-trees-part-ii.asciidoc[]
+include::2-27_and_2-28_custom-data-structures/2-28_red-black-trees-part-ii.asciidoc[]

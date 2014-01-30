@@ -1,35 +1,35 @@
 [[ch_general_computing]]
 == General Computing
 
-include::introduction.asciidoc[]
+include::3-0_introduction.asciidoc[]
 
-include::bare-bones/bare-bones.asciidoc[]
+include::3-1_bare-bones.asciidoc[]
 
-include::interactive-docs/interactive-docs.asciidoc[]
+include::3-2_interactive-docs.asciidoc[]
 
-include::exploring-namespaces/exploring-namespaces.asciidoc[]
+include::3-3_exploring-namespaces.asciidoc[]
 
-include::trying-a-library/trying-a-library.asciidoc[]
+include::3-4_trying-a-library.asciidoc[]
 
-include::main/main.asciidoc[]
+include::3-5_main/3-5_main.asciidoc[]
 
-include::running-programs-from-the-command-line.asciidoc[]
+include::3-6_running-programs-from-the-command-line.asciidoc[]
 
-include::parse-command-line-arguments/parse-command-line-arguments.asciidoc[]
+include::3-7_parse-command-line-arguments.asciidoc[]
 
-include::lein-templates/lein-templates.asciidoc[]
+include::3-8_lein-templates.asciidoc[]
 
-include::polymorphism-with-protocols/polymorphism-with-protocols.asciidoc[]
+include::3-9_polymorphism-with-protocols.asciidoc[]
 
-include::extend-built-in/extend-built-in.asciidoc[]
+include::3-10_extend-built-in.asciidoc[]
 
-include::core-async/core-async.asciidoc[]
+include::3-11_core-async.asciidoc[]
 
-include::parser-with-core-match/parser-with-core-match.asciidoc[]
+include::3-12_parser-with-core-match.asciidoc[]
 
-include::core-logic/core-logic.asciidoc[]
+include::3-13_core-logic.asciidoc[]
 
-include::nursery-rhyme/nursery-rhyme.asciidoc[]
+include::3-14_nursery-rhyme.asciidoc[]
 
 
 

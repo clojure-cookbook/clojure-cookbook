@@ -1,34 +1,34 @@
 [[ch_webapps]]
 == Web Applications
 
-include::introduction.asciidoc[]
+include::7-0_introduction.asciidoc[]
 
-include::ring/introduction/introduction.asciidoc[]
+include::7-1_ringintroduction.asciidoc[]
 
-include::ring/middleware/middleware.asciidoc[]
+include::7-2_middleware.asciidoc[]
 
-include::ring/static/static.asciidoc[]
+include::7-3_static.asciidoc[]
 
-include::ring/forms/forms.asciidoc[]
+include::7-4_forms.asciidoc[]
 
-include::ring/cookies/cookies.asciidoc[]
+include::7-5_cookies.asciidoc[]
 
-include::ring/sessions/sessions.asciidoc[]
+include::7-6_sessions.asciidoc[]
 
-include::ring/headers/headers.asciidoc[]
+include::7-7_headers.asciidoc[]
 
-include::ring/compojure/compojure.asciidoc[]
+include::7-8_compojure.asciidoc[]
 
-include::ring/redirect/redirect.asciidoc[]
+include::7-9_redirect.asciidoc[]
 
-include::liberator/basic.asciidoc[]
+include::7-10_basic.asciidoc[]
 
-include::enlive/enlive.asciidoc[]
+include::7-11_enlive.asciidoc[]
 
-include::templating-with-selmer/templating-with-selmer.asciidoc[]
+include::7-12_templating-with-selmer.asciidoc[]
 
-include::templating-with-hiccup/templating-with-hiccup.asciidoc[]
+include::7-13_templating-with-hiccup.asciidoc[]
 
-include::markdown/markdown.asciidoc[]
+include::7-14_markdown.asciidoc[]
 
-include::luminus/luminus.asciidoc[]
+include::7-15_luminus.asciidoc[]

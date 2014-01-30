@@ -1,0 +1,69 @@
+=== Inputting and Outputting Integers with Different Bases
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to enter numbers into a Clojure REPL or code in a different base (such as hexadecimal or binary).
+
+==== Solution
+
+Specify the base or "radix" of a literal number by prefixing it with
+the radix number (e.g., 2, 16, etc.) and the letter +r+. Any base from
+2 to 36 is valid (there *are* of course 10 digits and 26 letters available):
+
+[source,clojure]
+----
+2r101010
+;; -> 42
+
+3r1120
+;; -> 42
+
+16r2A
+;; -> 42
+
+36rABUNCH
+;; -> 624567473
+----
+
+To output integers, use the Java method +Integer/toString+:
+
+[source,clojure]
+----
+(Integer/toString 13 2)
+;; -> "1101"
+
+(Integer/toString 42 16)
+;; -> "2a"
+
+(Integer/toString 35 36)
+;; -> "z"
+----
+
+==== Discussion
+
+Unlike the
+ordering of most Clojure functions, this method takes an integer
+first and the optional base second, making it hard to partially
+apply without wrapping it in another function. You can write a small
+wrapper around +Integer/toString+ to accomplish this:
+
+[source,clojure]
+----
+(defn to-base [radix n]
+  (Integer/toString n radix))
+
+(def base-two (partial to-base 2))
+
+(base-two 9001)
+;; -> "10001100101001"
+----
+
+==== See Also
+
+* <<sec_primitives_strings_formatting_strings>> for information on
+  +format+ (the 'o' and 'x' specifiers print integers in octal and
+  hexadecimal, respectively)
+
+* <<sec_primitives_numbers_parsing_numbers>>

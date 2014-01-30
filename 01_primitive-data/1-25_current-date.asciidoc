@@ -1,0 +1,89 @@
+[[sec_primitives_dates_current_date]]
+=== Obtaining the Current Date and Time
+[role="byline"]
+by Ryan Neufeld
+
+==== Problem
+
+You need to obtain the current date or time.
+
+==== Solution
+
+Use Java's +java.util.Date+ constructor to create a +Date+ instance
+representing the present time and date:
+
+[source,clojure]
+----
+(defn now []
+  (java.util.Date.))
+
+(now)
+;; -> #inst "2013-04-06T14:33:45.740-00:00"
+
+;; A few seconds later...
+(now)
+;; -> #inst "2013-04-06T14:33:51.234-00:00"
+----
+
+If you're more interested in the current Unix timestamp, use
++System/currentTimeMillis+:
+
+[source,clojure]
+----
+(System/currentTimeMillis)
+;; -> 1365260110635
+
+(System/currentTimeMillis)
+;; -> 1365260157013
+----
+
+==== Discussion
+
+It doesn't make much sense for Clojure to reimplement or wrap the
+JVM's backing time and date functionality. As such, the norm is to use
+Clojure's Java interop forms to instantiate a +Date+ object
+representing "now."
+
++#inst "2013-04-06T14:33:51.234-00:00"+ doesn't look very much like
+Java now, does it? That's because Clojure's "instant" reader literal
+uses +java.util.Date+ as its backing implementation. You can learn
+more about the +#inst+ reader literal in <<sec_primitives_dates_reader_literal>>
+
+Using +System/currentTimeMillis+ can be useful for performing a
+one-off benchmark, but given the high quality tools out there that do
+this already, +currentTimeMillis+ is of limited utility; you may want
+to try Hugo Duncan's
+https://github.com/hugoduncan/criterium[criterium] library if
+benchmarking is what you're after. Additionally, you shouldn't try to
+use +currentTimeMillis+ as some sort of unique value--UUIDs do
+a much better job of this.
+
+If you decide you would rather use
+https://github.com/clj-time/clj-time[+clj-time+] to work with dates, it
+provides the a function +clj-time.core/now+ to get the current +DateTime+:
+
+[source,clojure]
+----
+(require '[clj-time.core :as timec])
+
+(timec/now)
+;; -> #<DateTime 2013-04-06T14:35:15.453Z>
+----
+
+Use +clj-time.local/local-now+ to retrieve a +DateTime+ instance for
+the present scoped to your machine's local time zone:
+
+[source,clojure]
+----
+(require '[clj-time.local :as timel])
+
+(timel/local-now)
+;; -> #<DateTime 2013-04-06T09:35:20.141-05:00>
+----
+
+==== See Also
+
+* <<sec_primitives_math_uuids>> to learn how to generate
+  universally unique IDs
+* <<sec_primitives_dates_reader_literal>> for more information on the
+  +#inst+ reader literal

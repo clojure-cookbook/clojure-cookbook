@@ -157,7 +157,7 @@ The following typographic conventions are used in this book:
 // These conventions *roughly* follow standards layed out as the O'Reilly
 // standard.
 
-pass:[<emphasis role="strong">Bold</emphasis>]::
+pass:[<phrase><emphasis role="strong">Bold</emphasis></phrase>]::
   Used to emphasize a word or phrase.
 _Italic_::
   Used for URLs, filenames, and file extensions. New terms are also
