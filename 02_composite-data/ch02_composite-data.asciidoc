@@ -1,32 +1,32 @@
 [[ch_composite_data]]
 == Composite Data
 
-include::2-0_introduction.asciidoc[]
+include::2-00_introduction.asciidoc[]
 
 /////
 Lists
 /////
 
-include::2-1_creating-a-list.asciidoc[]
+include::2-01_creating-a-list.asciidoc[]
 
-include::2-2_creating-a-list-from-existing.asciidoc[]
+include::2-02_creating-a-list-from-existing.asciidoc[]
 
-include::2-3_adding-an-item.asciidoc[]
+include::2-03_adding-an-item.asciidoc[]
 
-include::2-4_removing-an-item.asciidoc[]
+include::2-04_removing-an-item.asciidoc[]
 
-include::2-5_test-for-a-list.asciidoc[]
+include::2-05_test-for-a-list.asciidoc[]
 
 ///////
 Vectors
 ///////
-include::2-6_creating-a-vector.asciidoc[]
+include::2-06_creating-a-vector.asciidoc[]
 
-include::2-7_adding-an-item.asciidoc[]
+include::2-07_adding-an-item.asciidoc[]
 
-include::2-8_removing-an-item.asciidoc[]
+include::2-08_removing-an-item.asciidoc[]
 
-include::2-9_get-item-at-index.asciidoc[]
+include::2-09_get-item-at-index.asciidoc[]
 
 include::2-10_set-item-at-index.asciidoc[]
 

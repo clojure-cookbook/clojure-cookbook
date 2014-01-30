@@ -1,29 +1,29 @@
 [[ch_local_io]]
 == Local IO
 
-include::4-0_introduction.asciidoc[]
+include::4-00_introduction.asciidoc[]
 
 // Console
 
-include::4-1_writing-to-stdout-and-stderr.asciidoc[]
+include::4-01_writing-to-stdout-and-stderr.asciidoc[]
 
-include::4-2_read-unbuffered-keystroke.asciidoc[]
+include::4-02_read-unbuffered-keystroke.asciidoc[]
 
-include::4-3_exec-system-command.asciidoc[]
+include::4-03_exec-system-command.asciidoc[]
 
 // Files
 
-include::4-4_get-local-resource.asciidoc[]
+include::4-04_get-local-resource.asciidoc[]
 
-include::4-5_copy-file.asciidoc[]
+include::4-05_copy-file.asciidoc[]
 
-include::4-6_delete-file.asciidoc[]
+include::4-06_delete-file.asciidoc[]
 
-include::4-7_get-files-from-directory/4-7_get-files-from-directory.asciidoc[]
+include::4-07_get-files-from-directory/4-07_get-files-from-directory.asciidoc[]
 
-include::4-8_memory-map-files.asciidoc[]
+include::4-08_memory-map-files.asciidoc[]
 
-include::4-9_read-write-files.asciidoc[]
+include::4-09_read-write-files.asciidoc[]
 
 include::4-10_using-temp-files.asciidoc[]
 

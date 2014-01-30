@@ -1,25 +1,25 @@
 [[ch_general_computing]]
 == General Computing
 
-include::3-0_introduction.asciidoc[]
+include::3-00_introduction.asciidoc[]
 
-include::3-1_bare-bones.asciidoc[]
+include::3-01_bare-bones.asciidoc[]
 
-include::3-2_interactive-docs.asciidoc[]
+include::3-02_interactive-docs.asciidoc[]
 
-include::3-3_exploring-namespaces.asciidoc[]
+include::3-03_exploring-namespaces.asciidoc[]
 
-include::3-4_trying-a-library.asciidoc[]
+include::3-04_trying-a-library.asciidoc[]
 
-include::3-5_main/3-5_main.asciidoc[]
+include::3-05_main/3-05_main.asciidoc[]
 
-include::3-6_running-programs-from-the-command-line.asciidoc[]
+include::3-06_running-programs-from-the-command-line.asciidoc[]
 
-include::3-7_parse-command-line-arguments.asciidoc[]
+include::3-07_parse-command-line-arguments.asciidoc[]
 
-include::3-8_lein-templates.asciidoc[]
+include::3-08_lein-templates.asciidoc[]
 
-include::3-9_polymorphism-with-protocols.asciidoc[]
+include::3-09_polymorphism-with-protocols.asciidoc[]
 
 include::3-10_extend-built-in.asciidoc[]
 

@@ -1,29 +1,29 @@
 [[ch_primitive_data]]
 == Primitive Data
 
-include::1-0_introduction.asciidoc[]
+include::1-00_introduction.asciidoc[]
 
 ////////////////////
 Strings & Characters
 ////////////////////
 
-include::1-1_capitalizing-strings.asciidoc[]
+include::1-01_capitalizing-strings.asciidoc[]
 
-include::1-2_managing-whitespace.asciidoc[]
+include::1-02_managing-whitespace.asciidoc[]
 
-include::1-3_concatenating-strings.asciidoc[]
+include::1-03_concatenating-strings.asciidoc[]
 
-include::1-4_strings-as-seqs-of-characters.asciidoc[]
+include::1-04_strings-as-seqs-of-characters.asciidoc[]
 
-include::1-5_integer-to-character-conversions.asciidoc[]
+include::1-05_integer-to-character-conversions.asciidoc[]
 
-include::1-6_formatting-strings.asciidoc[]
+include::1-06_formatting-strings.asciidoc[]
 
-include::1-7_regexp-matching.asciidoc[]
+include::1-07_regexp-matching.asciidoc[]
 
-include::1-8_matching-strings.asciidoc[]
+include::1-08_matching-strings.asciidoc[]
 
-include::1-9_find-and-replace.asciidoc[]
+include::1-09_find-and-replace.asciidoc[]
 
 include::1-10_tokenizing-strings.asciidoc[]
 

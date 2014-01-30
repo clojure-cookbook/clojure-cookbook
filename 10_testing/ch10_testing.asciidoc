@@ -1,23 +1,23 @@
 [[ch_testing]]
 == Testing
 
-include::10-0_introduction.asciidoc[]
+include::10-00_introduction.asciidoc[]
 
-include::10-1_unit-testing.asciidoc[]
+include::10-01_unit-testing.asciidoc[]
 
-include::10-2_midje.asciidoc[]
+include::10-02_midje.asciidoc[]
 
-include::10-3_generative.asciidoc[]
+include::10-03_generative.asciidoc[]
 
-include::10-4_simplecheck.asciidoc[]
+include::10-04_simplecheck.asciidoc[]
 
-include::10-5_browser-testing.asciidoc[]
+include::10-05_browser-testing.asciidoc[]
 
-include::10-6_tracing.asciidoc[]
+include::10-06_tracing.asciidoc[]
 
-include::10-7_avoid-null-pointer.asciidoc[]
+include::10-07_avoid-null-pointer.asciidoc[]
 
-include::10-8_verify-java-interop.asciidoc[]
+include::10-08_verify-java-interop.asciidoc[]
 
-include::10-9_hof-typed.asciidoc[]
+include::10-09_hof-typed.asciidoc[]
 

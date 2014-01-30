@@ -1,25 +1,25 @@
 [[ch_databases]]
 == Databases
 
-include::6_0_introduction.asciidoc[]
+include::6-00_introduction.asciidoc[]
 
-include::6-1_connecting-to-an-SQL-database.asciidoc[]
+include::6-01_connecting-to-an-SQL-database.asciidoc[]
 
-include::6-2_SQL-database-connection-pooling.asciidoc[]
+include::6-02_SQL-database-connection-pooling.asciidoc[]
 
-include::6-3_manipulating-an-SQL-database.asciidoc[]
+include::6-03_manipulating-an-SQL-database.asciidoc[]
 
-include::6-4_korma.asciidoc[]
+include::6-04_korma.asciidoc[]
 
-include::6-5_text-search.asciidoc[]
+include::6-05_text-search.asciidoc[]
 
-include::6-6_indexing-with-elasticsearch.asciidoc[]
+include::6-06_indexing-with-elasticsearch.asciidoc[]
 
-include::6-7_cassandra-with-cassaforte.asciidoc[]
+include::6-07_cassandra-with-cassaforte.asciidoc[]
 
-include::6-8_mongo.asciidoc[]
+include::6-08_mongo.asciidoc[]
 
-include::6-9_redis.asciidoc[]
+include::6-09_redis.asciidoc[]
 
 include::6-10_connect-to-datomic.asciidoc[]
 
