@@ -13,7 +13,7 @@ a map.
 
 To obtain a sequence view of a map, simply call +seq+ on it. Note that
 most sequence-processing functions call +seq+ on their arguments
-themselves, so it's usually not necessary to do this explicitly.
+themselves, so it's usually not necessary to do this explicitly:
 
 [source,clojure]
 ----
@@ -27,7 +27,7 @@ as you would any sequence.
 To create a map *from* a sequence, you can exploit the fact that
 +conj+, when applied to a map, can take a two-element vector as a
 key-value pair and use it to add the respective key and value on to
-the map.
+the map:
 
 [source,clojure]
 ----
@@ -38,7 +38,7 @@ the map.
 
 Because the +into+ function uses repeated applications of +conj+ to
 add items from one sequence onto a collection, this means it can be
-used to transform a sequence of pairs into a single map.
+used to transform a sequence of pairs into a single map:
 
 [source,clojure]
 ----
@@ -46,10 +46,10 @@ used to transform a sequence of pairs into a single map.
 ;; -> {:a 1, :b 2, :c 3}
 ----
 
-It is also possible to construct a map from *two* sequences; one
-containing keys, and one containing values. This is the purpose of the
+It is also possible to construct a map from *two* sequences: one
+containing keys and one containing values. This is the purpose of the
 +zipmap+ function. Given two sequences, it will return a single map
-with keys from the first argument sequence and values from the second.
+with keys from the first argument sequence and values from the second:
 
 [source,clojure]
 ----
@@ -87,8 +87,8 @@ type is not actually +clojure.lang.PersistentVector+; rather, they are
 a different kind of vector called a _map entry_, which is not only a
 vector but also supports the +clojure.lang.MapEntry+ interface.
 
-The +MapEntry+ interface provides +key+ and +val+ functions which can
-be used to retrieve the key and value of an entry.
+The +MapEntry+ interface provides +key+ and +val+ functions that can
+be used to retrieve the key and value of an entry:
 
 [source,clojure]
 ----
@@ -109,6 +109,6 @@ functions on map entries when processing maps as sequences, since they
 preserve the semantic of key/value pairs, making the code easier to
 read.
 
-==== See also
+==== See Also
 
 * <<sec_composites_applying_fns_to_maps>>

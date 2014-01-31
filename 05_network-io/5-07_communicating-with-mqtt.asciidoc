@@ -5,17 +5,16 @@ By Sandeep Nangia
 ==== Problem
 
 You want to communicate with embedded devices (think "Internet of
-Things") using "publish" and "subscribe" model.
+things") using a publish/subscribe model.
 
 ==== Solution
 
 Use https://github.com/clojurewerkz/machine_head[Machine Head], a
-Clojure library to perform Machine to Machine (M2M) communication via
+Clojure library to perform machine-to-machine (M2M) communication via
 http://mqtt.org/[MQTT] protocol. MQTT protocol requires an existing
 MQTT broker with which all devices (or machines) will communicate by
-publishing messages or subscribing messages on specific "topics". Use
-the http://mosquitto.org/[Mosquitto] broker with its test installation
-that is available at _tcp://test.mosquitto.org:1883_ (of course, you
+publishing messages or subscribing messages on specific topics. Use
+the http://mosquitto.org/[Mosquitto] broker with its test installation at tcp://test.mosquitto.org:1883 (of course, you
 need a functional Internet connection on your machine).
 
 To follow along with this recipe, launch a REPL using +lein-try+:
@@ -26,7 +25,7 @@ $ lein try clojurewerkz/machine_head
 ----
 
 To start, create a simple +connect-and-subscribe+ function that
-listens to a topic and prints messages it receives.
+listens to a topic and prints messages it receives:
 
 [source,clojure]
 ----
@@ -53,9 +52,9 @@ listens to a topic and prints messages it receives.
 ----
 
 Open another terminal window and start a second +lein-try+ REPL session.
-Use the code below to publish messages to the broker. Note that
+Use the following code to publish messages to the broker. Note that
 subscriber must be connected already so as not to lose incoming
-messages.
+messages:
 
 [source,clojure]
 ----
@@ -98,38 +97,38 @@ http://mqtt.org[MQTT] is an open, lightweight publish/subscribe
 messaging protocol. It is useful for connections where bandwidth is at
 premium and/or connections are unreliable. While AMQP protocol excels
 at various scenarios for business messaging, MQTT is usually the
-choice for smaller payloads and last mile connectivity as it is simple
+choice for smaller payloads and last mile connectivity because it is simple
 to implement in hardware. MQTT protocol has the following properties
-which make it good for constrained networks:
+that make it good for constrained networks:
 
    * Designed for devices with limited resources, like
      battery-operated 8-bit controllers.
    * Internally the protocol compresses into bit-wise headers and
-     variable length fields. The smallest possible packet-size is a
-     mere 2 bytes.
-   * "No-polling" required. Asynchronous bidirectional “push” delivery
+     variable length fields. The smallest possible packet size is a
+     mere two bytes.
+   * No polling required. Asynchronous bidirectional push delivery
      of messages.
    * Supports always-connected and sometimes-connected models.
-   * Tested with low bandwidth networks like VSAT and GPRS
+   * Tested with low-bandwidth networks like VSAT and GPRS.
 
-The protocol defines three possible QoS values 0, 1 and 2
-corresponding to "fire and forget", "at least once", "exactly once"
+The protocol defines three possible QoS values: 0, 1, and 2,
+corresponding to fire-and-forget, at-least-once, and exactly-once
 qualities of service. QoS parameters 1 and 2 require persistent
 storage on the client so as to save the message until acknowledgement
-arrives. In the above recipe, the default persistence implementation
+arrives. In the preceding recipe, the default persistence implementation
 provided by the library is used.
 
 MQTT also has a concept of retention of messages. If you were to set
 +retained+ as +true+ in the +connect-and-publish+ function, the broker
-will remember the last known retained message on the topic. When the
+would remember the last known retained message on the topic. When the
 subscriber connects, it is given the last message (for which
 +retained+ was +true+) by the broker and does not have to wait to
 receive the first message.
 
 Websphere and http://www.rabbitmq.com/mqtt.html[RabbitMQ] also
-implement MQTT and can be used instead of Mosquitto. While the above
-code used the test broker at _tcp://test.mosquitto.org:1883_, you can
-install your own Mosquitto broker using via
+implement MQTT and can be used instead of Mosquitto. While the preceding
+code used the tcp://test.mosquitto.org:1883[test broker], you can
+install your own Mosquitto broker using
 http://mqtt.org/wiki/doku.php/mosquitto_message_broker[MQTT
 installation instructions].
 
@@ -137,69 +136,68 @@ The topics are usually defined with the separator +/+ defining
 hierarchies. As an example, the sensor devices of a particular domain,
 +SNControl+, might be publishing their values to
 +SNControl/Florida/device1+, +SNControl/Florida/device2+, and so on.
-While the devices in domain +RKNControl+ might publish their values to
-+RKNControl/Washington/device1+, etc. Naming the topics in this way
-helps in subscribing to multiple topics based on wildcards.
+Meanwhile, the devices in domain +RKNControl+ might publish their values to
++RKNControl/Washington/device1+, for example. Naming the topics in this way
+helps in subscribing to multiple topics based on wild cards.
 
 This is how wild cards are used:
 
-* +/+ is used as a separator.
-* `+` is the single-level wild-card and can appear anywhere in the
-  string.
-* +#+ is a multilevel wild card needs to appear at the end of the
-    string.
++/+::
+Used as a separator.
+
+`+`::
+The single-level wild card and can appear anywhere in the string.
+
++#+::
+A multilevel wild card and needs to appear at the end of the string.
 
 For example, these subscriptions are possible:
 
-* +SNControl/#+ : any device under +SNControl/Florida+ (e.g.
-  +SNControl/Florida/device1/sensor1+ and
-  +SNControl/Florida/device1/sensor2+) and
-  +SNControl/California/device1+ will match.
-* `SNControl/+/device1`: any +device1+ in states under domain
-  +SNControl+. So +SNControl/Florida/device1+ and
-  +SNControl/California/device1+ will match.
-* `SNControl/+/+/sensor1` will match
-  +SNControl/Florida/device1/sensor1+ and
-  +SNControl/Florida/device2/sensor1+
++SNControl/#+::
+Any device under +SNControl/Florida+ (e.g., +SNControl/Florida/device1/sensor1+ and +SNControl/Florida/device1/sensor2+) and +SNControl/California/device1+ will match.
 
-In the above code, the +connect-and-subscribe+ method uses the
+`SNControl/+/device1`::
+Any +device1+ in states under domain +SNControl+ (e.g., +SNControl/Florida/device1+ and +SNControl/California/device1+) will match.
+
+`SNControl/+/+/sensor1`::
+Will match +SNControl/Florida/device1/sensor1+ and +SNControl/Florida/device2/sensor1+.
+
+In the preceding code, the +connect-and-subscribe+ method uses the
 callback handler +message-handler+ to process incoming messages
 arriving from the broker. In the +connect-and-subscribe+ method, the
 +connect+ method from Machine Head library is invoked by providing it
 the broker address and client ID (generated using +generate-id+ or
-some other unique id). Then, it checks that the connection has been
-established using +connected?+ method. The +subscribe+ method is
+some other unique ID). Then, it checks that the connection has been
+established using the +connected?+ method. The +subscribe+ method is
 invoked with the connection, vector of topics to subscribe to, message
-handler and a +:qos+ option. The subscriber then waits for some time
-and disconnect using +disconnect+ method.
+handler, and a +:qos+ option. The subscriber then waits for some time
+and disconnects using the +disconnect+ method.
 
-The +connect-and-publish+ method calls the method +connect+ which
-accepts the broker address and client id and returns the connection
-+conn+. Then, it checks if the connection is successful with
+The +connect-and-publish+ method calls the method +connect+, which
+accepts the broker address and client ID and returns the connection
++conn+. Then, it checks if the connection is successful with the
 +connected?+ method and invokes the +publish+ method to publish
-messages (a few times) to the broker. The +publish+ method accepts the
-connection, topic string, payload, QoS value and +retained+ as
-parameters. The QoS value of +2+ corresponds to "exactly once" delivery.
-+retained+ value of false instructs the broker not to retain messages.
-Finally, +disconnect+ method disconnects from the broker.
+messages (a few times) to the broker. The +publish+ method accepts as parameters the
+connection, topic string, payload, QoS value, and +retained+. The QoS value of +2+ corresponds to exactly-once delivery. The +retained+ value of false instructs the broker not to retain messages.
+Finally, the +disconnect+ method disconnects from the broker.
 
-While the above code fragment just prints the incoming messages, you
-could potentially use the messages in some other way e.g. triggering
-some actions based on an alarm that the code has received.
+While the preceding code fragment just prints the incoming messages, you
+could potentially use the messages in some other way (e.g., triggering
+some actions based on an alarm that the code has received).
 
 ==== See Also
 
-* The details on MQTT protocol at _http://mqtt.org/_
-* http://clojuremqtt.info/[Machine Head Documentation] of the
+* The http://mqtt.org/[details on MQTT protocol]
+* http://clojuremqtt.info/[Machine Head documentation] of the
   https://github.com/clojurewerkz/machine_head[Machine_Head] library
 * http://www.eclipse.org/paho/[Eclipse Paho library], the Java
-  library, that Machine Head uses under the hood to communicate using
-  MQTT.
-* Mosquitto, an open source message broker that implements MQTT 
-  protocol at _http://mosquitto.org/_
-* http://www.redbooks.ibm.com/abstracts/sg248054.html[Building Smarter
-  Planet Solutions with MQTT and IBM WebSphere MQ Telemetry, An IBM
-  Redbooks publication] explains MQTT in more details.
+  library that Machine Head uses under the hood to communicate using
+  MQTT
+* http://mosquitto.org/[Mosquitto], an open source message broker that implements MQTT 
+  protocol
+* http://www.redbooks.ibm.com/abstracts/sg248054.html[_Building Smarter
+  Planet Solutions with MQTT and IBM WebSphere MQ Telemetry_] (IBM
+  Redbooks) explains MQTT in more detail
 * The http://www.youtube.com/watch?v=s9nrm8q5eGg[TED talk] by Andy
-  Stanford-Clark, one of the inventors of MQTT, is a humourous and
-  informative session on how MQTT can be used.
+  Stanford-Clark, one of the inventors of MQTT, is a humorous and
+  informative session on how MQTT can be used

@@ -19,7 +19,7 @@ $ lein try org.clojars.scsibug/feedparser-clj
 ----
 
 Invoke +feedparser-clj.core/parse-feed+ with the URI of a RSS feed to
-retrieve that feed and parse it into Clojure data.
+retrieve that feed and parse it into Clojure data:
 
 [source,clojure]
 ----
@@ -32,8 +32,8 @@ retrieve that feed and parse it into Clojure data.
 ;;      ...}
 ----
 
-You can also invoke +parse-feed+ with a java.io.InputStream to read
-from a file or other location.
+You can also invoke +parse-feed+ with a +java.io.InputStream+ to read
+from a file or other location:
 
 [source,clojure]
 ----
@@ -51,7 +51,7 @@ from a file or other location.
 
 ==== Discussion
 
-+feedparser-clj+ is a wrapper around the Java ROME library which is
++feedparser-clj+ is a wrapper around the Java ROME library that is
 capable of processing a variety formats of RSS and Atom feeds.
 +feedparser-clj.core/parse-feed+ returns a Clojure map that closely
 mimics the underlying XML feed.
@@ -102,13 +102,13 @@ retrieve more entries than are present in a single fetch:
 
 [WARNING]
 ====
-Be careful when evaluating a lazy sequence in a REPL, it will attempt
+Be careful when evaluating a lazy sequence in a REPL, since it will attempt
 to print the entire sequence. Use +take+ to only realize part of 
 the sequence.
 ====
 
 ==== See Also
 
-* <<sec_http_request>>
 * <<sec_read_write_xml>> for more information on reading and
-  writing XML data like RSS feeds.
+  writing XML data like RSS feeds
+* <<sec_http_request>>

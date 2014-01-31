@@ -8,7 +8,7 @@ You need to delete a file from your local file system.
 
 ==== Solution
 
-Use +clojure.java.io/delete-file+ to delete the file.
+Use +clojure.java.io/delete-file+ to delete the file:
 
 [source,clojure]
 ----
@@ -16,8 +16,8 @@ Use +clojure.java.io/delete-file+ to delete the file.
 ;; -> true
 ----
 
-If trying to delete a file that do not exist, a +java.io.IOException+
-will be thrown.
+If trying to delete a file that does not exist, a +java.io.IOException+
+will be thrown:
 
 [source,clojure]
 ----
@@ -27,7 +27,7 @@ will be thrown.
 
 If you do not want +delete-file+ to throw exceptions when the given
 file could not be deleted for whatever reason, you can add the
-+silently+ flag set to +true+ to the arguments. 
++silently+ flag set to +true+ to the arguments:
 
 [source,clojure]
 ----
@@ -39,7 +39,7 @@ file could not be deleted for whatever reason, you can add the
 
 For times when you want to do some custom handling of the eventual
 exceptions thrown, you should put the call to +delete-file+ inside a
-+try-catch+ body.
++try-catch+ body:
 
 [source,clojure]
 ----
@@ -53,7 +53,7 @@ exceptions thrown, you should put the call to +delete-file+ inside a
 boolean answer whether a file exists or not. You can put this property
 together with a +try-catch+ body to get a "safe" delete utility
 function. This function will first check to see if the file with the
-path from the argument do exist before trying to delete it.
+path from the argument do exist before trying to delete it:
 
 [source,clojure]
 ----
@@ -73,7 +73,7 @@ path from the argument do exist before trying to delete it.
 The +clojure.java.io/delete-file+ function can also be used to delete
 directories. Directories must be empty for the deletion to be
 successful. So any utility function you make to delete a directory
-must first delete all files in the given directory.
+must first delete all files in the given directory:
 
 [source,clojure]
 ----
@@ -95,12 +95,12 @@ The +delete-directory+ function will get a +file-seq+ with the
 contents of the given path. It will then filter to only get the files
 of that directory. The next step is to delete all the files and then
 finish up by deleting the directory itself. Note the call to +doall+.
-If you do not call +doall+ the deletion of the files would be lazy and
+If you do not call +doall+, the deletion of the files would be lazy and
 then the files would still exist when the call to delete the actual
 directory is made, which would then fail.
 
 
 ==== See Also
 
-* ++clojure.java.io++'s http://richhickey.github.io/clojure/clojure.java.io-api.html[API Documentation].
-* <<sec_local-io_files_get_files_from_dir>> for more details on using a +file-seq+ to get the files from a directory.
+* ++clojure.java.io++'s http://richhickey.github.io/clojure/clojure.java.io-api.html[API documentation]
+* <<sec_local-io_files_get_files_from_dir>> for more details on using a +file-seq+ to get the files from a directory

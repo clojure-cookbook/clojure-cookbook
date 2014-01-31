@@ -1,19 +1,18 @@
-=== Memory-mapping a File
+=== Memory-Mapping a File
 [role="byline"]
 by Alan Busby
 
 ==== Problem
 
-You want to use memory-mapping to access a large file as though it
+You want to use memory mapping to access a large file as though it
 were fully loaded into memory, without actually loading the whole thing.
 
 ==== Solution
 
 Use the https://github.com/thebusby/clj-mmap[+clj-mmap+] library,
-which wraps the memory mapping functionality provided by Java's NIO library.
+which wraps the memory-mapping functionality provided by Java's NIO library.
 
-Before starting, add `[clj-mmap "1.1.2"]` to your project’s dependen‐
-cies or start a REPL using +lein-try+:
+Before starting, add `[clj-mmap "1.1.2"]` to your project’s dependencies or start a REPL using +lein-try+:
 
 [source,shell-session]
 ----
@@ -25,7 +24,7 @@ $ lein try clj-mmap
 (require '[clj-mmap :as mmap])
 ----
 
-To read the first and last N bytes of UTF-8 encoded text file, use the
+To read the first and last _N_ bytes of UTF-8 encoded text file, use the
 +get-bytes+ function:
 
 [source,clojure]
@@ -39,7 +38,7 @@ To read the first and last N bytes of UTF-8 encoded text file, use the
      (String. last-n-bytes  "UTF-8")]))
 ----
 
-To overwrite the first N bytes of a text file, call +put-bytes+:
+To overwrite the first _N_ bytes of a text file, call +put-bytes+:
 
 [source,clojure]
 ----
@@ -53,7 +52,7 @@ To overwrite the first N bytes of a text file, call +put-bytes+:
 
 ==== Discussion
 
-Memory-mapping, or 'mmap' per the POSIX standard, is a method to
+Memory mapping, or 'mmap' per the POSIX standard, is a method to
 leverage the operating system's virtual memory to perform file IO.
 By mapping the file into the applications memory space, copying
 between buffers is reduced, and I/O performance is increased.
@@ -63,11 +62,11 @@ structured binary data, or text files where Java's String overhead may be
 unwelcome.
 
 While Clojure makes it simple to work with Java's NIO primitives directly,
-NIO makes working with files larger than 2GB especially difficult. +clj-mmap+
+NIO makes working with files larger than 2 GB especially difficult. +clj-mmap+
 wraps this complexity, but at the same time doesn't expose all the features
-that NIO does. The NIO Java api is still available via interop, should it be needed.
+that NIO does. The NIO Java API is still available via interop, should it be needed.
 
 ==== See Also
 
-* The http://en.wikipedia.org/wiki/Mmap[mmap Wikipedia article].
-* The +clj-mmap+ https://github.com/thebusby/clj-mmap[GitHub repository].
+* The http://en.wikipedia.org/wiki/Mmap[mmap Wikipedia article]
+* The +clj-mmap+ https://github.com/thebusby/clj-mmap[GitHub repository]

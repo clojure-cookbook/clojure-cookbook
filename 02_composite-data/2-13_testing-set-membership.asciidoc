@@ -10,8 +10,8 @@ You want to check if an item is a member of a set.
 ==== Solution
 
 The easiest way to check a single item is with the +contains?+
-function, which takes a set and an item and returns true if the item
-is a member of the set.
+function, which takes a set and an item and returns +true+ if the item
+is a member of the set:
 
 [source,clojure]
 ----
@@ -24,7 +24,7 @@ is a member of the set.
 
 The +get+ function also works with sets and does basically the same
 thing, except instead of returning +true+ or +false+, it returns the
-value itself if it is a member, or nil if it is not.
+value itself if it is a member, or +nil+ if it is not:
 
 [source,clojure]
 ----
@@ -37,7 +37,7 @@ value itself if it is a member, or nil if it is not.
 
 Finally, sets are also functions. When you invoke them with a single
 argument, they work just like +get+, returning the argument if it is a
-member, and nil otherwise.
+member, and +nil+ otherwise:
 
 [source,clojure]
 ----
@@ -74,7 +74,7 @@ The ability to use a set as a function is interesting, but it's
 especially useful when you want to use it as a predicate function on a
 sequence operation. For example, it's fairly common to want to filter
 a sequence to only contain items in a set. In this case, using the set
-itself is both easy and idiomatic.
+itself is both easy and idiomatic:
 
 [source,clojure]
 ----
@@ -85,7 +85,7 @@ itself is both easy and idiomatic.
 ----
 
 This snippet first creates an infinite lazy sequence consisting of
-random numbers between one and ten, using +repeatedly+ to call
+random numbers between 1 and 10, using +repeatedly+ to call
 +rand-int+ (wrapped in an anonymous function) over and over. Then, it
 feeds this sequence through a filter, with a set of the numbers 1-3
 as the filter predicate.
@@ -97,7 +97,7 @@ This example is contrived. However, using sets as a predicate function
 is an extremely useful technique that that pops up quite frequently in
 most Clojure projects.
 
-==== See also
+==== See Also
 
-* <<sec_composite_retrieving_keys_map>>
 * <<sec_set_operations>>
+* <<sec_composite_retrieving_keys_map>>

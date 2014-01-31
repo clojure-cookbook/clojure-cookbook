@@ -1,5 +1,5 @@
 [[sec_default_data_reader]]
-=== Handling Unknown Tagged Literals when Reading Clojure Data
+=== Handling Unknown Tagged Literals When Reading Clojure Data
 [role="byline"]
 by Steve Miner
 
@@ -11,7 +11,7 @@ unknown tagged literals.
 ==== Solution
 
 Use the +:default+ option of either +clojure.edn/read+ or
-+clojure.edn/read-string+.
++clojure.edn/read-string+:
 
 [source,clojure]
 ----
@@ -29,7 +29,7 @@ Use the +:default+ option of either +clojure.edn/read+ or
 ==== Discussion
 
 The +edn+ format defines a print representation for a significant
-subset of Clojure datatypes and offers extensibility through tagged
+subset of Clojure data types and offers extensibility through tagged
 literals. The best way to read +edn+ data is to use +clojure.edn/read+
 or +clojure.edn/read-string+. These functions consume ++edn++-formatted
 data from a stream or string, respectively, and return hydrated
@@ -39,7 +39,7 @@ Both functions take an +opts+ map, which allow you to control several
 options when reading. For tags you know about ahead of time, you can
 define custom readers by supplying a +:readers+ map. This map can also
 be used to override the behavior of built-in types as defined by
-+clojure.core/default-data-readers+.
++clojure.core/default-data-readers+:
 
 [source,clojure]
 ----
@@ -65,7 +65,7 @@ encountered, the function you provide will be called with two
 arguments, the tag and its value.
 
 When a +:default+ is not provided to +read+, reading an unknown tag
-will throw a +RuntimeException+.
+will throw a +RuntimeException+:
 
 [source,clojure]
 ----
@@ -80,12 +80,12 @@ preserve the "unknowns," perhaps for a another stage of processing.
 It's trivial to leverage the factory function defined by +defrecord+
 to capture the unknown reader literal. The order of the arguments for
 the factory of +TaggedValue+ conveniently matches the specification of
-the +:default+ data-reader.
+the +:default+ data reader.
 
 The +TaggedValue+ record preserves the essential information for
 later use. Since all of the inbound information has been preserved,
 you can even print the value again in the original tagged literal
-format.
+format:
 
 [source,clojure]
 ----
@@ -100,40 +100,38 @@ format.
 ;; -> #my.example/unknown 42
 ----
 
-.+clojure.core/read+
+.clojure.core/read
 ****
 
 The +edn+ reader hasn't always existed, you know. It used to be that
-if you wanted to read Clojure data you would use one of the two
+if you wanted to read Clojure data, you would use one of the two
 built-in reader functions, +clojure.core/read+ and
 +clojure.core/read-string+. The purpose of these two functions is to
 read code or data from *trusted sources*.
 
-Because these functions can execute code footnote:[This is actually a
-feature, they're functions used by the language to, well, execute
+Because these functions can execute code,footnote:[This is actually a
+feature--they're functions used by the language to, well, execute
 code.] you should *never* (ever) use the +clojure.core+ readers to
 read from untrusted sources. This means user data, remote servers
-(even your own) or pretty much anywhere else for that matter. (We're
+(even your own), or pretty much anywhere else for that matter. (We're
 being a little extreme, of course, but we want you to be safe.)
 
 In the event that you *do* have a safe environment and absolutely need
 to evaluate some code, then by all means use the +clojure.core+
 readers. These readers do have a different interface for setting
 options than +clojure.edn+ readers, though; instead of passing an
-+opts+ you'll need to change various dynamic bindings to adjust the
++opts+, you'll need to change various dynamic bindings to adjust the
 readers behavior. For example, the `*default-data-reader-fn*`
-determines how the core functions deal with unknown tags. See also,
+determines how the core functions deal with unknown tags. See also
 `*data-readers*` and `*read-eval*` for more information. That said,
-for reading data, it's generally better to use the +edn+ variants
-footnote:[The Clojure mailing list thread
-https://groups.google.com/forum/#!topic/clojure/YBkUaIaRaow[ANN: NEVER
-use clojure.core/read or read-string for reading untrusted data
-] talks more about the vulnerabilities with +clojure.core+ readers].
+for reading data, it's generally better to use the +edn+ variants.
+footnote:[The Clojure mailing list thread http://bit.ly/Lxeswu["ANN: NEVER use clojure.core/read or read-string for reading untrusted data"] talks more about the vulnerabilities with +clojure.core+ readers.]
 
 ****
 ==== See Also
 
 * https://github.com/edn-format/edn[+edn+: extensible data notation]
-* <<sec_edn_record>>
 * <<sec_local_io_clojure_data_to_disk>>
+* <<sec_edn_record>>
+
 

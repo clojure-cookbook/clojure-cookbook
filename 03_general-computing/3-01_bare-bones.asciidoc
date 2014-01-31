@@ -11,15 +11,15 @@ additional tools.
 
 Obtain the Clojure JAR file by downloading and unzipping a release
 from http://clojure.org/downloads. Using a terminal, navigate to
-where you extracted the JAR, and start a Clojure REPL.
+where you extracted the JAR, and start a Clojure REPL:
 
 [source,shell-session]
 ----
 $ java -cp "clojure-1.5.1.jar" clojure.main
 ----
 
-You are now running an interactive Clojure REPL (Read-Eval-Print
-Loop). Type an expression and hit <Enter> to evaluate it. Press
+You are now running an interactive Clojure REPL (read-eval-print
+loop). Type an expression and hit Enter to evaluate it. Press
 <Ctrl>+D to exit.
 
 ==== Discussion
@@ -30,7 +30,7 @@ really installed. It's just a dependency like any other Java
 library. You can easily swap out one version of Clojure for another by
 replacing a single file.
 
-Let's dissect the +java+ invocation here a bit.
+Let's dissect the +java+ invocation here a bit:
 
 ----
 -cp "clojure-1.5.1.jar"
@@ -39,21 +39,20 @@ Let's dissect the +java+ invocation here a bit.
 This sets the Java classpath to include Clojure (and only Clojure, in
 this example). A full explanation of the classpath is beyond the scope
 of this recipe, but suffice to say it is a list of places where Java
-should look to load classes. A full discussion of Classpaths on the
-JVM can be found at
-http://docs.oracle.com/javase/tutorial/essential/environment/paths.html
+should look to load classes. A full discussion of classpaths on the
+JVM can be found at http://bit.ly/docs-classpaths.
 
 ----
 clojure.main
 ----
 
-Here we are specifying the class which Java should load and execute
+Here we are specifying the class that Java should load and execute
 the +main+ method. Yes, +clojure.main+ is really a Java class. The
 reason this doesn't *look* like a typical Java invocation is because
 Clojure namespaces, which are compiled to classes, do not
 conventionally use capitalized names like Java classes do.
 
-This is the absolute bare-minimum Clojure environment, and is all you
+This is the absolute bare-minimum Clojure environment and is all you
 need to run Clojure code on any system with Java installed. Of course,
 for regular use and development, you will most certainly want a more
 feature-rich solution like Leiningen.
@@ -65,6 +64,6 @@ compared to installing more complex packages.
 
 ==== See Also
 
-* The http://leiningen.org/[Leiningen] website.
+* The http://leiningen.org/[Leiningen] website
 
 * <<sec_command_line_applications>>

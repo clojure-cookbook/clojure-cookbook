@@ -5,14 +5,14 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to "change" a map by adding, setting or removing keys.
+You want to "change" a map by adding, setting, or removing keys.
 
 ==== Solution
 
 The most basic way to change a map is using the +assoc+ function.
 Given a map and any number of additional key/value pairs as arguments,
 it will return an updated map containing the respective keys and
-values.
+values:
 
 [source,clojure]
 ----
@@ -23,7 +23,7 @@ values.
 ----
 
 If used on a map which already contains a key, the +assoc+ function
-will return an updated map with the newly specified value for the key.
+will return an updated map with the newly specified value for the key:
 
 [source,clojure]
 ----
@@ -35,7 +35,7 @@ will return an updated map with the newly specified value for the key.
 ----
 
 To remove keys, use the +dissoc+ function, which given a map and any
-number of keys, returns a map absent those keys.
+number of keys, returns a map absent those keys:
 
 [source,clojure]
 ----
@@ -50,7 +50,7 @@ number of keys, returns a map absent those keys.
 It's fairly common to have maps contained in other maps. If it is
 necessary to update a deeply nested value, nested calls to +assoc+
 quickly become inconvenient, especially since they need to be
-"inside-out". Consider the following data structure:
+"inside-out." Consider the following data structure:
 
 [source,clojure]
 ----
@@ -70,12 +70,12 @@ like the following:
     (assoc (:residence (:author book)) :country "Canada")))
 ----
 
-Obviously, this is inconvenient, and difficult to read.
+Obviously, this is inconvenient and difficult to read.
 
 The +assoc-in+ function removes this inconvenience, allowing you to
 specify a _key path_ instead of a sole key. Instead of changing a
 value one key deep, a _key path_ lists a sequence of keys, applied
-recursively to change a deeply nested value.
+recursively to change a deeply nested value:
 
 [source,clojure]
 ----
@@ -87,7 +87,7 @@ recursively to change a deeply nested value.
 ;;              :title "Clojure Cookbook"}
 ----
 
-The sample above first looks up the map associated with the
+The preceding sample first looks up the map associated with the
 +:residence+ key in the nested data structure, then associates
 +"Canada"+ with the +:country+ key. Finally, the entire data structure
 is returned.
@@ -98,8 +98,8 @@ instead of just changing it?
 Fortunately, Clojure provides +update-in+ expressly for this purpose.
 Instead of taking a new value, +update-in+ takes an _update function_.
 This function is invoked with the value retrieved at _key path_ and
-any trailing arguments passed to +update-in+. It's a perculiar
-function to wrap your head around at first, perhaps it is best to
+any trailing arguments passed to +update-in+. It's a peculiar
+function to wrap your head around at first. Perhaps it is best to
 illustrate with an example:
 
 [source,clojure]
@@ -115,13 +115,13 @@ illustrate with an example:
 ----
 
 <1> The map
-<2> The _key path_
-<3> The _update function_, `+`
+<2> The key path
+<3> The update function, `+`
 <4> Additional arguments to `+`
 
 +update-in+ will also actually create maps for any of the keys in the
 vector that don't exist. This means it can be used to create structure
-as well as update values.
+as well as update values:
 
 [source,clojure]
 ----
@@ -133,19 +133,19 @@ Even though the starting map is empty, two empty maps are created for
 the values of the +:author+ and +:residence+ keys, meaning the +assoc+
 will be applied to a new, empty map.
 
-.Treating Clojure's state constructs like maps
+.Treating Clojure's State Constructs like Maps
 ****
 One other common use case for maps is as the values of one of
-Clojure's state constructs; _atoms_, _refs_ or _agents_. Clojure maps
-themselves are immutable values; in a very literal sense, if you "add"
+Clojure's state constructs: _atoms_, _refs_, or _agents_. Clojure maps
+themselves are immutable values. In a very literal sense, if you "add"
 a key to a map, it is no longer the same value any more. But
 sometimes, it is necessary to preserve a logical *identity* for
 different values across time. That's when to use one of the state
 management tools.
 
-To update the value of a piece of state (+ref+, +atom+ or +agent+) you
+To update the value of a piece of state (+ref+, +atom+, or +agent+) you
 invoke its specific state transition function (+alter+, +swap!+, or
-+send+, respectively.) State transition functions share a common form;
++send+, respectively). State transition functions share a common form:
 they take the reference as the first argument, the function to apply
 to the value as the second argument, and any arguments to the function
 as additional arguments.
@@ -154,7 +154,7 @@ So, for example, to deeply update an item contained in a map
 referenced by an atom, you can invoke the +swap!+ function (the state
 transition function for atoms), passing it your atom and the
 +update-in+ function, along with the list of keys and the function to
-use to update the value.
+use to update the value:
 
 [source,clojure]
 ----
@@ -170,15 +170,15 @@ use to update the value.
 This will add a new order map to the list of orders contained in the
 map contained in the +retail-data+ atom.
 
-Although such triple-combos are not terribly common, they illustrate
-the general consistency of functions which take other functions and
+Although such triple combos are not terribly common, they illustrate
+the general consistency of functions that take other functions and
 arguments, and how they can be combined arbitrarily deeply. In this
 case, what starts with a single call to +swap!+ ends up also updating
 a map and conjoining to a vector in the same form.
 ****
 
-==== See also
+==== See Also
 
-* <<sec_composite_data_maps_multiple_values>>
 * <<sec_composite_maps_as_seqs>>
+* <<sec_composite_data_maps_multiple_values>>
 * <<sec_composite_combining_maps>>

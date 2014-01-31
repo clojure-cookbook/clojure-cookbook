@@ -12,8 +12,8 @@ For example, you want to develop a set of flexible geometry functions.
 
 ==== Solution
 
-The easiest way to implement run-time polymorphism is via hand-rolled
-map-based dispatch using functions like +cond+ or +condp+.
+The easiest way to implement runtime polymorphism is via hand-rolled,
+map-based dispatch using functions like +cond+ or +condp+:
 
 [source,clojure]
 ----
@@ -31,11 +31,10 @@ map-based dispatch using functions like +cond+ or +condp+.
 ;; -> 8
 ----
 
-This approach is a little raw, though; +area+ ties together dispatch
+This approach is a little raw, though: +area+ ties together dispatch
 and multiple shapes' area implementations, all under one function. Use
-the +defmulti+ and +defmethod+ macros to define a multimethod,
-separating dispatch from implementation, and introducing a measure
-of extensibility.
+the +defmulti+ and +defmethod+ macros to define a multimethod, which will separate dispatch from implementation and introduce a measure
+of extensibility:
 
 [source,clojure]
 ----
@@ -69,7 +68,7 @@ functions and their implementations could be grouped and written
 together.
 
 Use Clojure's _protocol_ facilities to define a protocol interface and
-extend it with concrete implementations.
+extend it with concrete implementations:
 
 [source,clojure]
 ----
@@ -95,7 +94,7 @@ extend it with concrete implementations.
 ==== Discussion
 
 As you've seen in this recipe, there are a multitude of different ways
-to implement polymorphism in Clojure. While the example above
+to implement polymorphism in Clojure. While the preceding example
 settled on protocols as a method for implementing polymorphism, there
 are no hard and fast rules about which technique to use. Each
 approach has its own unique set of trade-offs that need to be
@@ -104,7 +103,7 @@ considered when introducing polymorphism.
 The first approach considered was simple map-based polymorphism using
 +condp+. In retrospect, it's not the right choice for building a
 geometry library in Clojure, but that is not to say it is without its
-uses. This approach is best used in-the-small; you could use +cond+ to
+uses. This approach is best used in-the-small: you could use +cond+ to
 prototype early iterations of a protocol at the REPL, or in places
 where you aren't defining new types.
 
@@ -133,7 +132,7 @@ multimethod, the +area+ function:
 <3> The dispatch function
 
 Using the keyword +:type+ as a dispatch function doesn't do justice to
-the flexibility of multimethods; they're capable of much more.
+the flexibility of multimethods: they're capable of much more.
 Multimethods allow you to perform arbitrarily complex introspection of
 the arguments they are invoked with.
 
@@ -142,7 +141,7 @@ also imply the arity of the function (number of arguments it accepts).
 Since keywords act as a function on one argument (a map), +area+ is a
 single-arity function. Other functions will imply different arities. A
 common pattern with multimethods is to use an anonymous function to
-make the intended arity of a multimethod more explicit.
+make the intended arity of a multimethod more explicit:
 
 [source,clojure]
 ----
@@ -167,7 +166,7 @@ make the intended arity of a multimethod more explicit.
 ;; Ingesting message {:type :heartbeat, :priority :high}, now.
 ----
 
-<1> +ingest-messages+ accepts two arguments, an app and a message
+<1> +ingest-messages+ accepts two arguments, an app and a message.
 <2> +message+ will be processed differently depending on its priority.
 <3> In the absence of a +:priority+ key on +message+, the default
     priority will be +:low+. Without specifying, the default dispatch
@@ -177,7 +176,7 @@ In all of the examples so far, we've always dispatched on a single
 value. Multimethods also support something called "multiple dispatch,"
 whereby a function can be dispatched upon any number of factors. By
 returning a vector rather than a single value in our dispatch, you can
-make more dynamic decisions.
+make more dynamic decisions:
 
 [source,clojure]
 ----
@@ -211,28 +210,25 @@ make more dynamic decisions.
 <2> An implementation of +convert+ that converts from edn strings to
     clojure data.
 <3> Similarly, an implementation that converts from Clojure data to
-    JSON
+    JSON.
 
 All this power comes at a cost, however; because multimethods are so
 dynamic, they can be quite slow. Further, there is no good way to
-group sets of related multimethods into an "all or nothing" package
-footnote:[That is to say, you cannot enforce a multimethod consumer
-implements all of the required methods when extending behavior to
-their own type]. If speed or implementing a complete interface are
+group sets of related multimethods into an all-or-nothing package.footnote:[That is to say, you cannot force a multimethod to implement all of the required methods when extending behavior to its own type.] If speed or implementing a complete interface are
 among your chief concerns, then you will likely be better served by
 protocols.
 
 Clojure's protocol feature provides extensible polymorphism with fast
-dispatch akin to Java's interfaces with one notable difference from
-multimethods: protocols can only perform single-dispatch (based on type).
+dispatch akin to Java's interfaces, with one notable difference from
+multimethods: protocols can only perform single dispatch (based on type).
 
-Protocols are defined using the +defprotocol+ macro, accepting a name,
-optional docstring and any number of named methods signatures. A
-method signature is made up of a few parts; the name, at least one
+Protocols are defined using the +defprotocol+ macro, which accepts a name,
+an optional docstring, and any number of named methods signatures. A
+method signature is made up of a few parts: the name, at least one
 type signature, and an optional docstring. The first argument of any
 type signature is always the object itself--Clojure dispatches on the
 type of this argument. Perhaps an example would be the easiest way to
-dig in to ++defprotocol++'s syntax.
+dig in to ++defprotocol++'s syntax:
 
 [source,clojure]
 ----
@@ -243,8 +239,8 @@ dig in to ++defprotocol++'s syntax.
                                   "optionally incorporating x")))
 ----
 
-<1> A function, +blint+, with a single additional argument +x+.
-<2> A multi-arity function, +crand+, that takes an optional +x+ argument.
+<1> A function, +blint+, with a single additional argument +x+
+<2> A multi-arity function, +crand+, that takes an optional +x+ argument
 
 Once a protocol is defined, there are numerous ways to provide an
 implementation for it. +deftype+, +defrecord+ and +reify+ all define a
@@ -252,7 +248,7 @@ protocol implementation while creating an object. The +deftype+ and
 +defrecord+ forms create new named types, while +reify+ creates an
 anonymous type. Each form is used by indicating the protocol being
 extended, followed by concrete implementations of each of that
-protocol's methods. 
+protocol's methods:
 
 [source,clojure]
 ----
@@ -278,18 +274,18 @@ protocol's methods.
 ;; -> 6
 ----
 
-<1> Indicate the protocol being implemented...
-<2> and implement all of its methods.
+<1> Indicate the protocol being implemented.
+<2> Implement all of its methods.
 <3> Repeat steps one and two for any remaining protocols you wish to
     implement.
 
 .The Difference Between a Type and a Record
 ****
-Given types and records share a very similar syntax, it can be
+Given types and records share a very similar syntax, so it can be
 hard to understand at face value how each should be used.
 
 Chas Emerick explained it best in an appendix to
-http://www.clojurebook.com/[Clojure Programming]:
+http://www.clojurebook.com/[_Clojure Programming_] (O'Reilly Media):
 
 [quote, Chas Emerick, Clojure Programming]
 ____
@@ -303,21 +299,21 @@ There you have it.
 ****
 
 For implementing protocols on existing types, you will want to use the
-+extend+ family of built-in functions (+extend+, +extend-type+ and
++extend+ family of built-in functions (+extend+, +extend-type+, and
 +extend-protocol+). Instead of creating a new type, these functions
 define implementations for existing types.
 
 ==== See Also
 
 * The official documentation for
-  http://clojure.org/multimethods[Multimethods and Hierarchies], which
+  http://clojure.org/multimethods[multimethods and hierarchies], which
   covers multimethods in depth. This document also covers hierarchies
   as they relate to multimethods, a feature not covered in this
   recipe.
 * The official documentation for
-  http://clojure.org/protocols[Protocols], which covers protocols in
+  http://clojure.org/protocols[protocols], which covers protocols in
   depth, including information on how protocols relate to interfaces.
+* <<sec_red_black_part_ii>> for a concrete example of implementing a protocol.
 * <<extend_built_in>> for examples of using +extend+ and its
   convenience macros +extend-type+ and +extend-protocol+.
-* <<sec_red_black_part_ii>> for a concrete example of implementing a protocol.
 

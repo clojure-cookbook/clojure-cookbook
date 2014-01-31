@@ -18,9 +18,9 @@ fully supports using any immutable value as a map key. More
 importantly, doing so is reasonably efficient.
 
 For example, consider the data structure to represent a chess board,
-an 8x8 grid where each position can have one of 6 possible types of
+an 8 &#x00D7; 8 grid where each position can have one of six possible types of
 piece. Rows are represented by the numbers 1-8, and columns by the
-letters a-h.
+letters _a-h_.
 
 In Clojure, you can represent this directly as a map:
 
@@ -31,8 +31,8 @@ In Clojure, you can represent this directly as a map:
                  [:d 4] [:black :king]})
 ----
 
-Moving a piece then, requires two operations: +dissoc+ing the old
-position for a piece, and +assoc+ing the new position.
+Moving a piece then requires two operations: pass:[<literal>dissoc</literal>]ing the old
+position for a piece, and pass:[<literal>assoc</literal>]ing the new position:
 
 [source,clojure]
 ----
@@ -49,13 +49,13 @@ position for a piece, and +assoc+ing the new position.
 ;;     [:a 4] [:white :king]}
 ----
 
-As another example of "non-traditional" map keys, consider the
+As another example of nontraditional map keys, consider the
 situation where you have a set of functions, and you want to be able
 to assign them each a "weighting" and multiply the return value by the
 corresponding weight whenever the function is called.
 
 An easy way to do this is to store the functions and weights in a map,
-with the functions as keys.
+with the functions as keys:
 
 // TODO: This sample for apply-weighted is a little convoluted.
 
@@ -67,7 +67,7 @@ with the functions as keys.
                  plus-three 0.8})
 ----
 
-Then, you can use a simple wrapper function to apply the functions
+Then you can use a simple wrapper function to apply the functions
 with the weights applied:
 
 [source,clojure]
@@ -96,14 +96,14 @@ vectors.
 
 This is certainly a reasonable thing to do, and is (possibly) slightly
 more performant. However, it is a less clean model of the actual
-problem domain. It requires a translation, for example, from Chess's
+problem domain. It requires a translation, for example, from chess's
 row/column numbers and letters to zero-indexed indices. Using a map
-lets you store the positions directly, in native Chess terminology.
+lets you store the positions directly, in native chess terminology.
 
 Similarly, there are alternative implementations for the
 function-weighting example. It could be implemented using a +cond+
 statement with all the functions and weights enumerated, or by
-replacing the functions altogether with a protocol method which could
+replacing the functions altogether with a protocol method that could
 then have varying implementations with different weights.
 
 However, storing the functions and weights in a map has the benefit of
@@ -112,7 +112,7 @@ functions are. More importantly, it is possible to store multiple
 different sets of weights, and switch between different weight schemes
 dynamically at runtime.
 
-==== See also
+==== See Also
 
-* <<sec_composite_data_maps_setting_keys>>
 * <<sec_composite_retrieving_keys_map>>
+* <<sec_composite_data_maps_setting_keys>>

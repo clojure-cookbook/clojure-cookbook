@@ -13,7 +13,7 @@ Use Java interop with the +java.net.DatagramSocket+ and
 +java.net.DatagramPacket+ classes to send and receive UDP messages.
 
 The following example demonstrates functions that send and receive
-short strings encoded into UDP packets.
+short strings encoded into UDP packets:
 
 [source,clojure]
 ----
@@ -50,13 +50,13 @@ short strings encoded into UDP packets.
   (future (while true (f (receive socket)))))
 ----
 
-The +send+ function is fairly straightforward - most of its content is
+The +send+ function is fairly straightforward--most of its content is
 devoted to constructing a byte array as a payload for the
-+DatagramPacket+, and invoking constructor forms. The most interesting
++DatagramPacket+ and invoking constructor forms. The most interesting
 thing is its limitation of the payload size to 512 bytes, using the
 +length+ argument to the +DatagramPacket+ constructor. This is because
 it generally isn't safe to attempt to send over 512 bytes of payload
-in a single UDP packet - although some network infrastructures may
+in a single UDP packet; although some network infrastructures may
 support it, others do not.
 
 The +receive+ function creates an incoming byte array, adds it to a
@@ -65,12 +65,12 @@ method on the socket. When incoming data is received, the +receive+
 method will return after populating the instance of
 +DatagramPacket+. The Clojure code then constructs and returns a new
 +String+ using the populated range of the byte array (that is, between
-0 and the value reported by the +DatagramPacket.getLength+ method.)
+0 and the value reported by the +DatagramPacket.getLength+ method).
 
 Because the +receive+ function blocks and only returns a single value,
 it isn't particularly useful for accepting multiple message or using
 from the REPL. +receive-loop+ wraps the +receive+ function, calling it
-repeatedly on a seperate thread. Whenever it returns a value, it invokes
+repeatedly on a separate thread. Whenever it returns a value, it invokes
 the supplied function, then loops back to waiting for more
 input.
 
@@ -87,7 +87,7 @@ This creates a UDP socket on the specified port (in this case, 8888).
 
 Next, start up a listener using the +receive-loop+ function. For this
 example, simply pass it the +println+ function so it will print out
-all received values.
+all received values:
 
 [source,clojure]
 ----
@@ -97,7 +97,7 @@ all received values.
 
 Then, you can send a message! If you started the listener thread with
 +receive-loop+ properly, you should see it print out the incoming
-message immediately.
+message immediately:
 
 [source,clojure]
 ----
@@ -141,13 +141,13 @@ A full explanation of how to use +MulticastSocket+ is very well
 documented
 http://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html[on
 Oracle's website] and would be redundant to reproduce here, since it
-is straightforward Java interop. After reading the example above,
+is straightforward Java interop. After reading the preceding example,
 extending it to +MulticastSocket+ should be relatively
 self-explanatory.
 
-===== See Also
+==== See Also
 
-- Creating a TCP Server
-- Creating a TCP Client
+- <<sec_network_io_tcp_client>>
+- <<sec_network_io_tcp_server>>
 - Using +core.async+
 - Documentation for +java.net.MulticastSocket+.

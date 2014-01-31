@@ -15,7 +15,7 @@ To open a (potentially very large) file for random access, use Java's
 the various +write+ methods to write data at that location.
 
 For example, to make a 1 GB file filled with zeros except the
-integer 1234 at the end,
+integer 1,234 at the end:
 
 [source,clojure]
 ----
@@ -42,7 +42,7 @@ the correct size:
 
 Reading the value back from the proper location in Clojure is quite
 similar to writing. Again we +seek+ a +RandomAccessFile+. Then use
-the appropriate +read+ method.
+the appropriate +read+ method:
 
 [source,clojure]
 ----
@@ -75,12 +75,12 @@ $ od -Ad -tx4 /tmp/longfile
 ----
 
 At byte offset 1000000000 can be seen the value +d2040000+, which is
-the hex representation of a big-endian integer with the value 1234.
+the hex representation of a big-endian integer with the value 1,234.
 (Java integers are big-endian by default. This means that the highest
 order bytes are stored at the lowest addresses.)
 
 ==== See Also
 
-* <<sec_local_io_clojure_data_to_disk>> for information on reading entire files.
+* <<sec_local_io_clojure_data_to_disk>> for information on reading entire files
 * http://docs.oracle.com/javase/7/docs/api/java/io/RandomAccessFile.html[+java.io.RandomAccessFile+] documentation
 * The Unix http://en.wikipedia.org/wiki/Od_(Unix)[+od+] command

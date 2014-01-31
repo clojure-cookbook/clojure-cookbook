@@ -5,14 +5,14 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to obtain a list without a particular item in it, 'removing'
+You want to obtain a list without a particular item in it, removing
 an item from an original list.
 
 ==== Solution
 
 Removing the first item from a list is easily accomplished using one
 of two functions, +rest+ or +pop+. Both work identically when used on
-a non-empty list.
+a nonempty list:
 
 [source,clojure]
 ----
@@ -32,11 +32,11 @@ empty) list.
 
 +pop+ is similar to +conj+ in that it operates on concrete data
 structures rather than the sequence interface. Like +conj+, it is
-polymorphic, and also like +conj+, the position it removes the item
+polymorphic; and also like +conj+, the position it removes the item
 from depends on what's most efficient for the concrete type.
 
 When used on an empty list, the behavior does differ: +pop+ will throw
-an exception, while +rest+ will return an empty list.
+an exception, while +rest+ will return an empty list:
 
 [source,clojure]
 ----

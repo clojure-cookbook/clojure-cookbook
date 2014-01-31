@@ -21,8 +21,8 @@ $ lein try org.clojars.hozumi/clj-commons-exec "1.0.6"
 
 Invoking the +clj-commons-exec/exec+ function with a command will
 return a promise, eventually delivering a map of the command's output,
-exit status, and any errors that occured available via the :out, :exit
-and :err keys, respectively.
+exit status, and any errors that occured available via the +:out+, +:exit+,
+and +:err+ keys, respectively.
 
 [source,clojure]
 ----
@@ -54,21 +54,21 @@ the command vector as strings:
 ==== Discussion
 
 Up until this point, we've neglected to mention that functionality
-equivalent to +exec/sh+ already exists in Clojure-proper (as
+equivalent to +exec/sh+ already exists in Clojure proper (as
 +clojure.java.shell/sh+). Now that the cat is out of the bag, it must
 be asked: why use a library over a built-in? Simple: +clj-commons-exec+
 is a functional veneer over the excellent
 http://commons.apache.org/proper/commons-exec/[Apache Commons Exec]
-library, providing capabilities like "piping" not available in
+library, providing capabilities like _piping_ not available in
 +clojure.java.sh+.
 
 To pipe data through multiple commands, use the
-+clj-commons-exec/sh-pipe+ function. Just as with regular unix pipes,
++clj-commons-exec/sh-pipe+ function. Just as with regular Unix pipes,
 pairs of commands will have their STDOUT and STDIN streams bound to
 each other. The API of +sh-pipe+ is nearly identically to +sh+, the
 only notable exception being you will pass more than one command to
 +sh-pipe+. The return value of +sh-pipe+ is a list of promises that
-fulfill as each sub-command completes execution.
+fulfill as each subcommand completes execution:
 
 [source,clojure]
 ----
@@ -88,7 +88,7 @@ Like any reasonable shell-process library, +clj-commons-exec+ allows you
 to configure the environment in which your commands execute. To
 control the execution environment of either +sh+ or +sh-pipe+, specify
 options in a map as the final argument to either function. The +:dir+
-option controls the path on which a command executes.
+option controls the path on which a command executes:
 
 [source,clojure]
 ----
@@ -105,7 +105,7 @@ The +:env+ and +:add-env+ options control the environment variables
 available to the executing command. +:add-env+ amends variables to the
 existing set of environment variables, while +:env+ replaces the
 existing set with a completely new one. Each option is a map of
-variable names to values, like +{"USER" "jeff"}+.
+variable names to values, like +{"USER" "jeff"}+:
 
 [source,clojure]
 ----
@@ -122,26 +122,26 @@ variable names to values, like +{"USER" "jeff"}+.
 There are a number of other options available in +sh+ and +sh-pipe+:
 
 +:watchdog+::
-  The time in number of seconds to await a commands executing before terminating it.
+  The time in number of seconds to wait for a command to finish executing before terminating it
 +:shutdown+::
-  A flag indicating that sub-processes should be destroyed when the VM exits.
+  A flag indicating that subprocesses should be destroyed when the VM exits
 +:as-success+ and +:as-successes+::
-  An integer or sequence of integers that will be considered successful exit codes, respectively.
+  An integer or sequence of integers that will be considered successful exit codes, respectively
 +:result-handler-fn+::
-  A custom function to be used to handle results.
+  A custom function to be used to handle results
 
 [WARNING]
 ====
-If you initiate long-running sub-processes inside of a +-main+
+If you initiate long-running subprocesses inside of a +-main+
 function, your application will hang until those processes complete.
-If it isn't desirable forcibly terminate your application by invoking
+If it isn't desirable, forcibly terminate your application by invoking
 +(System/exit)+ directly at the end of your +-main+ function.
 Additionally, set the option +:shutdown+ to +true+ for any
-sub-processes to ensure you leave your system tidy and free of rogue
+subprocesses to ensure you leave your system tidy and free of rogue
 processes.
 ====
 
-To check if a sub-process has returned without waiting for it to
+To check if a subprocess has returned without waiting for it to
 finish, invoke the +realized?+ function on the promise returned by
 +sh+. (This is especially useful for monitoring the progress of the
 sequence of promises returned by +sh-pipe+.)
@@ -163,4 +163,4 @@ sequence of promises returned by +sh-pipe+.)
 
 * If you don't need piping or +clj-common-execs+ advanced features,
   consider using
-  http://richhickey.github.io/clojure/clojure.java.shell-api.html[clojure.java.shell].
+  http://richhickey.github.io/clojure/clojure.java.shell-api.html[clojure.java.shell]

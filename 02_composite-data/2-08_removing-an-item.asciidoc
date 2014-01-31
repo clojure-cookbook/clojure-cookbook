@@ -12,7 +12,7 @@ without the item.
 
 To efficiently remove an item from the end of a vector, use the +pop+
 function, which takes a vector and returns a new vector without the
-last item.
+last item:
 
 [source,clojure]
 ----
@@ -24,13 +24,13 @@ last item.
 
 Although there is no operation designed specifically to remove items
 from the beginning of a vector, as +pop+ does from the end, there *is*
-a function - +subvec+ - that can be used to efficiently 'remove' any
+a function, +subvec+, that can be used to efficiently *remove* any
 number of items from the beginning or end of a vector. Given a vector,
-a start index and an (optional) end index, it will return a vector
+a start index, and an (optional) end index, it will return a vector
 from the start (inclusive) to end (exclusive) indexes.
 
 The following example drops a single item from the beginning of a
-vector, you can use +subvec+ like so:
+vector. You can use +subvec+ like so:
 
 [source,clojure]
 ----
@@ -48,9 +48,9 @@ an end index to +subvec+ as well:
 ----
 
 Because +subvec+ exploits the internal representation of a vector to
-create a sub-vector that shares internal structure with the original,
+create a subvector that shares internal structure with the original,
 it is extremely efficient and runs in constant time. It is the only
-way to efficiently 'remove' items from the beginning of a vector.
+way to efficiently *remove* items from the beginning of a vector.
 
 While it is certainly also possible to use a function like +rest+ or
 +drop+ on a vector, these are technically *sequence* operations, not
@@ -62,7 +62,7 @@ Of course, you can convert any sequence back into a concrete vector
 using +vec+ or +into []+, but this can be an expensive operation for
 large vectors.
 
-==== See also
+==== See Also
 
-* <<sec_composite_creating_a_vector>>
 * <<sec_removing_an_item_list>>
+* <<sec_composite_creating_a_vector>>

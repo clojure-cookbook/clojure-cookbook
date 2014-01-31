@@ -9,7 +9,7 @@ value at a particular index.
 
 ==== Solution
 
-Use +assoc+ to set the value at a particular index.
+Use +assoc+ to set the value at a particular index:
 
 [source,clojure]
 ----
@@ -18,7 +18,7 @@ Use +assoc+ to set the value at a particular index.
 ----
 
 +assoc+ can also be used to set multiple indexes at the same time, by
-providing additional index/value pairs.
+providing additional index/value pairs:
 
 [source,clojure]
 ----
@@ -36,14 +36,14 @@ hood.
 
 Unlike maps, however, the keys used when using +assoc+ on a vector
 must be integer indexes within the range of the vector. Attempting to
-use a non-integer key will cause an +IllegalArgumentException+, and
+use a noninteger key will cause an +IllegalArgumentException+, and
 attempting to +assoc+ an index greater than one more than the size of
 the vector  will throw a +IndexOutOfBoundsException+.
 
 Note that it *is* possible to +assoc+ to an index 1 greater than the
-current size of the vector, this will have the result of appending the item to the end. (see <<sec_adding_to_a_vector>>).
+current size of the vector. This will have the result of appending the item to the end (see <<sec_adding_to_a_vector>>).
 
-==== See also
+==== See Also
 
 * <<sec_adding_to_a_vector>>
 * <<sec_composite_data_maps_setting_keys>>

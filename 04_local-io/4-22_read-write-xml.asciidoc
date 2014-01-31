@@ -31,7 +31,7 @@ For example, when reading the following file:
 ----
 
 If you want to read an XML as a sequence of nodes, pass the XML map to the +xml-seq+
-function from the +clojure.core+ namespace.
+function from the +clojure.core+ namespace:
 
 [source,clojure]
 ----
@@ -55,9 +55,9 @@ file's output stream, or capture the output stream to a string with the
 
 ==== Discussion
 
-To work with XML you can handle it as any other map. Here is an
-example of a function that, given an id and a file, will parse the
-file for nodes with an attribute id that is equal to the argument.
+To work with XML, you can handle it as any other map. Here is an
+example of a function that, given an +id+ and a file, will parse the
+file for nodes with an attribute +id+ that is equal to the argument:
 
 [source,clojure]
 ----
@@ -74,8 +74,8 @@ file for nodes with an attribute id that is equal to the argument.
 To modify XML, just use the normal map manipulation functions on the
 Clojure data representation.
 
-Additionally, if you are going to work a lot with your XML structure
-you might consider using a "zipper". A zipper is a purely functional
+Additionally, if you are going to work a lot with your XML structure,
+you might consider using a _zipper_. A zipper is a purely functional
 data structure useful for navigating and modifying tree-like
 structures (such as XML) in a convenient and efficient way.
 
@@ -84,9 +84,9 @@ this recipe, but see the documentation for the +clojure.data.zip+
 library for explanation and examples of how to use them effectively
 with XML.
 
-==== See also
+==== See Also
 
 * <<sec_local-io_read_write_files>>
-* The http://richhickey.github.io/clojure/clojure.zip-api.html[+clojure.zip+] namespace.
+* The http://richhickey.github.io/clojure/clojure.zip-api.html[+clojure.zip+] namespace
 
 

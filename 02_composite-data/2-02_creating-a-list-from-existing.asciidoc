@@ -5,7 +5,7 @@ by Luke VanderHart
 
 ==== Problem
 
-You have an existing sequential data structure which you would like to
+You have an existing sequential data structure that you would like to
 convert into a list as its concrete data type.
 
 ==== Solution
@@ -19,7 +19,7 @@ If you do know that you need an explicit conversion of the concrete
 data structure, there are two ways to do it.
 
 First, you could use the +apply+ function to call the +list+ function,
-passing it your existing data structure as its arguments.
+passing it your existing data structure as its arguments:
 
 [source,clojure]
 ----
@@ -30,7 +30,7 @@ passing it your existing data structure as its arguments.
 Alternatively, you could use the +into+ function to repeatedly conjoin
 elements from your original data on to a list. Note, however, that
 this approach has the effect of reversing the order of the original
-collection.
+collection:
 
 [source,clojure]
 ----
@@ -53,7 +53,7 @@ class file specification]).
 
 As it turns out, functions with variadic arguments (such as +list+)
 are handled in a somewhat special way: the argument list is passed in
-as a sequence. +apply+ knows this, and passes this sequence view of the
+as a sequence. +apply+ knows this and passes this sequence view of the
 original structure directly through to the receiving function. This is
 why it works; there is never actually a JVM method invocation with a
 million arguments.
@@ -70,7 +70,7 @@ sequence will end up being the last item in the list, and so on.
 So why ever choose +into+ over +apply+, given that it reverses the
 order? Speed. +into+ utilizes Clojure _transients_, which provides a
 considerable performance improvement. On the author's machine,
-converting a million item vector to a list using +apply+ took an
+converting a million-item vector to a list using +apply+ took an
 average of 750 milliseconds, while using +into+ took about half that
 time, for an average of 350 milliseconds. Of course, the list was in
 reverse order, and reversing either the input or the output negates

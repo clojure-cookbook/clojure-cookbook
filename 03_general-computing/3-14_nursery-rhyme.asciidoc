@@ -13,18 +13,17 @@ Use https://github.com/overtone/overtone[Overtone] to bring the song
 to life.
 
 Before starting, add `[overtone "0.8.1"]` to your project's
-dependencies or start a REPL using +lein-try+ footnote:[There are some
+dependencies or start a REPL using +lein-try+:footnote:[There are some
 additional installation concerns if you are running Overtone on Linux.
-See the Overtone wiki
-(_https://github.com/overtone/overtone/wiki#installation_) for more
-detailed installation instructions.]:
+See https://github.com/overtone/overtone/wiki#installation[the Overtone wiki] for more
+detailed installation instructions.]
 
 [source,shell-session]
 ----
 $ lein try overtone
 ----
 
-To start, define the melody for any old children's song.
+To start, define the melody for an old children's song:
 
 [source,clojure]
 ----
@@ -60,7 +59,7 @@ melody
 ----
 
 Convert the piece into specific key by transforming each note's pitch
-using a function that represents the key.
+using a function that represents the key:
 
 [source,clojure]
 ----
@@ -80,7 +79,7 @@ using a function that represents the key.
 ----
 
 Convert the piece into a specific tempo by transforming each note's
-time using a function that represents the tempo.
+time using a function that represents the tempo:
 
 [source,clojure]
 ----
@@ -97,7 +96,7 @@ time using a function that represents the tempo.
 Define an instrument and use it to play the melody.
 
 The following example synthesized instrument is a simple sine wave,
-whose amplitude and duration is controlled by an envelope.
+whose amplitude and duration is controlled by an envelope:
 
 [source,clojure]
 ----
@@ -119,8 +118,8 @@ whose amplitude and duration is controlled by an envelope.
 ;; -> <music playing on your speakers>
 ----
 
-If your nursery rhyme is a round, like "Row, row, row your boat", you
-can use it to accompany itself.
+If your nursery rhyme is a round, like Row, Row, Row Your Boat, you
+can use it to accompany itself:
 
 [source,clojure]
 ----
@@ -147,14 +146,14 @@ by its horizontal and vertical position. But unlike traditional music
 notation, the Clojure representation can be manipulated by functional
 programming techniques.
 
-Pieces of Western music, like "Row, row, row your boat" aren't
+Pieces of Western music, like Row, Row, Row Your Boat, aren't
 composed of arbitrary pitches. Within a given melody, the notes are
 typically confined to a subset of all possible pitches called a
-"scale."
+scale.
 
 The approach taken here is to express the pitches by an integer
-denoting where they appear in the scale, called a "degree". So, for
-example, degree +0+ signifies the first pitch of the scale and degree
+denoting where they appear in the scale, called a degree. So, for
+example, degree +0+ signifies the first pitch of the scale, and degree
 +4+ signifies the fifth note of the scale.
 
 This simplifies the description of the melody, because we don't have
@@ -163,13 +162,13 @@ chosen scale. They also allow us to vary our chosen scale without
 having to rewrite the melody.
 
 To work with degrees, we need a function that translates a degree into
-the actual pitch. Since "Row, row, row your boat" is in a major scale,
+the actual pitch. Since Row, Row, Row Your Boat is in a major scale,
 we need a function that represents such a scale.
 
 We use the observation that in a major scale, there is a regular
 pattern of double and single spaces between adjacent pitches (known to
-musicians as tones and semi-tones). We define a function called
-+major+ that accepts a degree out outputs the number of semi-tones it
+musicians as tones and semitones). We define a function called
++major+ that accepts a degree out outputs the number of semitones it
 represents.
 
 Our pitches still aren't quite right, because they're relative to the
@@ -177,8 +176,7 @@ lowest note of the piece. We need to establish a musical reference
 point that we will use to interpret our degrees.
 
 Concert A is conventionally used as a reference point by orchestras,
-so we use it as our musical zero. In other words, we will put "Row,
-row, row your boat" into A major. Now a degree of +0+ means "A".
+so we use it as our musical zero. In other words, we will put Row, Row, Row Your Boat into A major. Now a degree of +0+ means "A."
 
 Note that we can simply compose together our functions for major and
 for A to arrive at a composite A major function.
@@ -186,9 +184,9 @@ for A to arrive at a composite A major function.
 We need to do a similar transformation for time. Each note's time is
 expressed in beats, but we need it to be in milliseconds. We use the
 current system time as our temporal reference point, meaning that the
-piece will start from now (and not at the start of the Unix epoch!).
+piece will start from now (and not at the start of the Unix epoch).
 
-"Row, row, row your boat" is a round, meaning it harmonizes if sung as
+Row, Row, Row Your Boat is a round, meaning it harmonizes if sung as
 an accompaniment to itself, offset by a particular number of beats. As
 an extra flourish, we produce a second version of the melody that
 starts four beats after the first.
@@ -199,14 +197,14 @@ pattern of tones and semitones `[2 1 2 2 1 2 2 ]`).
 
 We also encourage you to think about how this approach to modelling a
 series of events can be applied to other domains. The idea of
-expressing a time-series as a sequence and then applying
-transformations across that series is a simple, flexible and
+expressing a time series as a sequence and then applying
+transformations across that series is a simple, flexible, and
 composable way of describing a problem.
 
 Music is a wonderful and moving thing. It's also incredibly
-well-suited to being modelled in a functional programming language. We
+well suited to being modeled in a functional programming language. We
 hope your children agree.
 
-==== See also
+==== See Also
 
-* https://github.com/overtone/overtone[Overtone], a music environment for Clojure.
+* https://github.com/overtone/overtone[Overtone], a music environment for Clojure

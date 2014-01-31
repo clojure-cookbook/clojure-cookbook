@@ -13,7 +13,7 @@ As with sets, there are several ways to retrieve the value of a key.
 
 The most straightforward way is to use the +get+ function, which, given
 a map and a key, returns the value stored at the key or +nil+ if the
-map does not contain the key.
+map does not contain the key:
 
 [source,clojure]
 ----
@@ -25,7 +25,7 @@ map does not contain the key.
 ----
 
 If desired, you can also pass a third argument to be used as the
-default return value instead of +nil+ if a map doesn't contain the key.
+default return value instead of +nil+ if a map doesn't contain the key:
 
 [source,clojure]
 ----
@@ -37,8 +37,8 @@ If your map uses keywords as keys, you can use the keyword itself as a
 function. Keywords implement the +IFn+ interface, and when invoked
 with a map as an argument, they will look themselves up in the map,
 returning the value if it is present or +nil+ if not. You can also
-pass a second argument which will be used as a default return value in
-the case of a missing key, just as you can with +get+.
+pass a second argument that will be used as a default return value in
+the case of a missing key, just as you can with +get+:
 
 [source,clojure]
 ----
@@ -53,7 +53,7 @@ Finally, the third basic way to look up a value in the map is to use
 the map itself as a function, passing the key to be retrieved as the
 argument. Like +get+ and keyword functions, it is also possible to
 pass a second argument for use as a default value if the key is not
-found; otherwise +nil+ is returned.
+found; otherwise +nil+ is returned:
 
 [source,clojure]
 ----
@@ -73,7 +73,7 @@ There is a convenience function for looking up items in nested maps:
 +get-in+. Instead of passing a single key, you can pass a sequence of
 keys, and they will be successively looked up in a nested structure,
 as if repeatedly calling +get+ on each level of the nested data
-structure. +nil+ is returned if any key is missing.
+structure. +nil+ is returned if any key is missing:
 
 [source,clojure]
 ----
@@ -87,7 +87,7 @@ structure. +nil+ is returned if any key is missing.
 ----
 
 +get-in+ also takes an optional default value, which will be returned
-if *any* key in the nested hierarchy is missing.
+if *any* key in the nested hierarchy is missing:
 
 [source,clojure]
 ----
@@ -99,7 +99,7 @@ if *any* key in the nested hierarchy is missing.
 
 Note that +get-in+ works with *any* associative data structure, not
 just maps. This means that it can be combined to work with, for
-example, indices of vectors.
+example, indices of vectors:
 
 [source,clojure]
 ----
@@ -112,12 +112,12 @@ example, indices of vectors.
 
 ==== Discussion
 
-Which technique of the three discussed above is the best to use? All
-have identical semantics, but in idiomatic Clojure they convey
+Which technique of the three discussed is the best to use? All
+have identical semantics--but in idiomatic Clojure, they convey
 different implications about the scenario in which they are used.
 
 Typically, keyword-as-a-function lookup is used when maps are being
-used as "objects" and the keys as "fields", where the map contains a
+used as "objects" and the keys as "fields," where the map contains a
 relatively small, well-known set of keys, and when there is a
 reasonable expectation that the key will actually be present.
 
@@ -131,7 +131,7 @@ simply return +nil+.
 
 It is interesting to note, as well, that the ability to use a map
 itself as a function is not just an arbitrary convenience. In the
-technical sense of the word "function", maps *are* functions of keys
+technical sense of the word "function," maps *are* functions of keys
 to values. Consider the following function definition and map:
 
 [source,clojure]
@@ -147,7 +147,7 @@ to values. Consider the following function definition and map:
 Using an invocation of the form +(square 3)+, the caller can actually
 be *agnostic* as to whether +square+ is a "real" function or a map. Of
 course, the normally-defined function has a number of advantages in
-this case; for one, it has an unlimited domain instead of just the
+this case. For one, it has an unlimited domain instead of just the
 keys enumerated. And the multiplication function is fairly fast, so
 precomputing results is not a win. But in some cases, for functions
 that do have a more naturally-constrained domain and which are more
@@ -157,27 +157,27 @@ function can be a real boon to performance.
 Because all of the different techniques for retrieving values from a
 map return +nil+ if the key is not present, special handling is
 required if you need to differentiate the case in which a key *does*
-exist in a map with a value of nil from the case in which the key does
+exist in a map with a value of +nil+ from the case in which the key does
 not exist at all.
 
 The easiest way to do this is to always provide a default value to be
 returned in the case of a missing key. To be absolutely sure that you
 can differentiate the default value from any possible value the map
 might possibly contain, you can use a namespace-qualified keyword
-(e.g, +::not-found+)
+(e.g., +::not-found+).
 
 It is also possible to use the +contains?+ function, which takes a
 collection and a key, and returns true if and only if the collection
-has a specific entry for that key, even if the value is +nil+.
+has a specific entry for that key (even if the value is +nil+).
 
-.The meaning of +contains?+
+.The meaning of contains?
 ****
 
 The exact behavior of the +contains?+ function is a frequent topic for
 confusion, especially since several other languages have a function
 with a similar name that does something different.
 
-In Clojure, +contains?+ is *not* a search function; it does not
+In Clojure, +contains?+ is *not* a search function--it does not
 inspect a collection to see if the item is present. Rather, it is a
 _lookup_ function, and only works on associative or indexed
 collections. In other languages, it is frequently named +containsKey+
@@ -191,8 +191,8 @@ throw an exception if used at all with a list or a sequence.
 
 ****
 
-==== See also
+==== See Also
 
-* <<sec_composite_data_maps_setting_keys>>
 * <<sec_retrieving_multiple_keys>>
+* <<sec_composite_data_maps_setting_keys>>
 * <<sec_composite_maps_as_seqs>>

@@ -12,7 +12,7 @@ You want to open up a socket on a port to use as a low-level TCP server.
 Use Java interop on the +java.net.ServerSocket+ class to create a TCP
 listener. Use the functions in +clojure.java.io+ to obtain input and
 output streams (or readers and writers) to read and write data to the
-socket.
+socket:
 
 [source,clojure]
 ----
@@ -42,7 +42,7 @@ socket.
 This code defines three functions. +receive+ and +send+ deal with
 reading and writing string data from and to a socket, using the
 +clojure.java.io/reader+ and +clojure.java.io/writer+ functions. Both
-of these accept a +java.net.Socket+ as an argument, and will return a
+of these accept a +java.net.Socket+ as an argument and will return a
 +java.io.Reader+ or +java.io.Writer+ built from the socket's input and
 output streams.
 
@@ -60,7 +60,7 @@ reader on it and blocks until it receives a full line of input,
 terminated by a newline character (+\n+). When it receives one, it
 calls the handler function with the resulting value, and calls +send+
 to send the response using a writer opened on the same socket. +send+
-also calls the +flush+ method on the writer, to ensure that all the
+also calls the +flush+ method on the writer to ensure that all the
 data is actually sent back to the client, instead of being buffered in
 the +Writer+ instance.
 
@@ -75,7 +75,7 @@ right away; it blocks, waiting for a client to connect.
 
 To connect to the sever, you can use a _telnet_ client, which is
 installed by default on nearly every operating system. To use it, open
-up a command line window:
+up a command-line window:
 
 [source,shell-session]
 ----
@@ -86,7 +86,7 @@ Escape character is '^]'.
 ----
 
 At this point you can type anything you like. When you finish, make
-sure you type "enter" or "return" to send a newline character.
+sure you type *+enter+* or *+return+* to send a newline character:
 
 [source,shell-session]
 ----
@@ -99,7 +99,7 @@ HELLO, WORLD!Connection closed by foreign host
 ----
 
 As you can see, as soon as you type a newline, the server responds
-with the uppercased version of your input (as per the handler
+with the uppercase version of your input (as per the handler
 function) and then immediately terminates the connection. In the REPL,
 you will find that the +serve+ function has finally returned.
 
@@ -107,7 +107,7 @@ you will find that the +serve+ function has finally returned.
 
 This example uses readers and writers, which deal solely in textual
 data, to make the concepts of working with sockets easier to
-demonstrate. Of course, an actual socket is not limited to strings, and
+demonstrate. Of course, an actual socket is not limited to strings and
 can send and receive any kind of binary data. To do this, simply use
 the +clojure.java.io/input-stream+ and +clojure.java.io/output-stream+
 functions instead of +clojure.java.io/reader+ and
@@ -117,7 +117,7 @@ provide APIs for reading and writing raw bytes, rather than just
 strings and characters.
 
 One thing you may have noticed about the example is that, unlike a
-traditional "server" it doesn't actually continue to accept incoming
+traditional server, it doesn't actually continue to accept incoming
 connections after the +serve+ function returns.  For ongoing use,
 typically you'd like to be able to serve multiple incoming
 connections.
@@ -126,9 +126,9 @@ Fortunately, this is relatively straightforward to do giving the
 concurrency tools that Clojure provides. Modifing the +serve+ function
 above to work as a persistent server requires three changes:
 
-- Run the server on a seperate thread so it doesn't block the REPL
-- Don't close the server socket after handling the first request
-- After handing a request, loop back to immediately handle another
+- Run the server on a seperate thread so it doesn't block the REPL.
+- Don't close the server socket after handling the first request.
+- After handing a request, loop back to immediately handle another.
 
 Also, because the server will be running on a non-repl thread, it'd
 also be good to provide a mechanism for terminating the server other
@@ -151,10 +151,10 @@ The modified code looks like this:
 ----
 
 The key feature of this code is that it launches the server socket
-asynchronously inside a future, and calls the +accept+ method inside
+asynchronously inside a future and calls the +accept+ method inside
 of a loop. It also creates an atom called +running+ and returns it,
 checking it each time it loops. To stop the server, reset the atom to
-false, and the loop will break.
+false, and the loop will break:
 
 [source,clojure]
 ----
@@ -168,18 +168,18 @@ false, and the loop will break.
 ;; server is stopped, will stop serving requests after the next one
 ----
 
-.Sidebar When to use sockets
+.When to Use Sockets
 ****
 
 As you can see from these examples, raw server sockets are a fairly
 low-level networking construct. Using them effectively means either
 creating your own data protocol or re-implementing an existing one,
-and handling all the fiddly bits of connecting, flushing and
+and handling all the fiddly bits of connecting, flushing, and
 disconnecting input and outputs streams yourself.
 
 If your communication needs can be met by some existing protocol or
-communication technique (such as HTTP, SSH, a message queue, etc) you
-should almost certainly use that instead. The are widely available
+communication technique (such as HTTP, SSH, or a message queue), you
+should almost certainly use that instead. There are widely available
 servers and libraries for these protocols that allow programming at a
 much higher level of abstraction, with much better performance and
 resiliency.
@@ -188,7 +188,7 @@ Still, understanding how all these different techniques work on a low
 level is valuable. At least as far as the JVM is concerned, most
 networking code ultimately bottoms out in calls to the raw socket
 mechanisms described in this recipe. Understanding how they work is an
-important tool in understanding how higher level networking (such as
+important tool in understanding how higher-level networking (such as
 HTTP requests or JMS queues) actually work.
 ****
 
@@ -196,8 +196,8 @@ HTTP requests or JMS queues) actually work.
 
 - The
   http://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html[API
-  documentation] for ServerSocket and Socket objects in Java.
+  documentation] for ServerSocket and Socket objects in Java
 - The http://clojure.github.io/clojure/#clojure.java.io[API
-  documentation] for the +clojure.java.io+ namespace.
+  documentation] for the +clojure.java.io+ namespace
 - <<sec_network_io_tcp_client>>
--  Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol].
+-  Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol]

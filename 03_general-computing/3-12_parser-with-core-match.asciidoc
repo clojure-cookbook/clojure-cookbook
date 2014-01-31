@@ -1,5 +1,5 @@
 [[sec_core_match_parser]]
-=== Make a Parser for Clojure Expressions Using +core.match+
+=== Make a Parser for Clojure Expressions Using core.match
 [role="byline"]
 by Chris Frisz
 
@@ -39,7 +39,7 @@ project's dependencies, or start a REPL using +lein-try+:
 $ lein try org.clojure/core.match
 ----
 
-Now, codify the language's grammar using +clojure.core.match/match+.
+Now, codify the language's grammar using +clojure.core.match/match+:
 
 [source, clojure]
 ----
@@ -77,29 +77,26 @@ Now, codify the language's grammar using +clojure.core.match/match+.
 
 A +match+ statement in +core.match+ is made up of two basic parts. The
 first part is a vector of +vars+ to be matched. In our example, this
-is `[expr]`. This vector isn't limited to a single entry, it can
-contain as many items-to-match as you would like. The next part is a
+is `[expr]`. This vector isn't limited to a single entry--it can
+contain as many items to match as you would like. The next part is a
 variable list of question-answer pairs. A _question_ is a vector
 representing the *shape* the +vars+ vector must take. Like +cond+, an
 _answer_ is what will be returned should +vars+ satisfy a question.
 
 Questions take a variety of forms in +core.match+. Here are explanations
-of the samples from above.
+of the preceding samples.
 
 The first match pattern, `[(var :guard symbol?)]`, matches the
 variable case of our syntax, binding the matched expression to +var+.
 The special +:guard+ form applies the predicate +symbol?+ to +var+,
 only returning the answer if +symbol?+ returns +true+.
 
-The second pattern, `[(['fn [arg] body] :seq)]`, matches the +fn+ case
-footnote:[The match pattern for +fn+ could (and should) include a guard
-on the +arg+ to ensure that it's a symbol, but that's elided it here
-for brevity.].  Note the special `([...] :seq)` syntax for matching
+The second pattern, `[(['fn [arg] body] :seq)]`, matches the +fn+ case.footnote:[The match pattern for +fn+ could (and should) include a guard on the +arg+ to ensure that it's a symbol, but that's elided here for brevity.] Note the special `([...] :seq)` syntax for matching
 over lists, used here to represent a +fn+ expression. Also notice
 that to match on the literal +fn+, it had to be quoted in the match
 pattern.  Interestingly, since the +body+ expression should also be
 accepted by this parser, it makes a self-recursive call,
-+(simple-clojure-parser body)+, in the right-hand side of the match
++(simple-clojure-parser body)+, in the righthand side of the match
 pattern.
 
 For the third +:application+ pattern, the parser again

@@ -10,7 +10,7 @@ You need to read or write JSON data.
 ==== Solution
 
 Use the +clojure.data.json/read-str+ function to read a string of JSON
-as Clojure data.
+as Clojure data:
 
 [source,clojure]
 ----
@@ -21,7 +21,7 @@ as Clojure data.
 ----
 
 To write data back to JSON, use the +clojure.data.json/write-str+
-function with the original Clojure data.
+function with the original Clojure data:
 
 [source,clojure]
 ----
@@ -35,7 +35,7 @@ Beyond reading and writing strings, +clojure.data.json+ also provides
 the +read+ and +write+ functions to work with +java.io.Reader+ and
 +java.io.Writer+ objects, respectively. With the exception of their
 +reader+/+writer+ parameters, these two functions share the
-same parameters and options as their string-brethren.
+same parameters and options as their string brethren:
 
 [source,clojure]
 ----
@@ -54,7 +54,7 @@ the way keys or values are interpreted.
 
 One common example of this is converting JSON's string-only keys to
 proper Clojure keywords. You can apply a function to each processed
-key by using the +:key-fn+ option.
+key by using the +:key-fn+ option:
 
 [source,clojure]
 ----
@@ -77,7 +77,7 @@ key by using the +:key-fn+ option.
 
 You may also want to control how values are interpeted. Use the
 +:value-fn+ option to specify how values is read/written. The function
-you provide will be invoked with two arguments; a key and its value.
+you provide will be invoked with two arguments; a key and its value:
 
 [source,clojure]
 ----
@@ -119,4 +119,4 @@ can also be used with the +write+ and +read+ functions.
 * The http://clojure.github.io/data.json/[API docs] for
   +clojure.data.json+ for more information on read/write's. Options
   not covered in this recipe include +:eof-error?+, +:eof-value+ and
-  +:bigdec+ on +read+ and  +:escape-unicode+ and +:escape-slash+ on +write+.
+  +:bigdec+ on +read+, and  +:escape-unicode+ and +:escape-slash+ on +write+.

@@ -11,11 +11,11 @@ contains at a particular location (index).
 
 There are several ways to do this.
 
-===== Using +nth+
+===== Using nth
 
-The +nth+ function, which works on all sequences, is special cased to
+The +nth+ function, which works on all sequences, is special-cased to
 provide constant-time performance when used with indexed collections
-such as vectors.
+such as vectors:
 
 [source,clojure]
 ----
@@ -25,7 +25,7 @@ such as vectors.
 
 If given an index greater than the size of the vector, +nth+ will
 throw an exception unless you pass it an optional third argument,
-which will be returned if the provided index is out-of-bounds.
+which will be returned if the provided index is out of bounds:
 
 [source,clojure]
 ----
@@ -39,7 +39,7 @@ which will be returned if the provided index is out-of-bounds.
 ===== Using vectors as functions of their indices
 
 Vectors are themselves functions which, when called with an integer
-argument, will return the value at that index.
+argument, will return the value at that index:
 
 [source,clojure]
 ----
@@ -51,11 +51,11 @@ argument, will return the value at that index.
 Using an out-of-range index when invoking a vector as a function will
 result in an +IndexOutOfBoundsException+.
 
-===== Using +get+
+===== Using get
 
 Because vectors support the associative interface with integer indexes
 as keys, you can also use the +get+ function to retrieve values by
-index.
+index:
 
 [source,clojure]
 ----
@@ -66,7 +66,7 @@ index.
 Unlike +nth+, when you pass an out-of-range index to +get+, it will
 return +nil+, not throw an exception. Unless, that is, you provide a
 default value to be returned if the key (the index, in this case) is
-not found.
+not found:
 
 [source,clojure]
 ----
@@ -96,6 +96,6 @@ Ultimately, when making a choice like this, you should consider:
 * What is the failure mode of the proposed technique? For example,
   would a nil return value or an exception be preferable?
 
-==== See also
+==== See Also
 
 * <<sec_composite_retrieving_keys_map>>

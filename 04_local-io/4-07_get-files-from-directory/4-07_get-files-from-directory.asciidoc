@@ -5,7 +5,7 @@ originally submitted by Stefan Karlsson
 
 ==== Problem
 
-Given a directory, you want to access the files inside
+Given a directory, you want to access the files inside.
 
 ==== Solution
 
@@ -44,7 +44,7 @@ directory hierarchy as a squence allows you to leverage functions like
 Consider, for example, the case where you would like to select only files in a
 directory hierarchy (and not directories). You can define such a function
 by taking a sequence of files and directories and filtering them by the
-+.isFile+ property of +java.io.File+ objects.
++.isFile+ property of +java.io.File+ objects:
 
 [source,clojure]
 ----
@@ -60,10 +60,10 @@ by taking a sequence of files and directories and filtering them by the
 ;;     #<File ./next-gen/picard.jpg>)
 ----
 
-What if you wanted display the string-names of all those files? Define
+What if you wanted to display the string names of all those files? Define
 a +names+ function to map the +.getName+ property over a sequence of
 files, combining +only-files+ and +names+ to get a list of file names
-in a directory.
+in a directory:
 
 [source,clojure]
 ----
@@ -80,13 +80,6 @@ in a directory.
 
 ==== See Also
 
-* The documentation for the
-  http://docs.oracle.com/javase/7/docs/api/java/io/File.html[File
-  class] for a complete list of properties and methods available on
-  +File+ objects.
-* Combine these techniques with utility libraries like Google Guava's
-  http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/io/Files.html[Files
-  class] or Apache Commons
-  http://commons.apache.org/proper/commons-io/javadocs/api-1.4/org/apache/commons/io/FilenameUtils.html[FilenameUtils class]
-  to exert even greater leverage over the file sequence abstraction.
+* The documentation for the http://bit.ly/15KfbRd[+File+ class] for a complete list of properties and methods available on +File+ objects.
+* Combine these techniques with utility libraries like Google Guava's http://bit.ly/Li747q[+Files+ class] or Apache Commons http://bit.ly/1beaLoM[+FilenameUtils+ class] to exert even greater leverage over the file sequence abstraction.
 

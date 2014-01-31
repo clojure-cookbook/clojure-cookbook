@@ -10,11 +10,11 @@ You want to create a list data structure in your source code.
 ==== Solution
 
 There are two basic ways to specifically construct a list (a
-+clojure.lang.PersistentList+.)
++clojure.lang.PersistentList+).
 
-You can use parens in combination with a single quote to indicate that
+You can use parentheses in combination with a single quote to indicate that
 the list should only be read as a data structure, not immediately
-evaluated.
+evaluated:
 
 [source,clojure]
 ----
@@ -23,7 +23,7 @@ evaluated.
 ----
 
 Or, more commonly, you can use the +list+ function, which takes a
-variadic number of arguments and constructs a list from them.
+variadic number of arguments and constructs a list from them:
 
 [source,clojure]
 ----
@@ -37,9 +37,9 @@ Typically, between these two approaches, using the +list+ function is
 the better choice. The problem with constructing quoted lists is that
 the quote also prevents evaluation of everything *inside* the list,
 which means that symbols will be returned as literal symbols, instead
-of resolving vars or calling functions. +list+, however, will eval its
-arguments in the normal way before constructing the list, and is
-usually what is desired for non-macro code.
+of resolving variables or calling functions. +list+, however, will evaluate its
+arguments in the normal way before constructing the list and is
+usually what is desired for nonmacro code:
 
 [source,clojure]
 ----
@@ -52,19 +52,19 @@ usually what is desired for non-macro code.
 ;; -> (1 2)
 ----
 
-That said, +'()+ is the idiomatic way to create an empty list - it is
-more terse, and the concern about evaling its contents is
+That said, +'()+ is the idiomatic way to create an empty list--it is
+more terse, and the concern about evaluating its contents is
 irrelevant when it's empty.
 
-.Lists versus Vectors
+.Lists Versus Vectors
 ****
 
-Clojure includes both List and Vector types. Both are sequential data
-structures. However, for most purposes, vectors are a better fit, and
+Clojure includes both list and vector types. Both are sequential data
+structures. However, for most purposes, vectors are a better fit and
 more commonly used in idiomatic Clojure.
 
 There are a couple reasons for this. Vectors have a cleaner literal
-syntax than lists, and are just as space-efficient and performant. In
+syntax than lists and are just as space-efficient and performant. In
 addition, vectors support near-constant lookup time by index
 (O(log~32~ n)), as opposed to lists, which require linear time
 (O(n)).

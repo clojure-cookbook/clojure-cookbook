@@ -1,5 +1,5 @@
 [[sec_general_core_async]]
-=== Decoupling Consumers and Producers with +core.async+
+=== Decoupling Consumers and Producers with core.async
 [role="byline"]
 by Daemian Mack
 
@@ -10,7 +10,7 @@ introducing explicit queues between them.
 
 For example, you are building a web dashboard that fetches Twitter
 messages. This application must both persist these events to a database and
-publish them via Server-Sent Events (SSE) to a browser.
+publish them via server-sent events (SSE) to a browser.
 
 ==== Solution
 
@@ -28,7 +28,7 @@ To follow along with this recipe, start a REPL using +lein-try+:
 $ lein try org.clojure/core.async
 ----
 
-Consider the following passage illustrating a synchronous approach.
+Consider the following passage illustrating a synchronous approach:
 
 [source,clojure]
 ----
@@ -72,7 +72,7 @@ any slow consumer could cause the entire pipeline to grind to a halt.
 
 To make processing asynchronous, introduce explicit queues with
 +clojure.core.async/chan+. Perform work asynchronously by wrapping
-it in one of ++core.async++'s +clojure.core.async/go+ forms.
+it in one of ++core.async++'s +clojure.core.async/go+ forms:
 
 [source,clojure]
 ----
@@ -127,6 +127,12 @@ it in one of ++core.async++'s +clojure.core.async/go+ forms.
 
 ==== Discussion
 
+[quote, Rich Hickey, Clojure core.async Channels]
+____
+There comes a time in all good programs when components or subsystems
+must stop communicating directly with one another.
+____
+
 This code is larger than the original implementation. What has this
 afforded us?
 
@@ -136,25 +142,19 @@ communication over channels and doing work asynchronously, we've
 created service boundaries around producers and consumers, allowing
 them to operate as independently as possible.
 
-[quote, Rich Hickey, Clojure core.async Channels]
-____
-There comes a time in all good programs when components or subsystems
-must stop communicating directly with one another.
-____
-
 Let's examine one of the new consumers in depth to understand how it
 has changed. 
 
 Instead of receiving messages via function invocation,
 consumers now draw messages from a buffered channel. Where a consumer
-(e.g. +database-consumer+) used to consume a single message at a time,
+(e.g., +database-consumer+) used to consume a single message at a time,
 it now uses a +go-loop+ to continuously consume messages from its
 producer.
 
 In traditional callback-oriented code, accomplishing something like
 this would require splitting logic out across numerous functions,
 introducing "callback hell." One of the benefits of +core.async+ is
-that it lets you write code inline, in a more straight-forward style.
+that it lets you write code inline, in a more straightforward style:
 
 [source,clojure]
 ----
@@ -179,15 +179,15 @@ that it lets you write code inline, in a more straight-forward style.
     like +while true+. This +go-loop+ reads its initial value by
     "taking" (+<!+) from the input channel (+in+).
 <3> Because channels return +nil+ when closed, as long as we can read
-    +data+ from them we know we have work to do.
+    +data+ from them, we know we have work to do.
 <4> To +recur+ the +go-loop+ to the beginning, take the next value
     from the channel and invoke +recur+ with it.
 
 Because the +go-loop+ block is asynchronous, the take call (+<!+)
 parks until a value is placed on the channel. The remainder of the
-+go-loop+ block -- here, the +println+ call -- is pending. Since the
++go-loop+ block--here, the +println+ call--is pending. Since the
 channel is returned as the +database-consumer+ function's value, other
-parts of the system -- namely, the producer -- are free to write to
+parts of the system--namely, the producer--are free to write to
 the channel while the take waits. The first value written to the
 channel will satisfy that read call, allowing the rest of the
 +go-loop+ block to continue.
@@ -197,7 +197,7 @@ closes. Since the channel is buffered, we now have some measure of
 control over the system's resiliency. For example, buffers allow a
 consumer to lag behind a producer by a specified amount.
 
-Fewer changes are required to make +producer+ asynchronous.
+Fewer changes are required to make +producer+ asynchronous:
 
 [source,clojure]
 ----
@@ -210,9 +210,9 @@ Fewer changes are required to make +producer+ asynchronous.
      (>! out item))))     ; <3>
 ----
 
-<1> For each message and channel...
-<2> take from a +timeout+ channel to simulate a short pause for effect, and
-<3> put a message onto the channel with +>!+.
+<1> For each message and channel,
+<2> Take from a +timeout+ channel to simulate a short pause for effect, and
+<3> Put a message onto the channel with +>!+.
 
 Although the operations are asynchronous, they still occur serially.
 Using unbuffered consumer channels would mean if one of the consumers

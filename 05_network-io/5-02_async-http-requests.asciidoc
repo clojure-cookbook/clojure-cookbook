@@ -9,7 +9,7 @@ You want to perform asynchronous HTTP requests.
 
 ==== Solution
 
-Use http://http-kit.org/[HTTP Kit], a highly-performant event-driven
+Use http://http-kit.org/[HTTP Kit], a highly-performant, event-driven
 HTTP client/server library.
 
 Before starting, add `[http-kit "2.1.12"]` to your project's
@@ -23,7 +23,7 @@ $ lein try http-kit
 Use any of ++org.httpkit.client++'s HTTP verb functions to perform
 asynchronous HTTP requests. In their base form, these functions return
 a promise which you can await with +deref+ or the +@+
-reader-shorthand.
+reader shorthand:
 
 [source,clojure]
 ----
@@ -55,20 +55,20 @@ delivery of data.
 In this vein, HTTP Kit provides both a highly concurrent web server, as
 well as a powerful HTTP client. It offers both callbacks and promises for
 asynchronous requests, as well as persistent connections and alternate
-SSL Engines for dealing with unsigned SSL certificates.
+SSL engines for dealing with unsigned SSL certificates.
 
 The +org.httpkit.client+ namespace defines asynchronous versions of
 numerous HTTP methods, including: +get+, +delete+, +head+, +post+,
-+put+, +options+ and +patch+. Each of these verbs derives from
-+org.httpkit.client/request+, which defines a common interface; An
-asynchronous request of a given method is made and a promise is
++put+, +options+, and +patch+. Each of these verbs derives from
++org.httpkit.client/request+, which defines a common interface. An
+asynchronous request of a given method is made, and a promise is
 returned. Upon completion of the request, the promise will be
 fulfilled with the results/response.
 
 All +request+ functions accept an optional map of options where you
-can specify keys like +:query-params+, +:post-params+ or +:headers+.
+can specify keys like +:query-params+, +:post-params+, or +:headers+.
 Functions also allow specifying a callback function to be called upon
-request completion.
+request completion:
 
 [source,clojure]
 ----
@@ -90,9 +90,9 @@ request completion.
 
 ==== See Also
 
-* <<sec_http_request>> for normal, non-asynchronous HTTP requests.
+* <<sec_http_request>> for normal, nonasynchronous HTTP requests
 
 * HTTP Kit is heavily inspired by the API of
-  https://github.com/dakrone/clj-http[+clj-http+], see
-  <<sec_http_request>> for more information on the library.
+  https://github.com/dakrone/clj-http[+clj-http+]; see
+  <<sec_http_request>> for more information on the library
 

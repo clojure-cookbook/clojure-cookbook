@@ -16,7 +16,7 @@ JLine is similar to BSD editline and GNU readline. To follow along with this
 recipe, create a new library using the command *+lein new keystroke+*.  Inside
 _project.clj_, add `[jline "2.11"]` to the +:dependencies+ vector.
 
-Inside the _src/keystroke/core.clj_ file, use +ConsoleReader+ to read characters from the terminal.
+Inside the _src/keystroke/core.clj_ file, use +ConsoleReader+ to read characters from the terminal:
 
 ._src/keystroke/core.clj_
 [source,clojure]
@@ -69,7 +69,7 @@ user=>
 actually runs the REPL and its associated console I/O in a separate
 JVM process from your application code. Using the +trampoline+ option
 forces Leiningen to run your code in the same process as the REPL,
-"trampolining " control back and forth. Normally this is invisible,
+"trampolining" control back and forth. Normally this is invisible,
 but it is a problem when running code that itself is attempting to use
 the console directly.
 
@@ -82,4 +82,4 @@ issue.
 * If you want a richer terminal-based interface similar to what
   the C curses library provides, the
   http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+] library
-  may be a good place to start.
+  may be a good place to start

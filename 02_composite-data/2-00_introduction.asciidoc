@@ -7,14 +7,14 @@ together. As you'll see soon enough, data manipulation is one of
 Clojure's strong suits.
 
 What makes Clojure so good at manipulating collections? It comes down
-to three things: _immutability_, _persistence_ and the _sequence_
-abstraction. Every one of Clojure's built-in collection types have these
-properties and are thus unified in their API's appearance and
+to three things: _immutability_, _persistence_, and the _sequence_
+abstraction. Every one of Clojure's built-in collection types has these
+properties and is thus unified in its API's appearance and
 behavior.
 
 As the great Alan J. Perlis put it:
 
-[quote, Alan J. Perlis, Early Computer Science Pioneer]
+[quote, Alan J. Perlis, Early computer science pioneer]
 ____
 It is better to have 100 functions operate on one data structure than
 to have 10 functions operate on 10 data structures.
@@ -35,7 +35,7 @@ desired changes in place.
 
 Immutability means that Clojure data structures, however deeply
 nested, are simple _values_, just like the number +3+ or the character
-+\z+. It doesn't make sense to speak of "changing" the value of +3+ -
++\z+. It doesn't make sense to speak of "changing" the value of +3+&#x2014;
 it just is. If you "change" it by, say, incrementing it, you don't
 modify +3+ itself. Instead, you end up with an entirely new and
 different value, +4+. Clojure extends this notion of value to all data
@@ -48,7 +48,7 @@ will cause any unintended change elsewhere in your program.
 This feature is extremely important in concurrent and parallel
 programming, where unexpected mutation is the source of a large class
 of bugs. With immutable data, any number of threads can read from the
-same data without any worrying about locks or race conditions - it's
+same data without any worrying about locks or race conditions--it's
 always safe to read something that can't change. "Clone" operations
 are not only free, but unnecessary.
 
@@ -66,29 +66,27 @@ only need to store the deltas from pervious versions, rather than
 doing a full deep copy.
 
 To make it performant, all of this uses some extremely clever
-algorithms, of course - see the book "Purely Functional Data
-Structures" by Chris Okasaki for a detailed description of how they
+algorithms, of course. See the book _Purely Functional Data
+Structures_ by Chris Okasaki (Cambridge University Press) for a detailed description of how they
 work.
 
 ==== The Sequence Abstraction
 
-From vectors, maps, sets and lists to strings and streams, every last
-one of Clojure's collections behave in a similar, predictable fashion;
-simple tools for a more civilized age. This is on account of Clojure's
+From vectors, maps, sets, and lists to strings and streams, every last
+one of Clojure's collections behaves in a similar, predictable fashion. They are simple tools for a more civilized age. This is on account of Clojure's
 sequence abstraction.
 
-The wide-array of collection manipulating functions in Clojure are all
-implemented in terms of one simple abstraction; every collection can
-be treated as a sequence of values. By implementing +first+, +rest+
-and +cons+ any data structure--even ones you build yourself--can
+The array of collection-manipulating functions in Clojure are all
+implemented in terms of one simple abstraction: every collection can
+be treated as a sequence of values. By implementing +first+, +rest+,
+and +cons+, any data structure--even ones you build yourself--can
 participate in the +ISeq+ interface.
 
 Then, you can use Clojure's huge library of functions that can operate
 on sequences, with *any* of the data structures. All of functional
-programming's best-beloved functions (+map+, +reduce+, +filter+, etc)
+programming's best-beloved functions (+map+, +reduce+, +filter+, etc.)
 will work interchangably on any data structure. In essence, the
 sequence abstraction allows all the expressiveness of traditional
-list-based LISP programming without forcing you to actually use lists
-Instead, use whatever type is most efficient for the task, knowing
+list-based LISP programming without forcing you to actually use lists. Instead, use whatever type is most efficient for the task, knowing
 that you can consume them all in the same way when it makes sense to
 do so.

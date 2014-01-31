@@ -9,17 +9,17 @@ You need to read or write some binary data.
 
 ==== Solution
 
-Use Java's +BufferedInputStream+, +BufferedOutputStream+ and
+Use Java's +BufferedInputStream+, +BufferedOutputStream+, and
 +ByteBuffer+ classes to work directly with binary data.
 
 ==== Discussion
 
-While reading and writing text files (e.g. via `slurp` and `spit`) is
+While reading and writing text files (e.g., via `slurp` and `spit`) is
 easy in pure Clojure, writing binary data requires a little more Java interop.
 
 Clojure's `output-stream` wraps the `BufferedOutputStream` Java
-object. `BufferedOutputStream` has a `write` method which accepts Java byte
-arrays. The following writes 1000 zeros (bytes) to `/tmp/zeros`:
+object. `BufferedOutputStream` has a `write` method that accepts Java byte
+arrays. The following writes 1,000 zeros (bytes) to `/tmp/zeros`:
 
 [source,clojure]
 ----
@@ -48,9 +48,9 @@ content. A common way to prepare byte arrays is to use a +ByteBuffer+,
 filling it with data from various types. Let's assume we want to
 write "strings" in the following format:
 
-1. A version number (byte; 66 in our example)
+1. A version number (byte; +66+ in our example)
 2. A string length (big-endian int)
-3. the bytes for the string (in this case, "hello world")
+3. The bytes for the string (in this case, "hello world")
 
 Then the following function will "pack" the bytes into an array
 using an intermediate `ByteBuffer`:
@@ -79,7 +79,7 @@ using an intermediate `ByteBuffer`:
 ;;=> [66 0 0 0 11 104 101 108 108 111 32 119 111 114 108 100]
 ----
 
-Writing data in this format is then as simple as
+Writing data in this format is then as simple as:
 
 [source,clojure]
 ----
@@ -115,21 +115,20 @@ multiple types out of a stream (array) of bytes:
 
 Note that for both writing and reading, the `flip` operation on the
 +ByteBuffer+ resets the position to the beginning of the buffer to
-prepare it for reading, and writing, respectively.  
+prepare it for reading and writing, respectively.  
 
 ==== See Also
 
 - For more details on +ByteBuffer+, which plays a key role in Java's NIO
-library, see the Java NIO documentation, or Ron Hitchens, __Java NIO__
-(http://shop.oreilly.com/product/9780596002886.do).
+library, see the Java NIO documentation, or pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596002886.do">Java NIO</ulink></emphasis>] by Ron Hitchens (O'Reilly Media).
 
 - The Clojure library,
   https://github.com/geoffsalmon/bytebuffer[+bytebuffer+], which provides a
 thin, more idiomatic wrapper for +ByteBuffer+ operations.
 
-- The more recent https://github.com/clojurewerkz/buffy[Buffy] library provides
+- The more recent https://github.com/clojurewerkz/buffy[Buffy library] provides
 a wrapper over the related Netty ByteBuffers.
 
-- Finally, the https://github.com/ztellman/gloss[Gloss] library provides a DSL
+- Finally, the https://github.com/ztellman/gloss[Gloss library] provides a DSL
 for reading and writing binary streams of data (whether file-based, or
 network-based).

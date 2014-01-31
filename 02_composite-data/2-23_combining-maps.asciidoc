@@ -9,7 +9,7 @@ You have two or more maps you wish to combine to produce a single map.
 
 ==== Solution
 
-Use +merge+ to combine two or more maps with no keys in common.
+Use +merge+ to combine two or more maps with no keys in common:
 
 [source,clojure]
 ----
@@ -21,7 +21,7 @@ Use +merge+ to combine two or more maps with no keys in common.
 ----
 
 Use +merge-with+ when you want more explicit control of the merge
-strategy for keys that exist in more than one map.
+strategy for keys that exist in more than one map:
 
 [source,clojure]
 ----
@@ -43,7 +43,7 @@ always returning the last value it sees for every key.
 When mappings for the same key exist in more than one map, the latter
 mapping is used in the result. This can be useful, for example, when
 you receive new totals throughout the day, but only for values that
-have changed.
+have changed:
 
 [source,clojure]
 ----
@@ -60,9 +60,9 @@ allowing you to control *how* values are merged. You can imagine
 to +merge-with+ is a merge function that will be invoked for each pair
 of duplicated values.
 
-With careful choice of map value-types, +merge-with+ provides some
+With careful choice of map value types, +merge-with+ provides some
 concise solutions to common problems. For example, by merging with
-+clojure.set/intersection+ you can find the intersection of "like" and
++clojure.set/intersection+, you can find the intersection of "like" and
 "dislike" sets in a team of programmers:
 
 [source,clojure]
@@ -90,14 +90,14 @@ function:
 ;; -> {:foo {:bar {:qux 42, :baz 1}}}
 ----
 
-As you saw in the examples above, +merge-with+ is a versatile tool; we
+As you saw in the previous examples, +merge-with+ is a versatile tool: we
 used `+` to add values of the same key, +clojure.set/intersection+ to
 find shared values of multiple sets, and a recursive function
 +deep-merge+ to recursively merge nested maps. +merge-with+ is a
 *very* powerful function, indeed.
 
 
-==== See also
+==== See Also
 
 * <<sec_composite_data_maps_setting_keys>>
 * <<sec_composite_data_maps_multiple_values>>

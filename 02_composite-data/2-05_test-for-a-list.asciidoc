@@ -9,13 +9,13 @@ You want to test if a value is a list.
 ==== Solution
 
 The +list?+ function may seem like the obvious choice, but in most
-cases it's better to use the more general +seq?+ function as your
+cases, it's better to use the more general +seq?+ function as your
 test.
 
 ==== Discussion
 
 The +list?+ function specifically tests if the argument implements
-+clojure.lang.IPersistentList+, but in most cases you really want to
++clojure.lang.IPersistentList+, but in most cases, you really want to
 know if the value is a *seq* (implements +clojure.lang.ISeq+), which
 is a more general abstraction than a list.
 
@@ -23,7 +23,7 @@ Not everything that prints as a *list* (in parentheses) actually
 satisfies the +list?+ test. In practice, you'll often receive +Cons+
 and +LazySeq+ values when manipulating lists. By focusing on the
 fundamental *seq* abstraction, you don't need to worry about the
-details of those concrete implementations.
+details of those concrete implementations:
 
 [source,clojure]
 ----

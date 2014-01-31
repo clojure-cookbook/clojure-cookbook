@@ -9,9 +9,9 @@ You want to obtain a new set with items added or removed.
 
 ==== Solution
 
-The +conj+ function supports sets, just as it does lists, vectors and
+The +conj+ function supports sets, just as it does lists, vectors, and
 maps. Use it to add an item or items to a set: just pass it the set
-and any number of items to add.
+and any number of items to add:
 
 [source,clojure]
 ----
@@ -23,7 +23,7 @@ and any number of items to add.
 ----
 
 To remove one or more items, use the +disj+ function, which is
-specific to sets. It takes a set and one or more keys to remove.
+specific to sets. It takes a set and one or more keys to remove:
 
 [source,clojure]
 ----
@@ -40,7 +40,7 @@ Since sets are unordered, there is no concept of "where" items are
 added or removed; either a set contains an item, or it doesn't.
 
 Note that both +conj+ and +disj+ return a set of the same concrete
-type as the original. A hash set will remain a hash set, a sorted set
+type as the original. A hash set will remain a hash set, and a sorted set
 will remain a sorted set.
 
 Also worth noting is that these operations are simply no-ops if the
@@ -57,7 +57,7 @@ which can be used to add the items of multiple set together, and
 expression of set operations than many calls to +conj+ or +disj+, or
 invoking them with large numbers of arguments.
 
-==== See also
+==== See Also
 
 * <<sec_adding_to_a_list>>
 * <<sec_adding_to_a_vector>>

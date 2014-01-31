@@ -1,5 +1,5 @@
 [[sec_retrieving_multiple_keys]]
-=== Retrieving Multiple Keys From a Map Simultaneously
+=== Retrieving Multiple Keys from a Map Simultaneously
 [role="byline"]
 by Leonardo Borges
 
@@ -10,7 +10,7 @@ You want to retrieve multiple values from a map at one time.
 ==== Solution
 
 Use +vals+ and +select-keys+ when the order of returned values is not
-important.
+important:
 
 [source,clojure]
 ----
@@ -23,7 +23,7 @@ important.
 ;; -> 11
 ----
 
-Use +juxt+ when order matters.
+Use +juxt+ when order matters:
 
 [source,clojure]
 ----
@@ -38,16 +38,16 @@ Use +juxt+ when order matters.
 tools for retrieving multiple keys from a map. There are subtleties to
 their behavior that are important to understand.  
 
-At first glance the +juxt+ approach seems to be the clear winner of
-the two. The +juxt+ approach only goes so far; the approach falls
+At first glance, the +juxt+ approach seems to be the clear winner of
+the two. The +juxt+ approach only goes so far: the approach falls
 apart when any of the keys you wish to retrieve is not a keyword (more
-specifically, not a *function*.) This is because +juxt+ merely
+specifically, not a *function*). This is because +juxt+ merely
 _juxtaposes_ the return values of multiple functions. Since keywords
 are functions, it's possible to +juxt+ them and retrieve a
 strongly-ordered list of values.
 
 If the keys in the +beans+ map were strings, it would not be possible
-to retrieve their values with +juxt+.
+to retrieve their values with +juxt+:
 
 [source,clojure]
 ----
@@ -58,7 +58,7 @@ to retrieve their values with +juxt+.
 +select-keys+, on the other hand, *is* capable of pulling values for
 any number of arbitrary keys. The +select-keys+ function takes a map
 and sequence of keys and returns a new map populated with *only* those
-keys.
+keys:
 
 [source,clojure]
 ----
@@ -74,9 +74,9 @@ keys.
 
 Since maps are not ordered, it is *not* safe to assume that the
 ordering of keys and values is identical (even if you stumble upon an
-example where it is.) In cases where you're pulling multiple values
-from non-keyword maps it is probably easiest to wrap that interaction
-up via +juxt+.
+example where it is). In cases where you're pulling multiple values
+from nonkeyword maps, it is probably easiest to wrap that interaction
+up via +juxt+:
 
 [source,clojure]
 ----
@@ -90,7 +90,7 @@ up via +juxt+.
 
 You'll avoid weird maps now, won't you?
 
-==== See also
+==== See Also
 
 * <<sec_composite_retrieving_keys_map>>
 * <<sec_composites_as_keys>>

@@ -9,7 +9,7 @@ You want to make a simple HTTP GET or POST request.
 
 ==== Solution
 
-Use +slurp+ to make simple HTTP GET requests.
+Use +slurp+ to make simple HTTP GET requests:
 
 [source,clojure]
 ----
@@ -29,7 +29,7 @@ dependencies, or use +lein-try+ to start a REPL:
 $ lein try clj-http
 ----
 
-Use +clj-http.client/get+ to make GET requests.
+Use +clj-http.client/get+ to make GET requests:
 
 [source,clojure]
 ----
@@ -50,7 +50,7 @@ Use +clj-http.client/get+ to make GET requests.
 ----
 
 Parameters can be included in both GET and POST requests. Use
-+clj-http.client/post+ to make POST requests.
++clj-http.client/post+ to make POST requests:
 
 [source,clojure]
 ----
@@ -95,11 +95,11 @@ manage complex failure scenarios involving external services.
 ==== See Also
 
 * ++clj-http++'s https://github.com/dakrone/clj-http[GitHub
-  repository].
+  repository]
 * For information on making asynchronous HTTP calls, see
-  <<sec_async_http>>.
+  <<sec_async_http>>
 * When building production systems that interact with external
   services, consider https://github.com/Netflix/Hystrix[Hystrix] and
   its
   https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-clj[Clojure
-  bindings] to wrangle complex failure scenarios.
+  bindings] to wrangle complex failure scenarios

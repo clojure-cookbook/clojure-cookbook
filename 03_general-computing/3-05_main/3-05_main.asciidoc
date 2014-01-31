@@ -16,7 +16,7 @@ argument to +clojure.main+.
 [NOTE]
 ====
 To follow along with this recipe, you can download a version of
-_clojure.jar_ at _http://clojure.org/downloads_.
+_clojure.jar_ at http://clojure.org/downloads.
 ====
 
 For example, given a file _my_clojure_program.clj_ with the contents:
@@ -48,7 +48,7 @@ In a more structured project, you'll probably have files organized in a _src/_ f
 
 To load and run the +-main+ function, specify the desired namespace
 with the +-m+/+--main+ option and add _src_ to the classpath list (via
-+-cp+).
++-cp+):
 
 [source,shell-session]
 ----
@@ -60,14 +60,14 @@ Hey!
 
 Although you will spend most of your time evaluating Clojure code in a
 REPL, it is useful to be able to either run a simple "script" full of
-Clojure expressions, or to run a more structured Clojure application
+Clojure expressions or to run a more structured Clojure application
 with a +-main+ entry point.
 
-In either case, you have access to any extra command line arguments
+In either case, you have access to any extra command-line arguments
 passed after the script name or the main namespace name.
 
 For example, let's say you have written the following program, in a
-file called _hello.clj_.
+file called _hello.clj_:
 
 ._hello.clj_
 [source,clojure]
@@ -80,7 +80,7 @@ file called _hello.clj_.
   (println (greet name)))
 ----
 
-Invoking this Clojure program directly will yield predictable output.
+Invoking this Clojure program directly will yield predictable output:
 
 [source,shell-session]
 ----
@@ -106,7 +106,7 @@ namespace, and your project is structured something like this:
 ./src/foo.clj
 ----
 
-Your +foo+ namespace requires the +foo.util+ namespace, and
+Your +foo+ namespace requires the +foo.util+ namespace and
 provides a +-main+ function, like so:
 
 [source,clojure]
@@ -121,7 +121,7 @@ provides a +-main+ function, like so:
 ----
 
 When you invoke Clojure with +foo.core+ as the "main" namespace, it
-calls the +-main+ function with the provided command line arguments.
+calls the +-main+ function with the provided command-line arguments:
 
 [source,shell-session]
 ----
@@ -136,8 +136,8 @@ _clojure.jar_, but also the contents of the _src/_ directory on disk.
 
 ==== See Also
 
+* <<sec_command_line_applications>> to learn how to run Leiningen projects
+  from the command line
 * <<sec_parse_command_line_arguments>> to learn how to cleanly
   expose multiple options and flags in your command-line
-  applications.
-* <<sec_command_line_applications>> to learn how to run Leiningen projects
-  from the command line.
+  applications

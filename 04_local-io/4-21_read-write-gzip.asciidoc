@@ -4,12 +4,12 @@ by John Cromartie
 
 ==== Problem
 
-You want to read or write a file compressed with Gzip (i.e. a +.gz+ file).
+You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).
 
 ==== Solution
 
 Wrap a normal input stream with +java.util.zip.GZIPInputStream+ to
-get uncompressed data.
+get uncompressed data:
 
 [source,clojure]
 ----
@@ -20,7 +20,7 @@ get uncompressed data.
 ----
 
 Wrap a normal output stream with +java.util.zip.GZIPOutputStream+ to
-compress data as it is written.
+compress data as it is written:
 
 [source,clojure]
 ----
@@ -35,12 +35,12 @@ compress data as it is written.
 ==== Discussion
 
 Gzip, based on the DEFLATE algorithm, is a common compression format
-on Unix-like systems, and is used extensively for compression on the
-web. It is a good choice for compressing text in particular, and can
+on Unix-like systems and is used extensively for compression on the
+Web. It is a good choice for compressing text in particular and can
 see huge reductions for source code, or Clojure or JSON data.
 
 Many of Clojure's IO functions will accept any type of Java
-stream. The +GZIPInputStream+ simply "wraps" any other input stream
+stream. The +GZIPInputStream+ simply wraps any other input stream
 and attempts to decompress the original stream. The output variant
 behaves similarly.
 
@@ -50,11 +50,11 @@ By wrapping a normal input stream, as returned by
 easily read the entire decompressed contents.
 
 You can also leverage this technique to read a large compressed file
-line-by-line, or to read back Clojure forms written with +pr+ or
+line by line, or to read back Clojure forms written with +pr+ or
 +pr-str+. You can also decompress data in a similar way from any other
-kind of stream, e.g. one backed by a network socket or a byte array.
+kind of stream, for example one backed by a network socket or a byte array.
 
-By binding an output stream to +pass:[*out*]+ we can use +println+,
+By binding an output stream to +pass:[*out*]+, we can use +println+,
 +pr+, etc. to output small amounts of data at a time to the stream,
 which will be compressed on disk when the stream is closed.
 
@@ -65,7 +65,7 @@ compression format, using the +java.util.zip.ZipInputStream+ and
 ==== See Also
 
 * <<sec_local_io_clojure_data_to_disk>> for information on reading
-  Clojure data from files on disk.
+  Clojure data from files on disk
 * The +GZIPInputStream+
   http://docs.oracle.com/javase/7/docs/api/java/util/zip/GZIPInputStream.html[API
-  Documentation].
+  documentation]

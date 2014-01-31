@@ -19,7 +19,7 @@ $ lein try com.draines/postal
 ----
 
 Send a message by invoking the +postal.core/send-message+ function
-with two maps; the first containing connection details and the second
+with two maps, the first containing connection details and the second
 containing message details. For example, to send an email message to
 yourself via a Gmail account:
 
@@ -51,11 +51,11 @@ thereafter.
 With the venerable JavaMail at its core, there isn't much +postal+
 leaves for you to worry about. Even Gmail's oft-maligned
 authentication setup can be tackled with a single +:ssl+ key. While we
-might normally suggest: "give the native Java API a try," for simple
-email delivery we prefer +postal+ because it presents an API oriented
+might normally suggest, "Give the native Java API a try," for simple
+email delivery, we prefer +postal+ because it presents an API oriented
 around data rather than objects.
 
-One of the places data-orientation really shines is in specifying
+One of the places data orientation really shines is in specifying
 connection details. The first argument to the +send-message+ function
 is a (versatile) map of connection details. Valid connection details
 are:
@@ -90,7 +90,6 @@ Similar to connection details, messages themselves are represented as
 simple maps of data. The full complement of standard headers are
 supported as message keys:
 
-.Standard Message Options
 * Sender options
 ** +:from+
 ** +:reply-to+
@@ -109,10 +108,9 @@ supported as message keys:
 Options specified beyond these will be attached to the message as
 ancillary headers.
 
-When specifying recipients on the +:to+, +:cc+ or +:bcc+ keys, values
-may be either a single address or a sequence of addresses.
+When specifying recipients on the +:to+, +:cc+, or +:bcc+ keys, values
+may be either a single address or a sequence of addresses:
 
-.Valid Recipient Key-Value Pairs
 [source,clojure]
 ----
 {:to "joe@example.com"
@@ -121,16 +119,15 @@ may be either a single address or a sequence of addresses.
 ----
 
 A message's body can be specified as either a string or a sequence of
-_part_ maps. While the former delivers a simple plaintext email, the
-latter will deliver a multipart MIME message. MIME--"Multipurpose
-Internet Mail Extensions" if you've got a few minutes--is the standard
+_part_ maps. While the former delivers a simple plain-text email, the
+latter will deliver a multipart _MIME_ message. MIME (Multipurpose Internet Mail Extensions) is the standard
 that allows email messages to contain attachments or other rich
 content, such as HTML.
 
-A _part_ map is made up of two values: +:type+ and +:content+. For
+A part map is made up of two values: +:type+ and +:content+. For
 message body parts, +:type+ is the MIME type of the content, and
 +:content+ is the textual representation of said content. For example,
-to create a message with both plaintext and HTML representations of
+to create a message with both plain text and HTML representations of
 the content:
 
 [source,clojure]
@@ -164,8 +161,8 @@ For attachments, the +:type+ parameter behaves a little differently,
 controlling whether the attachment resides inline (+:inline+) or as an
 attachment (+:attachment+). The contents of an attachment are
 specified by providing a +File+ object for the +:content+ key. An
-attachments content type and name are generally inferred from the
-+File+ object, but they be overridden via the +:content-type+ and
+attachment's content type and name are generally inferred from the
++File+ object, but they may be overridden via the +:content-type+ and
 +:file-name+ keys, respectively.
 
 For example, forwarding all of your closest friends a picture of your
@@ -185,6 +182,6 @@ cat might look something like this:
 
 ==== See Also
 
-* ++postal++'s https://github.com/drewr/postal[GitHub repository].
-* JavaMail's https://javamail.java.net/nonav/docs/api/[API documentation].
+* ++postal++'s https://github.com/drewr/postal[GitHub repository]
+* JavaMail's https://javamail.java.net/nonav/docs/api/[API documentation]
 

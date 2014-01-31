@@ -27,7 +27,7 @@ For example, a file _resources/people.edn_:
 Pass the the name of the file (relative to the resources directory) to
 the +clojure.java.io/resource+ function to obtain an instance of
 +java.io.File+, which you can then read as you please (for example,
-using the +slurp+ function).
+using the +slurp+ function):
 
 [source,clojure]
 ----
@@ -54,7 +54,7 @@ the contents of +resources/+ are copied to the root of any emitted JAR
 files.
 
 You can also specify an alternative (or additional) resource directories using the
-`:resources-paths` key in your `project.clj`.
+`:resources-paths` key in your `project.clj`:
 
 ._project.clj_
 [source,clojure]
@@ -81,20 +81,20 @@ Also, there are sometimes additional reasons to *not* serve from the
 classpath. For example, consider static images on a website. If you
 place them in your web application's classpath, then they will be
 served by your application server container (Jetty, Tomcat, JBoss,
-etc.) Typically, these applications are optimized for serving dynamic
+etc.). Typically, these applications are optimized for serving dynamic
 HTML resources, not larger binary blobs. Serving larger static files
 is often more suited to the _HTTP server_ level of your architecture
 than the _application server_ level, and should be delegated to
-Apache, Nginx or whatever other HTTP server you're using. Or, you
+Apache, Nginx, or whatever other HTTP server you're using. Or, you
 might even want to split them off and serve them via a seperate
 mechanism entirely, such as a CDN (content delivery network). In
 either case, it is difficult to set up the HTTP server or CDN to
-introspect resources *inside* of your application's JAR file - it's
+introspect resources *inside* of your application's JAR file--it's
 usually better to store them elsewhere, from the start.
 
 ==== See Also
 
 * The Leiningen
-  https://github.com/technomancy/leiningen/blob/41f7a297b4daf4b3676048b5172a9c80c89e9266/sample.project.clj#L247[_sample.project.clj_],
-  which includes a more detailed description of how the +:resource-paths+ option works.
+  http://bit.ly/1fhVyCn[_sample.project.clj_],
+  which includes a more detailed description of how the +:resource-paths+ option works
 * <<sec_local_io_clojure_data_to_disk>>

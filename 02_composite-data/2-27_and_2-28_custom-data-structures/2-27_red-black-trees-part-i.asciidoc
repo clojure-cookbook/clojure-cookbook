@@ -1,5 +1,5 @@
 [[sec_red_black_part_i]]
-=== Implementing Custom Data Structures: Red-Black Trees - Part I
+=== Implementing Custom Data Structures: Red-Black Trees--Part I
 [role="byline"]
 by Leonardo Borges
 
@@ -25,7 +25,7 @@ sorted data set, however. Adding and removing large amounts of data
 may unbalance a BST and degenerate its performance to that of a linked
 list.
 
-Red-Black trees (RBT) are similar to BSTs, but are self-balancing. This
+Red-black trees (RBT) are similar to BSTs, but are self-balancing. This
 would be an appropriate data structure for the data set in question.
 
 The next step is to implement the data structure itself. The
@@ -42,8 +42,8 @@ lein try org.clojure/core.match
 ----
 
 First, implement the core of a RBT, the +balance+ and +insert-val+
-functions. By using +core.match+ it is possible to succinctly express
-the required behaviors based on the shape of the tree.
+functions. By using +core.match+, it is possible to succinctly express
+the required behaviors based on the shape of the tree:
 
 [source,clojure]
 ----
@@ -87,7 +87,7 @@ With insertion and balance out of the way, the only remaining
 function to implement is a +find-val+ function for testing if a value
 is present in a RBT. The easiest way to do this is by breaking down
 individual tree nodes with +match+ and recursively scanning for the
-desired value.
+desired value:
 
 [source,clojure]
 ----
@@ -103,7 +103,7 @@ desired value.
 ----
 
 With all of this in place, it is now possible to create and query a
-RBT.
+RBT:
 
 [source,clojure]
 ----
@@ -121,12 +121,12 @@ rb-tree
 
 ==== Discussion
 
-For anyone who has ever had to implement a Red-Black Tree - or at
-least attended a class in Computer Science where the algorithm was
-taught - the implementation of +balance+ might seem extremely short.
+For anyone who has ever had to implement a red-black tree--or at
+least attended a class in computer science where the algorithm was
+taught--the implementation of +balance+ might seem extremely short.
 The reason for this is threefold:
 
-* Our Red-Black Tree is persistent: operations on it, such as insert
+* Our red-black tree is persistent: operations on it, such as insert
   and balance, are not destructive.
 * +balance+ and +find-val+ use +core.match+ to codify logic as patterns
   to match.
@@ -149,13 +149,13 @@ against two clauses:
 ;; -> "Got z: 3"
 ----
 
-The first clause matches a two-element vector whereas the second
-matches a 3-element vector. Given +a-vector+ has exactly three
+The first clause matches a two-element vector, whereas the second
+matches a three-element vector. Given +a-vector+ has exactly three
 elements, it matches the second clause. In the expression that
 follows, named values (such as +z+) are bound to the positions they
 match.
 
-This is why it was convenient to represent nodes as vectors - it makes
+This is why it was convenient to represent nodes as vectors--it makes
 pattern matching against them a breeze:
 
 [source,clojure]
@@ -171,22 +171,22 @@ pattern matching against them a breeze:
 Assuming this new custom data structure meets your performance
 criteria, what is left? (You are benchmarking all of your custom data
 structures, right?) Unlike built-in data structures, this custom data
-structures doesn't work with core functions such as +map+ and
+structure doesn't work with core functions such as +map+ and
 +filter+.
 
-In the second part of this recipe, <<sec_red_black_part_ii>> we'll
+In the second part of this recipe, <<sec_red_black_part_ii>>, we'll
 rectify this situation by participating in the core sequence abstraction.
 
 ==== See Also
 
 * The second part of this recipe, <<sec_red_black_part_ii>>, where we
   add sequence functionality to our RBT.
-* http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-Black
-  Trees on Wikipedia] for a more traditional take on this interesting
+* http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-black
+  trees on Wikipedia] for a more traditional take on this interesting
   data structure.
 * For the functional approach used in this recipe, the book
-  http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504[Purely
-  Functional Data Structures] is an excellent source. It deals with
+  http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504[_Purely
+  Functional Data Structures_] (Cambridge University Press) is an excellent source. It deals with
   how to efficiently implement data structures in a functional
-  setting. The author chose to use ML and Haskell but its concepts are
-  transferable to Clojure, as demonstrated above.
+  setting. The author chose to use ML and Haskell, but its concepts are
+  transferable to Clojure, as demonstrated previously.

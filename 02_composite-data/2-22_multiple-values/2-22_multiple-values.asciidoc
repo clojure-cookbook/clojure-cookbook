@@ -5,18 +5,18 @@ by Luke VanderHart
 
 ==== Problem
 
-Normally, maps are strictly one value per key; if you +assoc+ an
+Normally, maps are strictly one value per key: if you +assoc+ an
 existing key, the old value is replaced. However, sometimes it would
 be useful to have a map-like interface (a "multimap") which is capable
 of storing *multiple* values for the same key.
 
 You would like to create a map-like data structure that implements a
-multimap-like interfae in Clojure.
+multimap-like interface in Clojure.
 
 ==== Solution
 
 To introduce such a capability on top of normal maps, create and
-extend a protocol +MultiAssociative+ that defines this behavior.
+extend a protocol +MultiAssociative+ that defines this behavior:
 
 [source,clojure]
 ----
@@ -66,7 +66,7 @@ extend a protocol +MultiAssociative+ that defines this behavior.
        :else #{v}))))
 ----
 
-And, of course, corresponding unit tests (using +clojure.test+.)
+and, of course, corresponding unit tests (using +clojure.test+):
 
 [source,clojure]
 ----
@@ -114,13 +114,13 @@ And, of course, corresponding unit tests (using +clojure.test+.)
 
 First, this code defines a protocol to implement the set of functions
 that comprise the multimap behavior. A protocol is a great choice in
-this situation; it ties together several methods that perform related
+this situation: it ties together several methods that perform related
 operations on the same object, and it allows for multiple concrete
 implementations.
 
 In this case, there are three methods required to implement the
 desired functionality. Note that it does *not* override or
-re-implement any of the core map methods (+assoc+, +dissoc+ etc.). The
+reimplement any of the core map methods (+assoc+, +dissoc+, etc.). The
 semantics of the new behavior are simply different from regular maps,
 and Clojure defines very strong semantics around core
 functions. Breaking or overriding these expectations is always a bad
@@ -130,12 +130,12 @@ when multimap functionality is being used.
 The concrete implementation of +MultiAssociative+ extends the protocol
 to the +clojure.lang.Associative+ interface. It would certainly be
 possible to implement it on something more targeted, such as
-+IPersistentSet+, but since it only *requires* something associative
++IPersistentSet+; but since it only *requires* something associative
 for the implementation, it's best not to be too specific. Coding
 against +clojure.lang.Associative+ also gives several additional
-capabilities for free; for example, there is now automatically a
-"multivector" as well, that can store multiple values at each index
-(provided they are added using +insert+.)
+capabilities for free. For example, there is now automatically a
+"multivector", that can store multiple values at each index
+(provided they are added using +insert+).
 
 Reading the code, you'll notice that a good deal of the actual logic is
 devoted to making sure that single values are stored plainly, while
@@ -146,17 +146,17 @@ accordingly. Similarly, +get-all+ needs to wrap single values in a set
 before returning, since it specifies that it must return a set.
 
 
-This is a design decision that has several benefits and tradeoffs. The
+This is a design decision that has several benefits and trade-offs. The
 alternative would be to always wrap the values in a set, even single
-values. This would make the code a bit simpler, and would eliminate
+values. This would make the code a bit simpler and would eliminate
 most of the type checking as well as the wrapping and unwrapping of
 forms.
 
 However, the simplicity would come with a price. If values (even
 single values) were *always* wrapped in a set, the map being used as a
-multimap would not be easily usable via the normal map functions; it
+multimap would not be easily usable via the normal map functions. It
 would contain a lot of odd-looking single-item sets, and if anything
-were added to it using +assoc+ it would be incompatible with future
+were added to it using +assoc+, it would be incompatible with future
 uses of +insert+ on that key.
 
 In essence, the wrapping and unwrapping is to allow any map to be
@@ -166,7 +166,7 @@ track of which "kind" of a map it is. Values inserted using +assoc+
 can be read with +get-all+, and values inserted using +insert+ can be
 removed with +dissoc+. All expectations regarding normal maps should
 hold. In the case of a normal +get+ on a key with multiple values, a
-set containing multiple items will be returned; this is probably what
+set containing multiple items will be returned. This is probably what
 the user would expect upon inspecting the data.
 
 There is one more feature of this code that deserves commentary: the
@@ -176,7 +176,7 @@ functions.
 
 This is to handle the edge case where the intended *value* for a key
 is, itself, a set. The code needs a way to disambiguate between sets
-it creates in order to manage multiple keys for a value, and sets that
+it creates in order to manage multiple keys for a value and sets that
 are simply values provided by users.
 
 This is accomplished by placing metadata on sets created to contain
@@ -186,6 +186,6 @@ user. Then, all the code has to do is check if a set has the
 +::multi-value+ metadata to know whether it's a set containing values,
 or is itself a value.
 
-==== See also
+==== See Also
 
 * <<extend_built_in>>

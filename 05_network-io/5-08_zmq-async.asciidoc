@@ -6,7 +6,7 @@ by Kevin J. Lynagh
 ==== Problem
 
 You want to use ZeroMQ concurrently, but ZeroMQ sockets are not
-thread-safe. You *could* manually set up mutual exclusion via locks or
+thread safe. You *could* manually set up mutual exclusion via locks or
 other Java concurrency primitives, but you'd rather use a simpler
 method.
 
@@ -26,7 +26,7 @@ manager installed:
 $ brew install zeromq
 ----
 
-Or, are on Ubuntu:
+Or if you are on Ubuntu:
 
 [source,shell-session]
 ----
@@ -34,7 +34,7 @@ $ apt-get install libzmq3
 ----
 
 Otherwise, visit http://zeromq.org/intro:get-the-software[ØMQ's
-Downloads page].
+downloads page].
 
 Before starting, add `[com.keminglabs/zmq-async "0.1.0"]` to your
 project's dependencies, or follow along in a REPL using +lein-try+:
@@ -102,10 +102,10 @@ transport layers (intra-process, inter-process, inter-machine via TCP,
 etc.) with bindings to many languages. ZeroMQ sockets are a great
 substrate upon which to build service-oriented architectures. ZeroMQ
 sockets have less overhead than HTTP and are architecturally more
-flexible -- supporting publish/subscribe, fan-out, and other
+flexible--supporting publish/subscribe, fan-out, and other
 topologies in addition to request/reply.
 
-However, ZeroMQ sockets are not thread-safe -- concurrent usage
+However, ZeroMQ sockets are not thread safe--concurrent usage
 typically requires explicit locking or dedicated threads and queues.
 The zmq-async library handles all of that for you, creating ZeroMQ
 sockets on your behalf and giving you access to them via thread-safe
@@ -121,7 +121,7 @@ multipart messages are placed on +core.async+ channels. Reading these
 messages with +<!+ will yield a vector of byte arrays.
 
 To simulate two asynchronous processes interacting over ZeroMQ the
-sample above uses to +go+ blocks that read/write from the registered
+preceding sample uses two +go+ blocks that read/write from the registered
 channels. Each +go+ block will begin executing immediately in
 background threads. The "server" block will wait-for and reply-to
 three requests (+<!+ blocks until it receives a value), replying with
@@ -143,16 +143,16 @@ otherwise configure the socket.
 The implicit context supporting `register-socket!` can only
 handle one incoming/outgoing message at a time. If you need sockets to
 work in parallel (i.e., you don't want to miss a small control message
-just because you're slurping in a 10GB message on another socket),
+just because you're slurping in a 10 GB message on another socket),
 then you'll need multiple zmq-async contexts.
 ====
 
 ==== See Also
 
-* Rich Hickey's http://www.youtube.com/watch?v=ROor6_NGIWU[Language of the System] talk, wherein he outlines the benefits of queues
+* Rich Hickey's http://www.youtube.com/watch?v=ROor6_NGIWU["Language of the System" talk], wherein he outlines the benefits of queues
 * The http://zguide.zeromq.org/[ZeroMQ guide] for architectural
   patterns and advice
 * <<sec_general_core_async>>
 * The
   http://clojure.com/blog/2013/06/28/clojure-core-async-channels.html[introductory
-  blog post] for +core.async+, which provides a good overview.
+  blog post] for +core.async+, which provides a good overview

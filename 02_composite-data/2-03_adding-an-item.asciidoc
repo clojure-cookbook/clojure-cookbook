@@ -12,8 +12,8 @@ additional item.
 ==== Solution
 
 Use the +conj+ function. +conj+ is used to add an item or items to a
-logical collection, and is polymorphic, meaning it works on multiple
-concrete data types, including lists.
+logical collection and is polymorphic, meaning it works on multiple
+concrete data types, including lists:
 
 [source,clojure]
 ----
@@ -41,7 +41,7 @@ In the case of lists, +conj+ will always add the item at the
 *beginning* of the list, since a linked list data structure supports
 constant-time insertion only at the beginning.
 
-.+conj+ versus +cons+
+.conj Versus cons
 ****
 
 If you are familiar with Common Lisp or Scheme, you were probably
@@ -60,7 +60,7 @@ The best way to think about it is that +conj+ is a concrete *data
 structure* operation, which will not change the concrete type of the
 data structure it is applied to, while +cons+ is a *sequence*
 operation and only guarantees that it will return a sequence: in fact,
-it returns a cons cell (+clojure.lang.Cons+) which implements the
+it returns a cons cell (+clojure.lang.Cons+) that implements the
 sequence interface, no matter what type of _seq-able_ collection you
 gave it to start with.
 

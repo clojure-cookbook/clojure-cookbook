@@ -14,7 +14,7 @@ connect to a remote host.
 
 For example, the following code uses a +Socket+ to create a TCP
 connection and send an HTTP GET request, returning the result as a
-string.
+string:
 
 [source,clojure]
 ----
@@ -64,22 +64,22 @@ This example uses HTTP because it's a protocol that many readers are
 familiar with. In the real world, using a raw TCP socket for HTTP
 requests is almost certainly a terrible idea. There are a plethora of
 libraries that provide a much higher-level interface to HTTP requests
-and responses, and encapsulate lot of pesky details such as escaping,
-encoding and formatting.
+and responses, and encapsulate a lot of pesky details such as escaping,
+encoding, and formatting.
 ====
 
-Also note that the reader, the writer and the socket itself are bound
+Also note that the reader, the writer, and the socket itself are bound
 within the context of a +with-open+ macro. This guarantees that the
 +close+ method is called when they are finished, which releases the
 TCP connection. If the connection is not released, it will continue to
 consume resources on both the client and server, and may be subject to
 termination on the remote side.
 
-When returning lazy sequences from of a +with-open+ context it is
+When returning lazy sequences from of a +with-open+ context, it is
 important to fully realize those sequences using +doall+. This is
 because resources opened by +with-open+ are *only available* inside
 the +with-open+ block. The +doall+ function fully realizes a
-collection, retaining its entire contents in memory.
+collection, retaining its entire contents in memory:
 
 [source,clojure]
 ----
@@ -93,8 +93,8 @@ collection, retaining its entire contents in memory.
 Depending on your application, you may prefer to use the +doseq+
 macro. Instead of retaining the entire sequence, +doseq+ executes its
 body for each element of the sequence. This is useful if you need to
-cause side-effects for each element of a sequence, but need to
-hang on to the entire thing.
+cause side effects for each element of a sequence, but need to
+hang on to the entire thing:
 
 [source,clojure]
 ----
@@ -109,4 +109,4 @@ hang on to the entire thing.
 ==== See Also
 
 * <<sec_network_io_tcp_server>>
-* Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol].
+* Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol]

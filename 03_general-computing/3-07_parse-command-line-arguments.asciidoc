@@ -14,7 +14,7 @@ Use the https://github.com/clojure/tools.cli[+tools.cli+]
 library.
 
 Before starting, add `[org.clojure/tools.cli "0.2.4"]` to your project's
-dependencies or start a REPL using +lein-try+:
+dependencies, or start a REPL using +lein-try+:
 
 [source,shell-session]
 ----
@@ -22,8 +22,8 @@ $ lein try org.clojure/tools.cli
 ----
 
 Use the +clojure.tools.cli/cli+ function in your project's +-main+
-function entry-point to parse command-line arguments footnote:[Since
-+tools.cli+ is so cool this example can run entirely at the REPL.].
+function entry point to parse command-line arguments.footnote:[Since
++tools.cli+ is so cool, this example can run entirely at the REPL.]
 
 [source,clojure]
 ----
@@ -51,16 +51,16 @@ function entry-point to parse command-line arguments footnote:[Since
 Clojure's +tools.cli+ is a simple library, with only one function,
 +cli+, and a slim data-oriented API for specifying how arguments
 should be parsed. Handily enough, there isn't much special about this
-function; an arguments vector and specifications go in, a map of parsed
-options, variadic arguments and a help banner come out. It's really the
+function: an arguments vector and specifications go in, and a map of parsed
+options, variadic arguments, and a help banner come out. It's really the
 epitome of good, composable functional programming.
 
 To configure how options are parsed, pass any number spec vectors
 after the +args+ list. To specify a +:port+ parameter, for example,
 you would provide the spec `["-p" "--port"]`. The +"-p"+ isn't
 strictly necessary, but it is customary to provide a single-letter
-shortcut for command-line options (especially long ones.) In the
-returned +opts+ map the text of the last option name will be interned
+shortcut for command-line options (especially long ones). In the
+returned +opts+ map, the text of the last option name will be interned
 to a keyword (less the "--"). For example, +"--port"+ would become
 +:port+, and +"--super-long-option"+ would become +:super-long-option+.
 
@@ -79,7 +79,7 @@ to a keyword (less the "--"). For example, +"--port"+ would become
 
 If you're a polite command-line application developer, you'll also
 include a description for each of your options. Specify this as an
-optional string following the final argument name.
+optional string following the final argument name:
 
 [source,clojure]
 ----
@@ -90,15 +90,18 @@ Everything after the argument name and description will be interpreted
 as options in key-value pairs. +tools.cli+ provides the following
 options:
 
-* +:default+: The default value returned in the absence of user-input.
++:default+:: The default value returned in the absence of user input.
   Without specifying, the default of default is +nil+.
-* +:flag+: If truthy (not +false+ or +nil+), indicates an argument
+
++:flag+:: If truthy (not +false+ or +nil+), indicates an argument
   behaves like a flag or switch. This argument will *not* take any
   value is its input.
-* +parse-fn+: The function used to parse an argument's value. This can
-  be used to turn string values into integers, floats or other
-  datatypes.
-* +assoc-fn+: The function used to combine multiple values for a
+  
++parse-fn+:: The function used to parse an argument's value. This can
+  be used to turn string values into integers, floats, or other
+  data types.
+  
++assoc-fn+:: The function used to combine multiple values for a
   single argument.
 
 Here's a complete example:
@@ -121,7 +124,7 @@ Here's a complete example:
 When writing flag options, a useful shortcut is to omit the +:flag+
 option and add a "`[no-]`" prefix to the arguments name. +cli+ will
 interpret this argument spec as including +:flag true+ without having
-to specify it as such.
+to specify it as such:
 
 [source,clojure]
 ----
@@ -134,7 +137,7 @@ add a +cli+ call to your +-main+ function and know when to print the
 help banner. A general pattern for use is to capture the results of
 +cli+ in a +let+-block and determine if help needs to be printed. This
 is also useful for ensuring validity of arguments (especially since
-there is no +:required+ option.)
+there is no +:required+ option):
 
 [source,clojure]
 ----
@@ -159,7 +162,7 @@ As with many applications, you may want to accept a variable number of
 arguments to your applications; for example, a list of file names.
 In most cases, you don't need to do anything special to capture these
 arguments--just supply them after any other options. These variadic
-arguments will be returned as the second item in ++cli++'s returned vector.
+arguments will be returned as the second item in ++cli++'s returned vector:
 
 [source,clojure]
 ----
@@ -171,7 +174,7 @@ If your variadic arguments look like flags, however, you'll need
 another trick. Use +--+ as an argument to indicate to +cli+ that
 everything that follows is a variadic argument. This is useful if
 you're invoking another program with the options originally passed to
-your program.
+your program:
 
 [source,clojure]
 ----
@@ -182,11 +185,11 @@ your program.
 ;; -> ["--port" "80"]
 ----
 
-Once you've finished toying with your application's option-parsing at
+Once you've finished toying with your application's option parsing at
 the REPL, you'll probably want to try invoking options via *+lein run+*.
 Just like your application needs to use +--+ to indicate arguments to
 pass onto subsequent programs, so too must you use +--+ to indicate to
-*+lein run+* which arguments are for your program and which are for it.
+*+lein run+* which arguments are for your program and which are for it:
 
 [source,shell-session]
 ----
@@ -196,11 +199,11 @@ $ lein run -- -n 5 --no-verbose
 
 ==== See Also
 
-* <<sec_local_io_writing_to_stdout_and_stderr>> to learn about input and output streams.
 * <<sec_command_line_applications>> to learn more about invoking
-  applications from the command-line.
+  applications from the command line
+* <<sec_local_io_writing_to_stdout_and_stderr>> to learn about input and output streams
 * <<sec_packaging_jars>> to learn how to package an application as
-  an executable JAR file.
+  an executable JAR file
 * For building ncurses-style applications, see
   http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+], a wrapper
-  around the Lanterna terminal output library.
+  around the Lanterna terminal output library

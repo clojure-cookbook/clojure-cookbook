@@ -1,4 +1,4 @@
-=== Removing Duplicate Elements From a Collection
+=== Removing Duplicate Elements from a Collection
 [role="byline"]
 by John Cromartie
 
@@ -11,7 +11,7 @@ while possibly preserving the order of elements.
 
 When the sequence of elements you're working with is of a bounded,
 reasonable size, use `set` to coerce the collection into a hash set
-containing only distinct values.
+containing only distinct values:
 
 [source, clojure]
 ----
@@ -21,7 +21,7 @@ containing only distinct values.
 
 When the sequence is infinite, or you wish maintain ordering, use
 `distinct` to return a lazy sequence of unique values in a collection
-in the order they appear.
+in the order they appear:
 
 [source,clojure]
 ----
@@ -31,13 +31,13 @@ in the order they appear.
 
 ==== Discussion
 
-There are a number of tradeoffs between these two approaches. For
+There are a number of trade-offs between these two approaches. For
 starters, +set+ consumes the entire sequence to produce a new set
 collection. Because of this, +set+ cannot be used to filter an
 infinite sequence. +distinct+, on the other hand, is designed for
 consuming lazy sequences. The value of +distinct+ is a lazy view or
 projection over another sequence, yielding new values the first time
-they appear.
+they appear:
 
 [source, clojure]
 ----
@@ -63,7 +63,7 @@ maintain ordering. +set+, on the other hand, returns an unordered set.
 
 If +distinct+ is both ordered and lazy over sequences of any length,
 what is the advantage of +set+? Speed. Using `distinct` is by far the
-slowest, while simply calling `set` is about 2X faster.
+slowest, while simply calling `set` is about two times faster.
 
 ==== See Also
 

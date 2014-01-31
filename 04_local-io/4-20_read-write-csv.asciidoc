@@ -8,7 +8,7 @@ You need to read or write CSV data.
 
 ==== Solution
 
-Use +clojure.data.csv/read-csv+ to lazily read CSV from a +String+ or +java.io.Reader+
+Use +clojure.data.csv/read-csv+ to lazily read CSV from a +String+ or +java.io.Reader+:
 
 [source,clojure]
 ----
@@ -21,7 +21,7 @@ Use +clojure.data.csv/read-csv+ to lazily read CSV from a +String+ or +java.io.R
 ;; -> (["this" "is"] ["a" "test"])
 ----
 
-Use +clojure.data.csv/write-csv+ to write CSV data to java.io.Writer
+Use +clojure.data.csv/write-csv+ to write CSV data to +java.io.Writer+:
 [source,clojure]
 ----
 (with-open [out-file (clojure.java.io/writer "out.csv")]
@@ -33,7 +33,7 @@ Use +clojure.data.csv/write-csv+ to write CSV data to java.io.Writer
 
 The +clojure.data.csv+ library makes it easy to work with CSV.  You need to remember that +read-csv+ is lazy; if you want to force it read data immediately, you'll need to wrap the call to +read-csv+ in +doall+.
 
-When reading, you can change the separator and quote delimiters, which default to \, and \", respectively. You must specify the delimiters using chars, not strings, though.
+When reading, you can change the separator and quote delimiters, which default to +\+, and +\"+, respectively. You must specify the delimiters using chars, not strings, though:
 
 [source,clojure]
 ----
@@ -41,7 +41,7 @@ When reading, you can change the separator and quote delimiters, which default t
 ;; -> (["this" "is $"] ["a" "test"])
 ----
 
-When writing, as with +read-csv+, you can configure the separator, quote, newline (between +:lf+ (default) and +:cr+lf+), and the +quote?+ predicate function, which takes a collection, and returns true or false to indicate if the string representation needs to be quoted.
+When writing, as with +read-csv+, you can configure the separator, quote, newline (between +:lf+ (default) and +:cr+lf+), and the +quote?+ predicate function, which takes a collection, and returns +true+ or +false+ to indicate if the string representation needs to be quoted:
 
 [source,clojure]
 ----
@@ -51,7 +51,7 @@ When writing, as with +read-csv+, you can configure the separator, quote, newlin
 ;; -> nil
 ----
 
-To capture CSV output as a string, use +with-out-str+ and write to *+out+*.
+To capture CSV output as a string, use +with-out-str+ and write to *+out+*:
 
 [source,clojure]
 ----
@@ -61,4 +61,4 @@ To capture CSV output as a string, use +with-out-str+ and write to *+out+*.
 
 ==== See Also
 
-* The +clojure.data.csv+ https://github.com/clojure/data.csv[GitHub repository].
+* The +clojure.data.csv+ https://github.com/clojure/data.csv[GitHub repository]

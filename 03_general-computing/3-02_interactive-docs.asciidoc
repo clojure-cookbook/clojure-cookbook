@@ -9,7 +9,7 @@ From a REPL, you want to read documentation for a function.
 
 ==== Solution
 
-Print the documentation for a function at the REPL with the +doc+ macro.
+Print the documentation for a function at the REPL with the +doc+ macro:
 
 [source,shell-session]
 ----
@@ -22,7 +22,7 @@ clojure.core/conj
     happen at different 'places' depending on the concrete type.
 ----
 
-Print the source code for a function at the REPL with the +source+ macro.
+Print the source code for a function at the REPL with the +source+ macro:
 
 [source,shell-session]
 ----
@@ -35,7 +35,7 @@ user=> (source reverse)
     (reduce1 conj () coll))
 ----
 
-Find functions with documentation matching a given regular expression using +find-doc+.
+Find functions with documentation matching a given regular expression using +find-doc+:
 
 [source,shell-session]
 ----
@@ -85,12 +85,12 @@ Keeping in mind that +source+ was defined in the +clojure.repl+
 namespace, we can peek at how exactly it retrieves the source by
 evaluating +(source clojure.repl/source-fn)+.
 
-In most REPL implementations +clojure.repl+ macros like +source+ and +doc+ are
+In most REPL implementations, +clojure.repl+ macros like +source+ and +doc+ are
 only referred into the +user+ namespace. This means as soon as you switch into
-another namespace the unqualified +clojure.repl+ macros will no longer be
+another namespace, the unqualified +clojure.repl+ macros will no longer be
 available.  You can get around this by namespacing the macros
-(+clojure.repl/doc+ instead of +doc+,) or, for extended use, by ++use++'ing the
-namespace
+(+clojure.repl/doc+ instead of +doc+,) or, for extended use, by pass:[<literal>use</literal>]&#8217;ing the
+namespace:
 
 [source,shell-session]
 ----
@@ -117,5 +117,5 @@ high-performance code at your fingertips.
 
 ==== See Also
 
-* +clojure.repl+ http://clojure.github.io/clojure/clojure.repl-api.html[API Documentation].
+* +clojure.repl+ http://clojure.github.io/clojure/clojure.repl-api.html[API documentation]
 * <<sec_exploring_namespaces>>

@@ -9,9 +9,9 @@ You want to use a temporary file on the local file system.
 ==== Solution
 
 Use the static method +createTempFile+ of Java's built-in
-+java.io.File+ clas to create a temporary file in the default
++java.io.File+ class to create a temporary file in the default
 temporary-file directory of the JVM, with the provided prefix and
-suffix.
+suffix:
 
 [source,clojure]
 ----
@@ -44,16 +44,16 @@ To get the full path and filename for the created temporary file:
 ----
 
 You can use the +File.deleteOnExit+ method to mark the temporary file
-to be deleted automatically when the JVM exits.
+to be deleted automatically when the JVM exits:
 
 [source,clojure]
 ----
 (.deleteOnExit my-temp-file)
 ----
 
-Note that the file is not actually deleted until the JVM terminates,
+Note that the file is not actually deleted until the JVM terminates
 and may not be deleted if the process crashes or exits abnormally. It
-is good practice to delete the temp files immediately when they are no
+is good practice to delete the temporary files immediately when they are no
 longer being used:
 
 [source,clojure]
@@ -63,4 +63,4 @@ longer being used:
 
 ==== See Also
 
-* The +java.io.File+ http://docs.oracle.com/javase/7/docs/api/java/io/File.html[API Documentation].
+* The +java.io.File+ http://docs.oracle.com/javase/7/docs/api/java/io/File.html[API documentation]

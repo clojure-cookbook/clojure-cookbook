@@ -1,5 +1,5 @@
 [[sec_edn_configs]]
-=== Using +edn+ for Configuration Files
+=== Using edn for Configuration Files
 [role="byline"]
 by Luke VanderHart
 
@@ -28,7 +28,7 @@ might look something like this:
 ----
 
 The basic function to read this data into a Clojure map is trivial
-using the +edn+ reader.
+using the +edn+ reader:
 
 [source,clojure]
 ----
@@ -40,13 +40,13 @@ using the +edn+ reader.
   (edn/read-string (slurp filename)))
 ----
 
-Invoking the newly-defined +load-config+ function will now return a
+Invoking the newly defined +load-config+ function will now return a
 configuration map that you can pass around and use in your application
 as you would any other map.
 
 ==== Discussion
 
-As can be seen from the above code, the basic process for obtaining a
+As can be seen from the preceding code, the basic process for obtaining a
 map containing configuration data is extremely trivial. A more
 interesting question is what to do with the config map once you have
 it, and there are two general schools of thought regarding the answer.
@@ -79,7 +79,7 @@ established in the +-main+ function and passed wherever else it is needed.
 This sounds painful, and indeed it can be somewhat annoying to pass an
 extra argument to every function. Doing so, however, lends the code a
 large degree of self-documentation; it becomes extremely evident what
-parts of the application rely on the config, and what parts do not. It
+parts of the application rely on the config and what parts do not. It
 also makes it more straightforward to modify the config at runtime or
 supply an alternative config in testing scenarios.
 
@@ -104,7 +104,7 @@ config fields.
 A useful technique to handle this heterogeneity is to use multiple
 configuration files, each handling a different type of concern, and
 then merge them into a single configuration map before passing it on
-to the application. This typically uses a simple deep-merge function:
+to the application. This typically uses a simple +deep-merge+ function:
 
 [source,clojure]
 ----
@@ -161,7 +161,7 @@ overridden by the "rightmost" file passed to +load-config+.
 
 ===== Different configurations for different environments
 
-If your system runs in multiple environments you may want to vary your
+If your system runs in multiple environments, you may want to vary your
 configuration based on the current running environment. For example,
 you may want to connect to a local database while developing your system,
 but a production database when running your system in production.
@@ -169,8 +169,8 @@ but a production database when running your system in production.
 You can use Leiningen's _profiles_ feature to achieve this end. By
 providing different +:resource-paths+ options for each _profile_ in
 your project's configuration, you can vary which configuration file is
-read per environment footnote:[To follow along, create your own
-project with *+lein new my-great-app+*].
+read per environment.footnote:[To follow along, create your own
+project with *+lein new my-great-app+*.]
 
 ._project.clj_
 [source,clojure]
@@ -181,9 +181,9 @@ project with *+lein new my-great-app+*].
              :prod {:resource-paths ["resources/prod"]}}})
 ----
 
-With a project configuration similar to the above, you can then
+With a project configuration similar to the previous one, you can then
 create two different configurations with the same base file name:
-_resources/dev/config.edn_ and _resources/prod/config.edn_.
+_resources/dev/config.edn_ and _resources/prod/config.edn_:
 
 ._resource/dev/config.edn_
 [source,clojure]
@@ -198,7 +198,7 @@ _resources/dev/config.edn_ and _resources/prod/config.edn_.
 ----
 
 If you're following along on your own, add the +load-config+ function
-to one of your project's namespaces.
+to one of your project's namespaces:
 
 ._src/my_great_app/core.clj_
 [source,clojure]
@@ -213,7 +213,7 @@ to one of your project's namespaces.
 ----
 
 Now, the configuration your application loads will depend on which
-_profile_ your project is running in.
+_profile_ your project is running in:
 
 [source,shell-session]
 ----
@@ -235,4 +235,4 @@ user=> (load-config (clojure.java.io/resource "config.edn"))
 * <<sec_local_io_get_local_resource>>
 * <<sec_edn_record>>
 * <<sec_default_data_reader>>
-* https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#profiles[Leiningen Profiles]
+* https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#profiles[Leiningen profiles]

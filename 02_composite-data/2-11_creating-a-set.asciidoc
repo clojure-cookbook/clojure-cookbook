@@ -10,7 +10,7 @@ which can be tested for membership quickly.
 
 ==== Solution
 
-Use a set literal to create a set of objects.
+Use a set literal to create a set of objects:
 
 [source,clojure]
 ----
@@ -22,7 +22,7 @@ Use a set literal to create a set of objects.
 ;; -> IllegalArgumentException Duplicate key: :y :z ...
 ----
 
-Use +hash-set+ to create a set from arguments.
+Use +hash-set+ to create a set from arguments:
 
 [source,clojure]
 ----
@@ -33,7 +33,7 @@ Use +hash-set+ to create a set from arguments.
 ;; -> #{:a :c :b}
 ----
 
-Use +set+ to create a set from another collection.
+Use +set+ to create a set from another collection:
 
 [source,clojure]
 ----
@@ -41,7 +41,7 @@ Use +set+ to create a set from another collection.
 ;; -> #{\e \h \l \o}
 ----
 
-Alternatively, use +into+ with a set to create a new set.
+Alternatively, use +into+ with a set to create a new set:
 
 [source,clojure]
 ----
@@ -57,7 +57,7 @@ Alternatively, use +into+ with a set to create a new set.
 ====
 At the time of writing, the +into+ technique is about three times
 faster than +set+ for large collections of objects. Use it whenever
-you're working with large sets where performance is a concern.
+you're working with large sets where performance is a concern:
 
 [source,clojure]
 ----
@@ -73,7 +73,7 @@ you're working with large sets where performance is a concern.
 ----
 ====
 
-Create a sorted set with +sorted-set+.
+Create a sorted set with +sorted-set+:
 
 [source,clojure]
 ----
@@ -89,15 +89,15 @@ Create a sorted set with +sorted-set+.
 
 Sets are very useful data structures. They are commonly used when you
 have a collection of values but you are only concerned with the
-_distinct_ values. Lookup of an element in a set is typically O(1).
+distinct values. Lookup of an element in a set is typically O(1).
 
-The techniques above all construct _hash sets_; sets which are
+The techniques above all construct _hash sets_, sets that are
 unordered and use a hash table as their internal representation.
 
 Clojure also supports creating _sorted sets_, which maintain the order
 of their elements. Sets created with +sorted-set+ keep their elements
 in ascending order using +compare+. This is useful when treating the
-set as a seq.
+set as a seq:
 
 [source,clojure]
 ----
@@ -109,8 +109,8 @@ set as a seq.
 ----
 
 WARNING: All of the elements in a sorted set must be comparable
-against one another, e.g. you cannot have a sorted set that contains
-both strings and numbers. Attempting to add an uncomparable value will
+against one another (e.g., you cannot have a sorted set that contains
+both strings and numbers). Attempting to add an uncomparable value will
 result in a runtime error.
 
 Adding or removing objects in a sorted set will always return another
@@ -119,7 +119,7 @@ sorted set.
 If the values you want to store don't have a natural sort order (or
 you don't want to use their natural ordering), you can specify a
 custom comparator using +sorted-set-by+. The comparator used to create
-the set is preserved when adding or removing objects.
+the set is preserved when adding or removing objects:
 
 [source,clojure]
 ----
@@ -133,10 +133,10 @@ There are some performance trade-offs to consider when choosing between
 hash sets and sorted sets. Hash sets are based on hash tables, which
 offer constant time insert and lookup in most cases. However, they do
 require some degree of memory overhead. Sorted sets, based on a
-balanced red-black binary tree, are more memory-efficient but slower
+balanced red-black binary tree, are more memory efficient but slower
 for lookup and insertion.
 
-==== See also
+==== See Also
 
-* <<sec_adding_removing_from_sets>>
 * <<sec_composite_creating_a_vector>>
+* <<sec_adding_removing_from_sets>>

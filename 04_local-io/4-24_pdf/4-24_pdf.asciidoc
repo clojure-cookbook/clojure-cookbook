@@ -23,7 +23,7 @@ $ lein try clj-pdf
 ----
 
 For the purpose of illustration, imagine we want to render a vector
-containing the following employee records.
+containing the following employee records:
 
 [source, clojure]
 ----
@@ -39,7 +39,7 @@ containing the following employee records.
 ----
 
 Create a template for rendering each record using the
-+clj-pdf.core/template+ macro.
++clj-pdf.core/template+ macro:
 
 [source, clojure]
 ----
@@ -67,7 +67,7 @@ Create a template for rendering each record using the
 ----
 
 Use +clj-pdf.core/pdf+ to create the PDF using the template and data
-from above.
+from above:
 
 [source, clojure]
 ----
@@ -91,7 +91,7 @@ libraries. The templating syntax is inspired by the popular +Hiccup+
 HTML templating engine.
 
 In a template, +$+ is used to indicate places where dynamic content
-will be substituted. When populating a template from a map all
+will be substituted. When populating a template from a map, all
 substitution anchors (+$name+) are populated with the value of the
 corresponding keyword key in the map (the value of the +:name+ key).
 
@@ -102,15 +102,15 @@ $name)+.
 
 In +clj-pdf+, a document is represented by a vector containing a map of
 metadata followed by the content. The content can in turn consist of
-strings, vectors or collections of vectors.
+strings, vectors, or collections of vectors.
 
-.A *very* simple PDF
+.A *very* simple PDF:
 [source, clojure]
 ----
 (pdf/pdf [{:title "Hello World"} "Hello, World."] "hello-world.pdf")
 ----
 
-Under the hood, collections of content are automatically expanded.
+Under the hood, collections of content are automatically expanded:
 
 [source, clojure]
 ----
@@ -124,7 +124,7 @@ Under the hood, collections of content are automatically expanded.
 Apart from plain strings, each content element is represented as a
 vector. The first element of this vector is a keyword type, and
 everything that follows is the content itself. Some types +clj-pdf+
-includes: +:paragraph+, +:phrase+, +:list+ and +:table+.
+includes: +:paragraph+, +:phrase+, +:list+, and +:table+:
 
 [source, clojure]
 ----
@@ -143,7 +143,7 @@ includes: +:paragraph+, +:phrase+, +:list+ and +:table+.
 
 Some elements accept optional styling metadata. You can provide this
 style information as a map immediately following the type parameter
-(the second item in the vector).
+(the second item in the vector):
 
 [source, clojure]
 ----
@@ -157,7 +157,7 @@ style information as a map immediately following the type parameter
 ----
 
 The contents of an element can consist of other elements (like an HTML
-document) and any style applied to a parent element will be
+document), and any style applied to a parent element will be
 inherited by the child elements:
 
 [source, clojure]
@@ -169,8 +169,8 @@ inherited by the child elements:
  [:phrase [:chunk "even more"] "bold text"]]
 ----
 
-Like CSS, child elements can augment or override their parent style's
-by specifying their own styles.
+Like CSS, child elements can augment or override their parent's styles
+by specifying their own styles:
 
 [source, clojure]
 ---- 
@@ -183,7 +183,7 @@ by specifying their own styles.
 Images can be embedded in the document using the +:image+ element.
 Image content can be one of +java.net.URL+, +java.awt.Image+, a byte
 array, a base64 string, or a string representing URL or a file. Images
-larger than the page margins will automatically be scaled to fit.
+larger than the page margins will automatically be scaled to fit:
 
 [source, clojure]
 ----
@@ -194,5 +194,5 @@ larger than the page margins will automatically be scaled to fit.
 ==== See Also
 
 * For more information on using +clj-pdf+, including a complete list of
-  element types, charting capabilities, etc. see the
-  https://github.com/yogthos/clj-pdf[+clj-pdf+] GitHub repository.
+  element types and charting capabilities, see the
+  https://github.com/yogthos/clj-pdf[+clj-pdf+ GitHub repository]

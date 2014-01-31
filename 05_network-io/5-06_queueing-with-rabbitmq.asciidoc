@@ -1,4 +1,4 @@
-=== Communicating over Queues using RabbitMQ
+=== Communicating over Queues Using RabbitMQ
 [role="byline"]
 originally submitted by Michael Klishin
 
@@ -21,20 +21,19 @@ $ lein try com.novemberain/langohr
 ----
 
 In order to follow along with this recipe, you need to have RabbitMQ
-installed and running. You can find details on how to install RabbitMQ
-here: _http://www.rabbitmq.com/download.html_.
+http://www.rabbitmq.com/download.html[installed and running].
 
 Once installed, start a standalone RabbitMQ server with the command
-+rabbitmq-server+.
++rabbitmq-server+:
 
 [source,shell-session]
 ----
 $ rabbitmq-server
 ----
 
-Prior to performing any operations against RabbitMQ you must connect 
+Prior to performing any operations against RabbitMQ, you must connect 
 to a server and open a communication channel. A channel is the medium
-over which you can produce and consume messages to/from.
+over which you can produce and consume messages to/from:
 
 [source,clojure]
 ----
@@ -48,15 +47,15 @@ over which you can produce and consume messages to/from.
 (def ch (langohr.channel/open conn))
 ----
 
-In RabbitMQ, messages are published to *exchanges*, routed to *queues*
-via a *binding*, then finally consumed by consumers. There are a
+In RabbitMQ, messages are published to _exchanges_, routed to _queues_
+via a _binding_, then finally consumed by consumers. There are a
 number of different exchange types that vary the semantics of
-delivery; the most basic exchange type is "direct", which routes
+delivery; the most basic exchange type is _direct_, which routes
 messages based on their *routing key*.
 
 To construct a pipeline between producer and consumer, start by
 invoking +langohr.queue/declare+ to create a queue with the desired
-name.
+name:
 
 [source,clojure]
 ----
@@ -75,7 +74,7 @@ name.
 By default, RabbitMQ creates a binding between the empty exchange (an
 empty string) and each queue. You can now publish a message to the
 +"imagine.resize"+ queue by invoking +langohr.basic/publish+ with the
-channel, direct exchange, routing key (your queue name) and a message.
+channel, direct exchange, routing key (your queue name), and a message:
 
 [source,clojure]
 ----
@@ -83,7 +82,7 @@ channel, direct exchange, routing key (your queue name) and a message.
 ----
 
 To consume messages from a queue synchronously, invoke
-+langohr.basic/get+ with the channel and queue name.
++langohr.basic/get+ with the channel and queue name:
 
 [source,clojure]
 ----
@@ -100,7 +99,7 @@ hello-msg
 To consume messages asynchronously as they appear, use
 +langohr.consumers/subscribe+ to subscribe to a queue. The handler
 function you provide to +subscribe+ will be called for each message
-published to the queue.
+published to the queue:
 
 [source,clojure]
 ----
@@ -132,31 +131,31 @@ tag
 At this point, you've round-tripped a few messages to RabbitMQ, but
 you've barely scratched the surface of what Langohr/RabbitMQ are
 capable of. Langohr is a small RabbitMQ client wrapping the Java
-RabbitMQ library that supports AMQP 0-9-1, RabbitMQ extensions of
+RabbitMQ library that supports AMQP 0-9-1 and RabbitMQ extensions of
 AMQP, and provides an HTTP API client.
 
 AMQP 0-9-1, and by extension, Langohr, centers around a few main
-concepts: *exchanges*, *queues* and *bindings*.
+concepts: *exchanges*, *queues*, and *bindings*.
 
 ===== Exchanges
 
 An exchange is very much like a post office: when a message is
 published to an exchange, the exchange will route the message to one
-or more queues. How those messages are routed to queues is dependant
+or more queues. How those messages are routed to queues is dependent
 on both the exchange type and the bindings between the
 exchange/queues.
 
 There are multiple exchange types, each with its own routing
 semantics--see <<tab_builtin_exchange_types>> for a complete listing.
 Custom exchange types can be created to deal with sophisticated
-routing scenarios (e.g. routing based on content or geolocation data)
+routing scenarios (e.g., routing based on content or geolocation data)
 or just for convenience.
 
 [[tab_builtin_exchange_types]]
-.Built-in Exchange Types
+.Built-in exchange types
 [options="header"]
 |===============================
-| Name | Behavior | Pre-declared Exchange |
+| Name | Behavior | Pre-declared exchange |
 | Direct | 1:1, routed based on routing key | +""+ |
 | Fanout | 1:N, ignoring routing key | +"amq.fanout"+ |
 | Topic | 1:N, taking routing key into consideration | +"amq.topic"+ |
@@ -165,9 +164,9 @@ or just for convenience.
 
 To declare one of the built-in exchanges, use one of
 +langohr.exchange/fanout+, +langohr.exchange/topic+,
-+langohr.exchange/direct+ or +langohr.exchange/headers+. Each of these
++langohr.exchange/direct+, or +langohr.exchange/headers+. Each of these
 functions exposes the relevant options for that exchange type,
-ultimately invoking +langohr.exchange/declare+. 
+ultimately invoking +langohr.exchange/declare+:
 
 [source,clojure]
 ----
@@ -180,12 +179,12 @@ ultimately invoking +langohr.exchange/declare+.
 Exchanges have several attributes associated with them:
 
  * Name
- * Type (direct, fanout, topic, headers or some custom type)
+ * Type (direct, fanout, topic, headers, or some custom type)
  * Durability (should it survive broker restarts?)
- * Whether the exchange is auto-deleted when no longer used
+ * Whether the exchange is autodeleted when no longer used
  * Custom metadata (sometimes known as +x-arguments+)
 
-Using +langohr.exchange/declare+ directly you can customize these
+Using +langohr.exchange/declare+ directly, you can customize these
 attributes to create your own types of exchanges.
 
 ===== Queues
@@ -194,8 +193,8 @@ A queue is like a mailbox in a post office. The
 +langohr.queue/declare+ function creates named queues. Apart from the
 name, this function accepts a number of keyword arguments that vary
 the characteristics of the queue, including whether it is +:durable+,
-+:exclusive+, +:auto-delete+. Other arguments can be specified in an
-+:arguments+ value.
++:exclusive+, or +:auto-delete+. Other arguments can be specified in an
++:arguments+ value:
 
 [source,clojure]
 ----
@@ -205,7 +204,7 @@ the characteristics of the queue, including whether it is +:durable+,
 
 Queues with unique names can be generated using the
 +langohr.queue/declare-server-named+ function. This functions
-similarly to +langohr.queue/declare+, but without a name argument.
+similarly to +langohr.queue/declare+, but without a name argument:
 
 [source,clojure]
 ----
@@ -221,7 +220,7 @@ As you saw in the solution, a direct exchange has an implicit
 binding between the default exchange and every queue, by name. In the
 wild, however, queues are usually bound to exchanges explicitly. You
 can create your own bindings by invoking +langohr.queue/bind+ with a
-channel, queue name and exchange name.
+channel, queue name, and exchange name:
 
 [source,clojure]
 ----
@@ -238,12 +237,14 @@ Messages are published to an exchange using the
 +langohr.basic/publish+ function. This function takes three primary
 arguments (beyond channel): 
 
-* The name of an exchange, either a user-made exchange such as
-  +"imaging.complete"+, or a built-in like +"amq.fanout"+ or +""+.
-* A routing key, used by the exchange to perform type-specific routing
-  of messages to queue(s).
-* A message, a string body for the message to be delivered to the
-  queue.
+The name of an exchange::
+Either a user-made exchange such as +"imaging.complete"+, or a built-in like +"amq.fanout"+ or +""+.
+  
+A routing key::
+Used by the exchange to perform type-specific routing of messages to queue(s).
+  
+A message::
+A string body for the message to be delivered to the queue.
 
 As optional arguments, +publish+ allows users to specify a plethora of
 message headers as keyword arguments. For the full list, see the
@@ -260,10 +261,10 @@ messages from them:
 In the Push API, you make a synchronous invocation of +get+ function
 to retrieve a single message from a queue. The return value of +get+
 is a tuple of metadata map and a body. The body payload, as returned,
-is an array of bytes--for plaintext messages you can use the string
+is an array of bytes--for plain-text messages you can use the string
 constructor, +String.+, to intern those bytes to a string. Since
 +String+ byte arrays are encoded using UTF-8, it is important to
-invoke the +String+ constructor with an encoding option of +"UTF-8"+.
+invoke the +String+ constructor with an encoding option of +"UTF-8"+:
 
 [source,clojure]
 ----
@@ -273,13 +274,13 @@ invoke the +String+ constructor with an encoding option of +"UTF-8"+.
 ;; -> "hello.jpg"
 ----
 
-When no messages are present on a queue, +get+ will return nil.
+When no messages are present on a queue, +get+ will return +nil+.
 
 In the Pull API, you subscribe to a queue using
 +langohr.consumers/subscribe+, providing a message handler function that
 will be invoked for each message the queue receives. This function
-will be invoked with three arguments: a channel, metadata and the body
-bytes.
+will be invoked with three arguments: a channel, metadata, and the body
+bytes:
 
 [source,clojure]
 ----
@@ -291,7 +292,7 @@ bytes.
     (println (format "Resizing file %s" filename))))
 ----
 
-+subscribe+ is a non-blocking call, and upon completion will return a
++subscribe+ is a nonblocking call, and upon completion will return a
 tag string that can be used to later cancel the subscription use
 +langohr.consumers/cancel+.
 
@@ -317,7 +318,7 @@ either acknowledge or reject a delivery. This is done with
 +langohr.basic/ack+ and +langohr.basic/nack+, respectively, which
 takes a metadata attribute called +delivery-tag+ (delivery ID). To
 enable manual acknowledgements, pass +:auto-ack false+ to
-+langohr.consumers/subscribe+.
++langohr.consumers/subscribe+:
 
 [source,clojure]
 ----
@@ -340,8 +341,8 @@ will be redelivered immediately.
 
 It is also possible to control how many messages will be pushed to the
 client before it must receive an ack for at least one of them. This is
-known as the *prefetch setting* and is set using +langohr.basic/qos+.
-This setting applies across an entire channel.
+known as the _prefetch setting_ and is set using +langohr.basic/qos+.
+This setting applies across an entire channel:
 
 [source,clojure]
 ----
@@ -355,9 +356,9 @@ and more. To learn more, see RabbitMQ and Langohr documentation sites.
 
 ==== See Also
 
-* http://clojurerabbitmq.info[Langohr documentation].
-* Langohr's http://reference.clojurerabbitmq.info[API reference].
-* http://rabbitmq.com/getstarted.html[RabbitMQ tutorials].
+* http://clojurerabbitmq.info[Langohr documentation]
+* Langohr's http://reference.clojurerabbitmq.info[API reference]
+* http://rabbitmq.com/getstarted.html[RabbitMQ tutorials]
 * If you need low-level access to RabbitMQ, you may want to
   investigate using Clojure's Java interop to interact with the
   http://www.rabbitmq.com/java-client.html[RabbitMQ Java Client], the

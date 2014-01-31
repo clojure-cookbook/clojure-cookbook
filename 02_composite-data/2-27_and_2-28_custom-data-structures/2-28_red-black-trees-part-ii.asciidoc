@@ -1,17 +1,17 @@
 [[sec_red_black_part_ii]]
-=== Implementing Custom Data Structures: Red-Black Trees - Part II
+=== Implementing Custom Data Structures: Red-Black Trees--Part II
 [role="byline"]
-by Ryan Neufeld and Leonardo Borges
+by Ryan Neufeld; originally submitted by Leonardo Borges
 
 ==== Problem
 
 You want to use Clojure's core sequence functions (+conj+, +map+,
-+filter+, etc.) with your own custom data structure.
++filter+, etc.) with your custom data structure.
 
 ==== Solution
 
-In Part I of this recipe (<<sec_red_black_part_i>>) you implemented
-all the functions necessary for creating an efficient Red-Black Tree.
+In part one of this recipe (<<sec_red_black_part_i>>), you implemented
+all the functions necessary for creating an efficient red-black tree.
 
 What's missing is participation in Clojure's sequence abstraction.
 
@@ -47,7 +47,7 @@ Since RBTs most closely resemble sets, they should adhere well to the
 protocols to a new +RedBlackTree+ type, implementing all of the
 necessary functions. It's also wise to implement the multimethod
 +print-method+ for +RedBlackTree+, as the default implementation will
-fail for +RedBlackTree+ as implemented.
+fail for +RedBlackTree+ as implemented:
 
 [source,clojure]
 ----
@@ -78,7 +78,7 @@ exercises to the reader.
 ====
 
 It is now possible to use a +RedBlackTree+ instance like any other
-collection--in particular, instances act like sets.
+collection--in particular, instances act like sets:
 
 [source, clojure]
 ----
@@ -107,13 +107,13 @@ collection--in particular, instances act like sets.
 
 In the end, it doesn't take a lot to participate in the sequence
 abstraction. By implementing a small handful of interface functions, the
-Red-Black Tree implementation from <<sec_red_black_part_i>> can
-participate in a wide-array of sequence-oriented functions; +map+,
+red-black tree implementation from <<sec_red_black_part_i>> can
+participate in an array of sequence-oriented functions: +map+,
 +filter+, +reduce+, you name it. 
 
 At its essence, +clojure.lang.IPersistentSet+ is an abstraction of what it
 means to represent a mathematical set structure; this matches a tree data
-structure well. A set isn't a list or sequence though, how is +RedBlackTree+
+structure well. A set isn't a list or sequence though. So how is +RedBlackTree+
 then said to be participating in the sequence abstraction?
 
 In Clojure, types extending the +clojure.lang.ISeq+ interface are true
@@ -121,8 +121,8 @@ _sequences_, represented as a logical list of head and tail. While
 +IPersistentSet+ does not inherit from +ISeq+, it does share a common
 ancestry with it. Both interfaces extend
 +clojure.lang.IPersistentCollection+ and its parent
-+clojure.lang.Seqable+. As luck would have it footnote:[actually, as
-design would have it], sequence functions rely on collections being
++clojure.lang.Seqable+. As luck would have it,footnote:[Actually, as
+design would have it.] sequence functions rely on collections being
 +Seqable+, *not* +ISeq+. Since +RedBlackTree+ can be read as a
 sequence, it is +Seqable+ and can be operated on by all of the
 sequence functions you know and love.
@@ -131,7 +131,7 @@ Most of the functions in the +IPersistentSet+ interface are self
 explanatory, but some deserve further explanation. The function +cons+
 is a historical name for constructing a new list by appending a value
 to an existing list. +seq+ is intended to produce a sequence from a
-collection, or +nil+ if empty.
+collection, or +nil+ if empty:
 
 ._IPersistentSet.java_
 [source,java]
@@ -169,34 +169,35 @@ tree-traversal algorithms. Luckily Clojure has a built-in function
 +tree-seq+ that does precisely this. By leveraging +tree-seq+ to
 produce a sequence of nodes, it is trivial to write a +rb-tree->seq+
 conversion function that lazily traverses a +RedBlackTree+ yielding
-node-values as it goes.
+node values as it goes.
 
 +tree-seq+ accepts three arguments:
 
-* +branch?+ - a conditional that returns true if a node is a branch
-  (not a leaf node). For +RedBlackTree+, +sequential?+ is an adequate
-  check, as every node is a vector.
-* +children+ - a function that returns all of the children for a given
-  node.
-* +root+ - the node to begin traversal on.
++branch?+::
+A conditional that returns true if a node is a branch (not a leaf node). For +RedBlackTree+, +sequential?+ is an adequate check, as every node is a vector.
+
++children+::
+A function that returns all of the children for a given node.
+
++root+::
+The node to begin traversal on.
 
 [NOTE]
 ====
 +tree-seq+ performs a depth-first traversal of trees. Given how
-Red-Black Trees are represented, this will *not* be an ordered
+red-black trees are represented, this will *not* be an ordered
 traversal.
 ====
 
 With a sequence conversion function in hand, it is easy enough to
-write the +seq+ function. Similarly +cons+ and +empty+ are a breeze,
-simply utilize the existing tree functions. Equality testing can be a
+write the +seq+ function. Similarly, +cons+ and +empty+ are a breeze--simply utilize the existing tree functions. Equality testing can be a
 bit more difficult, however.
 
 For the sake of simplicity, we chose to implement equality (+equiv+)
 between *only* +RedBlackTree+ instances. Further, the implementation
 compares a sorted sequence of their elements. In this case, +equiv+ is
-answering the question "do these trees have the same values?" and not
-the question "are these the same trees?" It's an important
+answering the question, "Do these trees have the same values?" and not
+the question, "Are these the same trees?" It's an important
 distinction, one you'll need to consider carefully when implementing
 your own data structures.
 
@@ -205,7 +206,7 @@ bonuses of sets is their ability to be invoked just like any other
 function. It's easy enough to provide this ability to
 ++RedBlackTree++s too. By implementing the single-arity +invoke+
 function of the +clojure.lang.IFn+ interface, ++RedBlackTree++s can be
-invoked like any other function (or set, for that matter).
+invoked like any other function (or set, for that matter):
 
 [source,clojure]
 ----
@@ -245,17 +246,17 @@ course). It's easy enough to mirror +vec+ and +vector+ for ++RedBlackTree++s:
 
 You may also have noticed printing is not a concern of the sequence
 abstraction, although it is certainly an important consideration to
-make for developing developer (and machine) friendly data structures.
+make for developing developer- and machine-friendly data structures.
 There are two types of printing in Clojure: +toString+ and +pr+-based
 printing. The +toString+ function is intended for printing
 human-readable values at the REPL, while the +pr+ family of functions
 are meant (more or less) to be readable by the Clojure reader.
 
-To provide our own readable representation of RBT we must implement
+To provide our own readable representation of RBT, we must implement
 +print-method+ (the heart of +pr+) for the +RedBlackTree+ type. By
-writing in a "tagged literal" format (e.g. +#rbt+) it is possible to
+writing in a "tagged literal" format (e.g., +#rbt+), it is possible to
 configure the reader to ingest and hydrate written values as
-first-class objects.
+first-class objects:
 
 [source,clojure]
 ----
@@ -279,8 +280,8 @@ rbt-string
 
 ==== See Also
 
-* The first part of this recipe, <sec_red_black_part_i>>, where we define the initial
-  Red-Black Tree implementation.
+* The first part of this recipe, <<sec_red_black_part_i>>, where we define the initial
+  red-black tree implementation
 * <<sec_local_io_clojure_data_to_disk>> and
   <<sec_default_data_reader>> for more information on reading Clojure
-  data.
+  data

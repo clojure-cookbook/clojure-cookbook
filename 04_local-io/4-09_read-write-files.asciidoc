@@ -9,14 +9,14 @@ You need to read or write a text file to the local filesystem.
 
 ==== Solution
 
-Write a string to a file with the built in +spit+ function.
+Write a string to a file with the built-in +spit+ function:
 
 [source,clojure]
 ----
 (spit "stuff.txt" "my stuff")
 ----
 
-Read the contents of a file with the built in +slurp+ function.
+Read the contents of a file with the built-in +slurp+ function:
 
 [source,clojure]
 ----
@@ -24,7 +24,7 @@ Read the contents of a file with the built in +slurp+ function.
 ;; -> "all my stuff"
 ----
 
-If required, an encoding can be specified with the +:encoding+ option.
+If required, an encoding can be specified with the +:encoding+ option:
 
 [source,clojure]
 ----
@@ -32,15 +32,15 @@ If required, an encoding can be specified with the +:encoding+ option.
 ;; -> "all my stuff"
 ----
 
-Append data to an existing file using the +:append true+ option to +spit+.
+Append data to an existing file using the +:append true+ option to +spit+:
 
 [source,clojure]
 ----
 (spit "stuff.txt" "even more stuff" :append true)
 ----
 
-To read a file line-by-line, instead of loading the entire contents
-into memory at once, use a +java.io.Reader+ together with the +line-seq+ function.
+To read a file line by line, instead of loading the entire contents
+into memory at once, use a +java.io.Reader+ together with the +line-seq+ function:
 
 [source,clojure]
 ----
@@ -50,7 +50,7 @@ into memory at once, use a +java.io.Reader+ together with the +line-seq+ functio
 ----
 
 To write a large amount of data to a file without realizing it all as
-a string, use a +java.io.Writer+.
+a string, use a +java.io.Writer+:
 
 [source,clojure]
 ----
@@ -65,7 +65,7 @@ a string, use a +java.io.Writer+.
 When using +:append+, text will be appended to the end of the
 file. Use newlines at the end of each line by appending +"\n"+ to the
 string to be printed. All lines in a text file should end with a
-newline including the last one.
+newline, including the last one:
 
 [source,clojure]
 ----
@@ -76,7 +76,7 @@ newline including the last one.
 ----
 
 When used with strings, +spit+ and +slurp+ deal with the entire
-contents of a file at a time, and close the file after reading or
+contents of a file at a time and close the file after reading or
 writing. If you need to read or write a lot of data, it is more
 efficient (in terms of both memory and time) to use a streaming API
 such as +java.io.Reader+ or +java.io.Writer+, since they do not
@@ -92,7 +92,7 @@ WARNING: Be especially aware that any lazy sequences based on a stream
 will throw an error if the underlying stream is closed before the
 sequence is realized. Even when using +with-open+, it is possible to
 return an unrealized lazy sequence; the +with-open+ macro has no way
-of knowing that the stream is still needed, and so will close it
+of knowing that the stream is still needed and so will close it
 anyway, leaving a sequence that cannot be realized.
 
 Generally, it is best to not let lazy sequences based on streams
@@ -106,4 +106,4 @@ which streams are still open rather than relying on a +try/finally+ or
 ==== See Also
 
 * <<sec_local_io_clojure_data_to_disk>>
-* The documentation for http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html[+java.io.Reader+] and http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html[+java.io.Writer+]r] and http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html[+java.io.Writer+].
+* The documentation for http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html[+java.io.Reader+], http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html[+java.io.Writer+], and http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html[+java.io.Writer+]

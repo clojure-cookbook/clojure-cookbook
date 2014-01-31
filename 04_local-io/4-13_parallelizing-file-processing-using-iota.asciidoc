@@ -11,7 +11,7 @@ processing without loading the file into memory.
 ==== Solution
 
 Use the https://github.com/thebusby/iota[Iota] library in
-conjunction with the +filter+, +map+ and +fold+ functions from the
+conjunction with the +filter+, +map+, and +fold+ functions from the
 Clojure Reducers library in the +clojure.core.reducers+ namespace.
 
 To follow along with this recipe, add `[iota "1.1.1"]` to your project's dependencies, or start a REPL with +lein-try+:
@@ -61,7 +61,7 @@ The Iota library creates sequences from files on the local file
 system. Unlike the purely sequential lazy sequences produced from
 something like +file-seq+, the sequences returned by Iota are
 optimized for use with Clojure's reducers library, which uses the Java
-Fork/Join work stealing framework footnote:[For more information, see
+Fork/Join work-stealing frameworkfootnote:[For more information, see
 the Java
 http://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html[tutorial]
 on Fork/Join and work stealing.] under the hood to provide efficient
@@ -69,36 +69,36 @@ parallel processing.
 
 The +keyword-count+ function first creates a reducible sequence of
 lines in the file and filters out blank lines (using the +identity+
-function to eliminate nil values from the sequence). Then, it applies
+function to eliminate +nil+ values from the sequence). Then, it applies
 the +count-map+ function in parallel, and finally aggregates the
 results by folding with the +add-maps+ function.
 
-+r/filter+ and +r/map+ function exactly the same as their non-reducer
++r/filter+ and +r/map+ function exactly the same as their non-Reducer
 counterparts; the only difference is one of performance, and how the
 Reducers library is able to break down and combine operations. They
-also return Reducible sequences, that can be utilized efficiently by
+also return Reducible sequences that can be utilized efficiently by
 other operations from the Reducers library.
 
 +r/fold+ is the core function of the Reducers library, and in its
-basic form is functionally very similar to the built in +reduce+
+basic form is functionally very similar to the built-in +reduce+
 function. Given a function and a reducible collection, it returns a
 value that is the result of applying the folding function to each item
 in the collection and an accumulator value.
 
 Unlike normal +reduce+, however, there is no guaranteed execution
-order, which is why +fold+ doesn't take a single "starting" value as
+order, which is why +fold+ doesn't take a single starting value as
 an argument. It wouldn't make sense, given that the computation can
 "start" in several places at once, concurrently. This means that the
 function passed to +fold+ (when passed a single function) must also
-be capable of taking *zero* arguments - the result of the no-arg
-invocation of the provided will be used as the seed value for each
+be capable of taking *zero* arguments--the result of the no-arg
+invocation of the provided function will be used as the seed value for each
 branch of the computation.
 
 If you need more flexibility than this provides, +fold+ allows you to
-specify both a +reduce+ function and a +combine+ function, as seperate
+specify both a +reduce+ function and a +combine+ function, as separate
 arguments. Exactly what these do is inextricably tied with how
 Reducers themselves work, so a full explanation is beyond the scope of
-this recipe. See the
+this Recipe. See the
 http://clojure.github.io/clojure/clojure.core-api.html#clojure.core.reducers/fold[documentation
 for the +fold+ function] and the information linked from the
 http://clojure.org/reducers[reducers] page on Clojure's website for
@@ -107,13 +107,13 @@ more information.
 ===== About Reducers
 
 Reducers is a parallel execution framework for extremely efficient
-parallel processing. A full explanation of how reducers work is beyond the scope of this recipe (see http://clojure.com/blog/2012/05/08/reducers-a-library-and-model-for-collection-processing.html[the blog post] introducing reducers for a comprehensive treatment.)
+parallel processing. A full explanation of how reducers work is beyond the scope of this recipe (see http://clojure.com/blog/2012/05/08/reducers-a-library-and-model-for-collection-processing.html[the blog post] introducing reducers for a comprehensive treatment).
 
 In short, however, reducers provide performance by two means:
 
 1. They can compose operations. Wherever logically possible, the
 reducers framework will collapse composable operations into a single
-operation. For example, the above code performs a +filter+ and then a
+operation. For example, the preceding code performs a +filter+ and then a
 +map+. Clojure's standard +filter+ and +map+ would realize an
 intermediate sequence; +filter+ would produce a sequence that would
 then be fed to +map+. The reducer versions, however, can compose
@@ -121,7 +121,7 @@ themselves (if possible) to produce a single +map+filter+ operation
 that can be applied in one shot.
 
 2. They exploit the internal tree-like data structures of the data
-being reduced. Reguar sequences are inherently sequential (no
+being reduced. Regular sequences are inherently sequential (no
 surprise), and because their performant operation is to pull items
 from the beginning one at a time, it's difficult to efficiently
 distribute work across their members. However, Reducers is aware of
@@ -130,12 +130,12 @@ leverate that to efficiently distribute worker processes across the
 data.
 
 Under the hood, Iota uses the Java NIO libraries to provide a
-_memory mapped_ view of the file being processed, that provides
+_memory-mapped_ view of the file being processed that provides
 efficient random access. Iota is also aware of the Reducers framework,
 and Iota sequences are structured in such a way that Reducers can
 effictively distribute worker processes across them.
 
 ==== See Also
 
-* The +iota+ https://github.com/thebusby/iota[GitHub repository].
-* http://docs.oracle.com/javase/7/docs/api/java/nio/package-summary.html[NIO's documentation].
+* The +iota+ https://github.com/thebusby/iota[GitHub repository]
+* http://docs.oracle.com/javase/7/docs/api/java/nio/package-summary.html[NIO's documentation]

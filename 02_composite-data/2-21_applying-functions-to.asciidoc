@@ -11,7 +11,7 @@ values of a map.
 ==== Solution
 
 Use one of these simple general-purpose functions, modified to suit
-any needs you have.
+any needs you have:
 
 [source,clojure]
 ----
@@ -63,7 +63,7 @@ place.
 
 +map-kv+ works a bit differently. It starts by converting the map into
 a sequence of map entries, then uses +map+ to apply them to an
-anonymous function which destructures the key and value, and then
+anonymous function that destructures the key and value, and then
 passes the key and value to the caller-provided function. Finally, it
 uses +into+ to repeatedly conjoin the resulting pairs onto an empty
 map, returning a new map consisting of the transformed keys and values.
@@ -86,16 +86,16 @@ the other staple of functional programming, +reduce+?
 
 Clojure already has a +reduce-kv+ function built in, added in version 1.4.
 
-+reduce-kv+ takes three arguments; a function, an initial value, and
++reduce-kv+ takes three arguments: a function, an initial value, and
 an associative collection. The provided function must also take three
 arguments. +reduce-kv+ reduces the provided collection by first
-applying the function to the initial value, the first key and its
+applying the function to the initial value, the first key, and its
 corresponding value from the map. The resulting value is then
-re-applied along with the second key and value, the resulting value
+reapplied along with the second key and value, the resulting value
 with the third key and value, and so on.
 
 The following example uses +reduce-kv+ to obtain the sum of all the
-values in a map.
+values in a map:
 
 [source,clojure]
 ----
@@ -107,7 +107,7 @@ values in a map.
 ----
 
 Note that an underscore (+_+) is used instead of +key+ in the function
-argument declaration; this is idiomatic in Clojure to name any argument
+argument declaration. This is idiomatic in Clojure to name any argument
 that isn't actually used in the body.
 
 It's also possible to define +map-kv+ using +reduce-kv+:
@@ -118,7 +118,7 @@ It's also possible to define +map-kv+ using +reduce-kv+:
     (reduce-kv (fn [agg k v] (conj agg (f k v))) {} m))
 ----
 
-Which could be used in this example:
+which could be used in this example:
 
 ----
 (map-kv {:one 1 :two 2 :three 3}
@@ -126,6 +126,6 @@ Which could be used in this example:
 ;; -> {"one" 2, "three" 4, "two" 3}
 ----
 
-==== See also
+==== See Also
 
 * <<sec_composite_maps_as_seqs>>

@@ -94,4 +94,4 @@ satisfaction from the sudden confluence of new abilities.
 
 ==== See Also
 
-* The official list of Leiningen https://github.com/technomancy/leiningen/wiki/Plugins[Plugins].
+* The official list of Leiningen https://github.com/technomancy/leiningen/wiki/Plugins[plug-ins]

@@ -1,6 +1,6 @@
 === Making a GUI Window with Scrollable Text
 [role="byline"]
-by John Jacobsen, originally submitted by John Walker
+by John Jacobsen; originally submitted by John Walker
 
 ==== Problem
 
@@ -20,10 +20,10 @@ To follow along with this recipe, start a REPL using +lein-try+:
 $ lein try seesaw
 ----
 
-Swing implements "programmable Look and Feel": the appearance of
-various widgets, and their behavior, can be modified, though it is
+Swing implements "programmable look and feel": the appearance of
+various widgets and their behavior can be modified, though it is
 common to set this to match the platform one is on, for the sake of
-maximum usability. Setting the native Look and Feel is accomplished in
+maximum usability. Setting the native look and feel is accomplished in
 Seesaw with the +native!+ function:
 
 [source,clojure]
@@ -52,7 +52,7 @@ To create your window object, use +frame+ (which, under the covers, makes a
 ----
 
 Although a frame has been created, nothing appears. In order to
-actually display the frame, use +show!+:
+actually display the frame (as seen in <<fig4-2>>), use +show!+:
 
 [source,clojure]
 ----
@@ -62,6 +62,7 @@ actually display the frame, use +show!+:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
+[[fig4-2]]
 .A simple window
 image::images/clcb_0402.png[]
 
@@ -69,7 +70,7 @@ image::images/clcb_0402.png[]
 
 Having created the window, you can set its size, add content, and add scrollbars, as follows.
 
-==== Adding Content
+===== Adding Content
 You can change properties of the frame using +config!+:
 
 [source,clojure]
@@ -78,7 +79,13 @@ You can change properties of the frame using +config!+:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
-==== Sizing the Window
+The result is shown in <<fig4-3>>.
+
+[[fig4-3]]
+.A window with basic content
+image::images/clcb_0403.png[]
+
+===== Sizing the Window
 
 You can also specify the size of the window at time of creation:
 
@@ -98,10 +105,7 @@ content:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
-.A window with basic content
-image::images/clcb_0403.png[]
-
-==== Adding Scrollable Content
+===== Adding Scrollable Content
 
 Now add some text, in the form of an excerpt from the sonnets of Shakespeare, to your window:
 
@@ -114,7 +118,7 @@ Now add some text, in the form of an excerpt from the sonnets of Shakespeare, to
                       (apply str)))
 ----
 
-This content is too big to fit in the current window:
+This content is too big to fit in the current window (see <<fig4-4>>):
 
 [source,clojure]
 ----
@@ -122,12 +126,13 @@ This content is too big to fit in the current window:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
+[[fig4-4]]
 .A window with more text than space
 image::images/clcb_0404.png[]
 
 Normally, one would call +pack!+ again to adjust the window size to
 the new content. However, the content will not fit comfortably on most
-screens, so set the size explicitly and add scrollbars:
+screens, so set the size explicitly and add scrollbars, as seen in <<fig4-5>>:
 
 [source,clojure]
 ----
@@ -137,6 +142,7 @@ screens, so set the size explicitly and add scrollbars:
                                       :editable? false)))
 ----
 
+[[fig4-5]]
 .A larger window with a scroll bar
 image::images/clcb_0405.png[]
 
@@ -147,26 +153,27 @@ used for multiline text; +JTextField+ is for single-line text fields).
 (since it is, perhaps, doubtful that they would improve upon
 Shakespeare's original).
 
-Like most of the Seesaw functions which create widgets, there are
+Like most of the Seesaw functions that create widgets, there are
 several more options to +text+, which are best learned about by
 studying the http://daveray.github.io/seesaw/[API documentation].
 
 As is always the case in Clojure, the Seesaw library functions return
 Java objects, which can be operated upon directly using Java methods;
 for example, our use of the +.setSize+ method of the +JFrame+ object
-returned by +frame+. This interoperability provides great power, but
+returned by +frame+. This interoperability provides great power but
 comes at the cost of a somewhat higher burden on programmers, who must
 navigate not only the Seesaw API but, frequently, some aspects of the
 underlying Swing API as well.
 
 Seesaw supports a wide variety of GUI tasks -- creation of menus,
 display of text and images, scroll bars, radio buttons, check boxes,
-multi-paned windows, drag-and-drop, and much more. In addition to the
+multipaned windows, drag-and-drop, and much more. In addition to the
 dozen or so books which have been written about Swing, one could easily
 write an entire book on Seesaw. This recipe merely serves as a
 starting point for further investigation of the Seesaw library.
 
 ==== See Also
 
-* The Seesaw https://github.com/daveray/seesaw[GitHub repository].
-* J. Elliott et. al., "Java Swing, 2nd Ed.", O'Reilly Media.
+* The Seesaw https://github.com/daveray/seesaw[GitHub repository]
+* pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596004088.do">Java Swing, 2nd Ed.</ulink></emphasis>] (O'Reilly Media) by Marc Loy et al. 
+

@@ -1,4 +1,4 @@
-=== Read Properties From a File
+=== Read Properties from a File
 [role="byline"]
 by Tobias Bayer
 
@@ -8,7 +8,7 @@ You need to read a property file and access its key-value pairs.
 
 ==== Solution
 
-The most straightforward way is to use the built in
+The most straightforward way is to use the built-in
 +java.util.Properties+ class via Java interop. +java.util.Properties+
 implements +java.util.Map+, which can be easily consumed from Clojure,
 just as any other map is.
@@ -24,7 +24,7 @@ grannysmith=green
 
 Populating an instance of +Properties+ from a file is straightforward,
 using its +load+ method and passing in an instance of +java.io.Reader+
-obtained using the +clojure.java.io+ namespace.
+obtained using the +clojure.java.io+ namespace:
 
 [source,clojure]
 ----
@@ -85,10 +85,9 @@ default values.
 
 By default, ++propertea++'s +read-properties+ function treats all
 property values as strings. You can force parsing to other types by
-specifying the type for a property.
+specifying the type for a property:
 
 ._other.properties_
-[source,plain]
 ----
 intkey=42
 booleankey=true
@@ -113,7 +112,7 @@ booleankey=true
 ;; -> java.lang.Boolean
 ----
 
-Sometimes the property file might not contain a key value pair and you might want to set a reasonable default value in this case:
+Sometimes the property file might not contain a key value pair, and you might want to set a reasonable default value in this case:
 
 [source,clojure]
 ----
@@ -133,5 +132,5 @@ You can also be strict on required properties. If an expected property is missin
 
 ==== See Also
 
-* The https://github.com/jaycfields/propertea[+propertea+ documentation] for more details.
-* The http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html[+Properties+ documentation].
+* The https://github.com/jaycfields/propertea[+propertea+ documentation] for more details
+* The http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html[+Properties+ documentation]
