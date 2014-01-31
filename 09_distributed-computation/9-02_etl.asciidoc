@@ -158,7 +158,7 @@ several Hadoop enabled queries in the same file.
 (?<-
 ----
 
-Inside the +Main+ function is a Cascalog operator, +?<-+, that defines
+Inside the +Main+ function is a Cascalog operator, pass:[<literal>?&#x003C;-</literal>], that defines
 and executes a query footnote:[While queries *look* like regular Clojure,
 they are in fact a DSL. If you're not familiar with Cascalog queries,
 learn more in Nathan Marz's
