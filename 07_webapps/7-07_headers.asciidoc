@@ -1,6 +1,6 @@
 === Reading and Writing Request & Response Headers in Ring
 [role="byline"]
-originally submitted by Adam Bard
+by Luke VanderHart and Adam Bard
 
 ==== Problem
 

@@ -127,21 +127,23 @@ The compare function may be called an arbitrary number of times as the sort is e
 
 Clojure fully participates in Java's comparison and sorting
 mechanisms. All Clojure objects that have a natural order implement
-+java.util.Comparable+ and implement the +compareTo+ method.
+http://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html[+java.lang.Comparable+]
+and implement the +compareTo+ method.
 
 More importantly, every Clojure function actually implements the
-+java.util.Comparator+ interface. This means that you can pass a
-Clojure function to any Java method that requires an instance of
-+java.util.Comparator+, and it will invoke the function with two
-arguments. This is what allows you to pass arbitrary Clojure functions
-as the comparator to +sort+. The function object itself is actually
-being used as a Java comparator, and invoking the Java +.compare+
-method on a Clojure function will actually call it, passing it the two
-values being compared as two arguments.
+http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html[+java.util.Comparator+]
+interface. This means that you can pass a Clojure function to any Java
+method that requires an instance of +java.util.Comparator+, and it
+will invoke the function with two arguments. This is what allows you
+to pass arbitrary Clojure functions as the comparator to +sort+. The
+function object itself is actually being used as a Java comparator,
+and invoking the Java +.compare+ method on a Clojure function will
+actually call it, passing it the two values being compared as two
+arguments.
 
 Because predicate functions (those returning a boolean value) do not
 map exactly to the positive/negative/zero integer return value
-expected from a +java.lang.Comparator+, Clojure itself handles the
+expected from a +java.util.Comparator+, Clojure itself handles the
 logical mapping between them. If a function used as a comparator (that
 is, +(pred x y)+) returns +true+, the implementation will return +-1+,
 indicating that +x+ is less than +y+ in the given sort. If not, it will

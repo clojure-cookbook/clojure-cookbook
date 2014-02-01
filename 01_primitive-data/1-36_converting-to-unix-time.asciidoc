@@ -38,7 +38,7 @@ This is how you can use the +to-unix-time+ function:
 
 ==== Discussion
 
-When you have a +java.util.Date+ object, you can use the Java interop
+When you have a http://docs.oracle.com/javase/7/docs/api/java/util/Date.html[+java.util.Date+] object, you can use the Java interop
 provided by Clojure as an easy way to get the time represented as Unix
 time.  Java's +Date+ objects have a method +getTime+, which returns the
 date as a Unix time.

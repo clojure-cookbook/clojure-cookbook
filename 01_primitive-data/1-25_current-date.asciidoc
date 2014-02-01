@@ -9,7 +9,7 @@ You need to obtain the current date or time.
 
 ==== Solution
 
-Use Java's +java.util.Date+ constructor to create a +Date+ instance
+Use Java's http://docs.oracle.com/javase/7/docs/api/java/util/Date.html[+java.util.Date+] constructor to create a +Date+ instance
 representing the present time and date:
 
 [source,clojure]

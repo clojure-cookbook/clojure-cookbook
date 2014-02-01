@@ -99,4 +99,5 @@ third
 * <<sec_primitives_math_bitwise>>
 * <<sec_primitives_dates_reader_literal>> for information on +#inst+,
   another example of a reader literal, for dates
+* +java.util.UUID+ http://docs.oracle.com/javase/7/docs/api/java/util/UUID.html[API documentation]
 

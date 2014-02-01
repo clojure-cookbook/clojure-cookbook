@@ -149,5 +149,5 @@ self-explanatory.
 
 - <<sec_network_io_tcp_client>>
 - <<sec_network_io_tcp_server>>
-- Using +core.async+
-- Documentation for +java.net.MulticastSocket+.
+- <<sec_general_core_async>>
+- +java.net.MulticastSocket+ http://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html[API documentation]

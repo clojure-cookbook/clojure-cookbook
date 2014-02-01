@@ -1,7 +1,7 @@
 [[polymorphism_with_protocols]]
 === Building Functions with Polymorphic Behavior
 [role="byline"]
-by Ryan Neufeld, originally submitted by David McNeil
+by Ryan Neufeld; originally submitted by David McNeil
 
 ==== Problem
 
@@ -122,7 +122,7 @@ multimethod, the +area+ function:
 
 [source,clojure]
 ----
-(defmulti area ; <1> 
+(defmulti area ; <1>
   "Calculate the area of a shape" ; <2>
   :type) ; <3>
 ----

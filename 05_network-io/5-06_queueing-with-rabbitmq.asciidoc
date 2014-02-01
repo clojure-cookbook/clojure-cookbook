@@ -1,6 +1,6 @@
 === Communicating over Queues Using RabbitMQ
 [role="byline"]
-originally submitted by Michael Klishin
+by Ryan Neufeld; originally submitted by Michael Klishin
 
 ==== Problem
 
@@ -31,7 +31,7 @@ Once installed, start a standalone RabbitMQ server with the command
 $ rabbitmq-server
 ----
 
-Prior to performing any operations against RabbitMQ, you must connect 
+Prior to performing any operations against RabbitMQ, you must connect
 to a server and open a communication channel. A channel is the medium
 over which you can produce and consume messages to/from:
 
@@ -212,7 +212,7 @@ similarly to +langohr.queue/declare+, but without a name argument:
 ;; -> "amq.gen-FcFv8JD9K8-4NuT8kC3jKA"
 ----
 
-Unlike exchanges, queues in RabbitMQ are all of the same type. 
+Unlike exchanges, queues in RabbitMQ are all of the same type.
 
 ===== Bindings
 
@@ -235,14 +235,14 @@ channel, queue name, and exchange name:
 
 Messages are published to an exchange using the
 +langohr.basic/publish+ function. This function takes three primary
-arguments (beyond channel): 
+arguments (beyond channel):
 
 The name of an exchange::
 Either a user-made exchange such as +"imaging.complete"+, or a built-in like +"amq.fanout"+ or +""+.
-  
+
 A routing key::
 Used by the exchange to perform type-specific routing of messages to queue(s).
-  
+
 A message::
 A string body for the message to be delivered to the queue.
 

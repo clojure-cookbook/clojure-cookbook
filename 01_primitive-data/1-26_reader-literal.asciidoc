@@ -74,7 +74,7 @@ security in mind.
 It's also possible to vary how the reader evaluate +#inst+ literals
 by changing the binding of *+data-readers+*. By varying the binding of
 *+data-readers+*, it is possible to reader +#inst+ literals as
-+java.util.Calendar+ or +java.util.Timestamp+, if you so desire:
+http://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html[+java.util.Calendar+] or http://docs.oracle.com/javase/7/docs/api/java/sql/Timestamp.html[+java.sql.Timestamp+], if you so desire:
 
 [source,clojure]
 ----

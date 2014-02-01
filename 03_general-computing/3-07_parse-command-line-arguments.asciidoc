@@ -1,7 +1,7 @@
 [[sec_parse_command_line_arguments]]
 === Parsing Command-Line Arguments
 [role="byline"]
-Originally submitted by Nicolas Bessi
+by Ryan Neufeld; originally submitted by Nicolas Bessi
 
 ==== Problem
 

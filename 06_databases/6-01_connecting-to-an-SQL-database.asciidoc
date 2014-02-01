@@ -1,7 +1,7 @@
 [[sec_db_connecting_to_a_sql_database]]
 === Connecting to an SQL Database
 [role="byline"]
-by Tom Hicks, originally submitted by Simone Mosciatti
+by Tom Hicks; originally submitted by Simone Mosciatti
 
 ==== Problem
 
@@ -71,7 +71,7 @@ and any number of column specifications.
          '[java-jdbc.ddl :as ddl])
 
 (jdbc/db-do-commands db-spec false
-  (ddl/create-table 
+  (ddl/create-table
      :tags
      [:id :serial "PRIMARY KEY"]
      [:name :varchar "NOT NULL"]))

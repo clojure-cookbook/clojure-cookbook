@@ -109,7 +109,7 @@ In the end, it doesn't take a lot to participate in the sequence
 abstraction. By implementing a small handful of interface functions, the
 red-black tree implementation from <<sec_red_black_part_i>> can
 participate in an array of sequence-oriented functions: +map+,
-+filter+, +reduce+, you name it. 
++filter+, +reduce+, you name it.
 
 At its essence, +clojure.lang.IPersistentSet+ is an abstraction of what it
 means to represent a mathematical set structure; this matches a tree data

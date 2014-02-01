@@ -8,8 +8,9 @@ You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).
 
 ==== Solution
 
-Wrap a normal input stream with +java.util.zip.GZIPInputStream+ to
-get uncompressed data:
+Wrap a normal input stream with
+http://docs.oracle.com/javase/7/docs/api/java/util/zip/GZIPOutputStream.html[+java.util.zip.GZIPInputStream+]
+to get uncompressed data:
 
 [source,clojure]
 ----
@@ -59,8 +60,11 @@ By binding an output stream to +pass:[*out*]+, we can use +println+,
 which will be compressed on disk when the stream is closed.
 
 A nearly identical approach can be used for writing data in the ZIP
-compression format, using the +java.util.zip.ZipInputStream+ and
-+java.util.zip.ZipOutputStream+ classes.
+compression format, using the
+http://docs.oracle.com/javase/7/docs/api/java/util/zip/ZipInputStream.html[+java.util.zip.ZipInputStream+]
+and
+http://docs.oracle.com/javase/7/docs/api/java/util/zip/ZipOutputStream.html[+java.util.zip.ZipOutputStream+]
+classes.
 
 ==== See Also
 

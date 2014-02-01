@@ -9,9 +9,10 @@ You need to read a property file and access its key-value pairs.
 ==== Solution
 
 The most straightforward way is to use the built-in
-+java.util.Properties+ class via Java interop. +java.util.Properties+
-implements +java.util.Map+, which can be easily consumed from Clojure,
-just as any other map is.
+http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html[+java.util.Properties+]
+class via Java interop. +java.util.Properties+ implements
++java.util.Map+, which can be easily consumed from Clojure, just as
+any other map is.
 
 Here is an example +.properties+ file to load:
 
@@ -84,14 +85,18 @@ capability to parse values into numbers or booleans, and providing
 default values.
 
 By default, ++propertea++'s +read-properties+ function treats all
-property values as strings. You can force parsing to other types by
-specifying the type for a property:
+property values as strings. Consider the following property file with
+an integer and boolean key:
 
 ._other.properties_
 ----
 intkey=42
 booleankey=true
 ----
+
+You can force these properties to be parsed into their respective
+types by supplying lists for the +:parse-int+ and +:parse-boolean+
+options:
 
 [source,clojure]
 ----
