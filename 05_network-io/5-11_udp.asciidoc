@@ -147,7 +147,7 @@ self-explanatory.
 
 ==== See Also
 
+- <<sec_general_core_async>>
 - <<sec_network_io_tcp_client>>
 - <<sec_network_io_tcp_server>>
-- <<sec_general_core_async>>
 - +java.net.MulticastSocket+ http://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html[API documentation]

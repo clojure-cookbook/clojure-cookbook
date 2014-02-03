@@ -157,7 +157,7 @@ Without this, the raw invocation `((hash-of? + number?))` would return
 a regular Clojure +ArityException+.
 ====
 
-==== See also
+==== See Also
 
 * The https://github.com/clojure/core.typed[+core.typed+ repository] on GitHub.
 * The +core.typed+ user guide, in particular its sections on

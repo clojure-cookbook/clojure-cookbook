@@ -11,7 +11,7 @@ You need to read or write HTTP request or response headers.
 Read from the `:headers` key in a Ring request map, or `assoc` values
 on to the response map before returning from a Ring handler function.
 
-To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
 ._src/ringtest.clj_
 [source, clojure]
@@ -42,7 +42,7 @@ to indicate to the client that it should be parsed as JSON.
 
 Ring passes request headers as a `:headers` parameter in the request
 map, and accepts a `:headers` parameter in response maps as well. The
-keys and values of the headers map should both be strings - Clojure
+keys and values of the headers map should both be strings. Clojure
 keywords are not supported.
 
 You can use Ring to set any header that is
@@ -50,15 +50,15 @@ http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[valid in
 HTTP].
 
 According to http://www.ietf.org/rfc/rfc2616.txt[RFC-2616], header
-names are _not_ case sensitive. To make it easier to consistently
+names are *not* case sensitive. To make it easier to consistently
 `get` values from the request map, no matter what their case, Ring
-passes in all header values as lower-case, regardless of what the
-client sent. You may wish to _send_ headers using the actual
-capitalization used in the specification, however, just in case the
+passes in all header values as lowercase, regardless of what the
+client sent. You may wish to *send* headers using the actual
+capitalization used in the specification, just in case the
 client you're communicating with is not compliant (following the
-classic robsutness principle; "be conservative in what you send, be
-liberal in what you accept".)
+classic robustness principle: "Be conservative in what you send; be
+liberal in what you accept").
 
 ==== See Also
 
-* https://github.com/ring-clojure/ring/wiki/Concepts[Ring Concepts].
+* https://github.com/ring-clojure/ring/wiki/Concepts[Ring concepts]

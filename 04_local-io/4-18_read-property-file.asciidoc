@@ -17,7 +17,6 @@ any other map is.
 Here is an example +.properties+ file to load:
 
 ._fruitcolors.properties_
-[source,plain]
 ----
 banana=yellow
 grannysmith=green

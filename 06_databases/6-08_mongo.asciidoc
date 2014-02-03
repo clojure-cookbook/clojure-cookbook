@@ -24,7 +24,7 @@ When you're ready to write a Clojure MongoDB client, start a REPL using +lein-tr
 $ lein try com.novemberain/monger
 ----
 
-To connect to MongoDB, use the `monger.core/connect!` function. This will store your connection in the `*mongodb-connection*` dynamic var. If you want to get a connection to use without storing it in a dynamic var, you can use `monger.core/connect` with the same options.
+To connect to MongoDB, use the `monger.core/connect!` function. This will store your connection in the `*mongodb-connection*` dynamic var. If you want to get a connection to use without storing it in a dynamic var, you can use `monger.core/connect` with the same options:
 
 [source,clojure]
 ----
@@ -37,7 +37,7 @@ To connect to MongoDB, use the `monger.core/connect!` function. This will store 
 (mongo/disconnect!)
 ----
 
-Once you are connected, you can insert and query documents easily.
+Once you are connected, you can insert and query documents easily:
 
 [source,clojure]
 ----
@@ -80,7 +80,7 @@ Once you are connected, you can insert and query documents easily.
 
 MongoDB, especially with Monger, can be a natural choice for storing Clojure data. It stores data as BSON (binary JSON), which maps well to Clojure's own vectors and maps.
 
-There are several ways to connect to Mongo, depending on how much you need to customize your connection and whether you have a map of options or a URI.
+There are several ways to connect to Mongo, depending on how much you need to customize your connection and whether you have a map of options or a URI:
 
 [source,clojure]
 ----
@@ -101,7 +101,7 @@ There are several ways to connect to Mongo, depending on how much you need to cu
 (mongo/connect-via-uri! (System/genenv "MONGOHQ_URL"))
 ----
 
-When inserting data, giving each document an `_id` is optional. One will be created for you if you do not have one in your document. It often makes sense to add it yourself, however, if you need to reference the document afterward.
+When inserting data, giving each document an `_id` is optional. One will be created for you if you do not have one in your document. It often makes sense to add it yourself, however, if you need to reference the document afterward:
 
 [source,clojure]
 ----
@@ -116,7 +116,7 @@ When inserting data, giving each document an `_id` is optional. One will be crea
 ;; -> {:_id #<ObjectId 521...>, :name "Lola Morales"}
 ----
 
-In its idiomatic usage, Monger is set up to work with one connection and one database, as `monger.core/connect!` and `monger.core/use-db!` set dynamic vars to hold their information. It is easy to work around this, though. You can use `binding` to set these explicitly around code. In addition, you can use the `monger.multi.collection` namespace instead of `monger.collection`. All functions in the `monger.multi.collection` namespace take a database as their first argument.
+In its idiomatic usage, Monger is set up to work with one connection and one database, as `monger.core/connect!` and `monger.core/use-db!` set dynamic vars to hold their information. It is easy to work around this, though. You can use `binding` to set these explicitly around code. In addition, you can use the `monger.multi.collection` namespace instead of `monger.collection`. All functions in the `monger.multi.collection` namespace take a database as their first argument:
 
 [source,clojure]
 ----
@@ -146,8 +146,9 @@ In its idiomatic usage, Monger is set up to work with one connection and one dat
                  :parallel true :equal true}))
 ----
 
-The basic find functions in `monger.collection` will work for simple queries, but you will soon find yourself needing to make more complex queries, which is where `monger.query` comes in. This is a domain-specific language for MongoDB queries.
+The basic find functions in `monger.collection` will work for simple queries, but you will soon find yourself needing to make more complex queries, which is where `monger.query` comes in. This is a domain-specific language for MongoDB queries:
 
+[source,clojure]
 ----
 (require '[monger.query :as q])
 
@@ -171,4 +172,4 @@ The basic find functions in `monger.collection` will work for simple queries, bu
 
 ==== See Also
 
-* https://github.com/aboekhoff/congomongo[CongoMongo], another Clojure library for working with MongoDB that you might consider.
+* https://github.com/aboekhoff/congomongo[CongoMongo], another Clojure library for working with MongoDB that you might consider

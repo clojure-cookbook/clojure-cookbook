@@ -10,7 +10,7 @@ files, rather than as Clojure source code.
 
 ==== Solution
 
-Use the +:aot+ (Ahead Of Time) compilation key in your project's
+Use the +:aot+ (ahead of time) compilation key in your project's
 _project.clj_ to specify which namespaces should be compiled to
 _.class_ files. The value of the +:aot+ key is a vector of either
 symbols indicating specific namespaces to be compiled, or regular
@@ -18,7 +18,7 @@ expression literals specifying that any namespace with a matching name
 should be compiled.
 
 Alternatively, instead of a vector, you can use the keyword +:all+ as
-a value, which will AOT compile every namespace in the project.
+a value, which will AOT compile every namespace in the project:
 
 [source,clojure]
 ._project.clj_
@@ -39,7 +39,7 @@ a value, which will AOT compile every namespace in the project.
 ----
 
 Note that if your project has specified a +:main+ namespace, Leiningen
-will AOT compile it by default whether or not it is present in an :aot
+will AOT compile it by default whether or not it is present in an +:aot+
 directive.
 
 Once your project is configured for AOT compilation, you can compile
@@ -54,7 +54,7 @@ It's important to understand that AOT compilation does *not* change
 how the code actually runs. It's no faster or different. All Clojure
 code is compiled to the same bytecode before execution; AOT
 compilation merely means that it happens at a singular, defined point
-in time instead of on-demand as the program loads and runs.
+in time instead of on demand as the program loads and runs.
 
 However, although it isn't any faster, it can be a great tool in the
 following situations:
@@ -71,14 +71,14 @@ following situations:
 You may observe that there is more than one emitted class file for
 each AOT compiled namespace. In fact, there will be seperate Java
 classes for each function, the namespace itself, and any additional
-+gen-class+, +deftype+ or +defrecord+ forms. This is actually not
++gen-class+, +deftype+, or +defrecord+ forms. This is actually not
 dissimilar from Java itself; it has always been the case that inner
-classes are compiled to seperate class files, and Clojure functions
+classes are compiled to separate class files, and Clojure functions
 are effectively anonymous inner classes from the JVM's point of view.
 
 ==== See Also
 
 * Clojure's official documentation on
-  http://clojure.org/compilation[AOT compilation].
+  http://clojure.org/compilation[AOT compilation]
 
 * <<sec_packaging_jars>>

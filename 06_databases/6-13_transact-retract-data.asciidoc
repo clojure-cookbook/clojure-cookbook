@@ -1,5 +1,5 @@
 [[sec_retract_data]]
-=== Removing data from a Datomic Database
+=== Removing Data from a Datomic Database
 [role="byline"]
 by Robert Stuttaford
 
@@ -14,7 +14,7 @@ operation in transactions.
 
 To follow along with this recipe, complete the steps in
 <<sec_datomic_connect_to_datomic_solution>> and
-<<sec_datomic_schema_solution>>. After doing this you will have a
+<<sec_datomic_schema_solution>>. After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
 insert data.
 
@@ -46,7 +46,7 @@ barney-id
 ----
 
 To retract Barney's email, transact a transaction with the
-+:db/retract+ operation.
++:db/retract+ operation:
 
 [source,clojure]
 ----
@@ -86,7 +86,7 @@ retract from the set of values for that attribute. Regardless of the
 cardinality, if you provide a value that isn't in storage, nothing
 will be retracted. This means that you have to know what value you
 want to retract; you can't simply retract everything for an attribute
-by only providing the entity id and the attribute.
+by only providing the entity ID and the attribute.
 
 If you retract values for an attribute that does *not* use
 +:db/noHistory+, you will be able to query past database values to
@@ -115,5 +115,4 @@ data permanently.
 
 ==== See Also
 
-* _http://blog.datomic.com/2013/05/excision.html_, the
-  _http://datomic.com_ blog post covering the excision feature.
+* http://blog.datomic.com/2013/05/excision.html[The blog post] covering the excision feature

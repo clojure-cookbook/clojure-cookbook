@@ -13,14 +13,14 @@ Use the +clojure.java.jdbc+ library for JDBC-based access to SQL
 databases.
 
 To follow along with this recipe, you'll need a running SQL database
-and existing table to connect to. We suggest PostgreSQL footnote:[Mac
+and an existing table to connect to. We suggest PostgreSQL.footnote:[Mac
 users: visit http://postgresapp.com/ to download an
 easy-to-install DMG. Everyone else: find a guide for your operating
 system on the
 https://wiki.postgresql.org/wiki/Detailed_installation_guides[PostgreSQL
 Wiki].]
 
-After you have PostgreSQL running (presumably on _localhost:5432_) run the following
+After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
 [source,shell-session]
@@ -33,7 +33,7 @@ $ createdb cookbook_experiments
 ----
 
 Before starting, add `[org.clojure/java.jdbc "0.3.0"]` to your
-project's dependencies. You'll also need a JDBC-driver for the RDBMS
+project's dependencies. You'll also need a JDBC driver for the RDBMS
 of your choice. If you're following along with this sample, use
 `[org.postgresql/postgresql "9.2-1003-jdbc4"]`. To start a REPL using
 +lein-try+, enter the following Leiningen command:
@@ -48,7 +48,7 @@ $ lein try org.clojure/java.jdbc "0.3.0" \
 To interact with a database using +clojure.java.jdbc+, all you need is
 a connection specification. This specification takes the form of a
 plain Clojure map with values indicating the database driver type,
-location and authentication credentials.
+location and authentication credentials:
 
 [source,clojure]
 ----
@@ -63,7 +63,7 @@ location and authentication credentials.
 
 Create a relation in the specified database by invoking the
 +clojure.java.jdbc/create-table+ function with the specification
-and any number of column specifications.
+and any number of column specifications:
 
 [source,clojure]
 ----
@@ -78,9 +78,9 @@ and any number of column specifications.
 ;; -> (0)
 ----
 
-Many other functions which query and manipulate a database, such as
+Many other functions that query and manipulate a database, such as
 +clojure.java.jdbc/insert!+, take a database specification directly as
-their first argument.
+their first argument:
 
 [source,clojure]
 ----
@@ -97,14 +97,14 @@ their first argument.
 
 ==== Discussion
 
-The +clojure.java.jdbc+ library provides functions which wrap the
+The +clojure.java.jdbc+ library provides functions that wrap the
 basic capabilities of the Java JDBC specification. The additional
 +java-jdbc.sql+ and +java-jdbc.ddl+ namespaces from the
 +java-jdbc/dsl+ project implement small DSLs to generate basic SQL DML
 and DDL statements.
 
 Because it relies upon Java JDBC, the +clojure.java.jdbc+ library is useable
-with many of the most popular SQL databases; including Apache Derby, HSQLDB,
+with many of the most popular SQL databases, including Apache Derby, HSQLDB,
 Microsoft SQL Server, MySQL, PostgreSQL, and SQLite.
 
 The parameters necessary to set up and access a data source are called the
@@ -114,7 +114,7 @@ driver class name, the subprotocol for a particular RDBMS type, the hostname,
 the port number, the database name, and the username and password.
 
 The +clojure.java.jdbc+ library also permits several other forms of data source
-specification, including Java URIs, already open connections, JNDI connections,
+specification, including Java URIs, already-open connections, JNDI connections,
 and plain strings. For example, a complete URI string may be provided under the
 +:connection-uri+ key:
 
@@ -137,7 +137,7 @@ and plain strings. For example, a complete URI string may be provided under the
 
 Database records are represented as Clojure maps, with the table's column names
 used as keys. Retrieval of a set of database records produces a sequence of
-maps which can then be processed with all the normal Clojure functions.
+maps that can then be processed with all the normal Clojure functions:
 
 [source,clojure]
 ----
@@ -150,18 +150,18 @@ maps which can then be processed with all the normal Clojure functions.
 ;; -> ({:name "Java", :id 2})
 ----
 
-There are other Clojure libraries to access relational databases and each
+There are other Clojure libraries to access relational databases, and each
 provides a different abstraction and DSL for the manipulation of SQL data and
 expressions, such as Korma. The +clojure.java.jdbc+ library, however, covers a large portion
 of everyday database access needs.
 
 ==== See Also
 
-* <<sec_db_manipulating_a_sql_database>> to learn about using
-  +clojure.java.jdbc+ to interact with an SQL database.
 * <<sec_db_connecting_with_a_connection_pooling>> to learn about
   pooling connections to an SQL database with +c3p0+ and
   +clojure.java.jdbc+.
+* <<sec_db_manipulating_a_sql_database>> to learn about using
+  +clojure.java.jdbc+ to interact with an SQL database.
 * Visit the +clojure.java.jdbc+
   https://github.com/clojure/java.jdbc[GitHub repository] for more
   detailed information on the library.
@@ -169,6 +169,6 @@ of everyday database access needs.
   https://github.com/seancorfield/jsql[GitHub repository] for more
   information on the SQL query generation capabilities it provides.
   Alternatively, investigate the https://github.com/jkk/honeysql[Honey
-  SQL], https://github.com/r0man/sqlingvo[SQLingvo] or
+  SQL], https://github.com/r0man/sqlingvo[SQLingvo], or
   http://sqlkorma.com/[Korma] libraries for SQL query generation.
   Korma is covered in <<sec_sql_korma>>.

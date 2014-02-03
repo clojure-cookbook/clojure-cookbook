@@ -10,7 +10,7 @@ Your Cascalog job runs very slowly and you aren't sure why.
 
 Use the +cascalog.api/explain+ function to print out a DOT file of
 your query. You can follow along by launching a REPL in an existing
-project, such as <<sec_cascalog_etl>>.
+project, such as <<sec_cascalog_etl>>:
 
 [source,clojure]
 ----
@@ -21,15 +21,16 @@ project, such as <<sec_cascalog_etl>>.
 
 Next, you'll want to view the dotfile. There are many ways to do that,
 but the easiest is probably by using +dot+, one of the graphviz tools,
-to convert a dotfile to a PNG or GIF.
+to convert a dotfile to a PNG or GIF:
 
 [source,shell-session]
 ----
 $ dot -Tpng -oslow-query.png slow-query.dot
 ----
 
-Now open _slow-query.png_ to see a diagram of your query.
+Now open _slow-query.png_ (shown in <<fig9-1>>) to see a diagram of your query.
 
+[[fig9-1]]
 ._slow-query.png_
 image::images/clcb_0901.png[]
 
@@ -59,7 +60,7 @@ be able to track down the slow phases.
 
 In general, to keep your Cascalog queries fast, make sure you are
 using all of the nodes in your cluster. That means keeping the work in
-small, evenly sized units. If one map input takes 1000 times as long
+small, evenly sized units. If one map input takes 1,000 times as long
 to run as the other 40 inputs, your whole job will wait on the one
 mapper to finish. Working to split the long map job into 1,000 smaller
 jobs would make the job run much more quickly, since it could be
@@ -75,6 +76,5 @@ a small number of reducers.
 ==== See Also
 
 * <<sec_aggregating_large_files>>
-* The
-  https://github.com/nathanmarz/cascalog/wiki/Cascading-Flow-visualization[Cascading
-  Flow Visuation] article on the Cascalog wiki.
+*   https://github.com/nathanmarz/cascalog/wiki/Cascading-Flow-visualization["Cascading
+  Flow Visualization"] on the Cascalog wiki

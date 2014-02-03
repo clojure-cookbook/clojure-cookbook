@@ -9,9 +9,9 @@ You want an easy way to route URLs to specific Ring handler functions.
 
 ==== Solution
 
-Use the Compojure library (https://github.com/weavejester/compojure) to add routing to your app.
+Use the https://github.com/weavejester/compojure[Compojure library] to add routing to your app.
 
-To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
 ._src/ringtest.clj_
 [source, clojure]
@@ -50,10 +50,17 @@ It does this via the `defroutes` macro, which produces a Ring handler function.
 
 Here, we define four routes:
 
-* `/`, which displays "Hello"
-* `/en/`, the same
-* `/fr/`, which displays "Bonjour", and
-* `/:greeting/`, which echos the greeting passed.
+`/`::
+Displays "Hello"
+
+`/en/`::
+Also displays "Hello"
+
+`/fr/`::
+Displays "Bonjour"
+
+`/:greeting/`::
+Echoes the greeting passed by the user
 
 The last view is an example of Compojure's URL parameter syntax. The section
 of the URL identified by `:greeting` is passed along to the view, which displays
@@ -62,7 +69,7 @@ it for the user. So, visiting `http://localhost:3000/Buenos%20Dias/` displays
 
 One caveat to be aware of is that Compojure routes are sensitive to a
 trailing slash: a route defined as `/users/:user/blog/` will not match
-the url `http://mysite.com/users/fred/blog` - but it *will* match
+the URL `http://mysite.com/users/fred/blog`&#x2014;but it *will* match
 `http://mysite.com/users/fred/blog/`.
 
 The `[]` in each route is actually a syntactic sugar for intercepting these
@@ -74,14 +81,14 @@ parameters. You can also use `req` or any other symbol to get the whole request:
   (GET "/" req (some-view req)))
 ----
 
-You can even use Clojure's destructuring syntax footnote:[If you're
+You can even use Clojure's destructuring syntaxfootnote:[If you're
 not familiar with Clojure's destructuring syntax, we suggest Jay
 Fields'
-http://blog.jayfields.com/2010/07/clojure-destructuring.html[Clojure:
-Destructuring] blog article. For a more extensive resource, pick up a
-copy of http://www.clojurebook.com/[Clojure Programming], which covers
+http://blog.jayfields.com/2010/07/clojure-destructuring.html["Clojure:
+Destructuring" blog post]. For a more extensive resource, pick up a
+copy of http://www.clojurebook.com/[Clojure Programming (O'Reilly Media)], which covers
 destructuring in depth.] to extract parts of the request. For example,
-if you're using the `wrap-params` middleware, you can grab the params
+if you're using the `wrap-params` middleware, you can grab the parameters
 and pass them to a function:
 
 [source, clojure]
@@ -103,8 +110,8 @@ Compojure provides a few other helpful tools:
 http://weavejester.github.io/compojure/compojure.route.html[`compojure.route`],
 which provides helpers for serving resources, files and 404 responses; and
 http://weavejester.github.io/compojure/compojure.handler.html[`compojure.handler`],
-which bundles a number of ring middlewares into one convenient wrapper.
+which bundles a number of Ring middlewares into one convenient wrapper.
 
 ==== See Also
 
-* _http://compojure.org_
+* http://compojure.org

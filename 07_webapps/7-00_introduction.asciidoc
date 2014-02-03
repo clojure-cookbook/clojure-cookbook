@@ -1,10 +1,10 @@
 === Introduction
 
-Web application development is the bread-winner for many languages
+Web application development is the breadwinner for many languages
 nowadays; Clojure is no exception to this. In the annual
 http://cemerick.com/2013/11/18/results-of-the-2013-state-of-clojure-clojurescript-survey/[2013
-State of Clojure Survery] "Web Development" ranked first for the
-question: "In which domains are you applying Clojure and/or
+State of Clojure Survey], web development ranked first for the
+question, "In which domains are you applying Clojure and/or
 ClojureScript?"
 
 Much of the Clojure web development community today centers around

@@ -8,7 +8,7 @@ You want to serve static files through your Ring application.
 
 ==== Solution
 
-Use `ring.middleware.file/wrap-file`.
+Use `ring.middleware.file/wrap-file`:
 
 [source,clojure]
 ----
@@ -21,9 +21,9 @@ Use `ring.middleware.file/wrap-file`.
 
 ==== Discussion
 
-`wrap-file` wraps another web request handler, so that you will serve a static file if one exists in the specified directory, and call the handler if the requested file does not exist.
+`wrap-file` wraps another web request handler so that you will serve a static file if one exists in the specified directory, and call the handler if the requested file does not exist.
 
-`wrap-file` is only one way to serve static files. If you only want to serve up a particular file, `ring.util.response/file-response` will return a handler that serves up that file.
+`wrap-file` is only one way to serve static files. If you only want to serve up a particular file, `ring.util.response/file-response` will return a handler that serves up that file:
 
 [source,clojure]
 ----
@@ -39,7 +39,7 @@ Use `ring.middleware.file/wrap-file`.
 (file-response "README.html" {:allow-symlinks? true})
 ----
 
-Often, you will want to bundle your static files with your application. In that case, it makes more sense to serve files from your classpath rather than from a specific directory. In that case, you want to use `ring.middleware.resource/wrap-resource`.
+Often, you will want to bundle your static files with your application. In that case, it makes more sense to serve files from your classpath rather than from a specific directory. In that case, you want to use `ring.middleware.resource/wrap-resource`:
 
 [source,clojure]
 ----
@@ -55,5 +55,5 @@ You may want to wrap any file responses with `ring.middleware.file-info/wrap-fil
 
 ==== See Also
 
-* <<sec_webapps_compojure_compojure>>
 * <<sec_local_io_get_local_resource>>
+* <<sec_webapps_compojure_compojure>>

@@ -4,7 +4,7 @@ by Osbert Feng
 
 ==== Problem
 
-You want to support flexible full text search over a unstructured or
+You want to support flexible full-text search over an unstructured or
 semi-structured dataset using Lucene. For example, return all people
 that have "Clojure" anywhere in their job descriptions in the "United States".
 
@@ -15,9 +15,9 @@ Lucene. Clucy provides the tools to build and query indexes from
 within a Clojure process.
 
 To follow along with this recipe, create a new project (*+lein new
-text-search+*), add `[clucy "0.4.0"]` to its dependencies and start a
-REPL using *+lein repl+* footnote:[We would normally suggest using
-+lein-try+, but the plugin is currently incompatible with Clucy.].
+text-search+*), add `[clucy "0.4.0"]` to its dependencies, and start a
+REPL using *+lein repl+*.footnote:[We would normally suggest using
++lein-try+, but the plug-in is currently incompatible with Clucy.]
 
 The following code creates and queries a simple in-memory index:
 
@@ -48,11 +48,11 @@ The following code creates and queries a simple in-memory index:
 
 Lucene is a Java library for information retrieval. To use Lucene, you
 generate documents and index them for later retrieval. Documents
-consist of fields and terms. In this example the documents are quite
+consist of fields and terms. In this example, the documents are quite
 small, but Lucene is capable of efficiently indexing large numbers of
 very large documents as well.
 
-Clucy wraps Lucene in a convenient manner for use in Clojure, and is
+Clucy wraps Lucene in a convenient manner for use in Clojure and is
 capable of generating Lucene documents directly from simple Clojure
 maps, where keys map to fields and values map to textual data to be
 indexed.
@@ -69,9 +69,9 @@ indexing and retrieval.
 
 This example uses a +memory-index+, which stores the index in system
 memory. In most real applications, you'll want to persist the index to
-disk, allowing it to grow larger than the available memory, and
+disk, which allows it to grow larger than the available memory, and
 allowing you to restart your process without re-indexing. Clucy lets
-you construct a Lucene disk index via the +disk-index+ function.
+you construct a Lucene disk index via the +disk-index+ function:
 
 [source,clojure]
 ----
@@ -80,9 +80,9 @@ you construct a Lucene disk index via the +disk-index+ function.
 
 As part of the process for generating documents, Lucene calls an
 analyzer on your strings to generate tokens for indexing. The default
-+StandardAnalyzer+ is sufficient for most purposes, and can be
++StandardAnalyzer+ is sufficient for most purposes and can be
 customized with a list of "stop words" to be ignored during token
-generation.
+generation:
 
 [source,clojure]
 ----
@@ -105,10 +105,10 @@ generation.
   )
 ----
 
-However, in other situations you may need to use a different Analyzer
+However, in other situations you may need to use a different analyzer
 or write your own. For example, the +EnglishAnalyzer+ uses Porter stemming and
 other techniques more well suited for taking into account pluralization or
-possessives.
+possessives:
 
 [source,clojure]
 ----
@@ -120,14 +120,14 @@ possessives.
   )
 ----
 
-The basic search query syntax is +field:term+. By default multiple
+The basic search query syntax is +field:term+. By default, multiple
 clauses will perform an +OR+ search, so an explicit +AND+ is required
 if both clauses must be true.
 
-If no field is specified, there an implicit field _content that
+If no field is specified, there an implicit field +_content+ that
 indexes all map values. Documents returned are ordered by Lucene's
-default relevance algorithm which takes into account term frequency,
-distance, and document length.
+default relevance algorithm, which takes into account term frequency,
+distance, and document length:
 
 [source,clojure]
 ----
@@ -145,5 +145,5 @@ distance, and document length.
 
 ==== See Also
 
-* The http://lucene.apache.org/[Lucene project homepage].
-* The Clucy https://github.com/weavejester/clucy[GitHub repository].
+* The http://lucene.apache.org/[Lucene project home page]
+* The Clucy https://github.com/weavejester/clucy[GitHub repository]

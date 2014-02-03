@@ -1,5 +1,5 @@
 [[sec_primitives_math_type_hinting]]
-=== Alleviating Performance Problems With Type Hinting
+=== Alleviating Performance Problems with Type Hinting
 [role="byline"]
 by Ryan Neufeld
 
@@ -11,7 +11,7 @@ You have functions that get called very often, and you want to optimize performa
 
 One of the easiest ways to increase performance for a given function
 is to eliminate Java reflection. Enable *+warn-on-reflection+* to
-diagnose excessive reflection.
+diagnose excessive reflection:
 
 [source,clojure]
 ----
@@ -38,7 +38,7 @@ diagnose excessive reflection.
 ----
 
 Once you've identified reflection, add type hints to your argument
-list preceding each argument in the form "+^Type arg+".
+list preceding each argument in the form +^Type arg+:
 
 [source,clojure]
 ----
@@ -55,7 +55,7 @@ list preceding each argument in the form "+^Type arg+".
 When you have groups of functions that interact together, you may see
 reflection warnings in spite of your properly hinted arguments.
 Add type hints to the argument list itself to hint the type of the
-functions return value.
+functions' return value:
 
 [source,clojure]
 ----
@@ -79,26 +79,26 @@ functions return value.
 
 ==== Discussion
 
-In highly performant code it is often the case that you'll choose to
+In highly performant code, it is often the case that you'll choose to
 fall back to Java for increased performance. There is an impedance
-mismatch between Clojure and Java however; Java is strongly typed,
+mismatch between Clojure and Java, however; Java is strongly typed,
 whereas Clojure is not. Because of this, (almost) every time you
-invoke a Java function in Clojure it needs to reflect on the type of
+invoke a Java function in Clojure, it needs to reflect on the type of
 the provided arguments in order to select the appropriate Java method
-to invoke. For seldom-invoked methods this isn't too big of a deal,
-but for methods executed frequently the cost of reflection can pile up
+to invoke. For seldom-invoked methods, this isn't too big of a deal,
+but for methods executed frequently, the cost of reflection can pile up
 quickly.
 
 Type hinting short-circuits this reflection. If you've hinted *all* of
 the arguments to a Java function, the Clojure compiler will no longer
 perform reflection. Instead, the function application will directly
 invoke the appropriate Java function. Of course, if you've gotten your
-types wrong your methods may not work properly; improperly hinted
+types wrong, your methods may not work properly; improperly hinted
 functions may throw a type-cast exception.
 
 What about when you have a *sequence* of values, all of a uniform type? Clojure
-provides a number of special hints for these cases, namely `^`++ints++, `^`++floats++
-`^`++longs++ and `^`++doubles++. Hinting these types will allow you to pass
+provides a number of special hints for these cases, namely `^`++ints++, `^`++floats++,
+`^`++longs++, and `^`++doubles++. Hinting these types will allow you to pass
 whole arrays as arguments to Java functions and not provoke reflection
 for sequences.
 
@@ -109,18 +109,18 @@ numeric types too, upgrading types liberally to avoid overflows. This
 isn't without a cost, of course, as Clojure needs to check on every
 operation to make sure you aren't overflowing containers. If you need
 even more to-the-metal performance and happen to have nerves of steel
-yourself, then you may want to look at unchecked math footnote:[To
-accurately measure performance improvements from *+unchecked-math+* we
+yourself, then you may want to look at unchecked math.footnote:[To
+accurately measure performance improvements from *+unchecked-math+*, we
 suggest using a tool like
 https://github.com/hugoduncan/criterium[criterium]. Benchmarking
 code with +time+ can be tricky and often yields misleading results (or none
-at all).].
+at all).]
 
-Setting *+unchecked-math+* to true will disable this safety, causing
-addition, subtraction, multiplication, division and +inc+/+dec+ to
+Setting *+unchecked-math+* to +true+ will disable this safety, causing
+addition, subtraction, multiplication, division, and +inc+/+dec+ to
 occur without overflow checks. This in effect reverts numeric behavior
 to a C-like state where it is possible to overflow a positive integer
-to a negative one.
+to a negative one:
 
 [source,clojure]
 ----

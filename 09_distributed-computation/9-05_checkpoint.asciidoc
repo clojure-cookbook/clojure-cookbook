@@ -4,8 +4,8 @@ by Alex Robbins
 
 ==== Problem
 
-Your long running Cascalog jobs throw errors, then need to be
-completely restarted. You waste time waiting for steps to re-run when
+Your long-running Cascalog jobs throw errors, then need to be
+completely restarted. You waste time waiting for steps to rerun when
 the problem was later in the workflow.
 
 ==== Solution
@@ -21,7 +21,7 @@ your project's dependencies and set the +cookbook.checkpoint+
 namespace to be AOT-compiled.
 
 Then use Cascalog Checkpoint's +workflow+ macro to setup your job. A
-hypothetical four step job would look something like this:
+hypothetical four-step job would look something like this:
 
 [source,clojure]
 ----
@@ -54,13 +54,13 @@ running all weekend. Cascalog Checkpoint provides the +workflow+
 macro, which allows you to restart a job from the last step that
 successfully completed.
 
-The +workflow+ macro expects its first argument, +checkpoint-dir+ to
+The +workflow+ macro expects its first argument, +checkpoint-dir+, to
 be a vector with a path for temporary files.  The output of each step
 is temporarily stored in folders inside this path, along with some
 files to keep track of what steps have successfully completed.
 
-After the first argument, +workflow+ expects pairs of step-names and
-step-definitions. Step definitions are a vector of options, followed
+After the first argument, +workflow+ expects pairs of step names and
+step definitions. Step definitions are a vector of options, followed
 by as many cascalog queries as desired for that step. For example:
 
 [source,clojure]
@@ -73,9 +73,9 @@ step-3 ([:deps step-1 :temp-dirs [log-sample-path log-other-sample-path]]
 This step definition defines +step-3+. It depends on +step-1+, so it
 won't run until +step-1+ has completed. This step creates two temporary
 directories for the its queries. Both +:deps+ and +:temp-dirs+ can be
-either a symbol, a vector of symbols or can be omitted. After the
-options vector you can include one or many Cascalog queries, in this
-case there are two queries.
+either a symbol, a vector of symbols, or can be omitted. After the
+options vector, you can include one or many Cascalog queries; in this
+case, there are two queries.
 
 +:deps+ takes several different values. It can take +:last+, which is
 the default value and makes the step depend on the step before
@@ -95,7 +95,7 @@ workflow can resume from the last incomplete step.
 [NOTE]
 ====
 If you want to restart a step that successfully completed, delete the
-file at _<checkpoint-dir>/<step-name>_. The temp-dirs from the step
+file at _<checkpoint-dir>/<step-name>_. The +temp-dirs+ from the step
 definitions can be found in _<checkpoint-dir>/data/<temp-dir>_, in case
 you need to delete or modify the data there.
 ====
@@ -117,4 +117,4 @@ every time.
 
 * The
   https://github.com/nathanmarz/cascalog-contrib/tree/master/cascalog.checkpoint[+cascalog.checkpoint+
-  project page] on GitHub.
+  project page] on GitHub

@@ -18,11 +18,11 @@ dependencies or start a REPL using +lein-try+:
 $ lein try com.datomic/datomic-free
 ----
 
-To create and connect to an in-memory database use
+To create and connect to an in-memory database, use
 +database.api/create-database+ and +datomic.api/connect+.
 
 
-.Create a database and connection
+.Create a database and connection:
 [source,clojure]
 ----
 (require '[datomic.api :as d])
@@ -39,7 +39,7 @@ conn
 ----
 
 Once you have a connection, you can use it to get a database _value_
-with +datomic.api/db+. This value is used to query a database.
+with +datomic.api/db+. This value is used to query a database:
 
 [source,clojure]
 ----
@@ -50,7 +50,7 @@ db
 ----
 
 You can also use the connection to transact data using
-+datomic.api/transact+.
++datomic.api/transact+:
 
 [source,clojure]
 ----
@@ -65,7 +65,7 @@ You'll notice in the solution, we not only connected to a database,
 but we created it too. This pattern is common when using in-memory
 databases, as no in-memory databases exist in a fresh JVM. It is not
 strictly necessary to call +create-database+ if the database already
-exists, but it is safe to do so--+create-database+ is idempotent and
+exists, but it is safe to do so&#x2014;+create-database+ is idempotent and
 will return +false+ if one already exists.
 
 When connecting to a database that isn't in memory, it is necessary
@@ -73,40 +73,39 @@ for the relevant transactor and storage service to be running.
 
 The return value of +d/connect+ is used when querying a database value
 or when transacting data. It is also used when reading the transaction
-log, consuming the transaction report queue or when performing
+log, consuming the transaction report queue, or when performing
 administrative tasks such as requesting an indexing job, garbage
 collecting storage, and disposing resources associated with the
 connection.
 
-Connections are thread-safe, and are cached by URI internally, so
+Connections are thread safe, and are cached by URI internally, so
 there is no need to pool connections yourself. There is no performance
 overhead for creating many connections to the same URI.
 
-===== Storage Services
+===== Storage services
 
 Datomic transactor processes have a limit on the number of
-concurrently connected peer processes. Datomic Free has a limit of 2
-peers per transactor. For non-distributed applications this may well
+concurrently connected peer processes. Datomic Free has a limit of two
+peers per transactor. For nondistributed applications, this may well
 be sufficient. If you're building a larger service, then you may need
 a Datomic Pro license for more peers.
 
-There are several options for storage services that back Datomic;
-three are built-in and the rest use external services. Datomic Free
+There are several options for storage services that back Datomic. Three are built-in, and the rest use external services. Datomic Free
 includes access to the in-memory and +:free+ storage backends. Datomic
 Pro and Pro Starter Edition include access to all services.
 
 ===== Built-in storage options
 
 * In local memory: `"datomic:mem://[db-name]"`
-* Free, for use with Datomic Free, subject to a 2-peer limit:
+* Free, for use with Datomic Free, subject to a two-peer limit:
   `"datomic:free://host[:port]/[db-name]"`
 * Dev, for use with Datomic Pro, subject to the licensed peer limit:
   `"datomic:dev://host[:port]/[db-name]"`
 
 Free and Dev can also be configured to use alternate ports for
-storage: `"datomic:free://host[:port]/[db-name]?h2-port=[port]&h2-web-port=[port]"`
+storage: `"datomic:free://host[:port]/[db-name]?h2-port=[port]&h2-web-port=[port]"`.
 
-By default, these ports will be 1 and 2 more than the transactor port,
+By default, these ports will be one and two more than the transactor port,
 respectively.
 
 ===== External storage service options
@@ -138,6 +137,6 @@ is:
 
 * <<sec_datomic_schema>>
 * <<sec_datomic_transact_basics>>
-* Sign up for free access to all service storages and Datomic Console via
+* For free access to all service storages and Datomic Console, sign up at
   https://my.datomic.com/starter[Datomic
   Pro Starter Edition].

@@ -17,7 +17,7 @@ Datomic schemas are defined in terms of _attributes_. It's probably
 easiest to jump straight to an example.
 
 To follow along with this recipe, complete the steps in
-<<sec_datomic_connect_to_datomic_solution>>. After doing this you
+<<sec_datomic_connect_to_datomic_solution>>. After doing this, you
 should have a in-memory database and connection, +conn+, to work with.
 
 Consider the attributes a user might have:
@@ -27,7 +27,7 @@ Consider the attributes a user might have:
 * Any number of roles. There are three roles: guest, author, and editor.
 
 To define this schema, create a vector with attribute maps for email,
-name and role, as well as insertions of the three static roles.
+name, and role, as well as insertions of the three static roles:
 
 // TODO: Add UML schema diagrams for user and group.
 
@@ -64,9 +64,9 @@ name and role, as well as insertions of the three static roles.
 
 We define a group as having:
 
-* One UUID, which must be unique to the database.
-* One name, which we index for fast search.
-* Any number of related users.
+* One UUID, which must be unique to the database
+* One name, which we index for fast search
+* Any number of related users
 
 [source,clojure]
 ----
@@ -96,7 +96,7 @@ We define a group as having:
 ----
 
 Finally, +transact+ both schema definitions into a database via a
-connection.
+connection:
 
 [source,clojure]
 ----
@@ -118,25 +118,25 @@ The +:db.install/_attribute :db.part/db+ key/value is used by the
 transactor to make the schema available to the rest of the system.
 
 Schema is placed in the +:db.part/db+ database partition, a partition
-reserved for schema. All user data is placed in user partition(s) -
-either the default of +:db.part/user+ or custom partitions. Partitions
-are useful for optimising how indexes sort data, which is useful for
-optimising query.
+reserved for schema. All user data is placed in user partition(s)--either the default of +:db.part/user+ or custom partitions. Partitions
+are useful for optimizing how indexes sort data, which is useful for
+optimizing a query.
 
-Schema entities require that at least +:db/ident+, +:db/valueType+ and
+Schema entities require that at least +:db/ident+, +:db/valueType+, and
 +:db/cardinality+ values are present.
 
 Aside from schema, Datomic does not enforce how attributes are
 combined for any given entity. Datomic only requires that schema be
-defined up-front, enforcing type and uniqueness constraints at
-run-time.
+defined up front, enforcing type and uniqueness constraints at
+runtime.
 
 Use namespaces in schema +:db/ident+ values to help classify entities
 (such as +user+ in +:user/email+). Datomic doesn't do anything
 specific with namespaces, so using them is optional.
 
-There are several options for +:db/valueType+:
+There are several options for +:db/valueType+, listed in <<table6-1>>.
 
+[[table6-1]]
 .+:db/valueType+ options
 |===================
 |:db.type/keyword|:db.type/string|:db.type/long
@@ -170,26 +170,28 @@ attributes, using +:db/fulltext true+ and the system-defined
 +fulltext+ function in Datalog.
 
 There are two options for specifying a uniqueness constraint at
-+:db/unique+; +:db.unique/value+ and +:db.unique/identity+.
++:db/unique+; +:db.unique/value+ and +:db.unique/identity+:
 
-* +:db.unique/value+: disallows attempts to insert a duplicate value for a
-  different entity ID.
-* +:db.unique/identity+: designates that the attribute value is unique to each entity
++:db.unique/value+::
+Disallows attempts to insert a duplicate value for a different entity ID.
+
++:db.unique/identity+::
+Designates that the attribute value is unique to each entity
   and enables "upsert"; any attempts to insert a duplicate value for a
   temporary entity ID will cause all attributes associated with that
   temporary ID to be merged with the entity already in the database.
 
-In the case where you are modelling entities with sub-entities that
+In the case where you are modelling entities with subentities that
 only exist in the context of the entity, such as order items on an
 order or variants for a product, you can use +:db/isComponent+ to
-simplify working with such sub-entities. It can only be used on
+simplify working with such subentities. It can only be used on
 attributes of type +:db.type/ref+.
 
 When you use the +:db.fn/retractEntity+ function in a transaction, any
 entities on the value side of such attributes for the retracted entity
 will be also be retracted. Also, when you use +d/touch+ to realize all
 the lazy keys in an entity map, component entities will also be
-realized. Both the retraction and realization behaviours are
+realized. Both the retraction and realization behaviors are
 recursive.
 
 By default, Datomic stores all past values of attributes. If you do

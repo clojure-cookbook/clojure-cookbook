@@ -151,7 +151,7 @@ The full type of +clojure.lang.Numbers/add+ is:
 Briefly, the function is "ordered" because it tries to match the
 argument types with each arity until one matches.
 
-==== See also
+==== See Also
 
 * https://github.com/clojure/core.typed[+core.typed+ Home]
 * http://clojure.github.io/core.typed/[+core.typed+ API Reference]

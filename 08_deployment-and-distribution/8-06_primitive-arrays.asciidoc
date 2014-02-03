@@ -11,7 +11,7 @@ of data.
 ==== Solution
 
 Primitive Java arrays are the canonical way to store large collections
-of numbers compactly, and do math over them quickly (often 100x faster
+of numbers compactly, and do math over them quickly (often 100 times faster
 than Clojure sequences).
 
 The https://github.com/Prismatic/hiphip[+hiphip+ (array)] library is a
@@ -27,7 +27,7 @@ $ lein try prismatic/hiphip
 ----
 
 Use one of ++hiphip++'s +amap+ macros to perform fast math on typed
-arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
+arrays. +amap+ uses a parallel binding syntax similar to +doseq+:
 
 [source,clojure]
 ----
@@ -49,7 +49,7 @@ arrays. +amap+ uses a parallel binding syntax similar to +doseq+.
 ;; -> (2.0 6.0 12.0)
 ----
 
-To modify an array in-place, use one of ++hiphip++'s +afill!+ macros.
+To modify an array in place, use one of ++hiphip++'s +afill!+ macros:
 
 [source,clojure]
 ----
@@ -91,8 +91,8 @@ https://gist.github.com/w01fe/7132440[this gist].
 ==== Discussion
 
 Most of the time, Clojure's sequence abstraction is all you need to
-get the job done. The above +dot-product+ can be written succinctly in
-ordinary Clojure, and this is generally what you should try first.
+get the job done. The preceding +dot-product+ can be written succinctly in
+ordinary Clojure, and this is generally what you should try first:
 
 [source,clojure]
 ----
@@ -101,24 +101,24 @@ ordinary Clojure, and this is generally what you should try first.
 ----
 
 Once you identify a bottleneck in your mathematical operations,
-however, primitive arrays may be the only way to go. The above
-+dot-product+ implementation can be made more than 100x faster by
+however, primitive arrays may be the only way to go. The preceding
++dot-product+ implementation can be made more than 100 times faster by
 using +asum+, primarily because +map+ produces sequences of
 'boxed' Java Double objects. In addition to the cost of constructing
 an intermediate sequence, all arithmetic operations on boxed numbers
 are significantly slower than on their primitive counterparts.
 
-++hiphip++'s +amap+, +afill!+, +reduce+ and +asum+ macros (among others)
-are availabe for +int+, +long+, +float+ and +double+ types. If you
-wanted to use +reduce+ over a array of floats, for example, you would
+++hiphip++'s +amap+, +afill!+, +reduce+, and +asum+ macros (among others)
+are availabe for +int+, +long+, +float+, and +double+ types. If you
+wanted to use +reduce+ over an array of floats, for example, you would
 use +hiphip.float/reduce+. These macros define the appropriate
-type-hints and optimizations per-type.
+type hints and optimizations per type.
 
 Clojure also comes with
 http://clojure.org/java_interop#Java%20Interop-Arrays[built-in
 functions] for operating on arrays, although greater care must be
 taken to ensure maximal performance (via appropriate type hints and
-use of `*unchecked-math*`).
+use of `*unchecked-math*`):
 
 [source,clojure]
 ----
@@ -131,7 +131,7 @@ Working with primitive arrays in Clojure isn't for the faint of heart:
 if you don't get *everything* right, you can easily end up with code
 that's both much uglier and no faster (or even slower) than the
 straightforward sequence version. The biggest issue to watch out for
-is reflection, which can easily bring you from 100x faster to 10x
+is reflection, which can easily bring you from 100 times faster to 10 times
 slower with one small typo or missing type hint.
 
 If you're up to the challenge, you should keep these tips in mind:
@@ -162,6 +162,6 @@ If you're up to the challenge, you should keep these tips in mind:
   choice if you need to manipulate structured data (i.e., not just
   sequences of ++double++s) with maximal performance.
 * <<sec_primitives_math_type_hinting>> to learn more about
-  type-hinting and unchecked-math.
+  type hinting and unchecked math.
 * <<sec_profiling_timbre>> to learn about using Timbre to output
   profiling statistics from your code.

@@ -23,7 +23,7 @@ $ lein try hiccup
 Hiccup represents HTML nodes as vectors. The first entry of the
 vector is the element's name; the second, an optional map of
 the element's attributes; and any remaining entries, the element's
-body.
+body:
 
 [source,clojure]
 ----
@@ -42,7 +42,7 @@ body.
 ----
 
 Render any Hiccup data structure to HTML using the +hiccup.core/html+
-function.
+function:
 
 [source,clojure]
 ----
@@ -53,7 +53,7 @@ function.
 
 Since nodes are represented as regular Clojure data, you can leverage
 any of Clojure's built-in functions or techniques to yield
-Hiccup-compliant vectors.
+Hiccup-compliant vectors:
 
 [source,clojure]
 ----
@@ -67,9 +67,9 @@ Hiccup-compliant vectors.
 ;; -> "<ul><li>lions</li><li>tigers</li><li>bears</li></ul>"
 ----
 
-Using all of the techniques above, it's possible to create a simple
+Using all of the preceding techniques, it's possible to create a simple
 function to dynamically populate the contents of a minimal blog page
-using only Clojure functions and data.
+using only Clojure functions and data:
 
 [source,clojure]
 ----
@@ -95,7 +95,7 @@ using only Clojure functions and data.
     html)
 ----
 
-.Formatted Output
+.Formatted output:
 [source,html]
 ----
 <html>
@@ -119,25 +119,25 @@ using only Clojure functions and data.
 
 ==== Discussion
 
-Hiccup is an easy, "no muss, no fuss," way of templating and rendering
+Hiccup is an easy, "no muss, no fuss" way of templating and rendering
 HTML from raw functions and data. This comes in particularly handy
-when, say: you don't have the time to learn a new DSL, or you prefer
+when you don't have the time to learn a new DSL or you prefer
 to work exclusively with Clojure.
 
 HTML nodes are represented in Hiccup as a vector of a few elements:
 
-* The node's name, represented as a keyword, e.g. +:h1+, +:article+,
-  or +:body+.
+* The node's name, represented as a keyword (e.g., +:h1+, +:article+,
+  or +:body+)
 * An optional map of the node's attributes, with attribute names
-  represented as keywords, e.g. +{:href "/posts/"}+ or +{:id "post-1"
-  :class "post"}+.
-* Any number of other nodes or string values, constituting the node's
-  body.
+  represented as keywords (e.g., +{:href "/posts/"}+ or +{:id "post-1"
+  :class "post"}+)
+* Any number of other nodes or string values constituting the node's
+  body
 
-Invoke +hiccup.core/html+ with a single node, snippet or entire page
+Invoke +hiccup.core/html+ with a single node, snippet, or entire page
 to render its contents as HTML. For content with special
 characters that should be escaped, wrap values in a +hiccup.core/h+
-invocation.
+invocation:
 
 [source,clojure]
 ----
@@ -148,7 +148,7 @@ invocation.
 
 Hiccup also has basic support for rendering forms. Use
 +form-to+ and a bevy of other helpers in the +hiccup.form+ namespace
-to simplify rendering form tags.
+to simplify rendering form tags:
 
 [source,clojure]
 ----
@@ -176,7 +176,7 @@ to simplify rendering form tags.
 ==== See Also
 
 * Hiccup's https://github.com/weavejester/hiccup/[GitHub repository],
-  http://weavejester.github.io/hiccup/[API documentation] and
+  http://weavejester.github.io/hiccup/[API documentation], and
   https://github.com/weavejester/hiccup/wiki[Wiki].
 * If you have more complicated needs from your templating engine--like
   consuming and populating existing HTML files--you'll need sharper

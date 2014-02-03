@@ -12,7 +12,7 @@ server.
 Use `ring.middleware.session/wrap-session` to add sessions to your
 Ring application.
 
-To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
 ._src/ringtest.clj_
 [source, clojure]
@@ -76,7 +76,7 @@ To follow along with this recipe, clone the _https://github.com/clojure-cookbook
 ==== Discussion
 
 https://github.com/ring-clojure/ring/wiki/Sessions[Ring's session
-middleware] have an api similar to the cookie api: get them from the
+middleware] has an API similar to the cookie API. Get them from the
 `:session` request map, and set them by including a `:session` key in
 the response map. Whatever you pass to `:session` is up to you, but
 usually you'll want to use a map to store keys and values.
@@ -96,7 +96,7 @@ https://github.com/wuzhe/clj-redis-session[Redis]. You can write your
 own, too, to store your sessions in any database.
 
 You can set your store by passing an options map with a `:store`
-parameter to `wrap-session`.
+parameter to `wrap-session`:
 
 [source, clojure]
 ----
@@ -110,4 +110,4 @@ session, pass `nil` as your the value of the `:session` key.
 ==== See Also
 
 * <<sec_ring_middleware>>
-* Ring's https://github.com/ring-clojure/ring/wiki/Sessions[Session documentation].
+* Ring's https://github.com/ring-clojure/ring/wiki/Sessions[session documentation]

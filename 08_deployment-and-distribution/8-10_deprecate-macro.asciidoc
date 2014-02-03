@@ -4,11 +4,11 @@ by Michael Fogus
 
 ==== Problem
 
-When maintaining a library that other programmers rely on to get their work done it behooves you to be thoughtful when making changes.  In the process of fixing bugs and making improvements to your library you will eventually wish to change its public interface.  Making changes to a public-facing portion of your library is no small matter, but assuming that you've determined its necessity then you'll want to _deprecate_ the functions that are obsolete.  The term deprecate basically means that a given function should be avoided in favor of some other, newer function.  This recipe details an approach to deprecating API functions and reporting existing deprecations using Clojure macros.
+When maintaining a library that other programmers rely on to get their work done, it behooves you to be thoughtful when making changes.  In the process of fixing bugs and making improvements to your library, you will eventually wish to change its public interface.  Making changes to a public-facing portion of your library is no small matter, but assuming that you've determined its necessity, then you'll want to _deprecate_ the functions that are obsolete.  The term deprecate basically means that a given function should be avoided in favor of some other, newer function.  This recipe details an approach to deprecating API functions and reporting existing deprecations using Clojure macros.
 
 ==== Solution
 
-Take for example the case of the Clojure contrib library https://www.github.com/clojure/core.memoize[+core.memoize+].  Without going into detail about what +core.memoize+ does, it's fine to know that at one point a segment of its public-facing API was a function named +memo-fifo+ that looked like the following:
+Take the case of the Clojure contrib library https://www.github.com/clojure/core.memoize[+core.memoize+].  Without going into detail about what +core.memoize+ does, it's fine to know that at one point a segment of its public-facing API was a function named +memo-fifo+ that looked like the following:
 
 [source,clojure]
 ----
@@ -18,11 +18,11 @@ Take for example the case of the Clojure contrib library https://www.github.com/
   ([f limit base] ... ))
 ----
 
-Obviously the implementation has been elided to highlight only the parts that were planned for change in a later version -- namely the function's name and its available argument vectors.  The details of the new API are not important, but they were different enough to cause potential confusion to the users.  Likewise, to simply make the change without due notice in a new version would have been bad form, and genuine cause for bitterness.
+Obviously the implementation has been elided to highlight only the parts that were planned for change in a later version--namely, the function's name and its available argument vectors.  The details of the new API are not important, but they were different enough to cause potential confusion to the users.  Likewise, to simply make the change without due notice in a new version would have been bad form and genuine cause for bitterness.
 
-Therefore, the question arises: what can you do in the case where a feature is planned for deprecation that not only supports existing code in the interim, but also provides fair warning to the users of your library for an future breaking change?  In this section we'll discuss using macros to provide a nice mechanism for deprecating library functions and macros with minimal fuss.
+Therefore, the question arises: what can you do in the case where a feature is planned for deprecation that not only supports existing code in the interim, but also provides fair warning to the users of your library for an future breaking change?  In this section, we'll discuss using macros to provide a nice mechanism for deprecating library functions and macros with minimal fuss.
 
-In the case of the planned deprecation of +memo-fifo+, the new function, named simply +fifo+ was changed not only in name but also in its provided arities.  When deprecating portions of a library it's often a good idea to print warning messages that point to the new, preferred function to use instead.  Therefore, to start on the way to deprecating +memo-fifo+ the following function +!!+ was created to print a warning:
+In the case of the planned deprecation of +memo-fifo+, the new function, named simply +fifo+, was changed not only in name but also in its provided arities.  When deprecating portions of a library, it's often a good idea to print warning messages that point to the new, preferred function to use instead.  Therefore, to start on the way to deprecating +memo-fifo+, the following function +!!+ was created to print a warning:
 
 [source,clojure]
 ----
@@ -46,7 +46,7 @@ When passed a symbol, the +!!+ function prints a messages like the one shown bel
 ;; (clojure.core.memoize/fifo function <base> <:fifo/threshold num>)
 ----
 
-Not only does the deprecation message indicate that the function called is deprecated, but it also points to the function that should be used instead.  As far as deprecation messages go this one is solid, although your own purposes may call for something different.  In any case, to insert this warning on every call to +memo-fifo+ we can create a simple macro to inject the call to +!!+ into the body of the function's definition, as shown below:
+Not only does the deprecation message indicate that the function called is deprecated, but it also points to the function that should be used instead.  As far as deprecation messages go, this one is solid, although your own purposes may call for something different.  In any case, to insert this warning on every call to +memo-fifo+, we can create a simple macro to inject the call to +!!+ into the body of the function's definition, as shown below:
 
 [source,clojure]
 ----
@@ -56,11 +56,11 @@ Not only does the deprecation message indicate that the function called is depre
          (list args `(!! (quote ~alt)) body))))      ; <3>
 ----
 
- 1. Create a +defn+ call with the given name and docstring
- 2. Loop through the given function arities...
- 3. ... and insert a call to +!!+ as the first part of the body
+<1> Create a +defn+ call with the given name and docstring.
+<2> Loop through the given function arities.
+<3> Insert a call to +!!+ as the first part of the body.
 
-We'll talk a bit about the goals of the +defn-deprecated+ macro in the "Discussion" section, but for now you can see how it works in the following:
+We'll talk a bit about the goals of the +defn-deprecated+ macro in the following discussion section, but for now, you can see how it works:
 
 [source,clojure]
 ----
@@ -71,7 +71,7 @@ We'll talk a bit about the goals of the +defn-deprecated+ macro in the "Discussi
   ([f limit base] ... )
 ----
 
-The only change to the definition of +memo-fifo+ is the use of the +defn-deprecated+ macro instead of +defn+ directly, the use of the +:as fifo+ directive and the addition (or change) of the docstring to describe the deprecation.  The +defn-deprecated+ macro takes care of assembling the parts in the macro body to print the warning on use:
+The only change to the definition of +memo-fifo+ is the use of the +defn-deprecated+ macro instead of +defn+ directly, the use of the +:as fifo+ directive, and the addition (or change) of the docstring to describe the deprecation.  The +defn-deprecated+ macro takes care of assembling the parts in the macro body to print the warning on use:
 
 [source,clojure]
 ----
@@ -81,7 +81,7 @@ The only change to the definition of +memo-fifo+ is the use of the +defn-depreca
 ;; (clojure.core.memoize/fifo function <base> <:fifo/threshold num>)
 ----
 
-The warning message will only display once for every call to +memo-fifo+ and due to the nature of that function that should be sufficient.
+The warning message will only display once for every call to +memo-fifo+, and due to the nature of that function, that should be sufficient.
 
 ==== Discussion
 
@@ -101,8 +101,8 @@ There are different ways to handle the same situation besides using macros.  For
     (apply fun args)))                                ; <2>
 ----
 
- 1. Return a function that prints the deprecation message before calling the deprecated function
- 2. Call the deprecated function
+<1> Return a function that prints the deprecation message before calling the deprecated function.
+<2> Call the deprecated function.
 
 This new implementation of +!!+ would work in the following way:
 
@@ -111,13 +111,13 @@ This new implementation of +!!+ would work in the following way:
 (def memo-fifo (depr old-memo-fifo 'fifo))
 ----
 
-Thereafter, calling the +memo-fifo+ function will print the deprecation message.  Using a higher-order function like this is a reasonable way to avoid the potential complexities of using a macro.  However, we chose the macro version for a number of reasons.
+Thereafter, calling the +memo-fifo+ function will print the deprecation message.  Using a higher-order function like this is a reasonable way to avoid the potential complexities of using a macro.  However, we chose the macro version for a number of reasons (explained in the following sections).
 
-.Preserving stack traces
+===== Preserving stack traces
 
-Let's be honest, the exception stack traces that Clojure can produce can, at times be painful to deal with.  If you decide to use a higher order function like +depr+ then be aware that if an exception occurs in its execution that another layer of stack trace will be added.  By using a macro like +!!+ that delegates its operation directly to +defn+ you are ensured that the stack trace will remain unadulterated (so to speak).
+Let's be honest: the exception stack traces that Clojure can produce can at times be painful to deal with.  If you decide to use a higher order function like +depr+, then be aware that if an exception occurs in its execution that another layer of stack trace will be added.  By using a macro like +!!+ that delegates its operation directly to +defn+, you are ensured that the stack trace will remain unadulterated (so to speak).
 
-.Metadata
+===== Metadata
 
 Using a near 1-for-1 replacement macro like +defn-deprecated+ allows you to preserve the metadata on a function.  Observe:
 
@@ -157,13 +157,13 @@ Using the higher-order approach does not automatically preserve metadata:
 
 Of course, you could copy over the metadata if do desired, but why do so when the macro approach takes cares of it for you?
 
-.Faster call-site
+===== Faster call-site
 
-The +depr+ function, because it's required to handle any function that you give it needed to use +apply+ at its core.  While in the case of the +core.memoize+ functions this was not a problem, it may become so in the case of functions requiring higher performance.  In reality, though the use of +println+ will likely overwhelm the cost of the +apply+, so if you really need to deprecate a high-performance function then you might want to consider the following approach instead.
+The +depr+ function, because it's required to handle any function that you give it needed to use +apply+ at its core.  While in the case of the +core.memoize+ functions this was not a problem, it may become so in the case of functions requiring higher performance.  In reality, though the use of +println+ will likely overwhelm the cost of the +apply+, so if you really need to deprecate a high-performance function, then you might want to consider the following approach instead.
 
-.Compile time warnings
+===== Compile time warnings
 
-The operation of +defn-deprecated+ is such that the deprecation warning is printed every time that the function is called.  This could be problematic if the function requires high-speed.  Very few things slow a function down like a console print.  Therefore, we can change +defn-deprecate+ slightly to report its warning at compile time rather than runtime:
+The operation of +defn-deprecated+ is such that the deprecation warning is printed every time that the function is called.  This could be problematic if the function requires high speed.  Very few things slow a function down like a console print.  Therefore, we can change +defn-deprecate+ slightly to report its warning at compile time rather than runtime:
 
 [source,clojure]
 ----
@@ -172,10 +172,10 @@ The operation of +defn-deprecated+ is such that the deprecation warning is print
   `(defn ~nom ~ds ~@arities))  ; <2>
 ----
 
- 1. Print the warning when the macro is accessed
- 2. Delegate function definition to +defn+ without adulteration
+<1> Print the warning when the macro is accessed.
+<2> Delegate function definition to +defn+ without adulteration.
 
-Observe the compile-time warning below:
+Observe the compile-time warning:
 
 [source,clojure]
 ----
@@ -194,9 +194,8 @@ Observe the compile-time warning below:
 
 This approach will work well if you distribute libraries as source code rather than as compiled programs.
 
-.Turning it off
-
-The real beauty of macros is not that they allow you to change the semantics of your programs, but that they allow you to avoid doing so whenever it's not appropriate.  For example, when using macros you can run any code available to Clojure at compile-time.  Thankfully, the full Clojure language is available at compile-time.  Therefore, we can check a boolean flag attached to a namespace as metadata to decide whether to report a compile-time deprecation warning.  We can change the newest +defn-deprecated+ to illustrate this technique:
+===== Turning it off
+The real beauty of macros is not that they allow you to change the semantics of your programs, but that they allow you to avoid doing so whenever it's not appropriate.  For example, when using macros, you can run any code available to Clojure at compile time.  Thankfully, the full Clojure language is available at compile-time.  Therefore, we can check a boolean flag attached to a namespace as metadata to decide whether to report a compile time deprecation warning.  We can change the newest +defn-deprecated+ to illustrate this technique:
 
 [source,clojure]
 ----
@@ -208,10 +207,10 @@ The real beauty of macros is not that they allow you to change the semantics of 
   `(defn ~nom ~ds ~@arities))
 ----
 
- 1. Lookup the metadata on the current namespace
- 2. Only report the deprecation warning if the flag is not set to silence-mode
+<1>  Look up the metadata on the current namespace.
+<2> Only report the deprecation warning if the flag is not set to silence mode.
 
-The +defn-deprecated+ macro checks the status of the +:silence-deprecations+ metadata property on the current namespace and reports (or not) the deprecation warning based on it.  If you wind up using this approach then you can turn-off the deprecation warning on a per-namespace basis by adding the following to your +ns+ declaration:
+The +defn-deprecated+ macro checks the status of the +:silence-deprecations+ metadata property on the current namespace and reports (or not) the deprecation warning based on it.  If you wind up using this approach, then you can turn off the deprecation warning on a per-namespace basis by adding the following to your +ns+ declaration:
 
 [source,clojure]
 ----

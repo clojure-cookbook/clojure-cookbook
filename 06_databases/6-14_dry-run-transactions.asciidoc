@@ -1,5 +1,5 @@
 [[sec_datomic_dry_run]]
-=== Trying Datomic Transactions without Committing Them
+=== Trying Datomic Transactions Without Committing Them
 [role="byline"]
 by Robert Stuttaford
 
@@ -16,13 +16,13 @@ that includes the changes your transaction provides.
 
 To follow along with this recipe, complete the steps in
 <<sec_datomic_connect_to_datomic_solution>> and
-<<sec_datomic_schema_solution>>. After doing this you will have a
+<<sec_datomic_schema_solution>>. After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
 insert data.
 
 First, add some data to the database about Fred Flintstone. As of
-about 4000 BCE Fred didn't have an email, but we at least know his
-name.
+about 4000 BCE, Fred didn't have an email, but we at least know his
+name:
 
 [source,clojure]
 ----
@@ -38,8 +38,8 @@ name.
 ----
 
 Fast forward to today: Fred is thawed, after having been frozen in ice
-for 6000 years, and he gets his first email address. Prepare a
-transaction to add an email to the Fred entity.
+for 6,000 years, and he gets his first email address. Prepare a
+transaction to add an email to the Fred entity:
 
 [source,clojure]
 ----
@@ -104,7 +104,7 @@ value.
 
 Databases produced by +d/with+ can be used with any of the other API
 functions that accept a database, including +d/with+ itself. This
-means that you can layer multiple transactions on top of each other
+means that you can layer multiple transactions on top of one another
 without first having to commit them to the transactor!
 
 One of the things that makes Datomic so powerful is its ability to
@@ -116,5 +116,4 @@ values of the database.
 ==== See Also
 
 * <<sec_datomic_transact_basics>> for more general information on
-  transacting data.
-
+  transacting data

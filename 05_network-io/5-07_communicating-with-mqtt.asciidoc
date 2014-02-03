@@ -160,7 +160,7 @@ Any device under +SNControl/Florida+ (e.g., +SNControl/Florida/device1/sensor1+ 
 Any +device1+ in states under domain +SNControl+ will match(e.g., +SNControl/Florida/device1+ and +SNControl/California/device1+).
 
 `SNControl/+/+/sensor1`::
-Any +sensor1+ in states under domain +SNControl+ will match (e.g. +SNControl/Florida/device1/sensor1+ and +SNControl/Florida/device2/sensor1+).
+Any +sensor1+ in states under domain +SNControl+ will match (e.g., +SNControl/Florida/device1/sensor1+ and +SNControl/Florida/device2/sensor1+).
 
 In the preceding code, the +connect-and-subscribe+ method uses the
 callback handler +message-handler+ to process incoming messages

@@ -25,7 +25,7 @@ In order to connect to Cassandra cluster and create and use your first
 keyspace, you will need the +clojurewerkz.cassaforte.client+,
 +clojurewerkz.cassaforte.cql+ and +clojurewerkz.cassaforte.query+
 namespaces. +clojurewerkz.cassaforte.client+ is responsible for
-connection, the other two provide a easy interface to execute queries.
+connection--the other two provide a easy interface to execute queries:
 
 [source,clojure]
 ----
@@ -47,7 +47,7 @@ connection, the other two provide a easy interface to execute queries.
 (cql/use-keyspace "cassaforte_keyspace")
 ----
 
-Now, you can create tables and start inserting data into them. For that, invoke the +create-table+ and +insert+ functions of the +clojurewerkz.cassaforte.cql+ namespace.
+Now, you can create tables and start inserting data into them. For that, invoke the +create-table+ and +insert+ functions of the +clojurewerkz.cassaforte.cql+ namespace:
 
 [source,clojure]
 ----
@@ -86,15 +86,15 @@ Alternatively, if you want to retrieve information about a single person, by giv
 
 ==== Discussion
 
-Cassandra is an open source implementations of many of the ideas in Amazon's landmark http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf[Dynamo Paper]. It's a key-value data store, and it's not aware of any relationships between tables and data points. Cassandra is a distributed data store and designed to be highly available. For that, it replicates data within the cluster. The data is stored redundantly on multiple nodes. In case one node fails, data is still available for retrieval from a different node or multiple nodes.
+Cassandra is an open source implementations of many of the ideas in Amazon's landmark http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf[Dynamo Paper]. It's a key-value datastore, and it's not aware of any relationships between tables and data points. Cassandra is a distributed datastore and designed to be highly available. For that, it replicates data within the cluster. The data is stored redundantly on multiple nodes. In case one node fails, data is still available for retrieval from a different node or multiple nodes.
 
-Cassandra starts making sense when your data is rather big. Because it was built for distribution, you can scale your reads and writes, and fine-tune and manage your database consistency and availability. Cassandra handles network partitions well, so even when your several nodes are unavailable for some time, you will still be able to read and write data until the network partition heals. If your dataset is rather small, and you don't expect it to grow significantly any time soon, and you need to run many ad-hoc queries against the dataset, then Cassandra may not make sense.
+Cassandra starts making sense when your data is rather big. Because it was built for distribution, you can scale your reads and writes, and fine-tune and manage your database consistency and availability. Cassandra handles network partitions well, so even when your several nodes are unavailable for some time, you will still be able to read and write data until the network partition heals. If your dataset is rather small, and you don't expect it to grow significantly any time soon, and you need to run many ad hoc queries against the dataset, then Cassandra may not make sense.
 
-Consistency/Availability are tunable values: you can get better availability by sacrificing data consistency, which means that due to network partitions not all the nodes will hold the latest snapshot of data at all times, but you'll be still able to respond to writes and receive reads. If you choose to have strong consistency, the latency will increase, since more nodes should respond successfully for reads and writes. Eventual consistency guarantees that, if no conflicting writes are made for the data point, eventually all nodes will hold the latest value.
+Consistency/availability are tunable values: you can get better availability by sacrificing data consistency, which means that due to network partitions, not all the nodes will hold the latest snapshot of data at all times, but you'll be still able to respond to writes and receive reads. If you choose to have strong consistency, the latency will increase, since more nodes should respond successfully for reads and writes. Eventual consistency guarantees that, if no conflicting writes are made for the data point, eventually all nodes will hold the latest value.
 
-Like most data stores, Cassandra has concepts of separate databases (keyspaces in Cassandra terminology). Every keyspace holds tables (that are sometimes called column families). Tables hold rows, and rows consist of columns. Each column has a key (column name), value, write timestamp and time-to live.
+Like most datastores, Cassandra has concepts of separate databases (keyspaces in Cassandra terminology). Every keyspace holds tables (that are sometimes called column families). Tables hold rows, and rows consist of columns. Each column has a key (column name), value, write timestamp, and time to live.
 
-Cassandra uses two different communication protocols; an older binary protocol called Thrift, and CQL (Cassandra Query Language). All query operators in Cassaforte generate CQL code under the hood. Here are a couple of examples of how these operations translate to CQL internally:
+Cassandra uses two different communication protocols--an older binary protocol called Thrift and CQL (Cassandra Query Language). All query operators in Cassaforte generate CQL code under the hood. Here are a couple of examples of how these operations translate to CQL internally:
 
 [source,clojure]
 ----
@@ -135,7 +135,7 @@ Cassaforte's macro-based DSL, you can pass a string to the
   "INSERT INTO users (name, city, age) VALUES ('Alex', 'Munich', 19);")
 ----
 
-For each issued write you can specify an optional +TTL+ (time to live) to expire the data after certain period of time. It's useful for caching and data that you only want to hold for certain period of time (like user sessions, for example). For example, if you want the record to live for just 60 seconds, you can run:
+For each issued write you can specify an optional +TTL+ (time to live) to expire the data after certain period of time. It's useful for caching and data that you only want to hold for certain period of time (like user sessions). For example, if you want the record to live for just 60 seconds, you can run:
 
 [source,clojure]
 ----

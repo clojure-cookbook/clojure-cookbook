@@ -13,14 +13,15 @@ Midje-Cascalog provides a small amount of extra functionality that
 makes writing tests for Cascalog jobs quite easy.
 
 To follow along with this recipe, clone the
-https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog samples
 GitHub repository] and checkout the +testing-begin+ branch. This will
 give you a basic Cascalog project as created in <<sec_cascalog_etl>>.
 
-Now add the Midje plugin and Midje-Cascalog dependency to the +:dev+
+Now add the Midje plug-in and Midje-Cascalog dependency to the +:dev+
 profile in your _project.clj_. The +:profiles+ key should now look
 like this:
 
+[source,clojure]
 ----
 (defproject cookbook "0.1.0-SNAPSHOT"
   ;; ...
@@ -30,7 +31,7 @@ like this:
 ----
 
 Create a simple query in _src/cookbook/test_me.clj_ to write a test
-against.
+against:
 
 ._src/cookbook/test_me.clj_
 [source,clojure]
@@ -48,7 +49,7 @@ against.
 ----
 
 You can now write a test for this query in
-_test/cookbook/test_me_test.clj_.
+_test/cookbook/test_me_test.clj_:
 
 ._test/cookbook/test_me_test.clj_
 [source,clojure]
@@ -69,12 +70,12 @@ _test/cookbook/test_me_test.clj_.
 
 [NOTE]
 ====
-The full contents of this solution is available in the
+The full contents of this solution are available in the
 +testing-complete+ branch of the
-https://github.com/clojure-cookbook/cascalog-samples[Cascalog Samples
+https://github.com/clojure-cookbook/cascalog-samples[Cascalog samples
 repository].
 
-Check out that branch to retrieve a full working copy with sample data.
+Check out that branch to retrieve a full working copy with sample data:
 
 [source,shell-session]
 ----
@@ -104,8 +105,8 @@ Midje-Cascalog makes it easy to test different parts of your Cascalog
 workflow by making it dead simple to mock out the results of
 subqueries.
 
-In the solution outlined above, you are testing a simple query. It
-reads lines from the input path, capitalizes and outputs them.
+In the solution outlined, you are testing a simple query. It
+reads lines from the input path, capitalizes, and outputs them.
 Normally, you'd need to make sure part of the test wrote some test
 data into a file, then reference that file in the test, then cleanup
 and delete the file. Instead, using Midje-Cascalog, you mock the

@@ -220,7 +220,7 @@ trying to guess what the reflection might resolve to at runtime. This
 simple rule usually results in faster, more explicit code, often
 desirable in larger code bases.
 
-==== See also
+==== See Also
 
 * https://github.com/clojure/core.typed[+core.typed+ Home]
 * http://clojure.github.io/core.typed/[+core.typed+ API Reference],

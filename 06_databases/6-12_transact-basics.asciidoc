@@ -13,9 +13,9 @@ Use a Datomic connection to transact data.
 
 To follow along with this recipe, complete the steps in
 <<sec_datomic_connect_to_datomic_solution>> and
-<<sec_datomic_schema_solution>>. After doing this you will have a
+<<sec_datomic_schema_solution>>. After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
-insert data.
+insert data:
 
 [source,clojure]
 ----
@@ -59,17 +59,16 @@ new-id
 ;; -> #{["Ryan Neufeld"] ["Martin Fowler"]}
 ----
 
-Of course, you can provide statements like these yourself, as well
-using the map syntax in the Solution, or any mix of the two. This is
-also how you would transact multiple entries (e.g. `(d/transact conn
+Of course, you can use statements like these yourself, or use the map syntax shown in the solution above. You can also mix the two. This is
+also how you would transact multiple entries (e.g., `(d/transact conn
 [person1-map person2-map])`).
 
 One difference you'll note between the map and the expanded form is
 the lack of a +:db/add+ statement for the +:db/id+ key. In the
-expanded form this value comes immediately after the action
+expanded form, this value comes immediately after the action
 (+:db/add+) and *must* be identical between all statements to
 correlate attributes to a single entity. When specifying an entity as
-a map you provide a single ID which the transactor transparently
+a map, you provide a single ID, which the transactor transparently
 affixes to each attribute.
 
 What is an appropriate ID? Any IDs for new entities are assigned
@@ -79,9 +78,9 @@ transaction, all the temporary IDs are assigned in-storage positive ID
 values. When working with code, the correct approach is to use the
 +datomic.api/tempid+ function to obtain a temporary ID. The
 +datomic.api/tempid+ function takes a partition keyword as its
-arguments; for most purposes +:db.part/user+ will suffice
+arguments; for most purposes, +:db.part/user+ will suffice.
 
-When working with non-executable data, you'll need to use the
+When working with nonexecutable data, you'll need to use the
 data-literal form for temporary IDs. The literal `#db/id
 [:db.part/user]` is equivalent to `(d/tempid :db.part/user)`. This
 form is most useful when you store transaction data in an _*.edn_
@@ -91,7 +90,7 @@ evaluate once at compile time, which means that any code that
 expects the ID value to change from one execution to the next will
 fail, because it'll only ever have one value.
 
-.An example file: _user-bootstrap.edn_
+.An example file&#x2014;_user-bootstrap.edn_:
 [source,clojure]
 ----
 [{:db/id #db/id [:db.part/user]
@@ -107,13 +106,17 @@ with all futures, when you dereference it, it will block until the
 transaction completes. Either way, dereferencing the future returns a
 map, with four keys:
 
-* +:db-before+: the value of the database just before the transaction
-  was committed.
-* +:db-after+: the value of the database just after the transaction
-  was committed.
-* +:tx-data+: a vector of all the datoms that were transacted.
-* +:tempids+: a mapping of the temporary ids to the in-storage ids,
-  one per temporary id in the transaction.
++:db-before+:: 
+The value of the database just before the transaction was committed
+
++:db-after+:: 
+The value of the database just after the transaction was committed
+
++:tx-data+::
+A vector of all the datoms that were transacted
+
++:tempids+::
+A mapping of the temporary IDs to the in-storage IDs, one per temporary ID in the transaction
 
 You can use the +:db-after+ database to query the database directly
 after the transaction:
@@ -134,7 +137,7 @@ You can use the +:tempids+ map to find the in-storage IDs for any new
 entities you care about, much like you would when retrieving the last
 insert ID in SQL databases. Invoke +datomic.api/resolve-tempid+ with
 the +:db-after+ value, +:tempids+ value and the original temporary ID
-to retrieve the realized ID.
+to retrieve the realized ID:
 
 [source,clojure]
 ----

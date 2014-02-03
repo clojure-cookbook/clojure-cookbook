@@ -152,7 +152,7 @@ Sundays in a year:
 ;; -> "Sun 12/31/2000"
 ----
 
-==== See also
+==== See Also
 
 * <<sec_primitives_dates_current_date>> for information on using
   +java.util.Date+ from Clojure

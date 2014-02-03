@@ -4,7 +4,7 @@ by Alan Busby and Ryan Neufeld
 
 ==== Problem
 
-You want to execute simple Datomic queries with high-performance.
+You want to execute simple Datomic queries with high performance.
 
 ==== Solution
 
@@ -13,7 +13,7 @@ Datomic indices in your database.
 
 To follow along with this recipe, complete the steps in
 <<sec_datomic_connect_to_datomic_solution>> and
-<<sec_datomic_schema_solution>>. After doing this you will have a
+<<sec_datomic_schema_solution>>. After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
 insert data.
 
@@ -24,8 +24,8 @@ value.
 
 [NOTE]
 ====
-This will only work for attributes where +:db/index+ is true, or
-+:db/unique+ is not nil.
+This will only work for attributes where +:db/index+ is +true+ or
++:db/unique+ is not +nil+.
 ====
 
 [source,clojure]
@@ -53,7 +53,7 @@ This will only work for attributes where +:db/index+ is true, or
 ----
 
 To quickly determine all of the attributes an entity has, use the
-+:eavt+-ordered index.
++:eavt+-ordered index:
 
 [source,clojure]
 ----
@@ -70,7 +70,7 @@ To quickly determine all of the attributes an entity has, use the
 ----
 
 To quickly find entities that refer, via +:db.type/ref+, to a provided
-entity, use the +:vaet+-ordered index.
+entity, use the +:vaet+-ordered index:
 
 [source,clojure]
 ----
@@ -99,7 +99,7 @@ entity, use the +:vaet+-ordered index.
 For simple lookup queries, like "find by attribute" or "find by
 value", nothing beats Datomic's raw indices in terms of performance.
 The +datomic.api/datoms+ interface provides access to all of Datomic's
-indices, and conveniently lets you dive in any number of levels,
+indices and conveniently lets you dive in any number of levels,
 "biting off" only the data you need.
 
 As with most Datomic functions, +datoms+ takes a +db+ as its first
@@ -109,22 +109,29 @@ allows API users to perform varying numbers of operations on the same
 database value. You should always try to do this yourself.
 
 +datoms+ second argument is the particular index you want to access.
-Each of these is a permutation of e, entity, a, attribute, v, value,
-and t, transaction. The order of letters in an index indicates how it
+Each of these is a permutation of _e_, entity; _a_, attribute; _v_, value;
+and _t_, transaction. The order of letters in an index indicates how it
 is indexed. For example, +:eavt+ should be traversed by entity, then
 attribute, then so on and so forth. The four indices and what they
 include are as follows:
 
-* +:eavt+ - An entity-first index which includes all datoms. This
++:eavt+::
+An entity-first index which includes all datoms. This
   index provides a view over your database very much like a
-  traditional relational-database.
-* +:aevt+ - An "attribute, then entity" index which includes all datoms. This
+  traditional relational database.
+
++:aevt+::
+An attribute-then-entity index that includes all datoms. This
   index provides columnar access to your database, much like a data
   warehouse.
-* +:avet+ - An "attribute-value" index which only includes attributes
+
++:avet+::
+An attribute-value index that only includes attributes
   where +:db/index+ is +true+. Incredibly useful as a lookup index
-  (e.g. "I need the entity with email of 'foo@example.com'").
-* +:vaet+ - A value-first index which only includes +:db.type/ref+
+  (e.g., "I need the entity with email of _foo@example.com_&#8221;).
+
++:vaet+::
+A value-first index that only includes +:db.type/ref+
   values. A very interesting index that can be used to treat your data
   a bit like a graph database.
 
@@ -137,7 +144,7 @@ other hand, will return only entities with that specify attribute and
 value pair.
 
 What is returned by +datoms+ is a stream of +Datum+ objects. Each
-datum responds to +:a+, +:e+, +t+, +:v+ and +:added+ as functions.
+datum responds to +:a+, +:e+, +t+, +:v+, and +:added+ as functions.
 
 ==== See Also
 

@@ -16,14 +16,14 @@ source is then usable by the +clojure.java.jdbc+ library, as described
 in the <<sec_db_connecting_to_a_sql_database>> recipe.
 
 To follow along with this recipe, you'll need a running SQL database
-and existing table to connect to. We suggest PostgreSQL footnote:[Mac
+and existing table to connect to. We suggest PostgreSQL.footnote:[Mac
 users: visit http://postgresapp.com/ to download an
 easy-to-install DMG. Everyone else: find a guide for your operating
 system on the
 https://wiki.postgresql.org/wiki/Detailed_installation_guides[PostgreSQL
 Wiki].]
 
-After you have PostgreSQL running (presumably on _localhost:5432_) run the following
+After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
 [source,shell-session]
@@ -51,7 +51,7 @@ $ lein try com.jolbox/bonecp "0.8.0.RELEASE" \
 
 First, create a database specification containing the parameters for
 accessing the database. This includes keys for the initial and maximum
-pool sizes, as well as the number of partitions.
+pool sizes, as well as the number of partitions:
 
 [source,clojure]
 ----
@@ -63,9 +63,9 @@ pool sizes, as well as the number of partitions.
               :partitions 2})
 ----
 
-To create a pooled +BoneCPDataSource+ object define a function (for
-convenience) which uses the parameters in the database
-specification map.
+To create a pooled +BoneCPDataSource+ object, define a function (for
+convenience) that uses the parameters in the database
+specification map:
 
 [source,clojure]
 ----
@@ -101,7 +101,7 @@ pooled-db-spec
 ----
 
 Pass the database specification as the first argument to any
-+clojure.java.jdbc+ functions that query or manipulate your database.
++clojure.java.jdbc+ functions that query or manipulate your database:
 
 [source,clojure]
 ----
@@ -141,7 +141,7 @@ and +PreparedStatement+ instances.
 While the library offers several ways to create data sources,
 most users will find the examples provided here to be the easiest.
 
-BoneCP offers several dozen configuration parameters which control
+BoneCP offers several dozen configuration parameters that control
 the operation of the data source and its connections. Luckily, most of these
 configuration parameters have built-in defaults. Parameters may be specified
 to control such facets as the min, max, and initial pool size; the number of
@@ -152,7 +152,7 @@ tested.
 Pooled data resources (threads and database connections) may be released by
 calling the +close+ method on the +BoneCPDataSource+ class of the
 library. Attempting to reuse the pooled data source after it is closed will result 
-in an SQL exception.
+in an SQL exception:
 
 [source,clojure]
 ----

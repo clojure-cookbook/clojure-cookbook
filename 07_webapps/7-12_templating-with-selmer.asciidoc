@@ -5,12 +5,12 @@ by Dmitri Sotnikov
 
 ==== Problem
 
-You want to create server side page templates using syntax similar to Django and Jinja. You want to be able
+You want to create server-side page templates using syntax similar to Django and Jinja. You want to be able
 to insert dynamic content and use template inheritance to structure the templates.
 
 ==== Solution
 
-Use the Selmer library (https://github.com/yogthos/Selmer) to
+Use the https://github.com/yogthos/Selmer[Selmer library] to
 create your template and call it with a context map containing the
 dynamic content.
 
@@ -61,13 +61,13 @@ The template can then be rendered by calling the +selmer.parser/render-file+ fun
                             {:name "About" :link "/about"}]}))
 ----
 
-When +render-file+ runs it will populate the tags with the content
+When +render-file+ runs, it will populate the tags with the content
 provided. The value will be returned as a string, suitable for use as
 the response body in a Ring application (for example). Here the result
 is simply printed to standard out, for easy inspection.
 
 We can apply filters to variables for additional post-processing at runtime.
-Below, we use the +upper+ filter to convert our heading to upper case:
+Below, we use the +upper+ filter to convert our heading to uppercase:
 
 [source, html]
 ----
@@ -75,7 +75,7 @@ Below, we use the +upper+ filter to convert our heading to upper case:
 ----
 
 We can extract parts of the template into individual snippets using the +include+ tag. For example,
-if we wanted to define the header in a separate file we could do the following:
+if we wanted to define the header in a separate file, we could do the following:
 
 ._header.html_
 [source, html]
@@ -113,8 +113,8 @@ The +include+ tag will simply be replaced by the contents of the file it points 
 is compiled.
 
 We can also extend our base template when we create individual pages.
-To do that we would first define a block in our base template. This will serve as an anchor
-for the child template to override.
+To do that, we would first define a block in our base template. This will serve as an anchor
+for the child template to override:
 
 ._base.html_
 [source, html]
@@ -153,24 +153,24 @@ content for the +content+ block:
 Selmer provides a powerful and familiar templating tool with many tags and filters for easily accomplishing many common tasks.
 It separates the view logic from presentation by design.
 
-Selmer is also performant as it compiles the templates and ensures that only the dynamic content needs to be
+Selmer is also performant because it compiles the templates and ensures that only the dynamic content needs to be
 evaluated when serving a request.
 
-===== Selmer Concepts
+===== Selmer concepts
 
-Selmer includes two types of elements, these consists of variables and tags.
+Selmer includes two types of elements, variables and tags.
 
 Variables are used to render values from the context map on the page.
 The +{{+ and +}}+ are used to indicate the start and end of a variable.
 
-In many cases you may wish to post-process the value of a variable. For example, you might want to convert it to upper case,
+In many cases, you may wish to post-process the value of a variable. For example, you might want to convert it to uppercase,
 pluralize it, or parse it as a date. Variable filters are used for this purpose.
 
 Tags are used to add various functionality to the template such as looping and conditions. We already saw examples of 
-the +for+, +include+, and +extends+ tags above. The tags use +{%+ an +%}+ to define their content.
+the +for+, +include+, and +extends+ tags. The tags use +{%+ an +%}+ to define their content.
 
 The default tag characters might conflict with client-side frameworks such as AngularJS.
-In this case we can specify custom tags by passing a map containing any of the following keys to the parser:
+In this case, we can specify custom tags by passing a map containing any of the following keys to the parser:
 
 [source, clojure]
 ----
@@ -196,14 +196,14 @@ If we wanted to use `[` and `]` as our opening and closing tags, we could call t
 
 The +render+ function works just like +render-file+, except that it accepts the template content as a string.
 
-===== Defining Filters
+===== Defining filters
 
 Selmer provides a rich set of filters that allow decorating the dynamic content. Some of the filters include +capitalize+,
-+pluralize+, +hash+, +length+, +sort+ and many others.
++pluralize+, +hash+, +length+, and +sort+.
 
-However, if you need a custom filter that's not part of the library you can trivially add one yourself.
-For example, if we wanted to parse Markdown using the https://github.com/yogthos/markdown-clj[markdown-clj] library
-and display it on the page we could write the following filter footnote:[you'll need to restart a new +lein-try+ REPL including +markdown-clj+ to try this...].
+However, if you need a custom filter that's not part of the library, you can trivially add one yourself.
+For example, if we wanted to parse Markdown using the https://github.com/yogthos/markdown-clj[markdown-clj library]
+and display it on the page, we could write the following filter:footnote:[You'll need to restart a new +lein-try+ REPL including +markdown-clj+ to try this.]
 
 [source, clojure]
 ----
@@ -226,20 +226,19 @@ We can now use this filter in our templates to render our Markdown content:
 ----
 
 Note that we had to chain the +markdown+ filter with the +safe+ filter. This is due to the fact that Selmer escapes
-variable content by default. We can change our filter definition to indicate that its content does not need escaping
-as follows:
+variable content by default. We can change our filter definition to indicate that its content does not need escaping:
 
 [source, clojure]
 ----
 (add-filter! :markdown (fn [s] [:safe (md-to-html-string s)]))
 ---- 
 
-===== Defining Tags
+===== Defining tags
 
 Again, we can define custom tags in addition to those already present in the library. This is done by calling the
 +selmer.parser/add-tag!+ function.
 
-Let's say we wish to add a tag that will capitalize its contents. We could do that as follows:
+Let's say we wish to add a tag that will capitalize its contents:
 
 [source, clojure]
 ----
@@ -255,13 +254,13 @@ Let's say we wish to add a tag that will capitalize its contents. We could do th
 
 ===== Inheritance
 
-We already saw some examples of template inheritance above. Each template can extend a single template and include
+We already saw some examples of template inheritance. Each template can extend a single template and include
 any number of templates in its content.
 
-The templates can extend templates that themselves extend other templates. In this case the blocks found in the outermost
+The templates can extend templates that themselves extend other templates. In this case, the blocks found in the outermost
 child will override any other blocks with the same name.
 
-===== See Also
+==== See Also
 
-* The Selmer https://github.com/yogthos/Selmer[GitHub repository].
+* The Selmer https://github.com/yogthos/Selmer[GitHub repository]
 

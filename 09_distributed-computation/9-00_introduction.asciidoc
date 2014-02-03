@@ -1,7 +1,7 @@
 === Introduction
 
 With the advent of cheaper and cheaper storage, we're inclined to
-store more and more data. As this data grows larger and larger it
+store more and more data. As this data grows larger and larger, it
 becomes increasingly difficult to utilize to its full potential. To
 this end, numerous new techniques have emerged in the last decade or
 so for dealing with such quantities of data.
@@ -10,31 +10,31 @@ The primary focus of this chapter is one such technique,
 http://research.google.com/archive/mapreduce.html[MapReduce],
 developed at Google in the early 2000s. Functional even in name, this
 technique uses map and reduce in parallel across multiple machines at
-tremendous scale to process data at phenomenal speed. In this chapter
+tremendous scale to process data at phenomenal speed. In this chapter,
 we'll be covering http://cascalog.org/[Cascalog], a data processing
 library built on top of Hadoop (an open source MapReduce
 implementation).
 
 We'll also briefly cover http://storm-project.net/[Storm], a
 real-time, stream-processing library in use at several tech giants
-such as Twitter, Groupon and Yahoo!.
+such as Twitter, Groupon, and Yahoo!.
 
 ==== Cascalog
 
 Cascalog defines a DSL based on Datalog, the same query language that
 backs Datomic. It might be a strange at first, but you will be
 thinking in Datalog in no time. Once you've wet your feet with these
-recipes visit the https://github.com/nathanmarz/cascalog/wiki[Cascalog
+recipes, visit the https://github.com/nathanmarz/cascalog/wiki[Cascalog
 wiki] for more information on writing your own queries.
 
-Cascalog provides a concise syntax for describing data processing
+Cascalog provides a concise syntax for describing data-processing
 jobs. Transformations and aggregates are easy to express in
 Cascalog. Joins are particularly simple. You might like the Cascalog
 syntax so much that you use it even for local jobs.
 
 You can run your Cascalog jobs in a number of different ways. The
-easiest way is to run jobs locally. When running jobs locally Cascalog
-uses Hadoop's local mode, completing entire job on your own
+easiest way is to run jobs locally. When running jobs locally, Cascalog
+uses Hadoop's local mode, completing the entire job on your own
 computer. You get the benefit of parallelism, without the hassle of
 setting up a cluster. 
 

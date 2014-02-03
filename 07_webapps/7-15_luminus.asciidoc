@@ -9,21 +9,22 @@ by Dmitri Sotnikov
 // getting a ring/compojure app created and running quickly. Where possible,
 // rely on other recipes to explain Luminus-stack tech.
 
-Quickly create a typical Ring/Compojure web application structure, to
+Quickly create a typical Ring/Compojure web application structure to
 get a fast start on a new web development project.
 
 ==== Solution
 
-Use the Luminus leiningen template when creating a new project.
+Use the Luminus Leiningen template when creating a new project.
 
 At the command line, type:
 
-[source,shell-session]
-----
-$ lein new luminus myapp
-----
+++++
+<programlisting language="shell-session">
+$ <userinput>lein new luminus myapp</userinput>
+</programlisting>
+++++
 
-This will create a new Ring/Compojure application, with skeletal
+This will create a new Ring/Compojure application with a skeletal
 namespace and resource directory structure that is ready to be
 packaged as standalone +jar+ or a +war+ that can be
 deployed on an application server.
@@ -44,12 +45,11 @@ Ring/Compojure applications.
 The template generates a standard directory structure within your
 project, defines a main handler for your application, adds +lein-ring+
 hooks for it in the _project.clj_, provides a default logging
-configuration and sets up the default routes.
+configuration, and sets up the default routes.
 
-You can add additional functionality by specifying profiles when
-creating the application, which extend the generated code to include
-the relevant stubs. Below are some examples of initializing the
-application with a default configurations for different databases.
+When creating the application, you can add functionality by specifying profiles that extend the generated code to include
+the relevant stubs. The following are some examples of initializing the
+application with a default configurations for different databases:
 
 [source,shell-session]
 ----
@@ -69,7 +69,7 @@ The resulting application is structured using the following namespaces.
 
 The +<app-name>.handler+ namespace contains +init+ and +destroy+
 functions. These will be called when the application is starting up
-and shutting down respectively. It also contains the +app+ handler
+and shutting down, respectively. It also contains the +app+ handler
 function that's used by Ring to initialize the route handlers.
 
 The +<app-name>.routes+ package is used to house the core logic of the
@@ -86,13 +86,13 @@ engine.
 Any miscellaneous helpers will be found under the
 +<app_name>.views.util+ namespace.
 
-When a database profile is selected the +<app_name>.models.db+ and
+When a database profile is selected, the +<app_name>.models.db+ and
 +<app_name>.models.schema+ namespaces will be created. The +schema+
 namespace is reserved for table definitions, while the +db+ namespace
 houses the functions dealing with the application model.
 
-The application can be packaged as a standalone _jar_ using *+lein ring uberjar+*, or as a _war_ using *+lein ring uberwar+*.
+The application can be packaged as a standalone +jar+ using *+lein ring uberjar+* or as a +war+ using *+lein ring uberwar+*.
 
 ==== See Also
 
-* Visit the http://www.luminusweb.net/[Luminus] project page.
+* The http://www.luminusweb.net/[Luminus project page]

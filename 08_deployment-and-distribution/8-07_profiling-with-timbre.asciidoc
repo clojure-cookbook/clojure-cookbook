@@ -10,7 +10,7 @@ counts of your code.
 
 ==== Solution
 
-Use https://github.com/ptaoussanis/timbre[Timbre] to inserting
+Use https://github.com/ptaoussanis/timbre[Timbre] to insert
 profiling macros into your code that won't incur a performance penalty
 in production.
 
@@ -22,7 +22,7 @@ dependencies or start a REPL using +lein-try+:
 $ lein try com.taoensso/timbre
 ----
 
-Use the macros in the +taoensso.timbre.profiling+ namespace to collect benchmarking metrics in development.
+Use the macros in the +taoensso.timbre.profiling+ namespace to collect benchmarking metrics in development:
 
 [source,clojure]
 ----
@@ -47,7 +47,7 @@ Use the macros in the +taoensso.timbre.profiling+ namespace to collect benchmark
 ----
 
 Here we define a Clojure function +bench-me+, which is called with a
-higher-order function +f+ which takes zero or one argument.
+higher-order function +f+ that takes zero or one argument.
 
 Timbre outputs rich profiling information in a convenient table.
 
@@ -69,7 +69,7 @@ Timbre outputs rich profiling information in a convenient table.
 
 Profiling with Timbre is a great solution for Clojure-only profiling.
 Standard JVM profiling tools like YourKit and JVisualVM provide more
-comprehensive information on Java methods, but come with a greater
+comprehensive information on Java methods but come with a greater
 performance penalty.
 
 Timbre's profiling is most useful when profiling a specific area of
@@ -92,6 +92,6 @@ you can leave tracing code in production, which is useful if you want
 to profile the same code later, or if the profiling comments make your
 code clearer.
 
-==== See also
+==== See Also
 
 * https://github.com/ptaoussanis/timbre#profiling[Profiling with Timbre]

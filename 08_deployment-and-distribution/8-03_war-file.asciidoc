@@ -5,17 +5,17 @@ by Luke VanderHart
 ==== Problem
 
 You want to deploy a Clojure web application built using Ring as a
-standard Web Archive (WAR) file in a commonly-used Java EE container
-such as Tomcat, JBoss, WebLogic, etc.
+standard web archive (WAR) file in a commonly used Java EE container
+such as Tomcat, JBoss, or WebLogic.
 
 ==== Solution
 
 Assuming you are using Ring or a framework based on Ring (such as
 Compojure), the easiest way to structure your project to build as a
-WAR file is to use the +lein-ring+ plugin for Leiningen.
+WAR file is to use the +lein-ring+ plug-in for Leiningen.
 
 Say that your project has a Ring handler function defined in a
-namespace called +warsample.core+ footnote:[If you don't happen to already have a similarly named project, and you want to follow along, create a new one with *+lein new warsample+*], like so:
+namespace called +warsample.core+,footnote:[If you don't happen to already have a similarly named project, and you want to follow along, create a new one with *+lein new warsample+*.] like so:
 
 [source,clojure]
 ._src/warsample/core.clj_
@@ -39,14 +39,14 @@ pairs to your Leiningen _project.clj_ file:
 ----
 
 You'll also need to make sure that your application declares a
-dependency on the javax servlet API library. Most webapp libraries
+dependency on the javax servlet API library. Most web app libraries
 do include a transitive dependency, which you can verify by running
 *+lein deps :tree+*. If no other library you're using includes it, you
 can include it yourself by adding `[javax.servlet/servlet-api "2.5"]`
 to the +:dependencies+ key in _project.clj_.
 
 The +:plugins+ key specifies that the project uses the +lein-ring+
-plugin, and the map under the +:ring+ key specifies configuration
+plug-in, and the map under the +:ring+ key specifies configuration
 options specific to +lein-ring+. The only required option is
 +:handler+, which indicates the var name of the application's primary
 Ring handler function.
@@ -66,7 +66,7 @@ default browser to that page.
 
 Once you think the application is running correctly, you can build a
 WAR file using the *+lein ring war+* or *+lein ring uberwar+*
-commands. Both take the name of the war file to emit.
+commands. Both take the name of the WAR file to emit:
 
 [source,shell-session]
 ----
@@ -107,12 +107,12 @@ ring uberwar+*, and when to use each.
 A bare WAR file does not contain any of your project's dependencies;
 only the application code itself. This means that your program will
 *not work* unless you make sure that each and every JAR file your
-program depends on, *including Clojure itself* is present on your web
+program depends on, *including Clojure itself*, is present on your web
 application's shared library path. Exactly how to do this depends on
-the application server you're using -- you'll have to refer to your
+the application server you're using--you'll have to refer to your
 system's documentation to determine how to make them available.
 
-An "uberwar", on the other hand, bundles up all the JARs your program
+An "uberwar," on the other hand, bundles up all the JARs your program
 depends on into the WAR archive as a _bundled library_ under the
 +WEB-INF/lib+ subfolder. Compliant application servers are capable of
 running each application (each deployed WAR file) in their own
@@ -125,9 +125,9 @@ how your application's classpath probably looked in development.
 
 The cost of an uberwar, however, is that a single library may be
 loaded multiple times if it is bundled by multiple applications. If
-you are running ten applications, all of which use (say) Compojure,
+you are running 10 applications, all of which use (say) Compojure,
 the server will actually load up the Compojure code into the JVM's
-class space ten times, once for each application. Some organizations
+class space 10 times, once for each application. Some organizations
 running resource-constrained or high-performance deployments prefer to
 ensure that there is a minimum redundancy in application
 dependencies. If this is the case, then you may have to fall back to
@@ -144,47 +144,48 @@ J2EE _platform_, such as JDBC, the Servlet API, various XML libraries
 like JAX-*, StAX, JMS, etc.
 
 These classes are usually provided by the application container
-itself, and if your application refers to them it will resolve to the
+itself, and if your application refers to them, it will resolve to the
 instance provided by the container rather than the version your
-application has bundled. If they are exactly the same, well and good,
+application has bundled. If they are exactly the same, well and good;
 but if there is a version mismatch that includes breaking changes in
 the class API, you may encounter cryptic errors as your application
 tries to call into classes that are different than the ones it was
 built against.
 
 In this scenario, you will need to reconcile the dependency versions
-used by your application container and your application, to make sure
+used by your application container and your application to make sure
 they are compatible.
 ****
 
-===== Other +lein-ring+ options.
+===== Other lein-ring options.
 
 +lein-ring+ provides some additional options you can set in the
-+:ring+ configuration map in _project.clj_, to fine-tune how WAR files
++:ring+ configuration map in _project.clj_ to fine-tune how WAR files
 are generated. For an exhaustive description, see the +lein-ring+
 https://github.com/weavejester/lein-ring[project page]. 
 
-A few of the more useful ones are:
+A few of the more useful ones are shown in <<table8-1>>.
 
+[[table8-1]]
 .+lein-ring+ WAR options
 [options="header"]
 |=======
 |Key|Description|Default
 |+:war-exclusions+|Sequence of regexes of files to exclude from the target WAR|All hidden files
 |+:servlet-class+|The name of the generated +Servlet+ class|
-|+:servlet-name+|The name of the servlet in +web.xml+.| The name of the handler function
+|+:servlet-name+|The name of the servlet in +web.xml+| The name of the handler function
 |+:url-pattern+|The URL of the servlet mapping in +web.xml+| +/*+
-|+:web-xml+|Specify a specific +web.xml+ file to use instead of the generated one.|
+|+:web-xml+|Specify a specific +web.xml+ file to use instead of the generated one|
 |=======
 
 ===== Building WAR files from scratch
 
 If you aren't using Ring, or if you have a good reason not to use the
-+lein-ring+ plugin, you can still create a WAR file, but the process
++lein-ring+ plug-in, you can still create a WAR file, but the process
 is much more hands-on. Fortunately, a WAR file is essentially a JAR
 file with a different extension and some additional internal structure
 and configuration files, so you can use the standard *+lein jar+* tool
-to generate one provided you add the files listed below at the
+to generate one provided you add the following files at the
 appropriate locations in the archive.
 
 You'll also need to define some AOT classes implementing
@@ -194,7 +195,6 @@ application server using a deployment descriptor (+web.xml+).
 
 The structure of a WAR file is:
 
-[source,plain]
 ----
 <war root>
 |-- <static resources>
@@ -211,15 +211,15 @@ The structure of a WAR file is:
 A full explanation of all of these elements is beyond the scope of
 this recipe. For a full explanation, see Oracle's J2EE
 http://docs.oracle.com/javaee/7/tutorial/doc/packaging003.htm[tutorial]
-on packaging Web Archives.
+on packaging web archives.
 
 Other web server libraries (for example, Pedestal Server) that include
 tooling for Leiningen will also often have a utility for building WAR
-files - check the documentation of the library you're using.
+files--check the documentation of the library you're using.
 
 ==== See Also
 
-- <<sec_packaging_jars>>
 - <<sec_aot_compilation>>
-- ++lein-ring++'s https://github.com/weavejester/lein-ring[project page].
-- Oracle's J2EE http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html[tutorial].
+- <<sec_packaging_jars>>
+- ++lein-ring++'s https://github.com/weavejester/lein-ring[project page]
+- Oracle's J2EE http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html[tutorial]

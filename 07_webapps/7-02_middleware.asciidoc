@@ -12,11 +12,11 @@ you'd really rather work with a parsed map.
 ==== Solution
 
 Since Ring works with regular Clojure data and functions, you can easily define
-middleware as functions-returning-functions. Define a middleware that modifies
+middleware as functions returning functions. Define a middleware that modifies
 the request by adding a parsed version of the query string to the request
-before passing it on to the handler:
+before passing it on to the handler.
 
-To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
 ._src/ringtest.clj_
 [source, clojure]
@@ -77,7 +77,7 @@ Then the request received by the handler becomes:
 
 However, you don't need to write your own middleware for this. Ring provides
 a number of middlewares to add to your app, including one called `params` that
-does the same as the middleware we just wrote but better:
+does the same as the middleware we just wrote but better.
 
 [quote, Ring Documentation]
 ____
@@ -96,7 +96,7 @@ Takes an optional configuration map. Recognized keys are:
 ____
 
 You are in no way limited to using one middleware.  Usually, you'll at
-least want to use the cookie, session, and params middleware.  One concise way to wrap your handler
+least want to use the cookie, session, and parameter middleware.  One concise way to wrap your handler
 with several middlewares is to use the `->` macro:
 
 [source, clojure]
@@ -113,4 +113,4 @@ with several middlewares is to use the `->` macro:
 
 ==== See Also
 
-* https://github.com/ring-clojure/ring/wiki/Concepts#middleware[Middleware Concepts]
+* https://github.com/ring-clojure/ring/wiki/Concepts#middleware[Middleware concepts]

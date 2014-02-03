@@ -20,7 +20,7 @@ $ lein try com.taoensso/timbre
 ----
 
 To write a function that writes log messages, use the Timbre 
-functions +info+, +error+, etc.
+functions +info+, +error+, etc:
 
 [source,clojure]
 ----
@@ -44,8 +44,8 @@ level. Similarly, the +log/error+ call will create a log message at the
 "error" output level. Passing an exception as the first argument will 
 cause the stack trace to be printed as well.
 
-If you call div-4 with values that will succeed or throw an error you 
-will see output like the following in your REPL.
+If you call div-4 with values that will succeed or throw an error, you 
+will see output like the following in your REPL:
 
 [source,clojure]
 ----
@@ -79,7 +79,7 @@ destinations). By default, a single appender is configured to write to
 standard out. 
 
 For example, to add a second appender for a file, you can dynamically modify
-the configuration by enabling the pre-configured +spit+ appender:
+the configuration by enabling the preconfigured +spit+ appender:
 
 [source,clojure]
 ----
@@ -109,10 +109,10 @@ While Timbre is an excellent library for simple logging in your
 Clojure app, it may not be sufficient if you are integrating with many
 Java libraries. There are a variety of popular Java logging frameworks
 and logging facades. If you wish to leverage the existing Java logging
-infrastructure, you might find the tools.logging framework more
+infrastructure, you might find the +tools.logging+ framework more
 suitable.
 
-==== See also
+==== See Also
 
 * https://github.com/ptaoussanis/timbre/blob/master/README.md[Logging with Timbre]
 * https://github.com/clojure/tools.logging/blob/master/README.md[Logging with +tools.logging+]

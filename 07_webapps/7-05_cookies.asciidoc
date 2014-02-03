@@ -4,13 +4,13 @@ by Adam Bard
 
 ==== Problem
 
-Your web application needs to read or set cookies on the user's browser (for example, to remember a user's name.)
+Your web application needs to read or set cookies on the user's browser (for example, to remember a user's name).
 
 ==== Solution
 
 Use the `ring.middleware.cookies/wrap-cookies` middleware to add cookies to your requests.
 
-To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_.
+To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
 ._src/ringtest.clj_
 [source, clojure]
@@ -63,8 +63,8 @@ To follow along with this recipe, clone the _https://github.com/clojure-cookbook
 ==== Discussion
 
 This example uses the `wrap-cookies` and `wrap-params` middlewares
-included with +ring-core+. The first time the user visits a page, it
-shows the user a form for them to enter their name.  After their name
+included with +ring-core+. The first time users visit a page, it
+shows them a form to enter their name.  After their name
 is entered, it stores their name in a cookie and displays it as a
 instead, until the cookie is removed.
 
@@ -83,21 +83,21 @@ map that looks something like this:
 ----
 
 You can add other optional parameters to each cookie, along with `:value`. From the
-https://github.com/ring-clojure/ring/wiki/Cookies[Ring Cookie Documentation]:
+https://github.com/ring-clojure/ring/wiki/Cookies[Ring cookie documentation]:
 
-[quote, Ring Docs]
+[quote]
 ____
 As well as setting the value of the cookie, you can also set additional attributes:
 
-* `:domain` - restrict the cookie to a specific domain
-* `:path` - restrict the cookie to a specific path
-* `:secure` - restrict the cookie to HTTPS URLs if true
-* `:http-only` - restrict the cookie to HTTP if true (not accessible via e.g. JavaScript)
-* `:max-age` - the number of seconds until the cookie expires
-* `:expires` - a specific date and time the cookie expires
+* `:domain`&#x2014;restrict the cookie to a specific domain
+* `:path`&#x2014;restrict the cookie to a specific path
+* `:secure`&#x2014;restrict the cookie to HTTPS URLs if true
+* `:http-only`&#x2014;restrict the cookie to HTTP if true (not accessible via e.g. JavaScript)
+* `:max-age`&#x2014;the number of seconds until the cookie expires
+* `:expires`&#x2014;a specific date and time the cookie expires
 ____
 
 ==== See Also
 
 * <<sec_ring_middleware>>
-* Ring's https://github.com/ring-clojure/ring/wiki/Cookies[Cookie Documentation]
+* Ring's https://github.com/ring-clojure/ring/wiki/Cookies[cookie documentation]

@@ -24,14 +24,14 @@ $ lein try korma org.postgresql/postgresql
 
 
 To follow along with this recipe, you'll need a running SQL database
-and existing table to connect to. We suggest PostgreSQL footnote:[Mac
+and existing table to connect to. We suggest PostgreSQL.footnote:[Mac
 users: visit http://postgresapp.com/ to download an
 easy-to-install DMG. Everyone else: find a guide for your operating
 system on the
 https://wiki.postgresql.org/wiki/Detailed_installation_guides[PostgreSQL
 Wiki].]
 
-After you have PostgreSQL running (presumably on _localhost:5432_) run the following
+After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
 [source,shell-session]
@@ -45,7 +45,7 @@ $ createdb learn_korma
 
 To connect to the +learn_korma+ database, use +defdb+
 with the +postgres+ helper. Because Korma is a rather large DSL, it is
-acceptable to +:refer :all+ its contents into model namespaces.
+acceptable to +:refer :all+ its contents into model namespaces:
 
 [source,clojure]
 ----
@@ -56,7 +56,7 @@ acceptable to +:refer :all+ its contents into model namespaces.
 ----
 
 To interact with a table in your database, define and create what
-Korma calls *entities*. Here you'll define an entity for blog posts:
+Korma calls _entities_. Here you'll define an entity for blog posts:
 
 [source,clojure]
 ----
@@ -67,9 +67,9 @@ Korma calls *entities*. Here you'll define an entity for blog posts:
 ----
 
 Normally you'd use a proper migration library for your schema, but for
-the sake of simplicity we'll create a table manually. Use the
+the sake of simplicity, we'll create a table manually. Use the
 +exec-raw+ function to execute raw SQL statements against the
-database. You should only do this where strictly necessary.
+database. You should only do this where strictly necessary:
 
 [source,clojure]
 ----
@@ -83,7 +83,7 @@ database. You should only do this where strictly necessary.
 Now that the +posts+ table exists, you can invoke +insert+ against
 +posts+ with a map's +values+ to add records to the database.
 Each record is represented by a map. The names of the keys in the map
-must match the names of the columns in the database.
+must match the names of the columns in the database:
 
 [source,clojure]
 ----
@@ -93,7 +93,7 @@ must match the names of the columns in the database.
 
 To retrieve values from the database, query using +select+. Successful
 queries will return a sequence of maps, each containing keys
-representing the column names.
+representing the column names:
 
 [source,clojure]
 ----
@@ -104,10 +104,10 @@ representing the column names.
 ;;      :id 1}]
 ----
 
-To correct or change exist records, use the +update+ macro. Invoke
+To correct or change existing records, use the +update+ macro. Invoke
 +update+ against +posts+, providing a +set-fields+ declaration to
 specify what should change and a +where+ declaration narrowing what
-records to make those changes to.
+records to make those changes to:
 
 [source,clojure]
 ----
@@ -118,7 +118,7 @@ records to make those changes to.
 ----
 
 The +delete+ macro works similarly to +update+, but doesn't take a
-+set-fields+ declaration.
++set-fields+ declaration:
 
 [source,clojure]
 ----
@@ -142,14 +142,14 @@ SQL's crufty and complicated DDL (Data Definition Language). Via the
 +defentity+ macro, you have access to all of the power of traditional
 SQL, packaged in a readable, Clojure-based DSL.
 
-When defining entities with +defentity+ you can pass in a number of
+When defining entities with +defentity+, you can pass in a number of
 options. Some common options include +table+ to specify a table name,
 +pk+ to specify the default ID field (primary key), +entity-fields+ to
 specify the default fields for SELECT statements, or even +db+ to
 specify which database the entity belongs in.
 
 Entities also simplify defining relations between tables. Entity
-declaration statements such as +has-one+, +has-many+, +belongs-to+ and
+declaration statements such as +has-one+, +has-many+, +belongs-to+, and
 +many-to-many+ define relationships to other entities. Consider adding
 an author to each of our blog posts:
 
@@ -190,18 +190,18 @@ ryan
 ----
 
 Stemming from its entity system, Korma provides DSL versions of common
-SQL statements such as +select+, +update+, +insert+ and +delete+. One
+SQL statements such as +select+, +update+, +insert+, and +delete+. One
 of the most interesting query types is +select+, which provides
 support for most every SELECT statement option, include simplified
-table-joins (via its relation helpers). Some notable helpers include:
-+aggregate+, +join+, +order+, +group+ and +having+--chances are, if it
+table joins (via its relation helpers). Some notable helpers include
++aggregate+, +join+, +order+, +group+, and +having+. Chances are, if it
 is a SQL statement feature, Korma has a helper for it.
 
 Korma's DSL isn't only convenient, it's also composable. Using
 +select*+ instead of +select+ returns a query as a value, instead of
 an evaluated result. You can pipeline query values through regular
 +select+-helpers to build up or store partial queries. Finally, invoke
-+select+ on a query value to execute it and receive its result.
++select+ on a query value to execute it and receive its result:
 
 [source,clojure]
 ----
@@ -221,10 +221,10 @@ an evaluated result. You can pipeline query values through regular
 ----
 
 Another convenience Korma provides is default connections. You may
-have noticed in the examples we never referred to the +db+ we defined.
-When only a single connection is defined it will be used by default
-and you don't have to pass it explicitly. If you like you can define
-multiple connections and wrap series of statements in a +with-db+ call
+have noticed in the examples that we never referred to the +db+ we defined.
+When only a single connection is defined, it will be used by default
+and you don't have to pass it explicitly. If you like, you can define
+multiple connections and wrap series of statements in a +with-db+ call:
 
 [source,clojure]
 ----
