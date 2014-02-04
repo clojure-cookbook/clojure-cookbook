@@ -1,5 +1,5 @@
 [[sec_verify_java]]
-=== Verifying Java Interop using +core.typed+
+=== Verifying Java Interop Using core.typed
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 
@@ -9,7 +9,7 @@ You want to verify that we are using Java libraries safely and
 unambiguously.
 
 Java provides a vast ecosystem that is a major draw for Clojure
-developers, however, it can be often be complex to use large,
+developers; however, it can be often be complex to use large,
 cumbersome Java APIs from Clojure.
 
 ==== Solution
@@ -34,8 +34,8 @@ on-disk files to check namespaces.
 To demonstrate, choose a standard Java API function such as the
 +java.io.File+ constructor.
 
-Using the dot constructor to create new Files can be annoying, wrap it
-in a Clojure function that takes a string +new-file+.
+Using the dot constructor to create new files can be annoying--wrap it
+in a Clojure function that takes a string +new-file+:
 
 ._core_typed_samples.clj_
 [source,clojure]
@@ -52,7 +52,7 @@ in a Clojure function that takes a string +new-file+.
 Setting `*warn-on-reflection*` when compiling this namespace will tell
 us that there is a reflective call to the `java.io.File` constructor.
 Checking this namespace at the REPL with +clojure.core.typed/check-ns+ will
-tell report the same information, albeit in the form of a type error.
+tell report the same information, albeit in the form of a type error:
 
 [source,shell-session]
 ----
@@ -68,7 +68,7 @@ in: (new java.io.File s)  clojure.core/ex-info (core.clj:4327)
 ----
 
 Add a type hint to call the `public File(String pathname)` constructor
-(http://docs.oracle.com/javase/7/docs/api/java/io/File.html#File(java.lang.String)[Javadoc]).
+(http://docs.oracle.com/javase/7/docs/api/java/io/File.html#File(java.lang.String)[Javadoc]):
 
 ._core_typed_samples.clj_
 [source,clojure]
@@ -82,7 +82,7 @@ Add a type hint to call the `public File(String pathname)` constructor
   (File. s))
 ----
 
-Checking again, core.type is satisfied.
+Checking again, core.type is satisfied:
 
 [source,shell-session]
 ----
@@ -92,7 +92,7 @@ user=> (t/check-ns 'core-typed-samples)
 ----
 
 +File+ has a second single-argument constructor: +public File(URI
-uri)+. Enhance +new-file+ to support +URI+ or +String+ file names.
+uri)+. Enhance +new-file+ to support +URI+ or +String+ file names:
 
 ._core_typed_samples.clj_
 [source,clojure]
@@ -120,7 +120,7 @@ Java types *and* documentation is needed to confidently use foreign
 Java code correctly.
 
 Though the +File+ constructor is fairly innocous, consider writing
-+file-parent+, a thin wrapper over the +getParent+ method.
++file-parent+, a thin wrapper over the +getParent+ method:
 
 ._core_typed_samples.clj_
 [source,clojure]
@@ -134,10 +134,10 @@ Though the +File+ constructor is fairly innocous, consider writing
   (.getParent f))
 ----
 
-The above implementation is free from reflective calls, so... all
+The preceding implementation is free from reflective calls, so... all
 good? No. Checking this function with +core.typed+ tells another story;
 Java's return types are _nullable_ and +core.typed+ knows it. It is
-possible that +getParent+ will return +nil+ instead of a +String+.
+possible that +getParent+ will return +nil+ instead of a +String+:
 
 [source,shell-session]
 ----
@@ -174,8 +174,7 @@ ExceptionInfo Type Checker: Found 3 errors clojure.core/ex-info ...
 ----
 
 +core.typed+ assumes all methods return nullable types, so it is a type
-error to annotate `parent` as `[File -> String]`. Each type error
-above reiterates that the annotation tried to claim a `(U nil String)`
+error to annotate `parent` as `[File -> String]`. Each preceding type error reiterates that the annotation tried to claim a `(U nil String)`
 was a `String`, with the most specific (and useful) error being the
 first.
 
@@ -187,9 +186,9 @@ On the other hand, +core.typed+ knows Java constructors never return `null`.
 
 If +core.typed+ is too pessimistic for you with its nullable return
 types, you can override particular methods with
-`clojure.core.typed/non-nil-return`. Adding the following to the above
+`clojure.core.typed/non-nil-return`. Adding the following to the preceding
 code would result in a successful type check (check omitted for
-brevity).
+brevity):
 
 [source,clojure]
 ----
@@ -202,7 +201,7 @@ As of this writing, +core.typed+ does not enforce static type overrides
 at runtime, so use `non-nil-return` and similar features with caution.
 ====
 
-Sometimes the type checker might seem overly picky; in the solution
+Sometimes the type checker might seem overly picky; in the solution,
 two type-hinted constructors are necessary. It might seem normal in a
 dynamically typed language to simply call `(File. s)` and allow
 reflection to resolve any ambiguity. By conforming to what +core.typed+
@@ -224,7 +223,7 @@ desirable in larger code bases.
 
 * https://github.com/clojure/core.typed[+core.typed+ Home]
 * http://clojure.github.io/core.typed/[+core.typed+ API Reference],
-  particularly documentation for +non-nil-return+ and +nilable-param+.
-* Recipes <<sec_avoid_null>> and <<sec_verify_hof>> for further
-  examples of how to use +core.typed+.
+  particularly documentation for +non-nil-return+ and +nilable-param+
+* <<sec_avoid_null>> and <<sec_verify_hof>> for further
+  examples of how to use +core.typed+
 

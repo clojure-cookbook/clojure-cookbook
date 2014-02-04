@@ -1,5 +1,5 @@
 [[sec_simplecheck]]
-=== Finding Values Which Cause Failure
+=== Finding Values That Cause Failure
 
 [role="byline"]
 by Luke VanderHart
@@ -11,7 +11,7 @@ all inputs, and find input values that violate those properties.
 
 ==== Solution
 
-Use +simple-check+, a property specification library for Clojure that
+Use +simple-check+, a property-specification library for Clojure that
 is capable of "shrinking" the input case to find the minimal failing
 input. footnote:[It is important to note, +simple-check+ finds a
 *local* minima, not the *global* minimum.]
@@ -24,7 +24,7 @@ $ lein try reiddraper/simple-check
 ----
 
 Then, find a function to test. This example uses a contrived function
-which calculates the sum of the reciprocals of a sequence of numbers:
+that calculates the sum of the reciprocals of a sequence of numbers:
 
 [source,clojure]
 ----
@@ -54,8 +54,8 @@ generators found in the +simple-check.generators+ namespaces.
 [NOTE]
 ====
 
-Unlike test.generative, +simple-check+ generators are more complicated
-than a single function which returns a value. Instead, they are a data
+Unlike +test.generative+, +simple-check+ generators are more complicated
+than a single function that returns a value. Instead, they are a data
 structure that not only defines how random values are sampled, but how
 they converge on the "simplest" possible failing case.
 
@@ -69,11 +69,11 @@ The actual test is defined using the +simple-check.properties/for-all+
 macro, which emits a property definition. It takes a binding form
 (similar to +let+ or +for+) which specifies the possible values to
 bind to one or more symbols, and a body. The body is what actually
-specifies the properties that must hold, and must return true if and
+specifies the properties that must hold, and must return +true+ if and
 only if the test passes for a particular set of values.
 
 To run the test, invoke the +simple-check.core/quick-check+ function,
-passing it the defined property.
+passing it the defined property:
 
 [source,clojure]
 ----
@@ -88,7 +88,7 @@ specified in the binding form.
 As you may have already observed, the +reciprocal-sum+ function has a
 problem: it will throw a "divide by zero" error if a zero is present
 in the input sequence. The +quick-check+ function returns a data
-structure showcasing the problem.
+structure showcasing the problem:
 
 [source,clojure]
 ----
@@ -114,7 +114,7 @@ Fix the function by eliminating zero values:
                  (filter (complement zero?) s))))
 ----
 
-Re-running the test now indicates success.
+Rerunning the test now indicates success:
 
 [source,clojure]
 ----
@@ -126,9 +126,9 @@ Re-running the test now indicates success.
 
 +simple-check+ has the very useful property of not only returning
 *a* failing sample input to a test, but returning the *minimal*
-failing sample. In the example program above, for instance, any time a
-zero occurs in the input sequence it causes an error. However, merely
-from looking at the sequence +(5 0 0 -8 1 -2)+ it might not be
+failing sample. In the preceding example program, for instance, any time a
+zero occurs in the input sequence, it causes an error. However, merely
+from looking at the sequence +(5 0 0 -8 1 -2)+, it might not be
 apparent that zeros are the problem. Not knowing anything else about
 the function under test, the problem might be, for example, the
 negative numbers, or the value +5+. +simple-check+ returns not just any
@@ -139,9 +139,9 @@ useful to know the specific problematic value. And, the larger and
 more complex the inputs to the function, the more useful it is to be
 able to reduce the failing case.
 
-.Sidebar test.generative and +simple-check+
+.test.generative and simple-check
 ****
-You may have observed that test.generative and +simple-check+ cover a
+You may have observed that +test.generative+ and +simple-check+ cover a
 lot of the same ground. They both generate a randomized distribution
 of inputs, and they both specify "success" conditions in terms of
 properties or qualities that must hold across all inputs and outputs
@@ -159,7 +159,7 @@ many tests as it can fit into the allotted timeframe across multiple threads.
 
 Ultimately, both are valuable approaches that you should seriously
 consider when you want to really, thoroughly test something. The
-decision between them should be mediated by your own specific needs;
+decision between them should be mediated by your own specific needs:
 how large or complicated the inputs are, how much control you want
 over runtime, and how likely you are to need to extend the set of
 generated primitives.
@@ -169,4 +169,4 @@ generated primitives.
 
 * <<sec_unit_testing>>
 * <<sec_testing_generative>>
-* QuickCheck, the Haskell library that inspired SimpleCheck (http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2[Introduction to QuickCheck]).
+* QuickCheck, the Haskell library that inspired SimpleCheck (http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2["Introduction to QuickCheck"])

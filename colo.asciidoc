@@ -1,6 +1,6 @@
 [colophon]
 = Colophon
 
-The animal on the cover of _FILL IN TITLE_ is FILL IN DESCRIPTION.
+The animal on the cover of _Clojure Cookbook_ is FILL IN DESCRIPTION.
 
 The cover image is from FILL IN CREDITS. The cover fonts are URW Typewriter and Guardian Sans. The text font is Adobe Minion Pro; the heading font is Adobe Myriad Condensed; and the code font is Dalton Maag's Ubuntu Mono.

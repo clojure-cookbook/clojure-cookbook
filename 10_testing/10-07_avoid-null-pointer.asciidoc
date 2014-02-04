@@ -1,5 +1,5 @@
 [[sec_avoid_null]]
-=== Avoiding Null-Pointer Exceptions with +core.typed+
+=== Avoiding Null-Pointer Exceptions with core.typed
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 
@@ -29,9 +29,9 @@ on-disk files to check namespaces.
 ====
 
 Consider, for example, that you are writing a function +handle-number+
-to process numbers. To verify +handle-number+ handles +nil+ correctly
+to process numbers. To verify +handle-number+ handles +nil+ correctly,
 annotate it with +clojure.core.typed/ann+ to accept the union (+U+) of the +nil+ and
-+Number+ types, returning a +Number+. 
++Number+ types, returning a +Number+:
 
 ._core_typed_samples.clj_
 [source,clojure]
@@ -44,7 +44,7 @@ annotate it with +clojure.core.typed/ann+ to accept the union (+U+) of the +nil+
   (+ a 20))
 -----
 
-Verify the function's correctness at the REPL using +clojure.core.typed/check-ns+.
+Verify the function's correctness at the REPL using +clojure.core.typed/check-ns+:
 
 [source,clojure]
 ----
@@ -77,12 +77,12 @@ in: (clojure.lang.Numbers/add a 20)
 ExceptionInfo Type Checker: Found 1 error  clojure.core/ex-info (core.clj:4327)
 ----
 
-The current definition is unsafe, +check-ns+ recognizes that `+` can
+The current definition is unsafe. +check-ns+ recognizes that `+` can
 only handle numbers, while the +handle-number+ function accepts
 numbers *or* +nil+.
 
 Protect the call to `+` by wrapping it in an +if+ statement, returning
-+0+ in the absence of +a+.
++0+ in the absence of +a+:
 
 ._core_typed_samples.clj_
 [source,clojure]
@@ -97,7 +97,7 @@ Protect the call to `+` by wrapping it in an +if+ statement, returning
     0))
 ----
 
-Check the namespace with +check-ns+ again.
+Check the namespace with +check-ns+ again:
 
 [source,clojure]
 ----
@@ -117,7 +117,7 @@ reference types are separated. This is unlike Java, where a type like
 +java.lang.Number+ implies a "nullable" type.
 
 In +core.typed+, reference types are implicitly non-nullable. To express
-a nullable type (such as in the example above) construct a _union
+a nullable type (such as in the preceding example), construct a _union
 type_ of the desired type and +nil+. For example, a +java.lang.Number+
 in +core.typed+ syntax is non-nullable; the union type +(U nil
 java.lang.Number)+ expresses the equivalent to a nullable
@@ -125,7 +125,7 @@ java.lang.Number)+ expresses the equivalent to a nullable
 implies in Java type syntax).
 
 This separation of concepts allows +core.typed+ to throw a _type error_
-on any potential misuse of +nil+. The solution above threw a type
+on any potential misuse of +nil+. The preceding solution threw a type
 error when type checking the equivalent expression: ++(+ nil 20)++.
 
 To better understand +core.typed+ type errors, it is useful to note that
@@ -153,12 +153,12 @@ argument types with each arity until one matches.
 
 ==== See Also
 
-* https://github.com/clojure/core.typed[+core.typed+ Home]
-* http://clojure.github.io/core.typed/[+core.typed+ API Reference]
-* The list of core type aliases in the API reference. For example, the
+* https://github.com/clojure/core.typed[+core.typed+ Home].
+* http://clojure.github.io/core.typed/[+core.typed+ API Reference].
+* The list of core-type aliases in the API reference. For example, the
   entry for
   http://clojure.github.io/core.typed/#clojure.core.typed/AnyInteger[clojure.core.typed/AnyInteger].
 * Valid types are documented on the
   https://github.com/clojure/core.typed/wiki/Types[Types] wiki page.
-* Recipes <<sec_verify_java>> and <<sec_verify_hof>> for further
+* <<sec_verify_java>> and <<sec_verify_hof>> for further
   examples of how to use +core.typed+.

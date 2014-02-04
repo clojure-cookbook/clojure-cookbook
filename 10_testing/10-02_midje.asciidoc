@@ -5,8 +5,8 @@ by Joseph Wilk
 
 ==== Problem
 
-You want to unit test a function which integrates with external
-dependencies such as http services or databases.
+You want to unit test a function that integrates with external
+dependencies such as HTTP services or databases.
 
 ==== Solution
 
@@ -20,7 +20,7 @@ To follow along with this recipe, start a REPL using +lein-try+:
 $ lein try midje clj-http
 ----
 
-Here is an example function that makes an HTTP request.
+Here is an example function that makes an HTTP request:
 
 [source,clojure]
 
@@ -39,7 +39,7 @@ Here is an example function that makes an HTTP request.
 
 To test the +github-profile+ function, define a test using
  +midje.sweet/facts+ and +midje.sweet/fact+ in the corresponding test
- namespace.
+ namespace:
 
 [source,clojure]
 ----
@@ -56,7 +56,7 @@ To test the +github-profile+ function, define a test using
 
 ==== Discussion
 
-In Midje +facts+ associate a description with a group of tests, while
+In Midje, +facts+ associates a description with a group of tests, while
 +fact+ maps to your test. Assertions in your +fact+ take the form of:
 
 [source,clojure]
@@ -68,10 +68,10 @@ In Midje +facts+ associate a description with a group of tests, while
 ----
 
 Assertions behave a little differently than most testing frameworks.
-Within a +fact+ body every single assertion is checked irrelevant of
-if a previous one failed.
+Within a +fact+ body, every single assertion is checked irrespective of
+whether a previous one failed.
 
-Midje only provides mocks not stubs. All functions specified in the
+Midje only provides mocks, not stubs. All functions specified in the
 +provided+ body have to be called for the test to pass. Mocks use the
 same syntax as assertions but with a slightly different meaning:
 
@@ -83,13 +83,13 @@ same syntax as assertions but with a slightly different meaning:
 ----
 
 It is important to note you are not calling the `(+ 10 10)` function
-here, you are setting up a pattern. Every function call occurring in
+here--you are setting up a pattern. Every function call occurring in
 the test is checked to see if it matches this pattern. If it does, do
 not call the function, but instead return 0. When defining mocks with
-+provided+ there is a lot of flexibly on how to match mock functions
-against real calls. In the above solution, for example, regular
++provided+, there is a lot of flexibly on how to match mock functions
+against real calls. In the preceding solution, for example, regular
 expressions are used. This expression instructs Midje to mock calls to
-+http/get+ whose URL ends in +"/users/clojure-cookbook"+.
++http/get+, whose URL ends in +"/users/clojure-cookbook"+:
 
 [source,clojure]
 ----
@@ -103,7 +103,7 @@ expressions are used. This expression instructs Midje to mock calls to
 ----
 
 Midje provides a lot of match-shaping functions that you can use to match
-against the arguments of a mock.
+against the arguments of a mock:
 
 [source,clojure]
 ----
@@ -120,7 +120,7 @@ against the arguments of a mock.
   (http/get anything) => :result)
 ----
 
-From within a REPL you can investigate all of Midje's checkers:
+From within a REPL, you can investigate all of Midje's checkers:
 
 [source,clojure]
 ----
@@ -147,18 +147,18 @@ From within a REPL you can investigate all of Midje's checkers:
 ----
 
 You may have noticed in the solution we used +..body..+ instead of an
-actual response. This is something Midje refers to as a metaconstant.
+actual response. This is something Midje refers to as a _metaconstant_.
 
 A metaconstant is any name that starts and ends with two dots. It has
-no properties other than identity. Think of it like a fake or
-placeholder were do not care about the actual value or we might be
-referencing something that does not exist yet. In our example we don't
-really care what +..body..+ is, we just care that it is the thing
+no properties other than identity. Think of it as a fake or
+placeholder, where we do not care about the actual value or might be
+referencing something that does not exist yet. In our example, we don't
+really care what +..body..+ is; we just care that it is the thing
 returned.
 
 To add Midje to an existing project, add `[midje "1.5.1"]` to your
 development dependencies and `[lein-midje "3.1.2"]` to your
-development plugins. Your _project.clj_ should look something like
+development plug-ins. Your _project.clj_ should look something like
 this:
 
 ._project.clj_
@@ -173,9 +173,8 @@ Midje provides two ways to run tests, through a REPL, as you may have
 been doing, or through a Leiningen. Midje actually encourages you to
 run everything through the REPL, as you develop them. One very useful
 way to run your tests is with the +midje.repl/autotest+ function. This
-continuously polls the filesystem looking for changes in your project,
-when it detects these changes it will automatically re-run the relevant
-tests.
+continuously polls the filesystem looking for changes in your project. When it detects these changes, it will automatically rerun the relevant
+tests:
 
 [source,clojure]
 ----
@@ -193,9 +192,9 @@ There are many more things you can do from the REPL with Midje. To
 find out more, read the docstring of +midje-repl+ by running +(doc
 midje-repl)+ in a REPL.
 
-You can also run Midje tests through the Leiningen plugin lein-midge
-(add as noted above in _project.clj_). lein-midje allows you run tests
-at a number of granularities; all of your tests, all the tests in a
+You can also run Midje tests through the Leiningen plug-in +lein-midje+
+(add as noted in _project.clj_). +lein-midje+ allows you run tests
+at a number of granularities--all of your tests, all the tests in a
 group, or all of the tests in a single namespace:
 
 ----
@@ -212,5 +211,5 @@ $ lein midje com.example.t-core
 ==== See Also
 
 * <<sec_unit_testing>> for information on more basic unit testing
-  in Clojure.
-* The Midje https://github.com/marick/Midje[GitHub repository].
+  in Clojure
+* The Midje https://github.com/marick/Midje[GitHub repository]

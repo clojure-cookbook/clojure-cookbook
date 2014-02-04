@@ -79,7 +79,7 @@ clusters.
 
 ==== See Also
 
-* To learn about building a simple Cascalog job, see <<sec_cascalog_etl>>.
+* To learn about building a simple Cascalog job, see <<sec_cascalog_etl>>
 * Amazon's
   http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-launch-custom-jar-cli.html[Launch
-  a Custom JAR Cluster] documentation.
+  a Custom JAR Cluster] documentation

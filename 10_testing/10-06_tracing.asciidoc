@@ -24,7 +24,7 @@ $ lein try org.clojure/tools.trace
 ----
 
 To examine a single value at execution, wrap that value in an
-invocation of +clojure.tools.trace/trace+.
+invocation of +clojure.tools.trace/trace+:
 
 [source,clojure]
 ----
@@ -41,7 +41,7 @@ invocation of +clojure.tools.trace/trace+.
 
 To examine multiple values without losing context of which trace is
 which, supply a descriptive name string as the first argument to
-+trace+.
++trace+:
 
 [source,clojure]
 ----
@@ -63,7 +63,7 @@ At its core, the +tools.trace+ library is all about introspecting upon
 the execution of a body of code. The +trace+ function is the simplest
 and most low-level tracing operation. Wrapping a value in an
 invocation of +trace+ does two things: it logs a tracer message to
-STDOUT, and, most importantly, returns the original value unadulterated.
+STDOUT and, most importantly, returns the original value unadulterated.
 +tools.trace+ provides a number of other granularities for tracing
 execution.
 
@@ -94,7 +94,7 @@ to make tracing available only to development tasks.
 If you're trying to diagnose a difficult-to-understand exception, use
 the +clojure.tools.trace/trace-forms+ macro to wrap an expression and
 pinpoint the origin of the exception. When no exception occurs,
-`trace-forms` prints no output, and returns normally.
+`trace-forms` prints no output, and returns normally:
 
 [source,clojure]
 ----
@@ -111,7 +111,7 @@ pinpoint the origin of the exception. When no exception occurs,
 Apart from explicitly tracing values or functions, +tools.trace+ also
 allows you to dynamically trace vars or entire namespaces. To add a
 trace function to a var, use +clojure.tools.trace/trace-vars+. To
-remove such a trace, use +clojure.tools.trace/untrace-vars+.
+remove such a trace, use +clojure.tools.trace/untrace-vars+:
 
 [source,clojure]
 ----
@@ -133,7 +133,7 @@ To trace or untrace an entire namespace, use
 +clojure.tools.trace/trace-ns+ and +clojure.tools.trace/untrace-ns+,
 respectively. This will dynamically add or remove tracing from all
 functions and vars in a namespace. Even things defined _after_
-+trace-ns+ is invoked will be traced.
++trace-ns+ is invoked will be traced:
 
 [source,clojure]
 ----
@@ -162,4 +162,4 @@ functions and vars in a namespace. Even things defined _after_
 ==== See Also
 
 * The +tools.trace+ https://github.com/clojure/tools.trace[GitHub
-  repository] for a full list of trace functions/macros.
+  repository] for a full list of trace functions/macros

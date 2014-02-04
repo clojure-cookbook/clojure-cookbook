@@ -1,9 +1,9 @@
 === Introduction
 
 It's one thing to trust your code is correct today, but how will you
-feel about it in a week? a month? a year? when you're long and gone?
-For this kind of trust, we write tests for our code. A well written
-suite of tests is a statement to yourself and any one that comes after
+feel about it in a week? A month? A year? When you're long gone?
+For this kind of trust, we write tests for our code. A well-written
+suite of tests is a statement to yourself and to anyone that comes after
 you: "This is how this application works, now and so long as this test
 passes."
 
@@ -14,16 +14,14 @@ from receiving input they don't know how to handle. These solutions
 range from optional static typing with algebraic types analyzed at
 compile time, down to simple preconditions.
 
-Admittedly, testing is a bit of hot-button topic in the Clojure
-community right now. People are starting to question: "are these tests
-worthwhile, or is there a better way to think about
-program-verification?" In recent years techniques such as REPL-driven
-development, property-based testing and optional typing have all
-popped-up to fill perceived voids in the testing landscape.
+Admittedly, testing is a bit of a hot-button topic in the Clojure
+community right now. People are starting to question whether these tests are worthwhile or if there's a better way to think about program verification. In recent years, techniques such as REPL-driven
+development, property-based testing, and optional typing have all
+popped up to fill perceived voids in the testing landscape.
 
 This chapter covers all of the above. As much as we'd love to push the
-envelope, nothing beats a good old fashion unit test suite from
-time-to-time. At the same time, as we build more and more gargantuan
+envelope, nothing beats a good, old-fashioned unit test suite from
+time to time. At the same time, as we build more and more gargantuan
 applications, it is clear that simple unit tests are not always
 sufficient. We hope no matter your skill level or focus, you find new
 tools to add to your testing arsenal in this chapter.

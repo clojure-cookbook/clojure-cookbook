@@ -11,11 +11,11 @@ You want to test individual units of Clojure code.
 
 Clojure includes a unit testing framework in its +clojure.test+
 namespace. It provides ways to name and group tests, make assertions,
-report results and orchestrate test suites. 
+report results, and orchestrate test suites. 
 
 For demonstration, imagine you had a +capitalize-entries+ function
 that capitalized values in a map. To test this function, define a test
-using +clojure.test/deftest+.
+using +clojure.test/deftest+:
 
 [source,clojure]
 ----
@@ -68,14 +68,14 @@ Run the test with the +clojure.test/run-tests+ function:
 
 ==== Discussion
 
-The example above only scratches the surface of what +clojure.test+
+The preceding example only scratches the surface of what +clojure.test+
 provides for unit testing. Let us take a bottom-up look at its other
 features.
 
 First, you can improve reporting when an assertion fails by providing
 a second argument that explains what the assertion is intended to
-test. When you run this test you will see an extended description of
-how the code was expected to behave.
+test. When you run this test, you will see an extended description of
+how the code was expected to behave:
 
 [source,clojure]
 ----
@@ -118,14 +118,14 @@ The first two parameters to +are+ set up a testing pattern: given a
 sequence of keys +ks+ and a map +m+, call +capitalize-entries+ for
 those keys on the original +employee+ map and assert that the return
 value equals +m+. Writing out multiple use cases in a declarative
-syntax makes it easier to catch errors and untreated edge-cases, such
+syntax makes it easier to catch errors and untreated edge cases, such
 as the +NullPointerException+ that will be thrown for the
-`[:not-a-key] employee` assertion pair in the test above.
+`[:not-a-key] employee` assertion pair in the preceding test.
 
 Unlike testing frameworks for other popular dynamic languages,
 Clojure's built-in assertions are minimal and simple. The +is+ and
-+are+ macros check test expressions for "truthiness", i.e., that those
-expressions return neither +false+ nor +nil+, in which case they pass.
++are+ macros check test expressions for "truthiness" (i.e., that those
+expressions return neither +false+ nor +nil+, in which case they pass).
 Beyond this, you can also check for +thrown?+ or +thrown-with-msg?+ to
 test that a certain +java.lang.Throwable+ (error or exception) is
 expected:
@@ -137,7 +137,7 @@ expected:
 
 Above the level of individual assertions, +clojure.test+ also provides
 facilities for calling functions before or after tests run. In the
-+test-capitalize-entries+ test we defined an ad hoc +employee+ map for
++test-capitalize-entries+ test, we defined an ad hoc +employee+ map for
 testing, but you could also read in external data to be shared across
 multiple tests by registering a data-loading function as a "fixture."
 The +clojure.test/use-fixtures+ multimethod allows registering Clojure
@@ -175,9 +175,9 @@ and registers three fixture functions:
 
 You can think about fixture functions as forming a pipeline through
 which each test is passed as a parameter, which we called +test-fn+ in
-the example above. Take +inc-count+ for example, It is the job of this
-fixture 1) invoke the +test-fn+ function, continuing the pipeline, and
-aftewards, 2) increment a count (e.g. "do some work"). Each fixture
+the preceding example. Take +inc-count+, for example. It is the job of this
+fixture to invoke the +test-fn+ function, continuing the pipeline; and
+afterward, increment a count (e.g., "do some work"). Each fixture
 decides whether to invoke +test-fn+ before or after its own work
 (compare the +add-test-id+ function with the +inc-count+ function),
 while the +clojure.test/use-fixtures+ multimethod controls whether
@@ -201,9 +201,9 @@ use a build tool like link:http://leiningen.org/[Leiningen] or
 link:http://maven.apache.org/[Maven] to organize your project.
 
 In Leiningen, the default directory for your tests is a top-level
-_<project-root>/test_ folder and you can run your project's tests with
-*+lein test+* at the command-line. Without any additional arguments the
-*+lein test+* command will execute all of the tests in a project. 
+_<project-root>/test_ folder, and you can run your project's tests with
+*+lein test+* at the command line. Without any additional arguments, the
+*+lein test+* command will execute all of the tests in a project:
 
 [source,shell-session]
 ----
@@ -217,7 +217,7 @@ Ran 10 tests containing 20 assertions.
 ----
 
 To limit the scope of tests Leiningen runs, use the +:only+ option,
-followed by a fully-qualified namespace or function name.
+followed by a fully qualified namespace or function name:
 
 [source,shell-session]
 ----
@@ -243,8 +243,8 @@ Ran 1 tests containing 2 assertions.
 * The +clojure.test+ http://richhickey.github.io/clojure/clojure.test-api.html[API documentation].
 * If you are instead using Maven, use the
   https://github.com/talios/clojure-maven-plugin[clojure-maven-plugin]
-  to run Clojure tests. This plugin will incorporate your Clojure
+  to run Clojure tests. This plug-in will incorporate your Clojure
   tests located in the Maven standard _src/test/clojure_ directory as
-  part of the +test+ phase in the Maven build life-cycle. You can
-  optionally use the plugin's +clojure:test-with-junit+ goal to
+  part of the +test+ phase in the Maven build life cycle. You can
+  optionally use the plug-in's +clojure:test-with-junit+ goal to
   produce JUnit-style reporting output for your Clojure test runs.

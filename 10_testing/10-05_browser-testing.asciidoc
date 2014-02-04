@@ -12,7 +12,7 @@ Use Selenium WebDriver via the +clj-webdriver+ library. This will
 allow you to use clojure.test to test your application's behavior in
 actual browser environments.
 
-To follow along with this recipe, create a new Leiningen project.
+To follow along with this recipe, create a new Leiningen project:
 
 [source,shell-session]
 ----
@@ -31,7 +31,7 @@ Modify the new project's _project.clj_ file to match the following:
 ----
 
 Next, add a simple Selenium test to
-_test/browser_testing/core_test.clj_, overwriting its content.
+_test/browser_testing/core_test.clj_, overwriting its content:
 
 ._test/browser_testing/core_test.clj_
 [source,clojure]
@@ -69,9 +69,9 @@ _test/browser_testing/core_test.clj_, overwriting its content.
 
 [NOTE]
 ====
-A complete version of this repository is available on GitHub at _https://github.com/clojure-cookbook/browser-testing_.
+A complete version of this repository is available on GitHub at https://github.com/clojure-cookbook/browser-testing.
 
-Checkout a copy locally to catch-up:
+Checkout a copy locally to catch up:
 
 [source,shell-session]
 ----
@@ -136,8 +136,8 @@ $ lein try clj-webdriver "0.6.0"
 ----
 
 Use the +clj-webdriver.taxi/set-driver!+ function, selecting the Firefox
-WebDriver implementation (other options include +:chrome+ or +:ie+, but may
-require more setup).
+WebDriver implementation (other options include +:chrome+ or +:ie+ but may
+require more setup):
 
 [source,clojure]
 ----
@@ -185,7 +185,7 @@ restarting the browser for each test will be far too slow.
 
 The +selenium-fixture+ function uses ++clj-webdriver++'s +set-driver!+ and +quit+
 functions to start up a browser for each of the keywords it's provided and run
-the namespace's tests inside that browser.
+the namespace's tests inside that browser:
 
 [source,clojure]
 ----
@@ -212,7 +212,7 @@ To begin writing tests, modify your project's _project.clj_ file to include the
 +clj-webdriver+ dependency in the +:dev+ profile and +:test-selectors+ for
 +:default+ and +browser+ convenience.
 
-.Your own _project.clj_
+.Your own _project.clj_:
 [source,clojure]
 ----
 (defproject my-project "1.0.0-SNAPSHOT"
@@ -223,8 +223,7 @@ To begin writing tests, modify your project's _project.clj_ file to include the
 ----
 
 Test selectors let you run groups of tests independently. This prevents slower
-browser tests from impacting the faster, more frequently run unit and lower
-level integration tests.
+browser tests from impacting the faster, more frequently run unit and lower-level integration tests.
 
 In this case, you've added a new selector and modified the default. The new
 +:browser+ selector will only match tests that have been annotated with a
@@ -269,7 +268,7 @@ Ran 2 tests containing 5 assertions.
 Tests failed.
 ----
 
-Clearly, this test was bound to fail - replace +http://example.com/+ with
+Clearly, this test was bound to fail--replace +http://example.com/+ with
 +http://clojure.org/+ and it will pass.
 
 This test is very basic. In most real tests, you'll load a URL, interact with
@@ -300,6 +299,6 @@ https://github.com/semperos/clj-webdriver/wiki[+clj-webdriver+ wiki].
 ==== See Also
 
 * The +clj-webdriver+ https://github.com/semperos/clj-webdriver[GitHub
-  repository] and https://github.com/semperos/clj-webdriver/wiki[wiki].
+  repository] and https://github.com/semperos/clj-webdriver/wiki[wiki]
 * https://code.google.com/p/selenium[Selenium]
-* <<sec_unit_testing>> to learn more about unit testing in Clojure.
+* <<sec_unit_testing>> to learn more about unit testing in Clojure
