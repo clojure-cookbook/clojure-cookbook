@@ -137,7 +137,7 @@ invokes `clojure.core/+`.
 It is also common to see _ordered intersection function types_ in type
 errors. Our first type error claims that the arguments +(U Number
 nil)+ and +(Value 20)+ are not under either of the ordered
-intersection function domains, listed under "Domains". Notice two
+intersection function domains, listed under "Domains." Notice two
 "Ranges" are provided, which correspond to the listed domains.
 
 The full type of +clojure.lang.Numbers/add+ is:
