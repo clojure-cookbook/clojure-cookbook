@@ -79,12 +79,9 @@ documentation on indexing] for full details.
 
 ===== Creating mappings
 
-_Mappings_ define which fields in documents are indexed, which fields are tokenized, how fields are tokenized, which fields are analyzed, and so on. Each index in ElasticSearch may have
-one or more _mapping types_. Mapping types can be thought of as
-tables in a database (although this analogy does not always hold).
-
-Mapping types are specified when an index is created using the
-+:mapping+ option:
+_Mappings_ define the fields in a document what the indexing
+characteristics are each field. Mapping types are specified when
+an index is created using the +:mapping+ option:
 
 [source,clojure]
 ----
@@ -100,7 +97,7 @@ Mapping types are specified when an index is created using the
                                  :planet     {:type "string"}
                                  :biography  {:type "string"
                                               :analyzer "snowball"
-                                              :term_vector 
+                                              :term_vector
                                               "with_positions_offsets"}}}})
 
 (esi/create "test3" :mappings mapping-types)))
@@ -195,13 +192,13 @@ in development, manually creating indexes lets you configure a lot
 about how ElasticSearch will index your data and, in turn, what kind
 of queries it will be possible to execute against it.
 
-How your data is indexed is primarily controlled by *mappings*. They define which fields
-in documents are indexed, if/how they are analyzed, and if they are
-stored. Each index in ElasticSearch may have one or more *mapping
-types*. Mapping types can be thought of as tables in a database
-(although this analogy does not always stand).  Mapping types are the
-heart of indexing in ElasticSearch and provide access to a lot of
-ElasticSearch functionality.
+How your data is indexed is primarily controlled by *mappings*. They
+define which fields in documents are indexed, if/how they are
+analyzed, and if they are stored. Each index in ElasticSearch may have
+one or more *mapping types*. Mapping types can be thought of as tables
+in a database (although this analogy does not always stand).  Mapping
+types are the heart of indexing in ElasticSearch and provide access to
+a lot of ElasticSearch functionality.
 
 For example, a blogging application may have types such as article,
 comment, and person. Each has distinct *mapping settings* that
