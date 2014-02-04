@@ -218,3 +218,7 @@ The +defn-deprecated+ macro checks the status of the +:silence-deprecations+ met
 ----
 
 Now, any use of +defn-deprecated+ in that namespace will not print the warning.  Future versions of Clojure will provide a cleaner way of creating and managing compile-time flags, but for now this is a decent compromise.
+
+==== See Also
+
+* The official http://clojure.org/macros[macro documentation]
