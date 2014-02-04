@@ -80,7 +80,7 @@ documentation on indexing] for full details.
 ===== Creating mappings
 
 _Mappings_ define the fields in a document what the indexing
-characteristics are each field. Mapping types are specified when
+characteristics are for each field. Mapping types are specified when
 an index is created using the +:mapping+ option:
 
 [source,clojure]
