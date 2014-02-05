@@ -60,7 +60,7 @@ Then read the property file and access its key-value pairs:
 (def props (read-properties "fruitcolors.properties"))
 
 props
-;; -> {:grannysmith "green, :banana "yellow"}
+;; -> {:grannysmith "green", :banana "yellow"}
 
 (props :banana)
 ;; -> "yellow"
