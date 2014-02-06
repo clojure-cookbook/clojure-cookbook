@@ -5,7 +5,7 @@ by Ryan Neufeld
 ==== Problem
 
 You need to clean up the whitespace in a string.
-
+(((strings, whitespace removal)))((("whitespace, removal from strings")))((("functions", "clojure.string/trim")))((("functions", "clojure.string/replace function")))
 ==== Solution
 
 Use the +clojure.string/trim+ function to remove all of the whitespace

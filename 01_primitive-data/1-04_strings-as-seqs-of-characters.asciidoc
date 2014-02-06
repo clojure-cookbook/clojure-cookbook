@@ -5,12 +5,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to work with the individual characters in a string.
+You need to work with the individual characters in a string.(((strings, exposing characters in)))(((characters, exposing in strings)))
 
 ==== Solution
 
 Use +seq+ on a string to expose the sequence of characters representing it:
-
+(((functions, seq)))
 [source,clojure]
 ----
 (seq "Hello, world!")
@@ -49,11 +49,11 @@ are sequences under the covers, you may substitute a string anywhere a
 collection is expected. When you do so, the string will be interpreted
 as a collection of characters. There's nothing special about +(seq
 string)+. The +seq+ function is merely returning a seq of the
-collection of characters that the string is.
+collection of characters that the string is.(((strings, definition of)))(((collections, substituting strings for)))
 
 More often than not, after you've done some work on the characters
 within a string, you'll want to transform that collection back into a
-string. Use +apply+ with +str+ on a collection of characters to
+string.(((characters, collapsing into strings))) Use +apply+ with +str+ on a collection of characters to
 collapse them into a string:
 
 [source,clojure]

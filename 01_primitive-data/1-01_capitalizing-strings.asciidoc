@@ -5,11 +5,11 @@ by Ryan Neufeld
 ==== Problem
 
 You need to change the capitalization of a string.
-
+((("primitive data", "strings", id="ix_PDstrng", range="startofrange")))(((strings, capitalization of)))((("capitalization, of strings")))
 ==== Solution
 
 Use +clojure.string/capitalize+ to capitalize the first character in a string:
-
+((("functions", "clojure.string/capitalize")))
 [source,clojure]
 ----
 (clojure.string/capitalize "this is a proper sentence.")
@@ -18,7 +18,7 @@ Use +clojure.string/capitalize+ to capitalize the first character in a string:
 
 When you need to change the case of all characters in a string, use
 +clojure.string/lower-case+ or +clojure.string/upper-case+:
-
+((("functions", "clojure.string/lower-case")))
 [source,clojure]
 ----
 (clojure.string/upper-case "loud noises!")
