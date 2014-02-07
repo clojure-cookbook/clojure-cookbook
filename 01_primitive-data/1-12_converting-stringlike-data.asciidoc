@@ -4,8 +4,8 @@ by Colin Jones
 
 ==== Problem
 
-You have a string, a symbol, or a keyword, and you'd like to convert it into a
-different one of these string-like data types.
+You have a string, a symbol, or a keyword, and you'd like to convert it into a(((functions, symbol)))(((functions, name)))(((functions, keyword)))(((functions, namespace)))
+different one of these string-like data types.(((strings, converting between data types)))((("symbols, converting data types")))((("keywords, converting data types")))(((functions, str)))
 
 ==== Solution
 
@@ -66,7 +66,7 @@ strict in terms of the input it allows: it must take a string, which is why you
 need the extra step in the keyword-to-symbol conversion.
 
 There is another class of differences among these types: namely, that keywords
-and symbols may be namespaced, signified by a slash in the middle. For these
+and symbols may be namespaced, signified by a slash in the middle.(((symbols, namespaced))) For these
 kinds of keywords and symbols, the +name+ function may or may not be
 sufficient to convert to a string, depending on your use case:
 
@@ -128,7 +128,7 @@ nicer, for example, when you already have one or both of the values bound in a
 These three string-like data types are all great for different situations, and
 how to choose among them is another topic. But it's quite common to need to
 convert among them, so +keyword+, +symbol+, +str+, +namespace+, and +name+ are
-handy to have in your toolbelt.
+handy to have in your toolbelt.(((range="endofrange", startref="ix_PDstrng")))
 
 ==== See Also
 

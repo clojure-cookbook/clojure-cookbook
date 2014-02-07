@@ -5,12 +5,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to modify portions of a string that match some well-defined pattern.
+You need to modify portions of a string that match some well-defined pattern.(((strings, find and replace in)))(((find and replace)))
 
 ==== Solution
 
 The versatile +clojure.string/replace+ is the function you should
-reach for when you need to selectively replace portions of a string.
+reach for when you need to selectively replace portions of a string.((("functions", "clojure.string/replace")))
 
 For simple patterns, use +replace+ with a normal string as its matcher:
 
@@ -28,7 +28,7 @@ For simple patterns, use +replace+ with a normal string as its matcher:
 ;;     endings"
 ----
 
-Plain string replacement will only get you so far. When you need to
+Plain string replacement will only get you so far. When you need to(((regular expressions, literals)))
 replace a pattern with some variability to it, you'll need to reach for
 the big guns: regular expressions. Use Clojure's regular expression
 literals (+#"..."+) to specify a pattern as a regular expression:
@@ -78,7 +78,7 @@ unbounded flexibility. Like any powerful new tool, it's easy to
 overdo it. Because of their terse and compact syntax, it's very easy
 to produce regexps that are both difficult to interpret and at a high
 risk of being incorrect. You should use regular expressions sparingly
-and only if you fully understand their syntax.
+and only if you fully understand their syntax.(((regular expressions, drawbacks of)))
 
 http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] (O'Reilly) is a fantastic book for learning and mastering regular expression syntax.
 

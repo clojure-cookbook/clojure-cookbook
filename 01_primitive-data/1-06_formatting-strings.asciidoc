@@ -75,7 +75,7 @@ The first argument passed to +format+ is what is
 called a _format string_. The syntax for these strings isn't new or
 unique to Clojure or even Java, but in fact comes from C's +printf+
 function. Clojure's +format+ function uses Java's +String/format+,
-which implements +printf+ style value substitution.
+which implements +printf+ style value substitution.(((format strings)))(((placeholders)))(((format specifiers)))(((specifiers)))
 
 A format string is a normal string with any number of embedded format
 specifiers. A format specifier is a placeholder to be replaced by a
