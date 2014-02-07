@@ -6,8 +6,8 @@ by Ryan Neufeld
 ==== Problem
 
 You need to convert characters to their respective Unicode code points
-(as integer values) or vice versa.
-
+(as integer values) or vice versa.(((strings, Unicode in)))(((Unicode, characters conversion)))(((characters, Unicode conversion)))
+(((integers, character conversion)))(((functions, int)))(((functions, char)))
 ==== Solution
 
 Use the +int+ function to convert a character to its integer value:
@@ -58,7 +58,7 @@ characters. Conveniently, the first 256 Unicode code points are
 identical to ASCII, which makes standard ASCII text easy to work
 with. However, Clojure (and Java) do not actually privilege ASCII in
 any way the 1:1 correspondence between characters and integers
-indicating code points continues all the way up through the Unicode space.
+indicating code points continues all the way up through the Unicode space.(((ASCII, integer to character correspondence)))
 
 For example, the expression +(map char (range 0x0410 0x042F))+ prints
 out all the Cyrillic capital letters, which happen to lie on that
@@ -75,7 +75,7 @@ number into either an instance of +java.lang.Integer+ or
 +java.lang.Character+. Both ++Integer++s and ++Character++s are,
 ultimately, encoded as numbers, although +Character+'s support
 additional text-related methods and cannot be used in mathematic
-expressions without first being converted to a true numeric type.
+expressions without first being converted to a true numeric type.(((java.lang.Integer)))(((java.lang.Character)))
 
 ==== See Also
 
