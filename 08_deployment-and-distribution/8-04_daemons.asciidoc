@@ -70,7 +70,7 @@ touching the +Daemon+ interface:
   (init (.getArguments context)))
 
 (defn -start [this]
-  (start))
+  (future (start)))
 
 (defn -stop [this]
   (stop))
@@ -122,10 +122,11 @@ $ sudo jsvc -java-home "$JAVA_HOME" \
             my-daemon.core
 # Nothing!
 
-$ tail out.txt
+$ sudo tail -f out.txt
 tick
 tick
 tick
+# ... Ctrl-C to exit
 
 # Quit the daemonized process by adding the -stop flag
 $ sudo jsvc -java-home "$JAVA_HOME" \
@@ -170,7 +171,8 @@ Invoked as your application is
 
 +start()+::
 Invoked after +init+. This is where you should begin
-  performing work in a loop or separate thread.
+  performing work. +jsvc+ expects +start()+ to complete quickly, so
+  you should kick-off work in a +future+ or Java +Thread+.
 
 +stop()+::
 Invoked when a daemon has been instructed to stop. This
