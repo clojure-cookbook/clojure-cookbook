@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need represent instances of time in a readable and serializable form.
+You need represent instances of time in a readable and serializable form.((("dates/times", "representing as literals")))((("#inst literals")))
 
 ==== Solution
 
@@ -54,7 +54,7 @@ clearly about instants of time. See the
 https://github.com/edn-format/edn/wiki/Implementations[edn
 implementations list] for a list of languages that speak edn; the list
 includes Clojure, Ruby, and JavaScript so far, with many more
-implementations in the works.
+implementations in the works.(((reader literals)))(((extensible data notation (edn)")))
 
 .clojure.core/read vs. clojure.edn/read
 ****
@@ -62,13 +62,13 @@ While it may *seem* convenient to read strings using Clojure's
 built-in reader (+clojure.core/read+), it is NEVER safe to parse input
 from an untrusted source using this reader. If you need to receive
 simple Clojure data from an external source, it is best to use the edn
-reader (+clojure.edn/read+).
+reader (+clojure.edn/read+).((("functions", "clojure.edn/read")))((("functions", "clojure.core/read")))
 
 +clojure.core/read+ isn't safe, because it was only designed for
 reading Clojure data and strings from trusted source (such as the
 source files you write). +clojure.edn/read+ is designed specifically
 for use as part of a communication channel, and as such is built with
-security in mind.
+security in mind.(((security issues, built-in string reader)))(((strings, edn vs. core readers for)))
 ****
 
 It's also possible to vary how the reader evaluate +#inst+ literals

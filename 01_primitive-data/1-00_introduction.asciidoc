@@ -82,4 +82,4 @@ Who knows. And why are these APIs all so wonky? The recipes in this
 chapter should hopefully illuminate how and when to use the
 appropriate built-in types and when to look to an external library
 when built-ins aren't sufficient (or are just too darned difficult to
-use).(((primitive data, dates/times)))(((dates, basics of)))
+use).(((primitive data, dates/times)))(((dates/times, basics of)))

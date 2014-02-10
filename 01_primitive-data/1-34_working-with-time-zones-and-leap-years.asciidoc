@@ -4,7 +4,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to gracefully handle times and dates in a number of time zones.
+You need to gracefully handle times and dates in a number of time zones.((("dates/times", "time zones")))(((time zones)))
 
 ==== Solution
 
@@ -12,7 +12,7 @@ The JVM's built-in time and date classes don't work well with the notion
 of time zones. For one, +Date+ treats every value as UTC, and +Calendar+ is
 cumbersome to work with in Clojure (or Java, for that matter). Use
 https://github.com/clj-time/clj-time[+clj-time+] to properly deal with
-time zones.
+time zones.((("clj-time wrapper")))
 
 Before starting, add `[clj-time "0.6.0"]` to your project's
 dependencies or start a REPL using +lein-try+:
@@ -52,7 +52,7 @@ http://joda-time.sourceforge.net/[Joda-Time], the library +clj-time+
 wraps, bundles the internationally recognized
 http://www.twinsun.com/tz/tz-link.htm[+tz+ database]. This database
 captures the ID and time offsets for nearly every location on the
-planet.
+planet.(((Joda-Time library)))(((daylight saving time)))
 
 The tz database also captures information about daylight saving time.
 For example, Los Angeles is UTC-08:00 in the winter and UTC-07:00
@@ -87,7 +87,7 @@ Some times you may only want to deal with machine-local time. The
 +clj-time.local+ namespace provides a number of functions to that end,
 including +local-now+ for getting a time in the local time zone, and
 +to-local-date-time+, which shifts the perspective of a time to the
-local time zone.
+local time zone.(((machine-local time)))
 
 ==== See Also
 

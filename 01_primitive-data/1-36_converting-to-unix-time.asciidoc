@@ -5,13 +5,13 @@ by Steven Proctor
 
 ==== Problem
 
-You need to get a Unix timestamp representation for a +Date+ object.
+You need to get a Unix timestamp representation for a +Date+ object.((("dates/times", "converting Unix timestamps")))(((timestamps)))
 
 ==== Solution
 
 Many systems will express timestamps in Unix time format, and when
 you have to interact with these systems, you have to give them date
-and time information in the format they desire.
+and time information in the format they desire.(((functions, to-unix-time)))
 
 Fortunately with Clojure's ability for nice interoperability with Java,
 you have an easy solution at hand:
@@ -71,7 +71,8 @@ Unix time format for a +DateTime+ object:
 ----
 
 By using +clj-time.coerce+, all that is needed is to use the function
-+to-long+ to get a Joda-Time +DateTime+ object into a Unix time format.
++to-long+ to get a Joda-Time +DateTime+ object into a Unix time format.(((range="endofrange", startref="ix_PDdate")))
+
 
 Your system may never need to interact with other systems that expect
 timestamps expressed in Unix time, but if you are designing a system

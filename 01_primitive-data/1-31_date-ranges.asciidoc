@@ -5,11 +5,11 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to generate a lazy sequence covering a range of dates and/or times.
+You need to generate a lazy sequence covering a range of dates and/or times.((("dates/times", "ranges of", id="ix_DTrange", range="startofrange")))
 
 ==== Solution
 
-This problem has no *easy* solution in Java, nor does it have one in
+This problem has no *easy* solution in Java, nor does it have one in((("clj-time wrapper")))
 Clojure--third-party libraries included. It is possible to use
 https://github.com/clj-time/clj-time[+clj-time+] to get close, though.
 By composing ++clj-time++'s +Interval+ and +periodic-seq+ functionality,

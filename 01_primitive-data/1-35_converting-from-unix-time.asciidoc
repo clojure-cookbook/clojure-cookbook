@@ -5,7 +5,7 @@ by Steven Proctor
 
 ==== Problem
 
-You need to get a +Date+ object from a Unix timestamp.
+You need to get a +Date+ object from a Unix timestamp.((("dates/times", "converting Unix timestamps")))(((Unix, timestamp)))(((timestamps)))(((functions, from-unix-time)))
 
 ==== Solution
 
@@ -14,7 +14,7 @@ express a timestamp in Unix time format.  Some areas that you may
 encounter this is dealing with certain datastores, parsing out data
 from timestamps in log files, or any number of other systems that
 have to deal with dates and times across multiple different time zones
-and cultures.
+and cultures.(((databases, timestamps and)))
 
 Fortunately, with Clojure's ability for nice interoperability with Java,
 you have an easy solution at hand:
@@ -42,7 +42,7 @@ This is how you can use the +from-unix-time+ function:
 To get a Java +Date+ object from a Unix time object, all you need to
 do is construct a new
 http://docs.oracle.com/javase/7/docs/api/java/util/Date.html[+java.util.Date+]
-object using Clojure's Java interop functionality.
+object using Clojure's Java interop functionality.(((Clojure, Java interop functionality)))((("clj-time wrapper")))
 
 If you are already using or wish to use the
 https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+

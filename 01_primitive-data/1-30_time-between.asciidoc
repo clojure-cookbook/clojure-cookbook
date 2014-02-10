@@ -5,13 +5,13 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to calculate the difference between two points in time.
+You need to calculate the difference between two points in time.((("dates/times", "time intervals")))((("time intervals", seealso="dates/times")))((("clj-time wrapper")))
 
 ==== Solution
 
 Since Java date and time classes have poor support for time zones and
 leap years, use the https://github.com/clj-time/clj-time[+clj-time+]
-library for calculating the length of a time interval.
+library for calculating the length of a time interval.(((time zones)))(((leap years)))
 
 Before starting, add `[clj-time "0.6.0"]` to your project's
 dependencies or start a REPL using +lein-try+:
@@ -21,7 +21,7 @@ dependencies or start a REPL using +lein-try+:
 $ lein try clj-time
 ----
 
-Use +interval+ along with the numerous +in-<unit>+ helper functions in
+Use +interval+ along with the numerous +in-<unit>+ helper functions in(((functions, interval)))
 the +clj-time.core+ namespace to calculate the difference between
 times:
 
@@ -75,7 +75,7 @@ http://joda-time.sourceforge.net/faq.html[offical FAQ] explains why
 the feature is missing in greater detail. We're not aware of any
 Clojure that *can* reason about time at this granularity. If this
 concerns you, then you're likely one of few people even capable of
-doing it right. Good luck to you.
+doing it right. Good luck to you.(((Joda-Time library)))
 
 ==== See Also
 

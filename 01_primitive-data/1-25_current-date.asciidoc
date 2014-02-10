@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to obtain the current date or time.
+You need to obtain the current date or time.((("primitive data", "dates/times", id="ix_PDdate", range="startofrange")))((("dates/times", "obtaining current")))(((Java, java.util.Date)))
 
 ==== Solution
 
@@ -25,7 +25,7 @@ representing the present time and date:
 ;; -> #inst "2013-04-06T14:33:51.234-00:00"
 ----
 
-If you're more interested in the current Unix timestamp, use
+If you're more interested in the current Unix timestamp, use(((Unix, timestamp)))((("System/currentTimeMillis")))
 +System/currentTimeMillis+:
 
 [source,clojure]
@@ -56,7 +56,7 @@ to try Hugo Duncan's
 https://github.com/hugoduncan/criterium[criterium] library if
 benchmarking is what you're after. Additionally, you shouldn't try to
 use +currentTimeMillis+ as some sort of unique value--UUIDs do
-a much better job of this.
+a much better job of this.(((benchmarking)))
 
 If you decide you would rather use
 https://github.com/clj-time/clj-time[+clj-time+] to work with dates, it
