@@ -48,8 +48,8 @@ With installation and configuration complete, all that is left is to run the `as
 * To render the entire book:
 
     ```sh
-    $ asciidoc -b html5 clojure-cookbook.asciidoc
-    # ... outputs clojure-cookbook.html
+    $ asciidoc -b html5 book.asciidoc
+    # ... outputs book.html
     ```
 
 **NOTE**: Rendered out put is *similar* to the final book, but does not include O'Reilly style sheets.
