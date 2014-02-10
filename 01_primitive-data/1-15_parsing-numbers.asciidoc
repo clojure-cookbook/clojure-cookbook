@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to parse numbers out of strings.(((numeric types, parsing)))(((parsing, numbers out of strings)))(((strings, parsing numbers out of)))
+You need to parse numbers out of strings.(((numeric types, parsing)))(((parsing, numbers out of strings)))(((strings, parsing numbers out of)))(((numbers, parsing out of strings)))
 ((("functions", "Integer/parseInt")))
 ==== Solution
 

@@ -6,7 +6,7 @@ by Ryan Neufeld
 ==== Problem
 
 You need to manipulate fractional numbers with absolute precision.(((numeric types, rational numbers)))(((fractional numbers)))(((rational numbers)))
-(((integers, maintaining precision in)))(((functions, rationalize)))
+(((integers, maintaining precision in)))(((functions, rationalize)))(((numbers, fractional)))(((numbers, rational)))
 ==== Solution
 
 When manipulating integers (or other rationals), you can expect to maintain precision, including recurring fractions like 1/3 (0.333...):

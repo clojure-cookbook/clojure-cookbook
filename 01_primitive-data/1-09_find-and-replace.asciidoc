@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to modify portions of a string that match some well-defined pattern.(((strings, find and replace in)))(((find and replace)))
+You need to modify portions of a string that match some well-defined pattern.(((strings, find and replace in)))(((find and replace)))(((searching, find and replace)))
 
 ==== Solution
 

@@ -4,7 +4,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to generate a random number.(((numeric types, random number generation)))(((random numbers)))(((functions, rand)))(((functions, rand-int)))
+You need to generate a random number.(((numeric types, random number generation)))(((random numbers)))(((functions, rand)))(((functions, rand-int)))(((numbers, random)))
 
 ==== Solution
 

@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to calculate the difference between two points in time.((("dates/times", "time intervals")))((("time intervals", seealso="dates/times")))((("clj-time wrapper")))
+You need to calculate the difference between two points in time.((("dates/times", "time intervals")))((("time intervals", seealso="dates/times")))
 
 ==== Solution
 

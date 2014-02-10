@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to parse dates from a string.((("dates/times", "parsing from a string")))((("clj-time wrapper")))(((strings, parsing dates from)))(((parsing, dates from strings)))
+You need to parse dates from a string.((("dates/times", "parsing from a string")))((("clj-time wrapper", id="ix_clj", range="startofrange")))(((strings, parsing dates from)))(((parsing, dates from strings)))
 
 ==== Solution
 

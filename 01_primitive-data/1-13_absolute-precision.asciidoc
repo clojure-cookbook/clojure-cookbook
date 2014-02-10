@@ -8,7 +8,7 @@ by Ryan Neufeld
 You need to work precisely with numbers, especially those that are
 very large or very small, without the imprecision implied by using(((values, floating-point)))(((double values)))(((values, doubles)))
 floating-point representations such as +double+ values.((("primitive data", "numeric types", id="ix_PDnumer", range="startofrange")))
-(((numeric types, maintaining accuracy with)))(((exponents)))(((integers, overflow error)))(((large/small numbers)))(((floating-point values, alternatives to)))
+(((numeric types, maintaining accuracy with)))(((exponents)))(((integers, overflow error)))(((large/small numbers)))(((floating-point values, alternatives to)))(((numbers, large/small)))
 ==== Solution
 
 First, know that Clojure supports exponents as literal numbers, allowing you to succinctly express large/small numbers:
@@ -46,7 +46,7 @@ to happen. For integers, an integer overflow error is raised. For
 floating point numbers, the result will become +Infinity+. With
 integers, you can avoid this error by using quote versions of `+`,
 +-+, +*+, and +/+. These operations support arbitrary precision and
-will promote integers to +BigInteger+ if necessary.(((clojure, numeric types in)))(((numeric types, list of)))
+will promote integers to +BigInteger+ if necessary.(((Clojure, numeric types in)))(((numeric types, list of)))
 
 Floating-point values are a little more tricky. The "quote" versions
 of numeric operations won't help. You'll need to infect your

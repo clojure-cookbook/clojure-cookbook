@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to print dates or times in a particular format.((("dates/times", "formatting")))((("clj-time wrapper")))
+You need to print dates or times in a particular format.((("dates/times", "formatting")))
 
 ==== Solution
 

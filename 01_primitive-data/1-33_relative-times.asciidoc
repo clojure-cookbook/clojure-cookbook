@@ -6,7 +6,7 @@ by Ryan Neufeld
 ==== Problem
 
 You need to calculate a time relative to some other time a la
-http://rubyonrails.org/[Ruby on Rails]' +2.days.from_now+.((("dates/times", "relative time")))((("clj-time wrapper")))
+http://rubyonrails.org/[Ruby on Rails]' +2.days.from_now+.((("dates/times", "relative time")))
 
 ==== Solution
 

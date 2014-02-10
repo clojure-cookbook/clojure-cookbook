@@ -42,7 +42,8 @@ This is how you can use the +from-unix-time+ function:
 To get a Java +Date+ object from a Unix time object, all you need to
 do is construct a new
 http://docs.oracle.com/javase/7/docs/api/java/util/Date.html[+java.util.Date+]
-object using Clojure's Java interop functionality.(((Clojure, Java interop functionality)))((("clj-time wrapper")))
+object using Clojure's Java interop functionality.(((Clojure, Java interop functionality)))(((range="endofrange", startref="ix_clj")))
+
 
 If you are already using or wish to use the
 https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+
