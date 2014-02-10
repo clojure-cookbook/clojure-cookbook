@@ -119,7 +119,7 @@ worry, we'll capture this all in a shell script soon.]
 $ sudo jsvc -java-home "$JAVA_HOME" \
             -cp "$(pwd)/target/my-daemon-0.1.0-SNAPSHOT-standalone.jar" \
             -outfile "$(pwd)/out.txt" \
-            my-daemon.core
+            my_daemon.core
 # Nothing!
 
 $ sudo tail -f out.txt
@@ -271,7 +271,7 @@ $ sudo jsvc -java-home "$JAVA_HOME" \
             -pidfile /var/run/my-daemon.pid \
             -outfile "/var/log/my-daemon.out" \
             -errfile "/var/log/my-daemon.err" \
-            my-daemon.core \
+            my_daemon.core \
             "arguments" "to" "my-daemon.core"
 ----
 
