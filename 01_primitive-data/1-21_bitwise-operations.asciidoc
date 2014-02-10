@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to perform bitwise operations on numbers.
+You need to perform bitwise operations on numbers.(((numeric types, bitwise operations)))(((bitwise operations)))
 
 ==== Solution
 
@@ -51,14 +51,14 @@ number of binary flags into a single value:
 ==== Discussion
 
 Clojure provides a full complement of bitwise operations in its core
-library. This includes the logic operations 'and' and 'or', their negations, and shifts, to name a few.
-
+library. This includes the logic operations 'and' and 'or', their negations, and shifts, to name a few.(((logic operators)))(((and operator)))
+(((or operator)))((("functions", "Integer/toBinaryString")))
 When working with bitwise operations, it can often be necessary to view
 the binary representation of an integer. Java's
 +Integer/toBinaryString+ can conveniently print out a binary
 representation of a number. 
 
-Interestingly enough, core also includes a +bit-set+ and +bit-test+.
+Interestingly enough, core also includes a +bit-set+ and +bit-test+.((("bit-set operation")))((("bit-test operation")))
 These two operations set or test an individual bit position in an
 integer. Instead of working in multiples of two as is necessary for
 operations like +bit-and+, you can operate by the *index* of the flag

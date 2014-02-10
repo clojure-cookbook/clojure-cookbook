@@ -9,7 +9,7 @@ You need to test a string to see if parts of it match a pattern.(((strings, sear
 ((("regular expressions", "re-find")))(((pattern matching)))(((regular expressions, searching strings with)))((("regular expressions", "re-matches")))
 ==== Solution
 
-To check for the presence of a pattern inside a string, invoke(((regular expression, literals)))
+To check for the presence of a pattern inside a string, invoke(((regular expressions, literals)))
 +re-find+ with a desired pattern and the string to test. Express the
 desired pattern using a regular expression literal (like +#"foo"+ or
 ++#"\d+"++):

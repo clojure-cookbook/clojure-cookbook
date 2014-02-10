@@ -5,8 +5,8 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to parse numbers out of strings.
-
+You need to parse numbers out of strings.(((numeric types, parsing)))(((parsing, numbers out of strings)))(((strings, parsing numbers out of)))
+((("functions", "Integer/parseInt")))
 ==== Solution
 
 For "normal&#8221;-sized large or precise numbers, use +Integer/parseInt+ or
@@ -25,7 +25,7 @@ For "normal&#8221;-sized large or precise numbers, use +Integer/parseInt+ or
 
 What is a "normal&#8221;-sized number? For +Integer/parseInt+, normal is anything below
 +Integer/MAX_VALUE+ (2147483647); and for +Double/parseDouble+, anything below
-+Double/MAX_VALUE+ (around 1.79 x 10^308).
++Double/MAX_VALUE+ (around 1.79 x 10^308).((functions, bigdec)))(((functions, bigint)))(((BigInteger type)))(((BigDecimal type)))
 
 When the numbers you are parsing are either abnormally large or
 abnormally precise, then you'll need to parse them with +BigInteger+

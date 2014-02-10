@@ -5,8 +5,8 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to generate a unique ID.
-
+You need to generate a unique ID.(((numeric types, unique ID generation)))((("universally unique ID (UUID)")))(((ID numbers)))
+((("functions", "java.util.UUID/randomUUID")))
 ==== Solution
 
 Use Java's +java.util.UUID/randomUUID+ to generate a universally
@@ -48,26 +48,12 @@ interning and accompanying custom parsing logic.
 .Sequential IDs
 ****
 
-One thing you will lose with the move from sequential IDs to UUIDs is
+One thing you will lose with the move from sequential IDs to UUIDs is(((sequential IDs)))
 the implicit sortability of a chronologically increasing number. What
 if you could generate UUIDs that were both unique *and* sortable?
-Datomic does something similar with its +datomic.api/squuid+ function.
-It's simple to write a function that behaves similarly:
+Datomic does something similar with its +datomic.api/squuid+ function.(((Datomic Database, UUID generation)))((("functions", "datomic.api/squuid")))
 
-[source,clojure]
-----
-(defn squuid []
-  (let [uuid (java.util.UUID/randomUUID)
-        time (System/currentTimeMillis)
-        secs (quot time 1000)
-        lsb (.getLeastSignificantBits uuid)
-        msb (.getMostSignificantBits uuid)
-        timed-msb (bit-or (bit-shift-left secs 32)
-                          (bit-and 0x00000000ffffffff msb))]
-    (java.util.UUID. timed-msb lsb)))
-----
-
-This approximation of Datomic's +squuid+ splits and reassembles a
+This approximation of Datomic's +squuid+ splits and reassembles a(((range="endofrange", startref="ix_PDnumer")))
 random UUID, using +bit-or+ to merge the current time with the most
 significant 32 bits of the UUID. The two halves of the UUID
 are then reassembled using the +java.util.UUID.+ constructor,

@@ -4,12 +4,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to generate a random number.
+You need to generate a random number.(((numeric types, random number generation)))(((random numbers)))(((functions, rand)))(((functions, rand-int)))
 
 ==== Solution
 
 Clojure has a number of pseudorandom number-generating functions
-available for your disposal.
+available for your disposal.(((integers, generating random)))
 
 For generating random floating point numbers from +0.0+ up to (but not including) +1.0+, use +rand+:
 
@@ -47,7 +47,7 @@ ranging from +0.0+ (inclusive) to +5.0+ (exclusive).
 +(rand-int 5)+, on the other hand, would return a random *integer* between +0+
 (inclusive) and +5+ (exclusive). At first blush, +rand-int+ might seem like an
 ideal way to select a random element from a vector or list. This is a lot of
-ceremony though. Use +rand-nth+ instead to get a random element from any
+ceremony though. Use +rand-nth+ instead to get a random element from any((("functions", "rand-nth")))(((lists, selecting random elements from)))
 sequential collection (i.e., the collection responds to +nth+):
 
 [source,clojure]
@@ -59,7 +59,7 @@ sequential collection (i.e., the collection responds to +nth+):
 ;; -> :c
 ----
 
-This won't work for sets or hash maps, however. If you want to retrieve
+This won't work for sets or hash maps, however. If you want to retrieve(((sets, selecting random elements from)))
 a random element from a nonsequential collection like a set, use
 +seq+ to transform that collection into a sequence before calling
 +rand-nth+ on it:

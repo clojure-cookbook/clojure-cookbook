@@ -4,7 +4,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to manipulate values that represent currency.
+You need to manipulate values that represent currency.(((numeric types, currency)))(((currency)))(((monetary units)))(((values, monetary units)))
 
 ==== Solution
 
@@ -48,7 +48,7 @@ two
 
 ==== Discussion
 
-Working with currency is serious business. Never trust built-in
+Working with currency is serious business. Never trust built-in(((floating-point values, lack of precision in)))
 numerical types with handling currency, especially floating-point
 values. These types are simply not meant to capture and manipulate
 currency with the semantics and precision required. In particular,
@@ -75,8 +75,8 @@ beyond arithmetic, including rounding and currency conversion:
 ;; -> #<Money USD 154.92>
 ----
 
-The round function takes four arguments, an amount of currency, a
-scale factor, and a rounding mode. Scaling factor is a somewhat
+The round function takes four arguments, an amount of currency, a(((numeric types, rounding/truncating)))(((rounding up/down)))
+scale factor, and a rounding mode. Scaling factor is a somewhat(((scaling factors)))
 peculiar argument. It might be familiar to you if you've ever done
 scaling with +BigDecimal+, which shares identical factors. A scale of
 +-1+ scales to the tens place, +0+ scales to the ones place, and so on and

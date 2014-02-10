@@ -68,7 +68,7 @@ numeric types. This isn't necessarily a bad thing, though. While
 Java's numeric types can be extremely fast or arbitrarily precise,
 numerics overall don't have the prettiest set of interfaces to work
 with. Clojure unifies the various numeric types of Java into one
-coherent package, with clear escape hatches at every turn.(((primitive data, numeric types)))(((numeric types, basics of))))
+coherent package, with clear escape hatches at every turn.(((primitive data, numeric types)))(((numeric types, basics of)))
 
 The recipes on numeric types in this chapter will show you how to work with
 these hatches, showing you how to be as fast or precise or expressive

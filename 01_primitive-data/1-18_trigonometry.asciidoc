@@ -4,7 +4,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to implement mathematical functions that require trigonometry.
+You need to implement mathematical functions that require trigonometry.(((numeric types,  trigonometry)))(((trigonometric functions)))(((functions, Math)))
 
 ==== Solution
 
@@ -25,7 +25,7 @@ namespaced function:
 ;; -> 0.38941834230865047
 ----
 
-Trigonometric functions operate on values measured in radians. If you
+Trigonometric functions operate on values measured in radians. If you((("functions", "Math/toRadians")))(((latitude/longitude)))((("degrees, converting to radians")))
 have values measured in degrees, such as latitude or longitude, then
 you'll need to convert them to radians first. Use +Math/toRadians+ to
 convert degrees to radians:

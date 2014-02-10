@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to truncate or round a decimal number to a lower precision number.
+You need to truncate or round a decimal number to a lower precision number.(((numeric types, rounding/truncating)))(((functions, int)))
 
 ==== Solution
 
@@ -23,7 +23,7 @@ discards any decimal places without performing any rounding:
 ----
 
 If you still value some level of precision, then rounding is probably
-what you're after. You can use +Math/round+ to perform simple
+what you're after. You can use +Math/round+ to perform simple((("functions", "Math/round")))
 rounding:
 
 [source,clojure]
@@ -39,7 +39,7 @@ rounding:
 ;; -> 3
 ----
 
-If you want to perform an unbalanced rounding, such as unconditionally
+If you want to perform an unbalanced rounding, such as unconditionally(((rounding up/down)))((("functions", "Math/ceil")))((("functions", "Math/floor")))
 "rounding up" or "rounding down," then you should use +Math/ceil+ or
 +Math/floor+, respectively:
 
@@ -74,7 +74,7 @@ places or complex rounding modes, you may need to resort to using
 +with-precision+ function. You likely already know +BigDecimal+
 numbers are backed by Java classes, but you might not have known that
 Java exposes a number of knobs for tweaking +BigDecimal+ calculations;
-+with-precision+ exposes these knobs.
++with-precision+ exposes these knobs.((("functions", "with-precision")))(((BigDecimal type)))
 
 +with-precision+ is a macro that accepts a +BigDecimal+ precision
 mode and any number of expressions, executing those expressions in a
