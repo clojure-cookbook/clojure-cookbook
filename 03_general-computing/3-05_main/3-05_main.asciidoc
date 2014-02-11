@@ -6,7 +6,7 @@ by John Cromartie
 ==== Problem
 
 You want to run a program with a single entry point from Clojure
-source code.
+source code.((("development ecosystem", "running from a single entry point")))(((Clojure, clojure.main)))(((functions, main)))
 
 ==== Solution
 
@@ -61,7 +61,7 @@ Hey!
 Although you will spend most of your time evaluating Clojure code in a
 REPL, it is useful to be able to either run a simple "script" full of
 Clojure expressions or to run a more structured Clojure application
-with a +-main+ entry point.
+with a +-main+ entry point.(((scripts)))
 
 In either case, you have access to any extra command-line arguments
 passed after the script name or the main namespace name.
@@ -96,7 +96,7 @@ As you will typically want to keep your code in well-organized
 namespaces, you can provide an entry point through a namespace with a
 +-main+ function. This allows you to avoid side effects while loading,
 and you can even tweak and invoke your +-main+ function from the REPL
-just like any other function during interactive development.
+just like any other function during interactive development.(((namespaces, providing entry points through)))
 
 Let's say you've moved the above +greet+ function into a +foo.util+
 namespace, and your project is structured something like this:

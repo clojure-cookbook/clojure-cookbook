@@ -75,7 +75,7 @@ number into either an instance of +java.lang.Integer+ or
 +java.lang.Character+. Both ++Integer++s and ++Character++s are,
 ultimately, encoded as numbers, although +Character+'s support
 additional text-related methods and cannot be used in mathematic
-expressions without first being converted to a true numeric type.(((java.lang.Integer)))(((java.lang.Character)))
+expressions without first being converted to a true numeric type.(((Java, java.lang.Integer)))(((Java, java.lang.Character)))
 
 ==== See Also
 

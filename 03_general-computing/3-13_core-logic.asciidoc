@@ -8,14 +8,14 @@ You have a graph-like, hierarchical data structure, serialized as a
 flat list of nodes that you want to query. For example, you have a
 graph of movie metadata represented as entity-attribute-value triples.
 Writing this code with the standard seq functions has proven to be too
-tedious and error prone.
+tedious and error prone.(((core.logic library)))(((logic programming)))((("hierarchical data, querying")))((("queries, for hierarchical data)))((("graph-like data, querying")))
 
 ==== Solution
 
 The +core.logic+ library is a Clojure implementation of the
 miniKanren Domain Specific Langauge for logic programming. It's
 declarative style is well suited for querying flattened hierarchical
-data.
+data.((("miniKanren Domain Specific Langauge")))
 
 To follow along with this recipe, start a REPL using +lein-try+:
 

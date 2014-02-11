@@ -9,7 +9,7 @@ while possibly preserving the order of elements.((("duplicates, removing")))((("
 
 ==== Solution
 
-When the sequence of elements you're working with is of a bounded,(((funtions, set)))(((funtions, distinct)))
+When the sequence of elements you're working with is of a bounded,(((functions, set)))(((functions, distinct)))
 reasonable size, use `set` to coerce the collection into a hash set
 containing only distinct values:
 

@@ -6,7 +6,7 @@ by Ryan Neufeld; originally submitted by Nicolas Bessi
 ==== Problem
 
 You want to write command-line tools in Clojure that can parse input
-arguments.
+arguments.(((command lines, parsing input arguments)))(((parsing, input arguments)))((("development ecosystem", "command line parsing")))(((tools.cli library)))((("Clojure", "clojure.tools.cli/cli")))
 
 ==== Solution
 
@@ -170,7 +170,7 @@ arguments will be returned as the second item in ++cli++'s returned vector:
 ;; -> ["foo.txt" "bar.txt"]
 ----
 
-If your variadic arguments look like flags, however, you'll need
+If your variadic arguments look like flags, however, you'll need(((variadic arguments)))((("arguments, variadic")))
 another trick. Use +--+ as an argument to indicate to +cli+ that
 everything that follows is a variadic argument. This is useful if
 you're invoking another program with the options originally passed to

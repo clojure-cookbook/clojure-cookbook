@@ -6,12 +6,12 @@ by Mark Whelan
 ==== Problem
 
 You want to try a library in the REPL without having to modify your
-project's dependencies or create a new project.
+project's dependencies or create a new project.((("REPL (read-eval-print loop)", "loading temporary libraries")))((("development ecosystem", "library access")))((("libraries, loading")))
 
 ==== Solution
 
 Use Ryan Neufeld's +lein-try+ to launch the REPL. Library dependencies
-will be met automatically.
+will be met automatically.((("Neufeld, Ryan")))(((lein-try)))
 
 To gain this capability, first make sure you are using Leiningen >=
 2.1.3. Then edit your _~/.lein/profiles.clj_ file, adding `[lein-try "0.4.1"]`
@@ -90,7 +90,7 @@ Arguments: ([& args])
 As befits a Clojure tool, +lein-try+ is an elegant way to make a task
 less laborious. Use it to summon powerful libraries from the net at
 your whim, without having to set them up, and enjoy a wizardly
-satisfaction from the sudden confluence of new abilities.
+satisfaction from the sudden confluence of new abilities.(((Leiningen plugins)))
 
 ==== See Also
 

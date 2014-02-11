@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to create an unordered collection of _distinct_ objects,
-which can be tested for membership quickly.((("composite data", "sets", id="ix_CDset", range="startofrange")))(((sets, creating)))(((functions, hash-set)))(((funtions, set)))
+which can be tested for membership quickly.((("composite data", "sets", id="ix_CDset", range="startofrange")))(((sets, creating)))(((functions, hash-set)))(((functions, set)))
 
 ==== Solution
 

@@ -5,7 +5,7 @@ by John Cromartie
 ==== Problem
 
 You want to play with a Clojure REPL but you don't want to install
-additional tools.
+additional tools.((("REPL (read-eval-print loop)", "running a minimal")))((("Clojure", "development ecosystem" id="ix_Cdev", range="startofrange")))((("development ecosystem", "minimal Clojure REPL")))
 
 ==== Solution
 
@@ -20,7 +20,7 @@ $ java -cp "clojure-1.5.1.jar" clojure.main
 
 You are now running an interactive Clojure REPL (read-eval-print
 loop). Type an expression and hit Enter to evaluate it. Press
-<Ctrl>+D to exit.
+<Ctrl>+D to exit.((("REPL (read-eval-print loop)", "exiting")))
 
 ==== Discussion
 
@@ -39,7 +39,7 @@ Let's dissect the +java+ invocation here a bit:
 This sets the Java classpath to include Clojure (and only Clojure, in
 this example). A full explanation of the classpath is beyond the scope
 of this recipe, but suffice to say it is a list of places where Java
-should look to load classes. A full discussion of classpaths on the
+should look to load classes. A full discussion of classpaths on the(((Java, classpaths)))
 JVM can be found at http://bit.ly/docs-classpaths.
 
 ----
@@ -50,7 +50,7 @@ Here we are specifying the class that Java should load and execute
 the +main+ method. Yes, +clojure.main+ is really a Java class. The
 reason this doesn't *look* like a typical Java invocation is because
 Clojure namespaces, which are compiled to classes, do not
-conventionally use capitalized names like Java classes do.
+conventionally use capitalized names like Java classes do.(((Java, clojure.main)))
 
 This is the absolute bare-minimum Clojure environment and is all you
 need to run Clojure code on any system with Java installed. Of course,

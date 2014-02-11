@@ -6,14 +6,14 @@ by Chris Frisz
 ==== Problem
 
 You want to parse Clojure expressions, say, from the input to a macro,
-into a different representation (like maps).
+into a different representation (like maps).(((parsing, Clojure expressions)))((("expressions, parsing)))
 
 For this example, consider a heavily simplified version of Clojure
 that consists of the following expression types:
 
   * A variable represented by a valid Clojure symbol
   * A `fn` expression that accepts a single argument and whose body is
-    also a valid expression
+    also a valid expression(((fn expressions)))
   * Application of a valid expression in the language to another valid
     expression
 
@@ -29,7 +29,7 @@ Expr = var
 ==== Solution
 
 Use +core.match+ to pattern match over the input and return the
-expression represented as maps of maps.
+expression represented as maps of maps.((("Clojure", "clojure.core.match")))(((pattern matching)))
 
 Before starting, add `[org.clojure/core.match "0.2.0"]` to your
 project's dependencies, or start a REPL using +lein-try+:
@@ -81,7 +81,7 @@ is `[expr]`. This vector isn't limited to a single entry--it can
 contain as many items to match as you would like. The next part is a
 variable list of question-answer pairs. A _question_ is a vector
 representing the *shape* the +vars+ vector must take. Like +cond+, an
-_answer_ is what will be returned should +vars+ satisfy a question.
+_answer_ is what will be returned should +vars+ satisfy a question.(((match statements)))
 
 Questions take a variety of forms in +core.match+. Here are explanations
 of the preceding samples.

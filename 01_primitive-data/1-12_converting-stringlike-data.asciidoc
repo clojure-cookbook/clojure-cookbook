@@ -5,7 +5,7 @@ by Colin Jones
 ==== Problem
 
 You have a string, a symbol, or a keyword, and you'd like to convert it into a(((functions, symbol)))(((functions, name)))(((functions, keyword)))(((functions, namespace)))
-different one of these string-like data types.(((strings, converting between data types)))(((symbols, converting data types)))((("keywords, converting data types")))(((functions, str)))
+different one of these string-like data types.(((strings, converting between data types)))(((symbols, converting data types)))(((keywords, converting data types)))(((functions, str)))
 
 ==== Solution
 
