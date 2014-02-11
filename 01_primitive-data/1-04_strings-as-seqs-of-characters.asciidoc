@@ -49,7 +49,7 @@ are sequences under the covers, you may substitute a string anywhere a
 collection is expected. When you do so, the string will be interpreted
 as a collection of characters. There's nothing special about +(seq
 string)+. The +seq+ function is merely returning a seq of the
-collection of characters that the string is.(((strings, definition of)))(((collections, substituting strings for)))
+collection of characters that the string is.(((strings, definition of)))((("collections", "substituting strings for", seealso="composite data")))
 
 More often than not, after you've done some work on the characters
 within a string, you'll want to transform that collection back into a
