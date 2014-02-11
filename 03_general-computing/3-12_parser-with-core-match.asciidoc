@@ -6,7 +6,7 @@ by Chris Frisz
 ==== Problem
 
 You want to parse Clojure expressions, say, from the input to a macro,
-into a different representation (like maps).(((parsing, Clojure expressions)))((("expressions, parsing)))
+into a different representation (like maps).(((parsing, Clojure expressions)))((("expressions, parsing")))
 
 For this example, consider a heavily simplified version of Clojure
 that consists of the following expression types:

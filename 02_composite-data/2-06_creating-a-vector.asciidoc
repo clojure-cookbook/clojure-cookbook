@@ -33,7 +33,7 @@ containing the same items:
 ;; -> [1 :2 "3"]
 ----
 
-Alternatively, you can use the +into+ function, which takes two(((functions, into)))(((functions, conj)))
+Alternatively, you can use the +into+ function, which takes two(((functions, into)))
 collections and repeatedly invokes +conj+ on the first with items from
 the second:
 

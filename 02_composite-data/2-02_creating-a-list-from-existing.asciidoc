@@ -65,7 +65,7 @@ provided using the +conj+ function (discussed in greater detail
 elsewhere). This is why the sequence is reversed; items are always
 pulled from the front of the sequence, but +conj+ on a list *prepends*
 the element being added. Therefore, the first element in the input
-sequence will end up being the last item in the list, and so on.(((functions, conj)))
+sequence will end up being the last item in the list, and so on.((("functions", "conj", id="ix_Fconj", range="startofrange")))
 
 So why ever choose +into+ over +apply+, given that it reverses the
 order? Speed. +into+ utilizes Clojure _transients_, which provides a

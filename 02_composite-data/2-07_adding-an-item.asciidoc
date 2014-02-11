@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to add an item to a vector, yielding a new vector containing
-the item.(((vectors, adding items to)))(((functions, conj)))
+the item.(((vectors, adding items to)))
 
 ==== Solution
 
@@ -45,7 +45,7 @@ vector's current length, it will throw an +IndexOutOfBoundsException+.
 
 Still, this technique is worth remembering. If you have code that is
 +assoc+-ing to a vector already, you can use this technique to produce
-new vectors with updated values.
+new vectors with updated values.(((range="endofrange", startref="ix_Fconj")))
 
 ==== See Also
 

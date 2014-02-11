@@ -54,7 +54,7 @@ clearly about instants of time. See the
 https://github.com/edn-format/edn/wiki/Implementations[edn
 implementations list] for a list of languages that speak edn; the list
 includes Clojure, Ruby, and JavaScript so far, with many more
-implementations in the works.(((reader literals)))((("extensible data notation (edn)")))
+implementations in the works.(((reader literals)))((("extensible data notation (edn)", "date expression in")))
 
 .clojure.core/read vs. clojure.edn/read
 ****

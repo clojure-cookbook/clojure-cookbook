@@ -5,7 +5,7 @@ by John Cromartie
 ==== Problem
 
 You want to play with a Clojure REPL but you don't want to install
-additional tools.((("REPL (read-eval-print loop)", "running a minimal")))((("Clojure", "development ecosystem" id="ix_Cdev", range="startofrange")))((("development ecosystem", "minimal Clojure REPL")))
+additional tools.((("REPL (read-eval-print loop)", "running a minimal")))((("Clojure", "development ecosystem", id="ix_Cdev", range="startofrange")))((("development ecosystem", "minimal Clojure REPL")))
 
 ==== Solution
 

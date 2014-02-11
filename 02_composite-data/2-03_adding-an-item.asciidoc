@@ -7,7 +7,7 @@ by Luke VanderHart
 
 You want to add an item to a list; or, putting it in functional terms,
 you want to derive a new list from an existing list which contains an
-additional item.(((lists, adding items to)))(((functions, conj)))
+additional item.(((lists, adding items to)))
 
 ==== Solution
 
