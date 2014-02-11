@@ -5,11 +5,11 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to retrieve the value stored at a particular key in a map.
+You want to retrieve the value stored at a particular key in a map.(((maps, retrieving values from)))(((values, retrieving from maps)))(((keys, retrieving values of)))
 
 ==== Solution
 
-As with sets, there are several ways to retrieve the value of a key.
+As with sets, there are several ways to retrieve the value of a key.(((functions, get)))
 
 The most straightforward way is to use the +get+ function, which, given
 a map and a key, returns the value stored at the key or +nil+ if the
@@ -33,8 +33,8 @@ default return value instead of +nil+ if a map doesn't contain the key:
 ;; -> "Human"
 ----
 
-If your map uses keywords as keys, you can use the keyword itself as a
-function. Keywords implement the +IFn+ interface, and when invoked
+If your map uses keywords as keys, you can use the keyword itself as a(((keywords, using as functions)))
+function. Keywords implement the +IFn+ interface, and when invoked(((IFn interface)))
 with a map as an argument, they will look themselves up in the map,
 returning the value if it is present or +nil+ if not. You can also
 pass a second argument that will be used as a default return value in
@@ -49,7 +49,7 @@ the case of a missing key, just as you can with +get+:
 ;; -> "Human"
 ----
 
-Finally, the third basic way to look up a value in the map is to use
+Finally, the third basic way to look up a value in the map is to use(((maps, using as functions)))
 the map itself as a function, passing the key to be retrieved as the
 argument. Like +get+ and keyword functions, it is also possible to
 pass a second argument for use as a default value if the key is not
@@ -70,7 +70,7 @@ found; otherwise +nil+ is returned:
 ----
 
 There is a convenience function for looking up items in nested maps:
-+get-in+. Instead of passing a single key, you can pass a sequence of
++get-in+. Instead of passing a single key, you can pass a sequence of(((functions, get-in)))(((nested maps)))
 keys, and they will be successively looked up in a nested structure,
 as if repeatedly calling +get+ on each level of the nested data
 structure. +nil+ is returned if any key is missing:
@@ -97,7 +97,7 @@ if *any* key in the nested hierarchy is missing:
 ;; -> "1d2 (fists)"
 ----
 
-Note that +get-in+ works with *any* associative data structure, not
+Note that +get-in+ works with *any* associative data structure, not(((vectors, retrieving values from)))
 just maps. This means that it can be combined to work with, for
 example, indices of vectors:
 
@@ -175,7 +175,7 @@ has a specific entry for that key (even if the value is +nil+).
 
 The exact behavior of the +contains?+ function is a frequent topic for
 confusion, especially since several other languages have a function
-with a similar name that does something different.
+with a similar name that does something different.((("functions", "contains?")))(((searching, vs. lookup)))
 
 In Clojure, +contains?+ is *not* a search function--it does not
 inspect a collection to see if the item is present. Rather, it is a

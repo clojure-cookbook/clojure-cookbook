@@ -4,12 +4,12 @@ by John Cromartie
 
 ==== Problem
 
-You have a sequence of elements and want to remove any duplicates,
-while possibly preserving the order of elements.
+You have a sequence of elements and want to remove any duplicates,(((collections, removing duplicate elements)))
+while possibly preserving the order of elements.((("duplicates, removing")))((("elements, removing duplicate")))
 
 ==== Solution
 
-When the sequence of elements you're working with is of a bounded,
+When the sequence of elements you're working with is of a bounded,(((funtions, set)))(((funtions, distinct)))
 reasonable size, use `set` to coerce the collection into a hash set
 containing only distinct values:
 

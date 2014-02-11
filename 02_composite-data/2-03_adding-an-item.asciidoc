@@ -7,7 +7,7 @@ by Luke VanderHart
 
 You want to add an item to a list; or, putting it in functional terms,
 you want to derive a new list from an existing list which contains an
-additional item.
+additional item.(((lists, adding items to)))(((functions, conj)))
 
 ==== Solution
 
@@ -39,18 +39,18 @@ for the particular type.
 
 In the case of lists, +conj+ will always add the item at the
 *beginning* of the list, since a linked list data structure supports
-constant-time insertion only at the beginning.
+constant-time insertion only at the beginning.(((lists, constant-time insertion)))(((constant-time insertion)))
 
 .conj Versus cons
 ****
 
 If you are familiar with Common Lisp or Scheme, you were probably
 expecting to see the +cons+ function used, instead of +conj+. Clojure
-does have a +cons+ function, but it has a slightly different purpose.
+does have a +cons+ function, but it has a slightly different purpose.(((functions, cons)))
 
 While +conj+ will return a new concrete +clojure.lang.PersistentList+
 (when used on a list), +cons+ will always construct a new *sequence*,
-where the item added is the *first* and the collection is the *rest*.
+where the item added is the *first* and the collection is the *rest*.((("Clojure", "clojure.lang.PersistentList")))
 
 This distinction is subtle, especially since a
 +clojure.lang.PersistentList+ and a sequence constructed using +cons+
@@ -62,7 +62,7 @@ data structure it is applied to, while +cons+ is a *sequence*
 operation and only guarantees that it will return a sequence: in fact,
 it returns a cons cell (+clojure.lang.Cons+) that implements the
 sequence interface, no matter what type of _seq-able_ collection you
-gave it to start with.
+gave it to start with.((("Clojure", "clojure.lang.Cons")))
 
 Unlike +conj+, +cons+ is also guaranteed to return a sequence with the
 item prepended to the beginning no matter what the collection type is.

@@ -6,17 +6,17 @@ by Luke VanderHart
 ==== Problem
 
 You have an existing sequential data structure that you would like to
-convert into a list as its concrete data type.
+convert into a list as its concrete data type.(((lists, converting existing structure to)))
 
 ==== Solution
 
 The easiest solution is: don't. Having a concrete list provides little
 or no advantage over simply using the sequence abstraction directly on
 your existing data, and for large data structures, conversion can be
-expensive.
+expensive.((("sequence abstraction", "vs. concrete lists")))
 
 If you do know that you need an explicit conversion of the concrete
-data structure, there are two ways to do it.
+data structure, there are two ways to do it.(((functions, list)))(((functions, apply)))
 
 First, you could use the +apply+ function to call the +list+ function,
 passing it your existing data structure as its arguments:
@@ -27,7 +27,7 @@ passing it your existing data structure as its arguments:
 ;; -> (1 2 3 4 5)
 ----
 
-Alternatively, you could use the +into+ function to repeatedly conjoin
+Alternatively, you could use the +into+ function to repeatedly conjoin(((functions, into)))
 elements from your original data on to a list. Note, however, that
 this approach has the effect of reversing the order of the original
 collection:
@@ -56,7 +56,7 @@ are handled in a somewhat special way: the argument list is passed in
 as a sequence. +apply+ knows this and passes this sequence view of the
 original structure directly through to the receiving function. This is
 why it works; there is never actually a JVM method invocation with a
-million arguments.
+million arguments.(((variadic arguments)))((("arguments, variadic")))
 
 +into+ works quite differently; it takes two arguments, the first
 being a data structure and the second being a sequence. It then
@@ -65,7 +65,7 @@ provided using the +conj+ function (discussed in greater detail
 elsewhere). This is why the sequence is reversed; items are always
 pulled from the front of the sequence, but +conj+ on a list *prepends*
 the element being added. Therefore, the first element in the input
-sequence will end up being the last item in the list, and so on.
+sequence will end up being the last item in the list, and so on.(((functions, conj)))
 
 So why ever choose +into+ over +apply+, given that it reverses the
 order? Speed. +into+ utilizes Clojure _transients_, which provides a
@@ -75,7 +75,7 @@ average of 750 milliseconds, while using +into+ took about half that
 time, for an average of 350 milliseconds. Of course, the list was in
 reverse order, and reversing either the input or the output negates
 the speed advantage. In the end, +into+ is only advantageous in
-situations where a reversed order is acceptable.
+situations where a reversed order is acceptable.(((Clojure, transients)))(((transients)))
 
 ==== See Also
 

@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to create a vector data structure either as a literal, or
-from an existing data structure.
+from an existing data structure.(((vectors, creating)))(((functions, vector)))((("[ ] (square brackets)")))((("composite data", "vectors", id="ix_CDvect", range="startofrange")))
 
 ==== Solution
 
@@ -24,7 +24,7 @@ notation of square brackets. However, it is also possible to use the
 ----
 
 To construct a vector from an existing data structure, you can use the
-+vec+ function, which takes any collection and returns a vector
++vec+ function, which takes any collection and returns a vector(((functions, vec)))
 containing the same items:
 
 [source,clojure]
@@ -33,7 +33,7 @@ containing the same items:
 ;; -> [1 :2 "3"]
 ----
 
-Alternatively, you can use the +into+ function, which takes two
+Alternatively, you can use the +into+ function, which takes two(((functions, into)))(((functions, conj)))
 collections and repeatedly invokes +conj+ on the first with items from
 the second:
 

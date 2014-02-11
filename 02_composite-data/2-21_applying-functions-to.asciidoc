@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You'd like to apply a transformation function to the keys or the
-values of a map.
+values of a map.(((maps, applying functions to)))(((keys, applying transformation function to)))(((values, applying transformation function to)))(((transformation function)))
 
 ==== Solution
 
@@ -59,7 +59,7 @@ a sequence of the keys or values of a map, respectively. Then, they
 use the +map+ function to transform either the sequence of keys or the
 sequence of vals. Finally, the +zipmap+ function is used to recombine
 the key and value sequences into a single map, with the updates in
-place.
+place.(((functions, map-keys)))(((functions, map-vals)))(((functions, keys)))(((functions, vals)))(((functions, zipmap)))(((functions, map-kv)))
 
 +map-kv+ works a bit differently. It starts by converting the map into
 a sequence of map entries, then uses +map+ to apply them to an
@@ -82,7 +82,7 @@ the high-level structure is a bit more clear:
 
 It is easy to see that these three functions are all riffs on the
 standard +map+ function, applied to map data structures. What about
-the other staple of functional programming, +reduce+?
+the other staple of functional programming, +reduce+?(((functions, reduce-kv)))
 
 Clojure already has a +reduce-kv+ function built in, added in version 1.4.
 

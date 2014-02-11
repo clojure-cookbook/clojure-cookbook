@@ -5,7 +5,7 @@ by Luke VanderHart
 ==== Problem
 
 Given a vector, you would like to obtain a new vector with a different
-value at a particular index.
+value at a particular index.(((vectors, setting value at index)))(((values, setting by index)))(((functions, assoc)))
 
 ==== Solution
 
@@ -32,16 +32,16 @@ As you may have noticed, +assoc+ is the same function used to set the
 value of keys in a map. This is because vectors, like maps, are
 associative and implement the same interface
 (+clojure.lang.Associative+), which is what +assoc+ uses under the
-hood.
+hood.((("Clojure", "clojure.lang.Associative")))
 
 Unlike maps, however, the keys used when using +assoc+ on a vector
 must be integer indexes within the range of the vector. Attempting to
 use a noninteger key will cause an +IllegalArgumentException+, and
 attempting to +assoc+ an index greater than one more than the size of
-the vector  will throw a +IndexOutOfBoundsException+.
+the vector  will throw a +IndexOutOfBoundsException+.(((exceptions/errors, IllegalArgumentException)))(((exceptions/errors, IndexOutOfBoundsException)))
 
 Note that it *is* possible to +assoc+ to an index 1 greater than the
-current size of the vector. This will have the result of appending the item to the end (see <<sec_adding_to_a_vector>>).
+current size of the vector. This will have the result of appending the item to the end (see <<sec_adding_to_a_vector>>).(((range="endofrange", startref="ix_CDvect")))
 
 ==== See Also
 

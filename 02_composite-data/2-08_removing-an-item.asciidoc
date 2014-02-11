@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to remove an item from a vector, obtaining a new vector
-without the item.
+without the item.(((vectors, removing items from)))(((functions, pop)))
 
 ==== Solution
 
@@ -27,7 +27,7 @@ from the beginning of a vector, as +pop+ does from the end, there *is*
 a function, +subvec+, that can be used to efficiently *remove* any
 number of items from the beginning or end of a vector. Given a vector,
 a start index, and an (optional) end index, it will return a vector
-from the start (inclusive) to end (exclusive) indexes.
+from the start (inclusive) to end (exclusive) indexes.(((functions, subvec)))
 
 The following example drops a single item from the beginning of a
 vector. You can use +subvec+ like so:

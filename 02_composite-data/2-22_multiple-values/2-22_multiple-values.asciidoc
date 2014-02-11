@@ -8,10 +8,10 @@ by Luke VanderHart
 Normally, maps are strictly one value per key: if you +assoc+ an
 existing key, the old value is replaced. However, sometimes it would
 be useful to have a map-like interface (a "multimap") which is capable
-of storing *multiple* values for the same key.
+of storing *multiple* values for the same key.(((maps, multiple key values)))(((keys, multiple values for)))(((multimaps)))(((protocols, MultiAssociative)))
 
 You would like to create a map-like data structure that implements a
-multimap-like interface in Clojure.
+multimap-like interface in Clojure.(((MultiAssociative protocol)))
 
 ==== Solution
 
@@ -125,7 +125,7 @@ semantics of the new behavior are simply different from regular maps,
 and Clojure defines very strong semantics around core
 functions. Breaking or overriding these expectations is always a bad
 idea, especially when using a distinct set of functions makes it clear
-when multimap functionality is being used.
+when multimap functionality is being used.((("Clojure", "clojure.lang.Associative")))
 
 The concrete implementation of +MultiAssociative+ extends the protocol
 to the +clojure.lang.Associative+ interface. It would certainly be
@@ -167,12 +167,12 @@ can be read with +get-all+, and values inserted using +insert+ can be
 removed with +dissoc+. All expectations regarding normal maps should
 hold. In the case of a normal +get+ on a key with multiple values, a
 set containing multiple items will be returned. This is probably what
-the user would expect upon inspecting the data.
+the user would expect upon inspecting the data.((("Clojure", "clojure.lang.Associative")))
 
 There is one more feature of this code that deserves commentary: the
 use of +::multi-value+ metadata on the sets used to store multiple
 values, applied and tested using the +value-set+ and +value-set?+
-functions.
+functions.(((functions, value-set)))
 
 This is to handle the edge case where the intended *value* for a key
 is, itself, a set. The code needs a way to disambiguate between sets

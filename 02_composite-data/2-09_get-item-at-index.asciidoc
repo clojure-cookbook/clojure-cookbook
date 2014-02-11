@@ -5,7 +5,7 @@ by Luke VanderHart
 ==== Problem
 
 You have a vector, and you want to retrieve the value which the vector
-contains at a particular location (index).
+contains at a particular location (index).(((vectors, getting value at index)))((("functions", "nth")))(((collections, indexed)))(((values, retrieving by index)))
 
 ==== Solution
 
@@ -38,7 +38,7 @@ which will be returned if the provided index is out of bounds:
 
 ===== Using vectors as functions of their indices
 
-Vectors are themselves functions which, when called with an integer
+Vectors are themselves functions which, when called with an integer(((vectors, using as functions)))
 argument, will return the value at that index:
 
 [source,clojure]
@@ -53,7 +53,7 @@ result in an +IndexOutOfBoundsException+.
 
 ===== Using get
 
-Because vectors support the associative interface with integer indexes
+Because vectors support the associative interface with integer indexes(((functions, get)))
 as keys, you can also use the +get+ function to retrieve values by
 index:
 

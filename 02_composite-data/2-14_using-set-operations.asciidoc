@@ -6,14 +6,14 @@ by Luke VanderHart
 ==== Problem
 
 You want to perform common operations on sets, such as taking the union,
-intersection, or difference of two sets.
+intersection, or difference of two sets.(((sets, common operations on)))(((sets, testing for subsets)))
 
 Or, you want to test if one set is a subset or superset of another.
 
 ==== Solution
 
 All these functions are available in the +clojure.set+ namespace,
-which is built in to Clojure.
+which is built in to Clojure.(((functions, union)))((("Clojure", "clojure.set/union")))
 
 +union+ takes any number of sets as arguments and returns a set
 containing their union (a set containing all the elements from all the
@@ -25,7 +25,7 @@ sets):
 ;; -> #{:white :red :blue :green}
 ----
 
-+intersection+ also takes any number of sets as args and returns
++intersection+ also takes any number of sets as args and returns(((functions, intersection)))((("Clojure", "clojure.set/intersection")))
 their intersection (a set consisting only of the items shared by all
 the argument sets):
 
@@ -37,7 +37,7 @@ the argument sets):
 ;; -> #{:red :blue}
 ----
 
-+difference+ takes a set as its first argument and returns it without
++difference+ takes a set as its first argument and returns it without(((functions, difference)))((("Clojure", "clojure.set/difference")))
 elements from the sets given in the additional arguments:
 
 [source,clojure]
@@ -48,7 +48,7 @@ elements from the sets given in the additional arguments:
 ;; -> #{:yellow}
 ----
 
-+subset?+ returns true if and only if the first argument is a subset
++subset?+ returns true if and only if the first argument is a subset((("Clojure", "clojure.set/subset")))
 of the second (that is, if every member of the first set is also a
 member of the second):
 
@@ -64,7 +64,7 @@ member of the second):
 ----
 
 +superset?+ works the same way, except returning true only if the
-first set is a *superset* of the second.
+first set is a *superset* of the second.((("Clojure", "clojure.set/superset")))
 
 As you may have noticed, +superset?+ is actually identical to
 +subset?+, only with the order of the arguments reversed.
@@ -89,7 +89,7 @@ data structures, and try to think about manipulating them in terms of
 set operations. In many cases, you will find that this makes your
 program substantially easier to reason about, and makes it more
 self-documenting regarding the source and intended use of the data it
-contains.
+contains.(((range="endofrange", startref="ix_CDset")))
 
 ==== See Also
 

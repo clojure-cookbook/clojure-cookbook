@@ -10,7 +10,7 @@ What makes Clojure so good at manipulating collections? It comes down
 to three things: _immutability_, _persistence_, and the _sequence_
 abstraction. Every one of Clojure's built-in collection types has these
 properties and is thus unified in its API's appearance and
-behavior.
+behavior.(((Clojure, benefits of)))
 
 As the great Alan J. Perlis put it:
 
@@ -24,14 +24,14 @@ This chapter introduces Clojure collections and where/how to use them.
 Finally, we wrap things up by showing you how to build your own
 feature-complete types that look and behave just like the rest of
 Clojure's collections, by leveraging Clojure's capacity for interface
-polymorphism.
+polymorphism.((("interface polymorphism")))
 
 ==== Immutability
 
 Immutability means that a Clojure data structure, once created, can
 never change. You can only "modify" an immutable data structure by
 creating a *new* data structure which is a copy of the old, with the
-desired changes in place.
+desired changes in place.((("immutability", "definition of")))(((Clojure, immutability of)))
 
 Immutability means that Clojure data structures, however deeply
 nested, are simple _values_, just like the number +3+ or the character
@@ -43,44 +43,44 @@ structures. In Clojure, any action which in another language would
 perform any kind of update on a data structure will instead return an
 entirely new one. You can continue to pass around and use both the old
 and the new versions with confidence, knowing that nothing you can do
-will cause any unintended change elsewhere in your program.
+will cause any unintended change elsewhere in your program.((("immutability", "benefits of")))
 
 This feature is extremely important in concurrent and parallel
 programming, where unexpected mutation is the source of a large class
 of bugs. With immutable data, any number of threads can read from the
 same data without any worrying about locks or race conditions--it's
 always safe to read something that can't change. "Clone" operations
-are not only free, but unnecessary.
+are not only free, but unnecessary.(((clone operations)))
 
 ==== Persistence
 
 But, you may ask, how can that possibly be efficient? Surely it is
 impractical to do a full copy of an object every time you need to add
-something?
+something?(((Clojure, persistence in)))((("persistence", "definition of")))
 
 Yes, it would be, except for the feature of _persistence_. Persistence
 means that Clojure's data structures, although logically immutable,
 can still share pieces of their internal structure for efficiency in
 both time and space. Essentially, updated versions of immutable data
 only need to store the deltas from pervious versions, rather than
-doing a full deep copy.
+doing a full deep copy.((("persistence", "benefits of")))
 
 To make it performant, all of this uses some extremely clever
 algorithms, of course. See the book _Purely Functional Data
 Structures_ by Chris Okasaki (Cambridge University Press) for a detailed description of how they
-work.
+work.((("Purely Functional Data Structures (Okasaki)")))((("Okasaki, Chris")))
 
 ==== The Sequence Abstraction
 
 From vectors, maps, sets, and lists to strings and streams, every last
 one of Clojure's collections behaves in a similar, predictable fashion. They are simple tools for a more civilized age. This is on account of Clojure's
-sequence abstraction.
+sequence abstraction.((("sequence abstraction", "benefits of")))(((collections, predictability of)))
 
 The array of collection-manipulating functions in Clojure are all
 implemented in terms of one simple abstraction: every collection can
 be treated as a sequence of values. By implementing +first+, +rest+,
 and +cons+, any data structure--even ones you build yourself--can
-participate in the +ISeq+ interface.
+participate in the +ISeq+ interface.(((ISeq interface)))
 
 Then, you can use Clojure's huge library of functions that can operate
 on sequences, with *any* of the data structures. All of functional
@@ -89,4 +89,4 @@ will work interchangably on any data structure. In essence, the
 sequence abstraction allows all the expressiveness of traditional
 list-based LISP programming without forcing you to actually use lists. Instead, use whatever type is most efficient for the task, knowing
 that you can consume them all in the same way when it makes sense to
-do so.
+do so.(((functional programming)))

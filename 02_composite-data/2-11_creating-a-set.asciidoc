@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to create an unordered collection of _distinct_ objects,
-which can be tested for membership quickly.
+which can be tested for membership quickly.((("composite data", "sets", id="ix_CDset", range="startofrange")))(((sets, creating)))(((functions, hash-set)))(((funtions, set)))
 
 ==== Solution
 
@@ -55,7 +55,7 @@ Alternatively, use +into+ with a set to create a new set:
 [TIP]
 .Set Construction Performance
 ====
-At the time of writing, the +into+ technique is about three times
+At the time of writing, the +into+ technique is about three times(((functions, into)))
 faster than +set+ for large collections of objects. Use it whenever
 you're working with large sets where performance is a concern:
 
@@ -92,7 +92,7 @@ have a collection of values but you are only concerned with the
 distinct values. Lookup of an element in a set is typically O(1).
 
 The techniques above all construct _hash sets_, sets that are
-unordered and use a hash table as their internal representation.
+unordered and use a hash table as their internal representation.(((hash sets/tables)))(((sorted sets)))
 
 Clojure also supports creating _sorted sets_, which maintain the order
 of their elements. Sets created with +sorted-set+ keep their elements
@@ -111,7 +111,7 @@ set as a seq:
 WARNING: All of the elements in a sorted set must be comparable
 against one another (e.g., you cannot have a sorted set that contains
 both strings and numbers). Attempting to add an uncomparable value will
-result in a runtime error.
+result in a runtime error.(((exceptions/errors, with sorted sets)))(((runtime errors, with sorted sets)))
 
 Adding or removing objects in a sorted set will always return another
 sorted set.

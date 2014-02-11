@@ -5,7 +5,7 @@ by Leonardo Borges
 
 ==== Problem
 
-You want to retrieve multiple values from a map at one time.
+You want to retrieve multiple values from a map at one time.(((maps, retrieving multiple values)))(((values, retrieving multiple from maps)))(((keys, retrieving values simultaneously)))(((functions, vals)))(((functions, select-keys)))
 
 ==== Solution
 
@@ -36,7 +36,7 @@ Use +juxt+ when order matters:
 
 +juxt+ and the combination of +vals+ and +select-keys+ are both apt
 tools for retrieving multiple keys from a map. There are subtleties to
-their behavior that are important to understand.  
+their behavior that are important to understand.(((functions, juxt))) 
 
 At first glance, the +juxt+ approach seems to be the clear winner of
 the two. The +juxt+ approach only goes so far: the approach falls
@@ -55,7 +55,7 @@ to retrieve their values with +juxt+:
 ;; -> ClassCastException java.lang.String cannot be cast to clojure.lang.IFn ...
 ----
 
-+select-keys+, on the other hand, *is* capable of pulling values for
++select-keys+, on the other hand, *is* capable of pulling values for(((functions, select-keys)))
 any number of arbitrary keys. The +select-keys+ function takes a map
 and sequence of keys and returns a new map populated with *only* those
 keys:

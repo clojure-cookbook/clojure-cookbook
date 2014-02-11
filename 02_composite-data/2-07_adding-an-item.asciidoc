@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to add an item to a vector, yielding a new vector containing
-the item.
+the item.(((vectors, adding items to)))(((functions, conj)))
 
 ==== Solution
 
@@ -28,7 +28,7 @@ Vectors do not support adding new items anywhere aside from the end. If you need
 sequence manipulation function and convert back to a vector (if
 necessary) when you're done.
 
-Since vectors are associative (mapping integer indices to values), you
+Since vectors are associative (mapping integer indices to values), you(((functions, assoc)))
 can also use the +assoc+ function with an index one greater than the
 current length of the vector to append an item:
 

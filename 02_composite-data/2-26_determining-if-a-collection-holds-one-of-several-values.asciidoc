@@ -6,7 +6,7 @@ by John Touron
 ==== Problem
 
 You have a collection and want to determine if it holds one of several
-possible values.
+possible values.(((collections, determining values in)))(((values, determining presence of)))(((functions, some)))
 
 ==== Solution
 

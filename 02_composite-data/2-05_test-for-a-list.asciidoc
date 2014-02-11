@@ -4,20 +4,20 @@ by Steve Miner
 
 ==== Problem
 
-You want to test if a value is a list.
+You want to test if a value is a list.(((lists, testing for)))(((values, testing for lists)))
 
 ==== Solution
 
 The +list?+ function may seem like the obvious choice, but in most
 cases, it's better to use the more general +seq?+ function as your
-test.
+test.(((functions, list)))(((functions, seq)))
 
 ==== Discussion
 
 The +list?+ function specifically tests if the argument implements
 +clojure.lang.IPersistentList+, but in most cases, you really want to
 know if the value is a *seq* (implements +clojure.lang.ISeq+), which
-is a more general abstraction than a list.
+is a more general abstraction than a list.((("Clojure", "clojure.lang.IPersistentList")))((("Clojure", "clojure.lang.ISeq")))
 
 Not everything that prints as a *list* (in parentheses) actually
 satisfies the +list?+ test. In practice, you'll often receive +Cons+
@@ -50,7 +50,8 @@ details of those concrete implementations:
 ;; -> clojure.lang.LazySeq
 ----
 
-It's almost always better to use +seq?+ instead of +list?+.
+It's almost always better to use +seq?+ instead of +list?+.(((range="endofrange", startref="ix_CDlist")))
+
 
 ==== See Also
 

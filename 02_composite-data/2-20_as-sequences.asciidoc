@@ -7,7 +7,7 @@ by Luke VanderHart
 
 You want to treat the contents of a map as a sequence of entries.
 Alternatively, you want to convert a sequence of entries back into
-a map.
+a map.(((maps, as sequences of entries)))(((sequence abstraction, maps and)))
 
 ==== Solution
 
@@ -24,7 +24,7 @@ themselves, so it's usually not necessary to do this explicitly:
 This creates a sequence of key-value pairs, which you can then process
 as you would any sequence.
 
-To create a map *from* a sequence, you can exploit the fact that
+To create a map *from* a sequence, you can exploit the fact that(((functions, conj)))(((functions, into)))
 +conj+, when applied to a map, can take a two-element vector as a
 key-value pair and use it to add the respective key and value on to
 the map:
@@ -46,7 +46,7 @@ used to transform a sequence of pairs into a single map:
 ;; -> {:a 1, :b 2, :c 3}
 ----
 
-It is also possible to construct a map from *two* sequences: one
+It is also possible to construct a map from *two* sequences: one(((functions, zipmap)))
 containing keys and one containing values. This is the purpose of the
 +zipmap+ function. Given two sequences, it will return a single map
 with keys from the first argument sequence and values from the second:
@@ -66,7 +66,7 @@ entries up to the length of the shortest sequence.
 When obtaining a sequence view of a _hash map_, the map entries will
 be returned in an arbitrary or undefined order. Conveniently, this
 order (although arbitrary) *is* guaranteed to be consistent if the
-same map is turned into a sequence multiple times.
+same map is turned into a sequence multiple times.(((hash maps)))(((sorted maps)))
 
 When using a _sorted map_, the entries will be returned according to
 their sort order in the map. For example:
@@ -85,7 +85,7 @@ sequence. They are printed as vectors, and they *are* vectors insofar
 as they implement the full vector interface. However, their concrete
 type is not actually +clojure.lang.PersistentVector+; rather, they are
 a different kind of vector called a _map entry_, which is not only a
-vector but also supports the +clojure.lang.MapEntry+ interface.
+vector but also supports the +clojure.lang.MapEntry+ interface.(((vectors, map entry)))((("Clojure", "clojure.lang.MapEntry")))
 
 The +MapEntry+ interface provides +key+ and +val+ functions that can
 be used to retrieve the key and value of an entry:
@@ -107,7 +107,7 @@ be used to retrieve the key and value of an entry:
 These functions should be preferred to using the +first+ and +second+
 functions on map entries when processing maps as sequences, since they
 preserve the semantic of key/value pairs, making the code easier to
-read.
+read.(((keys, preserving semantic value of)))(((functions, first)))(((functions, second)))
 
 ==== See Also
 
