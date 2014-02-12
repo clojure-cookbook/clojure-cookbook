@@ -4,7 +4,7 @@ by Tobias Bayer
 
 ==== Problem
 
-You need to read a property file and access its key-value pairs.(((files, reading properties from)))((("properties, reading from files)))(((Java, java.util.Properties)))(((keys, accessing key-value pairs)))
+You need to read a property file and access its key-value pairs.(((files, reading properties from)))((("properties, reading from files")))(((Java, java.util.Properties)))(((keys, accessing key-value pairs)))
 
 ==== Solution
 

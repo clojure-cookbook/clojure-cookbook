@@ -107,7 +107,7 @@ The +edn+ reader hasn't always existed, you know. It used to be that
 if you wanted to read Clojure data, you would use one of the two
 built-in reader functions, +clojure.core/read+ and
 +clojure.core/read-string+. The purpose of these two functions is to
-read code or data from *trusted sources*.((("extensible data notation (edn)", additional security provided by)))
+read code or data from *trusted sources*.((("extensible data notation (edn)", "additional security provided by")))
 
 Because these functions can execute code,footnote:[This is actually a
 feature--they're functions used by the language to, well, execute

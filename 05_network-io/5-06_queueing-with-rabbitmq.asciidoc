@@ -10,7 +10,7 @@ queueing broker such as http://rabbitmq.com[RabbitMQ].
 ==== Solution
 
 Use http://clojurerabbitmq.info[Langohr], a small
-RabbitMQ client, to communicate with RabbitMQ.
+RabbitMQ client, to communicate with RabbitMQ.(((networking/web services, communicating over queues using RabbitMQ)))(((RabbitMQ)))(((Langohr client)))
 
 Before starting, add `[com.novemberain/langohr "1.6.0"]` to your
 project's dependencies, or follow along in a REPL using +lein-try+:
@@ -132,7 +132,7 @@ At this point, you've round-tripped a few messages to RabbitMQ, but
 you've barely scratched the surface of what Langohr/RabbitMQ are
 capable of. Langohr is a small RabbitMQ client wrapping the Java
 RabbitMQ library that supports AMQP 0-9-1 and RabbitMQ extensions of
-AMQP, and provides an HTTP API client.
+AMQP, and provides an HTTP API client.(((AMQP 0-9-1)))
 
 AMQP 0-9-1, and by extension, Langohr, centers around a few main
 concepts: *exchanges*, *queues*, and *bindings*.
@@ -143,7 +143,7 @@ An exchange is very much like a post office: when a message is
 published to an exchange, the exchange will route the message to one
 or more queues. How those messages are routed to queues is dependent
 on both the exchange type and the bindings between the
-exchange/queues.
+exchange/queues.(((messages, exchanges for)))(((exchanges)))
 
 There are multiple exchange types, each with its own routing
 semantics--see <<tab_builtin_exchange_types>> for a complete listing.
@@ -190,7 +190,7 @@ attributes to create your own types of exchanges.
 ===== Queues
 
 A queue is like a mailbox in a post office. The
-+langohr.queue/declare+ function creates named queues. Apart from the
++langohr.queue/declare+ function creates named queues. Apart from the(((messages, queues for)))(((queues)))
 name, this function accepts a number of keyword arguments that vary
 the characteristics of the queue, including whether it is +:durable+,
 +:exclusive+, or +:auto-delete+. Other arguments can be specified in an
@@ -217,7 +217,7 @@ Unlike exchanges, queues in RabbitMQ are all of the same type.
 ===== Bindings
 
 As you saw in the solution, a direct exchange has an implicit
-binding between the default exchange and every queue, by name. In the
+binding between the default exchange and every queue, by name. In the(((bindings)))(((messages, bindings for)))
 wild, however, queues are usually bound to exchanges explicitly. You
 can create your own bindings by invoking +langohr.queue/bind+ with a
 channel, queue name, and exchange name:
@@ -233,7 +233,7 @@ channel, queue name, and exchange name:
 
 ===== Publishing
 
-Messages are published to an exchange using the
+Messages are published to an exchange using the(((publish/consumption models)))(((messages, publishing)))
 +langohr.basic/publish+ function. This function takes three primary
 arguments (beyond channel):
 
@@ -252,7 +252,7 @@ docstring for the +publish+ function.
 
 ===== Consuming
 
-Having declared a number of queues, there are two ways to consume
+Having declared a number of queues, there are two ways to consume(((messages, consuming)))
 messages from them:
 
 * Pull, using +langohr.basic/get+, or
@@ -304,7 +304,7 @@ queue lifecycle functions, documented at length in the
 
 Consumed messages need to be acknowledged. That can happen
 automatically (RabbitMQ will consider a message acknowledged as soon
-as it sends it to a consumer) or manually.
+as it sends it to a consumer) or manually.(((messages, acknowledgement of)))
 
 When a message is acknowledged, it is removed from the queue. If a
 channel closes unexpectedly before a delivery is acknowledged, it will

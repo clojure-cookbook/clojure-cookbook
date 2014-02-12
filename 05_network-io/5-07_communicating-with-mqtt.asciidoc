@@ -5,7 +5,7 @@ By Sandeep Nangia
 ==== Problem
 
 You want to communicate with embedded devices (think "Internet of
-things") using a publish/subscribe model.
+things") using a publish/subscribe model.(((networking/web services, communicating with embedded devices via MQTT)))(((Machine Head library)))((("machine-to-machine (M2M) communication")))(((protocols, MQTT)))((("MQTT (MQ Telemetry Transport) protocol")))(((publish/subscribe models)))
 
 ==== Solution
 

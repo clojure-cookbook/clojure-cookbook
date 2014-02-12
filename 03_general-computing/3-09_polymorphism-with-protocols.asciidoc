@@ -222,7 +222,7 @@ Clojure's protocol feature provides extensible polymorphism with fast
 dispatch akin to Java's interfaces, with one notable difference from
 multimethods: protocols can only perform single dispatch (based on type).
 
-Protocols are defined using the +defprotocol+ macro, which accepts a name,(((defprotocol macro)))(((macros, defprotocol)))(((docstrings))))(((protocols, defining)))
+Protocols are defined using the +defprotocol+ macro, which accepts a name,(((defprotocol macro)))(((macros, defprotocol)))(((docstrings)))(((protocols, defining)))
 an optional docstring, and any number of named methods signatures. A
 method signature is made up of a few parts: the name, at least one
 type signature, and an optional docstring. The first argument of any
@@ -282,7 +282,7 @@ protocol's methods:
 .The Difference Between a Type and a Record
 ****
 Given types and records share a very similar syntax, so it can be
-hard to understand at face value how each should be used.(((types, vs. records)))(((records vs. types)))
+hard to understand at face value how each should be used.(((types, vs. records)))(((records, vs. types)))
 
 Chas Emerick explained it best in an appendix to
 http://www.clojurebook.com/[_Clojure Programming_] (O'Reilly Media):

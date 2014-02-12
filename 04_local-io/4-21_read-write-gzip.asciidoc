@@ -4,7 +4,7 @@ by John Cromartie
 
 ==== Problem
 
-You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).(((files, compressed files)))((("I/O (input/output) streams", "compressed files")))(((compressed files)))(((Java, java.util.zip,GZIPInputStream)))(((Java, java.util.zip,GZIPOutputStream)))
+You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).(((files, compressed files)))((("I/O (input/output) streams", "compressed files")))(((compressed files)))(((Java, java.util.zip.GZIPInputStream)))(((Java, java.util.zip.GZIPOutputStream)))
 
 ==== Solution
 

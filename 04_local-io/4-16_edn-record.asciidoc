@@ -6,7 +6,7 @@ submitted by Steve Miner
 ==== Problem
 
 You want to use Clojure records as +edn+ values, but the +edn+
-format doesn't support records.((("extensible data notation (edn)", "emitting records as edn values")))((("records, emitting as edn values)))(((tagged library)))((("I/O (input/output) streams", "emitting records as edn values")))
+format doesn't support records.((("extensible data notation (edn)", "emitting records as edn values")))(((records, emitting as edn values)))(((tagged library)))((("I/O (input/output) streams", "emitting records as edn values")))
 
 ==== Solution
 

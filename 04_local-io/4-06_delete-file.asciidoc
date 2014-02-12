@@ -51,7 +51,7 @@ exceptions thrown, you should put the call to +delete-file+ inside a
 
 +java.io.File+ has an +.exists+ property that simply gives you a
 boolean answer whether a file exists or not. You can put this property
-together with a +try-catch+ body to get a "safe" delete utility(((safe delete function)))
+together with a +try-catch+ body to get a "safe" delete utility(((safe-delete function)))(((functions, safe-delete)))
 function. This function will first check to see if the file with the
 path from the argument do exist before trying to delete it:
 

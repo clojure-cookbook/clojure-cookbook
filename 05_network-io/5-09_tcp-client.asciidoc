@@ -5,12 +5,12 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to open a TCP connection to a remote host, on a particular port.
+You want to open a TCP connection to a remote host, on a particular port.(((networking/web services, TCP clients)))((("TCP (Transmission Control Protocol)", "client creation")))
 
 ==== Solution
 
 Use Java interop to create an instance of +java.net.Socket+ and
-connect to a remote host.
+connect to a remote host.(((Java, java.net.Socket)))
 
 For example, the following code uses a +Socket+ to create a TCP
 connection and send an HTTP GET request, returning the result as a
@@ -56,7 +56,7 @@ not actually limited to textual data, and it would be possible to
 obtain raw binary input and output streams just as easily using
 +clojure.java.io/input-stream+ and +clojure.java.io/output-stream+,
 respectively. Since HTTP is a textual protocol, however, it makes more
-sense to use the higher-level features of +Reader+ and +Writer+.
+sense to use the higher-level features of +Reader+ and +Writer+.((("Clojure", "clojure.java.io/reader")))((("Clojure", "clojure.java.io/writer")))
 
 [CAUTION]
 ====

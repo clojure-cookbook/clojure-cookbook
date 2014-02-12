@@ -8,7 +8,7 @@ by Kevin J. Lynagh
 You want to use ZeroMQ concurrently, but ZeroMQ sockets are not
 thread safe. You *could* manually set up mutual exclusion via locks or
 other Java concurrency primitives, but you'd rather use a simpler
-method.
+method.(((networking/web services, using ZeroMQ concurrently)))(((ZeroMQ)))(((zmq-async library)))
 
 ==== Solution
 
@@ -103,7 +103,7 @@ etc.) with bindings to many languages. ZeroMQ sockets are a great
 substrate upon which to build service-oriented architectures. ZeroMQ
 sockets have less overhead than HTTP and are architecturally more
 flexible--supporting publish/subscribe, fan-out, and other
-topologies in addition to request/reply.
+topologies in addition to request/reply.(((message-oriented architectures)))
 
 However, ZeroMQ sockets are not thread safe--concurrent usage
 typically requires explicit locking or dedicated threads and queues.

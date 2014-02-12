@@ -5,12 +5,12 @@ by Luke VanderHart
 ==== Problem
 
 You want to send or receive asynchronous UDP packets from your
-application.
+application.(((networking/web services, UDP packets)))((("UDP (User Datagram Protocol) packets)))
 
 ==== Solution
 
 Use Java interop with the +java.net.DatagramSocket+ and
-+java.net.DatagramPacket+ classes to send and receive UDP messages.
++java.net.DatagramPacket+ classes to send and receive UDP messages.(((Java, java.net.DatagramSocket)))(((Java, java.net.DatagramPacket)))
 
 The following example demonstrates functions that send and receive
 short strings encoded into UDP packets:

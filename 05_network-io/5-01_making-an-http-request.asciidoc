@@ -5,7 +5,7 @@ by John Cromartie
 
 ==== Problem
 
-You want to make a simple HTTP GET or POST request.
+You want to make a simple HTTP GET or POST request.(((networking/web services, HTTP requests)))((("HTTP (Hypertext Transfer Protocol)", "GET/POST requests")))(((GET requests)))(((POST requests)))(((functions, slurp)))
 
 ==== Solution
 
@@ -19,7 +19,7 @@ Use +slurp+ to make simple HTTP GET requests:
 
 Use the +clj-http+ library to make GET, POST, and other requests with
 specific parameters or headers, to handle redirects and other special
-circumstances, or to get specific details about the response.
+circumstances, or to get specific details about the response.(((clj-http library)))
 
 To follow along, add `[clj-http "0.7.7"]` to your project's
 dependencies, or use +lein-try+ to start a REPL:
@@ -72,17 +72,17 @@ passed to +clojure.java.io/reader+, which in turn correctly handles
 opening URL strings. This is totally sufficient for issuing a quick
 HTTP GET to a well-behaved URL. Unfortunately, this is where ++slurp++'s
 usefulness ends. Among other limitations, it will not behave correctly
-for responses with HTTP redirects.
+for responses with HTTP redirects.((("Clojure", "clojure.java.io/reader")))
 
 +clj-http+ is an extremely flexible Clojure wrapper around the very
-robust Apache HttpComponents library.
+robust Apache HttpComponents library.(((Apache HttpComponents library)))
 
 Its features include convenient functions for other HTTP verbs like
 PUT and DELETE, for reading and sending cookies, headers, and other
 request metadata, reading and writing data using streams, files, or
 byte arrays, and lots more. Refer to the
 https://github.com/dakrone/clj-http[GitHub repository] to learn about
-the huge variety of options available and to see many more examples.
+the huge variety of options available and to see many more examples.((("HTTP (Hypertext Transfer Protocol)", "PUT/DELETE requests")))(((Netflix's Hystrix library)))((((Hystrix library)))
 
 If you're building production systems that rely on external services,
 you may want to consider wrapping HTTP calls in Netflix's
