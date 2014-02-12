@@ -5,7 +5,7 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to read or write a text file to the local filesystem.
+You need to read or write a text file to the local filesystem.((("I/O (input/output) streams", "reading/writing text files")))(((files, reading/writing text files)))((("text files, reading/writing")))(((functions, spit)))(((functions, slurp)))
 
 ==== Solution
 

@@ -5,12 +5,12 @@ by John Jacobsen
 
 ==== Problem
 
-You need to read or write some binary data.
+You need to read or write some binary data.(((files, reading/writing binary data)))(((binary data)))
 
 ==== Solution
 
 Use Java's +BufferedInputStream+, +BufferedOutputStream+, and
-+ByteBuffer+ classes to work directly with binary data.
++ByteBuffer+ classes to work directly with binary data.(((Java, BufferedInputStream)))(((Java, BufferedOutputStream)))((("I/O (input/output) streams", "binary data")))
 
 ==== Discussion
 
@@ -42,7 +42,7 @@ function, which wraps `BufferedInputStream`:
 ;;=> Read 1000 bytes.
 ----
 
-Writing zeros and reading in fixed-length blocks is obviously not very
+Writing zeros and reading in fixed-length blocks is obviously not very((("byte arrays, preparing")))
 interesting. We want to prepare our byte array with some actual
 content. A common way to prepare byte arrays is to use a +ByteBuffer+,
 filling it with data from various types. Let's assume we want to

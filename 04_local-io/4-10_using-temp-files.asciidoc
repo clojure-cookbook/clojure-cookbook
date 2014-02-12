@@ -4,7 +4,7 @@ by Alan Busby
 
 ==== Problem
 
-You want to use a temporary file on the local file system.
+You want to use a temporary file on the local file system.((("I/O (input/output) streams", "using temporary files")))(((files, temporary)))(((Java, createTempFile)))(((Java, java.io.File)))
 
 ==== Solution
 

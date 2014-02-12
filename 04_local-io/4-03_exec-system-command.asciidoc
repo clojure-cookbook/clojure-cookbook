@@ -5,12 +5,12 @@ by Mark Whelan and Ryan Neufeld
 ==== Problem
 
 You want to send a command to the underlying operating system and get
-its output.
+its output.((("I/O (input/output) streams", "executing system commands")))(((shell commands)))
 
 ==== Solution
 
 Use the +clj-commons-exec+ library to run shell commands on your local
-system.
+system.((("clj-commons-exec library")))
 
 To follow along, start a repl using +lein-try+:
 
@@ -60,7 +60,7 @@ be asked: why use a library over a built-in? Simple: +clj-commons-exec+
 is a functional veneer over the excellent
 http://commons.apache.org/proper/commons-exec/[Apache Commons Exec]
 library, providing capabilities like _piping_ not available in
-+clojure.java.sh+.
++clojure.java.sh+.((("Clojure", "clojure.java.shell/sh")))(((Apache Commons Exec library)))
 
 To pipe data through multiple commands, use the
 +clj-commons-exec/sh-pipe+ function. Just as with regular Unix pipes,
@@ -138,13 +138,13 @@ If it isn't desirable, forcibly terminate your application by invoking
 +(System/exit)+ directly at the end of your +-main+ function.
 Additionally, set the option +:shutdown+ to +true+ for any
 subprocesses to ensure you leave your system tidy and free of rogue
-processes.
+processes.(((applications, forcible termination of)))
 ====
 
 To check if a subprocess has returned without waiting for it to
 finish, invoke the +realized?+ function on the promise returned by
 +sh+. (This is especially useful for monitoring the progress of the
-sequence of promises returned by +sh-pipe+.)
+sequence of promises returned by +sh-pipe+.)(((functions, realized?)))
 
 [source,clojure]
 ----

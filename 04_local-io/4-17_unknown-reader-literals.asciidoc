@@ -6,11 +6,11 @@ by Steve Miner
 ==== Problem
 
 You want to read Clojure data (in an +edn+ format) that may contain
-unknown tagged literals.
+unknown tagged literals.((("I/O (input/output) streams", "handling unkown tagged literals")))(((tagged literals)))
 
 ==== Solution
 
-Use the +:default+ option of either +clojure.edn/read+ or
+Use the +:default+ option of either +clojure.edn/read+ or((("Clojure", "clojure.edn/read")))((("Clojure", "clojure.edn/read-string")))
 +clojure.edn/read-string+:
 
 [source,clojure]
@@ -75,7 +75,7 @@ will throw a +RuntimeException+:
 
 For most applications, reading an unknown tag *is* an error, so an
 exception would be appropriate. However, it may sometimes be useful to
-preserve the "unknowns," perhaps for a another stage of processing.
+preserve the "unknowns," perhaps for a another stage of processing.(((exceptions/errors, unknown tags)))
 
 It's trivial to leverage the factory function defined by +defrecord+
 to capture the unknown reader literal. The order of the arguments for
@@ -107,14 +107,14 @@ The +edn+ reader hasn't always existed, you know. It used to be that
 if you wanted to read Clojure data, you would use one of the two
 built-in reader functions, +clojure.core/read+ and
 +clojure.core/read-string+. The purpose of these two functions is to
-read code or data from *trusted sources*.
+read code or data from *trusted sources*.((("extensible data notation (edn)", additional security provided by)))
 
 Because these functions can execute code,footnote:[This is actually a
 feature--they're functions used by the language to, well, execute
 code.] you should *never* (ever) use the +clojure.core+ readers to
 read from untrusted sources. This means user data, remote servers
 (even your own), or pretty much anywhere else for that matter. (We're
-being a little extreme, of course, but we want you to be safe.)
+being a little extreme, of course, but we want you to be safe.)(((security issues, built-in string reader)))
 
 In the event that you *do* have a safe environment and absolutely need
 to evaluate some code, then by all means use the +clojure.core+

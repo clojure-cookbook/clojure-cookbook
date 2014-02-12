@@ -5,7 +5,7 @@ by John Cromartie
 
 ==== Problem
 
-You need to store and retrieve Clojure data structures on disk.
+You need to store and retrieve Clojure data structures on disk.((("I/O (input/output) streams", "disk storage/retrieval")))(((Clojure, reading/writing data structures)))(((data, reading/writing Clojure data to disk)))(((functions, pr-str)))(((functions, spit))))(((functions, read-string)))(((functions, slurp)))(((functions, pr)))
 
 ==== Solution
 
@@ -60,7 +60,7 @@ The +read+ function is only appropriate for reading data from
 nor guaranteed to be safe or free from side effects. Binding
 +pass:[*read-eval*]+ to +false+ is just a small safeguard. If you need to
 read Clojure data structures from *untrusted* sources (i.e., anything
-you did not write yourself), then see the +clojure.edn+ library.
+you did not write yourself), then see the +clojure.edn+ library.(((functions, read)))(((security issues, built-in string reader)))((("extensible data notation (edn)", additional security provided by)))(((strings, edn vs. core readers for)))((("functions", "clojure.edn/read")))
 
 edn (extensible data notation) is a specification of Clojure's data
 structure serialization format with multiple implementations, so it

@@ -4,14 +4,14 @@ by John Jacobsen; originally submitted by John Walker
 
 ==== Problem
 
-You want to create and display a GUI window.
+You want to create and display a GUI window.((("I/O (input/output) streams", "scrollable GUI windows")))((("GUI (graphical user interface) windows")))
 
 ==== Solution
 
 Though Java's Swing library is the most common way to make Java GUIs
 (at least on the desktop), the Seesaw library, which wraps Swing and
 provides a more idiomatic and functional interface, is the best tool
-for creating GUIs with Clojure.
+for creating GUIs with Clojure.(((Java, Swing library)))(((Seesaw library)))(((Swing library)))
 
 To follow along with this recipe, start a REPL using +lein-try+:
 

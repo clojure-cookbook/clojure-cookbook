@@ -6,7 +6,7 @@ submitted by Steve Miner
 ==== Problem
 
 You want to use Clojure records as +edn+ values, but the +edn+
-format doesn't support records.
+format doesn't support records.((("extensible data notation (edn)", "emitting records as edn values")))((("records, emitting as edn values)))(((tagged library)))((("I/O (input/output) streams", "emitting records as edn values")))
 
 ==== Solution
 
@@ -21,7 +21,7 @@ dependencies or start a REPL using +lein-try+:
 $ lein try com.velisco/tagged
 ----
 
-To extend Clojure's built-in +print-method+ multimethod to print
+To extend Clojure's built-in +print-method+ multimethod to print(((multimethods)))
 records in a "tagged" format, extend +print-method+ for that record
 with the +miner.tagged/pr-tagged-record-on+ helper function:
 

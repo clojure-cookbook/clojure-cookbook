@@ -6,7 +6,7 @@ by John Jacobsen
 ==== Problem
 
 You want to read data from a file, or write data to it, at various
-locations, rather than sequentially.
+locations, rather than sequentially.((("I/O (input/output) streams", "reading/writing non-sequentially")))(((files, reading/writing non-sequentially)))(((random access)))(((Java, RandomAccessFile)))
 
 ==== Solution
 
@@ -59,7 +59,7 @@ the appropriate +read+ method:
 
 Files written in this way are populated by zeros by default and may be
 treated as "sparse files" by the JVM implementation and the underlying
-operating system, leading to extra efficiency in reading and writing.
+operating system, leading to extra efficiency in reading and writing.(((sparse files)))(((files, sparse files)))
 
 Examining the file using the Unix `od` program to do a hex dump from the
 command line shows that the file consists of zeros with our +1234+ at
@@ -77,7 +77,7 @@ $ od -Ad -tx4 /tmp/longfile
 At byte offset 1000000000 can be seen the value +d2040000+, which is
 the hex representation of a big-endian integer with the value 1,234.
 (Java integers are big-endian by default. This means that the highest
-order bytes are stored at the lowest addresses.)
+order bytes are stored at the lowest addresses.)((("big-endian integers")))(((integers, big-endian)))
 
 ==== See Also
 

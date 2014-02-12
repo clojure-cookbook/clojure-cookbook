@@ -5,7 +5,8 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to read or write JSON data.
+You need to read or write JSON data.((("I/O (input/output) streams", "JSON data")))((("JSON (JavaScript Object Notation) data)))((("Clojure", "clojure.data.json/reat-str")))(((strings, reading JSON data)))
+You need to read or write JSON data.((("I/O (input/output) streams", "JSON data")))((("JSON (JavaScript Object Notation) data)))((("Clojure", "clojure.data.json/read-str")))(((strings, reading/writing JSON data)))((("Clojure", "clojure.data.json/write-str")))(((files, JSON data)))
 
 ==== Solution
 
@@ -107,7 +108,7 @@ you provide will be invoked with two arguments; a key and its value:
 
 As you may have inferred, when you use provide both a +:key-fn+ and
 +:value-fn+, the value function will always be called after the key
-function.
+function.((("functions", ":key-fn")))((("functions", "value-fn")))
 
 It might go without saying, but the +:key-fn+ and +:value-fn+ options
 can also be used with the +write+ and +read+ functions.

@@ -5,10 +5,10 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to read or write XML data.
+You need to read or write XML data.((("I/O (input/output) streams", "XML data")))((("XML (Extensible Markup Language) data")))(((maps, XML representations in)))((("Clojure", "clojure.xml/parse")))(((functions, xml-seq)))
 
 ==== Solution
-Pass a file to +clojure.xml/parse+ to get a Clojure map representing the structure of an XML file.
+Pass a file to +clojure.xml/parse+ to get a Clojure map representing the structure of an XML file.((("nodes, reading XML as")))(((files, XML data)))
 
 For example, when reading the following file:
 
@@ -77,7 +77,7 @@ Clojure data representation.
 Additionally, if you are going to work a lot with your XML structure,
 you might consider using a _zipper_. A zipper is a purely functional
 data structure useful for navigating and modifying tree-like
-structures (such as XML) in a convenient and efficient way.
+structures (such as XML) in a convenient and efficient way.(((zippers)))
 
 Zippers are a deep topic, and a full discussion is beyond the scope of
 this recipe, but see the documentation for the +clojure.data.zip+

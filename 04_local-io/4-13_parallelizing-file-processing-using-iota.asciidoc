@@ -6,13 +6,13 @@ by Edmund Jackson
 ==== Problem
 
 You want to use Clojure's reducers on a file to realize parallel
-processing without loading the file into memory.
-
+processing without loading the file into memory.((("I/O (input/output) streams", "parallelizing with reducers")))
+(((files, parallelizing processing with reducers)))(((Reducers library)))(((Iota library)))
 ==== Solution
 
 Use the https://github.com/thebusby/iota[Iota] library in
 conjunction with the +filter+, +map+, and +fold+ functions from the
-Clojure Reducers library in the +clojure.core.reducers+ namespace.
+Clojure Reducers library in the +clojure.core.reducers+ namespace.((("Clojure", "clojure.core.reducers")))(((functions, filter)))(((functions, map)))(((functions, fold)))
 
 To follow along with this recipe, add `[iota "1.1.1"]` to your project's dependencies, or start a REPL with +lein-try+:
 
@@ -65,13 +65,13 @@ Fork/Join work-stealing frameworkfootnote:[For more information, see
 the Java
 http://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html[tutorial]
 on Fork/Join and work stealing.] under the hood to provide efficient
-parallel processing.
+parallel processing.(((Java, Fork/Join work-stealing framework)))
 
 The +keyword-count+ function first creates a reducible sequence of
 lines in the file and filters out blank lines (using the +identity+
 function to eliminate +nil+ values from the sequence). Then, it applies
 the +count-map+ function in parallel, and finally aggregates the
-results by folding with the +add-maps+ function.
+results by folding with the +add-maps+ function.(((functions, keyword)))
 
 +r/filter+ and +r/map+ function exactly the same as their non-Reducer
 counterparts; the only difference is one of performance, and how the

@@ -5,7 +5,7 @@ by Dmitri Sotnikov
 
 ==== Problem
 
-You need to generate a PDF from some data.
+You need to generate a PDF from some data.(((files, PDF data)))((("I/O (input/output) streams", "PDF files")))((("PDF (Portable Document Format)")))(((clj-pdf library)))
 
 For example, you have a sequence of maps, such as those returned by a
 +clojure.java.jdbc+ query, and you need to generate a PDF report.
@@ -88,7 +88,7 @@ image::images/clcb_0401.png["Contents of the employees.pdf file"]
 
 The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+
 libraries. The templating syntax is inspired by the popular +Hiccup+
-HTML templating engine.
+HTML templating engine.(((iText library)))(((JFreeChart library)))(((Hiccup HTML templating engine)))(((HTML templates)))(((templates)))
 
 In a template, +$+ is used to indicate places where dynamic content
 will be substituted. When populating a template from a map, all
