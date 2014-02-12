@@ -5,7 +5,7 @@ by Robert Stuttaford
 
 ==== Problem
 
-You need to connect to a Datomic database.
+You need to connect to a Datomic database.((("databases", "Datomic", id="ix_DBdt", range="startofrange")))(((Datomic database, connecting to)))
 
 [[sec_datomic_connect_to_datomic_solution]]
 ==== Solution
@@ -88,7 +88,7 @@ Datomic transactor processes have a limit on the number of
 concurrently connected peer processes. Datomic Free has a limit of two
 peers per transactor. For nondistributed applications, this may well
 be sufficient. If you're building a larger service, then you may need
-a Datomic Pro license for more peers.
+a Datomic Pro license for more peers.(((data storage, storage services)))
 
 There are several options for storage services that back Datomic. Three are built-in, and the rest use external services. Datomic Free
 includes access to the in-memory and +:free+ storage backends. Datomic
@@ -106,7 +106,7 @@ Free and Dev can also be configured to use alternate ports for
 storage: `"datomic:free://host[:port]/[db-name]?h2-port=[port]&h2-web-port=[port]"`.
 
 By default, these ports will be one and two more than the transactor port,
-respectively.
+respectively.(((data storage, built-in options)))
 
 ===== External storage service options
 
@@ -119,7 +119,7 @@ respectively.
 * Infinispan: `"datomic:inf://[cluster-member-host:port]/[db-name]"`
 * SQL: `"datomic:sql://[db-name][?jdbc-url]"`
 
-For SQL storage services, the map format can be used instead of the
+For SQL storage services, the map format can be used instead of the(((data storage, external options)))
 string format. This is useful when specifying objects that can't be
 embedded in URI strings, like DataSources. The format for the SQL map
 is:

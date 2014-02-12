@@ -5,7 +5,7 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to read or write JSON data.((("I/O (input/output) streams", "JSON data")))((("JSON (JavaScript Object Notation) data)))((("Clojure", "clojure.data.json/reat-str")))(((strings, reading JSON data)))((("Clojure", "clojure.data.json/write-str")))(((files, JSON data)))
+You need to read or write JSON data.((("I/O (input/output) streams", "JSON data")))((("JSON (JavaScript Object Notation) data")))((("Clojure", "clojure.data.json/reat-str")))(((strings, reading JSON data)))((("Clojure", "clojure.data.json/write-str")))(((files, JSON data)))
 
 
 ==== Solution

@@ -6,7 +6,7 @@ by Osbert Feng
 
 You want to support flexible full-text search over an unstructured or
 semi-structured dataset using Lucene. For example, return all people
-that have "Clojure" anywhere in their job descriptions in the "United States".
+that have "Clojure" anywhere in their job descriptions in the "United States".(((databases, full-text search of)))(((Lucene library)))(((full-text search)))(((Clucy)))(((in-memory searches)))(((searching, full-text)))(((Java, Lucene library)))
 
 ==== Solution
 
@@ -50,7 +50,7 @@ Lucene is a Java library for information retrieval. To use Lucene, you
 generate documents and index them for later retrieval. Documents
 consist of fields and terms. In this example, the documents are quite
 small, but Lucene is capable of efficiently indexing large numbers of
-very large documents as well.
+very large documents as well.((("information retrieval", seealso="searching")))
 
 Clucy wraps Lucene in a convenient manner for use in Clojure and is
 capable of generating Lucene documents directly from simple Clojure

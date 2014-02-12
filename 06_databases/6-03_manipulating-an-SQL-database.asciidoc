@@ -6,7 +6,7 @@ by Tom Hicks
 
 ==== Problem
 
-You want your Clojure program to manipulate tables and records in an SQL database.
+You want your Clojure program to manipulate tables and records in an SQL database.(((SQL databases, manipulation of)))(((clojure.java.jbdc library)))(((Java, Java JDBC)))(((PostgreSQL database)))
 
 ==== Solution
 
@@ -133,12 +133,12 @@ removed to keep the API of the core library as small as possible.
 The +java-dbc.ddl/create-table+ function generates the DDL
 needed to create a table. The arguments are a table name and a vector
 for each column specification. At the time of this writing,
-table-level specifications are not yet supported.
+table-level specifications are not yet supported.(((tables, creating)))
 
 ===== Inserting and updating records
 
 Records may be inserted into a table in a variety of ways. In addition
-to the vector method illustrated, the
+to the vector method illustrated, the(((tables, inserting/updating records)))(((records, inserting/updating)))
 +clojure.java.jdbc/insert!+ function can accept one or more maps with
 column names as keys:
 
@@ -169,7 +169,7 @@ columns:
 ----
 
 To update existing records, invoke +clojure.java.jdbc/update!+ with a
-map of column names to new values. The optional
+map of column names to new values. The optional(((records, updating)))
 +java-jdbc.sql/where+ clause controls which rows will be
 updated:
 
@@ -184,7 +184,7 @@ updated:
 ===== Transactions
 
 Database transactions are available to ensure that multiple operations
-are performed atomically (i.e., all or none). The
+are performed atomically (i.e., all or none). The(((transaction-aware connections)))(((macros, clojure.java.jdbc/with-db-transaction)))((("clojure.java.jdbc/with-db-transaction macro")))
 +clojure.java.jdbc/with-db-transaction+ macro creates a transaction-aware
 connection from the database specification. Use the transaction-aware
 connection for the duration of the transaction:
@@ -252,7 +252,7 @@ function:
 ===== Reading and processing records
 
 Database records are returned from queries as Clojure maps, with the
-table's column names used as keys. Retrieval of a set of database
+table's column names used as keys. Retrieval of a set of database(((records, reading/processing)))
 records produces a sequence of maps that can then be processed with
 all the normal Clojure functions. Here, we query all the records in
 the fruit table, gathering the name and grade of low-quality fruit:

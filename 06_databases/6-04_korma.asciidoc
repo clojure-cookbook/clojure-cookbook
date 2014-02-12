@@ -6,7 +6,7 @@ by Dmitri Sotnikov and Chris Allen
 ==== Problem
 
 You want to work with data stored in a relational database without
-writing SQL by hand.
+writing SQL by hand.(((SQL databases, querying with Korma)))(((Korma)))(((queries)))
 
 ==== Solution
 
@@ -23,7 +23,7 @@ $ lein try korma org.postgresql/postgresql
 ----
 
 
-To follow along with this recipe, you'll need a running SQL database
+To follow along with this recipe, you'll need a running SQL database(((PostgreSQL database)))
 and existing table to connect to. We suggest PostgreSQL.footnote:[Mac
 users: visit http://postgresapp.com/ to download an
 easy-to-install DMG. Everyone else: find a guide for your operating
@@ -66,7 +66,7 @@ Korma calls _entities_. Here you'll define an entity for blog posts:
   (entity-fields :title :content)) ; Default fields to SELECT
 ----
 
-Normally you'd use a proper migration library for your schema, but for
+Normally you'd use a proper migration library for your schema, but for(((tables, creating)))
 the sake of simplicity, we'll create a table manually. Use the
 +exec-raw+ function to execute raw SQL statements against the
 database. You should only do this where strictly necessary:
@@ -140,7 +140,7 @@ Korma exposes these abilities through its entity system. Entities are
 an abstraction over traditional SQL tables that mask the complexity of
 SQL's crufty and complicated DDL (Data Definition Language). Via the
 +defentity+ macro, you have access to all of the power of traditional
-SQL, packaged in a readable, Clojure-based DSL.
+SQL, packaged in a readable, Clojure-based DSL.(((entitites)))((("DDL (Data Definition Language)")))(((macros, defentity)))(((defentity macro)))
 
 When defining entities with +defentity+, you can pass in a number of
 options. Some common options include +table+ to specify a table name,
@@ -235,4 +235,4 @@ multiple connections and wrap series of statements in a +with-db+ call:
 ==== See Also
 
 * For more information, see the official http://sqlkorma.com/docs[Korma
-  project] page.
+  project] page.(((range="endofrange", startref="ix_DBsql")))

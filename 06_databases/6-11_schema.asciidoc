@@ -7,14 +7,14 @@ by Robert Stuttaford
 
 You need to define how your data will be modelled in Datomic. For
 example, you need to model users and their user groups, relating
-the two in some way.
+the two in some way.(((Datomic database, schema definition)))(((schema definition)))
 
 [[sec_datomic_schema_solution]]
 ==== Solution
 
 
 Datomic schemas are defined in terms of _attributes_. It's probably
-easiest to jump straight to an example.
+easiest to jump straight to an example.(((attributes)))
 
 To follow along with this recipe, complete the steps in
 <<sec_datomic_connect_to_datomic_solution>>. After doing this, you

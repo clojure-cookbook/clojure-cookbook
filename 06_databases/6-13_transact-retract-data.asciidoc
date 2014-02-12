@@ -5,7 +5,7 @@ by Robert Stuttaford
 
 ==== Problem
 
-You need to remove data from your Datomic database.
+You need to remove data from your Datomic database.(((Datomic database, removing data from)))(((data, removing from databases)))
 
 ==== Solution
 

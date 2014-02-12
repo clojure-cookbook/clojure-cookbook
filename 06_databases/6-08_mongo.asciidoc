@@ -4,7 +4,7 @@ by Clinton Dreisbach
 
 ==== Problem
 
-You want to work with data stored in MongoDB.
+You want to work with data stored in MongoDB.(((databases, MongoDB)))(((MongoDB)))(((Monger)))
 
 ==== Solution
 
@@ -78,7 +78,7 @@ Once you are connected, you can insert and query documents easily:
 
 ==== Discussion
 
-MongoDB, especially with Monger, can be a natural choice for storing Clojure data. It stores data as BSON (binary JSON), which maps well to Clojure's own vectors and maps.
+MongoDB, especially with Monger, can be a natural choice for storing Clojure data. It stores data as BSON (binary JSON), which maps well to Clojure's own vectors and maps.((("data", "BSON (binary JSON)")))((("BSON (binary JSON)")))
 
 There are several ways to connect to Mongo, depending on how much you need to customize your connection and whether you have a map of options or a URI:
 

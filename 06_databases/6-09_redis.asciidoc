@@ -8,7 +8,7 @@ You want to work with data in Redis.
 
 ==== Solution
 
-Use https://github.com/ptaoussanis/carmine[Carmine] to connect to and interact with Redis.
+Use https://github.com/ptaoussanis/carmine[Carmine] to connect to and interact with Redis.(((databases, Redis)))(((Redis)))(((Carmine)))(((data structure servers)))
 
 [NOTE]
 To use this recipe, you should first install Redis and have it running locally. You can find
@@ -69,7 +69,7 @@ Passing in multiple commands will pipeline them and return the results together 
 Redis describes itself as a *data structure server*.  With data structures similar to the core data
 structures in Clojure, they make a natural pairing for a wide range of problems. Its speed and
 key/value nature make it especially useful for caching and memoization applications (more on that
-later).
+later).(((memoization applications)))
 
 You can remove some boiler plate by wrapping the call to +wcar+ in a macro that passes the
 connection specification for you:
@@ -94,7 +94,7 @@ want to store, and Carmine will automatically serialize/de-serialize it for you:
 ;; -> [OK {:event An Event, :timestamp #inst "2013-08-18T21:31:33.993-00:00"}]
 ----
 
-This works great as long as you stick to core Clojure data types. However, if you need to support
+This works great as long as you stick to core Clojure data types. However, if you need to support(((Nippy library)))(((data, custom data types)))
 storing custom data types, you will need to deal with the underlying serialization library, called Nippy. For
 more information, see https://github.com/ptaoussanis/nippy[the Nippy Github project].
 

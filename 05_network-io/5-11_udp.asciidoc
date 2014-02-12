@@ -5,7 +5,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to send or receive asynchronous UDP packets from your
-application.(((networking/web services, UDP packets)))((("UDP (User Datagram Protocol) packets)))
+application.(((networking/web services, UDP packets)))((("UDP (User Datagram Protocol) packets")))
 
 ==== Solution
 

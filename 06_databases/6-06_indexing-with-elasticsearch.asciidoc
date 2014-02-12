@@ -5,7 +5,7 @@ by Michael Klishin
 ==== Problem
 
 You want to index data using the the
-http://elasticsearch.org[ElasticSearch] indexing and search engine.
+http://elasticsearch.org[ElasticSearch] indexing and search engine.(((databases, indexing data)))(((searching, search engines)))(((indexing)))(((ElasticSearch)))(((Elastisch)))
 
 ==== Solution
 
@@ -49,7 +49,7 @@ Before data can be searched over, it needs to be indexed. Indexing is
 the process of scanning the text and building a list of search terms
 and data structures called a +search index+. Search indexes allow
 search engines such as ElasticSearch to efficiently retrieve relevant documents
-for a query.
+for a query.(((data, indexing prior to search)))(((searching, search index)))
 
 The process of indexing involves a few steps:
 
@@ -79,7 +79,7 @@ documentation on indexing] for full details.
 
 ===== Creating mappings
 
-_Mappings_ define the fields in a document what the indexing
+_Mappings_ define the fields in a document what the indexing(((mappings, field definition for)))((("fields, defining")))
 characteristics are for each field. Mapping types are specified when
 an index is created using the +:mapping+ option:
 
@@ -153,7 +153,7 @@ cause a document ID to be generated automatically:
 ==== Discussion
 
 Whenever a document is added to the ElasticSearch index, it is first
-analyzed.
+analyzed.(((tokenization)))(((filtering)))(((document analysis)))
 
 _Analysis_ is a process of several stages:
 
@@ -180,7 +180,7 @@ documents are indexed, analyzed, and stored.
 ElasticSearch has excellent support for _multi-tenancy_: an
 ElasticSearch cluster can have a virtually unlimited number of indexes
 and mapping types.  For example, you can use a separate index per user
-account or organization in a SaaS (software as a service) product.
+account or organization in a SaaS (software as a service) product.(((multi-tenancy)))
 
 There are two ways to index a document with ElasticSearch: submit it
 for indexing without the ID or update a document with a provided ID,
@@ -198,7 +198,7 @@ analyzed, and if they are stored. Each index in ElasticSearch may have
 one or more *mapping types*. Mapping types can be thought of as tables
 in a database (although this analogy does not always stand).  Mapping
 types are the heart of indexing in ElasticSearch and provide access to
-a lot of ElasticSearch functionality.
+a lot of ElasticSearch functionality.(((mappings, mapping types)))
 
 For example, a blogging application may have types such as article,
 comment, and person. Each has distinct *mapping settings* that
@@ -206,7 +206,7 @@ define a set of fields documents of the type have, how they are
 supposed to be indexed (and, in turn, what kind of queries will be
 possible over them), what language each field is in, and so on. Getting
 mapping types right for your application is the key to good search
-experience. It also takes time and experimentation.
+experience. It also takes time and experimentation.(((mappings, mapping settings)))
 
 Mapping types define document fields and of what core types
 (e.g., string, integer, or date/time) they are. Settings are provided to
