@@ -10,7 +10,7 @@ You need to write an HTTP service with Clojure.
 ==== Solution
 
 Clojure has no built-in HTTP server, but the de facto standard for
-serving basic, synchronous HTTP requests is the Ring library.
+serving basic, synchronous HTTP requests is the Ring library.((("web applications", "Ring library", id="ix_WAring", range="startofrange")))((("HTTP (Hypertext Transfer Protocol)", "Ring library", id="ix_HTTPring", range="startofrange")))(((Ring library, basics of)))
 
 To follow along with this recipe, clone the _https://github.com/clojure-cookbook/ringtest_ repository and overwrite _src/ringtest.clj_:
 
@@ -36,11 +36,11 @@ To follow along with this recipe, clone the _https://github.com/clojure-cookbook
 ==== Discussion
 
 https://github.com/ring-clojure/ring[Ring] is the basis for most web
-applications in Clojure. It provides a low-level and straightforward request-response API, where requests and responses are plain old Clojure maps.
+applications in Clojure. It provides a low-level and straightforward request-response API, where requests and responses are plain old Clojure maps.((("request-response API")))
 
 Ring applications are architected around handlers: functions that accept
 requests and return responses. The preceding example defines a single handler
-that just echoes the response it receives.
+that just echoes the response it receives.(((handlers)))
 
 A basic response map consists of three keys: `:status`, the status code of
 the response; `:headers`, an optional string-string map of the
@@ -84,7 +84,7 @@ libraries are used to extract meaningful information from this data
 structure.
 
 The jetty adapter is used to run an embedded Jetty server. Ring also
-comes with adapters to run as a servlet in any Java servlet container.
+comes with adapters to run as a servlet in any Java servlet container.(((Jetty servers)))
 
 Note that the call to `run-jetty` is synchronous and will not return
 as long as the server is running. If you call it from the REPL, you

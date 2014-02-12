@@ -4,7 +4,7 @@ by Luke VanderHart and Adam Bard
 
 ==== Problem
 
-You need to read or write HTTP request or response headers.
+You need to read or write HTTP request or response headers.(((Ring library, request/response headers in)))(((request/response headers)))
 
 ==== Solution
 

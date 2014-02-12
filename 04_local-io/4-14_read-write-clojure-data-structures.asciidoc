@@ -5,7 +5,7 @@ by John Cromartie
 
 ==== Problem
 
-You need to store and retrieve Clojure data structures on disk.((("I/O (input/output) streams", "disk storage/retrieval")))(((Clojure, reading/writing data structures)))(((data, reading/writing Clojure data to disk)))(((functions, pr-str)))(((functions, spit))))(((functions, read-string)))(((functions, slurp)))(((functions, pr)))
+You need to store and retrieve Clojure data structures on disk.((("I/O (input/output) streams", "disk storage/retrieval")))(((Clojure, reading/writing data structures)))(((data, reading/writing Clojure data to disk)))(((functions, pr-str)))(((functions, spit)))(((functions, read-string)))(((functions, slurp)))(((functions, pr)))
 
 ==== Solution
 

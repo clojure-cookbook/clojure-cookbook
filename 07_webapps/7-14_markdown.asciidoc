@@ -5,7 +5,7 @@ by Dmitri Sotnikov
 
 ==== Problem
 
-You need to render a Markdown document.
+You need to render a Markdown document.(((web applications, Markdown documents)))(((Markdown documents)))
 
 ==== Solution
 
@@ -47,7 +47,7 @@ with Markdown content to its HTML representation:
 ==== Discussion
 
 Markdown is a popular lightweight markup language that's easy to read and write and
-can be converted to structurally valid HTML.
+can be converted to structurally valid HTML.(((parsing, parser differences)))
 
 Since Markdown leaves many aspects of rendering the HTML open to interpretation, it's
 not guaranteed that different parsers will produce the same representation.

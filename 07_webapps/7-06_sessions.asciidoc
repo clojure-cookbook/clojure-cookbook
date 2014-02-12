@@ -5,7 +5,7 @@ by Adam Bard
 ==== Problem
 
 You need to store secure data about a logged-in user as state on the
-server.
+server.(((Ring library, storing sessions with)))((("sessions, storage of")))(((data, secure storage of)))(((security issues, session storage)))
 
 ==== Solution
 

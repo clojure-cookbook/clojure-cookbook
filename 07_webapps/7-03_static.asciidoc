@@ -4,7 +4,7 @@ by Clinton Dreisbach
 
 ==== Problem
 
-You want to serve static files through your Ring application.
+You want to serve static files through your Ring application.(((Ring library, serving static files with)))(((static files)))(((files, static files)))
 
 ==== Solution
 

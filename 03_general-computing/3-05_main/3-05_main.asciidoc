@@ -6,7 +6,7 @@ by John Cromartie
 ==== Problem
 
 You want to run a program with a single entry point from Clojure
-source code.((("development ecosystem", "running from a single entry point")))(((Clojure, clojure.main)))(((functions, main)))
+source code.((("development ecosystem", "running from a single entry point", seealso="web applications")))(((Clojure, clojure.main)))(((functions, main)))
 
 ==== Solution
 

@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to create HTML dynamically based on a template, without using
-traditional mixed code or DSL-style templating.
+traditional mixed code or DSL-style templating.((("web applications", "templating tools", id="ix_WAtemp", range="startofrange")))((("HTML templates", id="ix_HTML", range="startofrange")))(((HTML templates, Enlive)))(((Enlive library, selector-based approach of")))
 
 ==== Solution
 
@@ -90,7 +90,7 @@ See the following discussion section for a detailed explanation of the
 
 ===== Repeating elements
 
-The preceding code simply replaces the values of certain nodes in the
+The preceding code simply replaces the values of certain nodes in the(((Enlive library, repeating elements with snippets")))(((snippets)))
 emitted HTML. In real scenarios, another common task is to _repeat_
 certain items from input HTML, one repetition for each item in the
 input data. For this task, Enlive provides _snippets_, which are selections
@@ -163,7 +163,7 @@ resulting HTML.
 ==== Discussion
 
 Enlive can be slightly difficult to get the hang of, compared to some
-other libraries. There are several contributing factors to
+other libraries.(((Enlive library, benefits/drawbacks of")))(((functional programming)))(((higher-order functions))) There are several contributing factors to
 this:
 
 - It has a more novel conceptual approach than other templating systems
@@ -182,7 +182,7 @@ composing them into useful templating systems becomes more manageable.
 ===== Enlive and the DOM
 
 First of all, it is important to understand that Enlive does not
-operate on HTML text directly. Instead, it first parses the HTML into
+operate on HTML text directly.(((Enlive library, DOM representation")))((("DOM (Document Object Model)"))) Instead, it first parses the HTML into
 a Clojure data structure representing the DOM (Document Object Model).
 For example, the HTML fragment:
 
@@ -222,7 +222,7 @@ macro. +deftemplate+ takes a symbol as a name, a classpath-relative
 path to an HTML file, an argument list, and a series of _selector_ and
 _transform function_ pairs. It emits a function, bound to the same
 name and of the specified arguments, which, when called, will return
-the resulting HTML as a sequence of strings.
+the resulting HTML as a sequence of strings.(((Enlive library, templates")))
 
 An Enlive _selector_ is a Clojure data structure that identifies a
 specific node in the input HTML file. They are similar to CSS
@@ -234,7 +234,7 @@ described later on in this section.
 A template _transform function_ takes an Enlive node and returns a
 modified node. This example uses Enlive's +content+ utility function,
 which returns a function that swaps the contents of a node with the
-value given as its argument.
+value given as its argument.(((transform function)))
 
 The return value is not itself a string, but a sequence of strings,
 each one a small fragment of HTML code. This allows the underlying
@@ -255,7 +255,7 @@ Enlive selectors are data structures that identify one or more HTML
 nodes. They describe a _pattern_ of data--if the pattern matches any
 nodes in the HTML data structure, then the node will be selected by
 the selector. A selector may select one, many, or zero nodes from a
-given HTML document depending on how many matches the pattern has.
+given HTML document depending on how many matches the pattern has.(((Enlive library, selectors)))(((selectors)))
 
 The full reference for valid selector forms is quite complex, and
 beyond the scope of this recipe to describe fully. See the formal
@@ -311,7 +311,7 @@ post, even though they aren't wrapped in a common parent element.
 
 ===== Snippets
 
-A snippet is similar to a template, in that it produces a function
+A snippet is similar to a template, in that it produces a function(((Enlive library, snippets)))(((snippets)))
 based on a base HTML file. However, they have two major differences
 from templates:
 
@@ -338,7 +338,7 @@ function pairs.
 Because of its emphasis on selectors and use of plain, unannotated
 HTML files, Enlive is also extremely useful not just for templating
 and producing HTML, but also for parsing and scraping data from HTML from
-any source.
+any source.(((Enlive library, parsing/scraping with)))(((parsing, into Enlive data structure)))
 
 To use Enlive to extract data from HTML, you must first parse the HTML
 file into an Enlive data structure. To do this, invoke the
@@ -374,7 +374,7 @@ recent _N_ comic titles in the XKCD archives:
 ===== When to use Enlive
 
 As an HTML templating system, Enlive has two primary value
-propositions over its alternatives in the Clojure ecosystem.
+propositions over its alternatives in the Clojure ecosystem.(((Enlive library, best uses for)))
 
 First, the templates are pure HTML. This makes it much easier to work
 with HTML designers, who can hand their HTML mockups directly to a
@@ -383,7 +383,7 @@ developers can use them directly without manually slicing them
 (outside of code, that is). Furthermore, the templates themselves can
 be viewed in a browser statically, meaning they can serve as their own
 wireframes. This eliminates the burden of keeping a web project's
-visual prototypes in sync with the code.
+visual prototypes in sync with the code.(((Enlive library, benefits/drawbacks of")))
 
 Secondly, because it uses real Clojure functions and data structures
 instead of a custom DSL, Enlive exposes the full power of the Clojure

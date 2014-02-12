@@ -10,7 +10,7 @@ by Dmitri Sotnikov
 // rely on other recipes to explain Luminus-stack tech.
 
 Quickly create a typical Ring/Compojure web application structure to
-get a fast start on a new web development project.
+get a fast start on a new web development project.(((web applications, standardized approach to)))((("applications", "standardized approach to", seealso="web applications")))(((Ring library, application structure with Luminus)))(((Compojure library)))
 
 ==== Solution
 
@@ -40,7 +40,7 @@ $ lein ring server
 
 Luminus doesn't do anything you couldn't do yourself, but provides a
 standardized set of libraries and boilerplate for creating common
-Ring/Compojure applications.
+Ring/Compojure applications.(((directories, structuring with Luminus)))
 
 The template generates a standard directory structure within your
 project, defines a main handler for your application, adds +lein-ring+

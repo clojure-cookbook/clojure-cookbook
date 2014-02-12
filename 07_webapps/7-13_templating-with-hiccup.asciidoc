@@ -6,7 +6,7 @@ by Ryan Neufeld
 ==== Problem
 
 You want to create HTML dynamically based on a template, written in
-pure Clojure data.
+pure Clojure data.(((HTML templates, Hiccup)))(((Hiccup library)))
 
 ==== Solution
 
@@ -181,4 +181,4 @@ to simplify rendering form tags:
 * If you have more complicated needs from your templating engine--like
   consuming and populating existing HTML files--you'll need sharper
   tools such as Enlive (<<sec_enlive>>) or Selmer
-  (<<sec_webapps_templating_with_selmer>>).
+  (<<sec_webapps_templating_with_selmer>>).(((range="endofrange", startref="ix_WAtemp")))(((range="endofrange", startref="ix_HTML")))

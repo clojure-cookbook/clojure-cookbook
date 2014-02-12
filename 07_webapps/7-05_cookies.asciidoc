@@ -4,7 +4,7 @@ by Adam Bard
 
 ==== Problem
 
-Your web application needs to read or set cookies on the user's browser (for example, to remember a user's name).
+Your web application needs to read or set cookies on the user's browser (for example, to remember a user's name).(((Ring library, cookie handling)))(((cookies)))
 
 ==== Solution
 

@@ -27,5 +27,5 @@ itself). It is a scalable, transactional, value-oriented, time-aware
 database built around the same principles and philosophies as
 Clojure. If you like Clojure, you should definitely give Datomic a
 try, both as your application's datastore and also as a learning
-tool to further explore functional, data-oriented programming.(((databases, Datamoic)))((("Hickey, Rich")))(((Datatomic database, basics of))
+tool to further explore functional, data-oriented programming.(((databases, Datomic)))((("Hickey, Rich")))(((Datomic database, basics of))
 

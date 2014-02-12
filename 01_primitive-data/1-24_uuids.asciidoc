@@ -51,7 +51,7 @@ interning and accompanying custom parsing logic.
 One thing you will lose with the move from sequential IDs to UUIDs is(((sequential IDs)))
 the implicit sortability of a chronologically increasing number. What
 if you could generate UUIDs that were both unique *and* sortable?
-Datomic does something similar with its +datomic.api/squuid+ function.(((Datomic Database, UUID generation)))((("functions", "datomic.api/squuid")))
+Datomic does something similar with its +datomic.api/squuid+ function.(((Datomic database, UUID generation)))((("functions", "datomic.api/squuid")))
 
 This approximation of Datomic's +squuid+ splits and reassembles a(((range="endofrange", startref="ix_PDnumer")))
 random UUID, using +bit-or+ to merge the current time with the most

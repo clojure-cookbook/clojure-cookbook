@@ -6,7 +6,7 @@ by Dmitri Sotnikov
 ==== Problem
 
 You want to create server-side page templates using syntax similar to Django and Jinja. You want to be able
-to insert dynamic content and use template inheritance to structure the templates.
+to insert dynamic content and use template inheritance to structure the templates.(((HTML templates, Selmer)))(((Selmer library, dynamic content delivery with)))(((dynamic content delivery)))
 
 ==== Solution
 
@@ -158,7 +158,7 @@ evaluated when serving a request.
 
 ===== Selmer concepts
 
-Selmer includes two types of elements, variables and tags.
+Selmer includes two types of elements, variables and tags.(((Selmer library, variables and tags in)))
 
 Variables are used to render values from the context map on the page.
 The +{{+ and +}}+ are used to indicate the start and end of a variable.
@@ -199,7 +199,7 @@ The +render+ function works just like +render-file+, except that it accepts the 
 ===== Defining filters
 
 Selmer provides a rich set of filters that allow decorating the dynamic content. Some of the filters include +capitalize+,
-+pluralize+, +hash+, +length+, and +sort+.
++pluralize+, +hash+, +length+, and +sort+.(((Selmer library, filters in)))
 
 However, if you need a custom filter that's not part of the library, you can trivially add one yourself.
 For example, if we wanted to parse Markdown using the https://github.com/yogthos/markdown-clj[markdown-clj library]
@@ -236,7 +236,7 @@ variable content by default. We can change our filter definition to indicate tha
 ===== Defining tags
 
 Again, we can define custom tags in addition to those already present in the library. This is done by calling the
-+selmer.parser/add-tag!+ function.
++selmer.parser/add-tag!+ function.(((Selmer library, tag definition)))
 
 Let's say we wish to add a tag that will capitalize its contents:
 
@@ -255,7 +255,7 @@ Let's say we wish to add a tag that will capitalize its contents:
 ===== Inheritance
 
 We already saw some examples of template inheritance. Each template can extend a single template and include
-any number of templates in its content.
+any number of templates in its content.(((Selmer library, inheritance)))(((inheritance)))
 
 The templates can extend templates that themselves extend other templates. In this case, the blocks found in the outermost
 child will override any other blocks with the same name.
