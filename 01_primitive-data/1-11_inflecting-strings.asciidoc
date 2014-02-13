@@ -9,7 +9,7 @@ You need to pluralize a word given some quantity, such as "0 eggs" or
 
 ==== Solution
 
-When you need to perform Ruby on Rails-style pluralization, use Roman Scherer's
+When you need to perform Ruby on Rails&#x2013;style pluralization, use Roman Scherer's
 https://github.com/r0man/inflections-clj[+inflections+] library.(((Ruby on Rails, pluralization)))
 
 To follow along with this recipe, start a REPL using +lein-try+:footnote:[If
@@ -18,11 +18,11 @@ you haven't already installed +lein-try+, follow the instructions in
 
 [source,shell-session]
 ----
-lein try inflections
+$ lein try inflections
 ----
 
 Use +inflections.core/pluralize+ with a count to attempt to pluralize
-that word if count is not one:
+that word if the count is not one:
 
 [source,clojure]
 ----
@@ -54,7 +54,7 @@ output of your programs or websites goes a long way to building a
 trustworthy and professional image. http://rubyonrails.org[Ruby on
 Rails] set the gold standard for friendly and humanized text with its
 +ActiveSupport::Inflections+ class. +Inflections#pluralize+ is one
-such inflection, but +Inflections+ is chock full of cutesy-sounding
+such inflection, but +Inflections+ is chock-full of cutesy-sounding
 methods ending in "ize" that change the inflection of strings.
 +inflections+ provides nearly all of these capabilities in a Clojure context.(((Ruby on Rails, inflections library)))
 
@@ -103,5 +103,4 @@ The library also has support for inflections like +camelize+,(((camel case)))(((
 
 ==== See Also
 
-*  https://github.com/r0man/inflections-clj/[inflections
-  core.clj] for the most up-to-date listing of inflections available
+*  The https://github.com/r0man/inflections-clj/[+inflections-clj+ GitHub repository] for the most up-to-date listing of inflections available

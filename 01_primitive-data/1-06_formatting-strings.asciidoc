@@ -23,7 +23,7 @@ The quickest method for formatting values into a string is the +str+ function:
 ----
 
 With +str+, however, values are inserted blindly, appearing in their
-default "++.toString()++" appearance. Not only that, it can sometimes be
+default ++.toString()++ appearance. Not only that, but it can sometimes be
 difficult to look at a +str+ form and interpret what the intended
 output is.(((functions, format)))
 
@@ -54,14 +54,14 @@ For greater control over how values are printed, use the +format+ function:
 ;; Ryan                 | Neufeld              | 2
 ;; Luke                 | Vanderhart           | 1
 ----
-<1> The +0+ flag indicates to pad a digit (+d+) with zeroes (three, in this case).
-<2> The +-+ flag indicates to left justify the string ("+s+") by 20 characters.
+<1> The +0+ flag indicates to pad a digit (+d+) with zeros (three, in this case).
+<2> The +-+ flag indicates to left justify the string (+s+), giving it a total minimum width of 20 characters.
 
 ==== Discussion
 
 When it comes to inserting values into a string, you have two very
-different options. You could use +str+, which is great for a quick
-fix but lacks control over how values are presented. Or you could
+different options. You can use +str+, which is great for a quick
+fix but lacks control over how values are presented. Or you can
 use +format+, which exposes fine-grained control over how values are
 displayed but requires knowledge of C and Java-style formatting
 strings. Ultimately, you should use only as much tooling/complexity
@@ -75,31 +75,31 @@ The first argument passed to +format+ is what is
 called a _format string_. The syntax for these strings isn't new or
 unique to Clojure or even Java, but in fact comes from C's +printf+
 function. Clojure's +format+ function uses Java's +String/format+,
-which implements +printf+ style value substitution.(((format strings)))(((placeholders)))(((format specifiers)))(((specifiers)))
+which implements +printf+-style value substitution.(((format strings)))(((placeholders)))(((format specifiers)))(((specifiers)))
 
 A format string is a normal string with any number of embedded format
 specifiers. A format specifier is a placeholder to be replaced by a
-value some time later. In its simplest form, this is a +%+ followed by
-a type specifier character, for example, +%d+ for a integer ('d' is for digit) or +%f+
+value sometime later. In its simplest form, this is a +%+ followed by
+a type specifier character; for example, +%d+ for an integer ('d' is for digit) or +%f+
 for a float. Beyond specifiers for strings, integers, and floats, there are specifiers for characters, dates, and numbers of different bases (octal and hexadecimal), to name a few.
 
 What makes these format specifiers special is that you may indicate
 any number of flags and options between the percent sign and the
-specifier character. From the preceding examples: "+%-10s+" indicates the
+specifier character. For instance, "+%-10s+" indicates the
 provided string (+s+) should be left justified (+-+) with a total
-minimum width of 10. "+%07.3f+" would turn a number into zero-padded
+minimum width of 10. "+%07.3f+" would turn a number into a zero-padded
 number that was seven characters wide and included three decimal
-places (just like the Dewey decimal system):
+places (just like the numbers used in the Dewey Decimal system):
 
 [source,clojure]
 ----
 (format "%07.3f" 0.005)
-;; -> "000.005" ;; The Dewey Decimal sub-class for books on "Computer
+;; -> "000.005" ;; The Dewey Decimal subclass for books on "Computer
 ;;              ;; programming, programs & data"
 
 ----
 
-Visit http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html[+java.util.Formatter+] to learn more about formatting strings.
+Visit the API documentation for http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html[+java.util.Formatter+] to learn more about formatting strings.
 ****
 
 ==== See Also

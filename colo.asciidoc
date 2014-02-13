@@ -1,11 +1,11 @@
 [colophon]
 = Colophon
 
-The animal on the cover of _Clojure Cookbook_ is an aardwolf (_Proteles cristata_), a small mammal with two separate populations in the plains of eastern and southern Africa. Though its name means "earth wolf" in the Afrikaans language, it is part of the hyena family. The aardwolf generally doesn't eat carrion like its larger cousins do--its diet mainly consists of insects (especially termites), which it catches with a long sticky tongue. 
+The animal on the cover of _Clojure Cookbook_ is an aardwolf (_Proteles cristata_), a small mammal with two separate populations in the plains of Eastern and Southern Africa. Though its name means "earth wolf" in the Afrikaans language, it is part of the hyena family. The aardwolf generally doesn't eat carrion like its larger cousins do--its diet mainly consists of insects (especially termites), which it catches with a long, sticky tongue. 
 
-Aardwolves have thick yellow or brown fur with dark stripes, with a bushy tail and a long mane that runs along their neck and back. The mane is used to make the aardwolf appear bigger and intimidate predators, since they are neither fast runners nor especially good fighters. They do have strong jaws, but their teeth have evolved for eating insects rather than attacking larger animals. They average 22&#x2013;31 inches long, and weigh 15&#x2013;22 pounds.
+Aardwolves have thick yellow or brown fur with dark stripes, with a bushy tail and a long mane that runs along their neck and back. The mane is used to make the aardwolves appear bigger and intimidate predators, since they are neither fast runners nor especially good fighters. They do have strong jaws, but their teeth have evolved for eating insects rather than attacking larger animals. They average 22&#x2013;31 inches long, and weigh 15&#x2013;22 pounds.
 
-The aardwolf is nocturnal, and sleeps in underground burrows during the day. These animals are very territorial, and use scent glands to mark the area containing their dens (a mating pair may claim and rotate through multiple burrows, only using one or two at a time). Breeding season occurs in late June/early July, with a litter of 2&#x2013;5 cubs born 90 days later.
+The aardwolf is nocturnal, and sleeps in underground burrows during the day. These animals are very territorial, and use scent glands to mark the area containing their dens (a mating pair may claim and rotate through multiple burrows, only using one or two at a time). The breeding season occurs in late June/early July, with a litter of 2&#x2013;5 cubs born 90 days later.
 
 Aardwolves are occasionally mistaken for hyenas and killed to protect livestock. However, many African farmers recognize the benefit of the animals in controlling the termite population and thus protecting crops. A single aardwolf can eat 200,000&#x2013;300,000 termites per night.
 

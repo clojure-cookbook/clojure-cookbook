@@ -24,8 +24,8 @@ First, know that Clojure supports exponents as literal numbers, allowing you to 
 ;; -> 1.0E-10
 ----
 
-Integer values passing the upper bound of a size-bounded type (like long) will raise an integer overflow error.(((numeric operations, quote versions of)))
-Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotion to "+Big+" types:
+Integer values passing the upper bound of a size-bounded type (like +long+) will raise an integer overflow error.(((numeric operations, quote versions of)))
+Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotion to +Big+ types:
 
 [source,clojure]
 ----
@@ -38,22 +38,22 @@ Use the "quote" versions of numeric operations like +-+ or +*+ to allow promotio
 
 ==== Discussion
 
-Clojure has a number of numeric types: integer and long, double, and
-+BigInteger+ and +BigDecimal+. The bounded types (integer, long, and
-double) all seamlessly transition as needed while inside the *total*
+Clojure has a number of numeric types: integer and +long+, +double+, and
++BigInteger+ and +BigDecimal+. The bounded types (+int+, +long+, and
++double+) all seamlessly transition as needed while inside the _total_
 bounds of those types. Exceeding those bounds causes one of two things
 to happen. For integers, an integer overflow error is raised. For
-floating point numbers, the result will become +Infinity+. With
+floating-point numbers, the result will become +Infinity+. With
 integers, you can avoid this error by using quote versions of `+`,
 +-+, +*+, and +/+. These operations support arbitrary precision and
 will promote integers to +BigInteger+ if necessary.(((Clojure, numeric types in)))(((numeric types, list of)))
 
-Floating-point values are a little more tricky. The "quote" versions
-of numeric operations won't help. You'll need to infect your
+Floating-point values are a little more tricky. The quote versions
+of numeric operations won't help here; you'll need to infect your
 operations with the +BigDecimal+ type. In Clojure, the +BigInteger+
 and +BigDecimal+ types are what you would call "contagious." Once a
 "big" number is introduced to an operation, it infects all of the
-follow-on results. You *could* do something like multiplying a number(((contagious types)))
+follow-on results. You _could_ do something like multiplying a number(((contagious types)))
 by a +BigDecimal+ 1, but it's much easier to use the +bigdec+ or(((functions, bigdec)))(((functions, bigint)))(((BigDecimal type)))(((BigInteger type)))
 +bigint+ functions to promote a value manually:
 
@@ -66,10 +66,10 @@ by a +BigDecimal+ 1, but it's much easier to use the +bigdec+ or(((functions, bi
 ;; -> 3.5953862697246314E+308M
 ----
 
-Contagion doesn't only affect +Big+ types, it also pops up in the
-integer-to-floating-point boundary: floating point numbers are
-contagious to integers. Arithmetic involving *any* floating point
-values will always return a floating point value.(((numeric operations, contagion in)))
+Contagion doesn't only occur with +Big+ types; it also pops up in the
+integer-to&#x2013;floating-point boundary. Floating-point numbers are
+contagious to integers. Arithmetic involving _any_ floating-point
+values will always return a floating-point value.(((numeric operations, contagion in)))
 
 ==== See Also
 

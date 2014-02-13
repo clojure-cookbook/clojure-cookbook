@@ -26,7 +26,7 @@ $ lein try clj-time
 ----
 (require '[clj-time.core :as t])
 
-;; My birth-time, in the correct time-zone
+;; My birth-time, in the correct time zone
 (def bday (t/from-time-zone (t/date-time 2012 02 18 18)
                             (t/time-zone-for-offset -6)))
 
@@ -40,7 +40,7 @@ bday
 australia-bday
 ;; -> #<DateTime 2012-02-19T10:00:00.000+10:00>
 
-;; Yet there are the same instant in time.
+;; Yet they are the same instant in time.
 (compare bday australia-bday)
 ;; -> 0
 ----
@@ -51,10 +51,10 @@ Unlike Java built-ins, +clj-time+ knows a lot about time zones.
 http://joda-time.sourceforge.net/[Joda-Time], the library +clj-time+
 wraps, bundles the internationally recognized
 http://www.twinsun.com/tz/tz-link.htm[+tz+ database]. This database
-captures the ID and time offsets for nearly every location on the
+captures the IDs and time offsets for nearly every location on the
 planet.(((Joda-Time library)))(((daylight saving time)))
 
-The tz database also captures information about daylight saving time.
+The +tz+ database also captures information about daylight saving time.
 For example, Los Angeles is UTC-08:00 in the winter and UTC-07:00
 during the summer. This is accurately reflected when using +clj-time+:
 
@@ -75,17 +75,17 @@ during the summer. This is accurately reflected when using +clj-time+:
 The +clj-time.core/from-time-zone+ function takes any +DateTime+ and
 modifies its time zone to the desired time zone. This is useful
 in cases where you receive a date, time, and time zone separately
-and want to combine them an accurate +DateTime+ instance.
+and want to combine them into an accurate +DateTime+ instance.
 
-The +clj-time.core/to-time-zone+ has the same signature as
-+from-time-zone+, but returns a +DateTime+ for the exact same point in
+The +clj-time.core/to-time-zone+ function has the same signature as
++from-time-zone+; it returns a +DateTime+ for the exact same point in
 time, but from the perspective of another time zone. This is useful
 for presenting time and date information from disparate sources to a
-user in their preferred time zone.
+user in her preferred time zone.
 
-Some times you may only want to deal with machine-local time. The
+Sometimes you may only want to deal with machine-local time. The
 +clj-time.local+ namespace provides a number of functions to that end,
-including +local-now+ for getting a time in the local time zone, and
+including +local-now+, for getting a time in the local time zone, and
 +to-local-date-time+, which shifts the perspective of a time to the
 local time zone.(((machine-local time)))
 

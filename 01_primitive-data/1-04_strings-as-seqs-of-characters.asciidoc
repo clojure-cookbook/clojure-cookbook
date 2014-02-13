@@ -17,13 +17,13 @@ Use +seq+ on a string to expose the sequence of characters representing it:
 ;; -> (\H \e \l \l \o \, \space \w \o \r \l \d \!)
 ----
 
-You don't need to call +seq+ every time you want to get at a strings
+You don't need to call +seq+ every time you want to get at a string's
 characters, though. Any function taking a sequence will naturally
 coerce a string into a sequence of characters:
 
 [source,clojure]
 ----
-;; Count the occurrence of each character in a string.
+;; Count the occurrences of each character in a string.
 (frequencies (clojure.string/lower-case "An adult all about A's"))
 ;; -> {\space 4, \a 5, \b 1, \d 1, \' 1, \l 3, \n 1, \o 1, \s 1, \t 2, \u 2}
 
@@ -43,7 +43,7 @@ coerce a string into a sequence of characters:
 
 ==== Discussion
 
-In computer science, "string" means "sequence of characters"
+In computer science, "string" means "sequence of characters,"
 and Clojure treats strings exactly as such. Because Clojure strings
 are sequences under the covers, you may substitute a string anywhere a
 collection is expected. When you do so, the string will be interpreted

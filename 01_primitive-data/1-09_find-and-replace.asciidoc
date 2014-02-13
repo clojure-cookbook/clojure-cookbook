@@ -31,7 +31,7 @@ For simple patterns, use +replace+ with a normal string as its matcher:
 Plain string replacement will only get you so far. When you need to(((regular expressions, literals)))
 replace a pattern with some variability to it, you'll need to reach for
 the big guns: regular expressions. Use Clojure's regular expression
-literals (+#"..."+) to specify a pattern as a regular expression:
+literals pass:[(<literal>#"..."</literal>)] to specify a pattern as a regular expression:
 
 [source,clojure]
 ----
@@ -54,17 +54,17 @@ should be set to release!")
 
 As far as string functions go, +replace+ is one of the more powerful and most complex ones. The majority of this complexity arises from the varying +match+ and +replacement+ types it can operate with.
 
-When passed a string match, +replace+ expects a string +replacement+. Any occurrences of +match+ in the supplied string will be replaced directly with +replacement+.
+When passed a string +match+, +replace+ expects a string +replacement+. Any occurrences of +match+ in the supplied string will be replaced directly with +replacement+.
 
-When passed a character match (such as +\c+ or +\n+), +replace+ expects a character +replacement+. Like string/string, the character/character mode of +replace+ replaces item directly.
+When passed a character +match+ (such as +\c+ or +\n+), +replace+ expects a character +replacement+. Like string/string, the character/character mode of +replace+ replaces items directly.
 
-When passed a regular expression for a match, +replace+ gets much more interesting. One possible +replacement+ for a regex match is a string just like the +linkify-comment+ example; This string interprets special character combinations like +$1+ or +$2+ as variables to be replaced by matching groups in the match. In the +linkify-comment+ example, any contiguous digits (+\d++) following a number sign (+#+) are captured in parenthesis and are available as +$1+ in the replacement.
+When passed a regular expression for a match, +replace+ gets much more interesting. One possible +replacement+ for a regex match is a string, like in the +linkify-comment+ example; this string interprets special character combinations like +$1+ or +$2+ as variables to be replaced by matching groups in the match. In the +linkify-comment+ example, any contiguous digits (+\d++) following a number sign (+#+) are captured in parentheses and are available as +$1+ in the replacement.
 
-When passing a regex +match+, you can also provide a function for replacement instead of a string. In Clojure, the world is your oyster when you can pass a function as an argument: you could capture your replacement in a reusable (and testable) function, you could pass different functions in depending on the circumstances, or you could even pass a map that dictated replacements:
+When passing a regex +match+, you can also provide a function for replacement instead of a string. In Clojure, the world is your oyster when you can pass a function as an argument. You can capture your replacement in a reusable (and testable) function, pass in different functions depending on the circumstances, or even pass a map that dictates replacements:
 
 [source,clojure]
 ----
-;; linkify-comment re-written with linkification as a separate function
+;; linkify-comment rewritten with linkification as a separate function
 (defn linkify [repo [full-match id]]
   (str "[" full-match "](https://github.com/" repo "/issues/" id ")"))
 
@@ -73,20 +73,20 @@ When passing a regex +match+, you can also provide a function for replacement in
 ----
 
 If you've not used regular expressions before, then you're in for a
-treat. Regexps are a powerful tool for modifying strings with
-unbounded flexibility. Like any powerful new tool, it's easy to
+treat. Regexes are a powerful tool for modifying strings with
+unbounded flexibility. As with any powerful new tool, it's easy to
 overdo it. Because of their terse and compact syntax, it's very easy
-to produce regexps that are both difficult to interpret and at a high
+to produce regexes that are both difficult to interpret and at a high
 risk of being incorrect. You should use regular expressions sparingly
 and only if you fully understand their syntax.(((regular expressions, drawbacks of)))
 
-http://shop.oreilly.com/product/9780596528126.do[Mastering Regular Expressions, 3rd Edition] (O'Reilly) is a fantastic book for learning and mastering regular expression syntax.
+Jeffrey Friedl's http://shop.oreilly.com/product/9780596528126.do[_Mastering Regular Expressions_, 3rd ed.] (O'Reilly) is a fantastic book for learning and mastering regular expression syntax.
 
 ==== See Also
 
 
 * <<sec_primitives_strings_re_find>>
-* +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+, but only replaces the first occurrence of +match+
+* +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+ but only replaces the first occurrence of +match+
 * The
   http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
   documentation] for +java.lang.Pattern+, which defines the exact

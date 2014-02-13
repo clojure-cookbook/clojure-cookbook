@@ -9,7 +9,7 @@ You need to compare one date to another, or you need to sort a sequence of dates
 
 ==== Solution
 
-You can compare Java Dates using the +compare+ function:
+You can compare Java pass:[<literal>Date</literal>s] using the +compare+ function:
 
 [source,clojure]
 ----

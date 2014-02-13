@@ -75,13 +75,13 @@ beyond arithmetic, including rounding and currency conversion:
 ;; -> #<Money USD 154.92>
 ----
 
-The round function takes four arguments, an amount of currency, a(((numeric types, rounding/truncating)))(((rounding up/down)))
-scale factor, and a rounding mode. Scaling factor is a somewhat(((scaling factors)))
+The +round+ function takes four arguments. The first three are an amount of currency, a(((numeric types, rounding/truncating)))(((rounding up/down)))
+scale factor, and a rounding mode. The scaling factor is a somewhat(((scaling factors)))
 peculiar argument. It might be familiar to you if you've ever done
 scaling with +BigDecimal+, which shares identical factors. A scale of
 +-1+ scales to the tens place, +0+ scales to the ones place, and so on and
 so forth. Further details can be found in the javadoc for the
-http://joda-money.sourceforge.net/apidocs/src-html/org/joda/money/Money.html#line.1173[rounded]
+http://joda-money.sourceforge.net/apidocs/src-html/org/joda/money/Money.html#line.1173[+rounded+]
 method of Joda-Money's +Money+ class. The final argument is
 a rounding mode, of which there are quite a few. +:ceiling+ and +:floor+ round toward positive or
 negative infinity. +:up+ and +:down+ round toward or away from zero.
@@ -91,7 +91,7 @@ nearest neighbor, preferring up, down, or the most even neighbor.
 +clojurewerkz.money.amounts/convert-to+ is a much less complicated
 function. +convert-to+ takes an amount of currency, a target currency, a
 conversion factor, and a rounding mode. Money doesn't provide its own
-conversion factor, since conversion rates change so often, so you'll need to seek out a reputable source for them. Unfortunately we can't
+conversion factor, since conversion rates change so often, so you'll need to seek out a reputable source for them. Unfortunately, we can't
 help you with this one.
 
 Money also provides support for a number of different persistence and

@@ -32,14 +32,14 @@ convert degrees to radians:
 
 [source,clojure]
 ----
-;; Calculating the distance in kilometres between two points on Earth
+;; Calculating the distance in kilometers between two points on Earth
 (def earth-radius 6371.009)
 
 (defn degrees->radians [point]
   (mapv #(Math/toRadians %) point))
 
 (defn distance-between
-  "Calculate the distance in km between two points on earth. Each
+  "Calculate the distance in km between two points on Earth. Each
    point is a pair of degrees latitude and longitude, in that order."
   ([p1 p2] (distance-between p1 p2 earth-radius))
   ([p1 p2 radius]
@@ -66,8 +66,8 @@ Clojure's Java interop forms and typing sugar make doing math using
 +java.lang.Math+ isn't only for trigonometry. It also contains a
 number of functions useful for dealing with exponentiation, logarithms,
 and roots. A full list of methods is available in the
-http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[java.lang.Math
-javadocs].
+http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[+java.lang.Math+
+javadoc].
 
 ==== See Also
 

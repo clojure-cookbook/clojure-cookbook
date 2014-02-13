@@ -17,7 +17,7 @@ Use the +str+ function to concatenate strings and/or values:
 (str "John" " " "Doe")
 ;; -> "John Doe"
 
-;; Str also works with vars, or any other values
+;; str also works with vars, or any other values
 (def first-name "John")
 (def last-name "Doe")
 (def age 42)
@@ -44,8 +44,8 @@ single string:
 ==== Discussion
 
 Clojure's +str+ is like a good Unix tool: it has one job, and it does it
-well. When provided with one or more argument, +str+ invokes Java's
-+.toString()+ method on each of its arguments, tacking each result on to
+well. When provided with one or more arguments, +str+ invokes Java's
++.toString()+ method on its argument, tacking each result onto
 the next. When provided +nil+ or invoked without arguments, +str+ will
 return the identity value for strings, the empty string.
 
@@ -69,11 +69,11 @@ is functionally equivalent to:
 ----
 
 Since Clojure injects little opinion into joining strings, you're free
-to inject your own with the plethora collection of manipulating functions
-Clojure provides. For example, take constructing a CSV from a header and
+to inject your own with the plethora of manipulating functions
+Clojure provides. For example, take constructing a comma-separated value (CSV) from a header and
 a number of rows. This example is particularly well suited for +apply+,
-as you can prefix the header without having to insert it on to the front
-of your rows collection:
+as you can prefix the header without having to insert it onto the front
+of your +rows+ collection:
 
 [source,clojure]
 ----
@@ -90,7 +90,7 @@ anything too fancy. It is often easier to use the +clojure.string/join+
 function for simple string joins. The +join+ function takes a collection
 and an optional separator. With a separator, +join+ returns a string
 with each item of the collection separated by the provided separator.((("functions", "clojure.string/join")))
-Without, it returns each item squashed together similar to what
+Without, it returns each item squashed together, similar to what
 +(apply str coll)+ would return:
 
 [source,clojure]

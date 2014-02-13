@@ -9,11 +9,11 @@ You need to get a Unix timestamp representation for a +Date+ object.((("dates/ti
 
 ==== Solution
 
-Many systems will express timestamps in Unix time format, and when
+Many systems express timestamps in Unix time format, and when
 you have to interact with these systems, you have to give them date
 and time information in the format they desire.(((functions, to-unix-time)))
 
-Fortunately with Clojure's ability for nice interoperability with Java,
+Fortunately, with Clojure's ability for nice interoperability with Java,
 you have an easy solution at hand:
 
 [source,clojure]
@@ -39,13 +39,13 @@ This is how you can use the +to-unix-time+ function:
 ==== Discussion
 
 When you have a http://docs.oracle.com/javase/7/docs/api/java/util/Date.html[+java.util.Date+] object, you can use the Java interop
-provided by Clojure as an easy way to get the time represented as Unix
-time.  Java's +Date+ objects have a method +getTime+, which returns the
+provided by Clojure as an easy way to get the time represented as a Unix
+time.  Java's +Date+ objects have a method called +getTime+ that returns the
 date as a Unix time.
 
 If you are already using or wish to use the
 https://github.com/clj-time/clj-time[+clj-time+] library, you can use +clj-time+
-to obtain a Unix time formatted +DateTime+ object if you have a +DateTime+ object:
+to obtain a Unix time&#x2013;formatted +DateTime+ object if you have a +DateTime+ object:
 
 [source,clojure]
 ----
@@ -70,13 +70,13 @@ Unix time format for a +DateTime+ object:
 ;; 1366127520000
 ----
 
-By using +clj-time.coerce+, all that is needed is to use the function
+Thanks to +clj-time.coerce+, all that is needed is to use the function
 +to-long+ to get a Joda-Time +DateTime+ object into a Unix time format.(((range="endofrange", startref="ix_PDdate")))
 
 
 Your system may never need to interact with other systems that expect
 timestamps expressed in Unix time, but if you are designing a system
-which does, Clojure makes it very easy to express a +Date+, or +DateTime+, in
+that does, Clojure makes it very easy to express a +Date+ or +DateTime+ in
 Unix time format.
 
 ==== See Also

@@ -23,7 +23,7 @@ unique ID (UUID):
 
 ==== Discussion
 
-Often times when building systems, you want to assign a unique ID to
+Often times when building systems, you want to assign unique IDs to
 objects and records. IDs are usually simple integers that
 monotonically increase with time. This isn't without its problems,
 though. You can't mingle IDs of objects from different origins; and
@@ -41,7 +41,7 @@ them. This is a reader literal tag. It acts as a shortcut for the
 Clojure reader to read and initialize UUID objects. Reader literals
 are a lot like string or number literals like +"Hi"+ or +42+, but they
 can capture more complex data types. This makes it possible for
-formats like https://github.com/edn-format/edn[edn] to communicate in
+formats like https://github.com/edn-format/edn[edn] (extensible data notation) to communicate in
 a common lingo about things like UUIDs without resorting to string
 interning and accompanying custom parsing logic.
 
@@ -50,7 +50,7 @@ interning and accompanying custom parsing logic.
 
 One thing you will lose with the move from sequential IDs to UUIDs is(((sequential IDs)))
 the implicit sortability of a chronologically increasing number. What
-if you could generate UUIDs that were both unique *and* sortable?
+if you could generate UUIDs that were both unique _and_ sortable?
 Datomic does something similar with its +datomic.api/squuid+ function.(((Datomic database, UUID generation)))((("functions", "datomic.api/squuid")))
 
 This approximation of Datomic's +squuid+ splits and reassembles a(((range="endofrange", startref="ix_PDnumer")))
@@ -85,5 +85,5 @@ third
 * <<sec_primitives_math_bitwise>>
 * <<sec_primitives_dates_reader_literal>> for information on +#inst+,
   another example of a reader literal, for dates
-* +java.util.UUID+ http://docs.oracle.com/javase/7/docs/api/java/util/UUID.html[API documentation]
+* The +java.util.UUID+ http://docs.oracle.com/javase/7/docs/api/java/util/UUID.html[API documentation]
 

@@ -41,9 +41,9 @@ untouched:
 ;; -> "!&$#@#%^[]"
 ----
 
-Clojure uses UTF-16 for all strings and as such its definition of what
+Clojure uses UTF-16 for all strings, and as such its definition of what
 a letter is is liberal enough to include accented characters. Take the phrase, "Hurry up, computer!" which includes the letter
-'e' with both acute (é) and circumflex (ê) accents when translated
+'e' with both acute (_é_) and circumflex (_ê_) accents when translated
 to French. Since these special characters are considered letters, it is
 possible for capitalization functions to change case appropriately:
 

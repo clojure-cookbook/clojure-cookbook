@@ -28,12 +28,12 @@ desired pattern using a regular expression literal (like +#"foo"+ or
 
 +re-find+ is quite handy for quickly testing a string for the presence
 of a pattern. It takes a regular expression pattern and a string, then
-returns either the first match of that pattern or nil.
+returns either the first match of that pattern or +nil+.
 
-If your criterion is more stringent and you require that the *entire*
+If your criterion is more stringent and you require that the _entire_
 string match a pattern, use +re-matches+. Unlike +re-find+,
 which matches any portion of a string, +re-matches+ matches if and
-only if the *entire* string matches the pattern:
+only if the _entire_ string matches the pattern:
 
 [source,clojure]
 ----
@@ -41,7 +41,7 @@ only if the *entire* string matches the pattern:
 (re-find #"\w+" "my-param")
 ;; -> "my"
 
-;; But in matches #"\w+" means "all word characters"
+;; But in matches, #"\w+" means "all word characters"
 (re-matches #"\w+" "my-param")
 ;; -> nil
 
