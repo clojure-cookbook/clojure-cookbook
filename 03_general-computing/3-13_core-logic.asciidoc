@@ -15,7 +15,7 @@ tedious and error prone.(((core.logic library)))(((logic programming)))((("hiera
 The +core.logic+ library is a Clojure implementation of the
 miniKanren Domain Specific Langauge for logic programming. It's
 declarative style is well suited for querying flattened hierarchical
-data.((("miniKanren Domain Specific Langauge")))
+data.((("miniKanren Domain Specific Language")))
 
 To follow along with this recipe, start a REPL using +lein-try+:
 

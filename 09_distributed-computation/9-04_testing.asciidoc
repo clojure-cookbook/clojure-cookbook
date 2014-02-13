@@ -10,7 +10,7 @@ trying to test your Cascalog jobs.(((Cascalog, testing workflows)))(((testing, C
 ==== Solution
 
 Midje-Cascalog provides a small amount of extra functionality that
-makes writing tests for Cascalog jobs quite easy.(((Midje-Cascalog)))
+makes writing tests for Cascalog jobs quite easy.(((Midje)))
 
 To follow along with this recipe, clone the
 https://github.com/clojure-cookbook/cascalog-samples[Cascalog samples

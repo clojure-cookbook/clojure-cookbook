@@ -140,7 +140,7 @@ Korma exposes these abilities through its entity system. Entities are
 an abstraction over traditional SQL tables that mask the complexity of
 SQL's crufty and complicated DDL (Data Definition Language). Via the
 +defentity+ macro, you have access to all of the power of traditional
-SQL, packaged in a readable, Clojure-based DSL.(((entitites)))((("DDL (Data Definition Language)")))(((macros, defentity)))(((defentity macro)))
+SQL, packaged in a readable, Clojure-based DSL.(((entities)))((("DDL (Data Definition Language)")))(((macros, defentity)))(((defentity macro)))
 
 When defining entities with +defentity+, you can pass in a number of
 options. Some common options include +table+ to specify a table name,

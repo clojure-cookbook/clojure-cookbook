@@ -6,7 +6,7 @@ by Steve Miner
 ==== Problem
 
 You want to read Clojure data (in an +edn+ format) that may contain
-unknown tagged literals.((("I/O (input/output) streams", "handling unkown tagged literals")))(((tagged literals)))
+unknown tagged literals.((("I/O (input/output) streams", "handling unknown tagged literals")))(((tagged literals)))
 
 ==== Solution
 

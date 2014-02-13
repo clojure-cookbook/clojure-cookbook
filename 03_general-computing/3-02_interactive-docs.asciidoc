@@ -5,7 +5,7 @@ by John Cromartie
 
 ==== Problem
 
-From a REPL, you want to read documentation for a function.((("REPL (read-eval-print loop)", "interactive documenation")))(((interactive documentation)))((("documentation, interactive")))((("development ecosystem", "interactive documentation")))(((doc macro)))(((macros, doc)))
+From a REPL, you want to read documentation for a function.((("REPL (read-eval-print loop)", "interactive documentation")))(((interactive documentation)))((("documentation, interactive")))((("development ecosystem", "interactive documentation")))(((doc macro)))(((macros, doc)))
 
 ==== Solution
 
