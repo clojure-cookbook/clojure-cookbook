@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You have functions that get called very often, and you want to optimize performance for those methods.
+You have functions that get called very often, and you want to optimize performance for those methods.((("performance/production", "type hinting")))(((type hinting)))(((reflection)))
 
 ==== Solution
 
@@ -53,7 +53,7 @@ list preceding each argument in the form +^Type arg+:
 ----
 
 When you have groups of functions that interact together, you may see
-reflection warnings in spite of your properly hinted arguments.
+reflection warnings in spite of your properly hinted arguments.(((exceptions/errors, reflection warnings)))
 Add type hints to the argument list itself to hint the type of the
 functions' return value:
 
@@ -104,7 +104,7 @@ for sequences.
 
 .Unchecked Math
 ****
-You may have noticed Clojure puts training wheels on all of its
+You may have noticed Clojure puts training wheels on all of its(((unchecked math)))(((numeric types, unchecked math)))
 numeric types too, upgrading types liberally to avoid overflows. This
 isn't without a cost, of course, as Clojure needs to check on every
 operation to make sure you aren't overflowing containers. If you need

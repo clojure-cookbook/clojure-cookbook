@@ -6,7 +6,7 @@ by Mark Whelan
 ==== Problem
 
 You want to try a library in the REPL without having to modify your
-project's dependencies or create a new project.((("REPL (read-eval-print loop)", "loading temporary libraries")))((("development ecosystem", "library access")))((("libraries, loading")))
+project's dependencies or create a new project.((("REPL (read-eval-print loop)", "loading temporary libraries")))((("development ecosystem", "library access")))(((libraries, loading)))
 
 ==== Solution
 

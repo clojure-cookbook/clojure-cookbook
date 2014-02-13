@@ -5,7 +5,7 @@ by Ryan Neufeld; originally submitted by Simon Mosciatti
 
 ==== Problem
 
-You've built a library in Clojure, and you want to release it to the world.
+You've built a library in Clojure, and you want to release it to the world.((("performance/production", "releasing a library")))(((libraries, releasing)))(((open source libraries)))(((Clojars)))
 
 ==== Solution
 

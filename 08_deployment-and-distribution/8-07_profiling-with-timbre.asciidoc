@@ -6,7 +6,7 @@ by Ambrose Bonnaire-Sergeant
 ==== Problem
 
 You want fine-grained statistics on the running time and invocation
-counts of your code.
+counts of your code.((("performance/production", "profiling with Timbre")))(((statistics)))(((profiling tools)))(((Timbre, profiling with)))(((macros, for profiling)))
 
 ==== Solution
 
@@ -70,7 +70,7 @@ Timbre outputs rich profiling information in a convenient table.
 Profiling with Timbre is a great solution for Clojure-only profiling.
 Standard JVM profiling tools like YourKit and JVisualVM provide more
 comprehensive information on Java methods but come with a greater
-performance penalty.
+performance penalty.(((YourKit)))(((JVisualVM)))
 
 Timbre's profiling is most useful when profiling a specific area of
 code, rather than using profiling as an exploratory tool for tuning

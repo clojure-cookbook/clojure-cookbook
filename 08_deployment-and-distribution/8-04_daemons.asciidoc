@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You want to run a Clojure application as a _daemon_ (i.e., you want your application to run in the background) in another system process.
+You want to run a Clojure application as a _daemon_ (i.e., you want your application to run in the background) in another system process.((("performance/production", "background applications")))(((daemon execution, library for)))(((Apache Commons Daemon library)))(((applications, background deployment of)))
 
 ==== Solution
 
@@ -14,7 +14,7 @@ be executed in a background process. Daemon consists of two parts: the
 +Daemon+ interface, which your application must implement; and a
 system applicationfootnote:[+jsvc+ on Unix systems; +procrun+ on
 Windows.] that runs +Daemon+-compliant applications as
-daemons.
+daemons.(((daemon execution, adding Daemon dependency)))
 
 Begin by adding the Daemon dependency to your project's _project.clj_
 file. If you don't have an existing project, create a new one with the
@@ -151,12 +151,12 @@ Have no illusions, daemonizing Java-based services is *hard*; yet, for
 over 10 years, Java developers have been using Apache Commons Daemon
 to this end. Why reinvent the wheel with a separate Clojure tool? One
 of Clojure's core strengths is its ability to breathe new life into old
-tunes, and Daemon is one such "old tune."
+tunes, and Daemon is one such "old tune."(((daemon execution, benefits/drawbacks of)))
 
 Not all tunes are created equally, however. Where some Java libraries
 require a little Java interop, Daemon requires a lot. Daemonizing an
 application with Apache Commons Daemon requires getting two parts
-*just right*.
+*just right*.(((daemon execution, interface for)))
 
 The first part is creating a class that implements the +Daemon+
 interface and packaging it as a JAR file. The +Daemon+ interface
@@ -249,7 +249,7 @@ act as intermediaries between the JVM and your computer's operating
 system. These applications, generally written in C, are capable of
 invoking the appropriate system calls to fork and execute your
 application in a background process. For simplicity, we'll limit our
-discussion to the +jsvc+ tool for the remainder of the recipe.
+discussion to the +jsvc+ tool for the remainder of the recipe.(((daemon execution, system applications for)))
 
 Both of these tools have a dizzying number of configuration options,
 but only a handful of them are actually necessary for getting the ball
@@ -296,7 +296,7 @@ classpath.
 misconfiguration will cause your daemon to fail silently, without
 warning. We highly suggest using the +-debug+ and +-nodetach+ flags
 while developing and configuring your daemon until you're *sure*
-things work correctly.
+things work correctly.(((daemon execution, script automation)))
 
 Once you've nailed an appropriate configuration, the final step is to
 automate the management of your daemon by writing a _daemon script_. A
