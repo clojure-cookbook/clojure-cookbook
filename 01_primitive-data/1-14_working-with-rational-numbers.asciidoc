@@ -5,8 +5,8 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to manipulate fractional numbers with absolute precision.
-
+You need to manipulate fractional numbers with absolute precision.(((numeric types, rational numbers)))(((fractional numbers)))(((rational numbers)))
+(((integers, maintaining precision in)))(((functions, rationalize)))(((numbers, fractional)))(((numbers, rational)))
 ==== Solution
 
 When manipulating integers (or other rationals), you can expect to maintain precision, including recurring fractions like 1/3 (0.333...):
@@ -54,7 +54,7 @@ advised; on account of the way type-contagion works in Clojure,
 performing an operation over both types will cause the rational number
 to be coerced to a double. This transition isn't necessarily inaccurate
 for a single operation, but the change in type introduces the
-possibility for inaccuracy to creep in.
+possibility for inaccuracy to creep in.(((double values)))(((values, doubles)))
 
 To maintain accuracy when working with doubles, use the +rationalize+
 function. This function returns the rational value of any number. Calling +rationalize+ on any values that might possibly be a double will allow you to maintain absolute accuracy (at the cost of performance).

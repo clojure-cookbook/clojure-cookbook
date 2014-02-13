@@ -4,7 +4,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to enter numbers into a Clojure REPL or code in a different base (such as hexadecimal or binary).
+You need to enter numbers into a Clojure REPL or code in a different base (such as hexadecimal or binary).(((numeric types, integers with different bases)))
 
 ==== Solution
 
@@ -27,7 +27,7 @@ the radix number (e.g., 2, 16, etc.) and the letter +r+. Any base from
 ;; -> 624567473
 ----
 
-To output integers, use the Java method +Integer/toString+:
+To output integers,((("functions", "Integer/toString"))) use the Java method +Integer/toString+:
 
 [source,clojure]
 ----

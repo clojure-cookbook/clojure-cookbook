@@ -5,12 +5,12 @@ by Alex Robbins
 ==== Problem
 
 You love testing your code. You love writing Cascalog jobs. You hate
-trying to test your Cascalog jobs.
+trying to test your Cascalog jobs.(((Cascalog, testing workflows)))(((testing, Cascalog workflows)))((("unit testing", see="testing")))
 
 ==== Solution
 
 Midje-Cascalog provides a small amount of extra functionality that
-makes writing tests for Cascalog jobs quite easy.
+makes writing tests for Cascalog jobs quite easy.(((Midje)))
 
 To follow along with this recipe, clone the
 https://github.com/clojure-cookbook/cascalog-samples[Cascalog samples
@@ -103,7 +103,7 @@ with only limited manual testing happening before the workflow is
 quality slip, but testing distributed code can be difficult.
 Midje-Cascalog makes it easy to test different parts of your Cascalog
 workflow by making it dead simple to mock out the results of
-subqueries.
+subqueries.(((Hadoop, unit testing in)))
 
 In the solution outlined, you are testing a simple query. It
 reads lines from the input path, capitalizes, and outputs them.

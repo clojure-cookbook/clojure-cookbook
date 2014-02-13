@@ -5,7 +5,7 @@ by Alan Busby
 
 ==== Problem
 
-You want to package a project into an executable JAR.
+You want to package a project into an executable JAR.((("performance/production", "JAR file packaging")))(((Leiningen plugins, build tool)))(((JAR file packaging)))(((files, JAR file packaging)))(((uberjars)))
 
 ==== Solution
 

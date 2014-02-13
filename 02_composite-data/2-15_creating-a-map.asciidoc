@@ -5,7 +5,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to create an association which maps keys to values. You
-possibly want to maintain a specific ordering of keys.
+possibly want to maintain a specific ordering of keys.((("composite data", "maps", id="ix_CDmap", range="startofrange")))(((maps, creating)))((("{ } (curly braces)")))(((maps, literals)))(((values, mapping keys to)))(((keys, maintaining order of)))
 
 ==== Solution
 
@@ -32,11 +32,11 @@ glance:
 
 TIP: In Clojure, commas are whitespace, which means that they can be
 used *anywhere* in a form with no effect on the value; it is just one
-way to make your code easier to read.
+way to make your code easier to read.(((whitespace, commas as)))((("commas, as whitespace")))
 
 Create an empty, unsorted map with a pair of braces: +{}+.
 
-Create specific types of maps with map constructor
+Create specific types of maps with map constructor(((maps, map constructor functions)))(((functions, array-map)))(((functions, hash-map)))(((functions, sorted-map)))
 functions. +array-map+, +hash-map+, and +sorted-map+ each return a map
 of the corresponding type:
 
@@ -50,7 +50,7 @@ of the corresponding type:
 ----
 
 If a key occurs multiple times in the argument list, the last value
-will be that used in the final return map.
+will be that used in the final return map.(((maps, creating sorted)))
 
 Use +sorted-map-by+ to create a sorted map using a custom comparator:
 
@@ -69,24 +69,24 @@ Use +sorted-map-by+ to create a sorted map using a custom comparator:
 Clojure maps can have one of three distinct concrete implementations:
 
 Array maps, +clojure.lang.PersistentArrayMap+::
-These are backed by a simple array. These are efficient for very small maps, but not for larger sizes.
+These are backed by a simple array. These are efficient for very small maps, but not for larger sizes.(((arrays, array maps)))((("Clojure", "clojure.lang.PersistentArrayMap")))
 
 Hash maps, +clojure.lang.PersistentHashMap+::
-These are backed by a hash table data structure. Hash tables support near constant-time lookup and insertion, but also require a certain amount of overhead space, using up slightly more heap space.
+These are backed by a hash table data structure. Hash tables support near constant-time lookup and insertion, but also require a certain amount of overhead space, using up slightly more heap space.((("Clojure", "clojure.lang.PersistentHashMap")))(((hash maps)))
 
 Sorted maps, +clojure.lang.PersistentTreeMap+::
-These are backed by a balanced red-black binary tree. They are more space efficient than hash maps, but have slower insertion and access times.
+These are backed by a balanced red-black binary tree. They are more space efficient than hash maps, but have slower insertion and access times.((("Clojure", "clojure.lang.PersistentTreeMap")))(((sorted maps)))
 
 Array maps are the default implementation for small maps (under 10
 entries at the time of writing), and hash maps are the default for
 larger ones. Sorted maps can only be created by explicitly invoking
-the +sorted-map+ or +sorted-map-by+ functions.
+the +sorted-map+ or +sorted-map-by+ functions.(((functions, sorted-map)))(((functions, sorted-map-by)))
 
 Using +assoc+ or +conj+ on a sorted map will always yield another
 sorted map. However, +assoc+-ing on to an array map will yield a hash
 map once it reaches a certain size. The inverse is not true; using
 +dissoc+ on a hash map will not yield an array map, even if it becomes
-very small.
+very small.(((functions, assoc)))(((functions, conj)))(((functions, dissoc)))
 
 ==== See Also
 

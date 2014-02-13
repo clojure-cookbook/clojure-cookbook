@@ -5,7 +5,7 @@ by Tom Hicks
 
 ==== Problem
 
-You have two or more maps you wish to combine to produce a single map.
+You have two or more maps you wish to combine to produce a single map.(((maps, combining)))(((functions, merge)))(((functions, merge-with)))
 
 ==== Solution
 
@@ -94,7 +94,7 @@ As you saw in the previous examples, +merge-with+ is a versatile tool: we
 used `+` to add values of the same key, +clojure.set/intersection+ to
 find shared values of multiple sets, and a recursive function
 +deep-merge+ to recursively merge nested maps. +merge-with+ is a
-*very* powerful function, indeed.
+*very* powerful function, indeed.(((range="endofrange", startref="ix_CDmap")))
 
 
 ==== See Also

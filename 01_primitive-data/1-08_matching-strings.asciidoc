@@ -5,8 +5,8 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to extract portions of a string matching a given pattern.
-
+You need to extract portions of a string matching a given pattern.(((strings, extracting values from)))(((values, extracting from strings)))
+((("regular expressions", "re-seq")))(((regular expressions, extracting values with)))(((pattern matching)))
 ==== Solution
 
 Use +re-seq+ with a regular expression pattern and string to retrieve
@@ -65,7 +65,7 @@ example:
 
 If all you're looking for is a single match from a string, then use
 +re-find+. It behaves almost identically to +re-seq+, but returns only
-the first match as a singular value, instead of a sequence of match values.
+the first match as a singular value, instead of a sequence of match values.((("regular expressions", "re-find")))
 
 Apart from +re-seq+, there is another way to iterate over the matches
 in a string. You *could* do this by repeatedly calling +re-find+ on a
@@ -74,7 +74,7 @@ isn't very idiomatic Clojure. Mutating a +re-matcher+ object with
 repeated calls to +re-find+ is just wrong; it completely violates the
 principle of pure functions. We highly suggested you prefer +re-seq+
 over +re-matcher+ and +re-find+ unless you have a really good reason
-not to.
+not to.((("regular expressions", "re-matcher")))
 
 ==== See Also
 

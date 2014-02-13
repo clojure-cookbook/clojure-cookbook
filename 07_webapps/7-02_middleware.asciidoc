@@ -7,14 +7,14 @@ by Adam Bard
 
 You'd like to build a transformation automatically applied to Ring
 requests or responses. For example, Ring gives you query strings, but
-you'd really rather work with a parsed map.
+you'd really rather work with a parsed map.(((Ring library, middleware functions of)))(((middleware)))
 
 ==== Solution
 
 Since Ring works with regular Clojure data and functions, you can easily define
 middleware as functions returning functions. Define a middleware that modifies
 the request by adding a parsed version of the query string to the request
-before passing it on to the handler.
+before passing it on to the handler.(((functions, middleware and)))
 
 To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 

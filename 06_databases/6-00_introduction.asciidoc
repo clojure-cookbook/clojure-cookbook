@@ -4,7 +4,7 @@ Storing data in a database is not an uncommon task for developers--in
 this day and age, it's practically a given. Like nearly every language
 under the sun, there is a bevy of drivers and clients to interact
 with databases from Clojure. What sets Clojure apart, however, is its
-ability to _compose_.
+ability to _compose_.(((Clojure, benefits of)))
 
 As we've said before in this book: in Clojure, data is king. You'll
 find many of the database client libraries do a little legwork to
@@ -27,5 +27,5 @@ itself). It is a scalable, transactional, value-oriented, time-aware
 database built around the same principles and philosophies as
 Clojure. If you like Clojure, you should definitely give Datomic a
 try, both as your application's datastore and also as a learning
-tool to further explore functional, data-oriented programming.
+tool to further explore functional, data-oriented programming.(((databases, Datomic)))((("Hickey, Rich")))(((Datomic database, basics of))
 

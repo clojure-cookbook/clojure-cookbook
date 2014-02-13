@@ -4,7 +4,7 @@ by Tobias Bayer
 
 ==== Problem
 
-You need to read a property file and access its key-value pairs.
+You need to read a property file and access its key-value pairs.(((files, reading properties from)))((("properties, reading from files")))(((Java, java.util.Properties)))(((keys, accessing key-value pairs)))
 
 ==== Solution
 
@@ -12,7 +12,7 @@ The most straightforward way is to use the built-in
 http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html[+java.util.Properties+]
 class via Java interop. +java.util.Properties+ implements
 +java.util.Map+, which can be easily consumed from Clojure, just as
-any other map is.
+any other map is.(((Java, java.util.Map)))((("I/O (input/output) streams", "accessing key-value pairs")))
 
 Here is an example +.properties+ file to load:
 
@@ -41,7 +41,7 @@ props
 
 Instead of using the built-in +Properties+ api via interop, you could
 also use the +propertea+ library for simpler, more idiomatic Clojure
-access to property files.
+access to property files.(((propertea library)))
 
 Include the `[propertea "1.2.3"]` dependency in your _project.clj_
 file, or start a REPL using +lein-try+:

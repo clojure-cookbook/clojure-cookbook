@@ -4,7 +4,7 @@ by Alan Busby and Ryan Neufeld
 
 ==== Problem
 
-You want to execute simple Datomic queries with high performance.
+You want to execute simple Datomic queries with high performance.(((Datomic database, querying)))(((queries, simple Datomic)))
 
 ==== Solution
 
@@ -144,7 +144,7 @@ other hand, will return only entities with that specify attribute and
 value pair.
 
 What is returned by +datoms+ is a stream of +Datum+ objects. Each
-datum responds to +:a+, +:e+, +t+, +:v+, and +:added+ as functions.
+datum responds to +:a+, +:e+, +t+, +:v+, and +:added+ as functions.(((range="endofrange", startref="ix_DBdt")))
 
 ==== See Also
 

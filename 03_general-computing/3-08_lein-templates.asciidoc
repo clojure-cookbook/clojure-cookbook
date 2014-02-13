@@ -7,7 +7,7 @@ by Travis Vachon
 You regularly create new, similar projects and want an easy way to
 generate customized boilerplate. Or, you work on an open source
 project and want to give users an easy way to get started with your
-software.
+software.((("development ecosystem", "custom project templates")))(((templates)))(((Leiningen plugins, customized boilerplate generation with)))(((project templates)))
 
 ==== Solution
 
@@ -184,7 +184,7 @@ will look for an appropriately named template on +clojars.org+. If it
 finds one, it will download the template and use it to create the new
 project. The result is an almost magic-seeming project creation
 interface that lends itself extremely well to getting Clojure
-programmers going with new technology very quickly.
+programmers going with new technology very quickly.(((Clojars, templates from)))(((lein new)))
 
 Once a project template has been downloaded, Leiningen will use
 +src/leiningen/new/<project-name>.clj+ to create a new project.
@@ -278,7 +278,8 @@ invaluable tool for open source developers to showcase their projects
 and make it incredibly easy for potential users to get started with an
 unfamiliar piece of software. If you've been developing Clojure for a
 while, or even if you've just started, it's well worth your time to
-take templates for a spin today!
+take templates for a spin today!"(((range="endofrange", startref="ix_Cdev")))
+
 
 ==== See Also
 

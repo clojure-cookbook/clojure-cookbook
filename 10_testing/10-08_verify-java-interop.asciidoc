@@ -6,7 +6,7 @@ by Ambrose Bonnaire-Sergeant
 ==== Problem
 
 You want to verify that we are using Java libraries safely and
-unambiguously.
+unambiguously.(((core.typed system, checking Java interop calls with)))(((Clojure, Java interop functionality)))(((Java, verifying interop calls)))(((testing, Java interop verification)))
 
 Java provides a vast ecosystem that is a major draw for Clojure
 developers; however, it can be often be complex to use large,
@@ -49,7 +49,7 @@ in a Clojure function that takes a string +new-file+:
   (File. s))
 ----
 
-Setting `*warn-on-reflection*` when compiling this namespace will tell
+Setting `*warn-on-reflection*` when compiling this namespace will tell(((exceptions/errors, reflection warnings)))(((reflection)))
 us that there is a reflective call to the `java.io.File` constructor.
 Checking this namespace at the REPL with +clojure.core.typed/check-ns+ will
 tell report the same information, albeit in the form of a type error:

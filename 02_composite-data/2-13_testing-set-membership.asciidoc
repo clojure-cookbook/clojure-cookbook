@@ -5,7 +5,7 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to check if an item is a member of a set.
+You want to check if an item is a member of a set.(((sets, testing membership of)))((("functions", "contains?")))
 
 ==== Solution
 
@@ -22,7 +22,7 @@ is a member of the set:
 ;; -> true
 ----
 
-The +get+ function also works with sets and does basically the same
+The +get+ function also works with sets and does basically the same(((functions, get)))
 thing, except instead of returning +true+ or +false+, it returns the
 value itself if it is a member, or +nil+ if it is not:
 
@@ -50,7 +50,7 @@ member, and +nil+ otherwise:
 ;; -> :green
 ----
 
-Note as well that keywords behave in the same manner for sets as they
+Note as well that keywords behave in the same manner for sets as they(((keywords, sets and)))
 do with maps: thus, the following is equivalent to having used +get+:
 
 [source,clojure]
@@ -70,7 +70,7 @@ However, if your set might contain +nil+ as an actual value you care
 about, you'll definitely need to use +contains?+, since a +nil+ return
 from +get+ wouldn't tell you anything in that case.
 
-The ability to use a set as a function is interesting, but it's
+The ability to use a set as a function is interesting, but it's(((sets, using as a function)))(((filtering)))
 especially useful when you want to use it as a predicate function on a
 sequence operation. For example, it's fairly common to want to filter
 a sequence to only contain items in a set. In this case, using the set

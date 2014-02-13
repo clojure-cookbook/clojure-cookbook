@@ -6,11 +6,11 @@ by Luke VanderHart
 ==== Problem
 
 You want to obtain a list without a particular item in it, removing
-an item from an original list.
+an item from an original list.(((lists, removing items from)))
 
 ==== Solution
 
-Removing the first item from a list is easily accomplished using one
+Removing the first item from a list is easily accomplished using one(((functions, rest)))(((functions, pop)))
 of two functions, +rest+ or +pop+. Both work identically when used on
 a nonempty list:
 

@@ -4,7 +4,7 @@ by John Cromartie
 
 ==== Problem
 
-You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).
+You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).(((files, compressed files)))((("I/O (input/output) streams", "compressed files")))(((compressed files)))(((Java, java.util.zip.GZIPInputStream)))(((Java, java.util.zip.GZIPOutputStream)))
 
 ==== Solution
 
@@ -38,7 +38,7 @@ compress data as it is written:
 Gzip, based on the DEFLATE algorithm, is a common compression format
 on Unix-like systems and is used extensively for compression on the
 Web. It is a good choice for compressing text in particular and can
-see huge reductions for source code, or Clojure or JSON data.
+see huge reductions for source code, or Clojure or JSON data.(((Gzip compression format)))(((DEFLATE algorithm)))
 
 Many of Clojure's IO functions will accept any type of Java
 stream. The +GZIPInputStream+ simply wraps any other input stream

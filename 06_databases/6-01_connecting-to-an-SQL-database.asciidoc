@@ -5,12 +5,12 @@ by Tom Hicks; originally submitted by Simone Mosciatti
 
 ==== Problem
 
-You want to connect your program to an SQL database.
+You want to connect your program to an SQL database.((("databases", "SQL", id="ix_DBsql", range="startofrange")))
 
 ==== Solution
 
 Use the +clojure.java.jdbc+ library for JDBC-based access to SQL
-databases.
+databases.(((SQL databases, connecting to)))(((PostgreSQL database)))
 
 To follow along with this recipe, you'll need a running SQL database
 and an existing table to connect to. We suggest PostgreSQL.footnote:[Mac
@@ -101,7 +101,7 @@ The +clojure.java.jdbc+ library provides functions that wrap the
 basic capabilities of the Java JDBC specification. The additional
 +java-jdbc.sql+ and +java-jdbc.ddl+ namespaces from the
 +java-jdbc/dsl+ project implement small DSLs to generate basic SQL DML
-and DDL statements.
+and DDL statements.(((Java, Java JDBC)))((("Clojure", "clojure.java.jbdc library")))
 
 Because it relies upon Java JDBC, the +clojure.java.jdbc+ library is useable
 with many of the most popular SQL databases, including Apache Derby, HSQLDB,
@@ -111,7 +111,7 @@ The parameters necessary to set up and access a data source are called the
 "database specification" (often abbreviated "db-spec") and are provided in a
 simple Clojure map. The specification usually includes such parameters as the
 driver class name, the subprotocol for a particular RDBMS type, the hostname,
-the port number, the database name, and the username and password.
+the port number, the database name, and the username and password.((("database specification (db-spec)")))
 
 The +clojure.java.jdbc+ library also permits several other forms of data source
 specification, including Java URIs, already-open connections, JNDI connections,

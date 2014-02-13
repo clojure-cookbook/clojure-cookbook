@@ -5,7 +5,7 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to obtain a new set with items added or removed.
+You want to obtain a new set with items added or removed.(((sets, adding/removing items from)))(((functions, conj)))
 
 ==== Solution
 
@@ -22,7 +22,7 @@ and any number of items to add:
 ;; -> #{:a :c :b :d :e}
 ----
 
-To remove one or more items, use the +disj+ function, which is
+To remove one or more items, use the +disj+ function, which is(((functions, disj)))
 specific to sets. It takes a set and one or more keys to remove:
 
 [source,clojure]
@@ -55,7 +55,7 @@ which can be used to add the items of multiple set together, and
 +clojure.set/difference+, which can be used to obtain a set of items
 *not* contained in another set. These are typically a far more natural
 expression of set operations than many calls to +conj+ or +disj+, or
-invoking them with large numbers of arguments.
+invoking them with large numbers of arguments.((("Clojure", "clojure.set/union")))((("Clojure", "clojure.set/difference")))
 
 ==== See Also
 

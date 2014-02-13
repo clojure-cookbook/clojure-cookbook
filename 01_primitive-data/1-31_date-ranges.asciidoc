@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to generate a lazy sequence covering a range of dates and/or times.
+You need to generate a lazy sequence covering a range of dates and/or times.((("dates/times", "ranges of", id="ix_DTrange", range="startofrange")))
 
 ==== Solution
 

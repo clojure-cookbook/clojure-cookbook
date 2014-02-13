@@ -5,7 +5,7 @@ by Adam Bard
 
 ==== Problem
 
-You want an easy way to route URLs to specific Ring handler functions.
+You want an easy way to route URLs to specific Ring handler functions.(((Ring library, request routing with Compojure)))(((Compojure library)))(((handlers)))(((request routing)))
 
 ==== Solution
 

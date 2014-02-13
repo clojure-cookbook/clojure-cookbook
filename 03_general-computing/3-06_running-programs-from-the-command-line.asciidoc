@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You want to invoke your Clojure application from the command line.
+You want to invoke your Clojure application from the command line.((("development ecosystem", "command line invocation")))(((command lines, running programs from)))(((lein run)))(((Leiningen plugins, command-line invocation with)))
 
 ==== Solution
 
@@ -86,7 +86,7 @@ invoked. By providing +-m+ with the fully qualified name of a function
 (e.g., +my-cli.core/alt-main+), that function will be invoked. There's
 no requirement that this function be prefixed with a +-+ (indicating it is
 a Java method). It simply must accept a variable number of arguments
-(as +-main+ normally does).
+(as +-main+ normally does).(((functions, command line invocation of)))
 
 For example, add a function +add-main+ to +my.cli/core+:
 

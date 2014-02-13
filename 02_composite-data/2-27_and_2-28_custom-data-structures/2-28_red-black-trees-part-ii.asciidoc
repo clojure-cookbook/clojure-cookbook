@@ -6,19 +6,19 @@ by Ryan Neufeld; originally submitted by Leonardo Borges
 ==== Problem
 
 You want to use Clojure's core sequence functions (+conj+, +map+,
-+filter+, etc.) with your custom data structure.
++filter+, etc.) with your custom data structure.(((Clojure, core sequence functions)))
 
 ==== Solution
 
 In part one of this recipe (<<sec_red_black_part_i>>), you implemented
 all the functions necessary for creating an efficient red-black tree.
 
-What's missing is participation in Clojure's sequence abstraction.
+What's missing is participation in Clojure's sequence abstraction.(((sequence abstraction, red-black trees and)))
 
 The most important part of participating in sequence abstraction
 is the ability to expose values of a data structure sequentially. The
 built-in +tree-seq+ is well suited for this task. One extra step is
-needed, however; +tree-seq+ returns a sequence of nodes, not values.
+needed, however; +tree-seq+ returns a sequence of nodes, not values.(((functions, tree-seq)))
 
 The final +rb-tree->seq+ function:
 
@@ -42,7 +42,7 @@ The final +rb-tree->seq+ function:
 ;; -> (5 2)
 ----
 
-Since RBTs most closely resemble sets, they should adhere well to the
+Since RBTs most closely resemble sets, they should adhere well to the((("Clojure", "clojure.lang.IPersistentList")))(((IFn interface)))
 +IPersistentSet+ interface. Extend the +IPersistentSet+ and +IFn+
 protocols to a new +RedBlackTree+ type, implementing all of the
 necessary functions. It's also wise to implement the multimethod
@@ -284,4 +284,4 @@ rbt-string
   red-black tree implementation
 * <<sec_local_io_clojure_data_to_disk>> and
   <<sec_default_data_reader>> for more information on reading Clojure
-  data
+  data(((range="endofrange", startref="ix_CDcust")))(((range="endofrange", startref="ix_datacust")))(((range="endofrange", startref="ix_rbt")))

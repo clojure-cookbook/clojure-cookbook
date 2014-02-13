@@ -6,7 +6,7 @@ by Robert Stuttaford
 ==== Problem
 
 You want to test a transaction prior to committing it using Datalog or
-the entity API.
+the entity API.(((Datomic database, transaction testing)))(((Datalog)))
 
 ==== Solution
 
@@ -111,7 +111,7 @@ One of the things that makes Datomic so powerful is its ability to
 treat a database as a value. For this reason, the helper functions
 we've written take a database as an argument, not a connection. Now,
 it is not only possible to query the current database, but other
-values of the database.
+values of the database.(((Datomic database, benefits of)))
 
 ==== See Also
 

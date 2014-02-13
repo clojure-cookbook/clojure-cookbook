@@ -6,14 +6,14 @@ by Tom Hicks and Filippo Diotalevi
 ==== Problem
 
 You would like to connect to an SQL database efficiently using a
-connection pool.
+connection pool.(((SQL databases, connecting with connection pool)))(((connection pools)))(((pooled data resources)))
 
 ==== Solution
 
 Use the BoneCP connection and statement pooling library to wrap your
 JDBC-based drivers, creating a pooled data source. The pooled data
 source is then usable by the +clojure.java.jdbc+ library, as described
-in the <<sec_db_connecting_to_a_sql_database>> recipe.
+in the <<sec_db_connecting_to_a_sql_database>> recipe.(((BoneCP library)))(((PostgreSQL database)))((("Clojure", "clojure.java.jbdc library")))
 
 To follow along with this recipe, you'll need a running SQL database
 and existing table to connect to. We suggest PostgreSQL.footnote:[Mac
@@ -131,7 +131,7 @@ Pass the database specification as the first argument to any
 
 As shown above, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
-pooled by the BoneCP or other pooling libraries.
+pooled by the BoneCP or other pooling libraries.(((Java, Java JDBC)))
 
 The BoneCP library wraps existing JDBC classes to allow the creation of
 efficient data sources. It can adapt traditional unpooled drivers and
@@ -150,7 +150,7 @@ idle connections; the age of connections; transaction handling; the use of
 tested.
 
 Pooled data resources (threads and database connections) may be released by
-calling the +close+ method on the +BoneCPDataSource+ class of the
+calling the +close+ method on the +BoneCPDataSource+ class of the(((exceptions/errors, SQL exceptions)))
 library. Attempting to reuse the pooled data source after it is closed will result 
 in an SQL exception:
 

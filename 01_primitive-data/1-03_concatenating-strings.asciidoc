@@ -6,8 +6,8 @@ by Ryan Neufeld
 ==== Problem
 
 You have multiple strings, values, or collections that you need to
-combine into one string.
-
+combine into one string.(((strings, concatenation of)))(((functions, str)))
+((("concatenation, of strings/values/collections")))(((values, concatenation of)))(((collections, concatenation of)))
 ==== Solution
 
 Use the +str+ function to concatenate strings and/or values:
@@ -89,7 +89,7 @@ of your rows collection:
 anything too fancy. It is often easier to use the +clojure.string/join+
 function for simple string joins. The +join+ function takes a collection
 and an optional separator. With a separator, +join+ returns a string
-with each item of the collection separated by the provided separator.
+with each item of the collection separated by the provided separator.((("functions", "clojure.string/join")))
 Without, it returns each item squashed together similar to what
 +(apply str coll)+ would return:
 

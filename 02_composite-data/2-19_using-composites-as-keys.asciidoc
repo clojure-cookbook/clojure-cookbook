@@ -5,7 +5,7 @@ by Luke VanderHart
 
 ==== Problem
 
-You'd like to use a value that isn't a simple primitive type as a
+You'd like to use a value that isn't a simple primitive type as a(((maps, using composite key values)))(((keys, using composite values for)))
 lookup key in a map. For example:
 
 * You'd like to use geographic or Cartesian coordinates as map keys.
@@ -52,7 +52,7 @@ position for a piece, and pass:[<literal>assoc</literal>]ing the new position:
 As another example of nontraditional map keys, consider the
 situation where you have a set of functions, and you want to be able
 to assign them each a "weighting" and multiply the return value by the
-corresponding weight whenever the function is called.
+corresponding weight whenever the function is called.(((maps, nontraditional keys for)))(((keys, nontraditional)))
 
 An easy way to do this is to store the functions and weights in a map,
 with the functions as keys:

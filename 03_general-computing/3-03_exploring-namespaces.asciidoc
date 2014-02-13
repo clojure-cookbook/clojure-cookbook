@@ -5,7 +5,7 @@ by John Cromartie
 
 ==== Problem
 
-You want to know what namespaces are loaded and what public vars are available inside them.
+You want to know what namespaces are loaded and what public vars are available inside them.((("development ecosystem", "namespaces")))(((namespaces, basics of)))
 
 ==== Solution
 

@@ -6,13 +6,13 @@ by John Jacobsen with help from John Cromartie and Alex Petrov
 ==== Problem
 
 You want to include a resource file from the classpath in your
-Clojure project.
+Clojure project.((("I/O (input/output) streams", "accessing resource files")))(((files, accessing resource files)))((("resources, accessing local")))
 
 ==== Solution
 
 Place resource files in the +resources/+ directory at the top level of
 your Leiningen project. To follow along with this recipe, create a new project
-with the command *+lein new people+*.
+with the command *+lein new people+*.(((directories, resources)))
 
 For example, a file _resources/people.edn_:
 
@@ -25,7 +25,7 @@ For example, a file _resources/people.edn_:
 ----
 
 Pass the the name of the file (relative to the resources directory) to
-the +clojure.java.io/resource+ function to obtain an instance of
+the +clojure.java.io/resource+ function to obtain an instance of((("Clojure", "clojure.java.io/resource")))(((Java, java.io.File)))
 +java.io.File+, which you can then read as you please (for example,
 using the +slurp+ function):
 
@@ -51,7 +51,7 @@ Resources are loaded via the Java classpath, just like Clojure code
 is. Leiningen puts the +resources/+ directory on the classpath
 automatically whenever it starts a Java process, and when packaged,
 the contents of +resources/+ are copied to the root of any emitted JAR
-files.
+files.(((Java, classpaths)))
 
 You can also specify an alternative (or additional) resource directories using the
 `:resources-paths` key in your `project.clj`:
@@ -63,7 +63,7 @@ You can also specify an alternative (or additional) resource directories using t
 ----
 
 Using classpath based resources is very convenient, but it does have
-its drawbacks.
+its drawbacks.((("resources, classpath-based")))
 
 Be aware that in the context of a web application, any change to
 resources is likely to require a full redeployment, because they are
@@ -90,7 +90,7 @@ might even want to split them off and serve them via a seperate
 mechanism entirely, such as a CDN (content delivery network). In
 either case, it is difficult to set up the HTTP server or CDN to
 introspect resources *inside* of your application's JAR file--it's
-usually better to store them elsewhere, from the start.
+usually better to store them elsewhere, from the start.((("CDNs (content delivery networks)")))
 
 ==== See Also
 

@@ -5,13 +5,13 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to print dates or times in a particular format.
+You need to print dates or times in a particular format.((("dates/times", "formatting")))
 
 ==== Solution
 
 While it is possible to format Java date-like instances (+Date+,
 +Calendar+, and +Timestamp+) with +clojure.core/format+, you should
-use https://github.com/clj-time/clj-time[+clj-time+] to format dates.
+use https://github.com/clj-time/clj-time[+clj-time+] to format dates.(((Java, date/time classes)))
 
 Before starting, add `[clj-time "0.6.0"]` to your project's
 dependencies or start a REPL using +lein-try+:
@@ -43,7 +43,7 @@ To output a date/time as a string, use +clj-time.format/unparse+ with a
 
 It is certainly possible to format pure Java dates and times; however, in our
 experience, it isn't worth the hassle--the syntax is ugly, and the workflow is verbose. +clj-time+ and its backing library Joda-Time have a track
-record for making it easy to work with dates and times on the JVM.
+record for making it easy to work with dates and times on the JVM.(((Joda-Time library)))(((functions, formatter)))
 
 The +formatter+ function is quite the gem. Not only does it produce a
 "format" capable of printing or ++unparse++ing a date, it is also

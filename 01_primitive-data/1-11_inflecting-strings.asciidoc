@@ -5,12 +5,12 @@ by Ryan Neufeld
 ==== Problem
 
 You need to pluralize a word given some quantity, such as "0 eggs" or
-"1 chicken."
+"1 chicken."(((strings, pluralizing based on quantity)))(((pluralization)))(((quantities)))((("Scherer, Roman")))(((inflections)))
 
 ==== Solution
 
 When you need to perform Ruby on Rails-style pluralization, use Roman Scherer's
-https://github.com/r0man/inflections-clj[+inflections+] library.
+https://github.com/r0man/inflections-clj[+inflections+] library.(((Ruby on Rails, pluralization)))
 
 To follow along with this recipe, start a REPL using +lein-try+:footnote:[If
 you haven't already installed +lein-try+, follow the instructions in
@@ -56,14 +56,14 @@ Rails] set the gold standard for friendly and humanized text with its
 +ActiveSupport::Inflections+ class. +Inflections#pluralize+ is one
 such inflection, but +Inflections+ is chock full of cutesy-sounding
 methods ending in "ize" that change the inflection of strings.
-+inflections+ provides nearly all of these capabilities in a Clojure context.
++inflections+ provides nearly all of these capabilities in a Clojure context.(((Ruby on Rails, inflections library)))
 
 Two interesting functions in the +inflections+ library are +plural+ and
 +singular+. These functions work a bit like the +upper-case+ and
 +lower-case+ of pluralization; +plural+ transforms words into their
 plural form, and +singular+ coerces words to their singular form. These
 transformations are based on a number of rules in
-+inflections.plural+.
++inflections.plural+.(((singularization)))
 
 You can add your own rules for pluralization with +inflections.core/plural!+:
 
@@ -83,7 +83,7 @@ You can add your own rules for pluralization with +inflections.core/plural!+:
 ;; -> "2 boxen"
 ----
 
-The library also has support for inflections like +camelize+,
+The library also has support for inflections like +camelize+,(((camel case)))(((ordinal numbers)))(((numbers, ordinalizing)))
 +parameterize+, and +ordinalize+:
 
 [source,clojure]

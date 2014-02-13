@@ -4,7 +4,7 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to copy a file on your local file system.
+You need to copy a file on your local file system.((("I/O (input/output) streams", "copying files")))(((files, copying)))((("Clojure", "clojure.java.io/copy")))
 
 ==== Solution
 
@@ -18,7 +18,7 @@ Invoke +clojure.java.io/copy+, passing it the source and destination files:
 ;; -> nil
 ----
 
-If the input file is not found, a +java.io.FileNotFoundException+ will be thrown:
+If the input file is not found,(((exceptions/errors, java.io.FileNotFoundException))) a +java.io.FileNotFoundException+ will be thrown:
 [source,clojure]
 ----
 (clojure.java.io/copy
@@ -49,7 +49,7 @@ If required, an encoding can be specified by the +:encoding+ option:
 
 ==== Discussion
 
-Note that if the file already exists, it will be overwritten. If that
+Note that if the file already exists, it will be overwritten. If that(((safe-copy function)))(((overwriting)))(((functions, safe-copy)))
 is not what you want, you can put together a "safe" copy function that
 will catch any exceptions and optionally overwrite:
 

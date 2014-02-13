@@ -5,12 +5,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to insert values into a string, formatting how those values appear in the string.
+You need to insert values into a string, formatting how those values appear in the string.(((strings, formatting)))(((values, formatting into strings)))
 
 ==== Solution
 
 The quickest method for formatting values into a string is the +str+ function:
-
+(((functions, str)))
 [source,clojure]
 ----
 (def me {:first-name "Ryan", :favorite-language "Clojure"})
@@ -25,7 +25,7 @@ The quickest method for formatting values into a string is the +str+ function:
 With +str+, however, values are inserted blindly, appearing in their
 default "++.toString()++" appearance. Not only that, it can sometimes be
 difficult to look at a +str+ form and interpret what the intended
-output is.
+output is.(((functions, format)))
 
 For greater control over how values are printed, use the +format+ function:
 
@@ -75,7 +75,7 @@ The first argument passed to +format+ is what is
 called a _format string_. The syntax for these strings isn't new or
 unique to Clojure or even Java, but in fact comes from C's +printf+
 function. Clojure's +format+ function uses Java's +String/format+,
-which implements +printf+ style value substitution.
+which implements +printf+ style value substitution.(((format strings)))(((placeholders)))(((format specifiers)))(((specifiers)))
 
 A format string is a normal string with any number of embedded format
 specifiers. A format specifier is a placeholder to be replaced by a

@@ -7,7 +7,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to specify properties of a function that should hold true for
-all inputs, and find input values that violate those properties.
+all inputs, and find input values that violate those properties.(((testing, failure-causing values)))(((values, finding failure-causing)))(((simple-check library)))(((property-specification libraries)))
 
 ==== Solution
 
@@ -145,7 +145,7 @@ You may have observed that +test.generative+ and +simple-check+ cover a
 lot of the same ground. They both generate a randomized distribution
 of inputs, and they both specify "success" conditions in terms of
 properties or qualities that must hold across all inputs and outputs
-rather than specific examples.
+rather than specific examples.((("test.generative library")))
 
 However, there are a few key differences. +simple-check+ minimizes the
 failing input before returning; test.generative bails the first time

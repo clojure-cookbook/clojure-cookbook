@@ -5,7 +5,7 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to create a list data structure in your source code.
+You want to create a list data structure in your source code.((("composite data", "lists", id="ix_CDlist", range="startofrange")))((("Clojure", "clojure.lang.PersistentList")))(((lists, creating)))(((functions, list)))
 
 ==== Solution
 
@@ -61,7 +61,7 @@ irrelevant when it's empty.
 
 Clojure includes both list and vector types. Both are sequential data
 structures. However, for most purposes, vectors are a better fit and
-more commonly used in idiomatic Clojure.
+more commonly used in idiomatic Clojure.(((lists, vs. vectors)))(((vectors, vs. lists)))
 
 There are a couple reasons for this. Vectors have a cleaner literal
 syntax than lists and are just as space-efficient and performant. In

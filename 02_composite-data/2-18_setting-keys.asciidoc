@@ -5,11 +5,11 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to "change" a map by adding, setting, or removing keys.
+You want to "change" a map by adding, setting, or removing keys.(((maps, setting keys in)))(((keys, setting in maps)))
 
 ==== Solution
 
-The most basic way to change a map is using the +assoc+ function.
+The most basic way to change a map is using the +assoc+ function.(((functions, assoc)))
 Given a map and any number of additional key/value pairs as arguments,
 it will return an updated map containing the respective keys and
 values:
@@ -34,7 +34,7 @@ will return an updated map with the newly specified value for the key:
 ;;     :occupation "Mad Scientist", :status :deceased}
 ----
 
-To remove keys, use the +dissoc+ function, which given a map and any
+To remove keys, use the +dissoc+ function, which given a map and any(((keys, removing from maps)))(((functions, dissoc)))
 number of keys, returns a map absent those keys:
 
 [source,clojure]
@@ -47,7 +47,7 @@ number of keys, returns a map absent those keys:
 
 ==== Discussion
 
-It's fairly common to have maps contained in other maps. If it is
+It's fairly common to have maps contained in other maps. If it is(((nested maps)))
 necessary to update a deeply nested value, nested calls to +assoc+
 quickly become inconvenient, especially since they need to be
 "inside-out." Consider the following data structure:
@@ -72,7 +72,7 @@ like the following:
 
 Obviously, this is inconvenient and difficult to read.
 
-The +assoc-in+ function removes this inconvenience, allowing you to
+The +assoc-in+ function removes this inconvenience, allowing you to(((keys, specifying key paths)))
 specify a _key path_ instead of a sole key. Instead of changing a
 value one key deep, a _key path_ lists a sequence of keys, applied
 recursively to change a deeply nested value:
@@ -93,7 +93,7 @@ The preceding sample first looks up the map associated with the
 is returned.
 
 What if you needed to *update* a value based on its previous value,
-instead of just changing it?
+instead of just changing it?(((functions, update-in)))(((values, updating)))(((maps, updating keys in)))
 
 Fortunately, Clojure provides +update-in+ expressly for this purpose.
 Instead of taking a new value, +update-in+ takes an _update function_.
@@ -141,7 +141,7 @@ themselves are immutable values. In a very literal sense, if you "add"
 a key to a map, it is no longer the same value any more. But
 sometimes, it is necessary to preserve a logical *identity* for
 different values across time. That's when to use one of the state
-management tools.
+management tools.(((Clojure, state management tools in)))(((state management tools)))
 
 To update the value of a piece of state (+ref+, +atom+, or +agent+) you
 invoke its specific state transition function (+alter+, +swap!+, or

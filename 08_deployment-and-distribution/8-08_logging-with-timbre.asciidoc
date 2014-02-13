@@ -4,7 +4,7 @@ by Alex Miller
 
 ==== Problem
 
-You want to add logging to your application code.
+You want to add logging to your application code.((("performance/production", "logging with Timbre")))(((Timbre, logging with)))(((logging)))
 
 ==== Solution
 

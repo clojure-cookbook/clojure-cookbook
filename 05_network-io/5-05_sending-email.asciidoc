@@ -4,12 +4,12 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to send emails from inside a Clojure application.
+You need to send emails from inside a Clojure application.(((networking/web services, email)))(((email)))
 
 ==== Solution
 
 Use +postal+, a thin wrapper over the JavaMail package, to send email
-messages.
+messages.(((postal wrapper)))(((Java, JavaMail package)))(((functions, postal.core/send-message)))
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
@@ -53,7 +53,7 @@ leaves for you to worry about. Even Gmail's oft-maligned
 authentication setup can be tackled with a single +:ssl+ key. While we
 might normally suggest, "Give the native Java API a try," for simple
 email delivery, we prefer +postal+ because it presents an API oriented
-around data rather than objects.
+around data rather than objects.(((Gmail)))
 
 One of the places data orientation really shines is in specifying
 connection details. The first argument to the +send-message+ function
@@ -83,7 +83,7 @@ instance.
 ====
 Since Amazon's Simple Email Service (SES) can operate over SMTP,
 it is possible to use +postal+ to send email via Amazon's
-infrastructure.
+infrastructure.((("Amazon's Simple Email Service (SES)")))((("Simple Email Service (SES)")))
 ====
 
 Similar to connection details, messages themselves are represented as
@@ -122,7 +122,7 @@ A message's body can be specified as either a string or a sequence of
 _part_ maps. While the former delivers a simple plain-text email, the
 latter will deliver a multipart _MIME_ message. MIME (Multipurpose Internet Mail Extensions) is the standard
 that allows email messages to contain attachments or other rich
-content, such as HTML.
+content, such as HTML.((("MIME (Multipurpose Internet Mail Extensions)")))(((maps, part maps)))(((part maps)))
 
 A part map is made up of two values: +:type+ and +:content+. For
 message body parts, +:type+ is the MIME type of the content, and
@@ -163,7 +163,7 @@ attachment (+:attachment+). The contents of an attachment are
 specified by providing a +File+ object for the +:content+ key. An
 attachment's content type and name are generally inferred from the
 +File+ object, but they may be overridden via the +:content-type+ and
-+:file-name+ keys, respectively.
++:file-name+ keys, respectively.(((attachments)))
 
 For example, forwarding all of your closest friends a picture of your
 cat might look something like this:

@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to compare one date to another, or you need to sort a sequence of dates.
+You need to compare one date to another, or you need to sort a sequence of dates.((("dates/times", "comparing/sorting")))(((comparisons, of Java Dates)))(((functions, compare)))(((sorting, dates/times)))
 
 ==== Solution
 
@@ -35,12 +35,12 @@ You can compare Java Dates using the +compare+ function:
 Why not just compare dates using Clojure's built-in comparison
 operators (+$$<=$$+, +>+, etc.)? The problem with these operators is that
 they utilize +clojure.lang.Numbers+ and attempt to coerce their
-arguments to numerical types.
+arguments to numerical types.(((Clojure, built-in comparison operators)))((("Clojure", "clojure.lang.Numbers")))
 
 Since regular comparison won't work, it's necessary to use the
 +compare+ function. The +compare+ function takes two arguments and
 returns a number indicating that the first argument was either
-less than (-1), equal to (0), or greater than (+1) the second argument.
+less than (-1), equal to (0), or greater than (+1) the second argument.(((functions, compare)))(((functions, sort)))
 
 Clojure's +sort+ functions use +compare+ under the hood, so no extra
 work is required to sort a collection of dates:
@@ -61,7 +61,7 @@ work is required to sort a collection of dates:
 If you've been doing more complex work with dates and times and have
 Joda-Time objects in hand, then all of this still applies. If you wish
 to compare Joda-Time objects to Java time objects, however, you will
-have to coerce them to one uniform type using the functions in +clj-time.coerce+.
+have to coerce them to one uniform type using the functions in +clj-time.coerce+.(((Joda-Time library)))
 
 ==== See Also
 

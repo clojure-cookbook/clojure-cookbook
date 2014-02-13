@@ -5,12 +5,12 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to configure your application using Clojure-like data literals.
+You want to configure your application using Clojure-like data literals.((("I/O (input/output) streams", "using edn for configuration files")))(((files, configuration files)))(((applications, configuring with data literals)))
 
 ==== Solution
 
 Use Clojure data structures stored in +edn+ files to define a map that
-contains configuration items you care about.
+contains configuration items you care about.(((configuration, using edn files for)))(((maps, configuration items and)))
 
 For example, the +edn+ configuration of an application that needs to
 know its own hostname and connection info for a relational database
@@ -42,7 +42,7 @@ using the +edn+ reader:
 
 Invoking the newly defined +load-config+ function will now return a
 configuration map that you can pass around and use in your application
-as you would any other map.
+as you would any other map.(((functions, load-config)))
 
 ==== Discussion
 
@@ -54,7 +54,7 @@ it, and there are two general schools of thought regarding the answer.
 The first group prioritizes ease of development by making the
 configuration map ambiently available thoughtought the entire
 application. Usually this involves setting a global var to contain the
-configuration.
+configuration.(((global configuration)))(((configuration, global)))
 
 However, this is problematic for a number of reasons. First, it
 becomes more difficult to override the default configuration file in
@@ -89,7 +89,7 @@ A common pattern when configuring an application is to have a number
 of different classes of configuration items. Some config fields are
 more or less constants, and don't vary between instances of the
 application in the same environment. These are often committed to
-source control along with the application's source code.
+source control along with the application's source code.(((multiple config files)))(((configuration, multiple files)))
 
 Other config items are fairly constant, but can't be checked in to
 source control due to security concerns. Examples of this include
@@ -163,10 +163,10 @@ overridden by the "rightmost" file passed to +load-config+.
 
 If your system runs in multiple environments, you may want to vary your
 configuration based on the current running environment. For example,
-you may want to connect to a local database while developing your system,
-but a production database when running your system in production.
+you may want to connect to a local database while developing your system,(((configuration, environment specific)))
+but a production database when running your system in production.(((Leiningen plugins, profiles feature)))
 
-You can use Leiningen's _profiles_ feature to achieve this end. By
+You can use Leiningen's _profiles_ feature to achieve this end. By(((profiles)))
 providing different +:resource-paths+ options for each _profile_ in
 your project's configuration, you can vary which configuration file is
 read per environment.footnote:[To follow along, create your own

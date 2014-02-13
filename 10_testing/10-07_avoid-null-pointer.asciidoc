@@ -6,7 +6,7 @@ by Ambrose Bonnaire-Sergeant
 ==== Problem
 
 You want to verify that your code handles `nil` correctly, eliminating
-potential null-pointer exceptions.
+potential null-pointer exceptions.(((testing, for null-pointer exceptions)))(((null-pointer exceptions)))(((exceptions/errors, null-pointer)))(((core.typed system, avoiding null-pointer exceptions with)))
 
 ==== Solution
 

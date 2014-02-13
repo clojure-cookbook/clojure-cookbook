@@ -6,7 +6,7 @@ by Alex Robbins
 ==== Problem
 
 You need to change the format of large amounts of data from JSON lists
-to CSV for later processing. For example:
+to CSV for later processing.(((distributed computation, ETL data processing)))((("JSON (JavaScript Object Notation) data")))((("CSV (comma separated values)"))) For example:
 
 .Input:
 [source,json]
@@ -26,7 +26,7 @@ Michael Fogus,Chris Houser
 ==== Solution
 
 Cascalog allows you to write distributed processing jobs that can run
-locally for small jobs or on a Hadoop cluster for larger jobs.
+locally for small jobs or on a Hadoop cluster for larger jobs.((("ETL (Extract Transform Load) pipeline")))(((Cascalog, ETL pipeline processing with)))((("distributed computation", "Cascalog", id="ix_DCcasc", range="startofrange")))
 
 To follow along with this recipe, create a new Leiningen project:
 

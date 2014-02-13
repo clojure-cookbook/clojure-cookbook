@@ -5,8 +5,8 @@ by Ryan Neufeld and Jean Niklas L'orange
 ==== Problem
 
 You need to calculate simple statistics like mean, median, mode, and standard
-deviation on a collection of numbers.
-
+deviation on a collection of numbers.(((numeric types, statistical data)))(((mean)))(((median)))(((mode)))(((standard deviation)))
+(((statistics)))
 ==== Solution
 
 Find the _mean_ (average) of a collection by dividing its total by the +count+ of the collection:

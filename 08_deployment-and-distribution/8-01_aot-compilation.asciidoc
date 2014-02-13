@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to deliver your code as precompiled JVM bytecode in +.class+
-files, rather than as Clojure source code.
+files, rather than as Clojure source code.((("performance/production", "AOT (ahead of time) compilation")))((("AOT (ahead of time) compilation")))(((JVM bytecode)))
 
 ==== Solution
 

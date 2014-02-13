@@ -5,7 +5,7 @@ by Daniel Gregoire
 
 ==== Problem
 
-You want to test individual units of Clojure code.
+You want to test individual units of Clojure code.(((testing, unit testing)))((("Clojure", "clojure.test namespace")))
 
 ==== Solution
 
@@ -120,7 +120,7 @@ those keys on the original +employee+ map and assert that the return
 value equals +m+. Writing out multiple use cases in a declarative
 syntax makes it easier to catch errors and untreated edge cases, such
 as the +NullPointerException+ that will be thrown for the
-`[:not-a-key] employee` assertion pair in the preceding test.
+`[:not-a-key] employee` assertion pair in the preceding test.(((truthiness)))
 
 Unlike testing frameworks for other popular dynamic languages,
 Clojure's built-in assertions are minimal and simple. The +is+ and

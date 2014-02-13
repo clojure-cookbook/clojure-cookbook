@@ -5,7 +5,7 @@ by Alan Busby
 ==== Problem
 
 You want to use memory mapping to access a large file as though it
-were fully loaded into memory, without actually loading the whole thing.
+were fully loaded into memory, without actually loading the whole thing.((("I/O (input/output) streams", "memory-mapping files")))(((memory-mapping functionality)))(((Java, memory-mapping functionality)))(((NIO library)))(((clj-mmap library)))(((files, memory-mapping)))
 
 ==== Solution
 
@@ -24,7 +24,7 @@ $ lein try clj-mmap
 (require '[clj-mmap :as mmap])
 ----
 
-To read the first and last _N_ bytes of UTF-8 encoded text file, use the
+To read the first and last _N_ bytes of UTF-8 encoded text file, use the(((functions, get-bytes)))
 +get-bytes+ function:
 
 [source,clojure]
@@ -38,7 +38,7 @@ To read the first and last _N_ bytes of UTF-8 encoded text file, use the
      (String. last-n-bytes  "UTF-8")]))
 ----
 
-To overwrite the first _N_ bytes of a text file, call +put-bytes+:
+To overwrite the first _N_ bytes of a text file,(((functions, put-bytes))) call +put-bytes+:
 
 [source,clojure]
 ----

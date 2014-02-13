@@ -5,7 +5,7 @@ by John Cromartie
 
 ==== Problem
 
-From a REPL, you want to read documentation for a function.
+From a REPL, you want to read documentation for a function.((("REPL (read-eval-print loop)", "interactive documentation")))(((interactive documentation)))((("documentation, interactive")))((("development ecosystem", "interactive documentation")))(((doc macro)))(((macros, doc)))
 
 ==== Solution
 
@@ -62,7 +62,7 @@ Macro
 Clojure supports inline documentation of functions (more about that
 later), along with other metadata, which allows you to introspect
 things like documentation any time you want. The +doc+ and +source+
-macros are just convenience functions for the REPL.
+macros are just convenience functions for the REPL.(((inline documentation)))(((metadata)))(((source macro)))(((macros, source)))
 
 You can peek under the hood at almost everything in Clojure at any
 time. The next example may be a bit mind-expanding if you're not used

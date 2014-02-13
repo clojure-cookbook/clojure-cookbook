@@ -5,7 +5,7 @@ by Edmund Jackson
 ==== Problem
 
 You want to transform a text file, line by line but using all cores and
-without loading it into memory.
+without loading it into memory.((("I/O (input/output) streams", "parallelizing file processing")))(((files, parallelizing processing)))(((text files, transforming line-by-line)))(((functions, pmap)))(((functions, line-seq)))
 
 ==== Solution
 

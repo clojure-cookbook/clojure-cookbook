@@ -8,7 +8,7 @@ by Tom Hicks
 You would like to generate a lazy sequence of dates (or times)
 beginning on a specific date and time. Further, unlike
 <<sec_primitives_dates_ranges>>, you would like to do this using only
-built-in types.
+built-in types.(((Java, java.util.GregorianCalendar)))(((Gregorian calendar dates)))
 
 ==== Solution
 
@@ -59,7 +59,7 @@ a sequence of the function's results. Because you do not provide the optional,
 limiting argument to +repeatedly+, the result sequences produced are
 infinite. Consequently, in the REPL environment, you must be careful to evaluate
 your result sequences in contexts (such as +take+ and +drop+), which
-limit the values produced.
+limit the values produced.(((functions, repeatedly)))(((lazy sequences)))
 
 Since the function given to +repeatedly+ is a function of no arguments, it is
 presumed to achieve its goals by side effects (making it an impure function).
@@ -106,7 +106,7 @@ argument but defaults to some convenient year if the argument is not provided:
 ----
 
 
-Using the +java.text.SimpleDateFormat+ class, you can then format the dates in a
+Using the +java.text.SimpleDateFormat+ class, you can then format the dates in a(((Java, java.text.SimpleDateFormat)))
 wide variety of different formats:
 
 [source,clojure]
@@ -159,4 +159,5 @@ Sundays in a year:
 * <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
   reader literal for date/times
 * <<sec_primitives_dates_ranges>> for an alternative that utilizes
-  +clj-time+/Joda-Time.
+  +clj-time+/Joda-Time.(((range="endofrange", startref="ix_DTrange")))
+

@@ -5,7 +5,7 @@ by Robert Stuttaford
 
 ==== Problem
 
-You need to add data to your Datomic database.
+You need to add data to your Datomic database.(((Datomic database, adding data to)))(((data, adding to databases)))
 
 ==== Solution
 

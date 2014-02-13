@@ -6,7 +6,7 @@ by Daemian Mack
 ==== Problem
 
 You want to decouple your program's consumers and producers by
-introducing explicit queues between them.
+introducing explicit queues between them.(((consumer/producer decoupling)))(((core.async)))(((asynchronous coordination)))(((decoupling consumers/producers)))((("server-sent events (SSE)")))
 
 For example, you are building a web dashboard that fetches Twitter
 messages. This application must both persist these events to a database and
@@ -140,7 +140,7 @@ The original approach was rigid. It offered no control over consumer
 latency and was therefore extremely vulnerable to lag. By buffering
 communication over channels and doing work asynchronously, we've
 created service boundaries around producers and consumers, allowing
-them to operate as independently as possible.
+them to operate as independently as possible.(((consumer latency)))
 
 Let's examine one of the new consumers in depth to understand how it
 has changed. 

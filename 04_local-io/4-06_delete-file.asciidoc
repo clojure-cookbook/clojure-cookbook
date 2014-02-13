@@ -4,7 +4,7 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to delete a file from your local file system.
+You need to delete a file from your local file system.((("I/O (input/output) streams", "deleting files/directories")))(((files, deleting)))(((directories, deleting)))((("Clojure", "clojure.java.io/delete-file")))
 
 ==== Solution
 
@@ -16,7 +16,7 @@ Use +clojure.java.io/delete-file+ to delete the file:
 ;; -> true
 ----
 
-If trying to delete a file that does not exist, a +java.io.IOException+
+If trying to delete a file that does not exist,(((exceptions/errors, java.io.IOException))) a +java.io.IOException+
 will be thrown:
 
 [source,clojure]
@@ -25,7 +25,7 @@ will be thrown:
 ;; -> java.io.IOException: Couldn't delete
 ----
 
-If you do not want +delete-file+ to throw exceptions when the given
+If you do not want +delete-file+ to throw exceptions when the given(((exceptions/errors, preventing on file deletion)))
 file could not be deleted for whatever reason, you can add the
 +silently+ flag set to +true+ to the arguments:
 
@@ -37,7 +37,7 @@ file could not be deleted for whatever reason, you can add the
 
 ==== Discussion
 
-For times when you want to do some custom handling of the eventual
+For times when you want to do some custom handling of the eventual(((exceptions/errors, custom handling of)))
 exceptions thrown, you should put the call to +delete-file+ inside a
 +try-catch+ body:
 
@@ -51,7 +51,7 @@ exceptions thrown, you should put the call to +delete-file+ inside a
 
 +java.io.File+ has an +.exists+ property that simply gives you a
 boolean answer whether a file exists or not. You can put this property
-together with a +try-catch+ body to get a "safe" delete utility
+together with a +try-catch+ body to get a "safe" delete utility(((safe-delete function)))(((functions, safe-delete)))
 function. This function will first check to see if the file with the
 path from the argument do exist before trying to delete it:
 
@@ -97,7 +97,7 @@ of that directory. The next step is to delete all the files and then
 finish up by deleting the directory itself. Note the call to +doall+.
 If you do not call +doall+, the deletion of the files would be lazy and
 then the files would still exist when the call to delete the actual
-directory is made, which would then fail.
+directory is made, which would then fail.(((functions, delete-directory)))
 
 
 ==== See Also

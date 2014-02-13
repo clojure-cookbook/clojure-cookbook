@@ -6,7 +6,7 @@ by Ryan Neufeld; originally submitted by David McNeil
 ==== Problem
 
 You want to create functions whose behavior varies based upon the
-arguments passed to them.
+arguments passed to them.(((functions, with polymorphic behavior)))(((polymorphic behaviors)))(((geometric functions)))(((functions, cond)))(((functions, condp)))
 
 For example, you want to develop a set of flexible geometry functions.
 
@@ -65,7 +65,7 @@ geometric functions like +perimeter+. With multimethods you'll need to
 repeat dispatch logic for each function and write a combinatorial
 explosion of implementations to suit. It would be better if these
 functions and their implementations could be grouped and written
-together.
+together.(((protocols, for polymorphism)))
 
 Use Clojure's _protocol_ facilities to define a protocol interface and
 extend it with concrete implementations:
@@ -109,13 +109,13 @@ where you aren't defining new types.
 
 It's important to note, there are techniques beyond +cond+ for
 implementing map-based dispatch. One such technique is a dispatch
-map, generally implemented as a map of keys to functions.
+map, generally implemented as a map of keys to functions.(((dispatch maps)))(((maps, map-based dispatch)))
 
 Next up are multimethods. Unlike +cond+-based polymorphism,
 multimethods separate dispatch from implementation. On account of
 this, they can be extended after their creation. Multimethods are
 defined using the +defmulti+ macro, which behaves similarly to +defn+,
-but specifies a dispatch function instead of an implementation.
+but specifies a dispatch function instead of an implementation.(((multimethods)))
 
 Let's break down the +defmulti+ declaration for a rather simple
 multimethod, the +area+ function:
@@ -174,7 +174,7 @@ make the intended arity of a multimethod more explicit:
 
 In all of the examples so far, we've always dispatched on a single
 value. Multimethods also support something called "multiple dispatch,"
-whereby a function can be dispatched upon any number of factors. By
+whereby a function can be dispatched upon any number of factors. By(((multiple dispatch)))
 returning a vector rather than a single value in our dispatch, you can
 make more dynamic decisions:
 
@@ -222,7 +222,7 @@ Clojure's protocol feature provides extensible polymorphism with fast
 dispatch akin to Java's interfaces, with one notable difference from
 multimethods: protocols can only perform single dispatch (based on type).
 
-Protocols are defined using the +defprotocol+ macro, which accepts a name,
+Protocols are defined using the +defprotocol+ macro, which accepts a name,(((defprotocol macro)))(((macros, defprotocol)))(((docstrings)))(((protocols, defining)))
 an optional docstring, and any number of named methods signatures. A
 method signature is made up of a few parts: the name, at least one
 type signature, and an optional docstring. The first argument of any
@@ -282,7 +282,7 @@ protocol's methods:
 .The Difference Between a Type and a Record
 ****
 Given types and records share a very similar syntax, so it can be
-hard to understand at face value how each should be used.
+hard to understand at face value how each should be used.(((types, vs. records)))(((records, vs. types)))
 
 Chas Emerick explained it best in an appendix to
 http://www.clojurebook.com/[_Clojure Programming_] (O'Reilly Media):

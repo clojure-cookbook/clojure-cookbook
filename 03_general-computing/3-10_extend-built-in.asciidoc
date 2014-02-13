@@ -5,13 +5,13 @@ by David McNeil
 
 ==== Problem
 
-You need to extend one of the built-in types with your own functions.
+You need to extend one of the built-in types with your own functions.(((types, extending built-in)))
 
 ==== Solution
 
 Suppose you would like to add domain-specific functions to
 the core +java.lang.String+ type. In this example, you will add a
-+first-name+ and +last-name+ function to +String+.
++first-name+ and +last-name+ function to +String+.(((functions, adding domain-specific)))(((protocols, defining domain-specific)))(((Java, java.lang.String)))
 
 Define a protocol with the functions you need. The protocol declares
 the signature of the functions:
@@ -51,7 +51,7 @@ Why use protocols when multimethods already exist? For one, speed:
 protocols dispatch only on the type of their first parameter. Further,
 protocols allow you to group and name an extension. This makes it much
 easier to reason about what a group of functions confer about a type
-and ensures a proper, full implementation.
+and ensures a proper, full implementation.(((multimethods)))(((protocols, vs. multimethods)))
 
 It is good practice to only extend a protocol to a type if you are the
 author of either the protocol or the type. This will avoid cases where

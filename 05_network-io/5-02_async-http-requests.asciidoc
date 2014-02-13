@@ -5,12 +5,12 @@ by Alan Busby and Ryan Neufeld
 
 ==== Problem
 
-You want to perform asynchronous HTTP requests.
+You want to perform asynchronous HTTP requests.(((networking/web services, asynchronous HTTP requests)))
 
 ==== Solution
 
 Use http://http-kit.org/[HTTP Kit], a highly-performant, event-driven
-HTTP client/server library.
+HTTP client/server library.((("HTTP (Hypertext Transfer Protocol)", "asynchronous requests")))(((HTTP Kit library)))(((asynchronous requests)))
 
 Before starting, add `[http-kit "2.1.12"]` to your project's
 dependencies, or follow along in a REPL using +lein-try+:

@@ -4,11 +4,11 @@ by Osbert Feng
 
 ==== Problem
 
-You need to parse RSS data.
+You need to parse RSS data.(((networking/web services, RSS data)))((("RSS (Really Simple Syndication) data")))
 
 ==== Solution
 
-Use the +feedparser-clj+ library to parse RSS data.
+Use the +feedparser-clj+ library to parse RSS data.(((feedparser-clj library)))
 
 Before starting, add `[org.clojars.scsibug/feedparser-clj "0.4.0"]` to
 your project's dependencies, or follow along in a REPL using +lein-try+:
@@ -54,7 +54,7 @@ from a file or other location:
 +feedparser-clj+ is a wrapper around the Java ROME library that is
 capable of processing a variety formats of RSS and Atom feeds.
 +feedparser-clj.core/parse-feed+ returns a Clojure map that closely
-mimics the underlying XML feed.
+mimics the underlying XML feed.(((Java, ROME library)))(((ROME library)))
 
 Most of the time, what you care about will be under the +:entries+
 key, which contains an array of maps corresponding to each RSS entry.

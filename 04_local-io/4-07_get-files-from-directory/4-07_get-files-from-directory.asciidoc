@@ -5,11 +5,11 @@ by Ryan Neufeld and Stefan Karlsson
 
 ==== Problem
 
-Given a directory, you want to access the files inside.
+Given a directory, you want to access the files inside.(((files, listing)))((("I/O (input/output) streams", "listing files")))(((Java, java.io.File)))
 
 ==== Solution
 
-Call the built-in +file-seq+ function to return a lazy sequence
+Call the built-in +file-seq+ function to return a lazy sequence(((functions, file-seq)))
 of +java.io.File+ objects.
 
 [NOTE]
@@ -39,7 +39,7 @@ tng-dir
 
 Sequences are one of Clojure's more powerful abstractions; treating a
 directory hierarchy as a squence allows you to leverage functions like
-+map+ and +filter+ to manipulate files and directories.
++map+ and +filter+ to manipulate files and directories.((("sequence abstraction", "listing files in directory hierarchies")))
 
 Consider, for example, the case where you would like to select only files in a
 directory hierarchy (and not directories). You can define such a function

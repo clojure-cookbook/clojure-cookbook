@@ -6,8 +6,8 @@ by Ambrose Bonnaire-Sergeant
 ==== Problem
 
 Clojure strongly encourages higher-order functions, but tools for
-verifying their use focus on runtime verification. You want earlier
-feedback: compile time.
+verifying their use focus on runtime verification. You want earlier(((compile-time verification)))(((functions, higher-order))) 
+feedback: compile time.(((core.typed system, checking higher-order functions with)))(((higher-order functions)))
 
 ==== Solution
 
@@ -95,7 +95,7 @@ While Clojure's built-in pre/post conditions are useful for defining
 anonymous functions that fail fast, these checks only provide feedback
 at runtime. Why not type check our higher-order functions as well?
 ++core.typed++'s type checking abilities aren't limited to only data
-types--it can also type-check functions as types themselves.
+types--it can also type-check functions as types themselves.(((anonymous functions)))(((functions, anonymous)))
 
 By writing returning anonymous functions created with the
 +clojure.core.typed/fn>+ form instead of +fn+, it is possible to

@@ -7,14 +7,14 @@ by Luke VanderHart
 
 You want to compare two values according to some comparison
 function. Or, you want to sort a collection by comparing all the items
-in it.
+in it.(((values, comparing/sorting)))(((functions, compare)))(((comparisons, of values)))(((sorting, values)))
 
 ==== Solution
 
 Use the +clojure.core/compare+ function to compare two items. They must be
 comparable with respect to each other. For example, a double can be
 compared to a ratio because they're both numbers, but a string can't
-be compared to a vector.
+be compared to a vector.((("Clojure", "clojure.core/compare")))
 
 +compare+ returns a negative number if the first argument is less than
 the second, zero if it is logically equal, and a positive number if it
@@ -37,7 +37,7 @@ is greater:
 
 To sort an entire collection, pass it to the +clojure.core/sort+
 function. Sort applies +compare+ as needed and returns a sorted
-sequence.
+sequence.((("Clojure", "clojure.core/sort")))
 
 For example, the following code breaks down a string into a sequence
 of characters (+sort+ calls +seq+ on its argument), then sorts
@@ -66,7 +66,7 @@ arguments. It can return values like +compare+ does (that is, a
 positive integer, a negative integer, or zero). Alternatively, it can
 returns a boolean value (i.e., a _predicate_ function). The predicate
 function should return +true+ if and only if the first argument is
-should be sorted before the second argument.
+should be sorted before the second argument.(((natural ordering)))
 
 This means that you can pass regular Clojure predicates to +sort+:
 
@@ -128,7 +128,7 @@ The compare function may be called an arbitrary number of times as the sort is e
 Clojure fully participates in Java's comparison and sorting
 mechanisms. All Clojure objects that have a natural order implement
 http://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html[+java.lang.Comparable+]
-and implement the +compareTo+ method.
+and implement the +compareTo+ method.(((Java, comparison/sorting mechanisms)))
 
 More importantly, every Clojure function actually implements the
 http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html[+java.util.Comparator+]
@@ -154,7 +154,7 @@ and returns 1.
 
 ===== sort-by
 
-Sometimes, you want to sort a collection not by the values themselves,
+Sometimes, you want to sort a collection not by the values themselves,(((functions, sort-by)))
 but by some derivative function of the values. For example, say you
 have the following data, and you'd like to sort alphabetically by
 name. Unfortunately, maps don't have a natural sort, so you'll need to

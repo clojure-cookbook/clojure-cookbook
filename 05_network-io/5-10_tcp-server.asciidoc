@@ -5,11 +5,11 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to open up a socket on a port to use as a low-level TCP server.
+You want to open up a socket on a port to use as a low-level TCP server.(((networking/web services, TCP servers)))((("TCP (Transmission Control Protocol)", "server creation")))
 
 ==== Solution
 
-Use Java interop on the +java.net.ServerSocket+ class to create a TCP
+Use Java interop on the +java.net.ServerSocket+ class to create a TCP(((Java, java.net.ServerSocket)))
 listener. Use the functions in +clojure.java.io+ to obtain input and
 output streams (or readers and writers) to read and write data to the
 socket:
@@ -114,7 +114,7 @@ functions instead of +clojure.java.io/reader+ and
 +clojure.java.io/writer+ functions, respectively, which return
 +java.io.InputStream+ and +java.io.OutputStream+ objects. These
 provide APIs for reading and writing raw bytes, rather than just
-strings and characters.
+strings and characters.(((binary data)))
 
 One thing you may have noticed about the example is that, unlike a
 traditional server, it doesn't actually continue to accept incoming

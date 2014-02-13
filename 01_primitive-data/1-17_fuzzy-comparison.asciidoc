@@ -6,7 +6,7 @@ by Ryan Neufeld
 ==== Problem
 
 You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating point numbers, which are susceptible to "drift" through repeated operations.
-
+(((numeric types,  fuzzy comparisons of)))(((fuzzy comparisons)))(((comparisons, fuzzy)))(((fault-tolerant equality)))(((functions, fuzzy)))
 ==== Solution
 
 Clojure has no built-in functions for fault-tolerant equality or "fuzzy
@@ -36,7 +36,7 @@ some minute fractional number. If you were comparing large numbers and
 wanted to ignore variations under a thousand, you could set the
 tolerance to +1000+.
 
-Even with +fuzzy=+, you still need to take care when comparing
+Even with +fuzzy=+, you still need to take care when comparing(((floating-point values, comparison of)))((("values", "floating-point")))
 floating point values, especially for values differing by numbers
 *very close* to your tolerance. At differences bordering the supplied
 tolerance, you may find the results to be unexpected:
@@ -74,7 +74,7 @@ functions tuned to a specific tolerance:
 ----
 
 What if you wanted to sort using fuzzy comparison? The +sort+ function
-takes as an optional argument a predicate or comparator. Let's write a
+takes as an optional argument a predicate or comparator. Let's write a(((functions, sort)))(((sorting, using fuzzy comparison)))
 function +fuzzy-comparator+ that returns a comparator with a given tolerance:
 
 [source,clojure]

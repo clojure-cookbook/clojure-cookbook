@@ -6,7 +6,7 @@ by Alex Robbins
 ==== Problem
 
 You have a large amount of data to process, but you don't have a
-Hadoop cluster.
+Hadoop cluster.(((distributed computation, Elastic MapReduce)))((("Elastic MapReduce (EMR)", "running Cascalog job on")))(((Hadoop, on-demand through EMR)))
 
 ==== Solution
 
@@ -75,7 +75,7 @@ you don't have them very often. Maintaining your own Hadoop cluster
 can be a fair amount of time and money. If you can keep the cluster
 busy, it is a great investment. If you only need it a couple times a
 month, you might be better off using EMR for on-demand Hadoop
-clusters.
+clusters.(((range="endofrange", startref="ix_DCcasc")))
 
 ==== See Also
 

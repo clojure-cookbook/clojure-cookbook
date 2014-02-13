@@ -5,7 +5,7 @@ by Chris Ford
 ==== Problem
 
 You want to code a nursery rhyme to inspire your children to take up
-programming.
+programming.(((nursery rhyme example)))(((music)))(((notes)))((("synthesized instruments")))
 
 ==== Solution
 
