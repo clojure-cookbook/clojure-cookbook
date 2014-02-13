@@ -5,7 +5,7 @@ by Alex Robbins
 
 ==== Problem
 
-You need to generate aggregate statistics from terabytes of log files.
+You need to generate aggregate statistics from terabytes of log files.(((distributed computation, aggregating large files)))(((files, aggregating large)))(((Cascalog, aggregating large files with)))(((logging)))(((statistics)))
 For example:
 
 .Simple input log file (<date>,<URL>,<USER-ID>):
@@ -166,7 +166,7 @@ distributed. For instance, a naive implementation of the aggregation
 algorithm would end up doing all of the aggregation work on a single
 reducer. A 2,000 computer cluster would be as slow as a 1 computer
 cluster during the reduce phase if all the aggregation happened on one
-node.
+node.(((aggregate statistics)))
 
 Before you start writing your own aggregator, check through the source
 of +cascalog.logic.ops+. This namespace has many useful functions and
@@ -189,7 +189,7 @@ instantly. Cascalog makes this very easy. Many of the built-in
 Cascalog functions use combiners under the covers, so you'll be
 writing highly optimized queries without even trying. You can even
 write your own functions to use combiners using the +defparallelagg+
-macro.
+macro.(((Hadoop, combiner function)))(((macros, defparallelagg)))(((defparallelagg macro)))
 
 [TIP]
 ====

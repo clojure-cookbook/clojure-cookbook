@@ -6,7 +6,7 @@ by Alex Robbins
 
 Your long-running Cascalog jobs throw errors, then need to be
 completely restarted. You waste time waiting for steps to rerun when
-the problem was later in the workflow.
+the problem was later in the workflow.(((Cascalog, checkpointing jobs)))(((exceptions/errors, checkpointing Cascalog jobs)))(((Checkpoint)))
 
 ==== Solution
 
@@ -52,7 +52,7 @@ Cascalog jobs often take hours to run. There are few things more
 frustrating than a typo in the last step breaking a job that has been
 running all weekend. Cascalog Checkpoint provides the +workflow+
 macro, which allows you to restart a job from the last step that
-successfully completed.
+successfully completed.(((macros, workflow)))(((workflow macro)))
 
 The +workflow+ macro expects its first argument, +checkpoint-dir+, to
 be a vector with a path for temporary files.  The output of each step
@@ -104,7 +104,7 @@ Another method for dealing with errors is providing error taps for
 your Cascalog queries. Cascalog will put the input tuples that cause
 errors into the error tap (for different processing or to dump for
 manual inspection). With error taps in place, a couple of malformed
-inputs won't bring down your entire workflow.
+inputs won't bring down your entire workflow.(((error taps)))
 
 Checkpointing your Cascalog jobs is a little bit of extra work
 initially, but it'll save you a lot of time.  Things will go

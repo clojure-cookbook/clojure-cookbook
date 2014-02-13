@@ -4,7 +4,7 @@ by Alex Robbins
 
 ==== Problem
 
-Your Cascalog job runs very slowly and you aren't sure why.
+Your Cascalog job runs very slowly and you aren't sure why.(((Cascalog, explaining queries)))(((queries, explaining Cascalog)))((("performance/production", "improving Cascalog speed")))
 
 ==== Solution
 
@@ -39,7 +39,7 @@ image::images/clcb_0901.png[]
 Cascalog workflows compile into Cascading workflows. Cascading is a
 Java library that wraps Hadoop, providing a flow-based plumbing
 abstraction. The query graph in the DOT file will have different
-Cascading elements as nodes.
+Cascading elements as nodes.(((Cascading library)))(((Java, Cascading library)))(((Hadoop, Cascading library)))
 
 The +explain+ function here is analogous to the +EXPLAIN+ command in
 many SQL implementations. +explain+ causes Cascalog to print out the
