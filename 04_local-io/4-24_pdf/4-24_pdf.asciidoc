@@ -88,7 +88,7 @@ image::images/clcb_0401.png["Contents of the employees.pdf file"]
 
 The +clj-pdf+ library is built on top of +iText+ and +JFreeChart+
 libraries. The templating syntax is inspired by the popular +Hiccup+
-HTML templating engine.(((iText library)))(((JFreeChart library)))(((Hiccup HTML templating engine)))(((HTML templates)))(((templates)))
+HTML templating engine.(((iText library)))(((JFreeChart library)))(((Hiccup library)))(((HTML templates)))(((templates)))(((HTML templates, Hiccup)))
 
 In a template, +$+ is used to indicate places where dynamic content
 will be substituted. When populating a template from a map, all

@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to create HTML dynamically based on a template, without using
-traditional mixed code or DSL-style templating.((("web applications", "templating tools", id="ix_WAtemp", range="startofrange")))((("HTML templates", id="ix_HTML", range="startofrange")))(((HTML templates, Enlive)))(((Enlive library, selector-based approach of")))
+traditional mixed code or DSL-style templating.((("web applications", "templating tools", id="ix_WAtemp", range="startofrange")))((("HTML templates", id="ix_HTML", range="startofrange")))(((HTML templates, Enlive)))(((Enlive library, selector-based approach of)))
 
 ==== Solution
 
@@ -90,7 +90,7 @@ See the following discussion section for a detailed explanation of the
 
 ===== Repeating elements
 
-The preceding code simply replaces the values of certain nodes in the(((Enlive library, repeating elements with snippets")))(((snippets)))
+The preceding code simply replaces the values of certain nodes in the(((Enlive library, snippets)))(((snippets)))
 emitted HTML. In real scenarios, another common task is to _repeat_
 certain items from input HTML, one repetition for each item in the
 input data. For this task, Enlive provides _snippets_, which are selections
@@ -163,7 +163,7 @@ resulting HTML.
 ==== Discussion
 
 Enlive can be slightly difficult to get the hang of, compared to some
-other libraries.(((Enlive library, benefits/drawbacks of")))(((functional programming)))(((higher-order functions))) There are several contributing factors to
+other libraries.(((Enlive library, benefits/drawbacks of)))(((functional programming)))(((higher-order functions))) There are several contributing factors to
 this:
 
 - It has a more novel conceptual approach than other templating systems
@@ -182,7 +182,7 @@ composing them into useful templating systems becomes more manageable.
 ===== Enlive and the DOM
 
 First of all, it is important to understand that Enlive does not
-operate on HTML text directly.(((Enlive library, DOM representation")))((("DOM (Document Object Model)"))) Instead, it first parses the HTML into
+operate on HTML text directly.(((Enlive library, DOM representation)))((("DOM (Document Object Model)"))) Instead, it first parses the HTML into
 a Clojure data structure representing the DOM (Document Object Model).
 For example, the HTML fragment:
 
@@ -222,7 +222,7 @@ macro. +deftemplate+ takes a symbol as a name, a classpath-relative
 path to an HTML file, an argument list, and a series of _selector_ and
 _transform function_ pairs. It emits a function, bound to the same
 name and of the specified arguments, which, when called, will return
-the resulting HTML as a sequence of strings.(((Enlive library, templates")))
+the resulting HTML as a sequence of strings.(((Enlive library, templates)))
 
 An Enlive _selector_ is a Clojure data structure that identifies a
 specific node in the input HTML file. They are similar to CSS
@@ -383,7 +383,7 @@ developers can use them directly without manually slicing them
 (outside of code, that is). Furthermore, the templates themselves can
 be viewed in a browser statically, meaning they can serve as their own
 wireframes. This eliminates the burden of keeping a web project's
-visual prototypes in sync with the code.(((Enlive library, benefits/drawbacks of")))
+visual prototypes in sync with the code.(((Enlive library, benefits/drawbacks of)))
 
 Secondly, because it uses real Clojure functions and data structures
 instead of a custom DSL, Enlive exposes the full power of the Clojure

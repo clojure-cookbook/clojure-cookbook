@@ -90,7 +90,7 @@ https://gist.github.com/w01fe/7132440[this gist].
 
 ==== Discussion
 
-Most of the time, Clojure's sequence abstraction is all you need to((("sequence abstraction", "vs. primitive arrays)))
+Most of the time, Clojure's sequence abstraction is all you need to((("sequence abstraction", "vs. primitive arrays")))
 get the job done. The preceding +dot-product+ can be written succinctly in
 ordinary Clojure, and this is generally what you should try first:
 

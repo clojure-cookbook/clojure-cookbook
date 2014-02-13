@@ -69,7 +69,7 @@ Use +sorted-map-by+ to create a sorted map using a custom comparator:
 Clojure maps can have one of three distinct concrete implementations:
 
 Array maps, +clojure.lang.PersistentArrayMap+::
-These are backed by a simple array. These are efficient for very small maps, but not for larger sizes.(((array maps)))((("Clojure", "clojure.lang.PersistentArrayMap")))
+These are backed by a simple array. These are efficient for very small maps, but not for larger sizes.(((arrays, array maps)))((("Clojure", "clojure.lang.PersistentArrayMap")))
 
 Hash maps, +clojure.lang.PersistentHashMap+::
 These are backed by a hash table data structure. Hash tables support near constant-time lookup and insertion, but also require a certain amount of overhead space, using up slightly more heap space.((("Clojure", "clojure.lang.PersistentHashMap")))(((hash maps)))

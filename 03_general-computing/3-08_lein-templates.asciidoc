@@ -184,7 +184,7 @@ will look for an appropriately named template on +clojars.org+. If it
 finds one, it will download the template and use it to create the new
 project. The result is an almost magic-seeming project creation
 interface that lends itself extremely well to getting Clojure
-programmers going with new technology very quickly.(((Clojars templates)))(((lein new)))
+programmers going with new technology very quickly.(((Clojars, templates from)))(((lein new)))
 
 Once a project template has been downloaded, Leiningen will use
 +src/leiningen/new/<project-name>.clj+ to create a new project.
