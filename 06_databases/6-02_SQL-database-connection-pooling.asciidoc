@@ -13,7 +13,7 @@ connection pool.(((SQL databases, connecting with connection pool)))(((connectio
 Use the BoneCP connection and statement pooling library to wrap your
 JDBC-based drivers, creating a pooled data source. The pooled data
 source is then usable by the +clojure.java.jdbc+ library, as described
-in the <<sec_db_connecting_to_a_sql_database>> recipe.(((BoneCP library)))(((PostgreSQL database)))(((clojure.java.jbdc library)))
+in the <<sec_db_connecting_to_a_sql_database>> recipe.(((BoneCP library)))(((PostgreSQL database)))((("Clojure", "clojure.java.jbdc library")))
 
 To follow along with this recipe, you'll need a running SQL database
 and existing table to connect to. We suggest PostgreSQL.footnote:[Mac

@@ -7,7 +7,7 @@ by Ryan Neufeld
 
 You have multiple strings, values, or collections that you need to
 combine into one string.(((strings, concatenation of)))(((functions, str)))
-(((concatenation, of strings/values/collections)))(((values, concatenation of)))(((collections, concatenation of)))
+((("concatenation, of strings/values/collections")))(((values, concatenation of)))(((collections, concatenation of)))
 ==== Solution
 
 Use the +str+ function to concatenate strings and/or values:

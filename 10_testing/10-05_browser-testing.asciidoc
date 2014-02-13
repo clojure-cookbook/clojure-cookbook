@@ -4,7 +4,7 @@ by Matthew Maravillas
 
 ==== Problem
 
-You want to run browser-based tests.
+You want to run browser-based tests.(((testing, browser-based)))(((Selenium WebDriver)))(((clj-webdriver library)))(((browser-based tests)))
 
 ==== Solution
 
@@ -105,7 +105,7 @@ Tests failed.
 
 Browser tests verify that your application behaves as expected in your
 targeted browsers. They test the appearance and behavior of your
-application as rendered in the browser itself.
+application as rendered in the browser itself.((("web applications", "browser testing for")))
 
 Manually testing applications in a browser is a tedious and repetitive
 task. The amount of time and effort required for a complete test run

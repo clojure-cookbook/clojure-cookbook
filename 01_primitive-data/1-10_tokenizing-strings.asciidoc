@@ -4,7 +4,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to split a string into a number of parts.(((strings, splitting into parts)))((("functions", "clojure.string/split")))(((tokenizing)))
+You need to split a string into a number of parts.(((strings, splitting into parts)))((("functions", "clojure.string/split")))(((tokenization)))
 
 ==== Solution
 

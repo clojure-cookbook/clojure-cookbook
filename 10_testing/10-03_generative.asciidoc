@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to test a function using randomly generated inputs to ensure
-that it works in all possible scenarios.
+that it works in all possible scenarios.(((testing, generative tests)))(((generative tests)))
 
 ==== Solution
 
@@ -139,7 +139,7 @@ value. Different functions produce different types of data. The
 all of Clojure's primitive types, as well as collections. It also
 contains functions for randomly choosing from a set of options; the
 +one-of+ function used previously, for example, takes a number of generator
-functions and chooses a value from one at random.
+functions and chooses a value from one at random.(((macros, defspec macro)))(((defspec macro)))
 
 The +defspec+ macro takes three types of forms: a function to put
 under test, an _argument specification_, and a _body_ containing one or

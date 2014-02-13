@@ -7,7 +7,7 @@ by Travis Vachon
 You regularly create new, similar projects and want an easy way to
 generate customized boilerplate. Or, you work on an open source
 project and want to give users an easy way to get started with your
-software.((("development ecosystem", "custom project templates")))(((templates)))(((Leiningen plugins)))(((project templates)))
+software.((("development ecosystem", "custom project templates")))(((templates)))(((Leiningen plugins, customized boilerplate generation with)))(((project templates)))
 
 ==== Solution
 

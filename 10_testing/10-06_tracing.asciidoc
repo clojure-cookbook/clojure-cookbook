@@ -5,7 +5,7 @@ by Stefan Karlsson
 ==== Problem
 
 You want to trace the execution of your code, in order to see what it
-is doing.
+is doing.(((testing, tracing code execution)))(((tools.trace library)))
 
 ==== Solution
 
@@ -65,7 +65,7 @@ and most low-level tracing operation. Wrapping a value in an
 invocation of +trace+ does two things: it logs a tracer message to
 STDOUT and, most importantly, returns the original value unadulterated.
 +tools.trace+ provides a number of other granularities for tracing
-execution.
+execution.(((exceptions/errors, tracing code execution)))
 
 Stepping up a level from simple values, you can define functions with
 +clojure.tools.trace/deftrace+ instead of +defn+ to trace the input
@@ -76,7 +76,7 @@ and output to the function you define.
 It is not advisable to deploy production code with tracing in place.
 Tracing is most suited to development and debugging, particularly from
 the REPL. Include +tools.trace+ in your _project.clj_'s +:dev+ profile
-to make tracing available only to development tasks.
+to make tracing available only to development tasks.((("development ecosystem", "tracing code execution")))((("performance/production", "tracing code execution and")))
 ====
 
 [source,clojure]

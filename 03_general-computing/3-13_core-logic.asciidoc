@@ -8,7 +8,7 @@ You have a graph-like, hierarchical data structure, serialized as a
 flat list of nodes that you want to query. For example, you have a
 graph of movie metadata represented as entity-attribute-value triples.
 Writing this code with the standard seq functions has proven to be too
-tedious and error prone.(((core.logic library)))(((logic programming)))((("hierarchical data, querying")))((("queries, for hierarchical data")))((("graph-like data, querying")))
+tedious and error prone.(((core.logic library)))(((logic programming)))((("hierarchical data, querying")))(((queries, for hierarchical data)))((("graph-like data, querying")))
 
 ==== Solution
 

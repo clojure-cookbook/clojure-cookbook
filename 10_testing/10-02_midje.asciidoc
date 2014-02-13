@@ -6,7 +6,7 @@ by Joseph Wilk
 ==== Problem
 
 You want to unit test a function that integrates with external
-dependencies such as HTTP services or databases.
+dependencies such as HTTP services or databases.(((testing, integrated functions)))(((Midje)))
 
 ==== Solution
 
@@ -69,7 +69,7 @@ In Midje, +facts+ associates a description with a group of tests, while
 
 Assertions behave a little differently than most testing frameworks.
 Within a +fact+ body, every single assertion is checked irrespective of
-whether a previous one failed.
+whether a previous one failed.(((assertions)))
 
 Midje only provides mocks, not stubs. All functions specified in the
 +provided+ body have to be called for the test to pass. Mocks use the
@@ -154,7 +154,7 @@ no properties other than identity. Think of it as a fake or
 placeholder, where we do not care about the actual value or might be
 referencing something that does not exist yet. In our example, we don't
 really care what +..body..+ is; we just care that it is the thing
-returned.
+returned.(((metaconstants)))
 
 To add Midje to an existing project, add `[midje "1.5.1"]` to your
 development dependencies and `[lein-midje "3.1.2"]` to your

@@ -49,5 +49,5 @@ You can read exactly how to do it later in <<sec_cascalog_emr>>.
 Whether you run your job on EMR or on your own cluster, you will
 package up your code into an uberjar, then send it to Hadoop for
 execution. It is surprisingly simple to get hundreds of computers
-working on your task.(((Hadoop)))
+working on your task.(((Hadoop, on-demand through EMR)))
 

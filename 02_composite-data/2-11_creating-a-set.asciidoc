@@ -111,7 +111,7 @@ set as a seq:
 WARNING: All of the elements in a sorted set must be comparable
 against one another (e.g., you cannot have a sorted set that contains
 both strings and numbers). Attempting to add an uncomparable value will
-result in a runtime error.(((exceptions/errors, with sorted sets)))(((runtime errors, with sorted sets)))
+result in a runtime error.(((exceptions/errors, with sorted sets)))((("runtime errors, with sorted sets", seealso="exceptions/errors")))
 
 Adding or removing objects in a sorted set will always return another
 sorted set.

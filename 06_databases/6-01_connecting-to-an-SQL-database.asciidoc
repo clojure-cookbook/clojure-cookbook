@@ -101,7 +101,7 @@ The +clojure.java.jdbc+ library provides functions that wrap the
 basic capabilities of the Java JDBC specification. The additional
 +java-jdbc.sql+ and +java-jdbc.ddl+ namespaces from the
 +java-jdbc/dsl+ project implement small DSLs to generate basic SQL DML
-and DDL statements.(((Java, Java JDBC)))(((clojure.java.jbdc library)))
+and DDL statements.(((Java, Java JDBC)))((("Clojure", "clojure.java.jbdc library")))
 
 Because it relies upon Java JDBC, the +clojure.java.jdbc+ library is useable
 with many of the most popular SQL databases, including Apache Derby, HSQLDB,

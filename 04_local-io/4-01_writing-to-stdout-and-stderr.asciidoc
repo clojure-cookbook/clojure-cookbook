@@ -47,7 +47,7 @@ utilize the `*out*` binding as the destination to write to.
 Consequently, you can rebind that var to `*err*` (using +binding+) to
 change the destination of print messages from +STDOUT+ to +STDERR+.
 Other printing functions include: +pr+, +prn+, +printf+, and a handful
-of others.(((printing functions, print/prntln)))
+of others.((("printing functions, print/prntln")))
 
 The bound value of `*out*` is not restricted to operating system
 streams; `*out*` can be *any* stream-like object. This makes print

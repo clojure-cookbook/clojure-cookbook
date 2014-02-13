@@ -6,7 +6,7 @@ by Dmitri Sotnikov and Chris Allen
 ==== Problem
 
 You want to work with data stored in a relational database without
-writing SQL by hand.(((SQL databases, querying with Korma)))(((Korma)))(((queries)))
+writing SQL by hand.(((SQL databases, querying with Korma)))(((Korma)))(((queries, using Korma DSL)))
 
 ==== Solution
 

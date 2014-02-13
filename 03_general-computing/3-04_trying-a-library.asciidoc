@@ -90,7 +90,7 @@ Arguments: ([& args])
 As befits a Clojure tool, +lein-try+ is an elegant way to make a task
 less laborious. Use it to summon powerful libraries from the net at
 your whim, without having to set them up, and enjoy a wizardly
-satisfaction from the sudden confluence of new abilities.(((Leiningen plugins)))
+satisfaction from the sudden confluence of new abilities.(((Leiningen plugins, benefits of)))
 
 ==== See Also
 

@@ -32,7 +32,7 @@ glance:
 
 TIP: In Clojure, commas are whitespace, which means that they can be
 used *anywhere* in a form with no effect on the value; it is just one
-way to make your code easier to read.(((whitespace, commas as)))(((commas, as whitespace)))
+way to make your code easier to read.(((whitespace, commas as)))((("commas, as whitespace")))
 
 Create an empty, unsorted map with a pair of braces: +{}+.
 

@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You want to invoke your Clojure application from the command line.((("development ecosystem", "command line invocation")))(((command lines, running programs from)))(((lein run)))(((Leiningen plugins)))
+You want to invoke your Clojure application from the command line.((("development ecosystem", "command line invocation")))(((command lines, running programs from)))(((lein run)))(((Leiningen plugins, command-line invocation with)))
 
 ==== Solution
 

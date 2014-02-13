@@ -4,7 +4,7 @@ by Alan Busby and Ryan Neufeld
 
 ==== Problem
 
-You want to execute simple Datomic queries with high performance.(((Datomic database, querying)))(((queries)))
+You want to execute simple Datomic queries with high performance.(((Datomic database, querying)))(((queries, simple Datomic)))
 
 ==== Solution
 

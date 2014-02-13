@@ -65,7 +65,7 @@ user=>
 
 ----
 
-*+lein trampoline+* is necessary because, by default, a Leiningen REPL(((Leiningen plugins)))
+*+lein trampoline+* is necessary because, by default, a Leiningen REPL(((Leiningen plugins, trampolining control with)))
 actually runs the REPL and its associated console I/O in a separate
 JVM process from your application code. Using the +trampoline+ option
 forces Leiningen to run your code in the same process as the REPL,

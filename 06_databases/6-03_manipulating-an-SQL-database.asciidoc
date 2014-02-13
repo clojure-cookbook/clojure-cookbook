@@ -6,7 +6,7 @@ by Tom Hicks
 
 ==== Problem
 
-You want your Clojure program to manipulate tables and records in an SQL database.(((SQL databases, manipulation of)))(((clojure.java.jbdc library)))(((Java, Java JDBC)))(((PostgreSQL database)))
+You want your Clojure program to manipulate tables and records in an SQL database.(((SQL databases, manipulation of)))((("Clojure", "clojure.java.jbdc library")))(((Java, Java JDBC)))(((PostgreSQL database)))
 
 ==== Solution
 
