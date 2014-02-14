@@ -75,6 +75,8 @@ touching the +Daemon+ interface:
 (defn -stop [this]
   (stop))
 
+(defn -destroy [this])
+
 ;; Enable command-line invocation
 (defn -main [& args]
   (init args)
@@ -182,7 +184,8 @@ Invoked when a daemon has been instructed to stop. This
 Invoked after +stop+, but before the JVM process
   exits. In a traditional Java program, this is where you would free
   any resources you had acquired. You may be able to skip this method in
-  Clojure applications if you've properly structured your application.
+  Clojure applications if you've properly structured your application. It
+  doesn't hurt to include an empty function to prevent +jsvc+ from compaining.
 
 It's easy enough to create a record (with +defrecord+) that implements
 the +Daemon+ interface--but that isn't enough, though. +jsvc+ expects
