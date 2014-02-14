@@ -58,7 +58,7 @@ melody
 ;;     ...)
 ----
 
-Convert the piece into specific key by transforming each note's pitch
+Convert the piece into a specific key by transforming each note's pitch
 using a function that represents the key:
 
 [source,clojure]
@@ -93,10 +93,8 @@ time using a function that represents the tempo:
 
 ----
 
-Define an instrument and use it to play the melody.
-
-The following example synthesized instrument is a simple sine wave,
-whose amplitude and duration is controlled by an envelope:
+Now, define an instrument and use it to play the melody. The following example synthesized instrument is a simple sine wave,
+whose amplitude and duration are controlled by an envelope:
 
 [source,clojure]
 ----
@@ -118,7 +116,7 @@ whose amplitude and duration is controlled by an envelope:
 ;; -> <music playing on your speakers>
 ----
 
-If your nursery rhyme is a round, like Row, Row, Row Your Boat, you
+If your nursery rhyme is a round, like "Row, Row, Row Your Boat," you
 can use it to accompany itself:
 
 [source,clojure]
@@ -136,8 +134,8 @@ can use it to accompany itself:
 
 ==== Discussion
 
-A note is a sound of a particular pitch that occurs at a particular
-time. A song is a series of notes. We can therefore simply represent
+A _note_ is a sound of a particular pitch that occurs at a particular
+time. A _song_ is a series of notes. We can therefore simply represent
 music in Clojure as a sequence of time/pitch pairs.
 
 This representation is structurally very similar to Western music
@@ -146,29 +144,29 @@ by its horizontal and vertical position. But unlike traditional music
 notation, the Clojure representation can be manipulated by functional
 programming techniques.
 
-Pieces of Western music, like Row, Row, Row Your Boat, aren't
+Pieces of Western music, like "Row, Row, Row Your Boat," aren't
 composed of arbitrary pitches. Within a given melody, the notes are
 typically confined to a subset of all possible pitches called a
-scale.
+_scale_.
 
-The approach taken here is to express the pitches by an integer
-denoting where they appear in the scale, called a degree. So, for
+The approach taken here is to express the pitches by integers
+denoting where they appear in the scale, called _degrees_. So, for
 example, degree +0+ signifies the first pitch of the scale, and degree
-+4+ signifies the fifth note of the scale.
++4+ signifies the fifth pitch of the scale.
 
 This simplifies the description of the melody, because we don't have
 to worry about inadvertently specifying pitches that are outside our
-chosen scale. They also allow us to vary our chosen scale without
+chosen scale. It also allows us to vary our chosen scale without
 having to rewrite the melody.
 
 To work with degrees, we need a function that translates a degree into
-the actual pitch. Since Row, Row, Row Your Boat is in a major scale,
+the actual pitch. Since "Row, Row, Row Your Boat" is in a major scale,
 we need a function that represents such a scale.
 
 We use the observation that in a major scale, there is a regular
 pattern of double and single spaces between adjacent pitches (known to
 musicians as tones and semitones). We define a function called
-+major+ that accepts a degree out outputs the number of semitones it
++major+ that accepts a degree and outputs the number of semitones it
 represents.
 
 Our pitches still aren't quite right, because they're relative to the
@@ -176,26 +174,26 @@ lowest note of the piece. We need to establish a musical reference
 point that we will use to interpret our degrees.
 
 Concert A is conventionally used as a reference point by orchestras,
-so we use it as our musical zero. In other words, we will put Row, Row, Row Your Boat into A major. Now a degree of +0+ means "A."
+so we'll use it as our musical zero. In other words, we will put "Row, Row, Row Your Boat" into A major. Now a degree of +0+ means A.
 
 Note that we can simply compose together our functions for major and
 for A to arrive at a composite A major function.
 
 We need to do a similar transformation for time. Each note's time is
-expressed in beats, but we need it to be in milliseconds. We use the
+expressed in _beats_, but we need it to be in milliseconds. We use the
 current system time as our temporal reference point, meaning that the
-piece will start from now (and not at the start of the Unix epoch).
+piece will start from now (and not the start of the Unix epoch).
 
-Row, Row, Row Your Boat is a round, meaning it harmonizes if sung as
+"Row, Row, Row Your Boat" is a round, meaning it harmonizes if sung as
 an accompaniment to itself, offset by a particular number of beats. As
 an extra flourish, we produce a second version of the melody that
 starts four beats after the first.
 
 We encourage you to experiment with the tune, perhaps by varying the
-speed or using a different key (hint: a minor key has the following
-pattern of tones and semitones `[2 1 2 2 1 2 2 ]`).
+speed or using a different key (as a hint, a minor key has the following
+pattern of tones and semitones: `[2 1 2 2 1 2 2]`).
 
-We also encourage you to think about how this approach to modelling a
+We also encourage you to think about how this approach to modeling a
 series of events can be applied to other domains. The idea of
 expressing a time series as a sequence and then applying
 transformations across that series is a simple, flexible, and

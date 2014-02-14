@@ -1,5 +1,5 @@
 [[sec_command_line_applications]]
-=== Running Programs From the Command Line
+=== Running Programs from the Command Line
 [role="byline"]
 by Ryan Neufeld
 
@@ -19,10 +19,9 @@ To follow along with this recipe, create a new Leiningen project:
 $ lein new my-cli
 ----
 
-Configure which namespace will be the entrypoint to your application
+Configure which namespace will be the entry point to your application
 by adding a +:main+ key to the project's _project.clj_ file:
  
-._project.clj_
 [source,clojure]
 ----
 (defproject my-cli "0.1.0-SNAPSHOT"
@@ -37,7 +36,6 @@ by adding a +:main+ key to the project's _project.clj_ file:
 Finally, add a +-main+ function to the namespace configured in
 _project.clj_:
 
-._src/my-cli/core.clj_
 [source,clojure]
 ----
 (ns my-cli.core)
@@ -63,7 +61,7 @@ As it turns out, invoking your application from the command line
 couldn't be easier. Leiningen's +run+ command quickly and easily
 connects your application to the command line with little fuss.
 
-In its base form, *+lein run+* will invoke the +-main+ function of
+In its base form, +lein run+ will invoke the +-main+ function of
 whatever namespace you have specified as +:main+ in your project's
 _project.clj_ file. For example, setting +:main my-cli.core+ will
 invoke +my-cli.core/-main+. Alternatively, you may omit implementing
@@ -71,26 +69,26 @@ invoke +my-cli.core/-main+. Alternatively, you may omit implementing
 function (e.g., +my.cli.core/alt-main+); this function will be invoked
 instead of +-main+.
 
-While the printed arguments in the preceding solution *look* like Clojure
+While the printed arguments in the preceding solution _look_ like Clojure
 data, they are in fact regular strings. For simple arguments, you may
 choose to parse these strings yourself; otherwise, we suggest using the
 https://github.com/clojure/tools.cli[+tools.cli+] library. See
 <<sec_parse_command_line_arguments>> for more information on
 +tools.cli+.
 
-Although a project can only have one default +:main+ entrypoint, you
+Although a project can only have one default +:main+ entry point, you
 can invoke other functions from the command line by setting the +-m+
-option to a namespace or function. When setting +-m+ to a namespace
+option to a namespace or function. If you set +-m+ to a namespace
 (e.g., +my-cli.core+), the +-main+ function of that namespace will be
-invoked. By providing +-m+ with the fully qualified name of a function
+invoked. If you provide +-m+ with the fully qualified name of a function
 (e.g., +my-cli.core/alt-main+), that function will be invoked. There's
 no requirement that this function be prefixed with a +-+ (indicating it is
-a Java method). It simply must accept a variable number of arguments
+a Java method); it simply must accept a variable number of arguments
 (as +-main+ normally does).(((functions, command line invocation of)))
 
-For example, add a function +add-main+ to +my.cli/core+:
+For example, you can add a function +add-main+ to +my.cli/core+:
 
-._src/my-cli/core.clj_
+._src/my_cli/core.clj:
 [source,clojure]
 ----
 (ns my-cli.core)
@@ -104,7 +102,7 @@ For example, add a function +add-main+ to +my.cli/core+:
        (println "The sum is:")))
 ----
 
-Then invoke it from the command line with the command *+lein run -m
+then invoke it from the command line with the command *+lein run -m
 my-cli.core/add-main+*:
 
 [source,shell-session]

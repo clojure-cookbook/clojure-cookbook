@@ -11,7 +11,7 @@ You need to extend one of the built-in types with your own functions.(((types, e
 
 Suppose you would like to add domain-specific functions to
 the core +java.lang.String+ type. In this example, you will add a
-+first-name+ and +last-name+ function to +String+.(((functions, adding domain-specific)))(((protocols, defining domain-specific)))(((Java, java.lang.String)))
++first-name+ and a +last-name+ function to +String+.(((functions, adding domain-specific)))(((protocols, defining domain-specific)))(((Java, java.lang.String)))
 
 Define a protocol with the functions you need. The protocol declares
 the signature of the functions:
@@ -34,7 +34,7 @@ Extend the type to the +java.lang.String+ class:
   (last-name [s] (second (clojure.string/split s #" "))))
 ----
 
-Now we can invoke our functions on strings:
+Now you can invoke your functions on strings:
 
 [source,clojure]
 ----
@@ -55,7 +55,7 @@ and ensures a proper, full implementation.(((multimethods)))(((protocols, vs. mu
 
 It is good practice to only extend a protocol to a type if you are the
 author of either the protocol or the type. This will avoid cases where
-you violate the assumptions of the original authors.
+you violate the assumptions of the original author(s).
 
 If you already had functions to use, then it would make sense to use
 +extend+ instead of the +extend-type+ form:
@@ -76,6 +76,5 @@ If you already had functions to use, then it would make sense to use
 
 ==== See Also
 
-* An excellent http://stackoverflow.com/a/4513556 [explanation] of why
-  protocols exist as it relates to the _Expression Problem_ 
-  by Jörg W Mittag on StackOverflow
+* An excellent http://stackoverflow.com/a/4513556[explanation] of why
+  protocols exist as it relates to the "Expression Problem" by Jörg W Mittag on StackOverflow

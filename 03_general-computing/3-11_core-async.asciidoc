@@ -8,8 +8,8 @@ by Daemian Mack
 You want to decouple your program's consumers and producers by
 introducing explicit queues between them.(((consumer/producer decoupling)))(((core.async)))(((asynchronous coordination)))(((decoupling consumers/producers)))((("server-sent events (SSE)")))
 
-For example, you are building a web dashboard that fetches Twitter
-messages. This application must both persist these events to a database and
+For example, if you are building a web dashboard that fetches Twitter
+messages, this application must both persist these events to a database and
 publish them via server-sent events (SSE) to a browser.
 
 ==== Solution
@@ -57,7 +57,7 @@ Consider the following passage illustrating a synchronous approach:
 (message-producer database-consumer sse-consumer)
 ;; *out*
 ;; database-consumer received message 0
-;; sse -consumer received message 0
+;; sse-consumer received message 0
 ;; database-consumer received message 1
 ;; sse-consumer received message 1
 ;; database-consumer received message 2
@@ -170,7 +170,7 @@ that it lets you write code inline, in a more straightforward style:
 ----
 
 <1> Here the channel is given a buffer of size 64. The
-    +sliding-buffer+ variant dictates that, if this channel
+    +sliding-buffer+ variant dictates that if this channel
     accumulates more than 64 unread values, older values will start
     "falling off" the end, trading off historical completeness in
     favor of recency. Using +dropping-buffer+ instead would optimize
@@ -210,13 +210,13 @@ Fewer changes are required to make +producer+ asynchronous:
      (>! out item))))     ; <3>
 ----
 
-<1> For each message and channel,
-<2> Take from a +timeout+ channel to simulate a short pause for effect, and
-<3> Put a message onto the channel with +>!+.
+<1> For each message and channel...
+<2> Take from a +timeout+ channel to simulate a short pause for effect...
+<3> And put a message onto the channel with +>!+.
 
 Although the operations are asynchronous, they still occur serially.
-Using unbuffered consumer channels would mean if one of the consumers
-takes from the channel too slowly, the pipeline would stall; the
+Using unbuffered consumer channels would mean that if one of the consumers
+took from the channel too slowly, the pipeline would stall; the
 producer would not be able to put further values onto the channels.
 
 ==== See Also

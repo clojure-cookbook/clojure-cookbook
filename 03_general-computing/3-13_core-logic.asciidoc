@@ -1,19 +1,19 @@
-=== Hierarchical Graph Querying with core.logic
+=== Querying Hierarchical Graphs with core.logic
 [role="byline"]
 by Ryan Senior
 
 ==== Problem
 
 You have a graph-like, hierarchical data structure, serialized as a
-flat list of nodes that you want to query. For example, you have a
+flat list of nodes, that you want to query. For example, you have a
 graph of movie metadata represented as entity-attribute-value triples.
-Writing this code with the standard seq functions has proven to be too
+Writing this code with the standard +seq+ functions has proven to be too
 tedious and error prone.(((core.logic library)))(((logic programming)))((("hierarchical data, querying")))(((queries, for hierarchical data)))((("graph-like data, querying")))
 
 ==== Solution
 
 The +core.logic+ library is a Clojure implementation of the
-miniKanren Domain Specific Langauge for logic programming. It's
+miniKanren domain-specific language (DSL) for logic programming. Its
 declarative style is well suited for querying flattened hierarchical
 data.((("miniKanren Domain Specific Language")))
 
@@ -21,7 +21,7 @@ To follow along with this recipe, start a REPL using +lein-try+:
 
 [source,shell-session]
 ----
-lein try org.clojure/core.logic
+$ lein try org.clojure/core.logic
 ---- 
 
 The first thing you need is a dataset to query. Consider, for example,
@@ -45,7 +45,7 @@ that you have represented a graph of movie metadata as a list of tuples:
    [:a3 :name "Memento"]
    [:a3 :cast :a4]
    
-   ;; Connects the film to it's cast (actors/director/producer etc)
+   ;; Connects the film to its cast (actors/director/producer etc.)
    [:a4 :type :FilmCast]
    [:a4 :director :a5]
    
@@ -58,7 +58,7 @@ that you have represented a graph of movie metadata as a list of tuples:
    [:a6 :filmName "The Usual Suspects"]
    [:a6 :cast :a7]
    
-   ;; Connects the film to its cast (actors/director/producer etc)
+   ;; Connects the film to its cast (actors/director/producer etc.)
    [:a7 :type :FilmCast]
    [:a7 :director :a8]
    
@@ -115,24 +115,24 @@ at a given studio?" create a number of dots (_logic variables_) using
 
 ==== Discussion
 
-miniKanren is a Domain Specific Language written in Scheme, intended
+miniKanren is a domain-specific language written in Scheme, intended
 to give many of the benefits of a logic programming language (such as
-Prolog) from within Scheme. An implementation of miniKanren was
+Prolog) from within Scheme. David Nolen created an implementation of miniKanren was
 created by David Nolen for Clojure, with a focus on performance. One
 of the benefits of logic programming languages is their very
-declarative style. By using +core.logic+, we are able to say *what* we
-are looking for in the graph without saying *how* +core.logic+ should go
+declarative style. By using +core.logic+, we are able to say _what_ we
+are looking for in the graph without saying _how_ +core.logic+ should go
 about finding it.
 
 In general, all +core.logic+ queries begin with one of the library's
-+run+ macros; +clojure.core.logic/run+ returning a finite number of
-solutions, and +clojure.core.logic/run*+ returning *all* of the
++run+ macros, with +clojure.core.logic/run+ returning a finite number of
+solutions and +clojure.core.logic/run*+ returning _all_ of the
 solutions.
 
 The first argument to the +run+ macro is the _goal_, a variable used
 to store the result of the query. In the preceding solution, this was the
 +director-name+ variable. The rest is the body of the +core.logic+
-program. A program is made up _logic_variables_ (created using
+program. A program is made up of _logic variables_ (created using
 +clojure.core.logic/fresh+) grounded to values or constrained by logic
 statements.
 
@@ -142,7 +142,7 @@ than traditional variable assignment and seqential expression
 evaluation. Unification uses substitution of values for variables in
 an attempt to make two expressions syntactically identical. Statements
 in a +core.logic+ program can appear in any order. For example, you can use
-+clojure.core.logic/==+ to unify 1 and +q+:
++clojure.core.logic/==+ to unify +1+ and +q+:
 
 [source,clojure]
 ----
@@ -175,7 +175,7 @@ Technically speaking, unification is a relation, relating the first
 form with the second form. This is a kind of puzzle for +core.logic+ to
 solve. In the previous example, +q+ is a logic variable, and +core.logic+ is
 charged with binding a value to +q+ such that the left and the right
-side of the unification (the +clojure.core.logic/==+ relation) are
+sides of the unification (the +clojure.core.logic/==+ relation) are
 syntactically identical. When there is no binding that satisfies the
 puzzle, no solution exists:
 
@@ -217,12 +217,12 @@ list and the list itself:
 ----
 
 The first example is asking for any member of the list `[1]`, which
-happens to only be 1. The second example is the opposite, any list
+happens to only be +1+. The second example is the opposite, asking for any list
 where +1+ is a member. The dot notation indicates an improper tail
-with +_0+ in it. This means +1+ could be in a list by itself or +1+
-could be followed by any other sequence of numbers/strings/lists etc.
+with +_0+ in it. This means +1+ could be in a list by itself, or it
+could be followed by any other sequence of numbers, strings, lists, etc.
 +_0+ is an unbound variable, since there was no further restriction on
-the list, other than +1+ being an element.
+the list other than +1+ being an element.
 
 [WARNING]
 ====
@@ -286,16 +286,16 @@ solution:
 ;; -> ("Christopher Nolan")
 ----
 
-There is one minor difference from the preceding code and the original
-solution. Rather than using +clojure.core.logic/run*+, asking for all
+There is one minor difference between the preceding code and the original
+solution: rather than using +clojure.core.logic/run*+, asking for all
 solutions, +clojure.core.logic/run 1+ was used. The program has
-multiple answers to the query for a director at "Newmarket Films."
+multiple answers to the query for a director at Newmarket Films.
 Asking for more answers will return more with no other code change.
 
 [NOTE]
 ====
 Slight modifications to the preceding query can significantly change the
-results. Swapping "Newmarket Films" for a new fresh variable will
+results. Swapping +"Newmarket Films"+ for a new fresh variable will
 return all directors, for all studios. A macro could also be created
 to reduce some of the code duplication if desired.
 ====
@@ -331,13 +331,13 @@ to generate a graph from the values:
 
 For small graphs, +membero+ is fast enough. Larger graphs will
 experience performance problems as +core.logic+ will traverse the list
-many times to find the elements. Using *clojure.core.logic/to-stream*
+many times to find the elements. Using +clojure.core.logic/to-stream+
 with some basic indexing can greatly improve the query performance.
 
 ==== See Also
 
 * _The Reasoned Schemer_, by Daniel P. Friedman, William E. Byrd, and Oleg Kiselyov (MIT Press)
 * The https://github.com/clojure/core.logic/wiki[+core.logic+ wiki]
-* http://minikanren.org/
-* The https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using *clojure.core.logic/to-stream*
+* The http://minikanren.org/[miniKanren website]
+* The https://github.com/clojure/core.logic[+core.logic+ repository] for examples of using +clojure.core.logic/to-stream+
 * https://github.com/clojure/core.match[+core.match+], a (nonunification) matching library with some similar ideas, described briefly in <<sec_core_match_parser>>

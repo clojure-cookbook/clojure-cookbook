@@ -6,9 +6,7 @@ by Ryan Neufeld; originally submitted by David McNeil
 ==== Problem
 
 You want to create functions whose behavior varies based upon the
-arguments passed to them.(((functions, with polymorphic behavior)))(((polymorphic behaviors)))(((geometric functions)))(((functions, cond)))(((functions, condp)))
-
-For example, you want to develop a set of flexible geometry functions.
+arguments passed to them. For example, you want to develop a set of flexible geometry functions.(((functions, with polymorphic behavior)))(((polymorphic behaviors)))(((geometric functions)))(((functions, cond)))(((functions, condp)))
 
 ==== Solution
 
@@ -21,7 +19,7 @@ map-based dispatch using functions like +cond+ or +condp+:
   "Calculate the area of a shape"
   [shape]
   (condp = (:type shape)
-    :triangle  (* (:base shape) (:height shape) 1/2)
+    :triangle  (* (:base shape) (:height shape) (/ 1 2))
     :rectangle (* (:length shape) (:width shape))))
 
 (area {:type :triangle :base 2 :height 4})
@@ -103,18 +101,18 @@ considered when introducing polymorphism.
 The first approach considered was simple map-based polymorphism using
 +condp+. In retrospect, it's not the right choice for building a
 geometry library in Clojure, but that is not to say it is without its
-uses. This approach is best used in-the-small: you could use +cond+ to
+uses. This approach is best used http://bit.ly/wiki-its[in the small]: you could use +cond+ to
 prototype early iterations of a protocol at the REPL, or in places
 where you aren't defining new types.
 
-It's important to note, there are techniques beyond +cond+ for
+It's important to note that there are techniques beyond +cond+ for
 implementing map-based dispatch. One such technique is a dispatch
 map, generally implemented as a map of keys to functions.(((dispatch maps)))(((maps, map-based dispatch)))
 
 Next up are multimethods. Unlike +cond+-based polymorphism,
 multimethods separate dispatch from implementation. On account of
 this, they can be extended after their creation. Multimethods are
-defined using the +defmulti+ macro, which behaves similarly to +defn+,
+defined using the +defmulti+ macro, which behaves similarly to +defn+
 but specifies a dispatch function instead of an implementation.(((multimethods)))
 
 Let's break down the +defmulti+ declaration for a rather simple
@@ -122,9 +120,9 @@ multimethod, the +area+ function:
 
 [source,clojure]
 ----
-(defmulti area ; <1>
+(defmulti area ;                    <1>
   "Calculate the area of a shape" ; <2>
-  :type) ; <3>
+  :type) ;                          <3>
 ----
 
 <1> The function name for this multimethod
@@ -136,8 +134,8 @@ the flexibility of multimethods: they're capable of much more.
 Multimethods allow you to perform arbitrarily complex introspection of
 the arguments they are invoked with.
 
-When choosing a map-lookup like +:type+ for a dispatch function, you
-also imply the arity of the function (number of arguments it accepts).
+When choosing a map lookup like +:type+ for a dispatch function, you
+also imply the _arity_ of the function (the number of arguments it accepts).
 Since keywords act as a function on one argument (a map), +area+ is a
 single-arity function. Other functions will imply different arities. A
 common pattern with multimethods is to use an anonymous function to
@@ -147,10 +145,19 @@ make the intended arity of a multimethod more explicit:
 ----
 (defmulti ingest-message
   "Ingest a message into an application"
-  (fn [app message] ; <1>
+  (fn [app message] ;      <1>
     (:priority message)) ; <2>
-  :default :low) ; <3>
+  :default :low) ;         <3>
+----
 
+<1> +ingest-messages+ accepts two arguments, an app and a message.
+<2> +message+ will be processed differently depending on its priority.
+<3> In the absence of a +:priority+ key on +message+, the default
+    priority will be +:low+. Without specifying, the default dispatch
+    value is +:default+.
+    
+[source,clojure]
+----
 (defmethod ingest-message :low [app message]
   (println (str "Ingesting message " message ", eventually...")))
 
@@ -166,16 +173,10 @@ make the intended arity of a multimethod more explicit:
 ;; Ingesting message {:type :heartbeat, :priority :high}, now.
 ----
 
-<1> +ingest-messages+ accepts two arguments, an app and a message.
-<2> +message+ will be processed differently depending on its priority.
-<3> In the absence of a +:priority+ key on +message+, the default
-    priority will be +:low+. Without specifying, the default dispatch
-    value is +:default+.
-
 In all of the examples so far, we've always dispatched on a single
 value. Multimethods also support something called "multiple dispatch,"
 whereby a function can be dispatched upon any number of factors. By(((multiple dispatch)))
-returning a vector rather than a single value in our dispatch, you can
+returning a vector rather than a single value in our dispatch, we can
 make more dynamic decisions:
 
 [source,clojure]
@@ -186,12 +187,12 @@ make more dynamic decisions:
     [(:input-format request) (:output-format request)])) ; <1>
 
 (require 'clojure.edn)
-(defmethod convert [:edn-string :clojure] ; <2>
+(defmethod convert [:edn-string :clojure] ;                <2>
   [_ str]
   (clojure.edn/read-string str))
 
 (require 'clojure.data.json)
-(defmethod convert [:clojure :json] ; <3>
+(defmethod convert [:clojure :json] ;                      <3>
   [_ thing]
   (clojure.data.json/write-str thing))
 
@@ -206,15 +207,15 @@ make more dynamic decisions:
 ;; -> "{\"foo\":[\"bar\",\"baz\"]}"
 ----
 
-<1> The +convert+ multimethod dispatches on input *and* output format.
+<1> The +convert+ multimethod dispatches on input _and_ output format.
 <2> An implementation of +convert+ that converts from edn strings to
-    clojure data.
+    Clojure data.
 <3> Similarly, an implementation that converts from Clojure data to
     JSON.
 
 All this power comes at a cost, however; because multimethods are so
 dynamic, they can be quite slow. Further, there is no good way to
-group sets of related multimethods into an all-or-nothing package.footnote:[That is to say, you cannot force a multimethod to implement all of the required methods when extending behavior to its own type.] If speed or implementing a complete interface are
+group sets of related multimethods into an all-or-nothing package.footnote:[That is to say, you cannot force a multimethod to implement all of the required methods when extending behavior to its own type.] If speed or implementing a complete interface is
 among your chief concerns, then you will likely be better served by
 protocols.
 
@@ -223,27 +224,27 @@ dispatch akin to Java's interfaces, with one notable difference from
 multimethods: protocols can only perform single dispatch (based on type).
 
 Protocols are defined using the +defprotocol+ macro, which accepts a name,(((defprotocol macro)))(((macros, defprotocol)))(((docstrings)))(((protocols, defining)))
-an optional docstring, and any number of named methods signatures. A
+an optional docstring, and any number of named method signatures. A
 method signature is made up of a few parts: the name, at least one
 type signature, and an optional docstring. The first argument of any
 type signature is always the object itself--Clojure dispatches on the
 type of this argument. Perhaps an example would be the easiest way to
-dig in to ++defprotocol++'s syntax:
+dig into ++defprotocol++'s syntax:
 
 [source,clojure]
 ----
 (defprotocol Frobnozzle
   "Basic methods for any Frobnozzle"
-  (blint [this x] "Blint the frobnozzle with x") ; <1>
+  (blint [this x] "Blint the frobnozzle with x") ;                     <1>
   (crand [this f] [this f x] (str "Crand a frobnozzle with another " ; <2>
                                   "optionally incorporating x")))
 ----
 
-<1> A function, +blint+, with a single additional argument +x+
+<1> A function, +blint+, with a single additional argument, +x+
 <2> A multi-arity function, +crand+, that takes an optional +x+ argument
 
 Once a protocol is defined, there are numerous ways to provide an
-implementation for it. +deftype+, +defrecord+ and +reify+ all define a
+implementation for it. +deftype+, +defrecord+, and +reify+ all define a
 protocol implementation while creating an object. The +deftype+ and
 +defrecord+ forms create new named types, while +reify+ creates an
 anonymous type. Each form is used by indicating the protocol being
@@ -255,10 +256,10 @@ protocol's methods:
 ;; deftype has a similar syntax, but is not really applicable for an
 ;; immutable shape
 (defrecord Square [length]
-  Shape ; <1>
+  Shape ;                           <1>
   (area [this] (* length length)) ; <2>
   (perimeter [this] (* 4 length))
-  ; <3>
+  ;                                 <3>
   )
 
 (perimeter (->Square 1))
@@ -281,18 +282,18 @@ protocol's methods:
 
 .The Difference Between a Type and a Record
 ****
-Given types and records share a very similar syntax, so it can be
-hard to understand at face value how each should be used.(((types, vs. records)))(((records, vs. types)))
+Types and records share a very similar syntax, so it can be
+hard to understand how each should be used.(((types, vs. records)))(((records, vs. types)))
 
 Chas Emerick explained it best in an appendix to
-http://www.clojurebook.com/[_Clojure Programming_] (O'Reilly Media):
+http://www.clojurebook.com/[_Clojure Programming_] (O'Reilly):
 
 [quote, Chas Emerick, Clojure Programming]
 ____
-Is your class modelling a domain value -- thus benefitting from hash
-map-like functionality and semantics? Use defrecord.
+Is your class modeling a domain value--thus benefiting from hash
+map&#x2013;like functionality and semantics? Use +defrecord+.
 
-Do you need to define mutable fields? Use deftype.
+Do you need to define mutable fields? Use +deftype+.
 ____
 
 There you have it.

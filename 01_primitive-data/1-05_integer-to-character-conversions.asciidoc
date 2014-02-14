@@ -79,7 +79,7 @@ expressions without first being converted to a true numeric type.(((Java, java.l
 
 ==== See Also
 
-* http://shop.oreilly.com/product/9780596101213.do[_Unicode Explained_], by Jukka K. Korpela (O'Reilly), for truly comprehensive coverage of how Unicode and internationalization works
+* http://oreil.ly/unicode-explained[_Unicode Explained_], by Jukka K. Korpela (O'Reilly), for truly comprehensive coverage of how Unicode and internationalization works
 
 * <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string
 

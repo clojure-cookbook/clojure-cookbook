@@ -80,7 +80,7 @@ to produce regexes that are both difficult to interpret and at a high
 risk of being incorrect. You should use regular expressions sparingly
 and only if you fully understand their syntax.(((regular expressions, drawbacks of)))
 
-Jeffrey Friedl's http://shop.oreilly.com/product/9780596528126.do[_Mastering Regular Expressions_, 3rd ed.] (O'Reilly) is a fantastic book for learning and mastering regular expression syntax.
+Jeffrey Friedl's http://oreil.ly/Mastering_RegEx[_Mastering Regular Expressions_, 3rd ed.] (O'Reilly) is a fantastic book for learning and mastering regular expression syntax.
 
 ==== See Also
 

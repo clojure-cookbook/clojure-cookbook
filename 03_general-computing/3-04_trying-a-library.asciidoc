@@ -13,11 +13,9 @@ project's dependencies or create a new project.((("REPL (read-eval-print loop)",
 Use Ryan Neufeld's +lein-try+ to launch the REPL. Library dependencies
 will be met automatically.((("Neufeld, Ryan")))(((lein-try)))
 
-To gain this capability, first make sure you are using Leiningen >=
-2.1.3. Then edit your _~/.lein/profiles.clj_ file, adding `[lein-try "0.4.1"]`
+To gain this capability, first make sure you are using Leiningen 2.1.3 or later. Then edit your _~/.lein/profiles.clj_ file, adding `[lein-try "0.4.1"]`
 to the +:plugins+ vector of the +:user+ profile:
 
-.~/.lein/profiles.clj
 [source,clojure]
 ----
 {:user {:plugins [[lein-try "0.4.1"]]}}
@@ -46,11 +44,11 @@ user=>
 ==== Discussion
 
 Notice that we did not have to give a version number for the library
-in the example. The +lein-try+ will automatically grab the most recent
-released version of libraries.
+in the example. +lein-try+ will automatically grab the most recent
+released version.
 
-Of course you can specify a library version if you like. Just add the
-version number afterward:
+Of course, you can specify a library version if you like. Just add the
+version number after the library name:
 
 [source,shell-session]
 ----
@@ -88,7 +86,7 @@ Arguments: ([& args])
 
 
 As befits a Clojure tool, +lein-try+ is an elegant way to make a task
-less laborious. Use it to summon powerful libraries from the net at
+less laborious. Use it to summon powerful libraries from the Net at
 your whim, without having to set them up, and enjoy a wizardly
 satisfaction from the sudden confluence of new abilities.(((Leiningen plugins, benefits of)))
 

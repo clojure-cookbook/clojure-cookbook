@@ -9,7 +9,7 @@ additional tools.((("REPL (read-eval-print loop)", "running a minimal")))((("Clo
 
 ==== Solution
 
-Obtain the Clojure JAR file by downloading and unzipping a release
+Obtain the Clojure Java archive (JAR) file by downloading and unzipping a release
 from http://clojure.org/downloads. Using a terminal, navigate to
 where you extracted the JAR, and start a Clojure REPL:
 
@@ -20,35 +20,33 @@ $ java -cp "clojure-1.5.1.jar" clojure.main
 
 You are now running an interactive Clojure REPL (read-eval-print
 loop). Type an expression and hit Enter to evaluate it. Press
-<Ctrl>+D to exit.((("REPL (read-eval-print loop)", "exiting")))
+Ctrl-D to exit.((("REPL (read-eval-print loop)", "exiting")))
 
 ==== Discussion
 
 The fact that Clojure on the JVM is encapsulated in a simple JAR file
 has some great benefits. For one, it means that Clojure is never
-really installed. It's just a dependency like any other Java
+really installed. It's just a dependency, like any other Java
 library. You can easily swap out one version of Clojure for another by
 replacing a single file.
 
-Let's dissect the +java+ invocation here a bit:
+Let's dissect the +java+ invocation here a bit. First, we set the Java classpath to include  Clojure (and only Clojure, in this example):
 
 ----
 -cp "clojure-1.5.1.jar"
 ----
 
-This sets the Java classpath to include Clojure (and only Clojure, in
-this example). A full explanation of the classpath is beyond the scope
-of this recipe, but suffice to say it is a list of places where Java
+A full explanation of the classpath is beyond the scope
+of this recipe, but suffice it to say thatit is a list of places where Java
 should look to load classes. A full discussion of classpaths on the(((Java, classpaths)))
-JVM can be found at http://bit.ly/docs-classpaths.
+JVM can be found at http://bit.ly/docs-classpaths. In the final part of the invocation, we specify the class that Java should load and execute the +main+ method: 
 
 ----
 clojure.main
 ----
 
-Here we are specifying the class that Java should load and execute
-the +main+ method. Yes, +clojure.main+ is really a Java class. The
-reason this doesn't *look* like a typical Java invocation is because
+Yes, +clojure.main+ is really a Java class. The
+reason this doesn't _look_ like a typical Java invocation is because
 Clojure namespaces, which are compiled to classes, do not
 conventionally use capitalized names like Java classes do.(((Java, clojure.main)))
 

@@ -21,13 +21,12 @@ _clojure.jar_ at http://clojure.org/downloads.
 
 For example, given a file _my_clojure_program.clj_ with the contents:
 
-._my_clojure_program.clj_
 [source,clojure]
 ----
 (println "Hi.")
 ----
 
-Invoke the +java+ command with _my_clojure_program.clj_ as the final argument:
+invoke the +java+ command with _my_clojure_program.clj_ as the final argument:
 
 [source,shell-session]
 ----
@@ -37,7 +36,6 @@ Hi.
 
 In a more structured project, you'll probably have files organized in a _src/_ folder. For example, given a file _src/com/example/my_program.clj_:
 
-._src/com/example/my_program.clj_
 [source,clojure]
 ----
 (ns com.example.my-program)
@@ -46,7 +44,7 @@ In a more structured project, you'll probably have files organized in a _src/_ f
   (println "Hey!"))
 ----
 
-To load and run the +-main+ function, specify the desired namespace
+to load and run the +-main+ function, specify the desired namespace
 with the +-m+/+--main+ option and add _src_ to the classpath list (via
 +-cp+):
 
@@ -59,8 +57,8 @@ Hey!
 ==== Discussion
 
 Although you will spend most of your time evaluating Clojure code in a
-REPL, it is useful to be able to either run a simple "script" full of
-Clojure expressions or to run a more structured Clojure application
+REPL, it is sometimes useful to be able to either run a simple "script" full of
+Clojure expressions or run a more structured Clojure application
 with a +-main+ entry point.(((scripts)))
 
 In either case, you have access to any extra command-line arguments
@@ -69,7 +67,6 @@ passed after the script name or the main namespace name.
 For example, let's say you have written the following program, in a
 file called _hello.clj_:
 
-._hello.clj_
 [source,clojure]
 ----
 (defn greet
@@ -98,7 +95,7 @@ namespaces, you can provide an entry point through a namespace with a
 and you can even tweak and invoke your +-main+ function from the REPL
 just like any other function during interactive development.(((namespaces, providing entry points through)))
 
-Let's say you've moved the above +greet+ function into a +foo.util+
+Let's say you've moved your +greet+ function into a +foo.util+
 namespace, and your project is structured something like this:
 
 ----
