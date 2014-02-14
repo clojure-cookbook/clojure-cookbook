@@ -14,7 +14,7 @@ Java MongoDB driver.
 
 Before using Mongo from your Clojure code, you must have a running
 instance of MongoDB to connect to. See MongoDB's
-http://docs.mongodb.org/manual/installation/[installation guide] for
+http://bit.ly/mongodb-install[installation guide] for
 instructions on how to install MongoDB on your local system.
 
 When you're ready to write a Clojure MongoDB client, start a REPL using +lein-try+:

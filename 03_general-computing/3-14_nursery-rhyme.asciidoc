@@ -15,7 +15,7 @@ to life.
 Before starting, add `[overtone "0.8.1"]` to your project's
 dependencies or start a REPL using +lein-try+:footnote:[There are some
 additional installation concerns if you are running Overtone on Linux.
-See https://github.com/overtone/overtone/wiki#installation[the Overtone wiki] for more
+See http://bit.ly/overtone-install[the Overtone wiki] for more
 detailed installation instructions.]
 
 [source,shell-session]

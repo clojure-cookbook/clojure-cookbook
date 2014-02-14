@@ -9,7 +9,7 @@ You need to read a property file and access its key-value pairs.(((files, readin
 ==== Solution
 
 The most straightforward way is to use the built-in
-http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html[+java.util.Properties+]
+http://bit.ly/javadoc-properties[+java.util.Properties+]
 class via Java interop. +java.util.Properties+ implements
 +java.util.Map+, which can be easily consumed from Clojure, just as
 any other map is.(((Java, java.util.Map)))((("I/O (input/output) streams", "accessing key-value pairs")))
@@ -137,4 +137,4 @@ You can also be strict on required properties. If an expected property is missin
 ==== See Also
 
 * The https://github.com/jaycfields/propertea[+propertea+ documentation] for more details
-* The http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html[+Properties+ documentation]
+* The http://bit.ly/javadoc-properties[+Properties+ documentation]

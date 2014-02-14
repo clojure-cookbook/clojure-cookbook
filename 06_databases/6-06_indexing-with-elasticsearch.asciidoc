@@ -9,13 +9,13 @@ http://elasticsearch.org[ElasticSearch] indexing and search engine.(((databases,
 
 ==== Solution
 
-Use http://clojureelasticsearch.info[Elastisch], a minimalistic
+Use http://bit.ly/clj-elastich[Elastisch], a minimalistic
 Clojure wrapper around the ElasticSearch Java APIs.
 
 In order to successfully work through the examples in this recipe, you
 should have ElasticSearch installed and running on your local
 system. You can find details on how to install it on
-http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html[the
+http://bit.ly/cc-es-setup[the
 ElasticSearch website].
 
 ElasticSearch supports multiple transports (e.g., HTTP, native
@@ -74,7 +74,7 @@ To create an index, use the +clojurewerkz.elastisch.rest.index/create+ function:
 
 A full explanation of the available indexing settings is outside the
 scope of this recipe. Please refer to the
-http://clojureelasticsearch/articles/indexing.html[Elastisch
+http://bit.ly/clj-es-indexing[Elastisch
 documentation on indexing] for full details.
 
 ===== Creating mappings
@@ -212,7 +212,7 @@ Mapping types define document fields and of what core types
 (e.g., string, integer, or date/time) they are. Settings are provided to
 ElasticSearch as a JSON document, and this is how they are documented
 on the
-http://www.elasticsearch.org/guide/reference/mapping/[ElasticSearch
+http://bit.ly/cc-es-mapping[ElasticSearch
 site].
 
 With Elastisch, mapping settings are specified as Clojure maps with
@@ -230,8 +230,8 @@ via mapping settings:
  * Document time to live (TTL)
  * Whether a document type is indexed
  * Special fields (`"_all"`, default field, etc.)
- * http://www.elasticsearch.org/guide/reference/mapping/boost-field.html[Document-level boosting]
- * http://www.elasticsearch.org/guide/reference/mapping/timestamp-field.html[Timestamp field]
+ * http://bit.ly/cc-es-boost-field[Document-level boosting]
+ * http://bit.ly/cc-es-timestamp-field[Timestamp field]
 
 When an index is created using the
 `clojurewerkz.elastisch.rest.index/create` function, mapping settings
@@ -259,10 +259,10 @@ defines a single field that is a string which is not analyzed:
 
 There is more to indexing and mapping options outside the scope of a
 single recipe. See the Elastisch
-http://clojureelasticsearch.info/articles/indexing.html[indexing
+http://bit.ly/clj-es-indexing[indexing
 documentation] for an exhaustive list of the capabilities provided.
 
 ==== See Also
 
-* The official http://www.elasticsearch.org/guide/[Elasticsearch guide]
-* The Elastisch http://clojureelasticsearch.info[home page]
+* The official http://bit.ly/cc-es-guide[Elasticsearch guide]
+* The Elastisch http://bit.ly/clj-elastich[home page]

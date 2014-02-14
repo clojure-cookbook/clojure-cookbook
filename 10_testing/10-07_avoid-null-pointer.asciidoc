@@ -154,11 +154,11 @@ argument types with each arity until one matches.
 ==== See Also
 
 * https://github.com/clojure/core.typed[+core.typed+ Home].
-* http://clojure.github.io/core.typed/[+core.typed+ API Reference].
+* http://bit.ly/core-typed-doc[+core.typed+ API Reference].
 * The list of core-type aliases in the API reference. For example, the
   entry for
-  http://clojure.github.io/core.typed/#clojure.core.typed/AnyInteger[clojure.core.typed/AnyInteger].
+  http://bit.ly/anyinteger-doc[clojure.core.typed/AnyInteger].
 * Valid types are documented on the
-  https://github.com/clojure/core.typed/wiki/Types[Types] wiki page.
+  http://bit.ly/core-typed-types[Types] wiki page.
 * <<sec_verify_java>> and <<sec_verify_hof>> for further
   examples of how to use +core.typed+.

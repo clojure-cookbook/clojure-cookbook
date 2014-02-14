@@ -83,7 +83,7 @@ not to.((("regular expressions", "re-matcher")))
 * <<sec_primitives_strings_find_replace>> for information on using
   regular expressions to find and replace portions of a string
 * The
-  http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
+  http://bit.ly/javadoc-pattern[API
   documentation] for +java.lang.Pattern+, which defines the exact
   regex syntax supported by Java (and Clojure's regular expression literals)
 

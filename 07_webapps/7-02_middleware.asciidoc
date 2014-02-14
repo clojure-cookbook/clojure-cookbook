@@ -113,4 +113,4 @@ with several middlewares is to use the `->` macro:
 
 ==== See Also
 
-* https://github.com/ring-clojure/ring/wiki/Concepts#middleware[Middleware concepts]
+* http://bit.ly/ring-middleware[Middleware concepts]

@@ -181,11 +181,11 @@ rectify this situation by participating in the core sequence abstraction.
 
 * The second part of this recipe, <<sec_red_black_part_ii>>, where we
   add sequence functionality to our RBT.
-* http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-black
+* http://bit.ly/wiki-rbt[Red-black
   trees on Wikipedia] for a more traditional take on this interesting
   data structure.
 * For the functional approach used in this recipe, the book
-  http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504[_Purely
+  http://bit.ly/pure-fp-ds[_Purely
   Functional Data Structures_] by Chris Okasaki (Cambridge University Press) is an excellent source. It deals with
   how to efficiently implement data structures in a functional
   setting. The author chose to use ML and Haskell, but the concepts are

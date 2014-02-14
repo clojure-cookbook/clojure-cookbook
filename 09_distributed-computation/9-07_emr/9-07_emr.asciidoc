@@ -20,7 +20,7 @@ Cascalog job. If you don't have your own, you can clone
 
 [source,shell-session]
 ----
-$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
+$ git clone http://bit.ly/cc-cascalog-samples.git
 $ cd cascalog-samples
 $ git checkout etl-sample
 ----
@@ -37,9 +37,9 @@ Next, upload the generated JAR
 (_target/cookbook-0.1.0-SNAPSHOT-standalone.jar_ if you're
 following along with the ETL sample) to S3. If you
 haven't ever uploaded a file to S3, follow the S3 documentation to
-http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html["Create
+http://bit.ly/create-bucket["Create
 a Bucket"] and
-http://docs.aws.amazon.com/AmazonS3/latest/gsg/PuttingAnObjectInABucket.html["Adding
+http://bit.ly/add-object-bucket["Adding
 an Object to a Bucket"]. Repeat this process to upload your input data.
 Take note of the path of the JAR and input data location.
 
@@ -81,5 +81,5 @@ clusters.(((range="endofrange", startref="ix_DCcasc")))
 
 * To learn about building a simple Cascalog job, see <<sec_cascalog_etl>>
 * Amazon's
-  http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-launch-custom-jar-cli.html[Launch
+  http://bit.ly/emr-jar-cluster[Launch
   a Custom JAR Cluster] documentation

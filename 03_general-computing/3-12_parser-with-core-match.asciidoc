@@ -143,5 +143,5 @@ much easier to read and maintain.
 ==== See Also
 
 * The +core.match+ wiki's
-  https://github.com/clojure/core.match/wiki/Overview[Overview page] for a
+  http://bit.ly/clj-core-match[Overview page] for a
   broader view over all of the library's capabilities

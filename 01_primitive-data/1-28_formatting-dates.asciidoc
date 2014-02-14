@@ -101,6 +101,6 @@ Joda-Time instances into other formats:
   information on +formatter+ and +formatters+
 
 * The official
-  http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[API
+  http://bit.ly/javadoc-simple-date-format[API
   documentation] for Java's simple date formatter
 

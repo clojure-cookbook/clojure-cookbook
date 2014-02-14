@@ -96,7 +96,7 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance:
 ==== See Also
 
 * The Wikipedia article on
-  http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE floating
+  http://bit.ly/ieee-floating-point[IEEE floating
   point]
 * <<sec_primitives_math_arbitrary_precision>>
 * <<sec_primitives_numbers_truncating_rounding>>

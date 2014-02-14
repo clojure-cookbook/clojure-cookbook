@@ -9,7 +9,7 @@ You need to implement mathematical functions that require trigonometry.(((numeri
 ==== Solution
 
 All of the trigonometric functions are accessible via 
-http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[+java.lang.Math+],
+http://bit.ly/javadoc-math[+java.lang.Math+],
 which is available as +Math+. Use them like you would any other
 namespaced function:
 
@@ -66,7 +66,7 @@ Clojure's Java interop forms and typing sugar make doing math using
 +java.lang.Math+ isn't only for trigonometry. It also contains a
 number of functions useful for dealing with exponentiation, logarithms,
 and roots. A full list of methods is available in the
-http://docs.oracle.com/javase/7/docs/api/java/lang/Math.html[+java.lang.Math+
+http://bit.ly/javadoc-math[+java.lang.Math+
 javadoc].
 
 ==== See Also

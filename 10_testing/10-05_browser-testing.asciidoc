@@ -124,8 +124,8 @@ to control and automate browser actions.
 
 Some additional configuration may be required to use Selenium
 WebDriver or +clj-webdriver+ with your browsers of choice. See the
-http://code.google.com/p/selenium[Selenium WebDriver documentation]
-and the http://github.com/semperos/clj-webdriver/wiki[+clj-webdriver+ wiki].
+http://bit.ly/cc-selenium[Selenium WebDriver documentation]
+and the http://bit.ly/clj-webdriver-wiki[+clj-webdriver+ wiki].
 
 Before you dive into testing, you can experiment with +clj-webdriver+ at
 a REPL. Start up a REPL with +clj-webdriver+ using +lein-try+:
@@ -294,11 +294,11 @@ verifies that the text includes the expected name.
 
 +clj-webdriver+ provides many other capabilities for interacting with your
 application. For more information, see the
-https://github.com/semperos/clj-webdriver/wiki[+clj-webdriver+ wiki].
+http://bit.ly/clj-webdriver-wiki[+clj-webdriver+ wiki].
 
 ==== See Also
 
 * The +clj-webdriver+ https://github.com/semperos/clj-webdriver[GitHub
-  repository] and https://github.com/semperos/clj-webdriver/wiki[wiki]
-* https://code.google.com/p/selenium[Selenium]
+  repository] and http://bit.ly/clj-webdriver-wiki[wiki]
+* http://bit.ly/selenium-project[Selenium]
 * <<sec_unit_testing>> to learn more about unit testing in Clojure

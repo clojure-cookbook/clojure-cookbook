@@ -174,5 +174,5 @@ standard deviation by dividing by +total+ instead of +(- total 1)+.
 ==== See Also
 
 * The Wikipedia article on
-http://en.wikipedia.org/wiki/Standard_deviation[standard deviation] for more
+http://bit.ly/wiki-std-dev[standard deviation] for more
 information on standard deviation and what it can be used for

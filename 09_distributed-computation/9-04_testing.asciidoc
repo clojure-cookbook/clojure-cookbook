@@ -13,7 +13,7 @@ Midje-Cascalog provides a small amount of extra functionality that
 makes writing tests for Cascalog jobs quite easy.(((Midje)))
 
 To follow along with this recipe, clone the
-https://github.com/clojure-cookbook/cascalog-samples[Cascalog samples
+http://bit.ly/cc-cascalog-samples[Cascalog samples
 GitHub repository] and checkout the +testing-begin+ branch. This will
 give you a basic Cascalog project as created in <<sec_cascalog_etl>>.
 
@@ -72,7 +72,7 @@ _test/cookbook/test_me_test.clj_:
 ====
 The full contents of this solution are available in the
 +testing-complete+ branch of the
-https://github.com/clojure-cookbook/cascalog-samples[Cascalog samples
+http://bit.ly/cc-cascalog-samples[Cascalog samples
 repository].
 
 Check out that branch to retrieve a full working copy with sample data:

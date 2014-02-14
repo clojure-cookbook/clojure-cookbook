@@ -96,7 +96,7 @@ Create a file with input data in _samples/books/books.json_:
 [NOTE]
 ====
 The full contents of this solution are available on GitHub in the
-https://github.com/clojure-cookbook/cascalog-samples[Cascalog samples]
+http://bit.ly/cc-cascalog-samples[Cascalog samples]
 repository.
 
 To retrieve a copy of the working project, clone the project from
@@ -104,7 +104,7 @@ GitHub and checkout the +etl-sample+ branch:
 
 [source,shell-session]
 ----
-$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
+$ git clone http://bit.ly/cc-cascalog-samples.git
 $ cd cascalog-samples
 $ git checkout etl-sample
 ----
@@ -155,7 +155,7 @@ Inside the +Main+ function is a Cascalog operator, pass:[<literal>?&#x003C;-</li
 and executes a query.footnote:[While queries *look* like regular Clojure,
 they are in fact a DSL. If you're not familiar with Cascalog queries,
 learn more in Nathan Marz's
-http://nathanmarz.com/blog/introducing-cascalog-a-clojure-based-query-language-for-hado.html["Introducing
+http://bit.ly/cascalog-intro-post["Introducing
 Cascalog"] article] This operator takes an output tap, a result vector,
 and a series of logic predicates:
 
@@ -256,6 +256,6 @@ pipelines, it might help to follow this process:
 
 ==== See Also
 
-* The blog post http://ianrumford.github.io/blog/2012/09/29/using-cascalog-for-extract-transform-and-load/["Using Cascalog for Extract Transform and Load"]
+* The blog post http://bit.ly/cascalog-etl-post["Using Cascalog for Extract Transform and Load"]
 * https://github.com/clojure/core.logic[+core.logic+], a logic
   programming library for Clojure

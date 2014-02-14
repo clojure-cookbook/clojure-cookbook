@@ -81,7 +81,7 @@ receive a random permutation of your collection:
 ==== See Also
 
 * The
-  http://docs.oracle.com/javase/7/docs/api/java/util/Random.html[API
+  http://bit.ly/javadoc-random[API
   documentation] for +java.util.Random+
 
 * <<sec_testing_generative>>

@@ -125,7 +125,7 @@ readers behavior. For example, the `*default-data-reader-fn*`
 determines how the core functions deal with unknown tags. See also
 `*data-readers*` and `*read-eval*` for more information. That said,
 for reading data, it's generally better to use the +edn+ variants.
-footnote:[The Clojure mailing list thread http://bit.ly/Lxeswu["ANN: NEVER use clojure.core/read or read-string for reading untrusted data"] talks more about the vulnerabilities with +clojure.core+ readers.]
+footnote:[The Clojure mailing list thread http://bit.ly/read-unsafe["ANN: NEVER use clojure.core/read or read-string for reading untrusted data"] talks more about the vulnerabilities with +clojure.core+ readers.]
 
 ****
 ==== See Also

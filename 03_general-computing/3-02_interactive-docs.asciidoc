@@ -117,5 +117,5 @@ high-performance code at your fingertips.
 
 ==== See Also
 
-* The +clojure.repl+ http://clojure.github.io/clojure/clojure.repl-api.html[API documentation]
+* The +clojure.repl+ http://bit.ly/clj-repl-doc[API documentation]
 * <<sec_exploring_namespaces>>

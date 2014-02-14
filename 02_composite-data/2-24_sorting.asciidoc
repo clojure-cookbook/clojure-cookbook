@@ -126,11 +126,11 @@ The comparison function may be called an arbitrary number of times as the sort i
 
 Clojure fully participates in Java's comparison and sorting
 mechanisms. All Clojure objects that have a natural order implement
-http://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html[+java.lang.Comparable+]
+http://bit.ly/javadoc-comparable[+java.lang.Comparable+]
 and implement the +compareTo+ method.(((Java, comparison/sorting mechanisms)))
 
 More importantly, every Clojure function actually implements the
-http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html[+java.util.Comparator+]
+http://bit.ly/javadoc-comparator[+java.util.Comparator+]
 interface. This means that you can pass a Clojure function to any Java
 method that requires an instance of +java.util.Comparator+, and it
 will invoke the function with two arguments. This is what allows you
@@ -241,8 +241,8 @@ so no comparison is provided.
 
 ==== See Also
 
-- The API documentation for http://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html[+java.lang.Comparable+]
-- The API documentation for http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html[+java.util.Comparator+]
+- The API documentation for http://bit.ly/javadoc-comparable[+java.lang.Comparable+]
+- The API documentation for http://bit.ly/javadoc-comparator[+java.util.Comparator+]
 - <<sec_primitives_numbers_fuzzy_comparison>>
 - <<sec_primitives_dates_comparing>>
 

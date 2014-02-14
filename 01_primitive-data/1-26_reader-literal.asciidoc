@@ -51,7 +51,7 @@ by code that must be evaluated, but instead have a textual representation that i
 consistent and serializable. This standard allows any process capable
 of communicating in extensible data notation to speak
 clearly about instants of time. See the
-https://github.com/edn-format/edn/wiki/Implementations[edn
+http://bit.ly/edn-impls[edn
 implementations list] for a list of languages that speak edn; the list
 includes Clojure, Ruby, and JavaScript so far, with many more
 implementations in the works.(((reader literals)))((("extensible data notation (edn)", "date expression in")))
@@ -74,7 +74,7 @@ security in mind.(((security issues, built-in string reader)))(((strings, edn vs
 It's also possible to vary how the reader evaluates +#inst+ literals
 by changing the binding of pass:[<literal>*data-readers*</literal>]. By varying the binding of
 pass:[<literal>*data-readers*</literal>], it is possible to reader +#inst+ literals as
-http://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html[+java.util.Calendar+] or http://docs.oracle.com/javase/7/docs/api/java/sql/Timestamp.html[+java.sql.Timestamp+], if you so desire:
+http://bit.ly/javadoc-calendar[+java.util.Calendar+] or http://docs.oracle.com/javase/7/docs/api/java/sql/Timestamp.html[+java.sql.Timestamp+], if you so desire:
 
 [source,clojure]
 ----

@@ -68,5 +68,5 @@ that NIO does. The NIO Java API is still available via interop, should it be nee
 
 ==== See Also
 
-* The http://en.wikipedia.org/wiki/Mmap[mmap Wikipedia article]
+* The http://bit.ly/wiki-mmap[mmap Wikipedia article]
 * The +clj-mmap+ https://github.com/thebusby/clj-mmap[GitHub repository]

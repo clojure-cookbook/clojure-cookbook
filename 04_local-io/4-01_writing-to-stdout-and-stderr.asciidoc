@@ -71,10 +71,10 @@ or any other pipes you desire. The built-in function((("Clojure", "clojure.java.
 ==== See Also
 
 * ++pr++'s
-  http://bit.ly/1bdf4hh[documentation]
+  http://bit.ly/clojure-pr[documentation]
   and
-  http://bit.ly/1lpQL9y[source]
+  http://bit.ly/clojure-pr-source[source]
   to get a better idea of how `*out*`-based printing works
 * ++clojure.java.io/writer++'s
-  http://bit.ly/1ddZxxb[documentation]
+  http://bit.ly/java-io-writer[documentation]
   for more information on creating writers

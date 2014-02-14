@@ -48,5 +48,5 @@ return timing values with every ping:
 [[sec_sending_ping_see_also]]
 ==== See Also
 
-* http://bit.ly/1jTftgX[InetAddress/isReachable
+* http://bit.ly/javadoc-isReachable[InetAddress/isReachable
   documentation]

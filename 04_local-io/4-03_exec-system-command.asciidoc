@@ -58,7 +58,7 @@ equivalent to +exec/sh+ already exists in Clojure proper (as
 +clojure.java.shell/sh+). Now that the cat is out of the bag, it must
 be asked: why use a library over a built-in? Simple: +clj-commons-exec+
 is a functional veneer over the excellent
-http://commons.apache.org/proper/commons-exec/[Apache Commons Exec]
+http://bit.ly/apache-commons[Apache Commons Exec]
 library, providing capabilities like _piping_ not available in
 +clojure.java.sh+.((("Clojure", "clojure.java.shell/sh")))(((Apache Commons Exec library)))
 
@@ -163,4 +163,4 @@ sequence of promises returned by +sh-pipe+):(((functions, realized?)))
 
 * If you don't need piping or +clj-common-execs+ advanced features,
   consider using
-  http://richhickey.github.io/clojure/clojure.java.shell-api.html[+clojure.java.shell+]
+  http://bit.ly/clj-java-shell-api[+clojure.java.shell+]

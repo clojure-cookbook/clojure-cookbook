@@ -63,7 +63,7 @@ something like +file-seq+, the sequences returned by Iota are
 optimized for use with Clojure's reducers library, which uses the Java
 Fork/Join work-stealing frameworkfootnote:[For more information, see
 the Java
-http://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html[tutorial]
+http://bit.ly/forkjoin-tut[tutorial]
 on Fork/Join and work stealing.] under the hood to provide efficient
 parallel processing.(((Java, Fork/Join work-stealing framework)))
 
@@ -99,7 +99,7 @@ specify both a +reduce+ function and a +combine+ function, as separate
 arguments. Exactly what these do is inextricably tied with how
 Reducers themselves work, so a full explanation is beyond the scope of
 this Recipe. See the
-http://clojure.github.io/clojure/clojure.core-api.html#clojure.core.reducers/fold[documentation
+http://bit.ly/reducers-fold-doc[documentation
 for the +fold+ function] and the information linked from the
 http://clojure.org/reducers[reducers] page on Clojure's website for
 more information.
@@ -107,7 +107,7 @@ more information.
 ===== About Reducers
 
 Reducers is a parallel execution framework for extremely efficient
-parallel processing. A full explanation of how reducers work is beyond the scope of this recipe (see http://clojure.com/blog/2012/05/08/reducers-a-library-and-model-for-collection-processing.html[the blog post] introducing reducers for a comprehensive treatment).
+parallel processing. A full explanation of how reducers work is beyond the scope of this recipe (see http://bit.ly/reducers-post[the blog post] introducing reducers for a comprehensive treatment).
 
 In short, however, reducers provide performance by two means:
 
@@ -138,4 +138,4 @@ effictively distribute worker processes across them.
 ==== See Also
 
 * The +iota+ https://github.com/thebusby/iota[GitHub repository]
-* http://docs.oracle.com/javase/7/docs/api/java/nio/package-summary.html[NIO's documentation]
+* http://bit.ly/javadoc-nio[NIO's documentation]

@@ -93,6 +93,6 @@ usually better to store them elsewhere, from the start.((("CDNs (content deliver
 ==== See Also
 
 * The Leiningen
-  http://bit.ly/1fhVyCn[+sample.project.clj+],
+  http://bit.ly/lein-sample[+sample.project.clj+],
   which includes a more detailed description of how the +:resource-paths+ option works
 * <<sec_local_io_clojure_data_to_disk>>

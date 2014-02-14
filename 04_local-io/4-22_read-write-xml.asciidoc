@@ -87,6 +87,6 @@ with XML.
 ==== See Also
 
 * <<sec_local-io_read_write_files>>
-* The http://richhickey.github.io/clojure/clojure.zip-api.html[+clojure.zip+] namespace
+* The http://bit.ly/clj-zip-api[+clojure.zip+] namespace
 
 

@@ -83,7 +83,7 @@ map that looks something like this:
 ----
 
 You can add other optional parameters to each cookie, along with `:value`. From the
-https://github.com/ring-clojure/ring/wiki/Cookies[Ring cookie documentation]:
+http://bit.ly/ring-cookies[Ring cookie documentation]:
 
 [quote]
 ____
@@ -100,4 +100,4 @@ ____
 ==== See Also
 
 * <<sec_ring_middleware>>
-* Ring's https://github.com/ring-clojure/ring/wiki/Cookies[cookie documentation]
+* Ring's http://bit.ly/ring-cookies[cookie documentation]

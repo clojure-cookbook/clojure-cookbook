@@ -81,7 +81,7 @@ peculiar argument. It might be familiar to you if you've ever done
 scaling with +BigDecimal+, which shares identical factors. A scale of
 +-1+ scales to the tens place, +0+ scales to the ones place, and so on and
 so forth. Further details can be found in the javadoc for the
-http://joda-money.sourceforge.net/apidocs/src-html/org/joda/money/Money.html#line.1173[+rounded+]
+http://bit.ly/joda-money-rounded-src[+rounded+]
 method of Joda-Money's +Money+ class. The final argument is
 a rounding mode, of which there are quite a few. +:ceiling+ and +:floor+ round toward positive or
 negative infinity. +:up+ and +:down+ round toward or away from zero.

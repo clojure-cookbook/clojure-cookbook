@@ -75,7 +75,7 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
 
 ==== Discussion
 
-https://github.com/ring-clojure/ring/wiki/Sessions[Ring's session
+http://bit.ly/ring-sessions[Ring's session
 middleware] has an API similar to the cookie API. Get them from the
 `:session` request map, and set them by including a `:session` key in
 the response map. Whatever you pass to `:session` is up to you, but
@@ -91,7 +91,7 @@ but has the side effect of losing sessions whenever you restart the
 app. Ring includes an encrypted cookie store as well, which *is*
 persistent, and you can get third-party libs for many popular
 storages, including
-https://github.com/killme2008/ring-session-memcached[memcached] and
+http://bit.ly/ring-session-memcached[memcached] and
 https://github.com/wuzhe/clj-redis-session[Redis]. You can write your
 own, too, to store your sessions in any database.
 
@@ -110,4 +110,4 @@ session, pass `nil` as your the value of the `:session` key.
 ==== See Also
 
 * <<sec_ring_middleware>>
-* Ring's https://github.com/ring-clojure/ring/wiki/Sessions[session documentation]
+* Ring's http://bit.ly/ring-sessions[session documentation]

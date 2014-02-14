@@ -155,7 +155,7 @@ Shakespeare's original).
 
 Like most of the Seesaw functions that create widgets, there are
 several more options to +text+, which are best learned about by
-studying the http://daveray.github.io/seesaw/[API documentation].
+studying the http://bit.ly/cc-seesaw[API documentation].
 
 As is always the case in Clojure, the Seesaw library functions return
 Java objects, which can be operated upon directly using Java methods;

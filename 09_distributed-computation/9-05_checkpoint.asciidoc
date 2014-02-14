@@ -10,7 +10,7 @@ the problem was later in the workflow.(((Cascalog, checkpointing jobs)))(((excep
 
 ==== Solution
 
-https://github.com/nathanmarz/cascalog-contrib/tree/master/cascalog.checkpoint[Cascalog
+http://bit.ly/cascalog-checkpoint[Cascalog
 Checkpoint] is an excellent library that provides the ability to add
 checkpoints to your Cascalog job. If a step fails, the job is
 restarted at that step, instead of restarting from the beginning.
@@ -116,5 +116,5 @@ every time.
 ==== See Also
 
 * The
-  https://github.com/nathanmarz/cascalog-contrib/tree/master/cascalog.checkpoint[+cascalog.checkpoint+
+  http://bit.ly/cascalog-checkpoint[+cascalog.checkpoint+
   project page] on GitHub

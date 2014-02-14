@@ -117,7 +117,7 @@ can also be used with the +write+ and +read+ functions.
 
 * <<sec_local_io_clojure_data_to_disk>> for information on
   reading/writing +edn+ (Clojure) data.
-* The http://clojure.github.io/data.json/[API docs] for
+* The http://bit.ly/data-json-doc[API docs] for
   +clojure.data.json+ for more information on read/write's. Options
   not covered in this recipe include +:eof-error?+, +:eof-value+ and
   +:bigdec+ on +read+, and  +:escape-unicode+ and +:escape-slash+ on +write+.

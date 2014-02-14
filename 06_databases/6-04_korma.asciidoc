@@ -28,7 +28,7 @@ and existing table to connect to. We suggest PostgreSQL.footnote:[Mac
 users: visit http://postgresapp.com/ to download an
 easy-to-install DMG. Everyone else: find a guide for your operating
 system on the
-https://wiki.postgresql.org/wiki/Detailed_installation_guides[PostgreSQL
+http://bit.ly/postgres-install[PostgreSQL
 Wiki].]
 
 After you have PostgreSQL running (presumably on _localhost:5432_), run the following

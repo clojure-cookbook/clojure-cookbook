@@ -104,4 +104,4 @@ By default, a buffer size of 1,024 bytes is used when calling +copy+. That is th
 
 ==== See Also
 
-* ++clojure.java.io++'s http://richhickey.github.io/clojure/clojure.java.io-api.html[API documentation]
+* ++clojure.java.io++'s http://bit.ly/clj-java-io-api[API documentation]

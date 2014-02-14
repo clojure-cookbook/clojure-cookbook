@@ -94,4 +94,4 @@ code clearer.
 
 ==== See Also
 
-* https://github.com/ptaoussanis/timbre#profiling[Profiling with Timbre]
+* http://bit.ly/timbre-profiling[Profiling with Timbre]

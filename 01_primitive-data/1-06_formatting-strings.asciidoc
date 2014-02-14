@@ -99,7 +99,7 @@ places (just like the numbers used in the Dewey Decimal system):
 
 ----
 
-Visit the API documentation for http://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html[+java.util.Formatter+] to learn more about formatting strings.
+Visit the API documentation for http://bit.ly/javadoc-formatter[+java.util.Formatter+] to learn more about formatting strings.
 ****
 
 ==== See Also

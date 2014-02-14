@@ -85,7 +85,7 @@ We suggest using https://github.com/hugoduncan/criterium[criterium]
 when benchmarking to avoid common pitfalls.
 
 To see criterium benchmarks of +hiphip+, see
-https://gist.github.com/w01fe/7132440[this gist].
+http://bit.ly/hiphip-bench[this gist].
 ====
 
 ==== Discussion
@@ -145,7 +145,7 @@ If you're up to the challenge, you should keep these tips in mind:
   `*unchecked-math*`; it almost always makes your code faster, if
   you're willing to give up the safety of overflow checks.
 * If you want your array code to go
-  https://github.com/technomancy/leiningen/wiki/Faster#tiered-compilation[fast
+  http://bit.ly/lein-tiered-compilation[fast
   under Leiningen], you probably want to add the following to your
   _project.clj_: +:jvm-opts ^:replace []+.
 
@@ -153,7 +153,7 @@ If you're up to the challenge, you should keep these tips in mind:
 ==== See Also
 
 * +hiphip+ comes with a
-  https://github.com/Prismatic/hiphip/blob/master/test/hiphip/type_impl_test.clj#L160[comprehensive
+  http://bit.ly/hiphip-tests[comprehensive
   suite of benchmarks] of its and Clojure's array operations for the
   main primitive types, including performance comparisons with
   hand-coded Java alternatives.

@@ -33,7 +33,7 @@ your data.
 This is where UUIDs come in. UUIDs, or universally unique identifiers, are
 128-bit random numbers almost certainly unique across the entire
 universe. A bold claim, of course--see
-http://www.ietf.org/rfc/rfc4122.txt[RFC 4122] for more detailed
+http://bit.ly/rfc4122[RFC 4122] for more detailed
 information on UUIDs, how they're generated, and the math behind them.
 
 You may have noticed Clojure prints UUIDs with a +#uuid+ in front of
@@ -85,5 +85,5 @@ third
 * <<sec_primitives_math_bitwise>>
 * <<sec_primitives_dates_reader_literal>> for information on +#inst+,
   another example of a reader literal, for dates
-* The +java.util.UUID+ http://docs.oracle.com/javase/7/docs/api/java/util/UUID.html[API documentation]
+* The +java.util.UUID+ http://bit.ly/javadoc-uuid[API documentation]
 

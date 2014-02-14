@@ -160,6 +160,6 @@ Github project] for more information.
   commands
 * The https://github.com/ptaoussanis/nippy[Nippy Github project] for information about
   serialization
-* The http://clojuredocs.org/clojure_core/clojure.core/memoize[Clojure core documentation] for
+* The http://bit.ly/clj-memoize-doc[Clojure core documentation] for
   documentation of the +memoize+ function
 

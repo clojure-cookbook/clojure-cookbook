@@ -108,9 +108,9 @@ Without, it returns each item squashed together, similar to what
 - <<sec_primitives_strings_formatting_strings>>
 
 - The +clojure.string+ namespace
-  http://clojure.github.io/clojure/#clojure.string[API documentation]
+  http://bit.ly/clj-string-api[API documentation]
 
 - The +java.lang.String+
-  http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[API
+  http://bit.ly/javadoc-string[API
   documentation]
 

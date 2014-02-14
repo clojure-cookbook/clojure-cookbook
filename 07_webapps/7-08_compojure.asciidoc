@@ -84,7 +84,7 @@ parameters. You can also use `req` or any other symbol to get the whole request:
 You can even use Clojure's destructuring syntaxfootnote:[If you're
 not familiar with Clojure's destructuring syntax, we suggest Jay
 Fields'
-http://blog.jayfields.com/2010/07/clojure-destructuring.html["Clojure:
+http://bit.ly/destructuring["Clojure:
 Destructuring" blog post]. For a more extensive resource, pick up a
 copy of http://www.clojurebook.com/[Clojure Programming (O'Reilly Media)], which covers
 destructuring in depth.] to extract parts of the request. For example,
@@ -107,9 +107,9 @@ specifying the route using the relevant Compojure directive:
 in addition to `compojure.core/GET`.
 
 Compojure provides a few other helpful tools:
-http://weavejester.github.io/compojure/compojure.route.html[`compojure.route`],
+http://bit.ly/compojure-route[`compojure.route`],
 which provides helpers for serving resources, files and 404 responses; and
-http://weavejester.github.io/compojure/compojure.handler.html[`compojure.handler`],
+http://bit.ly/compojure-handler[`compojure.handler`],
 which bundles a number of Ring middlewares into one convenient wrapper.
 
 ==== See Also

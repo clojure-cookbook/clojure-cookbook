@@ -205,5 +205,5 @@ $ lein run -- -n 5 --no-verbose
 * <<sec_packaging_jars>> to learn how to package an application as
   an executable JAR file
 * For building _ncurses_-style applications, see
-  http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+], a wrapper
+  http://bit.ly/clj-lanterna[+clojure-lanterna+], a wrapper
   around the Lanterna terminal output library

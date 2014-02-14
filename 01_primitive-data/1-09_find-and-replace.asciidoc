@@ -88,6 +88,6 @@ Jeffrey Friedl's http://oreil.ly/Mastering_RegEx[_Mastering Regular Expressions_
 * <<sec_primitives_strings_re_find>>
 * +clojure.string/replace-first+, a function that operates nearly identically to +clojure.string/replace+ but only replaces the first occurrence of +match+
 * The
-  http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
+  http://bit.ly/javadoc-pattern[API
   documentation] for +java.lang.Pattern+, which defines the exact
   regex syntax supported by Java (and Clojure's regular-expression literals)

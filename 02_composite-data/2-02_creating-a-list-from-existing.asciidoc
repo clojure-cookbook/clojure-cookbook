@@ -48,7 +48,7 @@ however many arguments are in the data structure. This may sound
 strange, particularly if the data structure contains millions of
 items. What does it mean to invoke a function with a million
 arguments? How does that even work, given that the JVM limits methods
-to 255 arguments (see the http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3.3[JVM
+to 255 arguments (see the http://bit.ly/jvm-class-file-format[JVM
 class file specification])?
 
 As it turns out, functions with variadic arguments (such as +list+)

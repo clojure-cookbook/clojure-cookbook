@@ -48,9 +48,9 @@ australia-bday
 ==== Discussion
 
 Unlike Java built-ins, +clj-time+ knows a lot about time zones.
-http://joda-time.sourceforge.net/[Joda-Time], the library +clj-time+
+http://bit.ly/joda-time[Joda-Time], the library +clj-time+
 wraps, bundles the internationally recognized
-http://www.twinsun.com/tz/tz-link.htm[+tz+ database]. This database
+http://bit.ly/tz-info[+tz+ database]. This database
 captures the IDs and time offsets for nearly every location on the
 planet.(((Joda-Time library)))(((daylight saving time)))
 

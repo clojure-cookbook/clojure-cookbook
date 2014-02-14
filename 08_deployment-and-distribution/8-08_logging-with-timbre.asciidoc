@@ -114,5 +114,5 @@ suitable.
 
 ==== See Also
 
-* https://github.com/ptaoussanis/timbre/blob/master/README.md[Logging with Timbre]
-* https://github.com/clojure/tools.logging/blob/master/README.md[Logging with +tools.logging+]
+* http://bit.ly/clj-timbre[Logging with Timbre]
+* http://bit.ly/clj-tools-logging[Logging with +tools.logging+]

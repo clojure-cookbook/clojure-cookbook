@@ -18,15 +18,15 @@ being split across lines. Is there any way we can force monospaced
 text to not wrap?</remark>
 ++++
 
-You can use Java's http://docs.oracle.com/javase/7/docs/api/java/util/GregorianCalendar.html[+java.util.GregorianCalendar+] class coupled with
+You can use Java's http://bit.ly/javadoc-gregorian[+java.util.GregorianCalendar+] class coupled with
 Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
-calendar dates. You can then use http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[+java.text.SimpleDateFormat+] to format the
+calendar dates. You can then use http://bit.ly/javadoc-simple-date-format[+java.text.SimpleDateFormat+] to format the
 dates, with a huge variety of output formats available.
 
 This example creates an infinite lazy sequence of Gregorian calendar
 dates,footnote:["Gregorian" is the formal name for the style of
 calendar we all know and love. Read more on
-http://en.wikipedia.org/wiki/Gregorian_calendar[Wikipedia].] beginning
+http://bit.ly/gregorian-calendar[Wikipedia].] beginning
 on January 1, 1970 and each spanning a single day. The core +take+ and
 +drop+ functions are then used to select the last two days of
 February (be careful not to evaluate the infinite sequence itself in
@@ -64,7 +64,7 @@ limit the values produced.(((functions, repeatedly)))(((lazy sequences)))
 Since the function given to +repeatedly+ is a function of no arguments, it is
 presumed to achieve its goals by side effects (making it an impure function).
 Here, the impurity occurs as the argument function creates a Gregorian calendar
-date and repeatedly increments it by a single http://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html[+java.util.Calendar+] day
+date and repeatedly increments it by a single http://bit.ly/javadoc-calendar[+java.util.Calendar+] day
 unit. For each call of the function, it returns a copy of the Gregorian calendar
 object (to avoid mysterious and unintended side effects, it is advisable to
 avoid returning the mutated object directly).

@@ -76,5 +76,5 @@ If you already had functions to use, then it would make sense to use
 
 ==== See Also
 
-* An excellent http://stackoverflow.com/a/4513556[explanation] of why
+* An excellent http://bit.ly/protocols-explanation[explanation] of why
   protocols exist as it relates to the "Expression Problem" by Jörg W Mittag on StackOverflow

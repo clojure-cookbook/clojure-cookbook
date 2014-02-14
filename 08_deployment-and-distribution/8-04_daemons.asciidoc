@@ -107,7 +107,7 @@ Once you've verified your application works correctly, install +jsvc+.footnote:[
 *+brew install jsvc+*. If you're using Linux, you'll likely find a
 +jsvc+ package in your favorite package manager. Windows users will
 need to install and use
-http://commons.apache.org/proper/commons-daemon/procrun.html[procrun].]
+http://bit.ly/daemons-procrun[procrun].]
 Finally, the moment of truth. Run your application as a daemon by
 invoking +jsvc+ with all of the requisite parameters: the absolute
 path of your Java home directory, uber JAR, output log file, and the
@@ -313,16 +313,16 @@ Neilson's http://www.neilson.co.za/?p=253["Creating a Java Daemon (System Servic
 ==== See Also
 
 * The +Daemon+
-  http://commons.apache.org/proper/commons-daemon/apidocs/index.html[documentation]
+  http://bit.ly/commons-api[documentation]
 * The contents of the +jsvc+ man page, accessible via *+jsvc
   -help+*
-* http://commons.apache.org/proper/commons-daemon/procrun.html[+procrun+], a Daemon runner for Windows
+* http://bit.ly/daemons-procrun[+procrun+], a Daemon runner for Windows
 * https://github.com/arohner/lein-daemon[lein-daemon], a Leiningen
   plug-in for creating daemons that can be managed via a *+lein
   daemon+* command inside your project
 * <<sec_aot_compilation>> for more information on AOT compilation
 * <<sec_packaging_jars>> for more information on packaging JAR files
-* The blog post https://kotka.de/blog/2010/02/gen-class_how_it_works_and_how_to_use_it.html["gen-class--how it works and how to use it"]
+* The blog post http://bit.ly/gen-class-post["gen-class--how it works and how to use it"]
 * Stuart Sierra's https://github.com/stuartsierra/component[component]
   library, a tiny framework for managing the lifecycle of software
   components

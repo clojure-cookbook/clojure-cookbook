@@ -46,10 +46,10 @@ keys and values of the headers map should both be strings. Clojure
 keywords are not supported.
 
 You can use Ring to set any header that is
-http://en.wikipedia.org/wiki/List_of_HTTP_header_fields[valid in
+http://bit.ly/http-header-fields[valid in
 HTTP].
 
-According to http://www.ietf.org/rfc/rfc2616.txt[RFC-2616], header
+According to http://bit.ly/rfc2616[RFC-2616], header
 names are *not* case sensitive. To make it easier to consistently
 `get` values from the request map, no matter what their case, Ring
 passes in all header values as lowercase, regardless of what the
@@ -61,4 +61,4 @@ liberal in what you accept").
 
 ==== See Also
 
-* https://github.com/ring-clojure/ring/wiki/Concepts[Ring concepts]
+* http://bit.ly/ring-concepts[Ring concepts]

@@ -96,7 +96,7 @@ character with +java.lang.String.substring(int)+:
 ;; -> "user/valid?"
 ----
 
-See the http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[+java.lang.String+ API documentation] for more string methods.
+See the http://bit.ly/javadoc-string[+java.lang.String+ API documentation] for more string methods.
 
 You can convert namespaced symbols to keywords just as easily as their
 non-namespaced counterparts, but again, converting in the other direction

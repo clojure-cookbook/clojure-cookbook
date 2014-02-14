@@ -109,7 +109,7 @@ we recommend one of the following books:
   similarities and differences between ClojureScript and Clojure.
 
 Finally, you should look at the source code for this book itself,
-which is freely available on https://github.com/clojure-cookbook/clojure-cookbook[GitHub]. The selection
+which is freely available on http://bit.ly/clj-ckbk[GitHub]. The selection
 of recipes available online is larger than that in the print version,
 and we are still accepting pull requests for new recipes that might
 someday make it into a future edition of this book.
@@ -203,13 +203,13 @@ minimum of 6 will do. For Leiningen, you should have at least
 version 2.2.
 
 If you don't have Java installed (or would like to upgrade), visit
-http://www.oracle.com/technetwork/java/javase/downloads/index.html[the Java Download Page] for
+http://bit.ly/java-download[the Java Download Page] for
 instructions on downloading and installing the Java JDK.
 
 To install Leiningen, follow the installation instructions on http://leiningen.org/[Leiningen's website]. If you already have
 Leiningen installed, get the latest version by executing the command
 *+lein upgrade+*. If you aren't familiar with Leiningen, visit the
-https://github.com/technomancy/leiningen/blob/stable/doc/TUTORIAL.md[tutorial]
+http://bit.ly/lein-tutorial[tutorial]
 to learn more.
 
 The one thing you _won't_ need to manually install is Clojure itself;
@@ -241,7 +241,7 @@ include::conventions.asciidoc[]
 
 Supplemental material (code examples, exercises, etc.) is available
 for download at
-link:$$https://github.com/clojure-cookbook/clojure-cookbook$$[].
+link:$$http://bit.ly/clj-ckbk$$[].
 
 This book is here to help you get your job done. In general, if
 example code is offered with this book, you may use it in your
