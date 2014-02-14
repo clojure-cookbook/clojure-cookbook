@@ -11,7 +11,7 @@ Clojure leverages a fantastic array of battle-hardened types present
 in the Java Virtual Machine (JVM):footnote:[The JVM is
 where Java bytecode is executed. The Clojure compiler targets the JVM by emitting bytecode
 to be run there; thus, you have all of the native Java types at your
-disposal.] strings, numeric types, dates, UUIDs--you name it, Clojure
+disposal.] strings, numeric types, dates, Universally Unique Identifiers (UUIDs)--you name it, Clojure
 has it all. This chapter dives into the primitives of Clojure and how
 to accomplish common tasks.
 

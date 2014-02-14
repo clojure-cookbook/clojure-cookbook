@@ -6,13 +6,13 @@ by Luke VanderHart
 ==== Problem
 
 You want to compare two values according to some comparison
-function. Or, you want to sort a collection by comparing all the items
+function, or you want to sort a collection by comparing all the items
 in it.(((values, comparing/sorting)))(((functions, compare)))(((comparisons, of values)))(((sorting, values)))
 
 ==== Solution
 
 Use the +clojure.core/compare+ function to compare two items. They must be
-comparable with respect to each other. For example, a double can be
+comparable with respect to each other. For example, a +double+ can be
 compared to a ratio because they're both numbers, but a string can't
 be compared to a vector.((("Clojure", "clojure.core/compare")))
 
@@ -28,7 +28,7 @@ is greater:
 (compare 0.5 1)
 ;; -> -1
 
-(compare 1/4 0.25)
+(compare (/ 1 4) 0.25)
 ;; -> 0
 
 (compare "brewer" "aardvark")
@@ -36,7 +36,7 @@ is greater:
 ----
 
 To sort an entire collection, pass it to the +clojure.core/sort+
-function. Sort applies +compare+ as needed and returns a sorted
+function. +sort+ applies +compare+ as needed and returns a sorted
 sequence.((("Clojure", "clojure.core/sort")))
 
 For example, the following code breaks down a string into a sequence
@@ -61,12 +61,11 @@ or if you want to override the natural sort (such as sorting a set
 from high to low), you are not limited to using the built-in
 comparator function. +sort+ allows you to specify a custom comparison
 function that can perform any operation you like to determine the
-relative ordering between two items.. This function must take two
+relative ordering between two items. This function must take two
 arguments. It can return values like +compare+ does (that is, a
 positive integer, a negative integer, or zero). Alternatively, it can
-returns a boolean value (i.e., a _predicate_ function). The predicate
-function should return +true+ if and only if the first argument is
-should be sorted before the second argument.(((natural ordering)))
+return a Boolean value (i.e., a _predicate_ function). The predicate
+function should return +true+ if and only if the first argument should be sorted before the second argument.(((natural ordering)))
 
 This means that you can pass regular Clojure predicates to +sort+:
 
@@ -81,7 +80,7 @@ This means that you can pass regular Clojure predicates to +sort+:
 
 Or, you can write your own arbitrary comparator. For example, the
 custom comparator used in the next example cares only about the length
-of a string, not the contents of it: strings will be sorted as equal
+of a string, not the contents of it; strings will be sorted as equal
 if they have the same number of characters, whatever those characters
 are:
 
@@ -95,8 +94,8 @@ are:
 
 Under the hood, Clojure uses Java's built-in sort mechanism. Java uses
 a slightly modified merge sort algorithm that is highly performant for
-the vast majority of cases. It requires `n log(n)` comparisons in the
-worst case and performs at near `O(n)` when the input is largely
+the vast majority of cases. It requires _n_ log(_n_) comparisons in the
+worst case and performs at near _O_(_n_) when the input is largely
 sorted already.
 
 The sort is also _stable_, meaning that if two items are equal in
@@ -110,18 +109,18 @@ work. Specifically, it must:
 
 Have a consistent total order for all the members being sorted::
 If +x+ is sorted before +y+, and +y+ is sorted before +z+, then +x+
-  must *always* be sorted before +z+. In other words, there must
+  must _always_ be sorted before +z+. In other words, there must
   always be a single fully deterministic sort order for a given
   collection and comparator, without any contradictions or
-  inconsistencies caused by the compare function.
-Be consistent with the +.equals+ method and Clojure's `=` function::
+  inconsistencies caused by the comparison function.
+Be consistent with the .equals method and Clojure's `=` function::
 If two items are logically equal, then that must be
-  reflected in the compare function. When using the integer return
-  values, the compare function ought to return 0. When using a
+  reflected in the comparison function. When using the integer return
+  values, the function ought to return +0+. When using a
   predicate function, +(pred x y)+ and +(pred y x)+ should return the
   same thing in the case where +x+ and +y+ are equal.
 Have no side effects::
-The compare function may be called an arbitrary number of times as the sort is evaluated.
+The comparison function may be called an arbitrary number of times as the sort is evaluated.
 
 ===== Comparators and the JVM
 
@@ -141,16 +140,16 @@ and invoking the Java +.compare+ method on a Clojure function will
 actually call it, passing it the two values being compared as two
 arguments.
 
-Because predicate functions (those returning a boolean value) do not
-map exactly to the positive/negative/zero integer return value
+Because predicate functions (those returning a Boolean value) do not
+map exactly to the positive/negative/zero integer return values
 expected from a +java.util.Comparator+, Clojure itself handles the
 logical mapping between them. If a function used as a comparator (that
 is, +(pred x y)+) returns +true+, the implementation will return +-1+,
 indicating that +x+ is less than +y+ in the given sort. If not, it will
 invoke the function again with the arguments reversed. If +(pred x y)+
-and +(pred y x)+ are both false, it is assumed that the objects are
-equal and returns 0. Otherwise, it presumes +x+ is greater than +y+
-and returns 1.
+and +(pred y x)+ are both +false+, it is assumed that the objects are
+equal, and the implementation returns +0+. Otherwise, it presumes +x+ is greater than +y+
+and returns +1+.
 
 ===== sort-by
 
@@ -162,12 +161,12 @@ tell Clojure how to sort the data:
 
 [source,clojure]
 ----
-(def people [{:name "Luke"   :role :author }
-             {:name "Ryan"   :role :author }
-             {:name "John"   :role :reviewer }
-             {:name "Travis" :role :reviewer }
-             {:name "Tom"    :role :reviewer }
-             {:name "Meghan" :role :editor }])
+(def people [{:name "Luke"   :role :author}
+             {:name "Ryan"   :role :author}
+             {:name "John"   :role :reviewer}
+             {:name "Travis" :role :reviewer}
+             {:name "Tom"    :role :reviewer}
+             {:name "Meghan" :role :editor}])
 ----
 
 One option would be to use a custom comparator, which extracts the
@@ -177,11 +176,11 @@ One option would be to use a custom comparator, which extracts the
 ----
 (sort #(compare (:name %1) (:name %2)) people)
 ;; -> ({:name "John", :role :reviewer}
-       {:name "Luke", :role :author}
-       {:name "Meghan", :role :editor}
-       {:name "Ryan", :role :author}
-       {:name "Tom", :role :reviewer}
-       {:name "Travis", :role :reviewer})
+;;     {:name "Luke", :role :author}
+;;     {:name "Meghan", :role :editor}
+;;     {:name "Ryan", :role :author}
+;;     {:name "Tom", :role :reviewer}
+;;     {:name "Travis", :role :reviewer})
 ----
 
 However, there's an easier way. The +sort-by+ function works the same
@@ -190,18 +189,18 @@ apply to the elements before sorting them. Instead of sorting on the
 elements themselves, it sorts the result of applying +keyfn+ to the
 elements.
 
-So, passing in +:name+ as the +keyfn+ (remember, keywords are
+So, passing in +:name+ as the +keyfn+ (as discussed in <<sec_composite_retrieving_keys_map>>, keywords are
 functions that look themselves up in a map), you can call:
 
 [source,clojure]
 ----
 (sort-by :name people)
 ;;->  ({:name "John", :role :reviewer}
-       {:name "Luke", :role :author}
-       {:name "Meghan", :role :editor}
-       {:name "Ryan", :role :author}
-       {:name "Tom", :role :reviewer}
-       {:name "Travis", :role :reviewer})
+;;     {:name "Luke", :role :author}
+;;     {:name "Meghan", :role :editor}
+;;     {:name "Ryan", :role :author}
+;;     {:name "Tom", :role :reviewer}
+;;     {:name "Travis", :role :reviewer})
 ----
 
 Like +sort+, +sort-by+ also takes an optional comparator function
@@ -226,8 +225,8 @@ Some compositive data structures can also be compared if they
 implement +Comparable+, are of the same type, and contain comparable
 values. The comparison order is implementation dependent. For example,
 by default, vectors are compared first by their length, then by the
-result of applying +compare+ to their first value, then their second
-value if the first is equal, etc:
+result of applying +compare+ to their first value, then to their second
+value if the first is equal, etc.:
 
 [source,clojure]
 ----
@@ -235,10 +234,10 @@ value if the first is equal, etc:
 ;; -> ([1] [2] [1 2] [2 1] [1 1 1])
 ----
 
-Some data structures (such as sets) are not comparable. For example,
+Some data structures are not comparable. For example,
 the fact that a set is defined to be unordered means that a meaningful
 greater-than/less-than comparison is not possible in the general case,
-and so one is not provided.
+so no comparison is provided.
 
 ==== See Also
 

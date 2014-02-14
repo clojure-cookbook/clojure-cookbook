@@ -53,7 +53,7 @@ takes a date/time format string and returns an object capable of
 parsing date/time strings in that format. This format string can
 include any number of symbols representing portions of a time or date.
 Some example symbols include year ("yy" or "yyyy"), day ("dd"), or even
-a literal string like &#8220;'on'&#8221;. The full list of these symbols is
+a literal string like +'on'+. The full list of these symbols is
 available in the Joda-Time
 http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html[+DateTimeFormat+]
 javadoc.(((functions, formatter)))

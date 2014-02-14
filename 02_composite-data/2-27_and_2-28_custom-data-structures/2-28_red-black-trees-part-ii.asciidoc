@@ -20,12 +20,12 @@ is the ability to expose values of a data structure sequentially. The
 built-in +tree-seq+ is well suited for this task. One extra step is
 needed, however; +tree-seq+ returns a sequence of nodes, not values.(((functions, tree-seq)))
 
-The final +rb-tree->seq+ function:
+Here's the final +rb-tree\->seq+ function:
 
 [source,clojure]
 ----
 (defn- rb-tree->tree-seq
-  "Returns a seq of all nodes in an red-black tree."
+  "Return a seq of all nodes in an red-black tree."
   [rb-tree]
   (tree-seq sequential? (fn [[_ left _ right]]
                           (remove nil? [left right]))
@@ -74,7 +74,7 @@ fail for +RedBlackTree+ as implemented:
 [NOTE]
 ====
 +disjoin+ and the corresponding +remove-val+ functions are left as
-exercises to the reader.
+exercises for the reader.
 ====
 
 It is now possible to use a +RedBlackTree+ instance like any other
@@ -113,7 +113,7 @@ participate in an array of sequence-oriented functions: +map+,
 
 At its essence, +clojure.lang.IPersistentSet+ is an abstraction of what it
 means to represent a mathematical set structure; this matches a tree data
-structure well. A set isn't a list or sequence though. So how is +RedBlackTree+
+structure well. A set isn't a list or sequence, though. So how is +RedBlackTree+
 then said to be participating in the sequence abstraction?
 
 In Clojure, types extending the +clojure.lang.ISeq+ interface are true
@@ -123,27 +123,26 @@ ancestry with it. Both interfaces extend
 +clojure.lang.IPersistentCollection+ and its parent
 +clojure.lang.Seqable+. As luck would have it,footnote:[Actually, as
 design would have it.] sequence functions rely on collections being
-+Seqable+, *not* +ISeq+. Since +RedBlackTree+ can be read as a
++Seqable+, not +ISeq+. Since +RedBlackTree+ can be read as a
 sequence, it is +Seqable+ and can be operated on by all of the
 sequence functions you know and love.
 
-Most of the functions in the +IPersistentSet+ interface are self
-explanatory, but some deserve further explanation. The function +cons+
+Most of the functions in the +IPersistentSet+ interface are self-explanatory, but some deserve further explanation. The function +cons+
 is a historical name for constructing a new list by appending a value
 to an existing list. +seq+ is intended to produce a sequence from a
 collection, or +nil+ if empty:
 
-._IPersistentSet.java_
+._IPersistentSet.java_:
 [source,java]
 ----
 public interface IPersistentSet extends IPersistentCollection, Counted {
-  public IPersistentSet disjoin(Object key) ;
+  public IPersistentSet disjoin(Object key);
   public boolean contains(Object key);
   public Object get(Object key);
 }
 ----
 
-._IPersistentCollection.java_
+._IPersistentCollection.java_:
 [source,java]
 ----
 public interface IPersistentCollection extends Seqable {
@@ -154,7 +153,7 @@ public interface IPersistentCollection extends Seqable {
 }
 ----
 
-._Seqable.java_
+._Seqable.java_:
 [source,java]
 ----
 public interface Seqable {
@@ -165,16 +164,15 @@ public interface Seqable {
 The most challenging part of any +Seqable+ implementation is actually
 making a sequence out of the underlying data structure. This would be
 particularly challenging if you needed to write your own lazy
-tree-traversal algorithms. Luckily Clojure has a built-in function
-+tree-seq+ that does precisely this. By leveraging +tree-seq+ to
-produce a sequence of nodes, it is trivial to write a +rb-tree->seq+
-conversion function that lazily traverses a +RedBlackTree+ yielding
+tree-traversal algorithms, but luckily Clojure has a built-in function,
++tree-seq+, that does precisely this. By leveraging +tree-seq+ to
+produce a sequence of nodes, it is trivial to write an +rb-tree\->seq+ conversion function that lazily traverses a +RedBlackTree+, yielding
 node values as it goes.
 
 +tree-seq+ accepts three arguments:
 
 +branch?+::
-A conditional that returns true if a node is a branch (not a leaf node). For +RedBlackTree+, +sequential?+ is an adequate check, as every node is a vector.
+A conditional that returns +true+ if a node is a branch (not a leaf node). For +RedBlackTree+, +sequential?+ is an adequate check, as every node is a vector.
 
 +children+::
 A function that returns all of the children for a given node.
@@ -185,7 +183,7 @@ The node to begin traversal on.
 [NOTE]
 ====
 +tree-seq+ performs a depth-first traversal of trees. Given how
-red-black trees are represented, this will *not* be an ordered
+red-black trees are represented, this will _not_ be an ordered
 traversal.
 ====
 
@@ -194,7 +192,7 @@ write the +seq+ function. Similarly, +cons+ and +empty+ are a breeze--simply uti
 bit more difficult, however.
 
 For the sake of simplicity, we chose to implement equality (+equiv+)
-between *only* +RedBlackTree+ instances. Further, the implementation
+between _only_ +RedBlackTree+ instances. Further, the implementation
 compares a sorted sequence of their elements. In this case, +equiv+ is
 answering the question, "Do these trees have the same values?" and not
 the question, "Are these the same trees?" It's an important
@@ -219,7 +217,7 @@ invoked like any other function (or set, for that matter):
 
 Even with the full +IPersistentSet+ interface implemented, there are
 still a number of conveniences +RedBlackTree+ is lacking. For one, you
-need to use the kludgy +->RedBlackTree+ or +RedBlackTree.+ functions
+need to use the kludgy +/->RedBlackTree+ or +RedBlackTree.+ functions
 to create a new +RedBlackTree+ and add values to it manually. By
 convention, many built-in collections provide convenience functions
 for populating them (aside from literal tags like `[]` or +{}+, of

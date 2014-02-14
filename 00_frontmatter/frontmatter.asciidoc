@@ -336,7 +336,7 @@ see our website at link:$$http://www.oreilly.com$$[].
 
 Find us on Facebook: link:$$http://facebook.com/oreilly$$[]
 
-Follow us on Twitter: link:$$http://twitter.com/oreillymedia$$[]
+Follow us on Twitter: link:$$http://twitter.com/oreillymedia$$[] or link:$$https://twitter.com/clojurecookbook$$[]
 
 Watch us on YouTube: link:$$http://www.youtube.com/oreillymedia$$[]
 

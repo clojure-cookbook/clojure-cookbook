@@ -1,12 +1,12 @@
 [[sec_removing_an_item_list]]
-=== "Removing" an Item From a List
+=== "Removing" an Item from a List
 [role="byline"]
 by Luke VanderHart
 
 ==== Problem
 
 You want to obtain a list without a particular item in it, removing
-an item from an original list.(((lists, removing items from)))
+an item from the original list.(((lists, removing items from)))
 
 ==== Solution
 
@@ -32,10 +32,10 @@ empty) list.
 
 +pop+ is similar to +conj+ in that it operates on concrete data
 structures rather than the sequence interface. Like +conj+, it is
-polymorphic; and also like +conj+, the position it removes the item
+polymorphic; also like +conj+, the position it removes the item
 from depends on what's most efficient for the concrete type.
 
-When used on an empty list, the behavior does differ: +pop+ will throw
+When used on an empty list, the behavior does differ; +pop+ will throw
 an exception, while +rest+ will return an empty list:
 
 [source,clojure]

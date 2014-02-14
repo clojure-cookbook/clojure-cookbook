@@ -25,7 +25,7 @@ For "normal&#8221;-sized large or precise numbers, use +Integer/parseInt+ or
 
 What is a "normal&#8221;-sized number? For +Integer/parseInt+, normal is anything below
 +Integer/MAX_VALUE+ (2147483647); and for +Double/parseDouble+, it's anything below
-+Double/MAX_VALUE+ (around 1.79 &#x00D7; 10^308).((functions, bigdec)))(((functions, bigint)))(((BigInteger type)))(((BigDecimal type)))
+pass:[<phrase role='keep-together'><literal>Double/MAX_VALUE</literal></phrase>] (around 1.79 &#x00D7; 10^308).((functions, bigdec)))(((functions, bigint)))(((BigInteger type)))(((BigDecimal type)))
 
 When the numbers you are parsing are either abnormally large or
 abnormally precise, you'll need to parse them with +BigInteger+

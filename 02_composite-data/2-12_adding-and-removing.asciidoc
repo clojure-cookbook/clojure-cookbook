@@ -1,5 +1,5 @@
 [[sec_adding_removing_from_sets]]
-=== Adding and Removing Items From Sets
+=== Adding and Removing Items from Sets
 [role="byline"]
 by Luke VanderHart
 
@@ -48,13 +48,13 @@ set already does or does not contain the item being added or
 removed. +conj+ returns the same set if it already contains the item,
 just as +disj+ does if the specified item was already absent.
 
-If you're adding or removing large numbers of items from sets, you
+If you're adding or removing large numbers of items to or from sets, you
 should also consider using the dedicated set manipulation functions
-from the +clojure.set+ namespace, particularly +clojure.set/union+,
-which can be used to add the items of multiple set together, and
+from the +clojure.set+ namespace: particularly +clojure.set/union+,
+which can be used to add the items of multiple sets together, and
 +clojure.set/difference+, which can be used to obtain a set of items
-*not* contained in another set. These are typically a far more natural
-expression of set operations than many calls to +conj+ or +disj+, or
+_not_ contained in another set. These are typically a far more natural
+expression of set operations than issuing many calls to +conj+ or +disj+, or
 invoking them with large numbers of arguments.((("Clojure", "clojure.set/union")))((("Clojure", "clojure.set/difference")))
 
 ==== See Also

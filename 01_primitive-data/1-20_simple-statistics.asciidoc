@@ -1,6 +1,6 @@
 === Calculating Statistics on Collections of Numbers
 [role="byline"]
-by Ryan Neufeld and Jean Niklas L'orange
+by Ryan Neufeld and Jean Niklas L'&#8202;orange
 
 ==== Problem
 

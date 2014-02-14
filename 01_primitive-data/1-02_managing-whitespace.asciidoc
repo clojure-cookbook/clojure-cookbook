@@ -18,7 +18,7 @@ at the beginning and end of a string:
 ----
 
 To manage whitespace _inside_ a string, you need to get more creative. Use
-+clojure.string/replace+ to fix whitespace inside a string:
+pass:[<phrase role='keep-together'><literal>clojure.string/replace</literal></phrase>] to fix whitespace inside a string:
 
 [source,clojure]
 ----

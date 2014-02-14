@@ -55,7 +55,7 @@ have changed:
 ----
 
 +merge-with+ facilitates powerful recipes for map combination by
-allowing you to control *how* values are merged. You can imagine
+allowing you to control _how_ values are merged. You can imagine
 +merge-with+ as +reduce+ for maps with common keys. The first argument
 to +merge-with+ is a merge function that will be invoked for each pair
 of duplicated values.
@@ -94,7 +94,7 @@ As you saw in the previous examples, +merge-with+ is a versatile tool: we
 used `+` to add values of the same key, +clojure.set/intersection+ to
 find shared values of multiple sets, and a recursive function
 +deep-merge+ to recursively merge nested maps. +merge-with+ is a
-*very* powerful function, indeed.(((range="endofrange", startref="ix_CDmap")))
+very powerful function, indeed.(((range="endofrange", startref="ix_CDmap")))
 
 
 ==== See Also

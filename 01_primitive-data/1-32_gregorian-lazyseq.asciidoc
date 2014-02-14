@@ -24,7 +24,7 @@ calendar dates. You can then use http://docs.oracle.com/javase/7/docs/api/java/t
 dates, with a huge variety of output formats available.
 
 This example creates an infinite lazy sequence of Gregorian calendar
-dates, footnote:["Gregorian" is the formal name for the style of
+dates,footnote:["Gregorian" is the formal name for the style of
 calendar we all know and love. Read more on
 http://en.wikipedia.org/wiki/Gregorian_calendar[Wikipedia].] beginning
 on January 1, 1970 and each spanning a single day. The core +take+ and

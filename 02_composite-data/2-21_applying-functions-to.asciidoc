@@ -112,6 +112,7 @@ that isn't actually used in the body.
 
 It's also possible to define +map-kv+ using +reduce-kv+:
 
+[source,clojure]
 ----
 (defn map-kv
     [m f]
@@ -120,6 +121,7 @@ It's also possible to define +map-kv+ using +reduce-kv+:
 
 which could be used in this example:
 
+[source,clojure]
 ----
 (map-kv {:one 1 :two 2 :three 3}
         #(vector (-> %1 str (subs 1)) (inc %2)))

@@ -6,17 +6,15 @@ by Luke VanderHart
 ==== Problem
 
 You want to perform common operations on sets, such as taking the union,
-intersection, or difference of two sets.(((sets, common operations on)))(((sets, testing for subsets)))
-
-Or, you want to test if one set is a subset or superset of another.
+intersection, or difference of two sets, or you want to test if one set is a subset or superset of another.(((sets, common operations on)))(((sets, testing for subsets)))
 
 ==== Solution
 
 All these functions are available in the +clojure.set+ namespace,
-which is built in to Clojure.(((functions, union)))((("Clojure", "clojure.set/union")))
+which is built into Clojure.(((functions, union)))((("Clojure", "clojure.set/union")))
 
 +union+ takes any number of sets as arguments and returns a set
-containing their union (a set containing all the elements from all the
+containing their union (i.e., a set containing all the elements from all the
 sets):
 
 [source,clojure]
@@ -48,7 +46,7 @@ elements from the sets given in the additional arguments:
 ;; -> #{:yellow}
 ----
 
-+subset?+ returns true if and only if the first argument is a subset((("Clojure", "clojure.set/subset")))
++subset?+ returns +true+ if and only if the first argument is a subset((("Clojure", "clojure.set/subset")))
 of the second (that is, if every member of the first set is also a
 member of the second):
 
@@ -63,8 +61,8 @@ member of the second):
 ;; -> false
 ----
 
-+superset?+ works the same way, except returning true only if the
-first set is a *superset* of the second.((("Clojure", "clojure.set/superset")))
++superset?+ works the same way, except it returns +true+ only if the
+first set is a _superset_ of the second.((("Clojure", "clojure.set/superset")))
 
 As you may have noticed, +superset?+ is actually identical to
 +subset?+, only with the order of the arguments reversed.
@@ -84,8 +82,8 @@ _unordered, unique_ collections--they emphasize that the important
 fact is whether an item is a member of the set, not the order or
 number of occurrences.
 
-If your data does represent a logical set, then model them using set
-data structures, and try to think about manipulating them in terms of
+If your data does represent a logical set, then model it using set
+data structures, and try to think about manipulating it in terms of
 set operations. In many cases, you will find that this makes your
 program substantially easier to reason about, and makes it more
 self-documenting regarding the source and intended use of the data it

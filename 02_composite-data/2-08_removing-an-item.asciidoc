@@ -1,5 +1,5 @@
 [[sec_composite_removing_an_item_from_vector]]
-=== "Removing" an Item From a Vector
+=== "Removing" an Item from a Vector
 [role="byline"]
 by Luke VanderHart
 
@@ -23,8 +23,8 @@ last item:
 ==== Discussion
 
 Although there is no operation designed specifically to remove items
-from the beginning of a vector, as +pop+ does from the end, there *is*
-a function, +subvec+, that can be used to efficiently *remove* any
+from the beginning of a vector, as +pop+ does from the end, there _is_
+a function, +subvec+, that can be used to efficiently _remove_ any
 number of items from the beginning or end of a vector. Given a vector,
 a start index, and an (optional) end index, it will return a vector
 from the start (inclusive) to end (exclusive) indexes.(((functions, subvec)))
@@ -38,7 +38,7 @@ vector. You can use +subvec+ like so:
 ;; -> [:b :c :d]
 ----
 
-Or, to remove items from the beginning *and* the end of a vector, pass
+Or, to remove items from the beginning and the end of a vector, pass
 an end index to +subvec+ as well:
 
 [source,clojure]
@@ -48,13 +48,13 @@ an end index to +subvec+ as well:
 ----
 
 Because +subvec+ exploits the internal representation of a vector to
-create a subvector that shares internal structure with the original,
+create a subvector that shares the internal structure of the original,
 it is extremely efficient and runs in constant time. It is the only
-way to efficiently *remove* items from the beginning of a vector.
+way to efficiently _remove_ items from the beginning of a vector.
 
 While it is certainly also possible to use a function like +rest+ or
-+drop+ on a vector, these are technically *sequence* operations, not
-*vector* operations. The value they return is only guaranteed to be a
++drop+ on a vector, these are technically _sequence_ operations, not
+_vector_ operations. The value they return is only guaranteed to be a
 sequence, not a concrete vector, and as such will not support the same
 features or performance guarantees that vectors do.
 

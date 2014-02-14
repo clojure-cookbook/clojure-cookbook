@@ -22,7 +22,7 @@ values:
 ;;     :occupation "Mad Scientist", :status :at-large}
 ----
 
-If used on a map which already contains a key, the +assoc+ function
+If used on a map that already contains a key, the +assoc+ function
 will return an updated map with the newly specified value for the key:
 
 [source,clojure]
@@ -34,8 +34,8 @@ will return an updated map with the newly specified value for the key:
 ;;     :occupation "Mad Scientist", :status :deceased}
 ----
 
-To remove keys, use the +dissoc+ function, which given a map and any(((keys, removing from maps)))(((functions, dissoc)))
-number of keys, returns a map absent those keys:
+To remove keys, use the +dissoc+ function. Given a map and any(((keys, removing from maps)))(((functions, dissoc)))
+number of keys, it returns a map minus those keys:
 
 [source,clojure]
 ----
@@ -92,7 +92,7 @@ The preceding sample first looks up the map associated with the
 +"Canada"+ with the +:country+ key. Finally, the entire data structure
 is returned.
 
-What if you needed to *update* a value based on its previous value,
+What if you needed to _update_ a value based on its previous value,
 instead of just changing it?(((functions, update-in)))(((values, updating)))(((maps, updating keys in)))
 
 Fortunately, Clojure provides +update-in+ expressly for this purpose.
@@ -121,7 +121,7 @@ illustrate with an example:
 
 +update-in+ will also actually create maps for any of the keys in the
 vector that don't exist. This means it can be used to create structure
-as well as update values:
+as well as to update values:
 
 [source,clojure]
 ----
@@ -139,11 +139,11 @@ One other common use case for maps is as the values of one of
 Clojure's state constructs: _atoms_, _refs_, or _agents_. Clojure maps
 themselves are immutable values. In a very literal sense, if you "add"
 a key to a map, it is no longer the same value any more. But
-sometimes, it is necessary to preserve a logical *identity* for
+sometimes, it is necessary to preserve a logical _identity_ for
 different values across time. That's when to use one of the state
 management tools.(((Clojure, state management tools in)))(((state management tools)))
 
-To update the value of a piece of state (+ref+, +atom+, or +agent+) you
+To update the value of a piece of state (ref, atom, or agent), you
 invoke its specific state transition function (+alter+, +swap!+, or
 +send+, respectively). State transition functions share a common form:
 they take the reference as the first argument, the function to apply

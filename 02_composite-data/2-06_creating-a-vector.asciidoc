@@ -5,7 +5,7 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to create a vector data structure either as a literal, or
+You want to create a vector data structure, either as a literal or
 from an existing data structure.(((vectors, creating)))(((functions, vector)))((("[ ] (square brackets)")))((("composite data", "vectors", id="ix_CDvect", range="startofrange")))
 
 ==== Solution

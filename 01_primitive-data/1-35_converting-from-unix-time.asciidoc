@@ -66,8 +66,7 @@ And using the +datetime-from-unix-time+ function, you can see you get a
 [source,clojure]
 ----
 (datetime-from-unix-time 1366127520000)
-
-;; #<DateTime 2013-04-16T15:52:00.000Z>
+;; -> #<DateTime 2013-04-16T15:52:00.000Z>
 ----
 
 You may not need to worry about dates and times being expressed as seconds

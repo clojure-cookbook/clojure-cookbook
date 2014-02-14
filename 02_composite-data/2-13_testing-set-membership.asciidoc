@@ -51,7 +51,7 @@ member, and +nil+ otherwise:
 ----
 
 Note as well that keywords behave in the same manner for sets as they(((keywords, sets and)))
-do with maps: thus, the following is equivalent to having used +get+:
+do with maps. Thus, the following is equivalent to having used +get+:
 
 [source,clojure]
 ----
@@ -86,16 +86,15 @@ itself is both easy and idiomatic:
 
 This snippet first creates an infinite lazy sequence consisting of
 random numbers between 1 and 10, using +repeatedly+ to call
-+rand-int+ (wrapped in an anonymous function) over and over. Then, it
-feeds this sequence through a filter, with a set of the numbers 1-3
++rand-int+ (wrapped in an anonymous function) over and over. Then it
+feeds this sequence through a filter, with a set of the numbers 1&#x2013;3
 as the filter predicate.
 
 The result is another infinite lazy sequence, but containing only
 members of the predicate set.
 
-This example is contrived. However, using sets as a predicate function
-is an extremely useful technique that that pops up quite frequently in
-most Clojure projects.
+This example is contrived. However, using sets as predicate functions
+is an extremely useful technique that that pops up quite frequently in Clojure projects.
 
 ==== See Also
 

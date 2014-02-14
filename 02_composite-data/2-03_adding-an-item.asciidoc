@@ -6,7 +6,7 @@ by Luke VanderHart
 ==== Problem
 
 You want to add an item to a list; or, putting it in functional terms,
-you want to derive a new list from an existing list which contains an
+you want to derive from an existing list a new list that contains an
 additional item.(((lists, adding items to)))
 
 ==== Solution
@@ -21,7 +21,7 @@ concrete data types, including lists:
 ;; -> (4 1 2 3)
 ----
 
-Adding multiple items at once:
+You can also add multiple items at once:
 
 [source,clojure]
 ----
@@ -38,7 +38,7 @@ different places in the collection depending on what is most efficient
 for the particular type.
 
 In the case of lists, +conj+ will always add the item at the
-*beginning* of the list, since a linked list data structure supports
+_beginning_ of the list, since a linked list data structure supports
 constant-time insertion only at the beginning.(((lists, constant-time insertion)))(((constant-time insertion)))
 
 .conj Versus cons
@@ -49,19 +49,19 @@ expecting to see the +cons+ function used, instead of +conj+. Clojure
 does have a +cons+ function, but it has a slightly different purpose.(((functions, cons)))
 
 While +conj+ will return a new concrete +clojure.lang.PersistentList+
-(when used on a list), +cons+ will always construct a new *sequence*,
-where the item added is the *first* and the collection is the *rest*.((("Clojure", "clojure.lang.PersistentList")))
+(when used on a list), +cons+ will always construct a new _sequence_,
+where the item added is the _first_ and the collection is the _rest_.((("Clojure", "clojure.lang.PersistentList")))
 
 This distinction is subtle, especially since a
 +clojure.lang.PersistentList+ and a sequence constructed using +cons+
 are both types of persistent linked lists, algorithmically speaking.
 
-The best way to think about it is that +conj+ is a concrete *data
-structure* operation, which will not change the concrete type of the
-data structure it is applied to, while +cons+ is a *sequence*
+The best way to think about it is that +conj+ is a concrete _data
+structure_ operation, which will not change the concrete type of the
+data structure it is applied to, while +cons+ is a _sequence_
 operation and only guarantees that it will return a sequence: in fact,
 it returns a cons cell (+clojure.lang.Cons+) that implements the
-sequence interface, no matter what type of _seq-able_ collection you
+sequence interface, no matter what type of _seq_-able collection you
 gave it to start with.((("Clojure", "clojure.lang.Cons")))
 
 Unlike +conj+, +cons+ is also guaranteed to return a sequence with the
