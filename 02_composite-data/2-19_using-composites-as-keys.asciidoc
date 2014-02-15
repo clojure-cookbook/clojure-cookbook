@@ -17,10 +17,10 @@ Because of its robust identity semantics on composite values, Clojure
 fully supports using any immutable value as a map key. More
 importantly, doing so is reasonably efficient.
 
-For example, consider the data structure to represent a chess board,
+For example, consider the data structure to represent a chessboard,
 an 8 &#x00D7; 8 grid where each position can have one of six possible types of
-piece. Rows are represented by the numbers 1-8, and columns by the
-letters _a-h_.
+piece. Rows are represented by the numbers 1&#x2013;8, and columns by the
+letters _a&#x2013;h_.
 
 In Clojure, you can represent this directly as a map:
 
@@ -31,13 +31,13 @@ In Clojure, you can represent this directly as a map:
                  [:d 4] [:black :king]})
 ----
 
-Moving a piece then requires two operations: pass:[<literal>dissoc</literal>]ing the old
-position for a piece, and pass:[<literal>assoc</literal>]ing the new position:
+Moving a piece then requires two operations, pass:[<literal>dissoc</literal>]-ing the old
+position for a piece and pass:[<literal>assoc</literal>]-ing the new position:
 
 [source,clojure]
 ----
 (defn move
-  "Given a map representing a chess board, move the piece at src
+  "Given a map representing a chessboard, move the piece at src
   to dest"
   [board source dest]
   (-> board
@@ -73,7 +73,7 @@ with the weights applied:
 [source,clojure]
 ----
 (defn apply-weighted
-  "Given a weight map, a function and args, applies the function
+  "Given a weight map, a function, and args, applies the function
   to the args, multiplying the result by the weighting for the
   function. If the weight map does not specify a weight for the
   function, a default of 1.0 is used."
@@ -97,7 +97,7 @@ vectors.
 This is certainly a reasonable thing to do, and is (possibly) slightly
 more performant. However, it is a less clean model of the actual
 problem domain. It requires a translation, for example, from chess's
-row/column numbers and letters to zero-indexed indices. Using a map
+row/column numbers and letters to zero-indexed indexes. Using a map
 lets you store the positions directly, in native chess terminology.
 
 Similarly, there are alternative implementations for the

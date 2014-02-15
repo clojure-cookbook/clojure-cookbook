@@ -1,5 +1,5 @@
 [[sec_core_match_parser]]
-=== Make a Parser for Clojure Expressions Using core.match
+=== Making a Parser for Clojure Expressions Using core.match
 [role="byline"]
 by Chris Frisz
 
@@ -12,9 +12,9 @@ For this example, consider a heavily simplified version of Clojure
 that consists of the following expression types:
 
   * A variable represented by a valid Clojure symbol
-  * A `fn` expression that accepts a single argument and whose body is
+  * An `fn` expression that accepts a single argument and whose body is
     also a valid expression(((fn expressions)))
-  * Application of a valid expression in the language to another valid
+  * An application of a valid expression in the language to another valid
     expression
 
 You can represent this language by the following grammar:
@@ -65,8 +65,8 @@ Now, codify the language's grammar using +clojure.core.match/match+:
 
 (simple-clojure-parser '((fn [x] x) a))
 ;; -> {:application
-;;      {:operator {:closure {:arg x, :body {:variable x}}}
-;;       :operand {:variable a}}}
+;;     {:operator {:closure {:arg x, :body {:variable x}}}
+;;      :operand {:variable a}}}
 
 ;; fn expression can only have one argument!
 (simple-clojure-parser '(fn [x y] x))
@@ -76,34 +76,34 @@ Now, codify the language's grammar using +clojure.core.match/match+:
 ==== Discussion
 
 A +match+ statement in +core.match+ is made up of two basic parts. The
-first part is a vector of +vars+ to be matched. In our example, this
+first part is a vector of vars to be matched. In our example, this
 is `[expr]`. This vector isn't limited to a single entry--it can
 contain as many items to match as you would like. The next part is a
-variable list of question-answer pairs. A _question_ is a vector
-representing the *shape* the +vars+ vector must take. Like +cond+, an
-_answer_ is what will be returned should +vars+ satisfy a question.(((match statements)))
+variable list of question/answer pairs. A _question_ is a vector
+representing the _shape_ the vars vector must take. As with +cond+, an
+_answer_ is what will be returned should a var satisfy a question.(((match statements)))
 
 Questions take a variety of forms in +core.match+. Here are explanations
-of the preceding samples.
+of the preceding samples:
 
-The first match pattern, `[(var :guard symbol?)]`, matches the
+* The first match pattern, `[(var :guard symbol?)]`, matches the
 variable case of our syntax, binding the matched expression to +var+.
 The special +:guard+ form applies the predicate +symbol?+ to +var+,
 only returning the answer if +symbol?+ returns +true+.
 
-The second pattern, `[(['fn [arg] body] :seq)]`, matches the +fn+ case.footnote:[The match pattern for +fn+ could (and should) include a guard on the +arg+ to ensure that it's a symbol, but that's elided here for brevity.] Note the special `([...] :seq)` syntax for matching
-over lists, used here to represent a +fn+ expression. Also notice
+* The second pattern, `[(['fn [arg] body] :seq)]`, matches the +fn+ case.footnote:[The match pattern for +fn+ could (and should) include a guard on the +arg+ to ensure that it's a symbol, but that's elided here for brevity.] Note the special `([...] :seq)` syntax for matching
+over lists, used here to represent an +fn+ expression. Also notice
 that to match on the literal +fn+, it had to be quoted in the match
 pattern.  Interestingly, since the +body+ expression should also be
 accepted by this parser, it makes a self-recursive call,
 +(simple-clojure-parser body)+, in the righthand side of the match
 pattern.
 
-For the third +:application+ pattern, the parser again
-matches on a list using the `([...] :seq)` syntax. Like the body of the
+* For the third +:application+ pattern, the parser again
+matches on a list using the `([...] :seq)` syntax. As in the body of the
 +fn+ expression, both the +operator+ and +operand+ expressions should
-be accepted by the parser, so it make a recursive call for each one.
-
+be accepted by the parser, so it makes a recursive call for each one.
++
 Finally, the parser throws an exception if the given expression doesn't
 match any of the three accepted patterns. This gives a somewhat more
 helpful error message if you accidentally hand the parser a malformed
@@ -131,7 +131,7 @@ expressions of the Clojure subset:
 ----
 
 Notice how much more code this version needed in order to express the
-same properties about a +fn+ expression? Not only did the non-+match+
+same properties about an +fn+ expression? Not only did the non-+match+
 version require more code, but the +if+ test doesn't resemble the
 structure of the expression the way the +match+ pattern does. Further,
 +match+ binds the matched input to the variable names in the match
@@ -143,5 +143,5 @@ much easier to read and maintain.
 ==== See Also
 
 * The +core.match+ wiki's
-  https://github.com/clojure/core.match/wiki/Overview[Overview page] for a
-  more broad view over all of the library's capabilities.
+  http://bit.ly/clj-core-match[Overview page] for a
+  broader view over all of the library's capabilities

@@ -9,7 +9,7 @@ You need to print dates or times in a particular format.((("dates/times", "forma
 
 ==== Solution
 
-While it is possible to format Java date-like instances (+Date+,
+While it is possible to format Java date&#x2013;like instances (+Date+,
 +Calendar+, and +Timestamp+) with +clojure.core/format+, you should
 use https://github.com/clj-time/clj-time[+clj-time+] to format dates.(((Java, date/time classes)))
 
@@ -46,16 +46,16 @@ experience, it isn't worth the hassle--the syntax is ugly, and the workflow is v
 record for making it easy to work with dates and times on the JVM.(((Joda-Time library)))(((functions, formatter)))
 
 The +formatter+ function is quite the gem. Not only does it produce a
-"format" capable of printing or ++unparse++ing a date, it is also
+"format" capable of printing or ++unparse++ing a date, but it is also
 capable of parsing strings back into dates. In other words,
-+DateTimeFormatter+ is capable of roundtripping from string to +Date+
++DateTimeFormatter+ is capable of round-tripping from string to +Date+
 and back again. Much of how +formatter+ and +formatters+ work is
  covered in <<sec_primitives_dates_parsing_dates>>.
 
 One format symbol used less frequently in parsing is the textual
-day of week (i.e., "Tuesday" or "Tue"). Use "++E++" in your format
-string to output the abbreviated day of week, and "++EEEE++" for the
-full length day of week:
+day of the week (i.e., "Tuesday" or "Tue"). Use "++E++" in your format
+string to output the abbreviated day of the week, and "++EEEE++" for the
+full-length day of the week:
 
 [source,clojure]
 ----
@@ -80,7 +80,7 @@ Java date/time instances into Joda-Time instances:
 ;; -> #<DateTime 2013-04-06T17:03:16.872Z>
 ----
 
-Similarly, you can use +clj-time.coerce+ to coerce instances *from*
+Similarly, you can use +clj-time.coerce+ to coerce instances from
 Joda-Time instances into other formats:
 
 [source,clojure]
@@ -95,12 +95,12 @@ Joda-Time instances into other formats:
 ==== See Also
 
 * The +clj-time+ https://github.com/clj-time/clj-time[project page] on
-  Github
+  GitHub
 
 * <<sec_primitives_dates_parsing_dates>> for more detailed
   information on +formatter+ and +formatters+
 
 * The official
-  http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[API
+  http://bit.ly/javadoc-simple-date-format[API
   documentation] for Java's simple date formatter
 

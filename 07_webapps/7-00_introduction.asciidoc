@@ -2,7 +2,7 @@
 
 Web application development is the breadwinner for many languages
 nowadays; Clojure is no exception to this. In the annual
-http://cemerick.com/2013/11/18/results-of-the-2013-state-of-clojure-clojurescript-survey/[2013
+http://bit.ly/clojure-survey-2013[2013
 State of Clojure Survey], web development ranked first for the
 question, "In which domains are you applying Clojure and/or
 ClojureScript?"

@@ -139,7 +139,7 @@ multicast, create an instance of +java.net.MulticastSocket+ instead of
 
 A full explanation of how to use +MulticastSocket+ is very well
 documented
-http://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html[on
+http://bit.ly/javadoc-multicast-socket[on
 Oracle's website] and would be redundant to reproduce here, since it
 is straightforward Java interop. After reading the preceding example,
 extending it to +MulticastSocket+ should be relatively
@@ -150,4 +150,4 @@ self-explanatory.
 - <<sec_general_core_async>>
 - <<sec_network_io_tcp_client>>
 - <<sec_network_io_tcp_server>>
-- +java.net.MulticastSocket+ http://docs.oracle.com/javase/7/docs/api/java/net/MulticastSocket.html[API documentation]
+- +java.net.MulticastSocket+ http://bit.ly/javadoc-multicast-socket[API documentation]

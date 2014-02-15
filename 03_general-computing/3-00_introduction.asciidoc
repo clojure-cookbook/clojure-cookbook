@@ -5,11 +5,11 @@ vacuum. The same applies to Clojure. For all the cool tools and
 techniques Clojure offers, there are still a number of activities and
 techniques that for whatever reason aren't always on the direct path
 to shipping software. Some might call them academic, or incidental
-complexity, but for the time, we call them life.
+complexity, but for the time being, we call them life.
 
 This chapter covers some of the topics about Clojure development that
 don't quite fill chapters on their own. Topics like:
 
-* How to use Clojure's development ecosystem?
+* How do I use Clojure's development ecosystem?
 * How do abstract concepts (such as polymorphism) apply to Clojure?
-* What *is* logic programming, and when might I want to use it?
+* What is logic programming, and when might I want to use it?

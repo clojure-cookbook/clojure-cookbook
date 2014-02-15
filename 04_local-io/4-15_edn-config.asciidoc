@@ -235,4 +235,4 @@ user=> (load-config (clojure.java.io/resource "config.edn"))
 * <<sec_local_io_get_local_resource>>
 * <<sec_edn_record>>
 * <<sec_default_data_reader>>
-* https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#profiles[Leiningen profiles]
+* http://bit.ly/lein-profiles-tut[Leiningen profiles]

@@ -9,7 +9,7 @@ You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).(((fi
 ==== Solution
 
 Wrap a normal input stream with
-http://docs.oracle.com/javase/7/docs/api/java/util/zip/GZIPOutputStream.html[+java.util.zip.GZIPInputStream+]
+http://bit.ly/javadoc-gzip-output[+java.util.zip.GZIPInputStream+]
 to get uncompressed data:
 
 [source,clojure]
@@ -61,9 +61,9 @@ which will be compressed on disk when the stream is closed.
 
 A nearly identical approach can be used for writing data in the ZIP
 compression format, using the
-http://docs.oracle.com/javase/7/docs/api/java/util/zip/ZipInputStream.html[+java.util.zip.ZipInputStream+]
+http://bit.ly/javadoc-zip-input[+java.util.zip.ZipInputStream+]
 and
-http://docs.oracle.com/javase/7/docs/api/java/util/zip/ZipOutputStream.html[+java.util.zip.ZipOutputStream+]
+http://bit.ly/javadoc-zip-output[+java.util.zip.ZipOutputStream+]
 classes.
 
 ==== See Also
@@ -71,5 +71,5 @@ classes.
 * <<sec_local_io_clojure_data_to_disk>> for information on reading
   Clojure data from files on disk
 * The +GZIPInputStream+
-  http://docs.oracle.com/javase/7/docs/api/java/util/zip/GZIPInputStream.html[API
+  http://bit.ly/javadoc-gzip-input[API
   documentation]

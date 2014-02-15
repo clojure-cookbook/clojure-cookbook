@@ -1,7 +1,7 @@
 === Conventions Used in This Book
 
 Being a book full of solutions, you'll find no shortage of Clojure
-source code in the book. Clojure source code appears in a monospace
+source code in this book. Clojure source code appears in a monospace
 font, like this:
 
 [source,clojure]
@@ -35,7 +35,7 @@ a function/var or shortening lengthy output:
 ----
 
 When an expression produces output to +STDOUT+ or +STDERR+, it is
-denoted by a comment (`*out*` and `*error*`, respectively), followed
+denoted by a comment (`*out*` or `*error*`, respectively), followed
 by a comment with each line of output:
 
 [source,clojure]
@@ -58,17 +58,17 @@ of REPLs. Nearly every recipe in this book is designed to be run at a
 Clojure REPL.
 
 While Clojure REPLs are traditionally displayed as `user=> ...`, this
-book aims for readers to be able to copy-paste all of the examples in
+book aims for readers to be able to copy and paste all of the examples in
 a recipe and see the indicated results. As such, samples omit `user=>`
 and comment out any output to make things easier. This is especially
 helpful if you're following along on a computer: you can blindly
-copy-paste code samples without worrying about trying to run noncode.
+copy and paste code samples without worrying about trying to run noncode.
 
-When an example is *only* relevant in the context of a REPL, we will
+When an example is _only_ relevant in the context of a REPL, we will
 retain the traditional REPL style (with `user=>`). What follows is an
 example of each, a REPL-only sample and its simplified version.
 
-.REPL-only:
+._REPL-only_:
 [source,shell-session]
 ----
 user=> (+ 1 2)
@@ -78,7 +78,7 @@ Hello!
 nil
 ----
 
-.Simplified:
+._Simplified_:
 [source,clojure]
 ----
 (+ 1 2)
@@ -94,16 +94,16 @@ nil
 
 Console sessions (e.g., shell commands) are denoted by monospace font,
 with lines beginning with a dollar sign (+$+) indicating a shell
-prompt. Output is printed without a leading +$+.
-
-A backslash (+\+) at the end of a command indicates to the console that the
-command continues on the next line:
+prompt. Output is printed without a leading +$+:
 
 [source,shell-session]
 ----
 $ lein version
 Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
 ----
+
+A backslash (+\+) at the end of a command indicates to the console that the
+command continues on the next line.
 
 [[sec_lein_try]]
 .Our Golden Boy, lein-try
@@ -122,9 +122,8 @@ project tool, that lets you quickly and easily try out various Clojure
 libraries.
 
 To use +lein-try+, ensure you have Leiningen installed, then edit your
-user profile as follows:
+user profile (_~/.lein/profiles.clj_) as follows:
 
-.~/.lein/profiles.clj
 [source,clojure]
 ----
 {:user {:plugins [[lein-try "0.4.1"]]}}
@@ -145,7 +144,7 @@ Long story short: where possible, you'll see instructions on which
 libraries. You'll find an example of trying recipes with +lein-try+ in
 <<sec_try_library>>.
 
-If a recipe *cannot* be run via +lein-try+, we have made efforts to
+If a recipe _cannot_ be run via +lein-try+, we have made efforts to
 include adequate instructions on how to run that recipe on your local
 machine.
 ****
@@ -157,23 +156,20 @@ The following typographic conventions are used in this book:
 // These conventions *roughly* follow standards layed out as the O'Reilly
 // standard.
 
-pass:[<emphasis role="roman"><emphasis role="strong">Bold</emphasis></emphasis>]::
-  Used to emphasize a word or phrase.
 _Italic_::
-  Used for URLs, filenames, and file extensions. New terms are also
-  italicized when they first appear in the text.
+  Used for URLs, filenames, pathnames, and file extensions. New terms are also
+  italicized when they first appear in the text, and italics are used for emphasis.
 +Constant width+::
-  Used for function and method names and their arguments, in
-  examples to show both input and output, and in regular text to show
+  Used for function and method names and their arguments; for data types, classes, and namespaces; in
+  examples to show both input and output; and in regular text to show
   literal code.
 *+Constant width bold+*::
   Used to indicate commands that you should enter literally at the
   command line.
 
 The names of libraries follow one of two conventions: libraries with proper
-names are displayed in capitalized plain text (e.g., "Hiccup" or "Swing"), while
-libraries with names meant to mimic code symbols are displayed in constant
-width text (e.g., +core.async+ or +clj-commons-exec+).
+names are displayed in plain text (e.g., "Hiccup" or "Swing"), while
+libraries with names meant to mimic code symbols are displayed in constant-width text (e.g., +core.async+ or +clj-commons-exec+).
 
 [TIP]
 ====

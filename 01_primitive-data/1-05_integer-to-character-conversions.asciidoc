@@ -6,7 +6,7 @@ by Ryan Neufeld
 ==== Problem
 
 You need to convert characters to their respective Unicode code points
-(as integer values) or vice versa.(((strings, Unicode in)))((("Unicode characters, conversion of")))(((characters, Unicode conversion)))
+(as integer values), or vice versa.(((strings, Unicode in)))((("Unicode characters, conversion of")))(((characters, Unicode conversion)))
 (((integers, character conversion)))(((functions, int)))(((functions, char)))
 ==== Solution
 
@@ -20,10 +20,10 @@ Use the +int+ function to convert a character to its integer value:
 (int \ø)
 ;; -> 248
 
-(int \α) ; greek letter alpha
+(int \α) ; Greek letter alpha
 ;; -> 945
 
-(int \u03B1) ; greek letter alpha (by code point)
+(int \u03B1) ; Greek letter alpha (by code point)
 ;; -> 945
 
 (map int "Hello, world!")
@@ -56,8 +56,8 @@ Clojure inherits the JVM's robust Unicode support. All strings are
 UTF-16 strings, and all characters are Unicode
 characters. Conveniently, the first 256 Unicode code points are
 identical to ASCII, which makes standard ASCII text easy to work
-with. However, Clojure (and Java) do not actually privilege ASCII in
-any way the 1:1 correspondence between characters and integers
+with. However, Clojure (like Java) does not actually privilege ASCII in
+any way; the 1:1 correspondence between characters and integers
 indicating code points continues all the way up through the Unicode space.((("ASCII, integer to character correspondence")))
 
 For example, the expression +(map char (range 0x0410 0x042F))+ prints
@@ -71,17 +71,15 @@ range on the Unicode spectrum:
 ----
 
 The +char+ and +int+ functions are useful primarily for coercing a
-number into either an instance of +java.lang.Integer+ or
+number into an instance of either +java.lang.Integer+ or
 +java.lang.Character+. Both ++Integer++s and ++Character++s are,
-ultimately, encoded as numbers, although +Character+'s support
+ultimately, encoded as numbers, although +Character+s support
 additional text-related methods and cannot be used in mathematic
 expressions without first being converted to a true numeric type.(((Java, java.lang.Integer)))(((Java, java.lang.Character)))
 
 ==== See Also
 
-* For truly comprehensive coverage of how Unicode and
-  internationalization works, see
-  http://shop.oreilly.com/product/9780596101213.do[_Unicode Explained_], by Jukka K. Korpela (O'Reilly Media)
+* http://oreil.ly/unicode-explained[_Unicode Explained_], by Jukka K. Korpela (O'Reilly), for truly comprehensive coverage of how Unicode and internationalization works
 
 * <<sec_primitives_strings_seq_of_chars>> for details on working with the characters that constitute a string
 

@@ -1,5 +1,5 @@
 [[sec_primitives_strings_re_matches]]
-=== Pulling Values Out of a String Using Regular Expressions
+=== Pulling Values out of a String Using Regular Expressions
 [role="byline"]
 by Ryan Neufeld
 
@@ -9,7 +9,7 @@ You need to extract portions of a string matching a given pattern.(((strings, ex
 ((("regular expressions", "re-seq")))(((regular expressions, extracting values with)))(((pattern matching)))
 ==== Solution
 
-Use +re-seq+ with a regular expression pattern and string to retrieve
+Use +re-seq+ with a regular expression pattern and a string to retrieve
 a sequence of successive matches:
 
 [source,clojure]
@@ -28,7 +28,7 @@ vector for each total match:
 
 [source,clojure]
 ----
-;; Extract all of the twitter usernames and hashtags in a tweet.
+;; Extract all of the Twitter usernames and hashtags in a tweet
 (defn mentions [tweet]
   (re-seq #"(@|#)(\w+)" tweet))
 
@@ -46,16 +46,16 @@ application further down the road.
 
 When given a regular expression containing matching groups, +re-seq+ will do
 something a little different. Don't worry, the resulting sequence is
-still lazy, but instead of flat strings, its values will be vectors.
+still lazy--but instead of flat strings, its values will be vectors.
 The first value of the vector will always be the whole match, grouped
 or not; subsequent values will be the strings captured by matching
-group parenthesis. These captured values will appear in the order their
-opening parenthesis appeared, despite any nesting. Take a look at this
+group parentheses. These captured values will appear in the order in which their
+opening parentheses appeared, despite any nesting. Take a look at this
 example:
 
 [source,clojure]
 ----
-;; Re to capture and decompose a phone number and its title
+;; Using re to capture and decompose a phone number and its title
 (def re-phone-number #"(\w+): \((\d{3})\) (\d{3}-\d{4})")
 
 (re-seq re-phone-number "Home: (919) 555-1234, Work: (191) 555-1234")
@@ -68,11 +68,11 @@ If all you're looking for is a single match from a string, then use
 the first match as a singular value, instead of a sequence of match values.((("regular expressions", "re-find")))
 
 Apart from +re-seq+, there is another way to iterate over the matches
-in a string. You *could* do this by repeatedly calling +re-find+ on a
+in a string. You _could_ do this by repeatedly calling +re-find+ on a
 +re-matcher+, but we don't suggest this approach. Why? Because it
 isn't very idiomatic Clojure. Mutating a +re-matcher+ object with
 repeated calls to +re-find+ is just wrong; it completely violates the
-principle of pure functions. We highly suggested you prefer +re-seq+
+principle of pure functions. We highly suggest you prefer +re-seq+
 over +re-matcher+ and +re-find+ unless you have a really good reason
 not to.((("regular expressions", "re-matcher")))
 
@@ -83,7 +83,7 @@ not to.((("regular expressions", "re-matcher")))
 * <<sec_primitives_strings_find_replace>> for information on using
   regular expressions to find and replace portions of a string
 * The
-  http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html[API
+  http://bit.ly/javadoc-pattern[API
   documentation] for +java.lang.Pattern+, which defines the exact
   regex syntax supported by Java (and Clojure's regular expression literals)
 

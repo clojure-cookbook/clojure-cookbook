@@ -24,7 +24,7 @@ Use +clojure.string/split+ to tokenize a string into a vector of tokens. +split+
 In addition to just naively splitting on a regular expression, +split+
 allows you to control how many (or how few) times to split the
 provided string. You can control this with the optional +limit+
-argument. The most obvious effect of +limit+ is to limit the number
+argument. The most obvious effect of +limit+ is to limit the number of
 values returned in the resulting collection. That said, +limit+
 doesn't always work like you would expect, and even the absence of
 this argument carries a meaning.
@@ -75,7 +75,7 @@ Specifying some other positive number as a +limit+ will cause +split+ to return 
 ==== See Also
 
 - The +clojure.string+ namespace
-  http://clojure.github.io/clojure/#clojure.string[API documentation]
+  http://bit.ly/clj-string-api[API documentation]
 
 - <<sec_primitives_strings_re_find>>
 

@@ -49,7 +49,7 @@ To convert from a symbol or string to a keyword, use +keyword+:
 ;; -> :fantastic
 ----
 
-You'll need an intermediate step through +name+, to go from keyword to symbol:
+You'll need an intermediate step, through +name+, to go from keyword to symbol:
 
 [source,clojure]
 ----
@@ -61,7 +61,7 @@ You'll need an intermediate step through +name+, to go from keyword to symbol:
 ==== Discussion
 
 The primary conversion functions here are +str+, +keyword+, and +symbol+&#x2014;each
-named for the data type they return. One of these, +symbol+, is a bit more
+named for the data type it returns. One of these, +symbol+, is a bit more
 strict in terms of the input it allows: it must take a string, which is why you
 need the extra step in the keyword-to-symbol conversion.
 
@@ -82,7 +82,7 @@ sufficient to convert to a string, depending on your use case:
 ----
 
 Very often, you actually want both parts. You could collect them separately
-and concatenate the strings, with a +/+ in the middle, but there's an easier
+and concatenate the strings with a +/+ in the middle, but there's an easier
 way. Java has a rich set of performant methods for dealing with immutable
 strings. You can take the leading-colon string and lop off the first
 character with +java.lang.String.substring(int)+:
@@ -96,7 +96,7 @@ character with +java.lang.String.substring(int)+:
 ;; -> "user/valid?"
 ----
 
-See http://docs.oracle.com/javase/7/docs/api/java/lang/String.html[+java.lang.String+] for more string methods.
+See the http://bit.ly/javadoc-string[+java.lang.String+ API documentation] for more string methods.
 
 You can convert namespaced symbols to keywords just as easily as their
 non-namespaced counterparts, but again, converting in the other direction
@@ -113,14 +113,16 @@ non-namespaced counterparts, but again, converting in the other direction
 
 And finally, both the +keyword+ and +symbol+ functions have two-argument versions
 that allow you to pass in the namespace and name separately. Sometimes this is
-nicer, for example, when you already have one or both of the values bound in a
+nicer--for example, when you already have one or both of the values bound in a
 +def+, +let+, or other binding:
 
 [source,clojure]
 ----
 (def shopping-area "bakery")
+
 (keyword shopping-area "bagels")
 ;; -> :bakery/bagels
+
 (symbol shopping-area "cakes")
 ;; -> bakery/cakes
 ----
@@ -128,7 +130,7 @@ nicer, for example, when you already have one or both of the values bound in a
 These three string-like data types are all great for different situations, and
 how to choose among them is another topic. But it's quite common to need to
 convert among them, so +keyword+, +symbol+, +str+, +namespace+, and +name+ are
-handy to have in your toolbelt.(((range="endofrange", startref="ix_PDstrng")))
+handy to have in your tool belt.(((range="endofrange", startref="ix_PDstrng")))
 
 ==== See Also
 

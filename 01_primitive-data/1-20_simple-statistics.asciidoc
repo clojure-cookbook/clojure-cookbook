@@ -1,6 +1,6 @@
-=== Statistics on Collections of Numbers
+=== Calculating Statistics on Collections of Numbers
 [role="byline"]
-by Ryan Neufeld and Jean Niklas L'orange
+by Ryan Neufeld and Jean Niklas L'&#8202;orange
 
 ==== Problem
 
@@ -32,8 +32,8 @@ Find the _mean_ (average) of a collection by dividing its total by the +count+ o
 
 Find the _median_ (middle value) of a collection by sorting its
 values and getting its middle value. There are, of course, special
-considerations for collections of odd length. In these cases, median is
-considering the mean of the *two* middle values:
+considerations for collections of even length. In these cases, the median is
+considering the mean of the _two_ middle values:
 
 [source,clojure]
 ----
@@ -55,8 +55,8 @@ considering the mean of the *two* middle values:
 ;; -> 5/2  ; The average of 2 and 3.
 ----
 
-<1> In the case +coll+ has an odd number of items, simply retrieve that item with +nth+.
-<2> When +coll+ has an even number of items, find the index for the other central value (+bottom+), and take the mean of the top and bottom value.
+<1> In the case that +coll+ has an odd number of items, simply retrieve that item with +nth+.
+<2> When +coll+ has an even number of items, find the index for the other central value (+bottom+), and take the mean of the top and bottom values.
 
 Find the _mode_ (most frequently occurring value) of a collection by
 using +frequencies+ to tally occurrences. Then massage that tally to
@@ -86,7 +86,7 @@ Find the sample _standard deviation_ by completing the following steps:
 
 . For each value in the collection, subtract the +mean+ from the value and multiply that result by itself.
 . Then, sum up all those values.
-. Divide the result by the number of values *minus one*.
+. Divide the result by the number of values _minus one_.
 . Finally, take the square root of the previous result:
 +
 [source,clojure]
@@ -139,10 +139,10 @@ Here is a breakdown of how +mode+ works:
 <3> The list of occurrences is now sortable. The last pair in the
     sorted list will be the modes, or most frequently occurring values.
 <4> The final step is processing the raw mode pairs into discrete
-    values. Taking +second+ turns pass:[<literal>[2 [[:alan 2\]\]\]</literal>] into pass:[<literal>[[:alan 2\]\]</literal>], and +(map first)+ turns that into +'(:alan)+.
+    values. Taking +second+ turns pass:[<literal>[2 [[:alan 2\]\]\]</literal>] into pass:[<literal>[[:alan 2\]\]</literal>], and +(map first)+ turns that into +(:alan)+.
 
 The standard deviation measures how much, on average, the individual values in a
-population deviate from the mean: The higher the standard deviation is, the
+population deviate from the mean: the higher the standard deviation is, the
 farther away the individual values will be (on average).
 +standard-deviation+ is a bit more mathematical than +mean+, +median+, and
 +mode+. Follow along the execution of this function step by step:
@@ -174,5 +174,5 @@ standard deviation by dividing by +total+ instead of +(- total 1)+.
 ==== See Also
 
 * The Wikipedia article on
-http://en.wikipedia.org/wiki/Standard_deviation[standard deviation] for more
+http://bit.ly/wiki-std-dev[standard deviation] for more
 information on standard deviation and what it can be used for

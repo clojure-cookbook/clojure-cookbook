@@ -4,7 +4,7 @@ by Luke VanderHart
 
 ==== Problem
 
-You have a vector, and you want to retrieve the value which the vector
+You have a vector, and you want to retrieve the value the vector
 contains at a particular location (index).(((vectors, getting value at index)))((("functions", "nth")))(((collections, indexed)))(((values, retrieving by index)))
 
 ==== Solution
@@ -36,9 +36,9 @@ which will be returned if the provided index is out of bounds:
 ;; -> :not-found
 ----
 
-===== Using vectors as functions of their indices
+===== Using vectors as functions of their indexes
 
-Vectors are themselves functions which, when called with an integer(((vectors, using as functions)))
+Vectors are themselves functions that when called with an integer(((vectors, using as functions)))
 argument, will return the value at that index:
 
 [source,clojure]
@@ -63,8 +63,8 @@ index:
 ;; -> :c
 ----
 
-Unlike +nth+, when you pass an out-of-range index to +get+, it will
-return +nil+, not throw an exception. Unless, that is, you provide a
+Unlike +nth+, when you pass an out-of-range index to +get+ it will
+return +nil+, not throw an exception--unless, that is, you provide a
 default value to be returned if the key (the index, in this case) is
 not found:
 
@@ -94,7 +94,7 @@ Ultimately, when making a choice like this, you should consider:
   +nth+), or fundamentally a correlation of values to indexes
   (implying +get+)?
 * What is the failure mode of the proposed technique? For example,
-  would a nil return value or an exception be preferable?
+  would a +nil+ return value or an exception be preferable?
 
 ==== See Also
 

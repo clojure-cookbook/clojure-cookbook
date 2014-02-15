@@ -125,11 +125,11 @@ subscriber connects, it is given the last message (for which
 +retained+ was +true+) by the broker and does not have to wait to
 receive the first message.
 
-Websphere and http://www.rabbitmq.com/mqtt.html[RabbitMQ] also
+Websphere and http://bit.ly/rmq-mqtt[RabbitMQ] also
 implement MQTT and can be used instead of Mosquitto. While the preceding
 code used the tcp://test.mosquitto.org:1883[test broker], you can
 install your own Mosquitto broker using
-http://mqtt.org/wiki/doku.php/mosquitto_message_broker[MQTT
+http://bit.ly/mosquitto-broker[MQTT
 installation instructions].
 
 The topics are usually defined with the separator +/+ defining
@@ -195,7 +195,7 @@ some actions based on an alarm that the code has received).
   MQTT
 * http://mosquitto.org/[Mosquitto], an open source message broker that implements MQTT 
   protocol
-* http://www.redbooks.ibm.com/abstracts/sg248054.html[_Building Smarter
+* http://bit.ly/mqtt-paper[_Building Smarter
   Planet Solutions with MQTT and IBM WebSphere MQ Telemetry_] (IBM
   Redbooks) explains MQTT in more detail
 * The http://www.youtube.com/watch?v=s9nrm8q5eGg[TED talk] by Andy

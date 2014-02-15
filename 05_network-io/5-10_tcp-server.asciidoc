@@ -195,9 +195,9 @@ HTTP requests or JMS queues) actually work.
 ==== See Also
 
 - The
-  http://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html[API
+  http://bit.ly/javadoc-server-socket[API
   documentation] for ServerSocket and Socket objects in Java
-- The http://clojure.github.io/clojure/#clojure.java.io[API
+- The http://bit.ly/clj-java-io-api[API
   documentation] for the +clojure.java.io+ namespace
 - <<sec_network_io_tcp_client>>
--  Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol]
+-  Wikipedia on http://bit.ly/wiki-tcp[the TCP protocol]

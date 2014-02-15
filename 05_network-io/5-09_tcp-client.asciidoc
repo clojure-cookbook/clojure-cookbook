@@ -109,4 +109,4 @@ hang on to the entire thing:
 ==== See Also
 
 * <<sec_network_io_tcp_server>>
-* Wikipedia on http://en.wikipedia.org/wiki/Transmission_Control_Protocol[the TCP protocol]
+* Wikipedia on http://bit.ly/wiki-tcp[the TCP protocol]

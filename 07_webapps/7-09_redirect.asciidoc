@@ -47,4 +47,4 @@ According to the HTTP specification, if the response method is a POST, PUT, or D
 
 ==== See Also
 
-* https://github.com/ring-clojure/ring/wiki/Concepts[Ring concepts]
+* http://bit.ly/ring-concepts[Ring concepts]

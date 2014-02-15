@@ -12,7 +12,7 @@ You've built a library in Clojure, and you want to release it to the world.((("p
 One of easiest places to release libraries to is https://clojars.org[Clojars], a community repository for open source
 libraries. To get started, https://clojars.org/register[sign up for an account at]. If you don't already have an SSH key,
 the GitHub guide
-https://help.github.com/articles/generating-ssh-keys["Generating SSH
+http://bit.ly/ssh-keys["Generating SSH
 Keys"] is an excellent resource.
 
 Once you have an account set up, you're ready to publish any
@@ -98,15 +98,15 @@ intended (i.e., they have not be tampered with). Leiningein includes
 the facilities to sign release artifacts using GPG and include the
 relevant _.asc_ signature files in *+lein deploy+* publications.
 Enabling code signing is described in the GPG section of Leiningen's
-https://github.com/technomancy/leiningen/blob/stable/doc/DEPLOY.md#gpg[deploying
+http://bit.ly/lein-deploy-gpg[deploying
 libraries guide].
 
 ==== See Also
 
-* The https://github.com/ato/clojars-web/wiki[Clojars Wiki], a
+* The http://bit.ly/clojars-wiki[Clojars Wiki], a
   bountiful resource of information on releasing libraries to Clojars
 * Leiningen's own
-  https://github.com/technomancy/leiningen/blob/master/doc/DEPLOY.md[deploying
+  http://bit.ly/lein-deploy[deploying
   libraries guide], which covers code signing and how to deploy to
   repositories other than Clojars
 * The output of the *+lein help deploy+* command

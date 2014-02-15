@@ -16,7 +16,7 @@ passed to them to +STDOUT+:
 ----
 (println "This text will be printed to STDOUT.")
 ;; *out*
-;; This text will be printed to STDOUT.\n
+;; This text will be printed to STDOUT.
 
 (do 
   (print "a")
@@ -42,15 +42,15 @@ In Clojure, the dynamic binding vars `*out*` and `*err*` are bound to your
 application environment's built-in +STDOUT+ and +STDERR+ streams,
 respectively.
 
-All of the printing functions in Clojure, +print+ and +println+,
+All of the printing functions in Clojure, such as +print+ and +println+,
 utilize the `*out*` binding as the destination to write to.
 Consequently, you can rebind that var to `*err*` (using +binding+) to
 change the destination of print messages from +STDOUT+ to +STDERR+.
-Other printing functions include: +pr+, +prn+, +printf+, and a handful
+Other printing functions include +pr+, +prn+, +printf+, and a handful
 of others.((("printing functions, print/prntln")))
 
 The bound value of `*out*` is not restricted to operating system
-streams; `*out*` can be *any* stream-like object. This makes print
+streams; `*out*` can be _any_ stream-like object. This makes print
 functions powerful tools. They can be used to write to files, sockets,
 or any other pipes you desire. The built-in function((("Clojure", "clojure.java.io/writer")))
 +clojure.java.io/writer+ is a versatile constructor for output streams:
@@ -64,17 +64,17 @@ or any other pipes you desire. The built-in function((("Clojure", "clojure.java.
 
 ;; Nothing is printed to *out*.
 
-;; And of course, close the file
+;; And of course, close the file.
 (.close foo-file)
 ----
 
 ==== See Also
 
 * ++pr++'s
-  http://bit.ly/1bdf4hh[documentation]
+  http://bit.ly/clojure-pr[documentation]
   and
-  http://bit.ly/1lpQL9y[source]
-  to get a better idea how `*out*`-based printing works
+  http://bit.ly/clojure-pr-source[source]
+  to get a better idea of how `*out*`-based printing works
 * ++clojure.java.io/writer++'s
-  http://bit.ly/1ddZxxb[documentation]
+  http://bit.ly/java-io-writer[documentation]
   for more information on creating writers

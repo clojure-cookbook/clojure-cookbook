@@ -76,7 +76,7 @@ are:
 
 When provided *no* connection details -- either by omitting the first
 argument or passing +nil+ -- +postal+ will attempt to route email
-through a local http://en.wikipedia.org/wiki/Sendmail[sendmail]
+through a local http://bit.ly/wiki-sendmail[sendmail]
 instance.
 
 [NOTE]
@@ -183,5 +183,5 @@ cat might look something like this:
 ==== See Also
 
 * ++postal++'s https://github.com/drewr/postal[GitHub repository]
-* JavaMail's https://javamail.java.net/nonav/docs/api/[API documentation]
+* JavaMail's http://bit.ly/javamail-api-doc[API documentation]
 

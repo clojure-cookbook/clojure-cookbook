@@ -1,12 +1,12 @@
 [[sec_date_range_native_types]]
-=== Generate Ranges of Dates and Times using Native Java Types
+=== Generating Ranges of Dates and Times Using Native Java Types
 [role="byline"]
 by Tom Hicks
 
 ==== Problem
 
 You would like to generate a lazy sequence of dates (or times)
-beginning on a specific date and time. Further, unlike
+beginning with a specific date and time. Further, unlike in
 <<sec_primitives_dates_ranges>>, you would like to do this using only
 built-in types.(((Java, java.util.GregorianCalendar)))(((Gregorian calendar dates)))
 
@@ -18,19 +18,19 @@ being split across lines. Is there any way we can force monospaced
 text to not wrap?</remark>
 ++++
 
-You can use Java's http://docs.oracle.com/javase/7/docs/api/java/util/GregorianCalendar.html[+java.util.GregorianCalendar+] class coupled with
+You can use Java's http://bit.ly/javadoc-gregorian[+java.util.GregorianCalendar+] class coupled with
 Clojure's +repeatedly+ function to generate a lazy sequence of Gregorian
-calendar dates. You can then use http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[+java.text.SimpleDateFormat+] to format the
+calendar dates. You can then use http://bit.ly/javadoc-simple-date-format[+java.text.SimpleDateFormat+] to format the
 dates, with a huge variety of output formats available.
 
 This example creates an infinite lazy sequence of Gregorian calendar
-dates footnote:["Gregorian" is the formal name for the style of
+dates,footnote:["Gregorian" is the formal name for the style of
 calendar we all know and love. Read more on
-http://en.wikipedia.org/wiki/Gregorian_calendar[Wikipedia].] beginning
+http://bit.ly/gregorian-calendar[Wikipedia].] beginning
 on January 1, 1970 and each spanning a single day. The core +take+ and
 +drop+ functions are then used to select the last two days of
-February. (Be careful not to evaluate the infinite sequence itself in
-the REPL.)
+February (be careful not to evaluate the infinite sequence itself in
+the REPL):
 
 [source,clojure]
 ----
@@ -49,7 +49,7 @@ the REPL.)
 
 ==== Discussion
 
-Clojure has no date type of its own but, by default, relies on its
+Clojure has no date type of its own; by default, it relies on its
 ability to easily interoperate with Java (but see the +clj-time+ library
 for alternatives to Java's date, time, and calendar classes).
 
@@ -58,13 +58,13 @@ sequence by repeatedly calling the argument function it is given and returning
 a sequence of the function's results. Because you do not provide the optional,
 limiting argument to +repeatedly+, the result sequences produced are
 infinite. Consequently, in the REPL environment, you must be careful to evaluate
-your result sequences in contexts (such as +take+ and +drop+), which
+your result sequences in contexts (such as +take+ and +drop+) that
 limit the values produced.(((functions, repeatedly)))(((lazy sequences)))
 
 Since the function given to +repeatedly+ is a function of no arguments, it is
 presumed to achieve its goals by side effects (making it an impure function).
 Here, the impurity occurs as the argument function creates a Gregorian calendar
-date and repeatedly increments it by a single http://docs.oracle.com/javase/7/docs/api/java/util/Calendar.html[+java.util.Calendar+] day
+date and repeatedly increments it by a single http://bit.ly/javadoc-calendar[+java.util.Calendar+] day
 unit. For each call of the function, it returns a copy of the Gregorian calendar
 object (to avoid mysterious and unintended side effects, it is advisable to
 avoid returning the mutated object directly).
@@ -72,7 +72,7 @@ avoid returning the mutated object directly).
 The date values in the result sequence are of type
 +java.util.GregorianCalendar+, but the +print+ function of the REPL displays
 them as an +#inst+ reader literal. You can verify that the sequence elements
-are Gregorian calenders by mapping the +class+ (or +type+) function onto the
+are Gregorian calendar objects by mapping the +class+ (or +type+) function onto the
 sequence:
 
 [source,clojure]
@@ -82,7 +82,7 @@ sequence:
 ;; -> (java.util.GregorianCalendar java.util.GregorianCalendar)
 ----
 
-You can generalize the solution to a function which takes a starting year
+You can generalize the solution to a function that takes a starting year
 argument but defaults to some convenient year if the argument is not provided:
 
 [source,clojure]
@@ -123,7 +123,7 @@ wide variety of different formats:
 ----
 
 
-To put it all together, create a function which generates an
+To put it all together, create a function that generates an
 infinite lazy sequence of formatted Gregorian date strings. For convenience,
 the function takes optional starting year and date format string arguments:
 
@@ -159,5 +159,5 @@ Sundays in a year:
 * <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
   reader literal for date/times
 * <<sec_primitives_dates_ranges>> for an alternative that utilizes
-  +clj-time+/Joda-Time.(((range="endofrange", startref="ix_DTrange")))
+  +clj-time+/Joda-Time(((range="endofrange", startref="ix_DTrange")))
 

@@ -240,7 +240,7 @@ Ran 1 tests containing 2 assertions.
 
 ==== See Also
 
-* The +clojure.test+ http://richhickey.github.io/clojure/clojure.test-api.html[API documentation].
+* The +clojure.test+ http://bit.ly/clj-test-api[API documentation].
 * If you are instead using Maven, use the
   https://github.com/talios/clojure-maven-plugin[clojure-maven-plugin]
   to run Clojure tests. This plug-in will incorporate your Clojure

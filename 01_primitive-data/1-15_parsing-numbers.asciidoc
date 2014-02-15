@@ -24,14 +24,14 @@ For "normal&#8221;-sized large or precise numbers, use +Integer/parseInt+ or
 ==== Discussion
 
 What is a "normal&#8221;-sized number? For +Integer/parseInt+, normal is anything below
-+Integer/MAX_VALUE+ (2147483647); and for +Double/parseDouble+, anything below
-+Double/MAX_VALUE+ (around 1.79 x 10^308).((functions, bigdec)))(((functions, bigint)))(((BigInteger type)))(((BigDecimal type)))
++Integer/MAX_VALUE+ (2147483647); and for +Double/parseDouble+, it's anything below
+pass:[<phrase role='keep-together'><literal>Double/MAX_VALUE</literal></phrase>] (around 1.79 &#x00D7; 10^308).((functions, bigdec)))(((functions, bigint)))(((BigInteger type)))(((BigDecimal type)))
 
 When the numbers you are parsing are either abnormally large or
-abnormally precise, then you'll need to parse them with +BigInteger+
+abnormally precise, you'll need to parse them with +BigInteger+
 or +BigDecimal+ to avoid losing precision. The versatile +bigint+ and
-+bigdec+ functions can coerce strings (or any other numerical type for
-that matter) into infinite precision containers:
++bigdec+ functions can coerce strings (or any other numerical types, for
+that matter) into infinite-precision containers:
 
 [source,clojure]
 ----
@@ -44,4 +44,4 @@ that matter) into infinite precision containers:
 
 ==== See Also
 
-* Documentation for http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#parseInt(java.lang.String)[+Integer/parseInt+] and http://docs.oracle.com/javase/7/docs/api/java/lang/Double.html#parseDouble(java.lang.String)[+Double/parseDouble+]
+* The API documentation for http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html#parseInt(java.lang.String)[+Integer/parseInt+] and http://docs.oracle.com/javase/7/docs/api/java/lang/Double.html#parseDouble(java.lang.String)[+Double/parseDouble+]

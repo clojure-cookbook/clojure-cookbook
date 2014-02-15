@@ -35,7 +35,7 @@ variadic number of arguments and constructs a list from them:
 
 Typically, between these two approaches, using the +list+ function is
 the better choice. The problem with constructing quoted lists is that
-the quote also prevents evaluation of everything *inside* the list,
+the quote also prevents evaluation of everything _inside_ the list,
 which means that symbols will be returned as literal symbols, instead
 of resolving variables or calling functions. +list+, however, will evaluate its
 arguments in the normal way before constructing the list and is
@@ -61,16 +61,16 @@ irrelevant when it's empty.
 
 Clojure includes both list and vector types. Both are sequential data
 structures. However, for most purposes, vectors are a better fit and
-more commonly used in idiomatic Clojure.(((lists, vs. vectors)))(((vectors, vs. lists)))
+are more commonly used in idiomatic Clojure.(((lists, vs. vectors)))(((vectors, vs. lists)))
 
-There are a couple reasons for this. Vectors have a cleaner literal
+There are a couple of reasons for this. Vectors have a cleaner literal
 syntax than lists and are just as space-efficient and performant. In
 addition, vectors support near-constant lookup time by index
-(O(log~32~ n)), as opposed to lists, which require linear time
-(O(n)).
+(_O_(log~32~ _n_)), as opposed to lists, which require linear time
+(_O_(_n_)).
 
 In general, the only reason to explicitly choose a list over a vector is
-if you need a data structure which supports efficient insertions at
+if you need a data structure that supports efficient insertions at
 the beginning, which lists do; vectors are most efficient when
 appending items to the end.
 

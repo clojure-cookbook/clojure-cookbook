@@ -22,7 +22,7 @@ $ lein try org.clojure/tools.cli
 ----
 
 Use the +clojure.tools.cli/cli+ function in your project's +-main+
-function entry point to parse command-line arguments.footnote:[Since
+function entry point to parse command-line arguments:footnote:[Since
 +tools.cli+ is so cool, this example can run entirely at the REPL.]
 
 [source,clojure]
@@ -36,7 +36,7 @@ function entry point to parse command-line arguments.footnote:[Since
     (when (:help opts)
       (println banner))))
 
-;; Simulate entry into the -main at the command-line
+;; Simulate entry into -main at the command line
 (-main "-h")
 ;; *out*
 ;; Usage:
@@ -55,13 +55,13 @@ function: an arguments vector and specifications go in, and a map of parsed
 options, variadic arguments, and a help banner come out. It's really the
 epitome of good, composable functional programming.
 
-To configure how options are parsed, pass any number spec vectors
+To configure how options are parsed, pass any number of spec vectors
 after the +args+ list. To specify a +:port+ parameter, for example,
 you would provide the spec `["-p" "--port"]`. The +"-p"+ isn't
 strictly necessary, but it is customary to provide a single-letter
 shortcut for command-line options (especially long ones). In the
 returned +opts+ map, the text of the last option name will be interned
-to a keyword (less the "--"). For example, +"--port"+ would become
+to a keyword (less the +--+). For example, +"--port"+ would become
 +:port+, and +"--super-long-option"+ would become +:super-long-option+.
 
 // TODO: This feature is not working--throws misc. errors when
@@ -87,21 +87,21 @@ optional string following the final argument name:
 ----
 
 Everything after the argument name and description will be interpreted
-as options in key-value pairs. +tools.cli+ provides the following
+as options in key/value pairs. +tools.cli+ provides the following
 options:
 
 +:default+:: The default value returned in the absence of user input.
-  Without specifying, the default of default is +nil+.
+  Without specifying, the default of +:default+ is +nil+.
 
 +:flag+:: If truthy (not +false+ or +nil+), indicates an argument
-  behaves like a flag or switch. This argument will *not* take any
-  value is its input.
+  behaves like a flag or switch. This argument will _not_ take any
+  value as its input.
   
-+parse-fn+:: The function used to parse an argument's value. This can
++:parse-fn+:: The function used to parse an argument's value. This can
   be used to turn string values into integers, floats, or other
   data types.
   
-+assoc-fn+:: The function used to combine multiple values for a
++:assoc-fn+:: The function used to combine multiple values for a
   single argument.
 
 Here's a complete example:
@@ -122,8 +122,8 @@ Here's a complete example:
 ----
 
 When writing flag options, a useful shortcut is to omit the +:flag+
-option and add a "`[no-]`" prefix to the arguments name. +cli+ will
-interpret this argument spec as including +:flag true+ without having
+option and add a "`[no-]`" prefix to the argument's name. +cli+ will
+interpret this argument spec as including +:flag true+ without you having
 to specify it as such:
 
 [source,clojure]
@@ -131,12 +131,12 @@ to specify it as such:
 ["-v" "--[no-]verbose" :default true]
 ----
 
-One thing the +tools.cli+ library *doesn't* provide is a hook into the
-application container's launch lifecycle. It is your responsibility to
+One thing the +tools.cli+ library _doesn't_ provide is a hook into the
+application container's launch life cycle. It is your responsibility to
 add a +cli+ call to your +-main+ function and know when to print the
 help banner. A general pattern for use is to capture the results of
-+cli+ in a +let+-block and determine if help needs to be printed. This
-is also useful for ensuring validity of arguments (especially since
++cli+ in a +let+ block and determine if help needs to be printed. This
+is also useful for ensuring the validity of arguments (especially since
 there is no +:required+ option):
 
 [source,clojure]
@@ -159,7 +159,7 @@ there is no +:required+ option):
 ----
 
 As with many applications, you may want to accept a variable number of
-arguments to your applications; for example, a list of file names.
+arguments; for example, a list of filenames.
 In most cases, you don't need to do anything special to capture these
 arguments--just supply them after any other options. These variadic
 arguments will be returned as the second item in ++cli++'s returned vector:
@@ -188,7 +188,7 @@ your program:
 Once you've finished toying with your application's option parsing at
 the REPL, you'll probably want to try invoking options via *+lein run+*.
 Just like your application needs to use +--+ to indicate arguments to
-pass onto subsequent programs, so too must you use +--+ to indicate to
+pass on to subsequent programs, so too must you use +--+ to indicate to
 *+lein run+* which arguments are for your program and which are for it:
 
 [source,shell-session]
@@ -204,6 +204,6 @@ $ lein run -- -n 5 --no-verbose
 * <<sec_local_io_writing_to_stdout_and_stderr>> to learn about input and output streams
 * <<sec_packaging_jars>> to learn how to package an application as
   an executable JAR file
-* For building ncurses-style applications, see
-  http://sjl.bitbucket.org/clojure-lanterna/[+clojure-lanterna+], a wrapper
+* For building _ncurses_-style applications, see
+  http://bit.ly/clj-lanterna[+clojure-lanterna+], a wrapper
   around the Lanterna terminal output library

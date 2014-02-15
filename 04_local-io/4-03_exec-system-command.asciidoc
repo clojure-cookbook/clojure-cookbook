@@ -12,7 +12,7 @@ its output.((("I/O (input/output) streams", "executing system commands")))(((she
 Use the +clj-commons-exec+ library to run shell commands on your local
 system.((("clj-commons-exec library")))
 
-To follow along, start a repl using +lein-try+:
+To follow along, start a REPL using +lein-try+:
 
 [source,shell-session]
 ----
@@ -21,8 +21,8 @@ $ lein try org.clojars.hozumi/clj-commons-exec "1.0.6"
 
 Invoking the +clj-commons-exec/exec+ function with a command will
 return a promise, eventually delivering a map of the command's output,
-exit status, and any errors that occured available via the +:out+, +:exit+,
-and +:err+ keys, respectively.
+exit status, and any errors that occurred (available via the +:out+, +:exit+,
+and +:err+ keys, respectively):
 
 [source,clojure]
 ----
@@ -41,14 +41,14 @@ the command vector as strings:
 ----
 @(exec/sh ["ls" "-l" "/etc/passwd"])
 ;; -> {:exit 0
-       :out "-rw-r--r--  1 root  wheel  4962 May 27 07:54 /etc/passwd\n"
-       :err nil}
+;;     :out "-rw-r--r--  1 root  wheel  4962 May 27 07:54 /etc/passwd\n"
+;;     :err nil}
 
 @(exec/sh ["ls" "-l" "nosuchfile"])
 ;; -> {:exit 1
-       :out nil
-       :err "ls: nosuchfile: No such file or directory\n"
-       :exception #<ExecuteException ... Process exited with an error: 1 ...)>}
+;;     :out nil
+;;     :err "ls: nosuchfile: No such file or directory\n"
+;;     :exception #<ExecuteException ... Process exited with an error: 1 ...)>}
 ----
 
 ==== Discussion
@@ -58,15 +58,15 @@ equivalent to +exec/sh+ already exists in Clojure proper (as
 +clojure.java.shell/sh+). Now that the cat is out of the bag, it must
 be asked: why use a library over a built-in? Simple: +clj-commons-exec+
 is a functional veneer over the excellent
-http://commons.apache.org/proper/commons-exec/[Apache Commons Exec]
+http://bit.ly/apache-commons[Apache Commons Exec]
 library, providing capabilities like _piping_ not available in
 +clojure.java.sh+.((("Clojure", "clojure.java.shell/sh")))(((Apache Commons Exec library)))
 
 To pipe data through multiple commands, use the
 +clj-commons-exec/sh-pipe+ function. Just as with regular Unix pipes,
-pairs of commands will have their STDOUT and STDIN streams bound to
-each other. The API of +sh-pipe+ is nearly identically to +sh+, the
-only notable exception being you will pass more than one command to
+pairs of commands will have their +STDOUT+ and +STDIN+ streams bound to
+each other. The API of +sh-pipe+ is nearly identically to that of +sh+, the
+only notable exception being that you will pass more than one command to
 +sh-pipe+. The return value of +sh-pipe+ is a list of promises that
 fulfill as each subcommand completes execution:
 
@@ -102,7 +102,7 @@ var
 ----
 
 The +:env+ and +:add-env+ options control the environment variables
-available to the executing command. +:add-env+ amends variables to the
+available to the executing command. +:add-env+ appends variables to the
 existing set of environment variables, while +:env+ replaces the
 existing set with a completely new one. Each option is a map of
 variable names to values, like +{"USER" "jeff"}+:
@@ -134,7 +134,7 @@ There are a number of other options available in +sh+ and +sh-pipe+:
 ====
 If you initiate long-running subprocesses inside of a +-main+
 function, your application will hang until those processes complete.
-If it isn't desirable, forcibly terminate your application by invoking
+If this isn't desirable, forcibly terminate your application by invoking
 +(System/exit)+ directly at the end of your +-main+ function.
 Additionally, set the option +:shutdown+ to +true+ for any
 subprocesses to ensure you leave your system tidy and free of rogue
@@ -143,8 +143,8 @@ processes.(((applications, forcible termination of)))
 
 To check if a subprocess has returned without waiting for it to
 finish, invoke the +realized?+ function on the promise returned by
-+sh+. (This is especially useful for monitoring the progress of the
-sequence of promises returned by +sh-pipe+.)(((functions, realized?)))
++sh+ (this is especially useful for monitoring the progress of the
+sequence of promises returned by +sh-pipe+):(((functions, realized?)))
 
 [source,clojure]
 ----
@@ -163,4 +163,4 @@ sequence of promises returned by +sh-pipe+.)(((functions, realized?)))
 
 * If you don't need piping or +clj-common-execs+ advanced features,
   consider using
-  http://richhickey.github.io/clojure/clojure.java.shell-api.html[clojure.java.shell]
+  http://bit.ly/clj-java-shell-api[+clojure.java.shell+]

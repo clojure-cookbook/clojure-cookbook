@@ -63,7 +63,7 @@ it together. Those contributors are:
 * Prathamesh Sonpatki, https://github.com/prathamesh[prathamesh-sonpatki] on GitHub
 * R.T. Lechow, https://github.com/rtlechow[rtlechow] on GitHub
 * Ravindra R. Jaju, https://github.com/jaju[jaju] on GitHub
-* Robert Stuttaford, https://github.com/robert[robert] on GitHub-stuttaford
+* Robert Stuttaford, https://github.com/robert-stuttaford[robert-stuttaford] on GitHub
 * Russ Olsen, https://github.com/russolsen[russolsen] on GitHub
 * Ryan Senior, https://github.com/senior[senior] on GitHub
 * Sam Umbach, https://github.com/sumbach[sumbach] on GitHub
@@ -74,7 +74,7 @@ it together. Those contributors are:
 * Tobias Bayer, https://github.com/codebrickie[codebrickie] on GitHub
 * Tom White, https://github.com/dribnet[dribnet] on GitHub
 * Travis Vachon, https://github.com/travis[travis] on GitHub
-* Stefan Karlsson, https://github.com/zclj[zclj]
+* Stefan Karlsson, https://github.com/zclj[zclj] on GitHub
 
 Special thanks are also deserved by our biggest contributors: Adam
 Bard, Alan Busby, Alex Robbins, Ambrose Bonnaire-Sergeant, Dmitri Sotnikov,
@@ -82,7 +82,7 @@ John Cromartie, John Jacobsen, Robert Stuttaford, Stefan Karlsson, and
 Tom Hicks. All together, these outstanding individuals contributed
 almost a third of the book's recipes.
 
-Thanks to our technical reviewers, Alex Robbins, Travis Vachon, and
+Thanks also to our technical reviewers, Alex Robbins, Travis Vachon, and
 Thomas Hicks. These fine gentlemen scoured the book for technical
 errors in record time, in the 11th hour no less. Where a regular
 technical reviewer would merely submit textual descriptions of
@@ -92,7 +92,7 @@ they were a pleasure to work with and the book is much better because
 of their involvement.
 
 Finally, thanks to our employer, Cognitect, for giving us time to work
-on the book, and all of our colleagues, who offered advice, feedback,
+on the book, and to all of our colleagues, who offered advice, feedback,
 and best of all, more recipes!
 
 ==== Ryan Neufeld
@@ -104,17 +104,17 @@ to learn something is to write a book on it--this couldn't be any
 closer to the truth. Working on the book has really rounded out my
 Clojure skills and taken them to the next level.
 
-And most importantly, I have to thank my family for putting up with me
+And, most importantly, I have to thank my family for putting up with me
 through the process of writing the book. Getting this thing off the
 ground has been a Herculean task and I couldn't have done it without
-the love and support of my wife Jackie and daugther Elody. If it
+the love and support of my wife Jackie and daughter Elody. If it
 hadn't been for the hundreds upon hundreds of hours of evenings,
 weekends, and vacation time I usurped from them, I wouldn't have been
 able to write this book.
 
 ==== Luke VanderHart
 
-Most of all, I'd like ot thank my co-author Ryan, who worked incredibly
+Most of all, I'd like to thank my coauthor Ryan, who worked incredibly
 hard to make the book happen.
 
 Also, all of my coworkers at Cognitect provided lots of thoughts and

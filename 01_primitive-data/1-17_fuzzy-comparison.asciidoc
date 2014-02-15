@@ -5,11 +5,11 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating point numbers, which are susceptible to "drift" through repeated operations.
+You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating-point numbers, which are susceptible to "drift" through repeated operations.
 (((numeric types,  fuzzy comparisons of)))(((fuzzy comparisons)))(((comparisons, fuzzy)))(((fault-tolerant equality)))(((functions, fuzzy)))
 ==== Solution
 
-Clojure has no built-in functions for fault-tolerant equality or "fuzzy
+Clojure has no built-in functions for fault-tolerant equality, or "fuzzy
 comparison," as it is often called. It's trivial to implement your own
 +fuzzy=+ function:
 
@@ -28,7 +28,7 @@ comparison," as it is often called. It's trivial to implement your own
 
 ==== Discussion
 
-+fuzzy=+ works like most other fuzzy comparison algorithms do: first,
++fuzzy=+ works like most other fuzzy comparison algorithms do: first
 it finds the absolute difference between the two operands; and second,
 it tests whether that difference falls beneath the given tolerance.
 Of course, there's nothing dictating that the tolerance needs to be
@@ -37,9 +37,9 @@ wanted to ignore variations under a thousand, you could set the
 tolerance to +1000+.
 
 Even with +fuzzy=+, you still need to take care when comparing(((floating-point values, comparison of)))((("values", "floating-point")))
-floating point values, especially for values differing by numbers
-*very close* to your tolerance. At differences bordering the supplied
-tolerance, you may find the results to be unexpected:
+floating-point values, especially for values differing by numbers
+_very close_ to your tolerance. At differences bordering the supplied
+tolerance, you may find the results a bit strange:
 
 [source,clojure]
 ----
@@ -86,17 +86,17 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance:
       (compare x y)))) ; <2>
 
 (sort (fuzzy-comparator 10) [100 11 150 10 9])
-;; -> (11 10 9 100 150) ; 100 and 150 have moved, but not 11, 10, 9
+;; -> (11 10 9 100 150) ; 100 and 150 have moved, but not 11, 10, and 9
 ----
 
 <1> If the two values being compared are within +tolerance+ of each
     other, return +0+ to indicate they are equal.
-<2> Otherwise fallback to normal +compare+.
+<2> Otherwise, fall back to normal +compare+.
 
 ==== See Also
 
 * The Wikipedia article on
-  http://en.wikipedia.org/wiki/IEEE_floating_point[IEEE Floating
-  Point]
+  http://bit.ly/ieee-floating-point[IEEE floating
+  point]
 * <<sec_primitives_math_arbitrary_precision>>
 * <<sec_primitives_numbers_truncating_rounding>>

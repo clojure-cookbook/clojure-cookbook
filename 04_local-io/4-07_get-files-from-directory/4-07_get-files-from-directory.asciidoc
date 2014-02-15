@@ -80,6 +80,6 @@ in a directory:
 
 ==== See Also
 
-* The documentation for the http://bit.ly/15KfbRd[+File+ class] for a complete list of properties and methods available on +File+ objects.
-* Combine these techniques with utility libraries like Google Guava's http://bit.ly/Li747q[+Files+ class] or Apache Commons http://bit.ly/1beaLoM[+FilenameUtils+ class] to exert even greater leverage over the file sequence abstraction.
+* The documentation for the http://bit.ly/javadoc-file[+File+ class] for a complete list of properties and methods available on +File+ objects.
+* Combine these techniques with utility libraries like Google Guava's http://bit.ly/guava-files[+Files+ class] or Apache Commons http://bit.ly/1beaLoM[+FilenameUtils+ class] to exert even greater leverage over the file sequence abstraction.
 

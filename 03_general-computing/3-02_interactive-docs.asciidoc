@@ -89,7 +89,7 @@ In most REPL implementations, +clojure.repl+ macros like +source+ and +doc+ are
 only referred into the +user+ namespace. This means as soon as you switch into
 another namespace, the unqualified +clojure.repl+ macros will no longer be
 available.  You can get around this by namespacing the macros
-(+clojure.repl/doc+ instead of +doc+,) or, for extended use, by pass:[<literal>use</literal>]&#8217;ing the
+(+clojure.repl/doc+ instead of +doc+,) or, for extended use, by pass:[<literal>use</literal>]-ing the
 namespace:
 
 [source,shell-session]
@@ -112,10 +112,10 @@ clojure.core/+
 
 Exploring Clojure in this way is a great way to learn about core
 functions and advanced Clojure programming techniques. The
-+clojure.core+ namespace is chock full of high-quality and
++clojure.core+ namespace is chock-full of high-quality and
 high-performance code at your fingertips.
 
 ==== See Also
 
-* +clojure.repl+ http://clojure.github.io/clojure/clojure.repl-api.html[API documentation]
+* The +clojure.repl+ http://bit.ly/clj-repl-doc[API documentation]
 * <<sec_exploring_namespaces>>

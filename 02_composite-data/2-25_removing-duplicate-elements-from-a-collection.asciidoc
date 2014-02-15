@@ -4,7 +4,7 @@ by John Cromartie
 
 ==== Problem
 
-You have a sequence of elements and want to remove any duplicates,(((collections, removing duplicate elements)))
+You have a sequence of elements and you want to remove any duplicates,(((collections, removing duplicate elements)))
 while possibly preserving the order of elements.((("duplicates, removing")))((("elements, removing duplicate")))
 
 ==== Solution
@@ -19,7 +19,7 @@ containing only distinct values:
 ;; -> #{:a :b :g}
 ----
 
-When the sequence is infinite, or you wish maintain ordering, use
+When the sequence is infinite, or you wish to maintain ordering, use
 `distinct` to return a lazy sequence of unique values in a collection
 in the order they appear:
 
@@ -47,23 +47,23 @@ they appear:
   (repeatedly #(rand-int n)))
 
 ;; Taking the set of an infinite sequence will *never* return:
-; (set (rand-int-seq 10)) ; don't do it!
+;; (set (rand-int-seq 10)) ; don't do it!
 
-;; However, if you limit the seq, set will work:
+;; However, if you limit the seq, set will work
 (set (take 10 (rand-int-seq 10)))
 ;; -> #{0 1 2 3 4 7 8 9}
 
-;; Distinct works no matter what
+;; distinct works no matter what
 (take 10 (distinct (rand-int-seq 10)))
 ;; -> (8 3 4 6 0 5 9 7 1 2)
 ----
 
-Since +distinct+ produces new values as it sees them, it *does*
+Since +distinct+ produces new values as it sees them, it _does_
 maintain ordering. +set+, on the other hand, returns an unordered set.
 
 If +distinct+ is both ordered and lazy over sequences of any length,
 what is the advantage of +set+? Speed. Using `distinct` is by far the
-slowest, while simply calling `set` is about two times faster.
+slowest option; simply calling `set` is about two times faster.
 
 ==== See Also
 

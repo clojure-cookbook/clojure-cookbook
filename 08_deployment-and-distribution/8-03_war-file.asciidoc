@@ -210,7 +210,7 @@ The structure of a WAR file is:
 
 A full explanation of all of these elements is beyond the scope of
 this recipe. For a full explanation, see Oracle's J2EE
-http://docs.oracle.com/javaee/7/tutorial/doc/packaging003.htm[tutorial]
+http://bit.ly/java-wars[tutorial]
 on packaging web archives.
 
 Other web server libraries (for example, Pedestal Server) that include
@@ -222,4 +222,4 @@ files--check the documentation of the library you're using.
 - <<sec_aot_compilation>>
 - <<sec_packaging_jars>>
 - ++lein-ring++'s https://github.com/weavejester/lein-ring[project page]
-- Oracle's J2EE http://docs.oracle.com/javaee/6/tutorial/doc/docinfo.html[tutorial]
+- Oracle's J2EE http://bit.ly/javaee-tut[tutorial]

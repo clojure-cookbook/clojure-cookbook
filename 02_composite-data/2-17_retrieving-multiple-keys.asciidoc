@@ -36,15 +36,15 @@ Use +juxt+ when order matters:
 
 +juxt+ and the combination of +vals+ and +select-keys+ are both apt
 tools for retrieving multiple keys from a map. There are subtleties to
-their behavior that are important to understand.(((functions, juxt))) 
+their behavior that are important to understand, though.(((functions, juxt))) 
 
 At first glance, the +juxt+ approach seems to be the clear winner of
-the two. The +juxt+ approach only goes so far: the approach falls
+the two. However, it only goes so far: the approach falls
 apart when any of the keys you wish to retrieve is not a keyword (more
-specifically, not a *function*). This is because +juxt+ merely
+specifically, not a _function_). This is because +juxt+ merely
 _juxtaposes_ the return values of multiple functions. Since keywords
 are functions, it's possible to +juxt+ them and retrieve a
-strongly-ordered list of values.
+strongly ordered list of values.
 
 If the keys in the +beans+ map were strings, it would not be possible
 to retrieve their values with +juxt+:
@@ -55,9 +55,9 @@ to retrieve their values with +juxt+:
 ;; -> ClassCastException java.lang.String cannot be cast to clojure.lang.IFn ...
 ----
 
-+select-keys+, on the other hand, *is* capable of pulling values for(((functions, select-keys)))
++select-keys+, on the other hand, _is_ capable of pulling values for(((functions, select-keys)))
 any number of arbitrary keys. The +select-keys+ function takes a map
-and sequence of keys and returns a new map populated with *only* those
+and a sequence of keys and returns a new map populated with _only_ those
 keys:
 
 [source,clojure]
@@ -72,7 +72,7 @@ keys:
 ;; -> (1 :baz)
 ----
 
-Since maps are not ordered, it is *not* safe to assume that the
+Since maps are not ordered, it is _not_ safe to assume that the
 ordering of keys and values is identical (even if you stumble upon an
 example where it is). In cases where you're pulling multiple values
 from nonkeyword maps, it is probably easiest to wrap that interaction

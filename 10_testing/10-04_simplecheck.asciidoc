@@ -169,4 +169,4 @@ generated primitives.
 
 * <<sec_unit_testing>>
 * <<sec_testing_generative>>
-* QuickCheck, the Haskell library that inspired SimpleCheck (http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2["Introduction to QuickCheck"])
+* QuickCheck, the Haskell library that inspired SimpleCheck (http://bit.ly/quickcheck-intro["Introduction to QuickCheck"])

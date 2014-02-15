@@ -9,39 +9,39 @@ You want to implement a data structure in Clojure with very specific
 performance characteristics.((("composite data", "custom data structures", id="ix_CDcust", range="startofrange")))((("data structures, creating custom", id="ix_datacust", range="startofrange")))
 
 For example, you need fast, efficient in-memory searches across a
-large, random and ever-changing data set.(((searching, across changing data sets)))(((in-memory searches)))
+large, random, and ever-changing dataset.(((searching, across changing data sets)))(((in-memory searches)))
 
 ==== Solution
 
 After identifying that Clojure's core data structures are not
 appropriate for your domain, your first step is to determine what data
-structure *is* appropriate.
+structure _is_ appropriate.
 
 For the purpose of this recipe, assume you are trying to choose and
 implement a data structure appropriate for fast in-memory search of a
-large, random and ever-changing data set. At first, a binary search
+large, random, and ever-changing dataset. At first, a binary search
 tree (BST) seems like a good solution. A BST is most efficient over a
-sorted data set, however. Adding and removing large amounts of data
+sorted dataset, however. Adding and removing large amounts of data
 may unbalance a BST and degenerate its performance to that of a linked
 list.((("binary search tree (BST)")))((("red-black trees (RBT)", id="ix_rbt", range="startofrange")))
 
-Red-black trees (RBT) are similar to BSTs, but are self-balancing. This
-would be an appropriate data structure for the data set in question.
+Red-black trees (RBTs) are similar to BSTs, but are self-balancing. This
+would be an appropriate data structure for the dataset in question.
 
 The next step is to implement the data structure itself. The
 implementation of RBTs relies on pattern matching. Use
 https://github.com/clojure/core.match[+core.match+] to simplify the
-implementation of a RBT.
+implementation of an RBT.
 
 Add `[org.clojure/core.match "0.2.0"]` to your project's
 dependencies, or start a REPL with +lein-try+:
 
 [source,shell-session]
 ----
-lein try org.clojure/core.match
+$ lein try org.clojure/core.match
 ----
 
-First, implement the core of a RBT, the +balance+ and +insert-val+
+First, implement the core of an RBT, the +balance+ and +insert-val+
 functions. By using +core.match+, it is possible to succinctly express(((functions, balance)))(((functions, insert-val)))
 the required behaviors based on the shape of the tree:
 
@@ -50,8 +50,8 @@ the required behaviors based on the shape of the tree:
 (require '[clojure.core.match :refer [match]])
 
 (defn balance
-  "Ensures the given sub-tree stays balanced by rearranging black nodes
-  which have at least one red child and one red grandchild"
+  "Ensures the given subtree stays balanced by rearranging black nodes
+  that have at least one red child and one red grandchild"
   [tree]
   (match [tree]
          [(:or ;; Left child red with left red grandchild
@@ -85,7 +85,7 @@ the required behaviors based on the shape of the tree:
 
 With insertion and balance out of the way, the only remaining(((functions, find-val)))(((functions, match)))
 function to implement is a +find-val+ function for testing if a value
-is present in a RBT. The easiest way to do this is by breaking down
+is present in an RBT. The easiest way to do this is by breaking down
 individual tree nodes with +match+ and recursively scanning for the
 desired value:
 
@@ -102,7 +102,7 @@ desired value:
                     :else x)))
 ----
 
-With all of this in place, it is now possible to create and query a
+With all of this in place, it is now possible to create and query an
 RBT:
 
 [source,clojure]
@@ -132,10 +132,10 @@ The reason for this is threefold:
   to match.
 * Nodes are represented as vectors.
 
-The two latter points are related, as you'll see below.
+The two latter points are related, as you'll see shortly.
 
 Conveniently enough, +core.match+ allows us to match on the shape and
-values of a data structure as well as perform structural binding at
+values of a data structure and perform structural binding at
 the same time. For example, the following tries to match +a-vector+
 against two clauses:
 
@@ -150,7 +150,7 @@ against two clauses:
 ----
 
 The first clause matches a two-element vector, whereas the second
-matches a three-element vector. Given +a-vector+ has exactly three
+matches a three-element vector. Given that +a-vector+ has exactly three
 elements, it matches the second clause. In the expression that
 follows, named values (such as +z+) are bound to the positions they
 match.
@@ -181,12 +181,12 @@ rectify this situation by participating in the core sequence abstraction.
 
 * The second part of this recipe, <<sec_red_black_part_ii>>, where we
   add sequence functionality to our RBT.
-* http://en.wikipedia.org/wiki/Red%E2%80%93black_tree[Red-black
+* http://bit.ly/wiki-rbt[Red-black
   trees on Wikipedia] for a more traditional take on this interesting
   data structure.
 * For the functional approach used in this recipe, the book
-  http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504[_Purely
-  Functional Data Structures_] (Cambridge University Press) is an excellent source. It deals with
+  http://bit.ly/pure-fp-ds[_Purely
+  Functional Data Structures_] by Chris Okasaki (Cambridge University Press) is an excellent source. It deals with
   how to efficiently implement data structures in a functional
-  setting. The author chose to use ML and Haskell, but its concepts are
+  setting. The author chose to use ML and Haskell, but the concepts are
   transferable to Clojure, as demonstrated previously.

@@ -259,7 +259,7 @@ given HTML document depending on how many matches the pattern has.(((Enlive libr
 
 The full reference for valid selector forms is quite complex, and
 beyond the scope of this recipe to describe fully. See the formal
-selector http://enlive.cgrand.net/syntax.html[specification] for
+selector http://bit.ly/enlive-syntax[specification] for
 complete documentation.
 
 However, the following selector patterns should be sufficient to get
@@ -394,8 +394,8 @@ persistent, immutable data structures.
 
 ==== See Also
 
-- The Enlive https://github.com/cgrand/enlive/wiki[documentation]
+- The Enlive http://bit.ly/enlive-wiki[documentation]
 - David Nolen's https://github.com/swannodette/enlive-tutorial[tutorial]
-- The Enlive https://groups.google.com/forum/#!forum/enlive-clj[mailing list]
+- The Enlive http://bit.ly/enlive-group[mailing list]
 - Alternative templating libraries Hiccup (<<sec_hiccup>>) and Selmer
   (<<sec_webapps_templating_with_selmer>>)

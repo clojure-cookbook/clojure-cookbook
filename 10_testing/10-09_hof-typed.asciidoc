@@ -161,9 +161,9 @@ a regular Clojure +ArityException+.
 
 * The https://github.com/clojure/core.typed[+core.typed+ repository] on GitHub
 * The +core.typed+ user guide, in particular its sections on
-  https://github.com/clojure/core.typed/wiki/User-Guide#polymorphism[polymorphism]
+  http://bit.ly/core-typed-poly[polymorphism]
   and
-  https://github.com/clojure/core.typed/wiki/User-Guide#functions[function
+  http://bit.ly/core-typed-fns[function
   annotations]
 * <<sec_verify_java>> and <<sec_avoid_null>> for further
   examples of how to use +core.typed+

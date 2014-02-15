@@ -1,4 +1,4 @@
-=== Test For a List
+=== Testing for a List
 [role="byline"]
 by Steve Miner
 
@@ -16,13 +16,13 @@ test.(((functions, list)))(((functions, seq)))
 
 The +list?+ function specifically tests if the argument implements
 +clojure.lang.IPersistentList+, but in most cases, you really want to
-know if the value is a *seq* (implements +clojure.lang.ISeq+), which
+know if the value is a _seq_ (implements +clojure.lang.ISeq+), which
 is a more general abstraction than a list.((("Clojure", "clojure.lang.IPersistentList")))((("Clojure", "clojure.lang.ISeq")))
 
-Not everything that prints as a *list* (in parentheses) actually
+Not everything that prints as a _list_ (in parentheses) actually
 satisfies the +list?+ test. In practice, you'll often receive +Cons+
 and +LazySeq+ values when manipulating lists. By focusing on the
-fundamental *seq* abstraction, you don't need to worry about the
+fundamental _seq_ abstraction, you don't need to worry about the
 details of those concrete implementations:
 
 [source,clojure]
@@ -33,7 +33,7 @@ details of those concrete implementations:
 (seq? (list 1 2 3))
 ;; -> true
 
-;; cons, however *looks* like a list, but is actually a Cons...
+;; cons, however *looks* like a list, but is actually a Cons
 (list? (cons 1 '(2 3)))
 ;; -> false
 (type (cons 1 '(2 3)))

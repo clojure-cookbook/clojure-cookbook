@@ -12,9 +12,9 @@ abstraction. Every one of Clojure's built-in collection types has these
 properties and is thus unified in its API's appearance and
 behavior.(((Clojure, benefits of)))
 
-As the great Alan J. Perlis put it:
+As the great Alan J. Perlis (an early computer science pioneer) put it:
 
-[quote, Alan J. Perlis, Early computer science pioneer]
+[quote]
 ____
 It is better to have 100 functions operate on one data structure than
 to have 10 functions operate on 10 data structures.
@@ -30,7 +30,7 @@ polymorphism.((("interface polymorphism")))
 
 Immutability means that a Clojure data structure, once created, can
 never change. You can only "modify" an immutable data structure by
-creating a *new* data structure which is a copy of the old, with the
+creating a _new_ data structure that is a copy of the old, with the
 desired changes in place.((("immutability", "definition of")))(((Clojure, immutability of)))
 
 Immutability means that Clojure data structures, however deeply
@@ -39,11 +39,11 @@ nested, are simple _values_, just like the number +3+ or the character
 it just is. If you "change" it by, say, incrementing it, you don't
 modify +3+ itself. Instead, you end up with an entirely new and
 different value, +4+. Clojure extends this notion of value to all data
-structures. In Clojure, any action which in another language would
+structures. In Clojure, any action that in another language would
 perform any kind of update on a data structure will instead return an
 entirely new one. You can continue to pass around and use both the old
 and the new versions with confidence, knowing that nothing you can do
-will cause any unintended change elsewhere in your program.((("immutability", "benefits of")))
+will cause any unintended changes elsewhere in your program.((("immutability", "benefits of")))
 
 This feature is extremely important in concurrent and parallel
 programming, where unexpected mutation is the source of a large class
@@ -58,7 +58,7 @@ But, you may ask, how can that possibly be efficient? Surely it is
 impractical to do a full copy of an object every time you need to add
 something?(((Clojure, persistence in)))((("persistence", "definition of")))
 
-Yes, it would be, except for the feature of _persistence_. Persistence
+Yes, it would be, except for the feature of persistence. Persistence
 means that Clojure's data structures, although logically immutable,
 can still share pieces of their internal structure for efficiency in
 both time and space. Essentially, updated versions of immutable data
@@ -83,9 +83,9 @@ and +cons+, any data structure--even ones you build yourself--can
 participate in the +ISeq+ interface.(((ISeq interface)))
 
 Then, you can use Clojure's huge library of functions that can operate
-on sequences, with *any* of the data structures. All of functional
+on sequences, with _any_ of the data structures. All of functional
 programming's best-beloved functions (+map+, +reduce+, +filter+, etc.)
-will work interchangably on any data structure. In essence, the
+will work interchangeably on any data structure. In essence, the
 sequence abstraction allows all the expressiveness of traditional
 list-based LISP programming without forcing you to actually use lists. Instead, use whatever type is most efficient for the task, knowing
 that you can consume them all in the same way when it makes sense to

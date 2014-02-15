@@ -88,7 +88,7 @@ If you're building production systems that rely on external services,
 you may want to consider wrapping HTTP calls in Netflix's
 https://github.com/Netflix/Hystrix[Hystrix] library to make your
 application more fault-tolerant and resilient. Hystrix provides
-https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-clj[Clojure
+http://bit.ly/hystrix-clj[Clojure
 Bindings] that you can use to wrap network calls and more easily
 manage complex failure scenarios involving external services.
 
@@ -101,5 +101,5 @@ manage complex failure scenarios involving external services.
 * When building production systems that interact with external
   services, consider https://github.com/Netflix/Hystrix[Hystrix] and
   its
-  https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-clj[Clojure
+  http://bit.ly/hystrix-clj[Clojure
   bindings] to wrangle complex failure scenarios

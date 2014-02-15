@@ -21,7 +21,7 @@ $ lein try com.novemberain/langohr
 ----
 
 In order to follow along with this recipe, you need to have RabbitMQ
-http://www.rabbitmq.com/download.html[installed and running].
+http://bit.ly/rmq-download[installed and running].
 
 Once installed, start a standalone RabbitMQ server with the command
 +rabbitmq-server+:
@@ -155,11 +155,11 @@ or just for convenience.
 .Built-in exchange types
 [options="header"]
 |===============================
-| Name | Behavior | Pre-declared exchange |
-| Direct | 1:1, routed based on routing key | +""+ |
-| Fanout | 1:N, ignoring routing key | +"amq.fanout"+ |
-| Topic | 1:N, taking routing key into consideration | +"amq.topic"+ |
-| Headers | 1:1, taking into consideration any number of headers | +"amq.match"+ |
+| Name | Behavior | Pre-declared exchange 
+| Direct | 1:1, routed based on routing key | +""+ 
+| Fanout | 1:N, ignoring routing key | +"amq.fanout"+ 
+| Topic | 1:N, taking routing key into consideration | +"amq.topic"+ 
+| Headers | 1:1, taking into consideration any number of headers | +"amq.match"+ 
 |===============================
 
 To declare one of the built-in exchanges, use one of
@@ -357,9 +357,9 @@ and more. To learn more, see RabbitMQ and Langohr documentation sites.
 ==== See Also
 
 * http://clojurerabbitmq.info[Langohr documentation]
-* Langohr's http://reference.clojurerabbitmq.info[API reference]
-* http://rabbitmq.com/getstarted.html[RabbitMQ tutorials]
+* Langohr's http://bit.ly/langohr-docs[API reference]
+* http://bit.ly/rmq-getting-started[RabbitMQ tutorials]
 * If you need low-level access to RabbitMQ, you may want to
   investigate using Clojure's Java interop to interact with the
-  http://www.rabbitmq.com/java-client.html[RabbitMQ Java Client], the
+  http://bit.ly/rmq-java-client[RabbitMQ Java Client], the
   library upon which Langohr is based.

@@ -46,9 +46,9 @@ Use +ns-publics+ to obtain a mapping of symbols to public vars in a namespace:
 ==== Discussion
 
 Namespaces in Clojure are dynamic mappings of symbols to vars. A
-namespace is not available until it is required by something else,
-for example, when starting a REPL or as a dependency in a +ns+
-declaration. Nothing is known about available Clojure libs and
+namespace is not available until it is required by something else;
+for example, when starting a REPL or as a dependency in an +ns+
+declaration. Nothing is known about available Clojure libraries and
 namespaces until runtime, which is in contrast to typical Java
 development (where most everything about a package is known at compile
 time).
@@ -58,5 +58,5 @@ which namespaces to load in order to explore them.
 
 ==== See Also
 
-* +clojure.repl+ http://clojure.github.io/clojure/clojure.repl-api.html[API documentation]
+* The +clojure.repl+ http://bit.ly/clj-repl-doc[API documentation]
 * <<sec_interactive_docs>>

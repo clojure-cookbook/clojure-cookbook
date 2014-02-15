@@ -1,4 +1,4 @@
-=== Cleaning up Whitespace in a String
+=== Cleaning Up Whitespace in a String
 [role="byline"]
 by Ryan Neufeld
 
@@ -17,8 +17,8 @@ at the beginning and end of a string:
 ;; -> "Bacon ipsum dolor sit."
 ----
 
-To manage whitespace *inside* a string, you need to get more creative. Use
-+clojure.string/replace+ to fix whitespace inside a string:
+To manage whitespace _inside_ a string, you need to get more creative. Use
+pass:[<phrase role='keep-together'><literal>clojure.string/replace</literal></phrase>] to fix whitespace inside a string:
 
 [source,clojure]
 ----
@@ -26,7 +26,7 @@ To manage whitespace *inside* a string, you need to get more creative. Use
 (clojure.string/replace "Who\t\nput  all this\fwhitespace here?" #"\s+" " ")
 ;; -> "Who put all this whitespace here?"
 
-;; Replace Windows-style line-endings with Unix-style newlines"
+;; Replace Windows-style line endings with Unix-style newlines
 (clojure.string/replace "Line 1\r\nLine 2" "\r\n" "\n")
 ;; -> "Line 1\nLine 2"
 ----
@@ -35,7 +35,7 @@ To manage whitespace *inside* a string, you need to get more creative. Use
 
 What constitutes whitespace in Clojure? The answer depends on the
 function; some are more liberal than others, but you can safely assume
-space ( ), tab (+\t+), newline (+\n+), carriage return (+\r+), line
+that a space ( ), tab (+\t+), newline (+\n+), carriage return (+\r+), line
 feed (+\f+), and vertical tab (+\x0B+) will be treated as whitespace.
 This set of characters is the set matched by +\s+ in Java's regular
 expression implementation.
@@ -54,8 +54,8 @@ common technique is to require +clojure.string+ as a shorthand like
 ----
 
 You might not always want to remove whitespace from both ends of a
-string. For cases where you want to remove whitespace from just the left
-or right hand side of a string, use +clojure.string/triml+ or
+string. For cases where you want to remove whitespace from just the left-
+or righthand side of a string, use +clojure.string/triml+ or
 +clojure.string/trimr+, respectively:
 
 [source,clojure]

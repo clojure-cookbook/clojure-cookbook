@@ -53,7 +53,7 @@ Alternatively, use +into+ with a set to create a new set:
 ----
 
 [TIP]
-.Set Construction Performance
+.Set construction performance
 ====
 At the time of writing, the +into+ technique is about three times(((functions, into)))
 faster than +set+ for large collections of objects. Use it whenever
@@ -91,7 +91,7 @@ Sets are very useful data structures. They are commonly used when you
 have a collection of values but you are only concerned with the
 distinct values. Lookup of an element in a set is typically O(1).
 
-The techniques above all construct _hash sets_, sets that are
+The techniques just shown all construct _hash sets_&#x2014;sets that are
 unordered and use a hash table as their internal representation.(((hash sets/tables)))(((sorted sets)))
 
 Clojure also supports creating _sorted sets_, which maintain the order
@@ -133,7 +133,7 @@ There are some performance trade-offs to consider when choosing between
 hash sets and sorted sets. Hash sets are based on hash tables, which
 offer constant time insert and lookup in most cases. However, they do
 require some degree of memory overhead. Sorted sets, based on a
-balanced red-black binary tree, are more memory efficient but slower
+balanced red-black binary tree, are more memory-efficient but slower
 for lookup and insertion.
 
 ==== See Also

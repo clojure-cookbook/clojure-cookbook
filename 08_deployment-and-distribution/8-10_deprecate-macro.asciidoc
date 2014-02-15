@@ -8,7 +8,7 @@ When maintaining a library that other programmers rely on to get their work done
 
 ==== Solution
 
-Take the case of the Clojure contrib library https://www.github.com/clojure/core.memoize[+core.memoize+]. (((API deprecations, library for))) Without going into detail about what +core.memoize+ does, it's fine to know that at one point a segment of its public-facing API was a function named +memo-fifo+ that looked like the following:
+Take the case of the Clojure contrib library https://github.com/clojure/core.memoize[+core.memoize+]. (((API deprecations, library for))) Without going into detail about what +core.memoize+ does, it's fine to know that at one point a segment of its public-facing API was a function named +memo-fifo+ that looked like the following:
 
 [source,clojure]
 ----

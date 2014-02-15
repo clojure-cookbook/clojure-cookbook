@@ -76,5 +76,5 @@ a small number of reducers.
 ==== See Also
 
 * <<sec_aggregating_large_files>>
-*   https://github.com/nathanmarz/cascalog/wiki/Cascading-Flow-visualization["Cascading
+*   http://bit.ly/cascalog-flow-vis["Cascading
   Flow Visualization"] on the Cascalog wiki

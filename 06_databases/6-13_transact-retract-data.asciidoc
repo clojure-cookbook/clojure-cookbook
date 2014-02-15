@@ -110,9 +110,9 @@ it had been permanently removed, though!
 If you need to permanently remove data due to legal concerns or
 because the data in question falls outside of your domain-specified
 retention period, use
-http://blog.datomic.com/2013/05/excision.html[Excision] to remove the
+http://bit.ly/datomic-excision[Excision] to remove the
 data permanently.
 
 ==== See Also
 
-* http://blog.datomic.com/2013/05/excision.html[The blog post] covering the excision feature
+* http://bit.ly/datomic-excision[The blog post] covering the excision feature
