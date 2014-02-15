@@ -149,7 +149,7 @@ then you'll need multiple zmq-async contexts.
 
 ==== See Also
 
-* Rich Hickey's http://www.youtube.com/watch?v=ROor6_NGIWU["Language of the System" talk], wherein he outlines the benefits of queues
+* Rich Hickey's http://bit.ly/lang-of-system["Language of the System" talk], wherein he outlines the benefits of queues
 * The http://bit.ly/zmq-guide[ZeroMQ guide] for architectural
   patterns and advice
 * <<sec_general_core_async>>

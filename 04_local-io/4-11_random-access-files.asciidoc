@@ -83,4 +83,4 @@ order bytes are stored at the lowest addresses.)((("big-endian integers")))(((in
 
 * <<sec_local_io_clojure_data_to_disk>> for information on reading entire files
 * http://bit.ly/javadoc-raf[+java.io.RandomAccessFile+] documentation
-* The Unix http://en.wikipedia.org/wiki/Od_(Unix)[+od+] command
+* The Unix http://bit.ly/wiki-od[+od+] command

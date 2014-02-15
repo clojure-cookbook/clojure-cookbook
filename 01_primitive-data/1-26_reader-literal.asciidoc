@@ -74,7 +74,7 @@ security in mind.(((security issues, built-in string reader)))(((strings, edn vs
 It's also possible to vary how the reader evaluates +#inst+ literals
 by changing the binding of pass:[<literal>*data-readers*</literal>]. By varying the binding of
 pass:[<literal>*data-readers*</literal>], it is possible to reader +#inst+ literals as
-http://bit.ly/javadoc-calendar[+java.util.Calendar+] or http://docs.oracle.com/javase/7/docs/api/java/sql/Timestamp.html[+java.sql.Timestamp+], if you so desire:
+http://bit.ly/javadoc-calendar[+java.util.Calendar+] or http://bit.ly/javadoc-timestamp[+java.sql.Timestamp+], if you so desire:
 
 [source,clojure]
 ----

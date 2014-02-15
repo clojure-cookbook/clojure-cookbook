@@ -63,4 +63,4 @@ longer being used:
 
 ==== See Also
 
-* The +java.io.File+ http://docs.oracle.com/javase/7/docs/api/java/io/File.html[API documentation]
+* The +java.io.File+ http://bit.ly/javadoc-file[API documentation]

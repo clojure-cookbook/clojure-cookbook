@@ -60,7 +60,7 @@ the required behaviors based on the shape of the tree:
                [:black [:red a x [:red b y c]] z d]
                ;; Right child red with left red grandchild
                [:black a x [:red [:red b y c] z d]]
-               ;; Right child red with right red grandchild 
+               ;; Right child red with right red grandchild
                [:black a x [:red b y [:red c z d]]])] [:red [:black a x b]
                                                             y
                                                             [:black c z d]]
@@ -185,7 +185,7 @@ rectify this situation by participating in the core sequence abstraction.
   trees on Wikipedia] for a more traditional take on this interesting
   data structure.
 * For the functional approach used in this recipe, the book
-  http://bit.ly/pure-fp-ds[_Purely
+  http://bit.ly/pure-fds[_Purely
   Functional Data Structures_] by Chris Okasaki (Cambridge University Press) is an excellent source. It deals with
   how to efficiently implement data structures in a functional
   setting. The author chose to use ML and Haskell, but the concepts are

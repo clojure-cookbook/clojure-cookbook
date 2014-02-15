@@ -9,7 +9,7 @@ http://elasticsearch.org[ElasticSearch] indexing and search engine.(((databases,
 
 ==== Solution
 
-Use http://bit.ly/clj-elastich[Elastisch], a minimalistic
+Use http://bit.ly/clj-elastisch[Elastisch], a minimalistic
 Clojure wrapper around the ElasticSearch Java APIs.
 
 In order to successfully work through the examples in this recipe, you
@@ -124,7 +124,7 @@ cause a document ID to be generated automatically:
                                  :planet     {:type "string"}
                                  :biography  {:type "string"
                                               :analyzer "snowball"
-                                              :term_vector 
+                                              :term_vector
                                               "with_positions_offsets"}}}})
 
 (esi/create "test4" :mappings mapping-types)
@@ -139,7 +139,7 @@ cause a document ID to be generated automatically:
 
 
 (esd/create "test4" "person" doc)
-;; => {:ok true, :_index people, :_type person, 
+;; => {:ok true, :_index people, :_type person,
 ;;     :_id "2vr8sP-LTRWhSKOxyWOi_Q", :_version 1}
 ----
 
@@ -265,4 +265,4 @@ documentation] for an exhaustive list of the capabilities provided.
 ==== See Also
 
 * The official http://bit.ly/cc-es-guide[Elasticsearch guide]
-* The Elastisch http://bit.ly/clj-elastich[home page]
+* The Elastisch http://bit.ly/clj-elastisch[home page]

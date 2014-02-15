@@ -34,19 +34,19 @@ listens to a topic and prints messages it receives:
 (defn message-handler [topic meta payload]
   (let [p (apply str (map char payload))]
     (println "received " p "on topic " topic)))
-  
+
 (defn connect-and-subscribe [broker-addr topics subscriberid]
   (let [qos-levels (vec (repeat (count topics) 2)) ;; All at qos 2
         conn-sub (mh/connect broker-addr subscriberid)]
     (if (mh/connected? conn-sub)
-      (do 
+      (do
         (mh/subscribe conn-sub topics message-handler {:qos qos-levels})
         conn-sub)))) ;; Return conn-sub for later mh/disconnect...
-        
+
 (def subscriberid (mh/generate-id))
 ;; or use a unique id
 ;; (def subscriberid "SNSubscriber01")
-		
+
 (connect-and-subscribe "tcp://test.mosquitto.org:1883"
                        ["SNControlNetwork/Florida/device1"] subscriberid)
 ----
@@ -71,7 +71,7 @@ messages:
               (println "published " payload)))
           (mh/disconnect conn)))))
 
-(def pubclientid (mh/generate-id))		  
+(def pubclientid (mh/generate-id))
 pubclientid
 ;; -> "ryan.1384135173618"
 
@@ -193,11 +193,11 @@ some actions based on an alarm that the code has received).
 * http://www.eclipse.org/paho/[Eclipse Paho library], the Java
   library that Machine Head uses under the hood to communicate using
   MQTT
-* http://mosquitto.org/[Mosquitto], an open source message broker that implements MQTT 
+* http://mosquitto.org/[Mosquitto], an open source message broker that implements MQTT
   protocol
 * http://bit.ly/mqtt-paper[_Building Smarter
   Planet Solutions with MQTT and IBM WebSphere MQ Telemetry_] (IBM
   Redbooks) explains MQTT in more detail
-* The http://www.youtube.com/watch?v=s9nrm8q5eGg[TED talk] by Andy
+* The http://bit.ly/inno-begins-at-home[TED talk] by Andy
   Stanford-Clark, one of the inventors of MQTT, is a humorous and
   informative session on how MQTT can be used

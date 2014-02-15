@@ -68,7 +68,7 @@ in: (new java.io.File s)  clojure.core/ex-info (core.clj:4327)
 ----
 
 Add a type hint to call the `public File(String pathname)` constructor
-(http://docs.oracle.com/javase/7/docs/api/java/io/File.html#File(java.lang.String)[Javadoc]):
+(http://bit.ly/javadoc-file-constructor[Javadoc]):
 
 ._core_typed_samples.clj_
 [source,clojure]
