@@ -40,8 +40,9 @@ current length of the vector to append an item:
 
 However, this approach is somewhat more fragile than +conj+. If the
 index you provide is too small, you might simply "overwrite" an
-earlier value in the vector; and if it's greater than 1 plus the
-vector's current length, it will throw an +IndexOutOfBoundsException+.
+earlier value in the vector; and if it's greater than the vector's 
+current length (one greater than the maximum index), 
+it will throw an +IndexOutOfBoundsException+.
 
 Still, this technique is worth remembering. If you have code that is
 +assoc+-ing to a vector already, you can use this technique to produce
