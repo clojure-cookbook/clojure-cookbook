@@ -103,7 +103,7 @@ format:
 .clojure.core/read
 ****
 
-The edni reader hasn't always existed, you know. It used to be that
+The edn reader hasn't always existed, you know. It used to be that
 if you wanted to read Clojure data, you would use one of the two
 built-in reader functions, +clojure.core/read+ and
 +clojure.core/read-string+. The purpose of these two functions is to
