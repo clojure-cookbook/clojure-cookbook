@@ -19,10 +19,8 @@ $ lein try com.datomic/datomic-free
 ----
 
 To create and connect to an in-memory database, use
-+database.api/create-database+ and +datomic.api/connect+.
++database.api/create-database+ and +datomic.api/connect+:
 
-
-.Create a database and connection:
 [source,clojure]
 ----
 (require '[datomic.api :as d])
@@ -61,11 +59,11 @@ You can also use the connection to transact data using
 
 ==== Discussion
 
-You'll notice in the solution, we not only connected to a database,
+You'll notice in the solution that we not only connected to a database,
 but we created it too. This pattern is common when using in-memory
 databases, as no in-memory databases exist in a fresh JVM. It is not
 strictly necessary to call +create-database+ if the database already
-exists, but it is safe to do so&#x2014;+create-database+ is idempotent and
+exists, but it is safe to do so&#x2014;pass:[<literal>create-database</literal>] is idempotent and
 will return +false+ if one already exists.
 
 When connecting to a database that isn't in memory, it is necessary
@@ -73,12 +71,12 @@ for the relevant transactor and storage service to be running.
 
 The return value of +d/connect+ is used when querying a database value
 or when transacting data. It is also used when reading the transaction
-log, consuming the transaction report queue, or when performing
+log, when consuming the transaction report queue, or when performing
 administrative tasks such as requesting an indexing job, garbage
-collecting storage, and disposing resources associated with the
+collecting storage, and disposing of resources associated with the
 connection.
 
-Connections are thread safe, and are cached by URI internally, so
+Connections are thread-safe and are cached by URI internally, so
 there is no need to pool connections yourself. There is no performance
 overhead for creating many connections to the same URI.
 
@@ -96,6 +94,8 @@ Pro and Pro Starter Edition include access to all services.
 
 ===== Built-in storage options
 
+The built-in storage options are:
+
 * In local memory: `"datomic:mem://[db-name]"`
 * Free, for use with Datomic Free, subject to a two-peer limit:
   `"datomic:free://host[:port]/[db-name]"`
@@ -110,8 +110,9 @@ respectively.(((data storage, built-in options)))
 
 ===== External storage service options
 
-* DynamoDB:
-  `"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"`
+Several external storage options also exist. These include:
+
+* DynamoDB:  `"datomic:ddb://[aws-region]/[dynamodb-table]/[db-name]?aws_access_key_id=[XXX]&aws_secret_key=[YYY]"`
 * Riak:
   `"datomic:riak://host[:port]/bucket/dbname[?interface=http|protobuf]"`
   (default is protobuf)
@@ -121,7 +122,7 @@ respectively.(((data storage, built-in options)))
 
 For SQL storage services, the map format can be used instead of the(((data storage, external options)))
 string format. This is useful when specifying objects that can't be
-embedded in URI strings, like DataSources. The format for the SQL map
+embedded in URI strings, like pass:[<literal>DataSource</literal>s]. The format for the SQL map
 is:
 
 [source,clojure]
@@ -137,6 +138,4 @@ is:
 
 * <<sec_datomic_schema>>
 * <<sec_datomic_transact_basics>>
-* For free access to all service storages and Datomic Console, sign up at
-  https://my.datomic.com/starter[Datomic
-  Pro Starter Edition].
+*  http://bit.ly/datatomic-starter[Datomic Pro Starter Edition], for free access to all service storages and the Datomic Console

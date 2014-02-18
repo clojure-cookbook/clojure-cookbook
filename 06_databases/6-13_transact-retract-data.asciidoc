@@ -13,8 +13,8 @@ To remove a value for an attribute, you should use the +:db/retract+
 operation in transactions.
 
 To follow along with this recipe, complete the steps in
-<<sec_datomic_connect_to_datomic_solution>> and
-<<sec_datomic_schema_solution>>. After doing this, you will have a
+the solutions to <<sec_datomic_connect_to_datomic>> and
+<<sec_datomic_schema>>. After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
 insert data.
 
@@ -88,31 +88,31 @@ will be retracted. This means that you have to know what value you
 want to retract; you can't simply retract everything for an attribute
 by only providing the entity ID and the attribute.
 
-If you retract values for an attribute that does *not* use
+If you retract values for an attribute that does _not_ use
 +:db/noHistory+, you will be able to query past database values to
 find past values for the attribute.
 
 If you retract values for an attribute that uses +:db/noHistory+, that
-data will be *permanently deleted*.
+data will be _permanently deleted_.
 
 When using +:db.fn/retractEntity+, all attribute values for all the
 attributes on that entity will be retracted, as will all +:db/ref+
 attributes that have the entity as a value. Any component entities of
-the entity being retracted will be themselves be recursively
+the entity being retracted will themselves be recursively
 retracted.
 
 You'll find that the actual entity ID itself is not retracted, but
 that it will have no attributes associated with it. This is because
-once an entity is created, it can not be retracted. Removing all the
-attributes and references to the entity has the same effect as though
+once an entity is created, it cannot be retracted. Removing all the
+attributes and references to the entity has the same effect as if
 it had been permanently removed, though!
 
 If you need to permanently remove data due to legal concerns or
 because the data in question falls outside of your domain-specified
 retention period, use
-http://bit.ly/datomic-excision[Excision] to remove the
+http://bit.ly/datomic-excision[excision] to remove the
 data permanently.
 
 ==== See Also
 
-* http://bit.ly/datomic-excision[The blog post] covering the excision feature
+* http://bit.ly/datomic-excision[The Datatomic blog post] covering the excision feature

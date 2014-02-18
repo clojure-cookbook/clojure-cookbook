@@ -24,19 +24,19 @@ $ lein try korma org.postgresql/postgresql
 
 
 To follow along with this recipe, you'll need a running SQL database(((PostgreSQL database)))
-and existing table to connect to. We suggest PostgreSQL.footnote:[Mac
+and an existing table to connect to. We suggest PostgreSQL.footnote:[Mac
 users: visit http://postgresapp.com/ to download an
-easy-to-install DMG. Everyone else: find a guide for your operating
+easy-to-install DMG. Everyone else: you'll find a guide for your operating
 system on the
 http://bit.ly/postgres-install[PostgreSQL
-Wiki].]
+wiki].]
 
 After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
 [source,shell-session]
 ----
-# On Mac
+# On Mac:
 $ /Applications/Postgres.app/Contents/MacOS/bin/createdb learn_korma
 
 # Everyone else:
@@ -134,11 +134,11 @@ The +delete+ macro works similarly to +update+, but doesn't take a
 Korma provides a simple and intuitive way to construct SQL queries
 from Clojure. The advantage of using Korma is that the queries are
 written as regular code instead of SQL strings. You can easily compose
-queries together and abstract common operations.
+queries and abstract common operations.
 
 Korma exposes these abilities through its entity system. Entities are
 an abstraction over traditional SQL tables that mask the complexity of
-SQL's crufty and complicated DDL (Data Definition Language). Via the
+SQL's crufty and complicated DDL (data definition language). Via the
 +defentity+ macro, you have access to all of the power of traditional
 SQL, packaged in a readable, Clojure-based DSL.(((entities)))((("DDL (Data Definition Language)")))(((macros, defentity)))(((defentity macro)))
 
@@ -155,13 +155,13 @@ an author to each of our blog posts:
 
 [source,clojure]
 ----
-;; Create authors that assume posts has an author_id
+;; Create authors, assuming posts has an author_id
 (defentity authors
   ;; By default, foreign-key will be :authors_id, but that is a little
-  ;; awkward...
+  ;; awkward
   (has-many posts {:fk :author_id}))
 
-;; Re-define posts such that it assumes it has an author_id
+;; Redefine posts such that it assumes it has an author_id
 (defentity posts
   (belongs-to authors {:fk :author_id}))
 
@@ -195,12 +195,12 @@ of the most interesting query types is +select+, which provides
 support for most every SELECT statement option, include simplified
 table joins (via its relation helpers). Some notable helpers include
 +aggregate+, +join+, +order+, +group+, and +having+. Chances are, if it
-is a SQL statement feature, Korma has a helper for it.
+is an SQL statement feature, Korma has a helper for it.
 
 Korma's DSL isn't only convenient, it's also composable. Using
 +select*+ instead of +select+ returns a query as a value, instead of
 an evaluated result. You can pipeline query values through regular
-+select+-helpers to build up or store partial queries. Finally, invoke
++select+ helpers to build up or store partial queries. Finally, invoke
 +select+ on a query value to execute it and receive its result:
 
 [source,clojure]
@@ -212,7 +212,7 @@ an evaluated result. You can pipeline query values through regular
       (with authors)
       (where {:authors.name name})))
 
-;; Find the title of all posts by author named "Ryan"
+;; Find the title of all posts by the author named "Ryan"
 (-> (authors-posts "Ryan")
     (where (like :title "%second%"))
     (fields :title)
@@ -234,5 +234,5 @@ multiple connections and wrap series of statements in a +with-db+ call:
 
 ==== See Also
 
-* For more information, see the official http://sqlkorma.com/docs[Korma
-  project] page.(((range="endofrange", startref="ix_DBsql")))
+* The official http://sqlkorma.com/docs[Korma
+  project page](((range="endofrange", startref="ix_DBsql")))

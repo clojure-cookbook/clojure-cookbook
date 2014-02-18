@@ -43,7 +43,7 @@ Cascading elements as nodes.(((Cascading library)))(((Java, Cascading library)))
 
 The +explain+ function here is analogous to the +EXPLAIN+ command in
 many SQL implementations. +explain+ causes Cascalog to print out the
-query plan. Just like the output from a SQL +EXPLAIN+, you might have
+query plan. Just like the output from an SQL +EXPLAIN+, you might have
 to work to understand exactly what you are seeing.
 
 The biggest thing to look for is that the basic flow of the query is

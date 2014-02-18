@@ -14,9 +14,9 @@ Use https://github.com/ptaoussanis/carmine[Carmine] to connect to and interact w
 To use this recipe, you should first install Redis and have it running locally. You can find
 details on how to install  Redis at http://redis.io/download[the official Redis download page].  If
 you are on Windows, you will want to look at https://github.com/MSOpenTech/redis[the Microsoft Open
-Tech Github Redis project].
+Tech GitHub Redis project].
 
-To follow along with this recipe, add `[com.taoensso/carmine "2.2.0"]` to your project's dependencies, or start REPL using +lein-try+:
+To follow along with this recipe, add `[com.taoensso/carmine "2.2.0"]` to your project's dependencies, or start a REPL using +lein-try+:
 
 [source,shell-session]
 ----
@@ -66,12 +66,12 @@ Passing in multiple commands will pipeline them and return the results together 
 
 ==== Discussion
 
-Redis describes itself as a *data structure server*.  With data structures similar to the core data
-structures in Clojure, they make a natural pairing for a wide range of problems. Its speed and
-key/value nature make it especially useful for caching and memoization applications (more on that
+Redis describes itself as a _data structure server_.  With data structures similar to the core data
+structures in Clojure, they make a natural pairing for a wide range of problems. Redis's speed and
+key/value storage make it especially useful for caching and memoization applications (more on that
 later).(((memoization applications)))
 
-You can remove some boiler plate by wrapping the call to +wcar+ in a macro that passes the
+You can remove some boilerplate by wrapping the call to +wcar+ in a macro that passes the
 connection specification for you:
 
 [source,clojure]
@@ -85,7 +85,7 @@ connection specification for you:
 ----
 
 Serialization is handled automatically and for most cases just works.  Simply pass in the data you
-want to store, and Carmine will automatically serialize/de-serialize it for you:
+want to store, and Carmine will automatically serialize/deserialize it for you:
 
 [source,clojure]
 ----
@@ -96,9 +96,9 @@ want to store, and Carmine will automatically serialize/de-serialize it for you:
 
 This works great as long as you stick to core Clojure data types. However, if you need to support(((Nippy library)))(((data, custom data types)))
 storing custom data types, you will need to deal with the underlying serialization library, called Nippy. For
-more information, see https://github.com/ptaoussanis/nippy[the Nippy Github project].
+more information, see https://github.com/ptaoussanis/nippy[the Nippy GitHub project].
 
-Redis is great to use as a memoization storage backend.  Obviously
+Redis is great to use as a memoization storage backend.  Obviously,
 there are some serious trade-offs to consider when weighing against an
 in-memory solution, such as the +core.cache+ library.  But for the
 right situation, it can be an incredible boost.  Consider, for example,
@@ -122,8 +122,8 @@ The following is an example for just such a situation:
           new-result)))))
 ----
 
-This makes a couple assumptions worth noting.  First, it assumes that the arguments for the function
-being memoized are supported by Nippy (see serialization above).  Second, it assumes that the
+This makes a couple of assumptions worth noting.  First, it assumes that the arguments for the function
+being memoized are supported by Nippy (see the earlier serialization example).  Second, it assumes that the
 memoized data should be expired after a specified number of seconds.  To use +redis-memoize+, simply
 pass in a function.  The following is a highly contrived example that uses the +server-connection+
 defined previously:
@@ -144,21 +144,21 @@ defined previously:
 ;; -> 9801
 ----
 
-In addition to the features showcased before, Carmine includes (among
-other things): serialization, a message queue, distributed locks, a
+In addition to the features showcased earlier, Carmine includes (among
+other things) a message queue, distributed locks, a
 Ring session store, and even an implementation of DynamoDB (which is
-alpha at time of writing).  Many of these features are outside the
-scope of this recipe, but are well documented and straightforward to
+in alpha at the time of writing).  These features are outside the
+scope of this recipe, but they're well documented and straightforward to
 use.  Consult https://github.com/ptaoussanis/carmine[the Carmine
-Github project] for more information.
+GitHub project] for more information.
 
 ==== See Also
 
-* The https://github.com/ptaoussanis/carmine[Carmine Github project] for more information about
+* The https://github.com/ptaoussanis/carmine[Carmine GitHub project] for more information about
   Carmine
 * The http://redis.io/commands[official Redis documentation] for a complete list of Redis
   commands
-* The https://github.com/ptaoussanis/nippy[Nippy Github project] for information about
+* The https://github.com/ptaoussanis/nippy[Nippy GitHub project] for information about
   serialization
 * The http://bit.ly/clj-memoize-doc[Clojure core documentation] for
   documentation of the +memoize+ function

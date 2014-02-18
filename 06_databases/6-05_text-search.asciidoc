@@ -1,12 +1,12 @@
-=== Performing Full-text Search with Lucene
+=== Performing Full-Text Search with Lucene
 [role="byline"]
 by Osbert Feng
 
 ==== Problem
 
 You want to support flexible full-text search over an unstructured or
-semi-structured dataset using Lucene. For example, return all people
-that have "Clojure" anywhere in their job descriptions in the "United States".(((databases, full-text search of)))(((Lucene library)))(((full-text search)))(((Clucy)))(((in-memory searches)))(((searching, full-text)))(((Java, Lucene library)))
+semistructured dataset using Lucene. For example, you want to return all people
+in the United States that have "Clojure" anywhere in their job descriptions.(((databases, full-text search of)))(((Lucene library)))(((full-text search)))(((Clucy)))(((in-memory searches)))(((searching, full-text)))(((Java, Lucene library)))
 
 ==== Solution
 
@@ -69,8 +69,8 @@ indexing and retrieval.
 
 This example uses a +memory-index+, which stores the index in system
 memory. In most real applications, you'll want to persist the index to
-disk, which allows it to grow larger than the available memory, and
-allowing you to restart your process without re-indexing. Clucy lets
+disk, which allows it to grow larger than the available memory and
+allows you to restart your process without re-indexing. Clucy lets
 you construct a Lucene disk index via the +disk-index+ function:
 
 [source,clojure]
@@ -101,13 +101,13 @@ generation:
 (binding [clucy.core/*analyzer* (StandardAnalyzer.
                                  clucy.core/*version*
                                  stop-words)]
-  ;; invoke index add and search forms here, within the binding
+  ;; Invoke index add and search forms here, within the binding
   )
 ----
 
 However, in other situations you may need to use a different analyzer
 or write your own. For example, the +EnglishAnalyzer+ uses Porter stemming and
-other techniques more well suited for taking into account pluralization or
+other techniques better suited to taking into account pluralization or
 possessives:
 
 [source,clojure]
@@ -116,7 +116,7 @@ possessives:
 ;; -> org.apache.lucene.analysis.en.EnglishAnalyzer
 
 (binding [clucy.core/*analyzer* (EnglishAnalyzer. clucy.core/*version*)]
-  ;; invoke index add and search forms here, within the binding
+  ;; Invoke index add and search forms here, within the binding
   )
 ----
 
@@ -124,7 +124,7 @@ The basic search query syntax is +field:term+. By default, multiple
 clauses will perform an +OR+ search, so an explicit +AND+ is required
 if both clauses must be true.
 
-If no field is specified, there an implicit field +_content+ that
+If no field is specified, there is an implicit field +_content+ that
 indexes all map values. Documents returned are ordered by Lucene's
 default relevance algorithm, which takes into account term frequency,
 distance, and document length:

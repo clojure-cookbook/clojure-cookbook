@@ -13,22 +13,22 @@ connection pool.(((SQL databases, connecting with connection pool)))(((connectio
 Use the BoneCP connection and statement pooling library to wrap your
 JDBC-based drivers, creating a pooled data source. The pooled data
 source is then usable by the +clojure.java.jdbc+ library, as described
-in the <<sec_db_connecting_to_a_sql_database>> recipe.(((BoneCP library)))(((PostgreSQL database)))((("Clojure", "clojure.java.jbdc library")))
+in <<sec_db_connecting_to_a_sql_database>>.(((BoneCP library)))(((PostgreSQL database)))((("Clojure", "clojure.java.jbdc library")))
 
 To follow along with this recipe, you'll need a running SQL database
-and existing table to connect to. We suggest PostgreSQL.footnote:[Mac
+and an existing table to connect to. We suggest PostgreSQL.footnote:[Mac
 users: visit http://postgresapp.com/ to download an
-easy-to-install DMG. Everyone else: find a guide for your operating
+easy-to-install DMG. Everyone else: you'll find a guide for your operating
 system on the
 http://bit.ly/postgres-install[PostgreSQL
-Wiki].]
+wiki].]
 
 After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
 [source,shell-session]
 ----
-# On Mac
+# On Mac:
 $ /Applications/Postgres93.app/Contents/MacOS/bin/createdb cookbook_experiments
 
 # Everyone else:
@@ -129,7 +129,7 @@ Pass the database specification as the first argument to any
 
 ==== Discussion
 
-As shown above, the +clojure.java.jdbc+ library can create database
+As shown in the solution, the +clojure.java.jdbc+ library can create database
 connections from JDBC data sources, which allows connections to be easily
 pooled by the BoneCP or other pooling libraries.(((Java, Java JDBC)))
 
@@ -162,7 +162,7 @@ in an SQL exception:
 
 ==== See Also
 
-* <<sec_db_connecting_to_a_sql_database>> to learn about basic database connections with +clojure.java.jdbc+.
-* <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database.
+* <<sec_db_connecting_to_a_sql_database>> to learn about basic database connections with +clojure.java.jdbc+
+* <<sec_db_manipulating_a_sql_database>> to learn about using +clojure.java.jdbc+ to interact with an SQL database
 * The BoneCP http://jolbox.com/index.html?page=http://jolbox.com/configuration.html[documentation] and https://github.com/wwadge/bonecp[GitHub repository]
-* Visit the +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library.
+* The +clojure.java.jdbc+ https://github.com/clojure/java.jdbc[GitHub repository] for more detailed information on the library

@@ -8,11 +8,11 @@ You want to work with data stored in Cassandra.(((databases, key-value datastore
 
 ==== Solution
 
-Use the http://clojurecassandra.info/[Cassaforte] library for connecting to Cassandra cluster and work with the records in the database.
+Use the http://clojurecassandra.info/[Cassaforte] library to connect to a Cassandra cluster and work with the records in the database.
 
 In order to successfully work through the examples in this recipe, you
 should have Cassandra installed. You can find details on how to
-install Cassandra at http://wiki.apache.org/cassandra/GettingStarted.
+install Cassandra on the http://wiki.apache.org/cassandra/GettingStarted[GettingStarted page of the wiki].
 
 To follow along with this recipe, add `[clojurewerkz/cassaforte "1.1.0"]` to your project's dependencies, or start a REPL using +lein-try+:
 
@@ -21,11 +21,11 @@ To follow along with this recipe, add `[clojurewerkz/cassaforte "1.1.0"]` to you
 $ lein try clojurewerkz/cassaforte
 ----
 
-In order to connect to Cassandra cluster and create and use your first(((Cassandra, connecting to)))
+In order to connect to your Cassandra cluster and create and use your first(((Cassandra, connecting to)))
 keyspace, you will need the +clojurewerkz.cassaforte.client+,
-+clojurewerkz.cassaforte.cql+ and +clojurewerkz.cassaforte.query+
++clojurewerkz.cassaforte.cql+, and +clojurewerkz.cassaforte.query+
 namespaces. +clojurewerkz.cassaforte.client+ is responsible for
-connection--the other two provide a easy interface to execute queries:
+connection--the other two provide an easy interface to execute queries:
 
 [source,clojure]
 ----
@@ -36,8 +36,8 @@ connection--the other two provide a easy interface to execute queries:
 ;; Connect to 2 nodes in a cluster
 (client/connect! ["localhost" "another.node.local"])
 
-;; Creates a keyspace name `cassaforte_keyspace`,
-;; using Simple Replication Strategy and replication factor of 2
+;; Create a keyspace named `cassaforte_keyspace`, using
+;; the Simple Replication Strategy and a replication factor of 2
 (cql/create-keyspace "cassaforte_keyspace"
                      (q/with {:replication
                               {:class "SimpleStrategy"
@@ -66,18 +66,18 @@ Now, insert several users into the table:
 (cql/insert "users" {:name "Robert" :city "Brussels" :age (int 30)})
 ----
 
-You can access these records using +select+ query. For example, if you want to retrieve all the users from the table or use +limit+ in your query, you can run:
+You can access these records using a +select+ query. For example, if you want to retrieve all the users from the table or use +limit+ in your query, you can run:
 
 [source,clojure]
 ----
-;; Will retrieve all the users
+;; Will retrieve all users
 (cql/select "users")
 
 ;; Will retrieve top 10 users
 (cql/select "users" (q/limit 10))
 ----
 
-Alternatively, if you want to retrieve information about a single person, by given +name+, you can add a +where+ clause to it:
+Alternatively, if you want to retrieve information about a single person by a given +name+, you can add a +where+ clause to it:
 
 [source,clojure]
 ----
@@ -86,15 +86,15 @@ Alternatively, if you want to retrieve information about a single person, by giv
 
 ==== Discussion
 
-Cassandra is an open source implementations of many of the ideas in Amazon's landmark http://bit.ly/dynamo-pdf[Dynamo Paper]. It's a key-value datastore, and it's not aware of any relationships between tables and data points. Cassandra is a distributed datastore and designed to be highly available. For that, it replicates data within the cluster. The data is stored redundantly on multiple nodes. In case one node fails, data is still available for retrieval from a different node or multiple nodes.((("Amazon's Dynamo Paper")))((("Dynamo Paper")))(((redundancy)))(((Cassandra, basics of)))
+Cassandra is an open source implementation of many of the ideas in Amazon's landmark http://bit.ly/dynamo-pdf[Dynamo Paper]. It's a key/value datastore, and it's not aware of any relationships between tables and data points. Cassandra is a distributed datastore and is designed to be highly available. For that, it replicates data within the cluster. The data is stored redundantly on multiple nodes. If one node fails, data is still available for retrieval from a different node or multiple nodes.((("Amazon's Dynamo Paper")))((("Dynamo Paper")))(((redundancy)))(((Cassandra, basics of)))
 
-Cassandra starts making sense when your data is rather big. Because it was built for distribution, you can scale your reads and writes, and fine-tune and manage your database consistency and availability. Cassandra handles network partitions well, so even when your several nodes are unavailable for some time, you will still be able to read and write data until the network partition heals. If your dataset is rather small, and you don't expect it to grow significantly any time soon, and you need to run many ad hoc queries against the dataset, then Cassandra may not make sense.(((Cassandra, benefits/drawbacks of)))
+Cassandra starts making sense when your data is rather big. Because it was built for distribution, you can scale your reads and writes, and fine-tune and manage your database's consistency and availability. Cassandra handles network partitions well, so even if several of your nodes are unavailable for some time, you will still be able to read and write data until the network partition heals. If your dataset is rather small, you don't expect it to grow significantly anytime soon, and you need to run many ad hoc queries against the dataset, then Cassandra may not make sense.(((Cassandra, benefits/drawbacks of)))
 
-Consistency/availability are tunable values: you can get better availability by sacrificing data consistency, which means that due to network partitions, not all the nodes will hold the latest snapshot of data at all times, but you'll be still able to respond to writes and receive reads. If you choose to have strong consistency, the latency will increase, since more nodes should respond successfully for reads and writes. Eventual consistency guarantees that, if no conflicting writes are made for the data point, eventually all nodes will hold the latest value.(((consistency)))
+Consistency and availability are tunable values. You can get better availability by sacrificing data consistency: due to network partitions, not all the nodes will hold the latest snapshot of data at all times, but you'll be still able to respond to writes and receive reads. If you choose to have strong consistency, conversely, the latency will increase, since more nodes should respond successfully for reads and writes. Eventual consistency guarantees that, if no conflicting writes are made for the data point, eventually all nodes will hold the latest value.(((consistency)))
 
-Like most datastores, Cassandra has concepts of separate databases (keyspaces in Cassandra terminology). Every keyspace holds tables (that are sometimes called column families). Tables hold rows, and rows consist of columns. Each column has a key (column name), value, write timestamp, and time to live.(((Cassandra, structure of)))
+Like most datastores, Cassandra has concepts of separate databases (_keyspaces_ in Cassandra terminology). Every keyspace holds tables (sometimes called _column families_). Tables hold rows, and rows consist of columns. Each column has a key (column name), value, write timestamp, and time to live.(((Cassandra, structure of)))
 
-Cassandra uses two different communication protocols--an older binary protocol called Thrift and CQL (Cassandra Query Language). All query operators in Cassaforte generate CQL code under the hood.(((Cassandra, communication protocols)))(((Thrift communication protocol)))((("CQL (Cassandra Query Language)")))(((protocols, for communication in Cassandra))) Here are a couple of examples of how these operations translate to CQL internally:
+Cassandra uses two different communication protocols: an older binary protocol called Thrift, and CQL (Cassandra Query Language). All query operators in Cassaforte generate CQL code under the hood.(((Cassandra, communication protocols)))(((Thrift communication protocol)))((("CQL (Cassandra Query Language)")))(((protocols, for communication in Cassandra))) Here are a couple of examples of how these operations translate to CQL internally:
 
 [source,clojure]
 ----
@@ -135,7 +135,7 @@ Cassaforte's macro-based DSL, you can pass a string to the
   "INSERT INTO users (name, city, age) VALUES ('Alex', 'Munich', 19);")
 ----
 
-For each issued write you can specify an optional +TTL+ (time to live) to expire the data after certain period of time. It's useful for caching and data that you only want to hold for certain period of time (like user sessions).((("TTL (time to live)"))) For example, if you want the record to live for just 60 seconds, you can run:
+For each issued write, you can specify an optional time to live to expire the data after a certain period of time. This is useful for caching and for data that you only want to hold for a certain period of time (like user sessions).((("TTL (time to live)"))) For example, if you want the record to live for just 60 seconds, you can run:
 
 [source,clojure]
 ----
@@ -145,7 +145,7 @@ For each issued write you can specify an optional +TTL+ (time to live) to expire
 
 Another concept that people like about Cassandra is distributed(((Cassandra, distributed counters in)))(((distributed counters)))(((counter columns)))
 counters. Counter columns provide an efficient way to count or sum
-anything you need. It is achieved by using atomic increment/decrement
+anything you need. This is achieved by using atomic increment/decrement
 operations on values. In order to create a table with a counter from
 Cassaforte, you can use the +:counter+ column type:
 
