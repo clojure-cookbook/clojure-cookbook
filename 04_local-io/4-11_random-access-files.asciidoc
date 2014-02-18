@@ -11,7 +11,7 @@ locations, rather than sequentially.((("I/O (input/output) streams", "reading/wr
 ==== Solution
 
 To open a (potentially very large) file for random access, use Java's
-+RandomAccessFile+, and +seek+ to the location you desire. Then, use
++RandomAccessFile+. +seek+ to the location you desire, then use
 the various +write+ methods to write data at that location.
 
 For example, to make a 1 GB file filled with zeros except the
@@ -27,7 +27,7 @@ integer 1,234 at the end:
   (.close))
 ----
 
-The +length+ of a "normal" Java file object shows that the file is
+Getting the +length+ of a "normal" Java file object shows that the file is
 the correct size:
 
 [source,clojure]
@@ -38,10 +38,10 @@ the correct size:
 ;; -> 1000000004
 ----
 
-(You can also call +length+ of a +RandomAccessFile+ directly.)
+(You can also call +length+ on a +RandomAccessFile+ directly.)
 
-Reading the value back from the proper location in Clojure is quite
-similar to writing. Again we +seek+ a +RandomAccessFile+. Then use
+Reading a value back from the proper location in Clojure is quite
+similar to writing. Again, +seek+ a +RandomAccessFile+. Then use
 the appropriate +read+ method:
 
 [source,clojure]
@@ -61,7 +61,7 @@ Files written in this way are populated by zeros by default and may be
 treated as "sparse files" by the JVM implementation and the underlying
 operating system, leading to extra efficiency in reading and writing.(((sparse files)))(((files, sparse files)))
 
-Examining the file using the Unix `od` program to do a hex dump from the
+Examining the file we created using the Unix `od` program to do a hex dump from the
 command line shows that the file consists of zeros with our +1234+ at
 the end:
 
@@ -76,11 +76,10 @@ $ od -Ad -tx4 /tmp/longfile
 
 At byte offset 1000000000 can be seen the value +d2040000+, which is
 the hex representation of a big-endian integer with the value 1,234.
-(Java integers are big-endian by default. This means that the highest
-order bytes are stored at the lowest addresses.)((("big-endian integers")))(((integers, big-endian)))
+(Java integers are big-endian by default. This means that the highest-order bytes are stored at the lowest addresses.)((("big-endian integers")))(((integers, big-endian)))
 
 ==== See Also
 
 * <<sec_local_io_clojure_data_to_disk>> for information on reading entire files
-* http://bit.ly/javadoc-raf[+java.io.RandomAccessFile+] documentation
+* The http://bit.ly/javadoc-raf[+java.io.RandomAccessFile+] API documentation
 * The Unix http://bit.ly/wiki-od[+od+] command

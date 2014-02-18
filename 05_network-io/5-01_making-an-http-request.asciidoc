@@ -62,7 +62,7 @@ Parameters can be included in both GET and POST requests. Use
 ;; -> {:status 200 ...}
 ----
 
-You can even use the +:multipart+ option to upload files, as from a
+You can even use the +:multipart+ option to upload files, as from an
 HTML form via a web browser.
 
 ==== Discussion
@@ -75,12 +75,10 @@ usefulness ends. Among other limitations, it will not behave correctly
 for responses with HTTP redirects.((("Clojure", "clojure.java.io/reader")))
 
 +clj-http+ is an extremely flexible Clojure wrapper around the very
-robust Apache HttpComponents library.(((Apache HttpComponents library)))
-
-Its features include convenient functions for other HTTP verbs like
-PUT and DELETE, for reading and sending cookies, headers, and other
-request metadata, reading and writing data using streams, files, or
-byte arrays, and lots more. Refer to the
+robust Apache https://hc.apache.org/[HttpComponents library].(((Apache HttpComponents library))) Its features include convenient functions for other HTTP verbs like
+PUT and DELETE; for reading and sending cookies, headers, and other
+request metadata; for reading and writing data using streams, files, or
+byte arrays; and lots more. Refer to the
 https://github.com/dakrone/clj-http[GitHub repository] to learn about
 the huge variety of options available and to see many more examples.((("HTTP (Hypertext Transfer Protocol)", "PUT/DELETE requests")))(((Netflix's Hystrix library)))((((Hystrix library)))
 
@@ -89,17 +87,17 @@ you may want to consider wrapping HTTP calls in Netflix's
 https://github.com/Netflix/Hystrix[Hystrix] library to make your
 application more fault-tolerant and resilient. Hystrix provides
 http://bit.ly/hystrix-clj[Clojure
-Bindings] that you can use to wrap network calls and more easily
+bindings] that you can use to wrap network calls and more easily
 manage complex failure scenarios involving external services.
 
 ==== See Also
 
 * ++clj-http++'s https://github.com/dakrone/clj-http[GitHub
-  repository]
+  repository].
 * For information on making asynchronous HTTP calls, see
-  <<sec_async_http>>
+  <<sec_async_http>>.
 * When building production systems that interact with external
   services, consider https://github.com/Netflix/Hystrix[Hystrix] and
   its
   http://bit.ly/hystrix-clj[Clojure
-  bindings] to wrangle complex failure scenarios
+  bindings] to wrangle complex failure scenarios.

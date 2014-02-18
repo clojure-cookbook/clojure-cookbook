@@ -4,8 +4,8 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to send or receive asynchronous UDP packets from your
-application.(((networking/web services, UDP packets)))((("UDP (User Datagram Protocol) packets")))
+You want to send asynchronous UDP packets from your
+application, or receive them.(((networking/web services, UDP packets)))((("UDP (User Datagram Protocol) packets")))
 
 ==== Solution
 
@@ -24,7 +24,7 @@ short strings encoded into UDP packets:
 (defn send
   "Send a short textual message over a DatagramSocket to the specified
   host and port. If the string is over 512 bytes long, it will be
-  truncated. "
+  truncated."
   [^DatagramSocket socket msg host port]
   (let [payload (.getBytes msg)
         length (min (alength payload) 512)
@@ -34,7 +34,7 @@ short strings encoded into UDP packets:
 
 (defn receive
   "Block until a UDP message is received on the given DatagramSocket, and
-  returns the payload message as a string."
+  return the payload message as a string."
   [^DatagramSocket socket]
   (let [buffer (byte-array 512)
         packet (DatagramPacket. buffer 512)]
@@ -68,10 +68,10 @@ method will return after populating the instance of
 0 and the value reported by the +DatagramPacket.getLength+ method).
 
 Because the +receive+ function blocks and only returns a single value,
-it isn't particularly useful for accepting multiple message or using
+it isn't particularly useful for accepting multiple messages or using
 from the REPL. +receive-loop+ wraps the +receive+ function, calling it
 repeatedly on a separate thread. Whenever it returns a value, it invokes
-the supplied function, then loops back to waiting for more
+the supplied function, then loops back to wait for more
 input.
 
 To execute this code, you'll first need to create an instance of
@@ -108,39 +108,38 @@ message immediately:
 ;; -> nil
 ----
 
-In this case, sending to localhost, the message transmission happens
+In this case, sending to _localhost_, the message transmission happens
 so quickly that the message is actually received before the +send+
 function even returns.
 
 ===== Discussion
 
-Unlike TCP, UDP (which stands for User Datagram Packet) is an
+Unlike TCP, UDP (the User Datagram Protocol) is an
 _asynchronous_ protocol that makes no guarantees regarding the order
 in which messages arrive, whether their contents are correct, or even
 if they arrive at all. In exchange, UDP typically has a lower
-per-packet latency than protocols like TCP since it does not need to
+per-packet latency than protocols like TCP, since it does not need to
 perform error checking or recovery.
 
-Before you do decide to use UDP, make sure your application is
-designed to continue working even if packets are dropped or corrupt.
+Before you decide to use UDP, make sure your application is
+designed to continue working even if packets are dropped or corrupted.
 
 Because UDP uses asynchronous messages as its model, it is fairly easy
 to use +core.async+ to wrap the raw +DatagramSocket+ instances. +core.async+
-provides a very nice _channel_ abstraction that lets you consume and
-produce inherently asynchronous eventes (such as UDP messages) in a
+provides a very nice channel abstraction that lets you consume and
+produce inherently asynchronous events (such as UDP messages) in a
 clean, managed way.
 
 ===== Multicast UDP
 
 UDP is also capable of sending the same datagram packet to multiple
-destinations using a technique called +UDP multicast+. To use
+destinations using a technique called _UDP multicast_. To use
 multicast, create an instance of +java.net.MulticastSocket+ instead of
 +java.net.DatagramSocket+.
 
 A full explanation of how to use +MulticastSocket+ is very well
-documented
-http://bit.ly/javadoc-multicast-socket[on
-Oracle's website] and would be redundant to reproduce here, since it
+documented on
+http://bit.ly/javadoc-multicast-socket[Oracle's website] and would be redundant to reproduce here, since it
 is straightforward Java interop. After reading the preceding example,
 extending it to +MulticastSocket+ should be relatively
 self-explanatory.
@@ -150,4 +149,4 @@ self-explanatory.
 - <<sec_general_core_async>>
 - <<sec_network_io_tcp_client>>
 - <<sec_network_io_tcp_server>>
-- +java.net.MulticastSocket+ http://bit.ly/javadoc-multicast-socket[API documentation]
+- The +java.net.MulticastSocket+ http://bit.ly/javadoc-multicast-socket[API documentation]

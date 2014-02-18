@@ -43,7 +43,6 @@ same parameters and options as their string brethren:
 (with-open [writer (clojure.java.io/writer "foo.json")]
   (json/write [{:foo "bar"}] writer))
 
-
 (with-open [reader (clojure.java.io/reader "foo.json")]
   (json/read reader))
 ;; -> [{"foo" "bar"}]
@@ -76,9 +75,9 @@ key by using the +:key-fn+ option:
 ;; -> "{\":name\":\"Stefan\"}" ; Note the extra \:
 ----
 
-You may also want to control how values are interpeted. Use the
-+:value-fn+ option to specify how values is read/written. The function
-you provide will be invoked with two arguments; a key and its value:
+You may also want to control how values are interpreted. Use the
++:value-fn+ option to specify how values are read/written. The function
+you provide will be invoked with two arguments, a key and its value:
 
 [source,clojure]
 ----
@@ -106,8 +105,8 @@ you provide will be invoked with two arguments; a key and its value:
 ;; -> "{\"name\":\"Stefan\",\"uuid\":\"51674ca0-eadc-4a5b-b9fb-67b05d5a71b7\"}"
 ----
 
-As you may have inferred, when you use provide both a +:key-fn+ and
-+:value-fn+, the value function will always be called after the key
+As you may have inferred, when you provide both a +:key-fn+ and
+a +:value-fn+, the value function will always be called after the key
 function.((("functions", ":key-fn")))((("functions", "value-fn")))
 
 It might go without saying, but the +:key-fn+ and +:value-fn+ options
@@ -116,8 +115,8 @@ can also be used with the +write+ and +read+ functions.
 ==== See Also
 
 * <<sec_local_io_clojure_data_to_disk>> for information on
-  reading/writing +edn+ (Clojure) data.
-* The http://bit.ly/data-json-doc[API docs] for
-  +clojure.data.json+ for more information on read/write's. Options
-  not covered in this recipe include +:eof-error?+, +:eof-value+ and
+  reading/writing edn (Clojure) data.
+* The http://bit.ly/data-json-doc[API documentation] for
+  +clojure.data.json+ for more information on reads/writes. Options
+  not covered in this recipe include +:eof-error?+, +:eof-value+, and
   +:bigdec+ on +read+, and  +:escape-unicode+ and +:escape-slash+ on +write+.

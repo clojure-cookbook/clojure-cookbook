@@ -18,7 +18,7 @@ your project's dependencies, or follow along in a REPL using +lein-try+:
 $ lein try org.clojars.scsibug/feedparser-clj
 ----
 
-Invoke +feedparser-clj.core/parse-feed+ with the URI of a RSS feed to
+Invoke +feedparser-clj.core/parse-feed+ with the URI of an RSS feed to
 retrieve that feed and parse it into Clojure data:
 
 [source,clojure]
@@ -86,7 +86,7 @@ generated:
 ----
 
 To verify that lazy loading is happening, logging or tracing can be
-added to +lazy-stream+, but it also easy to confirm that you can
+added to +lazy-stream+, but it is also easy to confirm that you can
 retrieve more entries than are present in a single fetch:
 
 [source,clojure]

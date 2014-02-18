@@ -1,4 +1,4 @@
-=== Memory-Mapping a File
+=== Memory Mapping a File
 [role="byline"]
 by Alan Busby
 
@@ -10,7 +10,7 @@ were fully loaded into memory, without actually loading the whole thing.((("I/O 
 ==== Solution
 
 Use the https://github.com/thebusby/clj-mmap[+clj-mmap+] library,
-which wraps the memory-mapping functionality provided by Java's NIO library.
+which wraps the memory-mapping functionality provided by Java's NIO (New I/O) library.
 
 Before starting, add `[clj-mmap "1.1.2"]` to your project’s dependencies or start a REPL using +lein-try+:
 
@@ -19,13 +19,13 @@ Before starting, add `[clj-mmap "1.1.2"]` to your project’s dependencies or st
 $ lein try clj-mmap
 ----
 
+To read the first and last _N_ bytes of UTF-8 encoded text file, use the(((functions, get-bytes)))
++get-bytes+ function:
+
 [source,clojure]
 ----
 (require '[clj-mmap :as mmap])
 ----
-
-To read the first and last _N_ bytes of UTF-8 encoded text file, use the(((functions, get-bytes)))
-+get-bytes+ function:
 
 [source,clojure]
 ----
@@ -52,21 +52,20 @@ To overwrite the first _N_ bytes of a text file,(((functions, put-bytes))) call 
 
 ==== Discussion
 
-Memory mapping, or 'mmap' per the POSIX standard, is a method to
-leverage the operating system's virtual memory to perform file IO.
+Memory mapping, or 'mmap' per the POSIX standard, is a method of leveraging the operating system's virtual memory to perform file I/O.
 By mapping the file into the applications memory space, copying
 between buffers is reduced, and I/O performance is increased.
 
 Memory-mapped files are especially useful when working with large files,
-structured binary data, or text files where Java's String overhead may be
+structured binary data, or text files where Java's +String+ overhead may be
 unwelcome.
 
 While Clojure makes it simple to work with Java's NIO primitives directly,
 NIO makes working with files larger than 2 GB especially difficult. +clj-mmap+
-wraps this complexity, but at the same time doesn't expose all the features
+wraps this complexity, but it doesn't expose all the features
 that NIO does. The NIO Java API is still available via interop, should it be needed.
 
 ==== See Also
 
-* The http://bit.ly/wiki-mmap[mmap Wikipedia article]
+* The http://bit.ly/wiki-mmap[+mmap+ Wikipedia article]
 * The +clj-mmap+ https://github.com/thebusby/clj-mmap[GitHub repository]

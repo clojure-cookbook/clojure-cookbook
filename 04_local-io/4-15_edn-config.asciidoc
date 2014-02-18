@@ -9,14 +9,13 @@ You want to configure your application using Clojure-like data literals.((("I/O 
 
 ==== Solution
 
-Use Clojure data structures stored in +edn+ files to define a map that
+Use Clojure data structures stored in edn files to define a map that
 contains configuration items you care about.(((configuration, using edn files for)))(((maps, configuration items and)))
 
-For example, the +edn+ configuration of an application that needs to
+For example, the edn configuration of an application that needs to
 know its own hostname and connection info for a relational database
 might look something like this:
 
-._config.edn_
 [source,clojure]
 ----
 {:hostname "localhost"
@@ -28,7 +27,7 @@ might look something like this:
 ----
 
 The basic function to read this data into a Clojure map is trivial
-using the +edn+ reader:
+using the edn reader:
 
 [source,clojure]
 ----
@@ -51,21 +50,21 @@ map containing configuration data is extremely trivial. A more
 interesting question is what to do with the config map once you have
 it, and there are two general schools of thought regarding the answer.
 
-The first group prioritizes ease of development by making the
-configuration map ambiently available thoughtought the entire
+The first option prioritizes ease of development by making the
+configuration map ambiently available throughout the entire
 application. Usually this involves setting a global var to contain the
 configuration.(((global configuration)))(((configuration, global)))
 
 However, this is problematic for a number of reasons. First, it
 becomes more difficult to override the default configuration file in
-alternate contexts, such as tests, or running two differently
+alternate contexts, such as tests, or when running two differently
 configured systems in the same JVM. (This can be worked around by using
 thread-local bindings, but this can lead to messy code fairly
 rapidly.)
 
 More importantly, using a global configuration means that any function
-that reads the config (most functions, in a sizeable application)
-*cannot be pure*. In Clojure, that is a lot to give up. One of the
+that reads the config (most functions, in a sizable application)
+_cannot be pure_. In Clojure, that is a lot to give up. One of the
 main benefits of pure Clojure code is its local transparency; the
 behavior of a function can be determined solely by looking at its
 arguments and its code. If every function reads a global variable,
@@ -91,14 +90,14 @@ more or less constants, and don't vary between instances of the
 application in the same environment. These are often committed to
 source control along with the application's source code.(((multiple config files)))(((configuration, multiple files)))
 
-Other config items are fairly constant, but can't be checked in to
+Other config items are fairly constant, but can't be checked into
 source control due to security concerns. Examples of this include
 database passwords or secure API tokens, and ideally these are put
-into a seperate config file.
+into a separate config file.
 
 Still other configuration fields (such as IP addresses) will often be
 completely different for every instance of a deployed application, and
-the desire is to specify those seperately from the more constant
+the desire is to specify those separately from the more constant
 config fields.
 
 A useful technique to handle this heterogeneity is to use multiple
@@ -117,7 +116,7 @@ to the application. This typically uses a simple +deep-merge+ function:
 ----
 
 This will merge two maps, merging values as well if they are all
-maps. If values are not all maps, the second one "wins" and is used in
+maps. If the values are not all maps, the second one "wins" and is used in
 the resulting map.
 
 Then, you can rewrite the config loader to accept multiple config
@@ -131,9 +130,9 @@ files, and merge them together:
                           filenames)))
 ----
 
-Using it on two seperate +edn+ config files yields a merged map:
+Using this approach on two separate edn config files, _config-public.edn_ and _config-private.edn_, yields a merged map.
 
-._config-public.edn_
+._config-public.edn_:
 [source,clojure]
 ----
 {:hostname "localhost"
@@ -143,7 +142,7 @@ Using it on two seperate +edn+ config files yields a merged map:
             :user "root"}}
 ----
 
-._config-private.edn_
+._config-private.edn_:
 [source,clojure]
 ----
 {:database {:password "s3cr3t"}}
@@ -167,12 +166,11 @@ you may want to connect to a local database while developing your system,(((conf
 but a production database when running your system in production.(((Leiningen plugins, profiles feature)))
 
 You can use Leiningen's _profiles_ feature to achieve this end. By(((profiles)))
-providing different +:resource-paths+ options for each _profile_ in
+providing different +:resource-paths+ options for each profile in
 your project's configuration, you can vary which configuration file is
-read per environment.footnote:[To follow along, create your own
+read per environment:footnote:[To follow along, create your own
 project with *+lein new my-great-app+*.]
 
-._project.clj_
 [source,clojure]
 ----
 (defproject my-great-app "0.1.0-SNAPSHOT"
@@ -182,16 +180,16 @@ project with *+lein new my-great-app+*.]
 ----
 
 With a project configuration similar to the previous one, you can then
-create two different configurations with the same base file name:
+create two different configurations with the same base filename,
 _resources/dev/config.edn_ and _resources/prod/config.edn_:
 
-._resource/dev/config.edn_
+._resource/dev/config.edn_:
 [source,clojure]
 ----
 {:database-host "localhost"}
 ----
 
-._resources/prod/config.edn_
+._resources/prod/config.edn_:
 [source,clojure]
 ----
 {:database-host "production.example.com"}
@@ -200,7 +198,6 @@ _resources/dev/config.edn_ and _resources/prod/config.edn_:
 If you're following along on your own, add the +load-config+ function
 to one of your project's namespaces:
 
-._src/my_great_app/core.clj_
 [source,clojure]
 ----
 (ns my-great-app.core
@@ -213,7 +210,7 @@ to one of your project's namespaces:
 ----
 
 Now, the configuration your application loads will depend on which
-_profile_ your project is running in:
+profile your project is running in:
 
 [source,shell-session]
 ----
@@ -235,4 +232,4 @@ user=> (load-config (clojure.java.io/resource "config.edn"))
 * <<sec_local_io_get_local_resource>>
 * <<sec_edn_record>>
 * <<sec_default_data_reader>>
-* http://bit.ly/lein-profiles-tut[Leiningen profiles]
+* The http://bit.ly/lein-profiles-tut[Leiningen profiles tutorial]

@@ -9,7 +9,7 @@ You want to perform asynchronous HTTP requests.(((networking/web services, async
 
 ==== Solution
 
-Use http://http-kit.org/[HTTP Kit], a highly-performant, event-driven
+Use http://http-kit.org/[HTTP Kit], a highly performant, event-driven
 HTTP client/server library.((("HTTP (Hypertext Transfer Protocol)", "asynchronous requests")))(((HTTP Kit library)))(((asynchronous requests)))
 
 Before starting, add `[http-kit "2.1.12"]` to your project's
@@ -22,7 +22,7 @@ $ lein try http-kit
 
 Use any of ++org.httpkit.client++'s HTTP verb functions to perform
 asynchronous HTTP requests. In their base form, these functions return
-a promise which you can await with +deref+ or the +@+
+a promise that you can await with +deref+ or the +@+
 reader shorthand:
 
 [source,clojure]
@@ -31,13 +31,13 @@ reader shorthand:
 
 (def response (http/get "http://example.com"))
 
-;; Some time later..
+;; Some time later...
 
 (:status @response)
 ;; -> 200
 
 ;; Or, using deref to specify a timeout length in milliseconds and
-;; value
+;; a value
 (deref response 2000 nil)
 ;; -> {:opts {:url "http://example.com", :method :get}
 ;;     :body "..."
@@ -47,18 +47,17 @@ reader shorthand:
 
 ==== Discussion
 
-As the bulk of time spent performing HTTP requests is establishing the
-connection and awaiting the server's response, asynchronous requests
+The bulk of time spent performing HTTP requests is establishing the
+connection and awaiting the server's response. Asynchronous requests
 enable your application to continue working while awaiting the
 delivery of data.
 
-In this vein, HTTP Kit provides both a highly concurrent web server, as
-well as a powerful HTTP client. It offers both callbacks and promises for
+In this vein, HTTP Kit provides both a highly concurrent web server and a powerful HTTP client. It offers both callbacks and promises for
 asynchronous requests, as well as persistent connections and alternate
 SSL engines for dealing with unsigned SSL certificates.
 
 The +org.httpkit.client+ namespace defines asynchronous versions of
-numerous HTTP methods, including: +get+, +delete+, +head+, +post+,
+numerous HTTP methods, including +get+, +delete+, +head+, +post+,
 +put+, +options+, and +patch+. Each of these verbs derives from
 +org.httpkit.client/request+, which defines a common interface. An
 asynchronous request of a given method is made, and a promise is
@@ -90,9 +89,9 @@ request completion:
 
 ==== See Also
 
-* <<sec_http_request>> for normal, nonasynchronous HTTP requests
+* See <<sec_http_request>> for details on making normal, nonasynchronous HTTP requests.
 
 * HTTP Kit is heavily inspired by the API of
   https://github.com/dakrone/clj-http[+clj-http+]; see
-  <<sec_http_request>> for more information on the library
+  <<sec_http_request>> for more information on the library.
 

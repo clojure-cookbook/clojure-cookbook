@@ -53,13 +53,13 @@ files makes this a relatively simple task. However, while this is
 often a good way to persist data to disk, you should be aware of a few
 issues.
 
-.Reading, Security & edn
+.Reading, Security, and edn
 ****
 The +read+ function is only appropriate for reading data from
-*trusted* sources. This is because the Clojure reader is not designed
+_trusted_ sources. This is because the Clojure reader is neither designed
 nor guaranteed to be safe or free from side effects. Binding
 +pass:[*read-eval*]+ to +false+ is just a small safeguard. If you need to
-read Clojure data structures from *untrusted* sources (i.e., anything
+read Clojure data structures from _untrusted_ sources (i.e., anything
 you did not write yourself), then see the +clojure.edn+ library.(((functions, read)))(((security issues, built-in string reader)))((("extensible data notation (edn)", "additional security provided by")))(((strings, edn vs. core readers for)))((("functions", "clojure.edn/read")))
 
 edn (extensible data notation) is a specification of Clojure's data

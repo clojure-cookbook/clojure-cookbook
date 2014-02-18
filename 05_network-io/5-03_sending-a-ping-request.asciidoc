@@ -8,7 +8,7 @@ You want to ping an IP address to check availability.(((networking/web services,
 
 ==== Solution
 
-Use the java +java.net/InetAddress+ class to test if the address +isReachable+:
+Use the +java.net.InetAddress+ class to test if the address +isReachable+:
 
 [source,clojure]
 ----
@@ -23,7 +23,7 @@ obtained. On a typical Unix-like implementation, you will need to start
 your Clojure instance with +sudo+ to get an actual ICMP ping sent.
 Otherwise, a standard connection will be attempted on port 7, which in
 most cases will be blocked by a firewall. More information can be
-found in the Java docs (see <<sec_sending_ping_see_also>>).(((Unix, ping requests)))(((ICMP ping requests)))
+found in the http://bit.ly/javadoc-isReachable[javadoc].(((Unix, ping requests)))(((ICMP ping requests)))
 
 A common need when pinging another machine is to time the ping. You
 can wrap an +.isReachable+ invocation in a function +timed-ping+ to

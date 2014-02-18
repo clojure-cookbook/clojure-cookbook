@@ -7,6 +7,7 @@ by Ryan Neufeld
 
 You need to parse numbers out of strings.(((numeric types, parsing)))(((parsing, numbers out of strings)))(((strings, parsing numbers out of)))(((numbers, parsing out of strings)))
 ((("functions", "Integer/parseInt")))
+
 ==== Solution
 
 For "normal&#8221;-sized large or precise numbers, use +Integer/parseInt+ or
@@ -45,3 +46,4 @@ that matter) into infinite-precision containers:
 ==== See Also
 
 * The API documentation for http://bit.ly/javadoc-parseDouble[+Integer/parseInt+] and http://bit.ly/javadoc-parseDouble[+Double/parseDouble+]
+

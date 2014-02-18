@@ -20,7 +20,7 @@ Cascalog job. If you don't have your own, you can clone
 
 [source,shell-session]
 ----
-$ git clone http://bit.ly/cc-cascalog-samples.git
+$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
 $ cd cascalog-samples
 $ git checkout etl-sample
 ----

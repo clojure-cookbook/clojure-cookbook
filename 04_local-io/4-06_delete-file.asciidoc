@@ -4,7 +4,7 @@ by Stefan Karlsson
 
 ==== Problem
 
-You need to delete a file from your local file system.((("I/O (input/output) streams", "deleting files/directories")))(((files, deleting)))(((directories, deleting)))((("Clojure", "clojure.java.io/delete-file")))
+You need to delete a file from your local filesystem.((("I/O (input/output) streams", "deleting files/directories")))(((files, deleting)))(((directories, deleting)))((("Clojure", "clojure.java.io/delete-file")))
 
 ==== Solution
 
@@ -16,7 +16,7 @@ Use +clojure.java.io/delete-file+ to delete the file:
 ;; -> true
 ----
 
-If trying to delete a file that does not exist,(((exceptions/errors, java.io.IOException))) a +java.io.IOException+
+If you're trying to delete a file that does not exist,(((exceptions/errors, java.io.IOException))) a +java.io.IOException+
 will be thrown:
 
 [source,clojure]
@@ -50,10 +50,10 @@ exceptions thrown, you should put the call to +delete-file+ inside a
 ----
 
 +java.io.File+ has an +.exists+ property that simply gives you a
-boolean answer whether a file exists or not. You can put this property
+Boolean answer as to whether a file exists or not. You can put this property
 together with a +try-catch+ body to get a "safe" delete utility(((safe-delete function)))(((functions, safe-delete)))
 function. This function will first check to see if the file with the
-path from the argument do exist before trying to delete it:
+path from the argument exists before trying to delete it:
 
 [source,clojure]
 ----
@@ -72,7 +72,7 @@ path from the argument do exist before trying to delete it:
 
 The +clojure.java.io/delete-file+ function can also be used to delete
 directories. Directories must be empty for the deletion to be
-successful. So any utility function you make to delete a directory
+successful, so any utility function you make to delete a directory
 must first delete all files in the given directory:
 
 [source,clojure]
@@ -93,11 +93,11 @@ must first delete all files in the given directory:
 
 The +delete-directory+ function will get a +file-seq+ with the
 contents of the given path. It will then filter to only get the files
-of that directory. The next step is to delete all the files and then
+of that directory. The next step is to delete all the files, and then
 finish up by deleting the directory itself. Note the call to +doall+.
 If you do not call +doall+, the deletion of the files would be lazy and
 then the files would still exist when the call to delete the actual
-directory is made, which would then fail.(((functions, delete-directory)))
+directory was made, so that call would fail.(((functions, delete-directory)))
 
 
 ==== See Also

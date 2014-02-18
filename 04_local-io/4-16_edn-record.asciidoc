@@ -1,17 +1,17 @@
 [[sec_edn_record]]
-=== Emitting Records as edn values
+=== Emitting Records as edn Values
 [role="byline"]
-submitted by Steve Miner
+by Steve Miner
 
 ==== Problem
 
-You want to use Clojure records as +edn+ values, but the +edn+
+You want to use Clojure records as edn values, but the edn
 format doesn't support records.((("extensible data notation (edn)", "emitting records as edn values")))(((records, emitting as edn values)))(((tagged library)))((("I/O (input/output) streams", "emitting records as edn values")))
 
 ==== Solution
 
 You can use the +tagged+ library to read and print records as
-+edn+ tagged literal values.
+edn tagged literal values.
 
 Before starting, add `[com.velisco/tagged "0.3.0"]` to your project's
 dependencies or start a REPL using +lein-try+:
@@ -22,7 +22,7 @@ $ lein try com.velisco/tagged
 ----
 
 To extend Clojure's built-in +print-method+ multimethod to print(((multimethods)))
-records in a "tagged" format, extend +print-method+ for that record
+a record in a "tagged" format, extend +print-method+ for that record
 with the +miner.tagged/pr-tagged-record-on+ helper function:
 
 [source,clojure]
@@ -44,7 +44,7 @@ with the +miner.tagged/pr-tagged-record-on+ helper function:
 ----
 
 At this point, you can round-trip your records between +pr-str+ and
-+miner.tagged/read-string+ using the +edn+ tagged literal format:
++miner.tagged/read-string+ using the edn tagged literal format:
 
 [source,clojure]
 ----
@@ -56,7 +56,7 @@ At this point, you can round-trip your records between +pr-str+ and
 ;; -> true
 ----
 
-The +edn+ reader still doesn't understand how to parse these tagged
+The edn reader still doesn't understand how to parse these tagged
 values, though. To enable this behavior, use
 +miner.tagged/tagged-default-reader+ as the +:default+ option when
 reading values with +edn+:
@@ -72,33 +72,32 @@ reading values with +edn+:
 
 ==== Discussion
 
-The +edn+ format is great--it covers a useful subset of the Clojure
-data types and makes high-fidelity data transfer a breeze. Unfortunately it doesn't support records. This is easy enough to
-rectify, however; +edn+ is an extensible format by name. We just need to
+The edn format is great--it covers a useful subset of the Clojure
+data types and makes high-fidelity data transfer a breeze. Unfortunately, it doesn't support records. This is easy enough to
+rectify, however; edn is an extensible format by name. We just need to
 provide tag-style printing (+#tag <value>+) and an appropriate reader.
 The +tagged+ library makes both of these tasks quite easy.
 
 As seen in the preceding samples, Clojure's default printed value for
-records is close, but not quite the *tagged-format* +edn+ expects.
+records is close to, but not quite the tagged format edn expects.
 Where Clojure prints +"#user.SimpleRecord{:a 42}"+ for a
-+SimpleRecord+, what is really needed for +edn+ is a tag-style string
++SimpleRecord+, what is really needed for edn is a tag-style string
 like +""#user/SimpleRecord {:a 42}"+. The
 +miner.tagged/pr-tagged-record-on+ function understands how to write
 records in this format (to a +java.io.Writer+). By extending Clojure's
 +print-method+ multimethod with this function, you ensure Clojure
 always prints a record in a tagged format.
 
-For reading these values back in, you need to tell the +edn+ reader how
+For reading these values back in, you need to tell the edn reader how
 to parse your new record tags. By design, the +tagged+ library
 provides a +miner.tagged/tagged-default-reader+ function that can be
-used to extend +edn+ to read your record tags. When the +edn+ reader
+used to extend edn to read your record tags. When the edn reader
 can't parse a tag, it attempts to use a function specified by its
-+:default+ option to rehydrate tags. By providing the
-+tagged-default-reader+ as this +:default+ option, you allow the +edn+
++:default+ option to rehydrate tags. By providing +tagged-default-reader+ as this +:default+ option, you allow the edn
 reader to properly interpret your tagged record values.
 
 ==== See Also
 
 * <<sec_default_data_reader>> for more information on the +:default+ option
-* https://github.com/edn-format/edn[+edn+: extensible data notation]
+* https://github.com/edn-format/edn[edn: extensible data notation] on GitHub
 

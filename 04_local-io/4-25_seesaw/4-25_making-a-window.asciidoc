@@ -20,7 +20,7 @@ To follow along with this recipe, start a REPL using +lein-try+:
 $ lein try seesaw
 ----
 
-Swing implements "programmable look and feel": the appearance of
+Swing implements a "programmable look and feel": the appearance of
 various widgets and their behavior can be modified, though it is
 common to set this to match the platform one is on, for the sake of
 maximum usability. Setting the native look and feel is accomplished in
@@ -42,13 +42,13 @@ To create your window object, use +frame+ (which, under the covers, makes a
 ----
 (frame :title "Lyrical Clojure" :content "Hello World")
 ;; -> #<JFrame$Tag$a79ba523 seesaw.core.proxy$javax.swing.JFrame$Tag$a79ba523
-;; [frame0,0,22,0x0,invalid,hidden,layout=java.awt.BorderLayout,
-;; title=Lyrical Clojure,resizable,normal,
-;; defaultCloseOperation=HIDE_ON_CLOSE,
-;; rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,
-;; layout=javax.swing.JRootPane$RootLayout,
-;; alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,
-;; minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
+;;    [frame0,0,22,0x0,invalid,hidden,layout=java.awt.BorderLayout,
+;;    title=Lyrical Clojure,resizable,normal,
+;;    defaultCloseOperation=HIDE_ON_CLOSE,
+;;    rootPane=javax.swing.JRootPane[,0,0,0x0,invalid,
+;;    layout=javax.swing.JRootPane$RootLayout,
+;;    alignmentX=0.0,alignmentY=0.0,border=,flags=16777673,maximumSize=,
+;;    minimumSize=,preferredSize=],rootPaneCheckingEnabled=true]>
 ----
 
 Although a frame has been created, nothing appears. In order to
@@ -68,9 +68,9 @@ image::images/clcb_0402.png[]
 
 ==== Discussion
 
-Having created the window, you can set its size, add content, and add scrollbars, as follows.
+Having created the window, you can set its size, add content, and add scroll bars, as follows.
 
-===== Adding Content
+===== Adding content
 You can change properties of the frame using +config!+:
 
 [source,clojure]
@@ -85,9 +85,9 @@ The result is shown in <<fig4-3>>.
 .A window with basic content
 image::images/clcb_0403.png[]
 
-===== Sizing the Window
+===== Sizing the window
 
-You can also specify the size of the window at time of creation:
+You can specify the size of the window at the time of creation:
 
 [source,clojure]
 ----
@@ -105,7 +105,7 @@ content:
 ;; -> #<JFrame$Tag$a79ba523 [...]>
 ----
 
-===== Adding Scrollable Content
+===== Adding scrollable content
 
 Now add some text, in the form of an excerpt from the sonnets of Shakespeare, to your window:
 
@@ -132,7 +132,7 @@ image::images/clcb_0404.png[]
 
 Normally, one would call +pack!+ again to adjust the window size to
 the new content. However, the content will not fit comfortably on most
-screens, so set the size explicitly and add scrollbars, as seen in <<fig4-5>>:
+screens, so set the size explicitly and add scroll bars, as seen in <<fig4-5>>:
 
 [source,clojure]
 ----
@@ -149,7 +149,7 @@ image::images/clcb_0405.png[]
 The +:multi-line?+ option to the +text+ function selects +JTextArea+
 as the underlying object, rather than +JTextField+ (+JTextArea+ is
 used for multiline text; +JTextField+ is for single-line text fields).
-+:editable?+ specifies that you don't want allow users to edit the text
++:editable?+ specifies that you don't want to allow users to edit the text
 (since it is, perhaps, doubtful that they would improve upon
 Shakespeare's original).
 
@@ -165,15 +165,15 @@ comes at the cost of a somewhat higher burden on programmers, who must
 navigate not only the Seesaw API but, frequently, some aspects of the
 underlying Swing API as well.
 
-Seesaw supports a wide variety of GUI tasks -- creation of menus,
-display of text and images, scroll bars, radio buttons, check boxes,
+Seesaw supports a wide variety of GUI tasks--creation of menus,
+display of text and images, scroll bars, radio buttons, checkboxes,
 multipaned windows, drag-and-drop, and much more. In addition to the
-dozen or so books which have been written about Swing, one could easily
+dozen or so books that have been written about Swing, one could easily
 write an entire book on Seesaw. This recipe merely serves as a
 starting point for further investigation of the Seesaw library.
 
 ==== See Also
 
 * The Seesaw https://github.com/daveray/seesaw[GitHub repository]
-* pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596004088.do">Java Swing, 2nd Ed.</ulink></emphasis>] (O'Reilly Media) by Marc Loy et al. 
+* pass:[<ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596004088.do"><emphasis>Java Swing</emphasis>, 2nd ed.</ulink>] (O'Reilly), by Marc Loy _et al_. 
 

@@ -23,7 +23,7 @@ string:
         '[java.net Socket])
 
 (defn send-request
-  "Sends an HTTP GET request to the specified host, port and path"
+  "Sends an HTTP GET request to the specified host, port, and path"
   [host port path]
   (with-open [sock (Socket. host port)
               writer (io/writer sock)
@@ -36,9 +36,9 @@ string:
 ----
 
 This function obtains instances of +java.io.Writer+ and
-+java.io.Reader+ to send and receive data from the remote server. By
++java.io.Reader+ to send and receive data to and from the remote server. By
 appending strings that conform to the HTTP specification to the
-writer, it forms a rudimentary HTTP client and executes a +GET+
+writer, it forms a rudimentary HTTP client and executes a GET
 request to the specified endpoint. The results are then copied into an
 instance of +java.io.StringWriter+ using the +clojure.java.io/copy+ utility
 function, and returned as a string.
@@ -51,7 +51,7 @@ is the Google home page.
 
 This example uses the +clojure.java.io+ namespace to obtain
 instances of +java.io.Writer+ and +java.io.Reader+ to read and write
-textual data from the network socket. In point of fact, +Socket+ instances are
+textual data to/from the network socket. In point of fact, +Socket+ instances are
 not actually limited to textual data, and it would be possible to
 obtain raw binary input and output streams just as easily using
 +clojure.java.io/input-stream+ and +clojure.java.io/output-stream+,
@@ -72,12 +72,12 @@ Also note that the reader, the writer, and the socket itself are bound
 within the context of a +with-open+ macro. This guarantees that the
 +close+ method is called when they are finished, which releases the
 TCP connection. If the connection is not released, it will continue to
-consume resources on both the client and server, and may be subject to
+consume resources on both the client and the server and may be subject to
 termination on the remote side.
 
-When returning lazy sequences from of a +with-open+ context, it is
+When returning lazy sequences from a +with-open+ context, it is
 important to fully realize those sequences using +doall+. This is
-because resources opened by +with-open+ are *only available* inside
+because resources opened by +with-open+ are _only_ available inside
 the +with-open+ block. The +doall+ function fully realizes a
 collection, retaining its entire contents in memory:
 

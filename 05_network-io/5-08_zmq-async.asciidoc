@@ -6,27 +6,27 @@ by Kevin J. Lynagh
 ==== Problem
 
 You want to use ZeroMQ concurrently, but ZeroMQ sockets are not
-thread safe. You *could* manually set up mutual exclusion via locks or
+thread-safe. You _could_ manually set up mutual exclusion via locks or
 other Java concurrency primitives, but you'd rather use a simpler
 method.(((networking/web services, using ZeroMQ concurrently)))(((ZeroMQ)))(((zmq-async library)))
 
 ==== Solution
 
-Use the https://github.com/lynaghk/zmq-async[zmq-async] library to
+Use the https://github.com/lynaghk/zmq-async[+zmq-async+] library to
 simplify concurrent usage of ZeroMQ via +core.async+.
 
 In order to follow along with this recipe, your system should have
 ZeroMQ 3.2 installed.
 
 If you're on a Mac and have the http://brew.sh[Homebrew] package
-manager installed:
+manager installed, use this command to install it:
 
 [source,shell-session]
 ----
 $ brew install zeromq
 ----
 
-Or if you are on Ubuntu:
+Or, if you are on Ubuntu:
 
 [source,shell-session]
 ----
@@ -70,7 +70,7 @@ Here's a simple ping-pong between two asynchronous +go+ blocks in
                    :configurator (fn [socket] (.connect socket addr))})
 
 (do
-  ;; A simple server worker which waits for incoming requests and
+  ;; A simple server worker that waits for incoming requests and
   ;; responds with "pong"
   (go
     (dotimes [_ 3]
@@ -78,8 +78,8 @@ Here's a simple ping-pong between two asynchronous +go+ blocks in
       (>! server-in "pong"))
     (close! server-in))
 
-  ;; A simple client worker which sends a "ping" request and awaits
-  ;;  a response.
+  ;; A simple client worker that sends a "ping" request and awaits
+  ;;  a response
   (go
     (dotimes [_ 3]
       (>! client-in "ping")
@@ -97,33 +97,33 @@ Here's a simple ping-pong between two asynchronous +go+ blocks in
 ==== Discussion
 
 ZeroMQ is a message-oriented socket system that supports many
-communication styles (request/reply, pub-sub, etc.) on top of many
+communication styles (request/reply, pub/sub, etc.) on top of many
 transport layers (intra-process, inter-process, inter-machine via TCP,
 etc.) with bindings to many languages. ZeroMQ sockets are a great
 substrate upon which to build service-oriented architectures. ZeroMQ
 sockets have less overhead than HTTP and are architecturally more
-flexible--supporting publish/subscribe, fan-out, and other
+flexible, supporting publish/subscribe, fanout, and other
 topologies in addition to request/reply.(((message-oriented architectures)))
 
-However, ZeroMQ sockets are not thread safe--concurrent usage
+However, ZeroMQ sockets are not thread-safe--concurrent usage
 typically requires explicit locking or dedicated threads and queues.
-The zmq-async library handles all of that for you, creating ZeroMQ
+The +zmq-async+ library handles all of that for you, creating ZeroMQ
 sockets on your behalf and giving you access to them via thread-safe
 +core.async+ channels.
 
-The zmq-async library provides one function,
+The +zmq-async+ library provides one function,
 +com.keminglabs.zmq-async.core/register-socket!+, which associates a
-ZeroMQ socket with two +core.async+ channels: +:in+ (to which you can
-write strings or byte arrays) and/or +:out (from which you can read
+ZeroMQ socket with either one or two +core.async+ channels: +:in+ (to which you can
+write strings or byte arrays) and +:out+ (from which you can read
 byte arrays). Writing a Clojure collection of strings and/or byte
 arrays to a channel using +>!+ sends a multipart message. Received
 multipart messages are placed on +core.async+ channels. Reading these
 messages with +<!+ will yield a vector of byte arrays.
 
-To simulate two asynchronous processes interacting over ZeroMQ the
-preceding sample uses two +go+ blocks that read/write from the registered
+To simulate two asynchronous processes interacting over ZeroMQ, the
+preceding sample uses two +go+ blocks that read from and write to the registered
 channels. Each +go+ block will begin executing immediately in
-background threads. The "server" block will wait-for and reply-to
+background threads. The "server" block will wait for and reply to
 three requests (+<!+ blocks until it receives a value), replying with
 "pong" each time. Concurrently, the "client" block will make three
 "ping" requests, awaiting a reply before moving on to the next
@@ -135,7 +135,7 @@ socket, but typically you would have the library create a socket for
 you by passing the +:socket-type+ and a +:configurator+. The
 configurator is a function that is passed the raw ZeroMQ socket
 object. This function is run on the socket after it is created in
-order to connect/bind addresses, set pub-sub subscriptions, and
+order to connect/bind addresses, set pub/sub subscriptions, and
 otherwise configure the socket.
 
 [WARNING]
@@ -144,7 +144,7 @@ The implicit context supporting `register-socket!` can only
 handle one incoming/outgoing message at a time. If you need sockets to
 work in parallel (i.e., you don't want to miss a small control message
 just because you're slurping in a 10 GB message on another socket),
-then you'll need multiple zmq-async contexts.
+then you'll need multiple +zmq-async+ contexts.
 ====
 
 ==== See Also

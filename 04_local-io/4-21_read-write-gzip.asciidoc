@@ -4,12 +4,12 @@ by John Cromartie
 
 ==== Problem
 
-You want to read or write a file compressed with Gzip (i.e., a +.gz+ file).(((files, compressed files)))((("I/O (input/output) streams", "compressed files")))(((compressed files)))(((Java, java.util.zip.GZIPInputStream)))(((Java, java.util.zip.GZIPOutputStream)))
+You want to read or write a file compressed with gzip (i.e., a _.gz_ file).(((files, compressed files)))((("I/O (input/output) streams", "compressed files")))(((compressed files)))(((Java, java.util.zip.GZIPInputStream)))(((Java, java.util.zip.GZIPOutputStream)))
 
 ==== Solution
 
 Wrap a normal input stream with
-http://bit.ly/javadoc-gzip-output[+java.util.zip.GZIPInputStream+]
+http://bit.ly/javadoc-gzip-input[+java.util.zip.GZIPInputStream+]
 to get uncompressed data:
 
 [source,clojure]
@@ -20,7 +20,7 @@ to get uncompressed data:
   (slurp in))
 ----
 
-Wrap a normal output stream with +java.util.zip.GZIPOutputStream+ to
+Wrap a normal output stream with http://bit.ly/javadoc-gzip-output[+java.util.zip.GZIPOutputStream+] to
 compress data as it is written:
 
 [source,clojure]
@@ -35,12 +35,12 @@ compress data as it is written:
 
 ==== Discussion
 
-Gzip, based on the DEFLATE algorithm, is a common compression format
+gzip, based on the DEFLATE algorithm, is a common compression format
 on Unix-like systems and is used extensively for compression on the
 Web. It is a good choice for compressing text in particular and can
-see huge reductions for source code, or Clojure or JSON data.(((Gzip compression format)))(((DEFLATE algorithm)))
+result in huge reductions for source code, or Clojure or JSON data.(((Gzip compression format)))(((DEFLATE algorithm)))
 
-Many of Clojure's IO functions will accept any type of Java
+Many of Clojure's I/O functions will accept any type of Java
 stream. The +GZIPInputStream+ simply wraps any other input stream
 and attempts to decompress the original stream. The output variant
 behaves similarly.
@@ -53,7 +53,7 @@ easily read the entire decompressed contents.
 You can also leverage this technique to read a large compressed file
 line by line, or to read back Clojure forms written with +pr+ or
 +pr-str+. You can also decompress data in a similar way from any other
-kind of stream, for example one backed by a network socket or a byte array.
+kind of stream; for example, one backed by a network socket or a byte array.
 
 By binding an output stream to +pass:[*out*]+, we can use +println+,
 +pr+, etc. to output small amounts of data at a time to the stream,

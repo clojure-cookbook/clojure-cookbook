@@ -9,8 +9,7 @@ Given a directory, you want to access the files inside.(((files, listing)))((("I
 
 ==== Solution
 
-Call the built-in +file-seq+ function to return a lazy sequence(((functions, file-seq)))
-of +java.io.File+ objects.
+Call the built-in +file-seq+ function. 
 
 [NOTE]
 ====
@@ -23,6 +22,9 @@ $ mkdir -p next-gen
 $ touch next-gen/picard.jpg next-gen/locutus.bmp next-gen/data.txt
 ----
 ====
+
++file-seq+ returns a lazy sequence(((functions, file-seq)))
+of +java.io.File+ objects:
 
 [source,clojure]
 ----
@@ -38,7 +40,7 @@ tng-dir
 ==== Discussion
 
 Sequences are one of Clojure's more powerful abstractions; treating a
-directory hierarchy as a squence allows you to leverage functions like
+directory hierarchy as a sequence allows you to leverage functions like
 +map+ and +filter+ to manipulate files and directories.((("sequence abstraction", "listing files in directory hierarchies")))
 
 Consider, for example, the case where you would like to select only files in a
@@ -60,9 +62,9 @@ by taking a sequence of files and directories and filtering them by the
 ;;     #<File ./next-gen/picard.jpg>)
 ----
 
-What if you wanted to display the string names of all those files? Define
+What if you want to display the string names of all those files? Define
 a +names+ function to map the +.getName+ property over a sequence of
-files, combining +only-files+ and +names+ to get a list of file names
+files, combining +only-files+ and +names+ to get a list of filenames
 in a directory:
 
 [source,clojure]

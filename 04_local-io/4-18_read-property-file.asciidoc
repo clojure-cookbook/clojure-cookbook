@@ -1,22 +1,21 @@
-=== Read Properties from a File
+=== Reading Properties from a File
 [role="byline"]
 by Tobias Bayer
 
 ==== Problem
 
-You need to read a property file and access its key-value pairs.(((files, reading properties from)))((("properties, reading from files")))(((Java, java.util.Properties)))(((keys, accessing key-value pairs)))
+You need to read a property file and access its key/value pairs.(((files, reading properties from)))((("properties, reading from files")))(((Java, java.util.Properties)))(((keys, accessing key-value pairs)))
 
 ==== Solution
 
 The most straightforward way is to use the built-in
 http://bit.ly/javadoc-properties[+java.util.Properties+]
 class via Java interop. +java.util.Properties+ implements
-+java.util.Map+, which can be easily consumed from Clojure, just as
-any other map is.(((Java, java.util.Map)))((("I/O (input/output) streams", "accessing key-value pairs")))
++java.util.Map+, which can be easily consumed from Clojure, just like
+any other map.(((Java, java.util.Map)))((("I/O (input/output) streams", "accessing key-value pairs")))
 
-Here is an example +.properties+ file to load:
+Here is an example property file to load, _fruitcolors.properties_:
 
-._fruitcolors.properties_
 ----
 banana=yellow
 grannysmith=green
@@ -39,7 +38,7 @@ props
 ;; -> {"banana" "yellow", "grannysmith" "green"}
 ----
 
-Instead of using the built-in +Properties+ api via interop, you could
+Instead of using the built-in +Properties+ API via interop, you could
 also use the +propertea+ library for simpler, more idiomatic Clojure
 access to property files.(((propertea library)))
 
@@ -51,7 +50,7 @@ file, or start a REPL using +lein-try+:
 $ lein try propertea 1.2.3
 ----
 
-Then read the property file and access its key-value pairs:
+Then read the property file and access its key/value pairs:
 
 [source,clojure]
 ----
@@ -76,18 +75,17 @@ from Clojure, an immutable map is probably preferable if you intend to
 do any further manipulation or updates on it.
 
 More importantly, +propertea+ converts all string keys into keywords,
-which are more commonly used than strings as the keys of a map in
+which are more commonly used than strings as the keys of maps in
 Clojure.
 
 Additionally, +propertea+ has several other features, such as the
-capability to parse values into numbers or booleans, and providing
+capability to parse values into numbers or Booleans, and providing
 default values.
 
 By default, ++propertea++'s +read-properties+ function treats all
 property values as strings. Consider the following property file with
-an integer and boolean key:
+an integer and Boolean key:
 
-._other.properties_
 ----
 intkey=42
 booleankey=true
@@ -116,7 +114,7 @@ options:
 ;; -> java.lang.Boolean
 ----
 
-Sometimes the property file might not contain a key value pair, and you might want to set a reasonable default value in this case:
+Sometimes the property file might not contain a key/value pair, and you might want to set a reasonable default value in this case:
 
 [source,clojure]
 ----
@@ -126,7 +124,7 @@ Sometimes the property file might not contain a key value pair, and you might wa
 ;; -> "awesome"
 ----
 
-You can also be strict on required properties. If an expected property is missing in your properties file, you can throw an exception:
+You can also be strict on required properties. If an expected property is missing in your property file, you can throw an exception:
 
 [source,clojure]
 ----
@@ -136,5 +134,5 @@ You can also be strict on required properties. If an expected property is missin
 
 ==== See Also
 
-* The https://github.com/jaycfields/propertea[+propertea+ documentation] for more details
-* The http://bit.ly/javadoc-properties[+Properties+ documentation]
+* The https://github.com/jaycfields/propertea[+propertea+ GitHub repository]
+* The http://bit.ly/javadoc-properties[+Properties+ API documentation]

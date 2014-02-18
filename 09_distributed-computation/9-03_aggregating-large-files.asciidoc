@@ -44,7 +44,7 @@ will give you a basic Cascalog project as created in
 
 [source,shell-session]
 ----
-$ git clone http://bit.ly/cc-cascalog-samples.git
+$ git clone https://github.com/clojure-cookbook/cascalog-samples.git
 $ cd cascalog-samples
 $ git checkout aggregation-begin
 ----

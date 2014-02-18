@@ -97,7 +97,7 @@ anyway, leaving a sequence that cannot be realized.
 
 Generally, it is best to not let lazy sequences based on streams
 escape the scope in which the stream is open. If you do, you must be
-extremely careful that the resources required for the realization of a
+extremely careful to ensure that the resources required for the realization of a
 lazy sequence are still open as long as the sequence has any
 readers. Typically, the latter approach involves manually tracking
 which streams are still open rather than relying on a +try/finally+ or
@@ -106,6 +106,5 @@ which streams are still open rather than relying on a +try/finally+ or
 ==== See Also
 
 * <<sec_local_io_clojure_data_to_disk>>
-* The documentation for http://bit.ly/javadoc-reader[+java.io.Reader+],
-  and
-  http://bit.ly/javadoc-writer[+java.io.Writer+]
+* The documentation for http://bit.ly/javadoc-reader[+java.io.Reader+] and http://bit.ly/javadoc-writer[+java.io.Writer+]
+

@@ -19,7 +19,7 @@ easy in pure Clojure, writing binary data requires a little more Java interop.
 
 Clojure's `output-stream` wraps the `BufferedOutputStream` Java
 object. `BufferedOutputStream` has a `write` method that accepts Java byte
-arrays. The following writes 1,000 zeros (bytes) to `/tmp/zeros`:
+arrays. The following writes 1,000 zeros (bytes) to _/tmp/zeros_:
 
 [source,clojure]
 ----
@@ -49,10 +49,10 @@ filling it with data from various types. Let's assume we want to
 write "strings" in the following format:
 
 1. A version number (byte; +66+ in our example)
-2. A string length (big-endian int)
+2. A string length (big-endian +int+)
 3. The bytes for the string (in this case, "hello world")
 
-Then the following function will "pack" the bytes into an array
+The following function will "pack" the bytes into an array
 using an intermediate `ByteBuffer`:
 
 [source,clojure]
@@ -120,15 +120,14 @@ prepare it for reading and writing, respectively.
 ==== See Also
 
 - For more details on +ByteBuffer+, which plays a key role in Java's NIO
-library, see the Java NIO documentation, or pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596002886.do">Java NIO</ulink></emphasis>] by Ron Hitchens (O'Reilly Media).
+library, see the http://docs.oracle.com/javase/7/docs/api/java/nio/package-summary.html,http:/bit.ly/javadoc-nio[Java NIO documentation] or pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596002886.do">Java NIO</ulink></emphasis>] by Ron Hitchens (O'Reilly).
 
-- The Clojure library,
-  https://github.com/geoffsalmon/bytebuffer[+bytebuffer+], which provides a
+- The Clojure library https://github.com/geoffsalmon/bytebuffer[+bytebuffer+] provides a
 thin, more idiomatic wrapper for +ByteBuffer+ operations.
 
 - The more recent https://github.com/clojurewerkz/buffy[Buffy library] provides
-a wrapper over the related Netty ByteBuffers.
+a wrapper over the related Netty pass:[<literal>ByteBuffer</literal>s].
 
 - Finally, the https://github.com/ztellman/gloss[Gloss library] provides a DSL
-for reading and writing binary streams of data (whether file-based, or
+for reading and writing binary streams of data (whether file-based or
 network-based).

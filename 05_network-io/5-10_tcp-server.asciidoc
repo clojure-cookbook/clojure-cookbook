@@ -73,7 +73,7 @@ To try it out, invoke the +serve+ function in the REPL. For a simple
 example, use +(serve 8888 #(.toUpperCase %))+. Note that it won't return
 right away; it blocks, waiting for a client to connect.
 
-To connect to the sever, you can use a _telnet_ client, which is
+To connect to the server you can use a _telnet_ client, which is
 installed by default on nearly every operating system. To use it, open
 up a command-line window:
 
@@ -85,8 +85,8 @@ Connected to localhost.
 Escape character is '^]'.
 ----
 
-At this point you can type anything you like. When you finish, make
-sure you type *+enter+* or *+return+* to send a newline character:
+At this point you can type anything you like (in the following example, the input is "Hello, World!"). When you finish, make
+sure you type Enter or Return to send a newline character:
 
 [source,shell-session]
 ----
@@ -110,7 +110,7 @@ data, to make the concepts of working with sockets easier to
 demonstrate. Of course, an actual socket is not limited to strings and
 can send and receive any kind of binary data. To do this, simply use
 the +clojure.java.io/input-stream+ and +clojure.java.io/output-stream+
-functions instead of +clojure.java.io/reader+ and
+functions instead of the +clojure.java.io/reader+ and
 +clojure.java.io/writer+ functions, respectively, which return
 +java.io.InputStream+ and +java.io.OutputStream+ objects. These
 provide APIs for reading and writing raw bytes, rather than just
@@ -122,16 +122,14 @@ connections after the +serve+ function returns.  For ongoing use,
 typically you'd like to be able to serve multiple incoming
 connections.
 
-Fortunately, this is relatively straightforward to do giving the
-concurrency tools that Clojure provides. Modifing the +serve+ function
-above to work as a persistent server requires three changes:
+Fortunately, this is relatively straightforward to do given the
+concurrency tools that Clojure provides. Modifying the +serve+ function to work as a persistent server requires three changes:
 
-- Run the server on a seperate thread so it doesn't block the REPL.
+- Run the server on a separate thread so it doesn't block the REPL.
 - Don't close the server socket after handling the first request.
-- After handing a request, loop back to immediately handle another.
+- After handling a request, loop back to immediately handle another.
 
-Also, because the server will be running on a non-repl thread, it'd
-also be good to provide a mechanism for terminating the server other
+Also, because the server will be running on a non-REPL thread, it would be good to provide a mechanism for terminating the server other
 than killing the whole JVM.
 
 The modified code looks like this:
@@ -154,18 +152,18 @@ The key feature of this code is that it launches the server socket
 asynchronously inside a future and calls the +accept+ method inside
 of a loop. It also creates an atom called +running+ and returns it,
 checking it each time it loops. To stop the server, reset the atom to
-false, and the loop will break:
++false+, and the loop will break:
 
 [source,clojure]
 ----
 (def a (serve-persistent 8888 #(.toUpperCase %)))
 ;; -> #'my-server/a
 
-;; server is running, will respond to multiple requests
+;; Server is running, will respond to multiple requests
 
 (reset! a false)
 ;; -> false
-;; server is stopped, will stop serving requests after the next one
+;; Server is stopped, will stop serving requests after the next one
 ----
 
 .When to Use Sockets
@@ -187,8 +185,7 @@ resiliency.
 Still, understanding how all these different techniques work on a low
 level is valuable. At least as far as the JVM is concerned, most
 networking code ultimately bottoms out in calls to the raw socket
-mechanisms described in this recipe. Understanding how they work is an
-important tool in understanding how higher-level networking (such as
+mechanisms described in this recipe. Understanding how they work is key to understanding how higher-level networking tools (such as
 HTTP requests or JMS queues) actually work.
 ****
 
@@ -196,7 +193,7 @@ HTTP requests or JMS queues) actually work.
 
 - The
   http://bit.ly/javadoc-server-socket[API
-  documentation] for ServerSocket and Socket objects in Java
+  documentation] for +ServerSocket+ and +Socket+ objects in Java
 - The http://bit.ly/clj-java-io-api[API
   documentation] for the +clojure.java.io+ namespace
 - <<sec_network_io_tcp_client>>

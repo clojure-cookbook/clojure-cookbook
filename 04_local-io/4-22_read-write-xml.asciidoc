@@ -10,9 +10,8 @@ You need to read or write XML data.((("I/O (input/output) streams", "XML data"))
 ==== Solution
 Pass a file to +clojure.xml/parse+ to get a Clojure map representing the structure of an XML file.((("nodes, reading XML as")))(((files, XML data)))
 
-For example, when reading the following file:
+For example, to read the following file:
 
-._simple.xml_
 [source,xml]
 ----
 <simple>
@@ -20,6 +19,8 @@ For example, when reading the following file:
   <item id="2">Second</item>
 </simple>
 ----
+
+use +clojure.xml/parse+:
 
 [source,clojure]
 ----
@@ -30,7 +31,7 @@ For example, when reading the following file:
 ;;    {:tag :item, :attrs {:id "2"}, :content ["Second"]}]}
 ----
 
-If you want to read an XML as a sequence of nodes, pass the XML map to the +xml-seq+
+If you want to read an XML file as a sequence of nodes, pass the XML map to the +xml-seq+
 function from the +clojure.core+ namespace:
 
 [source,clojure]
@@ -43,9 +44,9 @@ each node, starting at the root and then doing a depth-first walk of
 the rest of the document.
 
 To write an XML file, pass an XML structure map to
-+clojure.xml/emit+. +emit+ spits the XML to the currently bound output
-stream (*+out+*), so to write to a file either bind *+out+* to the
-file's output stream, or capture the output stream to a string with the
++clojure.xml/emit+. +emit+ pass:[<literal>spit</literal>s] the XML to the currently bound output
+stream (pass:[<literal>*out*</literal>]), so to write to a file, either bind pass:[<literal>*out*</literal>] to the
+file's output stream or capture the output stream to a string with the
 +with-out-str+ macro, which you can then +spit+ to a file:
 
 [source,clojure]
@@ -55,7 +56,7 @@ file's output stream, or capture the output stream to a string with the
 
 ==== Discussion
 
-To work with XML, you can handle it as any other map. Here is an
+You can work with your XML data just as you would with any other map. Here is an
 example of a function that, given an +id+ and a file, will parse the
 file for nodes with an attribute +id+ that is equal to the argument:
 
@@ -74,19 +75,19 @@ file for nodes with an attribute +id+ that is equal to the argument:
 To modify XML, just use the normal map manipulation functions on the
 Clojure data representation.
 
-Additionally, if you are going to work a lot with your XML structure,
+If you are going to work a lot with your XML structure,
 you might consider using a _zipper_. A zipper is a purely functional
 data structure useful for navigating and modifying tree-like
 structures (such as XML) in a convenient and efficient way.(((zippers)))
 
 Zippers are a deep topic, and a full discussion is beyond the scope of
-this recipe, but see the documentation for the +clojure.data.zip+
-library for explanation and examples of how to use them effectively
+this recipe, but see the documentation for the http://clojure.github.io/data.zip/[+clojure.data.zip+
+library] for explanation and examples of how to use them effectively
 with XML.
 
 ==== See Also
 
 * <<sec_local-io_read_write_files>>
-* The http://bit.ly/clj-zip-api[+clojure.zip+] namespace
+* The http://bit.ly/clj-zip-api[+clojure.zip+] namespace API documentation
 
 

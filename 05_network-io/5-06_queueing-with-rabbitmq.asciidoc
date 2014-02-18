@@ -24,7 +24,7 @@ In order to follow along with this recipe, you need to have RabbitMQ
 http://bit.ly/rmq-download[installed and running].
 
 Once installed, start a standalone RabbitMQ server with the command
-+rabbitmq-server+:
+*+rabbitmq-server+*:
 
 [source,shell-session]
 ----
@@ -33,7 +33,7 @@ $ rabbitmq-server
 
 Prior to performing any operations against RabbitMQ, you must connect
 to a server and open a communication channel. A channel is the medium
-over which you can produce and consume messages to/from:
+over which you can produce and consume messages:
 
 [source,clojure]
 ----
@@ -43,7 +43,7 @@ over which you can produce and consume messages to/from:
 ;; Connect to local RabbitMQ cluster node on localhost:5672
 (def conn (langohr.core/connect {:hostname "localhost"}))
 
-;; Open a channel against the connection.
+;; Open a channel against the connection
 (def ch (langohr.channel/open conn))
 ----
 
@@ -51,7 +51,7 @@ In RabbitMQ, messages are published to _exchanges_, routed to _queues_
 via a _binding_, then finally consumed by consumers. There are a
 number of different exchange types that vary the semantics of
 delivery; the most basic exchange type is _direct_, which routes
-messages based on their *routing key*.
+messages based on their _routing key_.
 
 To construct a pipeline between producer and consumer, start by
 invoking +langohr.queue/declare+ to create a queue with the desired
@@ -73,7 +73,7 @@ name:
 
 By default, RabbitMQ creates a binding between the empty exchange (an
 empty string) and each queue. You can now publish a message to the
-+"imagine.resize"+ queue by invoking +langohr.basic/publish+ with the
++"imaging.resize"+ queue by invoking +langohr.basic/publish+ with the
 channel, direct exchange, routing key (your queue name), and a message:
 
 [source,clojure]
@@ -114,7 +114,7 @@ published to the queue:
 ;; Subscribe to the queue with the handler function
 (def tag (lc/subscribe ch resize-queue resize-image-handler))
 
-;; The return value of subscribe is a subscription tag.
+;; The return value of subscribe is a subscription tag
 tag
 ;; -> "amq.ctag-7hsNsSqLDEEoES5AkIC6XQ"
 
@@ -129,13 +129,13 @@ tag
 ==== Discussion
 
 At this point, you've round-tripped a few messages to RabbitMQ, but
-you've barely scratched the surface of what Langohr/RabbitMQ are
+you've barely scratched the surface of what Langohr and RabbitMQ are
 capable of. Langohr is a small RabbitMQ client wrapping the Java
 RabbitMQ library that supports AMQP 0-9-1 and RabbitMQ extensions of
 AMQP, and provides an HTTP API client.(((AMQP 0-9-1)))
 
 AMQP 0-9-1, and by extension, Langohr, centers around a few main
-concepts: *exchanges*, *queues*, and *bindings*.
+concepts: _exchanges_, _queues_, and _bindings_.
 
 ===== Exchanges
 
@@ -155,7 +155,7 @@ or just for convenience.
 .Built-in exchange types
 [options="header"]
 |===============================
-| Name | Behavior | Pre-declared exchange 
+| Name | Behavior | Predeclared exchange 
 | Direct | 1:1, routed based on routing key | +""+ 
 | Fanout | 1:N, ignoring routing key | +"amq.fanout"+ 
 | Topic | 1:N, taking routing key into consideration | +"amq.topic"+ 
@@ -238,13 +238,13 @@ Messages are published to an exchange using the(((publish/consumption models)))(
 arguments (beyond channel):
 
 The name of an exchange::
-Either a user-made exchange such as +"imaging.complete"+, or a built-in like +"amq.fanout"+ or +""+.
+Either a user-made exchange such as +"imaging.complete"+, or a built-in like +"amq.fanout"+ or +""+
 
 A routing key::
-Used by the exchange to perform type-specific routing of messages to queue(s).
+Used by the exchange to perform type-specific routing of messages to queue(s)
 
 A message::
-A string body for the message to be delivered to the queue.
+A string body for the message to be delivered to the queue
 
 As optional arguments, +publish+ allows users to specify a plethora of
 message headers as keyword arguments. For the full list, see the
@@ -255,14 +255,14 @@ docstring for the +publish+ function.
 Having declared a number of queues, there are two ways to consume(((messages, consuming)))
 messages from them:
 
-* Pull, using +langohr.basic/get+, or
+* Pull, using +langohr.basic/get+
 * Push, using +langohr.consumers/subscribe+
 
-In the Push API, you make a synchronous invocation of +get+ function
+In the Push API, you make a synchronous invocation of the +get+ function
 to retrieve a single message from a queue. The return value of +get+
 is a tuple of metadata map and a body. The body payload, as returned,
 is an array of bytes--for plain-text messages you can use the string
-constructor, +String.+, to intern those bytes to a string. Since
+constructor (+String.+) to intern those bytes to a string. Since
 +String+ byte arrays are encoded using UTF-8, it is important to
 invoke the +String+ constructor with an encoding option of +"UTF-8"+:
 
@@ -293,14 +293,14 @@ bytes:
 ----
 
 +subscribe+ is a nonblocking call, and upon completion will return a
-tag string that can be used to later cancel the subscription use
+tag string that can be used to later cancel the subscription using
 +langohr.consumers/cancel+.
 
 The +subscribe+ function also allows you to specify a large number of
-queue lifecycle functions, documented at length in the
+queue life cycle functions, documented at length in the
 +langohr.consumers/create-default+ docstring.
 
-===== Acknowledgement
+===== Acknowledgment
 
 Consumed messages need to be acknowledged. That can happen
 automatically (RabbitMQ will consider a message acknowledged as soon
@@ -310,14 +310,14 @@ When a message is acknowledged, it is removed from the queue. If a
 channel closes unexpectedly before a delivery is acknowledged, it will
 be automatically requeued by RabbitMQ.
 
-Note that these acknowledgements have application-specific semantics
+Note that these acknowledgments have application-specific semantics
 and help ensure that messages are processed properly.
 
-With manual acknowledgement, it is application's responsibility to
+With manual acknowledgment, it is application's responsibility to
 either acknowledge or reject a delivery. This is done with
-+langohr.basic/ack+ and +langohr.basic/nack+, respectively, which
-takes a metadata attribute called +delivery-tag+ (delivery ID). To
-enable manual acknowledgements, pass +:auto-ack false+ to
++langohr.basic/ack+ and +langohr.basic/nack+, respectively, each of which
+takes a metadata attribute called +delivery-tag+ (the delivery ID). To
+enable manual acknowledgments, pass +:auto-ack false+ to
 +langohr.consumers/subscribe+:
 
 [source,clojure]
@@ -346,20 +346,20 @@ This setting applies across an entire channel:
 
 [source,clojure]
 ----
-;; Pre-fetch a dozen messages
+;; Prefetch a dozen messages
 (lb/qos ch 12)
 ----
 
 RabbitMQ queues can also be mirrored between cluster nodes for high
-availability, have bounded length or expiration period for messages,
+availability, have a bounded length or expiration period for messages,
 and more. To learn more, see RabbitMQ and Langohr documentation sites.
 
 ==== See Also
 
-* http://clojurerabbitmq.info[Langohr documentation]
+* The http://clojurerabbitmq.info[Langohr documentation]
 * Langohr's http://bit.ly/langohr-docs[API reference]
-* http://bit.ly/rmq-getting-started[RabbitMQ tutorials]
+* The http://bit.ly/rmq-getting-started[RabbitMQ tutorials]
 * If you need low-level access to RabbitMQ, you may want to
   investigate using Clojure's Java interop to interact with the
-  http://bit.ly/rmq-java-client[RabbitMQ Java Client], the
+  http://bit.ly/rmq-java-client[RabbitMQ Java client], the
   library upon which Langohr is based.

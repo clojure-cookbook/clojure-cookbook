@@ -1,5 +1,5 @@
 [[ch_network_io]]
-== Network IO & Web Services
+== Network I/O and Web Services
 
 include::5-00_introduction.asciidoc[]
 

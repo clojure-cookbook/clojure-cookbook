@@ -51,7 +51,7 @@ thereafter.
 With the venerable JavaMail at its core, there isn't much +postal+
 leaves for you to worry about. Even Gmail's oft-maligned
 authentication setup can be tackled with a single +:ssl+ key. While we
-might normally suggest, "Give the native Java API a try," for simple
+might normally suggest giving the native Java API a try for simple
 email delivery, we prefer +postal+ because it presents an API oriented
 around data rather than objects.(((Gmail)))
 
@@ -64,7 +64,7 @@ are:
   Hostname of the desired SMTP server. Optional if running locally.
 +:port+::
   Port of SMTP server. Numerous contextual defaults exist,
-  including 465 when +:ssl+ is set or 25 when +:tls+ is set.
+  including +465+ when +:ssl+ is set or +25+ when +:tls+ is set.
 +:user+::
   Username to authenticate with (if authenticating).
 +:pass+::
@@ -74,8 +74,8 @@ are:
 +:tls+::
   Enables TLS encryption if value is truthy.
 
-When provided *no* connection details -- either by omitting the first
-argument or passing +nil+ -- +postal+ will attempt to route email
+When provided _no_ connection details--either by omitting the first
+argument or passing +nil+&#x2014;+postal+ will attempt to route email
 through a local http://bit.ly/wiki-sendmail[sendmail]
 instance.
 
@@ -143,11 +143,11 @@ the content:
                   </html>"}]
 ----
 
-You'll notice the first "part" in the body above was not, in fact, a
+You'll notice the first "part" in the preceding body was not, in fact, a
 part map, but the keyword +:alternative+. Messages are normally sent
-in "mixed" mode, indicating to an email client each part constitutes a
+in "mixed" mode, indicating to an email client that each part constitutes a
 piece of the whole message. Messages of the +:alternative+ type,
-however, inform a client each part represents the entire message,
+however, inform a client that each part represents the entire message,
 albeit in differing formats.
 
 [NOTE]

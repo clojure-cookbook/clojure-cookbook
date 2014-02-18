@@ -4,7 +4,7 @@ by Edmund Jackson
 
 ==== Problem
 
-You want to transform a text file, line by line but using all cores and
+You want to transform a text file line by line, but using all cores and
 without loading it into memory.((("I/O (input/output) streams", "parallelizing file processing")))(((files, parallelizing processing)))(((text files, transforming line-by-line)))(((functions, pmap)))(((functions, line-seq)))
 
 ==== Solution
@@ -16,7 +16,7 @@ A quick win using +pmap+ over a sequence returned by +line-seq+:
 (require ['clojure.java.io :as 'jio])
 
 (defn pmap-file
-  "Process input-file in a parallel, applying processing-fn to each row
+  "Process input-file in parallel, applying processing-fn to each row
   outputting into output-file"
   [processing-fn input-file output-file]
   (with-open [rdr (jio/reader input-file)
@@ -46,11 +46,11 @@ constructs like +map+ or +dorun+) are +line-seq+ and +pmap+.
 +line-seq+, given an instance of +java.io.BufferedReader+ (which
 +clojure.java.io/reader+ returns), will return a lazy sequence of
 strings. Each string is a line in the input file. What constitutes a
-newline for the purposes of line splitting is deterimined by the
+newline for the purposes of line splitting is determined by the
 +line.separator+ JVM option, which will be set in a platform-specific
 way. Specifically, it will be a carriage return character followed by
 a line feed character in Windows, and a single newline character in
-Unix-derived systems such as Linux or OS X.
+Unix-derived systems such as Linux or Mac OS X.
 
 +pmap+ functions identically to +map+ and applies a function to each
 item in a sequence, returning a lazy sequence of return values. The
@@ -74,16 +74,16 @@ be much slower than +map+ in that case.
 
 The idea is to use +pmap+ to map over the sequence of file rows in
 parallel. However, you then need to pass each processed row through
-+(map #(.write wtr %) ...)+ in order to ensure the rows are written
-one at a time (put the write in the processing function to see what
-happens otherwise). Finally, as these are lazy sequences, we need to
+pass:[<literal>(map #(.write wtr %) ...)</literal>] in order to ensure the rows are written
+one at a time (put the +write+ in the processing function to see what
+happens otherwise). Finally, as these are lazy sequences, you need to
 realize their side effects before exiting the +with-open+ block or the
-file will be closed by the time we wish to evaluate them. This is
+file will be closed by the time you wish to evaluate them. This is
 accomplished by calling +dorun+.
 
-There are couple of caveats here. Firstly, although the row ordering
+There are a couple of caveats here. Firstly, although the row ordering
 of the output file will match that of the input, the execution order
-is not guaranteed. Secondly, the process will become IO bound quite
+is not guaranteed. Secondly, the process will become I/O-bound quite
 quickly as all the writes happen on one thread, so you may not get the
 speedup you expect unless the processing function is substantial.
 Finally, +pmap+ is not perfectly efficient at allocating work, so the
@@ -93,7 +93,7 @@ of processors on your system, as you might expect.
 Another drawback to the +pmap+ approach is that the actual reading of
 the file is serialized, using a single +java.io.Reader+. Considerable
 gains can still be realized if the processing task is expensive
-compared to reading, but in lightweight tasks, the bottleneck is likely
+compared to reading, but in lightweight tasks the bottleneck is likely
 to be reading the file itself, in which case parallelizing the
 processing work will give little to no gains in terms of total
 runtime (or even make it worse).
@@ -101,7 +101,5 @@ runtime (or even make it worse).
 ==== See Also
 
 * <<rec_local_io_parallelizing_using_iota>> for a similar approach that parallelizes reading the file itself using
-memory mapping (as well as using Clojure Reducers for greater
+memory mapping (as well as using Clojure reducers for greater
 efficiency)
-
-
