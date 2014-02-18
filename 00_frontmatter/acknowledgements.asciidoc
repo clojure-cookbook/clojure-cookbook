@@ -18,6 +18,7 @@ it together. Those contributors are:
 * Chris Allen, https://github.com/bitemyapp[bitemyapp] on GitHub
 * Chris Ford, https://github.com/ctford[ctford] on GitHub
 * Chris Frisz, https://github.com/cjfrisz[cjfrisz] on GitHub
+* Clinton Begin, https://github.com/cbegin[cbegin] on GitHub
 * Clinton Dreisbach, https://github.com/cndreisbach[cndreisbach] on GitHub
 * Colin Jones, https://github.com/trptcolin[trptcolin] on GitHub
 * Craig McDaniel, https://github.com/cpmcdaniel[cpmcdaniel] on GitHub
