@@ -24,13 +24,13 @@ or more items appended to the end:
 
 ==== Discussion
 
-Vectors do not support adding new items anywhere aside from the end. If you need to insert an item in the middle, you will have to use a
-sequence manipulation function and convert back to a vector (if
-necessary) when you're done.
+Vectors do not support adding new items anywhere aside from the end. If you need to insert 
+an item in the middle, you will have to use a sequence manipulation function and convert back
+to a vector (if necessary) when you're done.
 
 Since vectors are associative (mapping integer indexes to values), you(((functions, assoc)))
-can also use the +assoc+ function with an index one greater than the
-current length of the vector to append an item:
+can also use the +assoc+ function with an index equal to the current length of the vector 
+(one greater than the maximum index) to append an item:
 
 [source,clojure]
 ----
@@ -41,8 +41,7 @@ current length of the vector to append an item:
 However, this approach is somewhat more fragile than +conj+. If the
 index you provide is too small, you might simply "overwrite" an
 earlier value in the vector; and if it's greater than the vector's 
-current length (one greater than the maximum index), 
-it will throw an +IndexOutOfBoundsException+.
+current length, it will throw an +IndexOutOfBoundsException+.
 
 Still, this technique is worth remembering. If you have code that is
 +assoc+-ing to a vector already, you can use this technique to produce
