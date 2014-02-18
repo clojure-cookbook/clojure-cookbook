@@ -14,7 +14,6 @@ Ring application.
 
 To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
-._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
@@ -45,7 +44,7 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
    :session session })
 
 (defn do-login
-  "Checks the submitted form data and updates the session if necessary"
+  "Check the submitted form data and update the session if necessary"
   [params session]
   (if (and (= (params "username") "jim")
            (= (params "password") "password"))
@@ -76,8 +75,8 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
 ==== Discussion
 
 http://bit.ly/ring-sessions[Ring's session
-middleware] has an API similar to the cookie API. Get them from the
-`:session` request map, and set them by including a `:session` key in
+middleware] has an API similar to the cookies API. You get session data from the
+`:session` request map, and set it by including a `:session` key in
 the response map. Whatever you pass to `:session` is up to you, but
 usually you'll want to use a map to store keys and values.
 
@@ -88,10 +87,10 @@ session ID from the request, then reads the value of the session from some sessi
 Which session store the middleware uses is configurable. The default
 is to use an in-memory session store, which is useful for development
 but has the side effect of losing sessions whenever you restart the
-app. Ring includes an encrypted cookie store as well, which *is*
-persistent, and you can get third-party libs for many popular
+app. Ring includes an encrypted cookie store as well, which _is_
+persistent, and you can get third-party libraries for many popular
 storages, including
-http://bit.ly/ring-session-memcached[memcached] and
+http://bit.ly/ring-session-memcached[Memcached] and
 https://github.com/wuzhe/clj-redis-session[Redis]. You can write your
 own, too, to store your sessions in any database.
 
@@ -105,9 +104,9 @@ parameter to `wrap-session`:
 
 To set the value of `:session`, just pass it along with your response. If you don't
 need the session changed,  leave `:session` out of your response. If you want to actually clear the
-session, pass `nil` as your the value of the `:session` key.
+session, pass `nil` as the value of the `:session` key.
 
 ==== See Also
 
 * <<sec_ring_middleware>>
-* Ring's http://bit.ly/ring-sessions[session documentation]
+* Ring's http://bit.ly/ring-sessions[sessions documentation]

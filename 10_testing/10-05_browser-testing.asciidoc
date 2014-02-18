@@ -1,4 +1,4 @@
-=== Running Browser-based Tests
+=== Running Browser-Based Tests
 [role="byline"]
 by Matthew Maravillas
 
@@ -8,8 +8,8 @@ You want to run browser-based tests.(((testing, browser-based)))(((Selenium WebD
 
 ==== Solution
 
-Use Selenium WebDriver via the +clj-webdriver+ library. This will
-allow you to use clojure.test to test your application's behavior in
+Use Selenium WebDriver via the https://github.com/semperos/clj-webdriver[+clj-webdriver+ library]. This will
+allow you to use +clojure.test+ to test your application's behavior in
 actual browser environments.
 
 To follow along with this recipe, create a new Leiningen project:
@@ -33,14 +33,13 @@ Modify the new project's _project.clj_ file to match the following:
 Next, add a simple Selenium test to
 _test/browser_testing/core_test.clj_, overwriting its content:
 
-._test/browser_testing/core_test.clj_
 [source,clojure]
 ----
 (ns browser-testing.core-test
   (:require [clojure.test :refer :all]
             [clj-webdriver.taxi :as t]))
 
-;; A simple fixture that sets up test driver
+;; A simple fixture that sets up a test driver
 (defn selenium-fixture
   [& browsers]
   (fn [test]
@@ -69,9 +68,7 @@ _test/browser_testing/core_test.clj_, overwriting its content:
 
 [NOTE]
 ====
-A complete version of this repository is available on GitHub at https://github.com/clojure-cookbook/browser-testing.
-
-Checkout a copy locally to catch up:
+A complete version of this repository is available https://github.com/clojure-cookbook/browser-testing[on GitHub]. Check out a copy locally to catch up:
 
 [source,shell-session]
 ----
@@ -109,7 +106,7 @@ application as rendered in the browser itself.((("web applications", "browser te
 
 Manually testing applications in a browser is a tedious and repetitive
 task. The amount of time and effort required for a complete test run
-can be unwieldy for even a moderately sized project. Automating
+can be unmanageable for even a moderately sized project. Automating
 browser tests ensures they are run consistently and relatively
 quickly, resulting in reproducible errors and more frequent test runs.
 However, automated tests lack the visual inspection by a human
@@ -118,7 +115,7 @@ catch a positioning error that an automated test would likely miss if
 it were not explicitly tested for.
 
 To write browser tests in Clojure, use the +clj-webdriver+ library with
-your preferred test framework, such as clojure.test. +clj-webdriver+
+your preferred test framework, such as +clojure.test+. +clj-webdriver+
 provides a clean Clojure interface to Selenium WebDriver, a tool used
 to control and automate browser actions.
 
@@ -136,7 +133,7 @@ $ lein try clj-webdriver "0.6.0"
 ----
 
 Use the +clj-webdriver.taxi/set-driver!+ function, selecting the Firefox
-WebDriver implementation (other options include +:chrome+ or +:ie+ but may
+WebDriver implementation (other options include +:chrome+ or +:ie+, but these may
 require more setup):
 
 [source,clojure]
@@ -180,7 +177,7 @@ save yourself some work, you should set up the browser startup and teardown
 using a +clojure.test+ fixture.
 
 +clojure.test/use-fixtures+ allows you to run functions around each individual
-test or once around the namespace's test run as a whole. Use the latter, as
+test, or once around the namespace's test run as a whole. Use the latter, as
 restarting the browser for each test will be far too slow.
 
 The +selenium-fixture+ function uses ++clj-webdriver++'s +set-driver!+ and +quit+
@@ -210,9 +207,8 @@ fixture.
 
 To begin writing tests, modify your project's _project.clj_ file to include the
 +clj-webdriver+ dependency in the +:dev+ profile and +:test-selectors+ for
-+:default+ and +browser+ convenience.
++:default+ and +browser+ convenience:
 
-.Your own _project.clj_:
 [source,clojure]
 ----
 (defproject my-project "1.0.0-SNAPSHOT"
@@ -247,7 +243,7 @@ browser test, and will only run when that test selector is chosen.
 
 In this test, as in the REPL experiment, you navigate to a URL and check its
 title and URL. Run this test at the command line, passing the additional test
-selector argument to *+lein test+*:
+selector argument to +lein test+:
 
 [source,shell-session]
 ----
@@ -288,7 +284,7 @@ test that interacts with the page:
 
 In this test, after loading the URL, the browser is directed to click on an
 anchor located with an XPath selector. To verify that the expected page has
-loaded, the test compares the title and URL as in the first test. Lastly, it
+loaded, the test compares the title and URL, as in the first test. Lastly, it
 finds the text content of the +#foot+ element containing the copyright and
 verifies that the text includes the expected name.
 
@@ -300,5 +296,5 @@ http://bit.ly/clj-webdriver-wiki[+clj-webdriver+ wiki].
 
 * The +clj-webdriver+ https://github.com/semperos/clj-webdriver[GitHub
   repository] and http://bit.ly/clj-webdriver-wiki[wiki]
-* http://bit.ly/selenium-project[Selenium]
+* The http://bit.ly/selenium-project[Selenium project page]
 * <<sec_unit_testing>> to learn more about unit testing in Clojure

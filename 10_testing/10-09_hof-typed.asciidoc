@@ -1,5 +1,5 @@
 [[sec_verify_hof]]
-=== Type Checking Higher-order Functions with core.typed
+=== Type Checking Higher-Order Functions with core.typed
 [role="byline"]
 by Ambrose Bonnaire-Sergeant
 
@@ -7,11 +7,11 @@ by Ambrose Bonnaire-Sergeant
 
 Clojure strongly encourages higher-order functions, but tools for
 verifying their use focus on runtime verification. You want earlier(((compile-time verification)))(((functions, higher-order))) 
-feedback: compile time.(((core.typed system, checking higher-order functions with)))(((higher-order functions)))
+feedback: at compile time.(((core.typed system, checking higher-order functions with)))(((higher-order functions)))
 
 ==== Solution
 
-Use +core.typed+ to type check higher-order functions.
+Use +core.typed+ to type-check higher-order functions.
 
 To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
@@ -33,7 +33,6 @@ function +hash-of?+, which accepts two predicates and returns a new
 predicate. Use +clojure.core.typed/fn>+ to return an anonymous
 function with type annotations attached:
 
-._core_typed_samples.clj_
 [source,clojure]
 ----
 (ns core-typed-samples
@@ -60,11 +59,11 @@ user=> (t/check-ns 'core-typed-samples)
 :ok
 -----
 
-Using the +clojure.core.typed/cf+ macro, you can type check individual
+Using the +clojure.core.typed/cf+ macro, you can type-check individual
 forms at the REPL (or under test). Invoking +hash-of?+ with two
 predicates verifies as expected, outputting the resulting type:
 
-[source,shell-session]
+[source,clojure]
 -----
 user=> (require '[core-typed-samples :refer [hash-of?]])
 user=> (t/cf (hash-of? number? number?))
@@ -73,7 +72,7 @@ user=> (t/cf (hash-of? number? number?))
 
 Passing `+` as a predicate, however, is a type error:
 
-[source,shell-session]
+[source,clojure]
 -----
 user=> (t/cf (hash-of? + number?))
 Type Error (user:1:7) Type mismatch:
@@ -86,30 +85,30 @@ Actual:         (Fn [t/AnyInteger * -> t/AnyInteger]
 ExceptionInfo Type Checker: Found 1 error  clojure.core/ex-info (core.clj:4327)
 -----
 
-Because +hash-of?+ takes a function with an +Any+ parameter and `+`
-takes at most a +Number+, this is a type error.
+This is because +hash-of?+ takes a function with an +Any+ parameter and `+`
+takes at most a +Number+.
 
 ==== Discussion
 
 While Clojure's built-in pre/post conditions are useful for defining
 anonymous functions that fail fast, these checks only provide feedback
-at runtime. Why not type check our higher-order functions as well?
-++core.typed++'s type checking abilities aren't limited to only data
+at runtime. Why not type-check our higher-order functions as well?
+++core.typed++'s type-checking abilities aren't limited to only data
 types--it can also type-check functions as types themselves.(((anonymous functions)))(((functions, anonymous)))
 
 By writing returning anonymous functions created with the
 +clojure.core.typed/fn>+ form instead of +fn+, it is possible to
 annotate function objects with ++core.typed++'s rich type-checking system.
 When defining functions with +fn>+, annotate types to its arguments
-with the +:-+ operator. For example, +(t/fn> [m :- Map] ...)+ would
+with the +:-+ operator. For example, +(t/fn> [m :- Map]+ pass:[<literal>...)</literal>] would
 indicate an anonymous function that accepted a +Map+ as its sole
 argument.
 
 Beyond definition, it can also be useful to check the types of forms
-at the REPL. The +clojure.core.typed/cf+ macro is a versatile,
-REPL-oriented tool for on-demand type checking. This proves useful not
-only for checking your code, but investigating built-in functions.
-Invoking +cf+ on any of Clojure' higher-order functions reveals their
+at the REPL. The +clojure.core.typed/cf+ macro is a versatile
+REPL-oriented tool for on-demand type checking. It proves useful not
+only for checking your code, but also for investigating built-in functions.
+Invoking +cf+ on any of Clojure's higher-order functions reveals their
 type signatures:
 
 [source,shell-session]
@@ -120,8 +119,8 @@ user=> (t/cf iterate)
 -----
 
 The +All+ around ++iterate++'s type indicates that it is _polymorphic_
-in +x+. It reads, "for all types x, takes a function that accepts an x
-and returns an x, and takes an x, and returns a lazy sequence of x."
+in +x+. It reads, "for all types +x+, takes a function that accepts an +x+
+and returns an +x+, and takes an +x+, and returns a lazy sequence of +x+."
 
 The +cf+ macro can also detect when the wrong number of arguments are
 being passed to a function returned by another function:
@@ -137,12 +136,9 @@ Actual:         (Fn [t/AnyInteger * -> t/AnyInteger]
                     [java.lang.Number * -> java.lang.Number])
 in: ((core-typed-samples/hash-of? clojure.core/+ clojure.core/number?))
 
-
 Type Error (user:1:14) Wrong number of arguments, expected 1 fixed
 parameters, and got 0 for function [Any -> Any] and arguments []
 in: ((core-typed-samples/hash-of? clojure.core/+ clojure.core/number?))
-
-
 
 ExceptionInfo Type Checker: Found 2 errors  clojure.core/ex-info (core.clj:4327)
 -----
@@ -151,7 +147,7 @@ ExceptionInfo Type Checker: Found 2 errors  clojure.core/ex-info (core.clj:4327)
 ====
 In this experiment, the faulty invocation of +hash-of?+ is wrapped in
 an anonymous function. At the time of this writing, +core.typed+
-evaluates code before it type checks it.
+evaluates code before it type-checks it.
 
 Without this, the raw invocation `((hash-of? + number?))` would return
 a regular Clojure +ArityException+.
@@ -160,10 +156,6 @@ a regular Clojure +ArityException+.
 ==== See Also
 
 * The https://github.com/clojure/core.typed[+core.typed+ repository] on GitHub
-* The +core.typed+ user guide, in particular its sections on
-  http://bit.ly/core-typed-poly[polymorphism]
-  and
-  http://bit.ly/core-typed-fns[function
-  annotations]
-* <<sec_verify_java>> and <<sec_avoid_null>> for further
-  examples of how to use +core.typed+
+* The https://github.com/clojure/core.typed/wiki/User-Guide[+core.typed+ user guide], in particular its sections on polymorphism and function annotations
+*  <<sec_avoid_null>> and <<sec_verify_java>> for further
+  examples of how to use +core.typed+ 

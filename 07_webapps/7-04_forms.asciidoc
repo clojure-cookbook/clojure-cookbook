@@ -8,12 +8,10 @@ You want your app to accept user input using an HTML form.(((Ring library, handl
 
 ==== Solution
 
-Use `ring.middleware.params/wrap-params` to add incoming HTTP form parameters
-parameters to incoming request maps.
+Use `ring.middleware.params/wrap-params` to add incoming HTTP form parameters to incoming request maps.
 
 To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
-._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
@@ -56,23 +54,23 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
 
 ==== Discussion
 
-`wrap-params` is a Ring middleware that handles the retrieval of querystring
+`wrap-params` is a Ring middleware that handles the retrieval of query string
 and form parameters from raw requests. It adds three keys to the request:
 
 `:query-params`::
-Contains a map of the parsed querystring parameters
+Contains a map of the parsed query string parameters
 
 `:form-params`::
 Contains a map of form body parameters
 
 `:params`::
-Has the contents of both `:query-params` and `:form-params` merged together
+Contains the contents of both `:query-params` and `:form-params` merged together
 
-In the preceding example, we use `:form-params`, and so our handler will
+In the preceding example we used `:form-params`, so our handler will
 only respond with a greeting on POST requests containing form-encoded
-parameters. If we had used `:params`, we would have the option of
+parameters. If we had used `:params`, we would have had the option of
 also passing a URL query string with a `"name"` parameter. `:params`
-works with any kind of parameter (form or URL encoded). `:form-params`
+works with any kind of parameter (form- or URL-encoded). `:form-params`
 only works for form parameters.
 
 Note that the form keys are passed in as strings, not keywords.
@@ -80,3 +78,4 @@ Note that the form keys are passed in as strings, not keywords.
 ==== See Also
 
 * <<sec_ring_middleware>>
+* Ring's http://bit.ly/ring-parameters[parameters documentation]

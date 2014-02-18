@@ -9,8 +9,8 @@ You've built a library in Clojure, and you want to release it to the world.((("p
 
 ==== Solution
 
-One of easiest places to release libraries to is https://clojars.org[Clojars], a community repository for open source
-libraries. To get started, https://clojars.org/register[sign up for an account at]. If you don't already have an SSH key,
+One of the easiest places to release libraries to is https://clojars.org[Clojars], a community repository for open source
+libraries. To get started, https://clojars.org/register[sign up for an account]. If you don't already have an SSH key,
 the GitHub guide
 http://bit.ly/ssh-keys["Generating SSH
 Keys"] is an excellent resource.
@@ -70,7 +70,7 @@ little care for versioning, release strategies, or adequate metadata.
 In a real project, you should pay attention to these matters to be a
 good open source citizen.
 
-The easiest change is appropriate metadata and a website. In your
+The easiest change is adding appropriate metadata and a website. In your
 _project.clj_ file, add an accurate +:description+ and +:url+. If you
 don't have a website for your project, consider linking to your
 project's GitHub page (or other public SCM "landing page").
@@ -83,30 +83,29 @@ looking like "0.1.0" or "1.4.2". Each version position indicates a
 certain level of stability and consistency across releases. Releases
 sharing a major version should be API-compatible; bumping the major
 version says, "I have fundamentally changed the API of this library."
-The minor version indicates when new, backwards-compatible
+The minor version indicates when new, backward-compatible
 functionality has been added. Finally, the patch version indicates
 when bug fixes have been made.
 
-It certainly takes discipline to follow semantic versioning, but when
-you do, you make it easier for your fellow developers to understand
-and *trust* your library versions to behave in a way they expect.
+It certainly takes discipline to follow Semantic Versioning, but when
+you do, you make it easier for your fellow developers to understand your library versions and trust them to behave in a way they expect.
 
 Code signing is another important concern in the deployment process.
 Signing the artifacts you release lets your users know the artifacts
 were created by someone they trust (you) and contain exactly what you
-intended (i.e., they have not be tampered with). Leiningein includes
+intended (i.e., they have not be tampered with). Leiningen includes
 the facilities to sign release artifacts using GPG and include the
-relevant _.asc_ signature files in *+lein deploy+* publications.
-Enabling code signing is described in the GPG section of Leiningen's
+relevant _.asc_ signature files in +lein deploy+ publications.
+Enabling code signing is described in the GNU Privacy Guard (GPG) section of Leiningen's
 http://bit.ly/lein-deploy-gpg[deploying
 libraries guide].
 
 ==== See Also
 
-* The http://bit.ly/clojars-wiki[Clojars Wiki], a
-  bountiful resource of information on releasing libraries to Clojars
+* The http://bit.ly/clojars-wiki[Clojars wiki], a
+  bountiful source of information on releasing libraries to Clojars
 * Leiningen's own
   http://bit.ly/lein-deploy[deploying
   libraries guide], which covers code signing and how to deploy to
   repositories other than Clojars
-* The output of the *+lein help deploy+* command
+* The output of the +lein help deploy+ command

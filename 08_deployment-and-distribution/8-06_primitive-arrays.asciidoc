@@ -11,7 +11,7 @@ of data.((("performance/production", "fast math")))(((numeric operations, increa
 ==== Solution
 
 Primitive Java arrays are the canonical way to store large collections
-of numbers compactly, and do math over them quickly (often 100 times faster
+of numbers compactly and do math over them quickly (often 100 times faster
 than Clojure sequences).
 
 The https://github.com/Prismatic/hiphip[+hiphip+ (array)] library is a
@@ -81,11 +81,11 @@ For faster +reduce+-like operations, use one of ++hiphip++'s +areduce+ and
 ====
 We'd love to throw in a quick +time+ benchmark to demonstrate the
 gains, but the JVM is a fickle beast when it comes to optimizations.
-We suggest using https://github.com/hugoduncan/criterium[criterium]
+We suggest using https://github.com/hugoduncan/criterium[Criterium]
 when benchmarking to avoid common pitfalls.
 
-To see criterium benchmarks of +hiphip+, see
-http://bit.ly/hiphip-bench[this gist].
+To see Criterium benchmarks of +hiphip+, see
+http://bit.ly/hiphip-bench[w01fe's _bench.clj_ gist].
 ====
 
 ==== Discussion
@@ -104,12 +104,12 @@ Once you identify a bottleneck in your mathematical operations,
 however, primitive arrays may be the only way to go. The preceding
 +dot-product+ implementation can be made more than 100 times faster by
 using +asum+, primarily because +map+ produces sequences of
-'boxed' Java Double objects. In addition to the cost of constructing
+'boxed' Java +Double+ objects. In addition to the cost of constructing
 an intermediate sequence, all arithmetic operations on boxed numbers
 are significantly slower than on their primitive counterparts.
 
 ++hiphip++'s +amap+, +afill!+, +reduce+, and +asum+ macros (among others)
-are availabe for +int+, +long+, +float+, and +double+ types. If you
+are available for +int+, +long+, +float+, and +double+ types. If you
 wanted to use +reduce+ over an array of floats, for example, you would
 use +hiphip.float/reduce+. These macros define the appropriate
 type hints and optimizations per type.
@@ -128,7 +128,7 @@ use of `*unchecked-math*`):
 ----
 
 Working with primitive arrays in Clojure isn't for the faint of heart:
-if you don't get *everything* right, you can easily end up with code
+if you don't get _everything_ right, you can easily end up with code
 that's both much uglier and no faster (or even slower) than the
 straightforward sequence version. The biggest issue to watch out for
 is reflection, which can easily bring you from 100 times faster to 10 times
@@ -138,7 +138,7 @@ If you're up to the challenge, you should keep these tips in mind:
 
 * Use `*warn-on-reflection*` religiously, but be aware that it won't
   warn you about many of the ways your code can be slow.
-* A solid profiler, or at least a comprehensive benchmark suite, are a
+* A solid profiler, or at least a comprehensive benchmark suite, is a
   must; otherwise you won't know which function is using 99% of your
   runtime.
 * Especially if you're not using +hiphip+, experiment with
@@ -156,7 +156,7 @@ If you're up to the challenge, you should keep these tips in mind:
   http://bit.ly/hiphip-tests[comprehensive
   suite of benchmarks] of its and Clojure's array operations for the
   main primitive types, including performance comparisons with
-  hand-coded Java alternatives.
+  handcoded Java alternatives.
 * https://github.com/ztellman/vertigo[Vertigo] goes beyond simple
   arrays of primitives to full C-style structs, which may be a good
   choice if you need to manipulate structured data (i.e., not just

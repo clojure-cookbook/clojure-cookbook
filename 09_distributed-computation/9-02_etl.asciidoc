@@ -6,9 +6,8 @@ by Alex Robbins
 ==== Problem
 
 You need to change the format of large amounts of data from JSON lists
-to CSV for later processing.(((distributed computation, ETL data processing)))((("JSON (JavaScript Object Notation) data")))((("CSV (comma separated values)"))) For example:
+to CSV for later processing.(((distributed computation, ETL data processing)))((("JSON (JavaScript Object Notation) data")))((("CSV (comma separated values)"))) For example, you want to turn this input:
 
-.Input:
 [source,json]
 ----
 {"name": "Clojure Programming", "authors": ["Chas Emerick",
@@ -17,7 +16,8 @@ to CSV for later processing.(((distributed computation, ETL data processing)))((
 {"name": "The Joy of Clojure", "authors": ["Michael Fogus", "Chris Houser"]}
 ----
 
-.Output:
+into this output:
+
 ----
 Chas Emerick,Brian Carper,Christophe Grand
 Michael Fogus,Chris Houser
@@ -37,10 +37,9 @@ $ lein new cookbook
 
 Modify your new project's _project.clj_ file by adding the +cascalog+
 dependency, setting up the +:dev+ profile, and enabling
-AOT-compilation for the +cookbook.etl+ namespace. Your _project.clj_
+AOT compilation for the +cookbook.etl+ namespace. Your _project.clj_
 file should now look like this:
 
-._project.clj_
 [source,clojure]
 ----
 (defproject cookbook "0.1.0-SNAPSHOT"
@@ -57,7 +56,6 @@ file should now look like this:
 
 Create the file _src/cookbook/etl.clj_ and add a query to it:
 
-._src/cookbook/etl.clj_
 [source,clojure]
 ----
 (ns cookbook.etl
@@ -71,7 +69,7 @@ Create the file _src/cookbook/etl.clj_ and add a query to it:
    (get m k)))
 
 (defn vec->csv
-  "Turn a vector into a csv string. (Not production quality)."
+  "Turn a vector into a CSV string. (Not production quality)."
   [v]
   (apply str (interpose "," v)))
 
@@ -87,7 +85,6 @@ Create the file _src/cookbook/etl.clj_ and add a query to it:
 
 Create a file with input data in _samples/books/books.json_:
 
-._samples/books/books.json_
 [source,json]
 ----
 {"name": "Clojure Cookbook", "authors": ["Ryan", "Luke"]}
@@ -100,7 +97,7 @@ http://bit.ly/cc-cascalog-samples[Cascalog samples]
 repository.
 
 To retrieve a copy of the working project, clone the project from
-GitHub and checkout the +etl-sample+ branch:
+GitHub and check out the +etl-sample+ branch:
 
 [source,shell-session]
 ----
@@ -137,36 +134,29 @@ computers. Writing the transform script using Cascalog allows it to
 run in local mode or distributed mode with almost no modification.
 
 There are a lot of new concepts and syntax in the preceding small example,
-so let us break it down piece by piece.
+so let's break it down piece by piece.
 
 In this recipe, the data flows through the functions roughly in order.
 The first line uses the +defmain+ macro (from Cascalog)
-to define a class with a main function that lets you run the query
-over Hadoop. In this case, the class with a main function is called
+to define a class with a +-main+ function that lets you run the query
+over Hadoop. In this case, the class with a +-main+ function is called
 +Main+, but that is not required. +defmain+ allows you to create
-several Hadoop enabled queries in the same file:
+several Hadoop-enabled queries in the same file:
 
 [source,clojure]
 ----
 (defmain Main [in out & args]
 ----
 
-Inside the +Main+ function is a Cascalog operator, pass:[<literal>?&#x003C;-</literal>], that defines
-and executes a query.footnote:[While queries *look* like regular Clojure,
-they are in fact a DSL. If you're not familiar with Cascalog queries,
-learn more in Nathan Marz's
-http://bit.ly/cascalog-intro-post["Introducing
-Cascalog"] article] This operator takes an output tap, a result vector,
-and a series of logic predicates:
+Inside the +Main+ function is a Cascalog operator, pass:[<literal>?&#x003C;-</literal>], that defines and executes a query:footnote:[While queries _look_ like regular Clojure, they are in fact a DSL. If you're not familiar with Cascalog queries, learn more in Nathan Marz's http://bit.ly/cascalog-intro-post["Introducing Cascalog"] article.]
 
 [source,clojure]
 ----
 (?<-
 ----
 
-The next line is the destination, the place the output will be written.
-This defines a location, called a "tap" in Cascalog. The same
-functions are used to create input and output taps:
+This operator takes an output location (called a "tap" in Cascalog), a result vector,
+and a series of logic predicates. The next line is the destination, the place the output will be written to. The same functions are used to create input and output taps:
 
 [source,clojure]
 ----
@@ -179,7 +169,7 @@ own.
 
 [TIP]
 ====
-Use ":sinkmode :replace" in your output tap and Cascalog will replace
+Use +:sinkmode :replace+ in your output tap, and Cascalog will replace
 any existing output. This helps while you are rerunning the query to
 debug it. Otherwise, you will have to remove the output file every time
 you want to rerun.
@@ -195,13 +185,13 @@ this query:
 
 In this case, these are the logic variables that will be
 dumped into the output location. Cascalog knows these are special
-logic variables because their names begin with a "?" or a "!".
+logic variables because their names begin with a +?+ or a +!+.
 
 [WARNING]
 ====
 When thinking about logic variables, it helps to think of them as
-containing all possible valid values. As you add predicates you either
-introduce new logic variables that are hopefully linked to existing
+containing all possible valid values. As you add predicates, you either
+introduce new logic variables that are (hopefully) linked to existing
 variables, or you add constraints to existing logic variables.
 ====
 
@@ -233,8 +223,8 @@ vector for Cascalog to consume:
 (get-vec ?book-map "authors" ?authors)
 ----
 
-Finally, you convert the vector of authors into valid +csv+ using the
-+vec->csv+ function. Since this line produces values for the
+Finally, you convert the vector of authors into valid CSV using the
++vec\->csv+ function. Since this line produces values for the
 +?out-csv+ logic variable, which is named in the output line earlier,
 the query will produce the output:
 
@@ -243,7 +233,7 @@ the query will produce the output:
 (vec->csv ?authors ?out-csv)))
 ----
 
-Cascalog is a great tool for building an ETL (extract transform load)
+Cascalog is a great tool for building an extract transform load (ETL)
 pipeline. It allows you to spend more time thinking about your data
 and less time thinking about the mechanics of reading files,
 distributing work, or managing dependencies. When writing your own ETL
@@ -256,6 +246,6 @@ pipelines, it might help to follow this process:
 
 ==== See Also
 
-* The blog post http://bit.ly/cascalog-etl-post["Using Cascalog for Extract Transform and Load"]
+* Ian Rumford's blog post http://bit.ly/cascalog-etl-post["Using Cascalog for Extract Transform and Load"]
 * https://github.com/clojure/core.logic[+core.logic+], a logic
   programming library for Clojure

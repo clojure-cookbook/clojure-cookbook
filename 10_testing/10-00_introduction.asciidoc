@@ -15,13 +15,13 @@ range from optional static typing with algebraic types analyzed at
 compile time, down to simple preconditions.((("reliability, improving", seealso="testing")))
 
 Admittedly, testing is a bit of a hot-button topic in the Clojure
-community right now. People are starting to question whether these tests are worthwhile or if there's a better way to think about program verification. In recent years, techniques such as REPL-driven
+community right now. People are starting to question whether these tests are worthwhile, or if there's a better way to think about program verification. In recent years, techniques such as REPL-driven
 development, property-based testing, and optional typing have all
 popped up to fill perceived voids in the testing landscape.((("validation/verification", see="testing")))
 
 This chapter covers all of the above. As much as we'd love to push the
-envelope, nothing beats a good, old-fashioned unit test suite from
+envelope, nothing beats a good old-fashioned unit test suite from
 time to time. At the same time, as we build more and more gargantuan
 applications, it is clear that simple unit tests are not always
-sufficient. We hope no matter your skill level or focus, you find new
+sufficient. We hope that regardless of your skill level or focus, you'll find new
 tools to add to your testing arsenal in this chapter.

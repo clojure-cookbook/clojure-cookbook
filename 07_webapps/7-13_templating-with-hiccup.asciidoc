@@ -21,8 +21,8 @@ $ lein try hiccup
 ----
 
 Hiccup represents HTML nodes as vectors. The first entry of the
-vector is the element's name; the second, an optional map of
-the element's attributes; and any remaining entries, the element's
+vector is the element's name; the second is an optional map of
+the element's attributes; and any remaining entries are the element's
 body:
 
 [source,clojure]
@@ -124,7 +124,7 @@ HTML from raw functions and data. This comes in particularly handy
 when you don't have the time to learn a new DSL or you prefer
 to work exclusively with Clojure.
 
-HTML nodes are represented in Hiccup as a vector of a few elements:
+An HTML node is represented in Hiccup as a vector of a few elements:
 
 * The node's name, represented as a keyword (e.g., +:h1+, +:article+,
   or +:body+)
@@ -177,7 +177,7 @@ to simplify rendering form tags:
 
 * Hiccup's https://github.com/weavejester/hiccup/[GitHub repository],
   http://bit.ly/hiccup-docs[API documentation], and
-  http://bit.ly/hiccup-wiki[Wiki].
+  http://bit.ly/hiccup-wiki[wiki].
 * If you have more complicated needs from your templating engine--like
   consuming and populating existing HTML files--you'll need sharper
   tools such as Enlive (<<sec_enlive>>) or Selmer

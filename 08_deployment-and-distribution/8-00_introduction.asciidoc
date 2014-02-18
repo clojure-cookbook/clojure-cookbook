@@ -2,11 +2,11 @@
 
 You've spent all of this time developing your next big thing: what's
 next but to ship it to the wild? Whether it is a product, internal
-service, or library, the last step (but most important one) is
+service, or library, the last (and most important) step is
 delivering the fruits of your labor to your audience.
 
 It's easy for developers to forget that code-complete is only the
-beginning of an actual application's lifecycle. A successful project
+beginning of an actual application's life cycle. A successful project
 will spend much more time in production than it will in development,
 and stability and maintainability are premium features.
 

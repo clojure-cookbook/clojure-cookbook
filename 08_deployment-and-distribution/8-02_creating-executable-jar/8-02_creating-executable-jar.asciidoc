@@ -23,7 +23,6 @@ $ lein new foo
 Configure the project to be executable by adding +:main+ and +:aot+
 parameters to the project's _project.clj_ file:
 
-._project.clj_
 [source,clojure]
 ----
 (defproject foo "0.1.0-SNAPSHOT"
@@ -40,7 +39,6 @@ To finish making the project executable, add a +-main+ function and
 +:gen-class+ declaration to _src/foo/core.clj_. Remove the existing
 +foo+ function:
 
-._src/foo/core.clj_
 [source,clojure]
 ----
 (ns foo.core
@@ -71,7 +69,7 @@ Created /tmp/foo/target/uberjar/foo-0.1.0-SNAPSHOT.jar
 Created /tmp/foo/target/foo-0.1.0-SNAPSHOT-standalone.jar
 ----
 
-Execute the generated _target/foo-0.1.0-SNAPSHOT-standalone.jar_ JAR file by
+Execute the generated _target/foo-0.1.0-SNAPSHOT-standalone.jar_ file by
 passing it as the +-jar+ option to the +java+ executable:
 
 [source,shell-session]
@@ -87,16 +85,16 @@ so it can be provided to users, called by cron jobs, combined with
 other Unix tools, or used in any other scenario where command-line
 invocation is useful.
 
-Under the hood, an executable jar is like any other JAR file in that
+Under the hood, an executable JAR is like any other JAR file in that
 it contains a collection of program resources such as class files,
 Clojure source files, and classpath resources. Additionally,
-executable jars contain metadata indicating which class contains the
+an executable JAR contains metadata indicating which class contains the
 +main+ method as a +Main-Class+ tag in its internal manifest file.
 
 A Leiningen uberjar is a JAR file that contains not only your program,
 but all the dependencies bundled in as well. When Leiningen builds an
 uberjar, it can detect from the +:main+ entry in _project.clj_ that
-your program supplies a +main+ function, and writes an appropriate
+your program supplies a +-main+ function and writes an appropriate
 manifest that will ensure that the emitted JAR file is executable.
 
 The +:gen-class+ in your namespace and the +:aot+ Leiningen option
@@ -104,17 +102,17 @@ are required to precompile your Clojure source file into a JVM class
 file, since the "Main-Class" manifest entry doesn't know how to
 reference or compile Clojure source files.
 
-.Packaging JARs Without Their Dependencies
-****
-Not only does Leiningen make it possible to package a project *with*
-its dependencies, it makes it possible to package them *without* its
+===== Packaging JARs Without Their Dependencies
+
+Not only does Leiningen make it possible to package a project _with_
+its dependencies, it also makes it possible to package it _without_ its
 dependencies.
 
 The +jar+ command packages a project's code without any of its
 upstream dependencies. Not even Clojure itself is included in the JAR
 file--you'll need to BYOC.footnote:[Bring your own Clojure!]
 
-By invoking the command *+lein jar+* in the foo project, you'll
+By invoking the command *+lein jar+* in the +foo+ project, you'll
 generate _target/foo-0.1.0-SNAPSHOT.jar_:
 
 [source,shell-session]
@@ -124,7 +122,7 @@ Created /tmp/foo/target/jar/target/foo-0.1.0-SNAPSHOT.jar
 ----
 
 Listing the contents of the JAR file using the *+unzip+* command,footnote:[Available on most Unix-based systems.] you can see that very
-little is packaged; just a Maven _pom_ file, generated JVM class files,
+little is packaged--just a Maven _pom_ file, generated JVM class files,
 and the project's miscellany:
 
  [source,shell-session]
@@ -163,13 +161,13 @@ libraries. Can you imagine if each and every Clojure library
 included the entirety of its dependencies? It would be a bandwidth
 nightmare.
 
-By virtue of this property, lean JAR files such as this are what is
+Because of this property, lean JAR files such as this are what is
 deployed to remote repositories when you use the +lein deploy+
 command.footnote:[See <<sec_deploy_clojars>> for more information on
 releasing libraries.]
 
-Without its dependencies included--namely Clojure--you'll need to do a bit more
-work to run the foo application. First, download http://clojure.org/downloads[Clojure 1.5.1]. Then invoke +foo.core+  via the *+java+*
+Without its dependencies included--namely, Clojure--you'll need to do a bit more
+work to run the _foo_ application. First, download http://clojure.org/downloads[Clojure 1.5.1]. Then invoke +foo.core+  via the +java+
 command, including _clojure-1.5.1.jar_ and _foo-0.1.0-SNAPSHOT.jar_ on the
 classpath (via the +-cp+ option):
 
@@ -186,12 +184,11 @@ $ java -cp target/foo-0.1.0-SNAPSHOT.jar:clojure-1.5.1/clojure-1.5.1.jar \
        1 2 3
 Executed with the following args:  1 2 3
 ----
-****
 
 ==== See Also
 
 * <<sec_command_line_applications>> to learn about running Clojure programs from Leiningen
 * <<sec_aot_compilation>>
-* https://github.com/Raynes/lein-bin[lein-bin], a Leiningen plugin for
+* https://github.com/Raynes/lein-bin[+lein-bin+], a Leiningen plug-in for
   producing standalone console executables that work on OS X, Linux, and
   Windows

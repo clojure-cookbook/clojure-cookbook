@@ -4,6 +4,12 @@
 
 /*--------Put Your Custom CSS Rules Below--------*/
 
+/* Fixing literal point size in block quotes*/
+
+.blockquote .literal{
+  font-size:8pt;
+}
+
 /*----Uncomment to turn on automatic code wrapping
 
 pre.programlisting, pre.screen, pre.literallayout {

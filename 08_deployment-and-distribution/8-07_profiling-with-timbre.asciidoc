@@ -49,7 +49,7 @@ Use the macros in the +taoensso.timbre.profiling+ namespace to collect benchmark
 Here we define a Clojure function +bench-me+, which is called with a
 higher-order function +f+ that takes zero or one argument.
 
-Timbre outputs rich profiling information in a convenient table.
+Timbre outputs rich profiling information in a convenient table:
 
 [source,shell-session]
 ----
@@ -79,11 +79,11 @@ For example, you could record how many times a particular +if+ branch
 was taken, all without leaving Clojure or suffering from mangled
 Clojure function names via YourKit or JVisualVM.
 
-If profiling is deemed useful enough to keep in your code base, it
+If profiling is deemed useful enough to keep in your code base, it is
 good practice to use the profiling macros via a namespace alias. +p+,
 while conveniently named, is prone to being shadowed by local bindings
 if used without an explicit namespace. In the solution we used the
-alias +p+, and each call to +p+ becomes +p/p+.
+alias +p+, so each call to +p+ becomes +p/p+.
 
 Remember, you should not be hesitant to add profiling statements:
 there is no performance penalty for code involving

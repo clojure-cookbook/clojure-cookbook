@@ -11,7 +11,7 @@ that it works in all possible scenarios.(((testing, generative tests)))(((genera
 ==== Solution
 
 Use the +test.generative+ library to specify a function's inputs, and
-test it across random generated values.
+test it across randomly generated values.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
@@ -21,7 +21,7 @@ $ lein try org.clojure/test.generative "0.5.0"
 ----
 
 Say you are trying to test the following function, which calculates
-the arithmatic mean of all the numbers in a sequence:
+the arithmetic mean of all the numbers in a sequence:
 
 [source,clojure]
 ----
@@ -32,7 +32,7 @@ the arithmatic mean of all the numbers in a sequence:
 ----
 
 
-The following +test.generative+ code then defines a _specification_ for
+The following +test.generative+ code defines a _specification_ for
 the +mean+ function:
 
 [source,clojure]
@@ -42,7 +42,7 @@ the +mean+ function:
          '[clojure.data.generators :as gen])
 
 (defn number
-  "Returns a random number, of a random type"
+  "Return a random number, of a random type"
   []
   (gen/one-of gen/byte
               gen/short
@@ -52,7 +52,7 @@ the +mean+ function:
               gen/double))
 
 (defn seq-of-numbers
-  "Returns a list, seq or set of numbers"
+  "Return a list, seq, or set of numbers"
   []
   (gen/one-of (gen/list number)
               (gen/set number)
@@ -67,9 +67,9 @@ the +mean+ function:
 To run the +mean-spec+ specification, invoke the +run+ function in the
 +clojure.test.generative.runner+ namespace, passing in the number of
 threads upon which to run the simulation, the number of milliseconds
-to run, and the *var* referring to a spec.
+to run, and the var referring to a spec.
 
-Running the previous example at the REPL:
+Here's what happens when we run the previous example at the REPL:
 
 [source,clojure]
 ----
@@ -79,7 +79,7 @@ Running the previous example at the REPL:
 
 This shows the behavior when the generative test fails. The exact
 details of the failure are returned as the data of a Clojure
-information-bearing exception; to retrieve it, you must retrieve an
+information-bearing exception; you must retrieve an
 instance of the exception itself and call +ex-data+ on it to return
 the data map.
 
@@ -97,7 +97,7 @@ error:
 ----
 
 This states that after only seven iterations, using the random number
-seed -875080314, the function under test was passed +#{}+ as input and threw a divide by zero error.
+seed &#x2013;875080314, the function under test was passed +#{}+ as input and threw a divide by zero error.
 
 Once highlighted in this way, the problem is easy to see; the +mean+
 function will divide by zero if +(count s)+ is zero. Fix the bug by
@@ -121,27 +121,27 @@ Rerunning now shows a passing test:
 ;;    {:iter 3909, :seed -1154113663, :test testgen-test.core/mean-spec}
 ----
 
-This output indicates that over the allotted five seconds, two threads
+This output indicates that over the allotted 5 seconds, two threads
 ran about 3,900 iterations of the test each and did not encounter any
 errors or assertion failures.
 
 ==== Discussion
 
-There are two key parts of the preceding test definition: the +defspec+
-form itself, which defines the generative test, and functions used to
+There are two key parts to the preceding test definition: the +defspec+
+form itself, which defines the generative test, and the functions used to
 generate random data. In this case, the data generator functions are
 built from primitive data generation functions found in the
 +clojure.data.generators+ namespace.
 
-Generator functions take no arguments and return a random
-value. Different functions produce different types of data. The
+Generator functions take no arguments and return random
+values. Different functions produce different types of data. The
 +clojure.data.generators+ namespace contains generator functions for
 all of Clojure's primitive types, as well as collections. It also
 contains functions for randomly choosing from a set of options; the
 +one-of+ function used previously, for example, takes a number of generator
 functions and chooses a value from one at random.(((macros, defspec macro)))(((defspec macro)))
 
-The +defspec+ macro takes three types of forms: a function to put
+The +defspec+ macro takes three types of forms: a _function_ to put
 under test, an _argument specification_, and a _body_ containing one or
 more assertion forms.
 
@@ -149,7 +149,7 @@ The function under test is simply the function to call. Over the
 course of the generative test, it will be called many times, each time
 with different values.
 
-The argument specification is a vector of arguments names and should
+The argument specification is a vector of argument names and should
 match the signature of the function under test. Each argument should
 have _metadata_ attached. Specifically, it should have a +:tag+
 metadata key, mapped to the fully qualified name of a generator
@@ -159,7 +159,7 @@ function.
 
 .Why :tag?
 ****
-You may find the use of +:tag+ metadata may be a bit
+You may find the use of +:tag+ metadata a bit
 confusing. Normally, +:tag+ is a type hint and returns a JVM
 _class_. In +test.generative+, it should be a _function_ that can return
 any type of value you want to pass to the function under test.
@@ -187,20 +187,20 @@ checks.
 
 An interesting difference between +test.generative+ and traditional
 unit tests is that rather than specifying what tests to run and
-having them take as long as they do, in +test.generative+, you specify
+having them take as long as they do, in +test.generative+ you specify
 how long to run, and the system will run as many random permutations
 of the test as it can fit into that time. This has the property of
 keeping test runtimes deterministic, while allowing you to trade off
-speed and comperehensiveness depending on the situation. For example,
+speed and comprehensiveness depending on the situation. For example,
 you might have tests run for five seconds in development, but thoroughly
-hammer the system for an hour every night on the CI server, allowing
+hammer the system for an hour every night on the continuous integration server, allowing
 you to find that (literally) one-in-a-million bug.
 
 ===== Running generative tests
 
 While developing tests, running from the REPL is usually the most
-convenient. However, there are many other scenarios (such as commit
-hooks or a continuous integration server) where running tests from the
+convenient. However, there are many other scenarios (such as testing commit
+hooks or on a CI) where running tests from the
 command line is required. For this purpose, +test.generative+ provides a
 +-main+ function in the +clojure.test.generative.runner+ namespace
 that takes as a command-line argument one or more directories where
@@ -209,19 +209,19 @@ in those locations for generative testing specifications and executes
 them.
 
 For example, if you've placed your generative tests in a
-+tests/generative+ directory inside a Leiningen project, you could
+_tests/generative_ directory inside a Leiningen project, you could
 execute tests by running the following at the shell, from your
 project's root directory:
 
 [source,shell-session]
 ----
-lein run -m clojure.test.generative.runner tests/generative
+$ lein run -m clojure.test.generative.runner tests/generative
 ----
 
 If you want to control the intensity of the test run, you can adjust
 the number of concurrent threads and the length of the run using the
 +clojure.test.generative.threads+ and +clojure.test.generative.msec+
-JVM system properties. Using leiningen, you must set these options in
+JVM system properties. Using Leiningen, you must set these options in
 the +:jvm-opts+ key in _project.clj_ like so:
 
 +clojure.test.generative.runner/-main+ will pick up any parameters
@@ -229,7 +229,7 @@ provided in this way, and run accordingly.
 
 ==== See Also
 
-- The https://github.com/clojure/test.generative[+test.generative+] page on Github
-- The QuickCheck Haskell library
+- The https://github.com/clojure/test.generative[+test.generative+] page on GitHub
+- The http://hackage.haskell.org/package/QuickCheck[QuickCheck Haskell library]
 - <<sec_simplecheck>> on SimpleCheck, a property-based testing library for Clojure with some overlap with +test.generative+ and unique features
 

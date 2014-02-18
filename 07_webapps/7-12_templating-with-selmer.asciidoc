@@ -5,7 +5,7 @@ by Dmitri Sotnikov
 
 ==== Problem
 
-You want to create server-side page templates using syntax similar to Django and Jinja. You want to be able
+You want to create server-side page templates using syntax similar to that of Django and Jinja. You want to be able
 to insert dynamic content and use template inheritance to structure the templates.(((HTML templates, Selmer)))(((Selmer library, dynamic content delivery with)))(((dynamic content delivery)))
 
 ==== Solution
@@ -22,9 +22,8 @@ $ lein try selmer
 ----
 
 A Selmer template is an HTML file with special tags that is populated with dynamic
-content at runtime. A simple template might look like the following:
+content at runtime. A simple template (_base.html_) might look like the following:
 
-._base.html_
 [source, html]
 ----
 <!DOCTYPE html>
@@ -64,20 +63,18 @@ The template can then be rendered by calling the +selmer.parser/render-file+ fun
 When +render-file+ runs, it will populate the tags with the content
 provided. The value will be returned as a string, suitable for use as
 the response body in a Ring application (for example). Here the result
-is simply printed to standard out, for easy inspection.
+is simply printed to standard output, for easy inspection.
 
 We can apply filters to variables for additional post-processing at runtime.
-Below, we use the +upper+ filter to convert our heading to uppercase:
+Here, we use the +upper+ filter to convert our heading to uppercase:
 
 [source, html]
 ----
 <h1>{{header|upper}}</h1>
 ----
 
-We can extract parts of the template into individual snippets using the +include+ tag. For example,
-if we wanted to define the header in a separate file, we could do the following:
+We can extract parts of the template into individual snippets using the +include+ tag. For example, if we wanted to define the header in a separate file _header.html_:
 
-._header.html_
 [source, html]
 ----
 <header>
@@ -96,7 +93,8 @@ if we wanted to define the header in a separate file, we could do the following:
 </header>
 ----
 
-._base.html_
+we could then include it as follows:
+
 [source, html]
 ----
 <!DOCTYPE html>
@@ -113,10 +111,9 @@ The +include+ tag will simply be replaced by the contents of the file it points 
 is compiled.
 
 We can also extend our base template when we create individual pages.
-To do that, we would first define a block in our base template. This will serve as an anchor
+To do that, we first define a block in our base template. This will serve as an anchor
 for the child template to override:
 
-._base.html_
 [source, html]
 ----
 <!DOCTYPE html>
@@ -135,7 +132,6 @@ for the child template to override:
 The child template will reference the parent using the +extends+ tag and define its own
 content for the +content+ block:
 
-._home.html_
 [source, html]
 ----
 {% extends "base.html" %}
@@ -158,15 +154,15 @@ evaluated when serving a request.
 
 ===== Selmer concepts
 
-Selmer includes two types of elements, variables and tags.(((Selmer library, variables and tags in)))
+Selmer includes two types of elements, _variables_ and _tags_.(((Selmer library, variables and tags in)))
 
 Variables are used to render values from the context map on the page.
 The +{{+ and +}}+ are used to indicate the start and end of a variable.
 
 In many cases, you may wish to post-process the value of a variable. For example, you might want to convert it to uppercase,
-pluralize it, or parse it as a date. Variable filters are used for this purpose.
+pluralize it, or parse it as a date. Variable filters (described in the following subsection) are used for this purpose.
 
-Tags are used to add various functionality to the template such as looping and conditions. We already saw examples of 
+Tags are used to add various functionality to the template, such as looping and conditions. We already saw examples of 
 the +for+, +include+, and +extends+ tags. The tags use +{%+ an +%}+ to define their content.
 
 The default tag characters might conflict with client-side frameworks such as AngularJS.
@@ -198,12 +194,12 @@ The +render+ function works just like +render-file+, except that it accepts the 
 
 ===== Defining filters
 
-Selmer provides a rich set of filters that allow decorating the dynamic content. Some of the filters include +capitalize+,
+Selmer provides a rich set of filters that allow decorating of the dynamic content. Some of the filters include +capitalize+,
 +pluralize+, +hash+, +length+, and +sort+.(((Selmer library, filters in)))
 
 However, if you need a custom filter that's not part of the library, you can trivially add one yourself.
-For example, if we wanted to parse Markdown using the https://github.com/yogthos/markdown-clj[markdown-clj library]
-and display it on the page, we could write the following filter:footnote:[You'll need to restart a new +lein-try+ REPL including +markdown-clj+ to try this.]
+For example, if we wanted to parse Markdown using the https://github.com/yogthos/markdown-clj[+markdown-clj+ library]
+and display it on the page, we could write the following filter:footnote:[You'll need to restart a new REPL with +lein-try+ including +markdown-clj+ to try this.]
 
 [source, clojure]
 ----
@@ -226,7 +222,7 @@ We can now use this filter in our templates to render our Markdown content:
 ----
 
 Note that we had to chain the +markdown+ filter with the +safe+ filter. This is due to the fact that Selmer escapes
-variable content by default. We can change our filter definition to indicate that its content does not need escaping:
+variable content by default. We can change our filter definition to indicate that its content does not need escaping as follows:
 
 [source, clojure]
 ----

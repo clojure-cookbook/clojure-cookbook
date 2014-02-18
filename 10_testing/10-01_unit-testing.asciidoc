@@ -9,7 +9,7 @@ You want to test individual units of Clojure code.(((testing, unit testing)))(((
 
 ==== Solution
 
-Clojure includes a unit testing framework in its +clojure.test+
+Clojure includes a unit-testing framework in its +clojure.test+
 namespace. It provides ways to name and group tests, make assertions,
 report results, and orchestrate test suites. 
 
@@ -24,7 +24,6 @@ using +clojure.test/deftest+:
   "Returns a new map with values for keys 'ks' in the map 'm' capitalized."
   [m & ks]
   (reduce (fn [m k] (update-in m [k] clojure.string/capitalize)) m ks))
-
 
 ;; The corresponding test in namespace com.example.core-test
 (require '[clojure.test :refer :all])
@@ -69,7 +68,7 @@ Run the test with the +clojure.test/run-tests+ function:
 ==== Discussion
 
 The preceding example only scratches the surface of what +clojure.test+
-provides for unit testing. Let us take a bottom-up look at its other
+provides for unit testing. Let's take a bottom-up look at its other
 features.
 
 First, you can improve reporting when an assertion fails by providing
@@ -176,8 +175,8 @@ and registers three fixture functions:
 You can think about fixture functions as forming a pipeline through
 which each test is passed as a parameter, which we called +test-fn+ in
 the preceding example. Take +inc-count+, for example. It is the job of this
-fixture to invoke the +test-fn+ function, continuing the pipeline; and
-afterward, increment a count (e.g., "do some work"). Each fixture
+fixture to invoke the +test-fn+ function, continuing the pipeline, and
+afterward, to increment a count (i.e., "do some work"). Each fixture
 decides whether to invoke +test-fn+ before or after its own work
 (compare the +add-test-id+ function with the +inc-count+ function),
 while the +clojure.test/use-fixtures+ multimethod controls whether
@@ -202,8 +201,8 @@ link:http://maven.apache.org/[Maven] to organize your project.
 
 In Leiningen, the default directory for your tests is a top-level
 _<project-root>/test_ folder, and you can run your project's tests with
-*+lein test+* at the command line. Without any additional arguments, the
-*+lein test+* command will execute all of the tests in a project:
++lein test+ at the command line. Without any additional arguments, the
++lein test+ command will execute all of the tests in a project:
 
 [source,shell-session]
 ----
@@ -229,7 +228,7 @@ lein test com.example.core-test
 Ran 5 tests containing 10 assertions.
 0 failures, 0 errors.
 
-# To run one, specific test:
+# To run one specific test
 $ lein test :only com.example.core-test/test-capitalize-entries
 
 lein test com.example.core-test
@@ -240,9 +239,8 @@ Ran 1 tests containing 2 assertions.
 
 ==== See Also
 
-* The +clojure.test+ http://bit.ly/clj-test-api[API documentation].
-* If you are instead using Maven, use the
-  https://github.com/talios/clojure-maven-plugin[clojure-maven-plugin]
+* The +clojure.test+ http://bit.ly/clj-test-api[API documentation] contains full information on the unit-testing framework.
+* If you are instead using Maven, use   https://github.com/talios/clojure-maven-plugin[+clojure-maven-plugin+]
   to run Clojure tests. This plug-in will incorporate your Clojure
   tests located in the Maven standard _src/test/clojure_ directory as
   part of the +test+ phase in the Maven build life cycle. You can

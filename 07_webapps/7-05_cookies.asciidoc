@@ -12,7 +12,6 @@ Use the `ring.middleware.cookies/wrap-cookies` middleware to add cookies to your
 
 To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
-._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
@@ -64,12 +63,10 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
 
 This example uses the `wrap-cookies` and `wrap-params` middlewares
 included with +ring-core+. The first time users visit a page, it
-shows them a form to enter their name.  After their name
-is entered, it stores their name in a cookie and displays it as a
-instead, until the cookie is removed.
+shows them a form to enter their names. Once entered, it stores the user's name in a cookie and displays it instead, until the cookie is removed.
 
 The example uses `wrap-cookies` to retrieve the user's stored name
-from the cookie map, or if it's not there, `wrap-params` to retrieve
+from the cookie map, or, if it's not there, `wrap-params` to retrieve
 the user's name from the request parameters.
 
 Ring's cookie middleware simply adds an extra parameter, `:cookies`,
@@ -100,4 +97,4 @@ ____
 ==== See Also
 
 * <<sec_ring_middleware>>
-* Ring's http://bit.ly/ring-cookies[cookie documentation]
+* Ring's http://bit.ly/ring-cookies[cookies documentation]

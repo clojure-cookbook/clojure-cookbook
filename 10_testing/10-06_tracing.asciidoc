@@ -10,7 +10,7 @@ is doing.(((testing, tracing code execution)))(((tools.trace library)))
 ==== Solution
 
 Use the https://github.com/clojure/tools.trace[+tools.trace+]
-library's bevy of "trace" functions and macros to help examine your
+library's bevy of "trace" functions and macros to examine your
 code as it runs.
 
 Before starting, add `[org.clojure/tools.trace "0.7.6"]` to your
@@ -63,21 +63,13 @@ At its core, the +tools.trace+ library is all about introspecting upon
 the execution of a body of code. The +trace+ function is the simplest
 and most low-level tracing operation. Wrapping a value in an
 invocation of +trace+ does two things: it logs a tracer message to
-STDOUT and, most importantly, returns the original value unadulterated.
++STDOUT+ and, most importantly, returns the original value unadulterated.
 +tools.trace+ provides a number of other granularities for tracing
 execution.(((exceptions/errors, tracing code execution)))
 
 Stepping up a level from simple values, you can define functions with
-+clojure.tools.trace/deftrace+ instead of +defn+ to trace the input
-and output to the function you define.
-
-[CAUTION]
-====
-It is not advisable to deploy production code with tracing in place.
-Tracing is most suited to development and debugging, particularly from
-the REPL. Include +tools.trace+ in your _project.clj_'s +:dev+ profile
-to make tracing available only to development tasks.((("development ecosystem", "tracing code execution")))((("performance/production", "tracing code execution and")))
-====
++clojure.tools.trace/deftrace+ instead of +defn+ to trace the input to
+and output from the function you define:
 
 [source,clojure]
 ----
@@ -91,10 +83,18 @@ to make tracing available only to development tasks.((("development ecosystem", 
 ;; TRACE t815: => 8.0
 ----
 
+[CAUTION]
+====
+It is not advisable to deploy production code with tracing in place.
+Tracing is most suited to development and debugging, particularly from
+the REPL. Include +tools.trace+ in your _project.clj_'s +:dev+ profile
+to make tracing available only to development tasks.((("development ecosystem", "tracing code execution")))((("performance/production", "tracing code execution and")))
+====
+
 If you're trying to diagnose a difficult-to-understand exception, use
 the +clojure.tools.trace/trace-forms+ macro to wrap an expression and
 pinpoint the origin of the exception. When no exception occurs,
-`trace-forms` prints no output, and returns normally:
+`trace-forms` prints no output and returns normally:
 
 [source,clojure]
 ----
@@ -131,7 +131,7 @@ remove such a trace, use +clojure.tools.trace/untrace-vars+:
 
 To trace or untrace an entire namespace, use
 +clojure.tools.trace/trace-ns+ and +clojure.tools.trace/untrace-ns+,
-respectively. This will dynamically add or remove tracing from all
+respectively. This will dynamically add tracing to or remove it from all
 functions and vars in a namespace. Even things defined _after_
 +trace-ns+ is invoked will be traced:
 

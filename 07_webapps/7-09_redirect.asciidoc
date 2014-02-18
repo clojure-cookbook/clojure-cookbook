@@ -4,7 +4,7 @@ by Craig McDaniel
 
 ==== Problem
 
-In a Ring application, you need to return a HTTP response code that will redirect the browser to another URL.(((Ring library, performing redirects with)))(((redirects)))(((request redirects)))
+In a Ring application, you need to return an HTTP response code that will redirect the browser to another URL.(((Ring library, performing redirects with)))(((redirects)))(((request redirects)))
 
 ==== Solution
 
@@ -12,7 +12,6 @@ To redirect a Ring request, use the +redirect+ function in the +ring.util.respon
 
 To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
-._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
@@ -32,7 +31,7 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
 
 ==== Discussion
 
-The +ring.util.response+ namespace contains a function for redirecting to a URL. This URL can be generated dynamically from the request map (using parameters from wrap-params, headers, etc.). Underneath, this function simply creates a response map with a 302 +:status+ value and a location header containing the URL to redirect to.(((range="endofrange", startref="ix_WAring")))(((range="endofrange", startref="ix_HTTPring")))
+The +ring.util.response+ namespace contains a function for redirecting to a URL. This URL can be generated dynamically from the request map (using parameters from +wrap-params+, headers, etc.). Underneath, this function simply creates a response map with a 302 +:status+ value and a location header containing the URL to redirect to.(((range="endofrange", startref="ix_WAring")))(((range="endofrange", startref="ix_HTTPring")))
 
 According to the HTTP specification, if the response method is a POST, PUT, or DELETE, it should be assumed that the server received the request, and the client should issue a GET request to the URL in the location header. This is an important caveat when writing REST services. Fortunately, the specification provides a 307 status code, which should signal to clients that the request should be redirected to the new location using the original method and body. To do this, simply return a response map in the handler function like so:
 
@@ -47,4 +46,4 @@ According to the HTTP specification, if the response method is a POST, PUT, or D
 
 ==== See Also
 
-* http://bit.ly/ring-concepts[Ring concepts]
+* Ring's http://bit.ly/ring-concepts[concepts documentation]

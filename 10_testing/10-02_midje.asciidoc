@@ -5,12 +5,12 @@ by Joseph Wilk
 
 ==== Problem
 
-You want to unit test a function that integrates with external
+You want to unit-test a function that integrates with external
 dependencies such as HTTP services or databases.(((testing, integrated functions)))(((Midje)))
 
 ==== Solution
 
-Use https://github.com/marick/Midje[Midje], a testing framework which
+Use https://github.com/marick/Midje[Midje], a testing framework that
 provides ways to mock functions and return fakes.
 
 To follow along with this recipe, start a REPL using +lein-try+:
@@ -68,12 +68,12 @@ In Midje, +facts+ associates a description with a group of tests, while
 ----
 
 Assertions behave a little differently than most testing frameworks.
-Within a +fact+ body, every single assertion is checked irrespective of
+Within a +fact+ body, every single assertion is checked, irrespective of
 whether a previous one failed.(((assertions)))
 
 Midje only provides mocks, not stubs. All functions specified in the
 +provided+ body have to be called for the test to pass. Mocks use the
-same syntax as assertions but with a slightly different meaning:
+same syntax as assertions, but with a slightly different meaning:
 
 [source,clojure]
 ----
@@ -85,18 +85,18 @@ same syntax as assertions but with a slightly different meaning:
 It is important to note you are not calling the `(+ 10 10)` function
 here--you are setting up a pattern. Every function call occurring in
 the test is checked to see if it matches this pattern. If it does, do
-not call the function, but instead return 0. When defining mocks with
-+provided+, there is a lot of flexibly on how to match mock functions
+not call the function, but instead return +0+. When defining mocks with
++provided+, there is a lot of flexibility in terms of how to match mock functions
 against real calls. In the preceding solution, for example, regular
 expressions are used. This expression instructs Midje to mock calls to
-+http/get+, whose URL ends in +"/users/clojure-cookbook"+:
++http/get+ whose URLs end in _/users/clojure-cookbook_:
 
 [source,clojure]
 ----
-;; The expectation ...
+;; The expectation 
 (http/get #"/users/clojure-cookbook$") 
 
-;; Would match:
+;; Would match
 (http/get "http://localhost:4001/users/clojure-cookbook")
 ;; or
 (http/get "https://api.github.com/users/clojure-cookbook")
@@ -146,7 +146,7 @@ From within a REPL, you can investigate all of Midje's checkers:
 ;;    (f) => (some-checker odd? (roughly 9))) ; one must be true
 ----
 
-You may have noticed in the solution we used +..body..+ instead of an
+You may have noticed in the solution that we used +..body..+ instead of an
 actual response. This is something Midje refers to as a _metaconstant_.
 
 A metaconstant is any name that starts and ends with two dots. It has
@@ -161,7 +161,6 @@ development dependencies and `[lein-midje "3.1.2"]` to your
 development plug-ins. Your _project.clj_ should look something like
 this:
 
-._project.clj_
 [source,clojure]
 ----
 (defproject example "1.0.0-SNAPSHOT"
@@ -169,9 +168,9 @@ this:
                    :plugins [[lein-midje "3.1.2"]}})
 ----
 
-Midje provides two ways to run tests, through a REPL, as you may have
-been doing, or through a Leiningen. Midje actually encourages you to
-run everything through the REPL, as you develop them. One very useful
+Midje provides two ways to run tests: through a REPL, as you may have
+been doing, or through Leiningen. Midje actually encourages you to
+run all your tests through the REPL, as you develop them. One very useful
 way to run your tests is with the +midje.repl/autotest+ function. This
 continuously polls the filesystem looking for changes in your project. When it detects these changes, it will automatically rerun the relevant
 tests:
@@ -189,13 +188,13 @@ tests:
 ----
 
 There are many more things you can do from the REPL with Midje. To
-find out more, read the docstring of +midje-repl+ by running +(doc
-midje-repl)+ in a REPL.
+find out more, read the docstring of +midje-repl+ by running *+(doc
+midje-repl)+* in a REPL.
 
 You can also run Midje tests through the Leiningen plug-in +lein-midje+
 (add as noted in _project.clj_). +lein-midje+ allows you run tests
 at a number of granularities--all of your tests, all the tests in a
-group, or all of the tests in a single namespace:
+group, or all the tests in a single namespace:
 
 ----
 # Run all your tests

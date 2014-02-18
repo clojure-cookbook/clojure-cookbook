@@ -5,20 +5,19 @@ by Adam Bard
 
 ==== Problem
 
-You'd like to build a transformation automatically applied to Ring
+You'd like to build a transformation to be automatically applied to Ring
 requests or responses. For example, Ring gives you query strings, but
 you'd really rather work with a parsed map.(((Ring library, middleware functions of)))(((middleware)))
 
 ==== Solution
 
 Since Ring works with regular Clojure data and functions, you can easily define
-middleware as functions returning functions. Define a middleware that modifies
+middlewares as functions returning functions. In this case, define a middleware that modifies
 the request by adding a parsed version of the query string to the request
 before passing it on to the handler.(((functions, middleware and)))
 
 To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
-._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
@@ -54,7 +53,7 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
 
 ==== Discussion
 
-Since Ring handlers operate on regular Clojure maps, it's very easy to write middleware
+Since Ring handlers operate on regular Clojure maps, it's very easy to write a middleware
 that wraps a handler. Here, we write a middleware that modifies the request
 before passing it to the handler. If the original request looked like this:
 
@@ -65,7 +64,7 @@ before passing it to the handler. If the original request looked like this:
  }
 ----
 
-Then the request received by the handler becomes:
+then the request received by the handler becomes:
 
 [source, clojure]
 ----
@@ -76,23 +75,26 @@ Then the request received by the handler becomes:
 ----
 
 However, you don't need to write your own middleware for this. Ring provides
-a number of middlewares to add to your app, including one called `params` that
-does the same as the middleware we just wrote but better.
+a number of middlewares to add to your apps, including one called `wrap-params` that
+does the same as the middleware we just wrote, but better. From the http://bit.ly/clj-wrap-params[Ring documentation]:
 
-[quote, Ring Documentation]
+[quote]
 ____
 **wrap-params**
 
 Middleware to parse urlencoded parameters from the query string and form
 body (if the request is a urlencoded form). Adds the following keys to
 the request map:
-  :query-params - a map of parameters from the query string
-  :form-params  - a map of parameters from the body
-  :params       - a merged map of all types of parameter
+
+:query-params - a map of parameters from the query string
+
+:form-params  - a map of parameters from the body
+
+:params       - a merged map of all types of parameter
+
 Takes an optional configuration map. Recognized keys are:
-  :encoding - encoding to use for url-decoding. If not specified, uses
-              the request character encoding, or "UTF-8" if no request
-              character encoding is set.
+
+:encoding - encoding to use for url-decoding. If not specified, uses the request character encoding, or "UTF-8" if no request character encoding is set.
 ____
 
 You are in no way limited to using one middleware.  Usually, you'll at
@@ -113,4 +115,4 @@ with several middlewares is to use the `->` macro:
 
 ==== See Also
 
-* http://bit.ly/ring-middleware[Middleware concepts]
+* Ring's http://bit.ly/ring-middleware[middleware concepts documentation]

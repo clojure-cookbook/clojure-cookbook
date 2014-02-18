@@ -14,7 +14,7 @@ Use `ring.middleware.file/wrap-file`:
 ----
 (require '[ring.middleware.file :refer [wrap-file]])
 
-;; Serve all files from your public directory.
+;; Serve all files from your public directory
 (def app
   (wrap-file handler "/var/webapps/public"))
 ----
@@ -29,17 +29,17 @@ Use `ring.middleware.file/wrap-file`:
 ----
 (require '[ring.util.response :refer [file-response]])
 
-;; Serve README.html.
+;; Serve README.html
 (file-response "README.html")
 
-;; Serve README.html from the public/ directory.
+;; Serve README.html from the public/ directory
 (file-response "README.html" {:root "public"})
 
-;; Serve README.html through a symlink.
+;; Serve README.html through a symlink
 (file-response "README.html" {:allow-symlinks? true})
 ----
 
-Often, you will want to bundle your static files with your application. In that case, it makes more sense to serve files from your classpath rather than from a specific directory. In that case, you want to use `ring.middleware.resource/wrap-resource`:
+Often, you will want to bundle your static files with your application. In that case, it makes more sense to serve files from your classpath rather than from a specific directory. For this, use `ring.middleware.resource/wrap-resource`:
 
 [source,clojure]
 ----
@@ -49,9 +49,9 @@ Often, you will want to bundle your static files with your application. In that 
   (wrap-resource handler "static"))
 ----
 
-This will serve all files under a directory called `static` in your classpath. You can put the `static` directory under `resources/` in a Leiningen project and have your static files packaged with JAR files you generate from that project.
+This will serve all files under a directory called _static_ in your classpath. You can put the _static_ directory under _resources/_ in a Leiningen project and have your static files packaged with JAR files you generate from that project.
 
-You may want to wrap any file responses with `ring.middleware.file-info/wrap-file-info`. This Ring middleware checks the modification date and the type of the file, setting `Content-Type` and `Last-Modified` headers. `wrap-file-info` needs to wrap around `wrap-file` or `wrap-resource`.
+You may want to wrap any file responses with `ring.middleware.file-info/wrap-file-info`. This Ring middleware checks the modification date and the type of the file, setting the `Content-Type` and `Last-Modified` headers. `wrap-file-info` needs to wrap around `wrap-file` or `wrap-resource`.
 
 ==== See Also
 

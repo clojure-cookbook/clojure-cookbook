@@ -8,12 +8,12 @@ question, "In which domains are you applying Clojure and/or
 ClojureScript?"
 
 Much of the Clojure web development community today centers around
-https://github.com/ring-clojure/ring[Ring], a HTTP server library very
+https://github.com/ring-clojure/ring[Ring], an HTTP server library very
 much akin to Ruby's http://rack.github.io/[Rack]. Starting with the
-introduction to Ring in <<sec_webapps_ring_introduction>> you'll find
-a full complement of recipes that will get you up to speed in no time.
+introduction to Ring in <<sec_webapps_ring_introduction>>, you'll find
+a full complement of recipes here that will get you up to speed in no time.
 
-Following Ring, the chapter takes a tour of the other the Clojure web
-development ecosystems as of the date of publication, covering a few
+Following Ring, the chapter takes a tour of the other Clojure web
+development ecosystems available at the time of writing, covering a few
 templating and HTML-manipulation libraries and a number of alternative
 web frameworks.

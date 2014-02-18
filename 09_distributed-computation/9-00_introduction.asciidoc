@@ -2,27 +2,26 @@
 
 With the advent of cheaper and cheaper storage, we're inclined to
 store more and more data. As this data grows larger and larger, it
-becomes increasingly difficult to utilize to its full potential. To
-this end, numerous new techniques have emerged in the last decade or
+becomes increasingly difficult to utilize to its full potential. In response, numerous new techniques have emerged in the last decade or
 so for dealing with such quantities of data.
 
 The primary focus of this chapter is one such technique,
 http://bit.ly/mapreduce-paper[MapReduce],
 developed at Google in the early 2000s. Functional even in name, this
-technique uses map and reduce in parallel across multiple machines at
-tremendous scale to process data at phenomenal speed. In this chapter,
-we'll be covering http://cascalog.org/[Cascalog], a data processing
-library built on top of Hadoop (an open source MapReduce
+technique uses +map+ and +reduce+ in parallel across multiple machines at
+tremendous scale to process data at phenomenal speeds. In this chapter,
+we'll be covering http://cascalog.org/[Cascalog], a data-processing
+library built on top of http://hadoop.apache.org/[Hadoop] (an open source MapReduce
 implementation).((("Amazon’s Elastic MapReduce (EMR)", see="Elastic MapReduce (EMR)")))((("MapReduce", see="Elastic MapReduce (EMR)")))((("cloud computing", see="distributed computation")))((("Elastic MapReduce (EMR)", "basics of")))(((distributed computation, Elastic MapReduce)))
 
 We'll also briefly cover http://storm-project.net/[Storm], a
-real-time, stream-processing library in use at several tech giants
+real-time stream-processing library in use at several tech giants
 such as Twitter, Groupon, and Yahoo!.
 
 ==== Cascalog
 
 Cascalog defines a DSL based on Datalog, the same query language that
-backs Datomic. It might be a strange at first, but you will be
+backs http://www.datomic.com/[Datomic]. It might seem strange at first, but you will be
 thinking in Datalog in no time. Once you've wet your feet with these
 recipes, visit the http://bit.ly/cascalog-wiki[Cascalog
 wiki] for more information on writing your own queries.(((distributed computation, Cascalog)))(((Cascalog, basics of)))
@@ -40,14 +39,14 @@ setting up a cluster.
 
 Once your jobs outgrow local mode, you'll need to start running them
 on a Hadoop cluster. Having your own cluster is a lot of fun, but it
-can be a fair amount of work (and money!) to setup and maintain. If
+can take a fair amount of work (and money!) to set up and maintain. If
 you don't need a cluster very often, you might consider running your
-job on Amazon EMR, Elastic MapReduce. EMR provides on-demand Hadoop
+job on link to http://aws.amazon.com/elasticmapreduce/[Amazon Elastic MapReduce] (EMR). EMR provides on-demand Hadoop
 clusters the same way EC2 provides on-demand servers. You'll need an
 Amazon Web Services account to run the job, but it isn't difficult.
-You can read exactly how to do it later in <<sec_cascalog_emr>>.
+You can read exactly how to do it later, in <<sec_cascalog_emr>>.
 Whether you run your job on EMR or on your own cluster, you will
-package up your code into an uberjar, then send it to Hadoop for
+package up your code into an uberjar (see <<sec_packaging_jars>>), then send it to Hadoop for
 execution. It is surprisingly simple to get hundreds of computers
 working on your task.(((Hadoop, on-demand through EMR)))
 

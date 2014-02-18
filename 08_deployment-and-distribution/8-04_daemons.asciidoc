@@ -5,13 +5,13 @@ by Ryan Neufeld
 
 ==== Problem
 
-You want to run a Clojure application as a _daemon_ (i.e., you want your application to run in the background) in another system process.((("performance/production", "background applications")))(((daemon execution, library for)))(((Apache Commons Daemon library)))(((applications, background deployment of)))
+You want to run a Clojure application as a daemon (i.e., you want your application to run in the background) in another system process.((("performance/production", "background applications")))(((daemon execution, library for)))(((Apache Commons Daemon library)))(((applications, background deployment of)))
 
 ==== Solution
 
 Use the Apache Commons Daemon library to write applications that can
 be executed in a background process. Daemon consists of two parts: the
-+Daemon+ interface, which your application must implement; and a
++Daemon+ interface, which your application must implement, and a
 system applicationfootnote:[+jsvc+ on Unix systems; +procrun+ on
 Windows.] that runs +Daemon+-compliant applications as
 daemons.(((daemon execution, adding Daemon dependency)))
@@ -19,9 +19,8 @@ daemons.(((daemon execution, adding Daemon dependency)))
 Begin by adding the Daemon dependency to your project's _project.clj_
 file. If you don't have an existing project, create a new one with the
 command *+lein new my-daemon+*. Since Daemon is a Java-based system,
-enable AOT-compilation so that class files are generated:
+enable AOT compilation so that class files are generated:
 
-._project.clj_
 [source,clojure]
 ----
 (defproject my-daemon "0.1.0-SNAPSHOT"
@@ -38,11 +37,10 @@ enable AOT-compilation so that class files are generated:
 To implement the +org.apache.commons.daemon.Daemon+ interface, add the
 appropriate +:gen-class+ declaration and interface functions to one of
 your project's namespaces. For a minimally functional daemon,
-implement +-init+, +-start+ and +-stop+. For best results, provide a
-+-main+ function to enable smoke testing your application without
+implement +-init+, +-start+, and +-stop+. For best results, provide a
++-main+ function to enable smoke testing of your application without
 touching the +Daemon+ interface:
 
-._src/my_daemon/core.clj_
 [source,clojure]
 ----
 (ns my-daemon.core
@@ -50,7 +48,7 @@ touching the +Daemon+ interface:
   (:gen-class
     :implements [org.apache.commons.daemon.Daemon]))
 
-;; A crude approximation of your application's state.
+;; A crude approximation of your application's state
 (def state (atom {}))
 
 (defn init [args]
@@ -94,7 +92,7 @@ Created /tmp/my-daemon/target/my-daemon-0.1.0-SNAPSHOT.jar
 Created /tmp/my-daemon/target/my-daemon-0.1.0-SNAPSHOT-standalone.jar
 ----
 
-Before proceeding, test your application by running it with *+java+*:
+Before proceeding, test your application by running it with +java+:
 
 [source,shell-session]
 ----
@@ -106,15 +104,15 @@ tick
 ----
 
 Once you've verified your application works correctly, install +jsvc+.footnote:[On OS X we suggest using http://http://brew.sh/[Homebrew] to
-*+brew install jsvc+*. If you're using Linux, you'll likely find a
++brew install jsvc+. If you're using Linux, you'll likely find a
 +jsvc+ package in your favorite package manager. Windows users will
 need to install and use
-http://bit.ly/daemons-procrun[procrun].]
+http://bit.ly/daemons-procrun[+procrun+].]
 Finally, the moment of truth. Run your application as a daemon by
-invoking +jsvc+ with all of the requisite parameters: the absolute
-path of your Java home directory, uber JAR, output log file, and the
-namespace where your +Daemon+ implementation resides.footnote:[Don't
-worry, we'll capture this all in a shell script soon.]
+invoking +jsvc+ with all of the requisite parameters--the absolute
+path of your Java home directory, the uberjar, the output log file, and the
+namespace where your +Daemon+ implementation resides:footnote:[Don't
+worry, we'll capture all this in a shell script soon.]
 
 [source,shell-session]
 ----
@@ -137,7 +135,7 @@ $ sudo jsvc -java-home "$JAVA_HOME" \
             my_daemon.core
 ----
 
-If all is well, _out.txt_ should now contain a couple ticks.
+If all is well, _out.txt_ should now contain a couple of ticks.
 Congratulations! Daemon can be a little hard to get set up, but once
 you have it running, it works fantastically. If you encounter any
 problems launching a daemon using +jsvc+, use the +-debug+ flag to
@@ -145,26 +143,26 @@ output more detailed diagnostic information.
 
 [NOTE]
 ====
-You'll find a full working copy of the my-daemon project at https://github.com/clojure-cookbook/my-daemon.
+You'll find a full working copy of the +my-daemon+ project at https://github.com/clojure-cookbook/my-daemon.
 ====
 
 ==== Discussion
 
-Have no illusions, daemonizing Java-based services is *hard*; yet, for
+Have no illusions, daemonizing Java-based services is _hard_; yet, for
 over 10 years, Java developers have been using Apache Commons Daemon
 to this end. Why reinvent the wheel with a separate Clojure tool? One
 of Clojure's core strengths is its ability to breathe new life into old
 tunes, and Daemon is one such "old tune."(((daemon execution, benefits/drawbacks of)))
 
-Not all tunes are created equally, however. Where some Java libraries
+Not all tunes are created equal, however. Where some Java libraries
 require a little Java interop, Daemon requires a lot. Daemonizing an
 application with Apache Commons Daemon requires getting two parts
-*just right*.(((daemon execution, interface for)))
+_just right_.(((daemon execution, interface for)))
 
 The first part is creating a class that implements the +Daemon+
 interface and packaging it as a JAR file. The +Daemon+ interface
 consists of four methods, called at different points in an daemonized
-applications lifecycle:
+application's life cycle:
 
 +init(DaemonContext context)+::
 Invoked as your application is
@@ -188,8 +186,8 @@ Invoked after +stop+, but before the JVM process
   doesn't hurt to include an empty function to prevent +jsvc+ from compaining.
 
 It's easy enough to create a record (with +defrecord+) that implements
-the +Daemon+ interface--but that isn't enough, though. +jsvc+ expects
-a +Daemon+-implementing *class* to exist on the classpath. To provide
+the +Daemon+ interface--but that isn't enough. +jsvc+ expects
+a +Daemon+-implementing _class_ to exist on the classpath. To provide
 this, you must do two things: first, you need to enable ahead-of-time
 (AOT) compilation for your project--setting +:aot :all+ in your
 _project.clj_ will accomplish this. Second, you need to commandeer a
@@ -217,7 +215,7 @@ instance. This argument is traditionally denoted with the name +this+.
 In our simple +my-daemon+ example, most of the method implementations
 are rather plain, taking no arguments other than +this+ and delegating
 work to regular Clojure functions. +-init+ deserves a bit more
-attention though:
+attention, though:
 
 [source,clojure]
 ----
@@ -225,25 +223,24 @@ attention though:
   (init (.getArguments context)))
 ----
 
-The +-init+ method takes as an additional argument: a +DaemonContext+.
+The +-init+ method takes an additional argument: a +DaemonContext+.
 This argument captures the command-line arguments the daemon was
-started with on its +.getArguments+ property. As implemented, +-init+
-invokes +.getArguments+ method on +context+, passing its return value
+started with in its +.getArguments+ property. As implemented, +-init+
+invokes the +.getArguments+ method on +context+, passing its return value
 along to the regular Clojure function +init+.
 
 On that topic, why delegate every +Daemon+ implementation to a
 separate Clojure function? By separating participation in the +Daemon+
 interface from the inner workings of your application, you retain the
 ability to invoke it in other ways. With this separation of concerns,
-it becomes much easier to test your application, either via
-integration tests or direct invocation. The +-main+ function utilizes
-these Clojure functions to allow you to verify your application
+it becomes much easier to test your application, via either integration tests or direct invocation. The +-main+ function utilizes
+these Clojure functions to allow you to verify that your application
 behaves correctly in isolation of daemonization.
 
-With all of the groundwork for a Daemon-compliant application layed,
-the only remaining step remaining is packaging the application.
+With all of the groundwork for a Daemon-compliant application laid,
+the only remaining step is packaging the application.
 Leiningen's +uberjar+ command completes all of the necessary
-preprarations for running your application as a daemon: compiling
+preparations for running your application as a daemon: compiling
 +my-daemon.core+ to a class, gathering dependencies, and packaging them
 all into a standalone JAR file.
 
@@ -258,11 +255,11 @@ discussion to the +jsvc+ tool for the remainder of the recipe.(((daemon executio
 
 Both of these tools have a dizzying number of configuration options,
 but only a handful of them are actually necessary for getting the ball
-rolling. At a minumum, you must provide the location of your
-standalone JAR (+-cp+), Java installation (+-java-home+), and the
+rolling. At a minimum, you must provide the location of your
+standalone JAR (+-cp+), your Java installation (+-java-home+), and the
 desired class to execute (the final argument). Other relevant options
 include +-pidfile+, +-outfile+, and +-errfile+; these specify where the
-process's ID, standard out, and standard error will be written to,
+process's ID, +STDOUT+, and +STDERR+ output will be written to,
 respectively. Any arguments following the name of the class to invoke
 will be passed into +-init+ as a +DaemonContext+.
 
@@ -284,23 +281,23 @@ Once you've started a daemon with +jsvc+, you can halt it by
 re-running +jsvc+ with the +-stop+ option included.
 ====
 
-Since +jsvc+ *relaunches* your application in a completely new
+Since +jsvc+ _relaunches_ your application in a completely new
 process, it carries none of its original execution context. This means
 no environment variables, no current working directory, nothing; the
 process may not even be running as the same user. Because of this, it
 is extremely important to specify arguments to +jsvc+ with their
 absolute paths and correct permissions in place.
 
-For our sample, we've opted to use *+sudo+* to make this a less
-painful experience; but in a production, you should set up a separate
+For our sample, we've opted to use +sudo+ to make this a less
+painful experience, but in production you should set up a separate
 user with more limited permissions. The running user should have write
-access to the PID, out and err files, and read access to Java and the
+access to the _.pid_, _.out_, and _.err_ files, and read access to Java and the
 classpath.
 
 +jsvc+ and its ilk can be fickle beasts--the slightest
 misconfiguration will cause your daemon to fail silently, without
 warning. We highly suggest using the +-debug+ and +-nodetach+ flags
-while developing and configuring your daemon until you're *sure*
+while developing and configuring your daemon until you're _sure_
 things work correctly.(((daemon execution, script automation)))
 
 Once you've nailed an appropriate configuration, the final step is to
@@ -309,7 +306,7 @@ good daemon script captures configuration parameters, file paths, and
 common operations, exposing them in a clean, noise-free skin. Instead
 of the long +jsvc+ commands you executed before, you would simply
 invoke *+my-daemon start+* or *+my-daemon stop+*. In fact, many Linux
-distributions use scripts such as this to manage system daemons. To
+distributions use similar scripts to manage system daemons. To
 implement your own +jsvc+ daemon script, we suggest reading Sheldon
 Neilson's http://www.neilson.co.za/?p=253["Creating a Java Daemon (System Service) for Debian using Apache Commons Jsvc"].
 
@@ -317,15 +314,15 @@ Neilson's http://www.neilson.co.za/?p=253["Creating a Java Daemon (System Servic
 
 * The +Daemon+
   http://bit.ly/commons-api[documentation]
-* The contents of the +jsvc+ man page, accessible via *+jsvc
+* The contents of the +jsvc+ manpage, accessible via *+jsvc
   -help+*
 * http://bit.ly/daemons-procrun[+procrun+], a Daemon runner for Windows
-* https://github.com/arohner/lein-daemon[lein-daemon], a Leiningen
-  plug-in for creating daemons that can be managed via a *+lein
-  daemon+* command inside your project
+* https://github.com/arohner/lein-daemon[+lein-daemon+], a Leiningen
+  plug-in for creating daemons that can be managed via a +lein
+  daemon+ command inside your project
 * <<sec_aot_compilation>> for more information on AOT compilation
 * <<sec_packaging_jars>> for more information on packaging JAR files
-* The blog post http://bit.ly/gen-class-post["gen-class--how it works and how to use it"]
-* Stuart Sierra's https://github.com/stuartsierra/component[component]
-  library, a tiny framework for managing the lifecycle of software
+* Meikel Brandmeyer's blog post http://bit.ly/gen-class-post["gen-class--how it works and how to use it"]
+* Stuart Sierra's https://github.com/stuartsierra/component[Component]
+  library, a tiny framework for managing the life cycle of software
   components

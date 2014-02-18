@@ -1,5 +1,5 @@
 [[ch_deployment_and_distribution]]
-== Performance & Production
+== Performance and Production
 
 include::8-00_introduction.asciidoc[]
 

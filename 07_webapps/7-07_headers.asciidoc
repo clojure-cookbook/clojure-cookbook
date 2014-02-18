@@ -1,4 +1,4 @@
-=== Reading and Writing Request & Response Headers in Ring
+=== Reading and Writing Request and Response Headers in Ring
 [role="byline"]
 by Luke VanderHart and Adam Bard
 
@@ -9,11 +9,10 @@ You need to read or write HTTP request or response headers.(((Ring library, requ
 ==== Solution
 
 Read from the `:headers` key in a Ring request map, or `assoc` values
-on to the response map before returning from a Ring handler function.
+onto the response map before returning from a Ring handler function.
 
 To follow along with this recipe, clone the https://github.com/clojure-cookbook/ringtest repository and overwrite _src/ringtest.clj_:
 
-._src/ringtest.clj_
 [source, clojure]
 ----
 (ns ringtest
@@ -21,7 +20,7 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
     [ring.adapter.jetty :as jetty]))
 
 (defn user-agent-as-json
-  "A handler that returns the User-agent header as a JSON
+  "A handler that returns the User-Agent header as a JSON
    response with an appropriate Content-Type"
   [req]
   {:body (str "{\"user-agent\": \"" (get-in req [:headers "user-agent"]) "\"}")
@@ -50,15 +49,15 @@ http://bit.ly/http-header-fields[valid in
 HTTP].
 
 According to http://bit.ly/rfc2616[RFC-2616], header
-names are *not* case sensitive. To make it easier to consistently
+names are _not_ case sensitive. To make it easier to consistently
 `get` values from the request map, no matter what their case, Ring
 passes in all header values as lowercase, regardless of what the
-client sent. You may wish to *send* headers using the actual
-capitalization used in the specification, just in case the
+client sent. You may wish to _send_ headers using the actual
+capitalization used in the specification, though, just in case the
 client you're communicating with is not compliant (following the
 classic robustness principle: "Be conservative in what you send; be
 liberal in what you accept").
 
 ==== See Also
 
-* http://bit.ly/ring-concepts[Ring concepts]
+* Ring's http://bit.ly/ring-concepts[concepts documentation]

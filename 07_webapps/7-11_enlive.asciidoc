@@ -10,7 +10,7 @@ traditional mixed code or DSL-style templating.((("web applications", "templatin
 
 ==== Solution
 
-Use Enlive, a Clojure library that takes a selector-based approach to
+Use https://github.com/cgrand/enlive[Enlive], a Clojure library that takes a selector-based approach to
 templating HTML. Unlike other template frameworks like PHP, ERB, and JSP, it doesn't mix code and text. And unlike systems like Haml or
 Hiccup, it doesn't use specialized DSLs. Instead, templates are plain
 old HTML files, and Enlive uses Clojure code to target specific areas
@@ -23,11 +23,8 @@ To follow along with this recipe, start a REPL using +lein-try+:
 $ lein try enlive
 ---- 
 
-To begin, create a file _post.html_ to serve as an Enlive template.
+To begin, create a file _post.html_ to serve as an Enlive template:
 
-NOTE: Place this file in the _resources/_ directory, if you're using enlive in the context of a project.
-
-._post.html_
 [source,html]
 ----
 <html>
@@ -42,13 +39,15 @@ NOTE: Place this file in the _resources/_ directory, if you're using enlive in t
 </html>
 ----
 
+NOTE: Place this file in the _resources/_ directory, if you're using Enlive in the context of a project.
+
 The following Clojure code defines an Enlive template based on the contents of _post.html_:
 
 [source,clojure]
 ----
 (require '[net.cgrand.enlive-html :as html])
 
-;; define the template
+;; Define the template
 (html/deftemplate post-page "post.html"
   [post]
   [:title] (html/content (:title post))
@@ -56,7 +55,7 @@ The following Clojure code defines an Enlive template based on the contents of _
   [:span.author] (html/content (:author post))
   [:div.post-body] (html/content (:body post)))
 
-;; some sample data
+;; Some sample data
 (def sample-post {:author "Luke VanderHart"
                   :title "Why Clojure Rocks"
                   :body "Functional programming!"})
@@ -64,7 +63,7 @@ The following Clojure code defines an Enlive template based on the contents of _
 
 To apply the template to the data, invoke the function defined by
 +deftemplate+. Since it returns a sequence of strings, in most
-applications, you'll probably want to concatenate the results into a
+applications you'll probably want to concatenate the results into a
 single string:
 
 [source,clojure]
@@ -72,7 +71,7 @@ single string:
 (reduce str (post-page sample-post))
 ----
 
-.Formatted output:
+.Here's the formatted output:
 [source,html]
 ----
 <html>
@@ -131,7 +130,7 @@ page populated with all three sample posts:
 (reduce str (all-posts-page sample-post-list))
 ----
 
-.Formatted output:
+.Here's the formatted output:
 [source,html]
 ----
 <html>
@@ -211,8 +210,8 @@ would be parsed into the Clojure data:
 
 This is more verbose, but it is easier to manipulate from Clojure. You
 won't necessarily have to deal with these data structures directly,
-but be aware that anywhere Enlive says operates on an element or a
-node, it means a the Clojure data stucture for the element, not the
+but be aware that anywhere Enlive says it operates on an element or a
+node, it means the Clojure data structure for the element, not the
 HTML string.
 
 ===== Templates
@@ -226,43 +225,42 @@ the resulting HTML as a sequence of strings.(((Enlive library, templates)))
 
 An Enlive _selector_ is a Clojure data structure that identifies a
 specific node in the input HTML file. They are similar to CSS
-selectors in operation, although somewhat more capable. In this
-example, `[:title]` selects each +<title>+ element, `[:span.author]`
+selectors in operation, although somewhat more capable. In the
+example in the solution, `[:title]` selects each +<title>+ element, `[:span.author]`
 each +<span>+ with +class="author"+, etc. More selector forms are
-described later on in this section.
+described in the following subsection.
 
 A template _transform function_ takes an Enlive node and returns a
-modified node. This example uses Enlive's +content+ utility function,
+modified node. Our example uses Enlive's +content+ utility function,
 which returns a function that swaps the contents of a node with the
 value given as its argument.(((transform function)))
 
 The return value is not itself a string, but a sequence of strings,
 each one a small fragment of HTML code. This allows the underlying
 data structure to be transformed to a string representation
-lazily. For simplicity, this example just reduces the string
+lazily. For simplicity, our example just reduces the string
 concatenation function +str+ across the results, but this is actually
 not optimally performant. To build a string most efficiently, use the
-java +StringBuilder+ class, which uses mutable state to build up a
+Java +StringBuilder+ class, which uses mutable state to build up a
 +String+ object with the best possible performance. Alternatively,
-forego the use of strings altogether and pipe the result +seq+ of the
+forego the use of strings altogether and pipe the result seq of the
 template function directly into an output +Writer+, which most web
 application libraries (including Ring) can use as the body of an HTTP
-response, which is the most common destination for templated HTML.
+response (the most common destination for templated HTML).
 
 ===== Selectors
 
 Enlive selectors are data structures that identify one or more HTML
 nodes. They describe a _pattern_ of data--if the pattern matches any
-nodes in the HTML data structure, then the node will be selected by
-the selector. A selector may select one, many, or zero nodes from a
-given HTML document depending on how many matches the pattern has.(((Enlive library, selectors)))(((selectors)))
+nodes in the HTML data structure, the selector will select those nodes. A selector may select one, many, or zero nodes from a
+given HTML document, depending on how many matches the pattern has.(((Enlive library, selectors)))(((selectors)))
 
 The full reference for valid selector forms is quite complex, and
 beyond the scope of this recipe to describe fully. See the formal
 selector http://bit.ly/enlive-syntax[specification] for
 complete documentation.
 
-However, the following selector patterns should be sufficient to get
+The following selector patterns should be sufficient to get
 you started:
 
 `[:div]`::
@@ -270,26 +268,26 @@ Selects all +<div>+ element nodes.
 
 `[:div.sidebar]`::
 Selects all +<div>+ element nodes with a CSS class
-  of "sidebar".
+  of +"sidebar"+.
 
 `[:div#summary]`::
 Selects the +<div>+ element with an HTML ID of
-  "summary".
+ + "summary"+.
 
 `[:p :span]`::
 Selects all +<span>+ elements that are descendants of
   +<p>+ elements.
 
 `[:div.menu :ul :li :span]`::
-Selects only +<span>+ elements inside a +<li>+
+Selects only +<span>+ elements inside an +<li>+
   element inside a +<ul>+ element inside a +<div>+ element with a CSS
-  style of "menu".
+  style of +"menu"+.
 
 `[[:div (nth-child 2)]]`::
-Selects +<div>+ elements that are the
-  second child of their parent element. The double square brackets are
+Selects all +<div>+ elements that are the
+  second children of their parent elements. The double square brackets are
   not a typo--the inner vector is used to denote a logical _and_
-  condition. In this case, the matched element must be a div, AND the
+  condition. In this case, the matched element must be a +<div>+, _and_ the
   +nth-child+ predicate must hold true.
 
 Other predicates besides +nth-child+ are available, as well as the
@@ -297,22 +295,22 @@ ability to define custom predicates. See the Enlive documentation for
 more details.
 
 Finally, there is a special type of selector called a _range_ selector
-which is not specified by a vector, but by a map literal (in curly
+that is not specified by a vector, but rather by a map literal (in curly
 braces). The range selector contains two other selectors and
 inclusively matches all the nodes between the two matched nodes, in
 document order. The starting node is in key position in the map
-literal, and the ending node is in value position, so the selector
+literal and the ending node is in value position, so the selector
 +{[:.foo] [:.bar]}+ will match all nodes between nodes with an ID of
 "foo" and an ID of "bar".
 
-The preceding example uses a range selector in the +defsnippet+
+The example in the solution uses a range selector in the +defsnippet+
 form to select all the nodes that are part of the same logical blog
 post, even though they aren't wrapped in a common parent element.
 
 ===== Snippets
 
 A snippet is similar to a template, in that it produces a function(((Enlive library, snippets)))(((snippets)))
-based on a base HTML file. However, they have two major differences
+based on a base HTML file. However, snippets have two major differences
 from templates:
 
 1. Rather than always rendering the entire HTML file like a template
@@ -336,7 +334,7 @@ function pairs.
 ===== Using Enlive for scraping
 
 Because of its emphasis on selectors and use of plain, unannotated
-HTML files, Enlive is also extremely useful not just for templating
+HTML files, Enlive is extremely useful not just for templating
 and producing HTML, but also for parsing and scraping data from HTML from
 any source.(((Enlive library, parsing/scraping with)))(((parsing, into Enlive data structure)))
 
@@ -354,7 +352,7 @@ then use the +net.cgrand.enlive-html/text+ function to retrieve the
 text content of a node.
 
 For example, the following function will return a sequence of the most
-recent _N_ comic titles in the XKCD archives:
+recent +n+ comic titles in the XKCD archives:
 
 [source,clojure]
 ----
@@ -377,7 +375,7 @@ As an HTML templating system, Enlive has two primary value
 propositions over its alternatives in the Clojure ecosystem.(((Enlive library, best uses for)))
 
 First, the templates are pure HTML. This makes it much easier to work
-with HTML designers, who can hand their HTML mockups directly to a
+with HTML designers: they can hand their HTML mockups directly to a
 developer without having to deal with inline markup code, and
 developers can use them directly without manually slicing them
 (outside of code, that is). Furthermore, the templates themselves can
@@ -389,13 +387,13 @@ Secondly, because it uses real Clojure functions and data structures
 instead of a custom DSL, Enlive exposes the full power of the Clojure
 language. There are very few situations where you should feel limited
 by Enlive's capabilities, since it is always possible to extend it
-using only standard Clojure functions and macros, operating on familar
+using only standard Clojure functions and macros, operating on familiar
 persistent, immutable data structures.
 
 ==== See Also
 
 - The Enlive http://bit.ly/enlive-wiki[documentation]
-- David Nolen's https://github.com/swannodette/enlive-tutorial[tutorial]
+- David Nolen's https://github.com/swannodette/enlive-tutorial[Enlive tutorial]
 - The Enlive http://bit.ly/enlive-group[mailing list]
-- Alternative templating libraries Hiccup (<<sec_hiccup>>) and Selmer
-  (<<sec_webapps_templating_with_selmer>>)
+- Alternative templating libraries Selmer
+  (<<sec_webapps_templating_with_selmer>>) and Hiccup (<<sec_hiccup>>)

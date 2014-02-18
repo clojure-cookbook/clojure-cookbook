@@ -37,14 +37,14 @@ functions +info+, +error+, etc:
 ----
 
 
-The +div-4+ function takes a single argument and returns (4 / n). 
+The +div-4+ function takes a single argument and returns latexmath:[$(\frac { 4 }{ n } )$]. 
 
 The +log/info+ calls will create a log message output at the "info" 
 level. Similarly, the +log/error+ call will create a log message at the
 "error" output level. Passing an exception as the first argument will 
 cause the stack trace to be printed as well.
 
-If you call div-4 with values that will succeed or throw an error, you 
+If you call +div-4+ with values that will succeed or throw an error, you 
 will see output like the following in your REPL:
 
 [source,clojure]
@@ -83,9 +83,9 @@ the configuration by enabling the preconfigured +spit+ appender:
 
 [source,clojure]
 ----
-;; turn it on
+;; Turn it on
 (log/set-config! [:appenders :spit :enabled?] true)
-;; set the log file location
+;; Set the log file location
 (log/set-config! [:shared-appender-config :spit-filename] "out.log")
 ----
 
@@ -93,7 +93,7 @@ Note that the output file's directory must exist and the user must be able
 to write to the file.  Once this configuration has been completed, any log 
 messages will be written to both the console and the file.
 
-The available logging levels are: +:trace+, +:debug+, +:info+, +:warn+,
+The available logging levels are +:trace+, +:debug+, +:info+, +:warn+,
 +:error+, and +:fatal+. The default log level is set to +:debug+, so all 
 logging levels greater than or equal to +:debug+ will be recorded
 (everything but trace).

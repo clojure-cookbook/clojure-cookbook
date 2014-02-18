@@ -10,7 +10,7 @@ Hadoop cluster.(((distributed computation, Elastic MapReduce)))((("Elastic MapRe
 
 ==== Solution
 
-Amazon's Elastic MapReduce (EMR) provides on-demand Hadoop clusters.
+Amazon's http://aws.amazon.com/elasticmapreduce/[Elastic MapReduce] (EMR) provides on-demand Hadoop clusters.
 You'll need http://aws.amazon.com/[an Amazon Web Services account] to use EMR.
 
 First, write a Cascalog job as you normally would. There are a number
@@ -38,48 +38,46 @@ Next, upload the generated JAR
 following along with the ETL sample) to S3. If you
 haven't ever uploaded a file to S3, follow the S3 documentation to
 http://bit.ly/create-bucket["Create
-a Bucket"] and
+a Bucket"] and for
 http://bit.ly/add-object-bucket["Adding
 an Object to a Bucket"]. Repeat this process to upload your input data.
-Take note of the path of the JAR and input data location.
+Take note of the path to the JAR and the input data location.
 
 To create your MapReduce job, visit
 https://console.aws.amazon.com/elasticmapreduce/ and select "Create
 New Job Flow" (<<fig9-2>>). Once you're in the new job flow wizard, choose the
-"Custom JAR" job type.
-
-Select "Continue" and enter your JAR's location and arguments. "JAR
-Location" is the S3 path you noted from earlier. "JAR Arguments" are
+"Custom JAR" job type. Select "Continue" and enter your JAR's location and arguments. "JAR
+Location" is the S3 path you noted earlier. "JAR Arguments" are
 all of the arguments you would normally pass when executing your JAR.
 For example, using the Cascalog samples repository, the arguments
 would be the fully qualified class name to execute,
-+cookbook.etl.Main+, an +s3n://+ URI for input data, and an +s3n://+
++cookbook.etl.Main+, an _s3n://_ URI for input data, and an _s3n://_
 URI for the output.
 
 [[fig9-2]]
-.Specify Parameters
+.Specifying parameters in the new job flow wizard
 image::images/clcb_0902.png[]
 
-The next few wizard windows allow your to specify additional
+The next few wizard windows allow you to specify additional
 configuration options for the job. Select "Continue" until you reach
 the review phase and start your job.
 
 After your job has run, you should be able to retrieve the results
-from S3. Elastic MapReduce also allows you to setup a logging path to
+from S3. Elastic MapReduce also allows you to set up a logging path to
 help with debugging if your job doesn't complete like you expect.
 
 ==== Discussion
 
 Amazon's EMR is a great solution if you have big Cascalog jobs but
-you don't have them very often. Maintaining your own Hadoop cluster
-can be a fair amount of time and money. If you can keep the cluster
-busy, it is a great investment. If you only need it a couple times a
+you don't have to run them very often. Maintaining your own Hadoop cluster
+can take a fair amount of time and money. If you can keep the cluster
+busy, it is a great investment. If you only need it a couple of times a
 month, you might be better off using EMR for on-demand Hadoop
 clusters.(((range="endofrange", startref="ix_DCcasc")))
 
 ==== See Also
 
-* To learn about building a simple Cascalog job, see <<sec_cascalog_etl>>
+* <<sec_cascalog_etl>> to learn about building a simple Cascalog job
 * Amazon's
-  http://bit.ly/emr-jar-cluster[Launch
-  a Custom JAR Cluster] documentation
+  http://bit.ly/emr-jar-cluster["Launch
+  a Custom JAR Cluster"] documentation

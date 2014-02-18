@@ -5,52 +5,43 @@ by Luke VanderHart
 
 ==== Problem
 
-You want to deliver your code as precompiled JVM bytecode in +.class+
+You want to deliver your code as precompiled JVM bytecode in _.class_
 files, rather than as Clojure source code.((("performance/production", "AOT (ahead of time) compilation")))((("AOT (ahead of time) compilation")))(((JVM bytecode)))
 
 ==== Solution
 
 Use the +:aot+ (ahead of time) compilation key in your project's
-_project.clj_ to specify which namespaces should be compiled to
+_project.clj_ file to specify which namespaces should be compiled to
 _.class_ files. The value of the +:aot+ key is a vector of either
 symbols indicating specific namespaces to be compiled, or regular
 expression literals specifying that any namespace with a matching name
-should be compiled.
-
-Alternatively, instead of a vector, you can use the keyword +:all+ as
-a value, which will AOT compile every namespace in the project:
+should be compiled. Alternatively, instead of a vector, you can use the keyword +:all+ as
+a value, which will AOT-compile every namespace in the project:
 
 [source,clojure]
-._project.clj_
 ----
 :aot [foo.bar foo.baz]
-----
 
-[source,clojure]
-._project.clj_
-----
-:aot [#"foo\.b.+"] ; compile all NS starting with "foo.b"
-----
+;; or...
+:aot [#"foo\.b.+"] ; Compile all namespaces starting with "foo.b"
 
-[source,clojure]
-._project.clj_
-----
+;; or...
 :aot :all
 ----
 
 Note that if your project has specified a +:main+ namespace, Leiningen
-will AOT compile it by default whether or not it is present in an +:aot+
+will AOT-compile it by default, regardless of whether it is present in an +:aot+
 directive.
 
-Once your project is configured for AOT compilation, you can compile
+Once your project is configured for AOT compilation, you can compile it
 by invoking *+lein compile+* at the command line. All emitted classes
-will be placed in the +target/classes+ directory, unless you've
-overriden the output directory with the +:target-path+ or
+will be placed in the _target/classes_ directory, unless you've
+overridden the output directory with the +:target-path+ or
 +:compile-path+ options.
 
 ==== Discussion
 
-It's important to understand that AOT compilation does *not* change
+It's important to understand that AOT compilation does _not_ change
 how the code actually runs. It's no faster or different. All Clojure
 code is compiled to the same bytecode before execution; AOT
 compilation merely means that it happens at a singular, defined point
@@ -59,17 +50,17 @@ in time instead of on demand as the program loads and runs.
 However, although it isn't any faster, it can be a great tool in the
 following situations:
 
-- You want to deliver the application binary, but don't want to
+- You want to deliver the application binary, but you don't want to
   include the original source code with it.
 - To marginally speed up an application's start time (since the
   Clojure code won't have to be compiled on the fly).
 - You need to generate classes loadable directly from Java for interop
   purposes.
 - For platforms (such as Android) that do not support custom
-  classloaders for running new bytecode at runtime.
+  class loaders for running new bytecode at runtime.
 
 You may observe that there is more than one emitted class file for
-each AOT compiled namespace. In fact, there will be seperate Java
+each AOT-compiled namespace. In fact, there will be separate Java
 classes for each function, the namespace itself, and any additional
 +gen-class+, +deftype+, or +defrecord+ forms. This is actually not
 dissimilar from Java itself; it has always been the case that inner

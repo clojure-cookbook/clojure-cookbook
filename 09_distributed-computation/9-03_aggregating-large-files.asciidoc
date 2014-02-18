@@ -6,9 +6,7 @@ by Alex Robbins
 ==== Problem
 
 You need to generate aggregate statistics from terabytes of log files.(((distributed computation, aggregating large files)))(((files, aggregating large)))(((Cascalog, aggregating large files with)))(((logging)))(((statistics)))
-For example:
-
-.Simple input log file (<date>,<URL>,<USER-ID>):
+For example, for a simple input log file (+<date>,<URL>,<USER-ID>+):
 ----
 20130512020202,/,11
 20130512020412,/,23
@@ -18,7 +16,8 @@ For example:
 20130512051012,/post/clojure,14
 ----
 
-.Output aggregate statistics:
+you want to output aggregate statistics like this:
+
 ----
 {
 "URL"  {"/"              2
@@ -37,8 +36,8 @@ Cascalog allows you to write distributed processing jobs that run
 locally or on a Hadoop cluster.
 
 To follow along with this recipe, clone the
-http://bit.ly/cc-cascalog-samples[Cascalog Samples
-GitHub repository] and checkout the +aggregation-begin+ branch. This
+http://bit.ly/cc-cascalog-samples[Cascalog samples
+GitHub repository] and check out the +aggregation-begin+ branch. This
 will give you a basic Cascalog project as created in
 <<sec_cascalog_etl>>:
 
@@ -71,7 +70,6 @@ AOT-compiled. _project.clj_ should look like this:
 
 Create the file _src/cookbook/aggregation.clj_ and add an aggregation query to it:
 
-._src/cookbook/aggregation.clj_
 [source,clojure]
 ----
 (ns cookbook.aggregation
@@ -101,7 +99,6 @@ Create the file _src/cookbook/aggregation.clj_ and add an aggregation query to i
 
 Add some sample data to the file _samples/posts/posts.csv_:
 
-._samples/posts/posts.csv_
 ----
 20130512020202,/,11
 20130512020412,/,23
@@ -113,7 +110,7 @@ Add some sample data to the file _samples/posts/posts.csv_:
 
 [NOTE]
 ====
-The full contents of this solution is available in the
+The full contents of this solution are available in the
 +aggregation-complete+ branch of the
 http://bit.ly/cc-cascalog-samples[Cascalog samples]
 repository.
@@ -143,7 +140,6 @@ $ hadoop jar target/cookbook-standalone.jar \
 The results in _samples/posts/output/part-00000_, formatted for
 readability, are as follows:
 
-._samples/posts/output/part-00000_
 ----
 {
 "URL"  {"/"              2
@@ -164,7 +160,7 @@ frameworks. In general, the map phase of a MapReduce job is well
 distributed across the cluster. The reduce phase is often less well
 distributed. For instance, a naive implementation of the aggregation
 algorithm would end up doing all of the aggregation work on a single
-reducer. A 2,000 computer cluster would be as slow as a 1 computer
+reducer. A 2,000-computer cluster would be as slow as a 1-computer
 cluster during the reduce phase if all the aggregation happened on one
 node.(((aggregate statistics)))
 
@@ -172,7 +168,7 @@ Before you start writing your own aggregator, check through the source
 of +cascalog.logic.ops+. This namespace has many useful functions and
 probably already does what you want to do.
 
-In the example, the goal is to count how many of each URL occurs. To
+In our example, the goal is to count occurrences of each URL. To
 create the final map, all of the URLs need to end up in one reducer. A
 naive MapReduce program implementation would use an aggregation over
 all the tuples. That means you'd be doing all the work on only one
@@ -209,7 +205,7 @@ queries that leverage combiners makes it worth learning. You need to
 provide two vars that point to functions to the +defparallelagg+
 call: +init-var+ and +combine-var+. Note that both arguments are being
 passed as vars, not function values, so you need to prepend a +#'+ to
-the name. The +init-var+ function needs to take the input data and
+the names. The +init-var+ function needs to take the input data and
 change it into a format that can be easily processed by the
 +combine-var+ function. In this case, the recipe changes the data into
 a map of maps that can easily be merged. Merging maps is an easy way
@@ -222,7 +218,7 @@ output left, which is the final output.
 
 What follows is an explanation of the query, bit by bit.
 
-Require the Cascalog functions you'll need:
+First, require the Cascalog functions you'll need:
 
 [source,clojure]
 ----
@@ -231,7 +227,7 @@ Require the Cascalog functions you'll need:
             [cascalog.more-taps :refer [hfs-delimited]]))
 ----
 
-Define a function, +init-aggregate-stats+, that takes a date, URL, and
+Then define a function, +init-aggregate-stats+, that takes a date, URL, and
 user and returns a map of maps. The second level of maps has keys that
 correspond to the observed values. This is the +init+ function, which
 takes each row and prepares it for aggregation:
@@ -247,9 +243,9 @@ takes each row and prepares it for aggregation:
 
 The +combine-aggregate-stats+ function takes the output of invoking
 the +init-aggregate-stats+ function on all the inputs and combines
-them. This function will be called over and over, combining the output
-of +init-aggregate-stats+ functions and the output of other
-invocations of itself. Its output should be the same form as its
+it. This function will be called over and over, combining the output
+of +init-aggregate-stats+ function calls and the output of other
+invocations of itself. Its output should be of the same form as its
 input, since this function will be called on pairs of output until
 there is only one piece of data left. This function merges the nested
 maps, adding the values together when they are in the same key:
@@ -271,7 +267,7 @@ vars, not the functions themselves:
   :combine-var #'combine-aggregate-stats)
 ----
 
-Finally, setup +Main+ to define and execute a query that invokes the
+Finally, set up +Main+ to define and execute a query that invokes the
 +aggregate-stats+ operation across input from +in+, writing it to
 +out+:
 
@@ -280,23 +276,23 @@ Finally, setup +Main+ to define and execute a query that invokes the
 (defmain Main [in out & args]
   ;; This defines and executes a Cascalog query.
   (?<-
-    ;; Setup the output path
+    ;; Set up the output path.
     (hfs-textline out :sinkmode :replace)
     ;; Define which logic variables will be output.
     [?out]
-    ;; Setup the input path, define the logic vars to bind to input.
+    ;; Set up the input path, and define the logic vars to bind to input.
     ((hfs-delimited in) ?date ?url ?user)
     ;; Run the aggregation operation.
     (aggregate-stats ?date ?url ?user :> ?out)))
 ----
 
-If the aggregate you are wanting to calculate can't be defined using
+If the aggregate you want to calculate can't be defined using
 +defparallelagg+, Cascalog provides some other options for defining
 aggregates. However, many of them don't use combiners and could leave
 you with almost all the computation happening in a small number of
 reducers. The computation will probably finish, but you are losing a
 lot of the benefit of distributed computation. Check out the source
-the +cascalog.ops+ to see what the different options are and how you
+of +cascalog.logic.ops+ to see what the different options are and how you
 can use them.
 
 ==== See Also

@@ -10,7 +10,7 @@ Your Cascalog job runs very slowly and you aren't sure why.(((Cascalog, explaini
 
 Use the +cascalog.api/explain+ function to print out a DOT file of
 your query. You can follow along by launching a REPL in an existing
-project, such as <<sec_cascalog_etl>>:
+project, such as that created in <<sec_cascalog_etl>>:
 
 [source,clojure]
 ----
@@ -19,9 +19,9 @@ project, such as <<sec_cascalog_etl>>:
 (explain "slow-query.dot" (<- [?a ?b] ([[1 2]] ?a ?b)))
 ----
 
-Next, you'll want to view the dotfile. There are many ways to do that,
-but the easiest is probably by using +dot+, one of the graphviz tools,
-to convert a dotfile to a PNG or GIF:
+Next, you'll want to view the DOT file. There are many ways to do that,
+but the easiest is probably by using +dot+, one of the Graphviz tools,
+to convert a DOT file to a PNG or GIF:
 
 [source,shell-session]
 ----
@@ -36,14 +36,14 @@ image::images/clcb_0901.png[]
 
 ==== Discussion
 
-Cascalog workflows compile into Cascading workflows. Cascading is a
+Cascalog workflows compile into Cascading workflows. http://www.cascading.org/[Cascading] is a
 Java library that wraps Hadoop, providing a flow-based plumbing
 abstraction. The query graph in the DOT file will have different
 Cascading elements as nodes.(((Cascading library)))(((Java, Cascading library)))(((Hadoop, Cascading library)))
 
-The +explain+ function here is analogous to the +EXPLAIN+ command in
+The +explain+ function here is analogous to the EXPLAIN command in
 many SQL implementations. +explain+ causes Cascalog to print out the
-query plan. Just like the output from an SQL +EXPLAIN+, you might have
+query plan. And as with the output from an SQL EXPLAIN, you might have
 to work to understand exactly what you are seeing.
 
 The biggest thing to look for is that the basic flow of the query is
@@ -63,11 +63,11 @@ using all of the nodes in your cluster. That means keeping the work in
 small, evenly sized units. If one map input takes 1,000 times as long
 to run as the other 40 inputs, your whole job will wait on the one
 mapper to finish. Working to split the long map job into 1,000 smaller
-jobs would make the job run much more quickly, since it could be
+jobs would make the job run much faster, since it could be
 distributed across the entire cluster instead of running on a single
 node. It is particularly easy to accidentally have nearly the entire
 job end up in one reducer. This is easy to see happening in the Hadoop
-job tracker when nearly all the reducers are done and the job is
+job tracker, when nearly all the reducers are done and the job is
 waiting on one or two reducers to finish. To fix this, do as much
 reduce work as possible during the map phase using aggregators, and
 then make sure that the remaining reduce work isn't all piling up into
