@@ -108,7 +108,9 @@ you will find that the +serve+ function has finally returned.
 This example uses readers and writers, which deal solely in textual
 data, to make the concepts of working with sockets easier to
 demonstrate. Of course, an actual socket is not limited to strings and
-can send and receive any kind of binary data. To do this, simply use
+can send and receive any kind of binary data. 
+
+pass:[<?dbhtml orphans="4"?>]To do this, simply use
 the +clojure.java.io/input-stream+ and +clojure.java.io/output-stream+
 functions instead of the +clojure.java.io/reader+ and
 +clojure.java.io/writer+ functions, respectively, which return
@@ -148,7 +150,7 @@ The modified code looks like this:
     running))
 ----
 
-The key feature of this code is that it launches the server socket
+pass:[<?dbhtml orphans="4"?>]The key feature of this code is that it launches the server socket
 asynchronously inside a future and calls the +accept+ method inside
 of a loop. It also creates an atom called +running+ and returns it,
 checking it each time it loops. To stop the server, reset the atom to
@@ -165,6 +167,7 @@ checking it each time it loops. To stop the server, reset the atom to
 ;; -> false
 ;; Server is stopped, will stop serving requests after the next one
 ----
+
 
 .When to Use Sockets
 ****

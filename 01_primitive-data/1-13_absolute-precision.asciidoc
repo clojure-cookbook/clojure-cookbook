@@ -9,6 +9,7 @@ You need to work precisely with numbers, especially those that are
 very large or very small, without the imprecision implied by using(((values, floating-point)))(((double values)))(((values, doubles)))
 floating-point representations such as +double+ values.((("primitive data", "numeric types", id="ix_PDnumer", range="startofrange")))
 (((numeric types, maintaining accuracy with)))(((exponents)))(((integers, overflow error)))(((large/small numbers)))(((floating-point values, alternatives to)))(((numbers, large/small)))
+
 ==== Solution
 
 First, know that Clojure supports exponents as literal numbers, allowing you to succinctly express large/small numbers:

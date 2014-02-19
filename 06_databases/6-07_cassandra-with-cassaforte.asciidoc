@@ -149,6 +149,10 @@ anything you need. This is achieved by using atomic increment/decrement
 operations on values. In order to create a table with a counter from
 Cassaforte, you can use the +:counter+ column type:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
 (cql/create-table :scores

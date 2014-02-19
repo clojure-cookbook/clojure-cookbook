@@ -30,7 +30,9 @@ on-disk files to check namespaces.
 
 To demonstrate ++core.typed++'s abilities, define a typed higher-order
 function +hash-of?+, which accepts two predicates and returns a new
-predicate. Use +clojure.core.typed/fn>+ to return an anonymous
+predicate.
+
+Use +clojure.core.typed/fn>+ to return an anonymous
 function with type annotations attached:
 
 [source,clojure]

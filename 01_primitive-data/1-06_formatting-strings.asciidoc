@@ -106,3 +106,7 @@ Visit the API documentation for http://bit.ly/javadoc-formatter[+java.util.Forma
 
 * <<sec_primitives_building_strings_from_parts>>
 * <<sec_primitives_dates_formatting_dates>>
+
+++++
+<?hard-pagebreak?>
+++++

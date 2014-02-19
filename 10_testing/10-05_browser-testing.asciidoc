@@ -245,6 +245,10 @@ In this test, as in the REPL experiment, you navigate to a URL and check its
 title and URL. Run this test at the command line, passing the additional test
 selector argument to +lein test+:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,shell-session]
 ----
 $ lein test :browser

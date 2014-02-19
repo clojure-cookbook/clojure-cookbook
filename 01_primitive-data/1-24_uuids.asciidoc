@@ -7,6 +7,7 @@ by Ryan Neufeld
 
 You need to generate a unique ID.(((numeric types, unique ID generation)))((("universally unique ID (UUID)")))(((ID numbers)))
 ((("functions", "java.util.UUID/randomUUID")))
+
 ==== Solution
 
 Use Java's +java.util.UUID/randomUUID+ to generate a universally
@@ -44,6 +45,10 @@ can capture more complex data types. This makes it possible for
 formats like https://github.com/edn-format/edn[edn] (extensible data notation) to communicate in
 a common lingo about things like UUIDs without resorting to string
 interning and accompanying custom parsing logic.
+
+++++
+<?hard-pagebreak?>
+++++
 
 .Sequential IDs
 ****

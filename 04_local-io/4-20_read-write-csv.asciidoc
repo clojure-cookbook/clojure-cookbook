@@ -4,7 +4,7 @@ by Jason Whitlark
 
 ==== Problem
 
-You need to read or write CSV data.((("I/O (input/output) streams", "CSV data")))((("CSV (comma separated values)")))((("files", "CSV (comma separated values)")))((("Clojure", "clojure.data.csv/read-csv")))(((Java, java.io.Reader)))
+You need to read or write CSV data.((("I/O (input/output) streams", "CSV data")))((("CSV (comma-separated values)")))((("files", "CSV (comma-separated values)")))((("Clojure", "clojure.data.csv/read-csv")))(((Java, java.io.Reader)))
 
 ==== Solution
 

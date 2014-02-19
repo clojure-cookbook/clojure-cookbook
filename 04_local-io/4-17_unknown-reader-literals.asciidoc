@@ -124,14 +124,14 @@ options than +clojure.edn+ readers, though; instead of passing an
 reader's behavior. For example, the `*default-data-reader-fn*`
 determines how the core functions deal with unknown tags. See also
 http://clojure.github.io/tools.reader/[`*data-readers*` and `*read-eval*`] for more information. That said,
-for reading data, it's generally better to use the edn variants.
-footnote:[The Clojure mailing list thread http://bit.ly/read-unsafe["ANN: NEVER use clojure.core/read or read-string for reading untrusted data"] talks more about the vulnerabilities with +clojure.core+ readers.]
+for reading data, it's generally better to use the edn variants.footnote:[The Clojure mailing list thread http://bit.ly/read-unsafe["ANN: NEVER use clojure.core/read or read-string for reading untrusted data"] talks more about the vulnerabilities with +clojure.core+ readers.]
 
 ****
 ==== See Also
 
 * https://github.com/edn-format/edn[edn: extensible data notation] on GitHub
-* <<sec_local_io_clojure_data_to_disk>>
-* <<sec_edn_record>>
+* <<sec_local_io_clojure_data_to_disk>> and <<sec_edn_record>>
 
-
+++++
+<?hard-pagebreak?>
+++++

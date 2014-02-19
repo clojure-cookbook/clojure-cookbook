@@ -8,6 +8,7 @@ by Edmund Jackson
 You want to use Clojure's reducers on a file to realize parallel
 processing without loading the file into memory.((("I/O (input/output) streams", "parallelizing with reducers")))
 (((files, parallelizing processing with reducers)))(((Reducers library)))(((Iota library)))
+
 ==== Solution
 
 Use the https://github.com/thebusby/iota[Iota] library in
@@ -110,16 +111,16 @@ parallel processing. A full explanation of how reducers work is beyond the scope
 
 In short, however, reducers provide performance by two means:
 
-1. They can compose operations. Wherever logically possible, the
+. They can compose operations. Wherever logically possible, the
 reducers framework will collapse composable operations into a single
-operation. For example, the preceding code performs a +filter+ and then a
+operation. For example, the pass:[<phrase role='keep-together'>preceding</phrase>] code performs a +filter+ and then a
 +map+. Clojure's standard +filter+ and +map+ would realize an
 intermediate sequence: +filter+ would produce a sequence that would
 then be fed to +map+. The reducer versions, however, can compose
 themselves (if possible) to produce a single +map+filter+ operation
 that can be applied in one shot.
 
-2. They exploit the internal tree-like data structures of the data
+. They exploit the internal tree-like data structures of the data
 being reduced. Regular sequences are inherently sequential (no
 surprise), and because their performant operation is to pull items
 from the beginning one at a time, it's difficult to efficiently

@@ -175,7 +175,9 @@ make the intended arity of a multimethod more explicit:
 
 In all of the examples so far, we've always dispatched on a single
 value. Multimethods also support something called "multiple dispatch,"
-whereby a function can be dispatched upon any number of factors. By(((multiple dispatch)))
+whereby a function can be dispatched upon any number of factors. 
+
+By(((multiple dispatch)))
 returning a vector rather than a single value in our dispatch, we can
 make more dynamic decisions:
 

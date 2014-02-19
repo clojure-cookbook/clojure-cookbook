@@ -256,7 +256,7 @@ nodes in the HTML data structure, the selector will select those nodes. A select
 given HTML document, depending on how many matches the pattern has.(((Enlive library, selectors)))(((selectors)))
 
 The full reference for valid selector forms is quite complex, and
-beyond the scope of this recipe to describe fully. See the formal
+beyond the scope of this recipe. See the formal
 selector http://bit.ly/enlive-syntax[specification] for
 complete documentation.
 

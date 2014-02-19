@@ -81,6 +81,10 @@ using a function that represents the key:
 Convert the piece into a specific tempo by transforming each note's
 time using a function that represents the tempo:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
 (defn bpm [beats] (fn [beat] (/ (* beat 60 1000) beats)))

@@ -72,7 +72,7 @@ every scale useful for nonspecialized applications.
 
 One area +clj-time+ lacks support is for leap seconds. Joda-Time's
 http://bit.ly/joda-time-faq[official FAQ] explains why
-the feature is missing in greater detail. We're not aware of any
+the feature is missing. We're not aware of any
 Clojure library that _can_ reason about time at this granularity. If this
 concerns you, then you're likely one of few people even capable of
 doing it right. Good luck to you.(((Joda-Time library)))

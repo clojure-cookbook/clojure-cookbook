@@ -7,6 +7,7 @@ by Ryan Neufeld
 
 You need to extract portions of a string matching a given pattern.(((strings, extracting values from)))(((values, extracting from strings)))
 ((("regular expressions", "re-seq")))(((regular expressions, extracting values with)))(((pattern matching)))
+
 ==== Solution
 
 Use +re-seq+ with a regular expression pattern and a string to retrieve

@@ -6,7 +6,7 @@ by Alex Robbins
 ==== Problem
 
 You need to change the format of large amounts of data from JSON lists
-to CSV for later processing.(((distributed computation, ETL data processing)))((("JSON (JavaScript Object Notation) data")))((("CSV (comma separated values)"))) For example, you want to turn this input:
+to CSV for later processing.(((distributed computation, ETL data processing)))((("JSON (JavaScript Object Notation) data")))((("CSV (comma-separated values)"))) For example, you want to turn this input:
 
 [source,json]
 ----
@@ -107,6 +107,10 @@ $ git checkout etl-sample
 ----
 ====
 
+++++
+<?hard-pagebreak?>
+++++
+
 You can now execute the job locally with *+lein run+*, providing an
 input and output file:
 
@@ -148,7 +152,7 @@ several Hadoop-enabled queries in the same file:
 (defmain Main [in out & args]
 ----
 
-Inside the +Main+ function is a Cascalog operator, pass:[<literal>?&#x003C;-</literal>], that defines and executes a query:footnote:[While queries _look_ like regular Clojure, they are in fact a DSL. If you're not familiar with Cascalog queries, learn more in Nathan Marz's http://bit.ly/cascalog-intro-post["Introducing Cascalog"] article.]
+Inside the +Main+ function is a Cascalog operator, pass:[<literal>?&#x003C;-</literal>],footnote:[While queries _look_ like regular Clojure, they are in fact a DSL. If you're not familiar with Cascalog queries, learn more in Nathan Marz's http://bit.ly/cascalog-intro-post["Introducing Cascalog"] article.] that defines and executes a query:
 
 [source,clojure]
 ----
@@ -238,6 +242,10 @@ pipeline. It allows you to spend more time thinking about your data
 and less time thinking about the mechanics of reading files,
 distributing work, or managing dependencies. When writing your own ETL
 pipelines, it might help to follow this process:
+
+++++
+<?hard-pagebreak?>
+++++
 
 . Finalize the input format(s).
 . Finalize the output format(s).

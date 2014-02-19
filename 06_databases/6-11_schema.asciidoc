@@ -121,9 +121,7 @@ transactor to make the schema available to the rest of the system.
 The schema is placed in the +:db.part/db+ database partition, a partition
 reserved for schemas. All user data is placed in user partition(s)&#x2014;either the default of +:db.part/user+ or a custom partition. Partitions
 are useful for optimizing how indexes sort data, which is useful for
-optimizing a query.
-
-Schema entities require that at least +:db/ident+, +:db/valueType+, and
+optimizing a query. Schema entities require that at least +:db/ident+, +:db/valueType+, and
 +:db/cardinality+ values are present.
 
 Aside from the schema, Datomic does not enforce how attributes are

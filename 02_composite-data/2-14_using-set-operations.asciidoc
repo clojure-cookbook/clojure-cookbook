@@ -27,6 +27,10 @@ sets):
 their intersection (a set consisting only of the items shared by all
 the argument sets):
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
 (clojure.set/intersection #{:red :white :blue}

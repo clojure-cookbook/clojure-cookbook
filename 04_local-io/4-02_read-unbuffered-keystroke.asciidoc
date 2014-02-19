@@ -7,6 +7,7 @@ by John Jacobsen
 Console input via +stdin+ is normally buffered by lines; you want to read a
 single, unbuffered keystroke from the console.((("I/O (input/output) streams", "reading unbuffered keystrokes")))
 (((functions, stdin)))(((functions, flush)))
+
 ==== Solution
 
 Use +ConsoleReader+ from the https://github.com/jline/jline2[JLine library], a Java library for handling console input.(((ConsoleReader)))(((JLine library)))(((BSD editline)))(((GNU readline)))

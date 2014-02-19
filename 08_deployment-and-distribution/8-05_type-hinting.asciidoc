@@ -96,7 +96,7 @@ invoke the appropriate Java function. Of course, if you've gotten your
 types wrong, your methods may not work properly; improperly hinted
 functions may throw a type-cast exception.
 
-What about when you have a sequence of values, all of a uniform type? Clojure
+pass:[<?dbhtml orphans="4"?>]What about when you have a sequence of values, all of a uniform type? Clojure
 provides a number of special hints for these cases, namely `^`++ints++, `^`++floats++,
 `^`++longs++, and `^`++doubles++. Hinting these types will allow you to pass
 whole arrays as arguments to Java functions and not provoke reflection

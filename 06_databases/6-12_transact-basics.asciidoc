@@ -105,6 +105,10 @@ with all futures, when you dereference it, it will block until the
 transaction completes. Either way, dereferencing the future returns a
 map, with four keys:
 
+++++
+<?hard-pagebreak?>
+++++
+
 +:db-before+:: 
 The value of the database just before the transaction was committed
 

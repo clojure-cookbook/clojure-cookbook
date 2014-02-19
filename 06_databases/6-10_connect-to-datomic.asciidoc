@@ -64,9 +64,7 @@ but we created it too. This pattern is common when using in-memory
 databases, as no in-memory databases exist in a fresh JVM. It is not
 strictly necessary to call +create-database+ if the database already
 exists, but it is safe to do so&#x2014;pass:[<literal>create-database</literal>] is idempotent and
-will return +false+ if one already exists.
-
-When connecting to a database that isn't in memory, it is necessary
+will return +false+ if one already exists. When connecting to a database that isn't in memory, it is necessary
 for the relevant transactor and storage service to be running.
 
 The return value of +d/connect+ is used when querying a database value

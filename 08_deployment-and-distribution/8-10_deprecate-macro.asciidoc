@@ -165,7 +165,7 @@ The +depr+ function, because it's required to handle any function that you give 
 
 ===== Compile-time warnings
 
-The operation of +defn-deprecated+ is such that the deprecation warning is printed every time that the function is called.  This could be problematic if the function requires high speed.(((API deprecations, compile-time warnings)))  
+The operation of +defn-deprecated+ is such that the deprecation warning is printed every time the function is called.  This could be problematic if the function requires high speed.(((API deprecations, compile-time warnings)))  
 
 Very few things slow a function down like a console print.  Therefore, we can change +defn-deprecate+ slightly to report its warning at compile time rather than runtime:
 

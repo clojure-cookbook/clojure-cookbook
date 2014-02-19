@@ -118,6 +118,10 @@ specification, including Java URIs, already-open connections, JNDI connections,
 and plain strings. For example, a complete URI string may be provided under the
 +:connection-uri+ key:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
 ;; As a spec string

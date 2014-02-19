@@ -57,7 +57,7 @@ You'll notice these functions return decimal numbers. Wrap calls to
 
 ==== Discussion
 
-One of the simplest ways to "round" numbers is truncation. +int+ will
+pass:[<?dbhtml orphans="4"?>]One of the simplest ways to "round" numbers is truncation. +int+ will
 do this for you, coercing floating-point numbers to integers by simply
 chopping off any trailing decimal places. This isn't necessarily
 mathematically correct, but it is certainly convenient if it is

@@ -219,6 +219,10 @@ implementation of +nextTuple+. This implementation simply sleeps for
 one second and then uses +emit-spout!+ to emit a one-element tuple
 consisting of a random event from the preceding list: 
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
     (spout

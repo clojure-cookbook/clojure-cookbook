@@ -102,6 +102,4 @@ values to MongoDB.
 
 ==== See Also
 
-* <<sec_primitives_math_arbitrary_precision>>
-
-* <<sec_primitives_numbers_truncating_rounding>>
+* <<sec_primitives_math_arbitrary_precision>> and <<sec_primitives_numbers_truncating_rounding>>

@@ -7,6 +7,7 @@ by Ryan Neufeld
 
 You need to test for equality with some tolerance for minute differences. This is especially a problem when comparing floating-point numbers, which are susceptible to "drift" through repeated operations.
 (((numeric types,  fuzzy comparisons of)))(((fuzzy comparisons)))(((comparisons, fuzzy)))(((fault-tolerant equality)))(((functions, fuzzy)))
+
 ==== Solution
 
 Clojure has no built-in functions for fault-tolerant equality, or "fuzzy
@@ -100,3 +101,7 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance:
   point]
 * <<sec_primitives_math_arbitrary_precision>>
 * <<sec_primitives_numbers_truncating_rounding>>
+
+++++
+<?hard-pagebreak?>
+++++

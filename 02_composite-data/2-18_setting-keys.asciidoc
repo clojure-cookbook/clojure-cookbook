@@ -133,6 +133,10 @@ Even though the starting map is empty, two empty maps are created for
 the values of the +:author+ and +:residence+ keys, meaning the +assoc+
 will be applied to a new, empty map.
 
+++++
+<?hard-pagebreak?>
+++++
+
 .Treating Clojure's State Constructs like Maps
 ****
 One other common use case for maps is as the values of one of

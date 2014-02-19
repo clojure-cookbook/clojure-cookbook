@@ -146,7 +146,7 @@ on both the exchange type and the bindings between the
 exchange/queues.(((messages, exchanges for)))(((exchanges)))
 
 There are multiple exchange types, each with its own routing
-semantics--see <<tab_builtin_exchange_types>> for a complete listing.
+semantics--see <<tab_builtin_exchange_types>>.
 Custom exchange types can be created to deal with sophisticated
 routing scenarios (e.g., routing based on content or geolocation data)
 or just for convenience.
@@ -316,7 +316,9 @@ and help ensure that messages are processed properly.
 With manual acknowledgment, it is application's responsibility to
 either acknowledge or reject a delivery. This is done with
 +langohr.basic/ack+ and +langohr.basic/nack+, respectively, each of which
-takes a metadata attribute called +delivery-tag+ (the delivery ID). To
+takes a metadata attribute called +delivery-tag+ (the delivery ID). 
+
+To
 enable manual acknowledgments, pass +:auto-ack false+ to
 +langohr.consumers/subscribe+:
 

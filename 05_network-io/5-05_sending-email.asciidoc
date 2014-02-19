@@ -48,7 +48,7 @@ thereafter.
 
 ==== Discussion
 
-With the venerable JavaMail at its core, there isn't much +postal+
+pass:[<?dbhtml orphans="4"?>]With the venerable JavaMail at its core, there isn't much +postal+
 leaves for you to worry about. Even Gmail's oft-maligned
 authentication setup can be tackled with a single +:ssl+ key. While we
 might normally suggest giving the native Java API a try for simple
@@ -75,7 +75,7 @@ are:
   Enables TLS encryption if value is truthy.
 
 When provided _no_ connection details--either by omitting the first
-argument or passing +nil+&#x2014;+postal+ will attempt to route email
+argument or passing pass:[<literal>nil</literal>]&#x2014;pass:[<literal>postal</literal>] will attempt to route email
 through a local http://bit.ly/wiki-sendmail[sendmail]
 instance.
 

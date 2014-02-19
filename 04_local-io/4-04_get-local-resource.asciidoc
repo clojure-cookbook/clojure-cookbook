@@ -96,3 +96,7 @@ usually better to store them elsewhere, from the start.((("CDNs (content deliver
   http://bit.ly/lein-sample[+sample.project.clj+],
   which includes a more detailed description of how the +:resource-paths+ option works
 * <<sec_local_io_clojure_data_to_disk>>
+
+++++
+<?hard-pagebreak?>
+++++

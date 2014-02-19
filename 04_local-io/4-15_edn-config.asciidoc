@@ -62,7 +62,7 @@ configured systems in the same JVM. (This can be worked around by using
 thread-local bindings, but this can lead to messy code fairly
 rapidly.)
 
-More importantly, using a global configuration means that any function
+pass:[<?dbhtml orphans="4"?>]More importantly, using a global configuration means that any function
 that reads the config (most functions, in a sizable application)
 _cannot be pure_. In Clojure, that is a lot to give up. One of the
 main benefits of pure Clojure code is its local transparency; the
@@ -93,9 +93,7 @@ source control along with the application's source code.(((multiple config files
 Other config items are fairly constant, but can't be checked into
 source control due to security concerns. Examples of this include
 database passwords or secure API tokens, and ideally these are put
-into a separate config file.
-
-Still other configuration fields (such as IP addresses) will often be
+into a separate config file. Still other configuration fields (such as IP addresses) will often be
 completely different for every instance of a deployed application, and
 the desire is to specify those separately from the more constant
 config fields.

@@ -113,6 +113,10 @@ allows you to dynamically trace vars or entire namespaces. To add a
 trace function to a var, use +clojure.tools.trace/trace-vars+. To
 remove such a trace, use +clojure.tools.trace/untrace-vars+:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
 (defn add [x y] (+ x y))
@@ -163,3 +167,7 @@ functions and vars in a namespace. Even things defined _after_
 
 * The +tools.trace+ https://github.com/clojure/tools.trace[GitHub
   repository] for a full list of trace functions/macros
+
+++++
+<?hard-pagebreak?>
+++++

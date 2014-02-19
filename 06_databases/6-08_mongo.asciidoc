@@ -116,7 +116,9 @@ When inserting data, giving each document an `_id` is optional. One will be crea
 ;; -> {:_id #<ObjectId 521...>, :name "Lola Morales"}
 ----
 
-In its idiomatic usage, Monger is set up to work with one connection and one database, as `monger.core/connect!` and `monger.core/use-db!` set dynamic vars to hold their information. It is easy to work around this, though. You can use `binding` to set these explicitly around code. In addition, you can use the `monger.multi.collection` namespace instead of `monger.collection`. All functions in the `monger.multi.collection` namespace take a database as their first argument:
+In its idiomatic usage, Monger is set up to work with one connection and one database, as `monger.core/connect!` and `monger.core/use-db!` set dynamic vars to hold their information. 
+
+It is easy to work around this, though. You can use `binding` to set these explicitly around code. In addition, you can use the `monger.multi.collection` namespace instead of `monger.collection`. All functions in the `monger.multi.collection` namespace take a database as their first argument:
 
 [source,clojure]
 ----

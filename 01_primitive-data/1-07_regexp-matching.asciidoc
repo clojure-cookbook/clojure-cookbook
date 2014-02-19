@@ -7,6 +7,7 @@ by Ryan Neufeld
 
 You need to test a string to see if parts of it match a pattern.(((strings, searing by pattern)))(((searching, strings by pattern)))
 ((("regular expressions", "re-find")))(((pattern matching)))(((regular expressions, searching strings with)))((("regular expressions", "re-matches")))
+
 ==== Solution
 
 To check for the presence of a pattern inside a string, invoke(((regular expressions, literals)))

@@ -26,9 +26,7 @@ Use +some+, along with a set:
 Since sets can act like functions, they can be used as predicates,
 testing whether the argument is a member of the set. This idiom will
 test each item in a collection, returning either the first match or
-+nil+ if a match couldn't be found.
-
-However, a problem arises when +nil+ or +false+ is a member of the set
++nil+ if a match couldn't be found. However, a problem arises when +nil+ or +false+ is a member of the set
 you're using to test a collection with. Consider the following:
 
 [source,clojure]
@@ -47,9 +45,7 @@ you're using to test a collection with. Consider the following:
 Because the +some+ function returns the _value_ returned from the
 predicate function, not just +true+ or +false+, using it with sets
 that contain +nil+ or +false+ probably isn't what you want--it will
-return +nil+ or +false+ if the item actually _is_ in the set.
-
-The simplest solution is to test for +nil+ or +false+ separately,
+return +nil+ or +false+ if the item actually _is_ in the set. The simplest solution is to test for +nil+ or +false+ separately,
 using the +nil?+ or +false?+ predicate functions built into Clojure:
 
 [source,clojure]

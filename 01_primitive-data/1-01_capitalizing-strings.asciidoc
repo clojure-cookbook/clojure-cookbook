@@ -6,6 +6,7 @@ by Ryan Neufeld
 
 You need to change the capitalization of a string.
 ((("primitive data", "strings", id="ix_PDstrng", range="startofrange")))(((strings, capitalization of)))((("capitalization, of strings")))
+
 ==== Solution
 
 Use +clojure.string/capitalize+ to capitalize the first character in a string:

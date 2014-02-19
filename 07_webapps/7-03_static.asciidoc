@@ -57,3 +57,7 @@ You may want to wrap any file responses with `ring.middleware.file-info/wrap-fil
 
 * <<sec_local_io_get_local_resource>>
 * <<sec_webapps_compojure_compojure>>
+
+++++
+<?hard-pagebreak?>
+++++

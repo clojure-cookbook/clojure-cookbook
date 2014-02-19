@@ -8,6 +8,7 @@ by Ryan Neufeld
 You need to convert characters to their respective Unicode code points
 (as integer values), or vice versa.(((strings, Unicode in)))((("Unicode characters, conversion of")))(((characters, Unicode conversion)))
 (((integers, character conversion)))(((functions, int)))(((functions, char)))
+
 ==== Solution
 
 Use the +int+ function to convert a character to its integer value:

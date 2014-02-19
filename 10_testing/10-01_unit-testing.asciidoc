@@ -116,7 +116,9 @@ similar cases, use the +clojure.test/are+ macro:
 The first two parameters to +are+ set up a testing pattern: given a
 sequence of keys +ks+ and a map +m+, call +capitalize-entries+ for
 those keys on the original +employee+ map and assert that the return
-value equals +m+. Writing out multiple use cases in a declarative
+value equals +m+. 
+
+Writing out multiple use cases in a declarative
 syntax makes it easier to catch errors and untreated edge cases, such
 as the +NullPointerException+ that will be thrown for the
 `[:not-a-key] employee` assertion pair in the preceding test.(((truthiness)))

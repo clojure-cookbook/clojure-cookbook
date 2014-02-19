@@ -26,6 +26,10 @@ common to set this to match the platform one is on, for the sake of
 maximum usability. Setting the native look and feel is accomplished in
 Seesaw with the +native!+ function:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
 (require '[seesaw.core :refer [native! frame show! config!
@@ -157,7 +161,7 @@ Like most of the Seesaw functions that create widgets, there are
 several more options to +text+, which are best learned about by
 studying the http://bit.ly/cc-seesaw[API documentation].
 
-As is always the case in Clojure, the Seesaw library functions return
+pass:[<?dbhtml orphans="4"?>]As is always the case in Clojure, the Seesaw library functions return
 Java objects, which can be operated upon directly using Java methods;
 for example, our use of the +.setSize+ method of the +JFrame+ object
 returned by +frame+. This interoperability provides great power but

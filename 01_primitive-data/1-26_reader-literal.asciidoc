@@ -93,4 +93,8 @@ http://bit.ly/javadoc-calendar[+java.util.Calendar+] or http://bit.ly/javadoc-ti
 
 * <<sec_primitives_math_uuids>> for another example of a reader
   literal included with Clojure
+  
+++++
+<?hard-pagebreak?>
+++++
 

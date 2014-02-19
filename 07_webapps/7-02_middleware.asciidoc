@@ -78,6 +78,10 @@ However, you don't need to write your own middleware for this. Ring provides
 a number of middlewares to add to your apps, including one called `wrap-params` that
 does the same as the middleware we just wrote, but better. From the http://bit.ly/clj-wrap-params[Ring documentation]:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [quote]
 ____
 **wrap-params**

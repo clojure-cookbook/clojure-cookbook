@@ -173,15 +173,14 @@ has a specific entry for that key (even if the value is +nil+).
 .The Meaning of contains?
 ****
 
-The exact behavior of the +contains?+ function is a frequent topic for
-confusion, especially since several other languages have a function
+The exact behavior of the +contains?+ function often causes confusion, especially since many other languages have a function
 with a similar name that does something different.((("functions", "contains?")))(((searching, vs. lookup)))
 
 In Clojure, +contains?+ is _not_ a search function--it does not
 inspect a collection to see if the item is present. Rather, it is a
 _lookup_ function, and only works on associative or indexed
-collections. In other languages, it is frequently named +containsKey+
-or something similar.
+collections. In other languages, it is often named +containsKey+
+or similar.
 
 This means it works as one would expect on maps and sets, returning
 +true+ if the specified key is a valid key or member in the

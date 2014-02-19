@@ -11,7 +11,7 @@ project's dependencies or create a new project.((("REPL (read-eval-print loop)",
 ==== Solution
 
 Use Ryan Neufeld's +lein-try+ to launch the REPL. Library dependencies
-will be met automatically.((("Neufeld, Ryan")))(((lein-try)))
+will be met automatically.(((lein-try)))
 
 To gain this capability, first make sure you are using Leiningen 2.1.3 or later. Then edit your _~/.lein/profiles.clj_ file, adding `[lein-try "0.4.1"]`
 to the +:plugins+ vector of the +:user+ profile:

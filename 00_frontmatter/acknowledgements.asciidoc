@@ -55,7 +55,7 @@ it together. Those contributors are:
 * Michael Fogus, https://github.com/fogus[fogus] on GitHub
 * Michael Klishin, https://github.com/michaelklishin[michaelklishin] on GitHub
 * Michael Mullis, https://github.com/mmullis[mmullis] on GitHub
-* Michael O'Church, https://github.com/michaelochurch[michaelochurch] on GitHub
+* Michael O'Church, https://github.com/michaelochurch[michaelochurch] on pass:[<phrase role='keep-together'>GitHub</phrase>]
 * Mosciatti S., https://github.com/siscia[siscia] on GitHub
 * https://github.com/nbessi[nbessi]
 * Neil Laurance, https://github.com/toolkit[toolkit] on GitHub
@@ -64,7 +64,7 @@ it together. Those contributors are:
 * Prathamesh Sonpatki, https://github.com/prathamesh[prathamesh-sonpatki] on GitHub
 * R.T. Lechow, https://github.com/rtlechow[rtlechow] on GitHub
 * Ravindra R. Jaju, https://github.com/jaju[jaju] on GitHub
-* Robert Stuttaford, https://github.com/robert-stuttaford[robert-stuttaford] on GitHub
+* Robert Stuttaford, https://github.com/robert-stuttaford[robert-stuttaford] on pass:[<phrase role='keep-together'>GitHub</phrase>]
 * Russ Olsen, https://github.com/russolsen[russolsen] on GitHub
 * Ryan Senior, https://github.com/senior[senior] on GitHub
 * Sam Umbach, https://github.com/sumbach[sumbach] on GitHub
