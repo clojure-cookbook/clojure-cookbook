@@ -27,7 +27,7 @@ it together. Those contributors are:
 * Daniel Gregoire, https://github.com/semperos[semperos] on GitHub
 * Dmitri Sotnikov, https://github.com/yogthos[yogthos] on GitHub
 * Edmund Jackson, https://github.com/ejackson[ejackson] on GitHub
-* Eric Norman, https://github.com/ericnormand[ericnormand] on GitHub
+* Eric Normand, https://github.com/ericnormand[ericnormand] on GitHub
 * Federico Ramirez, https://github.com/gosukiwi[gosukiwi] on GitHub
 * Filippo Diotalevi, https://github.com/fdiotalevi[fdiotalevi] on GitHub
 * https://github.com/fredericksgary[fredericksgary]
