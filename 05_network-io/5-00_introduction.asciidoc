@@ -1,8 +1,7 @@
 === Introduction
 
 More and more these days, it seems like every system we build has to
-talk to something, somewhere.footnote:[In fact,
-http://queue.acm.org/detail.cfm?id=2482856["There's Just No Getting
+talk to something, somewhere.footnote:[In fact, http://bit.ly/no-getting-around["There's Just No Getting
 around It: You're Building a Distributed System"].] We'd hardly be doing anything if we didn't
 actually talk with some other computers over some kind of network.
 

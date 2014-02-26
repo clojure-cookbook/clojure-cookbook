@@ -115,7 +115,7 @@ data permanently.
 
 ==== See Also
 
-* http://bit.ly/datomic-excision[The Datatomic blog post] covering the excision feature
+* http://bit.ly/datomic-excision[The Datomic blog post] covering the excision feature
 
 ++++
 <?hard-pagebreak?>

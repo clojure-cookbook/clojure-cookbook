@@ -28,6 +28,10 @@ Consider the attributes a user might have:
 To define this schema, create a vector with attribute maps for email,
 name, and role, as well as insertions of the three static roles:
 
+++++
+<?hard-pagebreak?>
+++++
+
 // TODO: Add UML schema diagrams for user and group.
 
 [source,clojure]
@@ -131,9 +135,7 @@ runtime.
 
 Use namespaces in schema +:db/ident+ values to help classify entities
 (such as +user+ in +:user/email+). Datomic doesn't do anything
-specific with namespaces, so using them is optional.
-
-There are several options for +:db/valueType+, listed in <<table6-1>>.
+specific with namespaces, so using them is optional. There are several options for +:db/valueType+, listed in <<table6-1>>.
 
 [[table6-1]]
 .:db/valueType options

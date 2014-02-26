@@ -95,7 +95,7 @@ all received values:
 ;; -> #<core$future_call$reify__6267@2783890e: :pending>
 ----
 
-Then, you can send a message! If you started the listener thread with
+Then you can send a message! If you started the listener thread with
 +receive-loop+ properly, you should see it print out the incoming
 message immediately:
 

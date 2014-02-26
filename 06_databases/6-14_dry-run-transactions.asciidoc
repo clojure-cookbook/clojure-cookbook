@@ -70,7 +70,7 @@ you can test that the email was properly added:
 (def db-after (db-with (d/db conn) add-freds-email-tx))
 ----
 
-Now, compare the value of Fred's email in the current database with
+Compare the value of Fred's email in the current database with
 that of Fred's email in the in-memory database:
 
 [source,clojure]

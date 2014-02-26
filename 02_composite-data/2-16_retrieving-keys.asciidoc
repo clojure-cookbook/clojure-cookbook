@@ -113,7 +113,7 @@ example, indexes of vectors:
 ==== Discussion
 
 Which technique of the three discussed is the best to use? All
-have identical semantics--but in idiomatic Clojure, they convey
+have identical semantics, but in idiomatic Clojure, they convey
 different implications about the scenario in which they are used.
 
 Typically, keyword-as-a-function lookup is used when maps are being

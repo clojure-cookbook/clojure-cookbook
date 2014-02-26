@@ -84,7 +84,7 @@ It is easy to see that these three functions are all riffs on the
 standard +map+ function, applied to map data structures. What about
 the other staple of functional programming, +reduce+?(((functions, reduce-kv)))
 
-Clojure already has a +reduce-kv+ function built in, added in version 1.4.
+Clojure already has a +reduce-kv+ function built in, which was added in version 1.4.
 
 +reduce-kv+ takes three arguments: a function, an initial value, and
 an associative collection. The provided function must also take three

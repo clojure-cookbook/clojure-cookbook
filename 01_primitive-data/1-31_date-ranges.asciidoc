@@ -9,7 +9,7 @@ You need to generate a lazy sequence covering a range of dates and/or times.((("
 
 ==== Solution
 
-This problem has no _easy_ solution in Java, nor does it have one in
+This problem has no easy solution in Java, nor does it have one in
 Clojure--third-party libraries included. It is possible to use
 https://github.com/clj-time/clj-time[+clj-time+] to get close, though.
 By composing ++clj-time++'s +Interval+ and +periodic-seq+ functionality,

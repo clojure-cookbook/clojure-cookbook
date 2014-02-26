@@ -5,7 +5,7 @@ by Ryan Neufeld
 
 ==== Problem
 
-You need to compare one date to another, or you need to sort a sequence of dates.((("dates/times", "comparing/sorting")))(((comparisons, of Java Dates)))(((functions, compare)))(((sorting, dates/times)))
+You need to compare one date to another, or you need to sort a sequence of dates.((("dates/times", "comparing/sorting")))(((comparisons, of Java Dates)))(((sorting, dates/times)))
 
 ==== Solution
 

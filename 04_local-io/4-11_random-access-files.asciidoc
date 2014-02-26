@@ -6,7 +6,7 @@ by John Jacobsen
 ==== Problem
 
 You want to read data from a file, or write data to it, at various
-locations, rather than sequentially.((("I/O (input/output) streams", "reading/writing non-sequentially")))(((files, reading/writing non-sequentially)))(((random access)))(((Java, RandomAccessFile)))
+locations rather than sequentially.((("I/O (input/output) streams", "reading/writing non-sequentially")))(((files, reading/writing non-sequentially)))(((random access)))(((Java, RandomAccessFile)))
 
 ==== Solution
 

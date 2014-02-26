@@ -1,5 +1,5 @@
 [[extend_built_in]]
-=== Extending a Built-in Type
+=== Extending a Built-In Type
 [role="byline"]
 by David McNeil
 

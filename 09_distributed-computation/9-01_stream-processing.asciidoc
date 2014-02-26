@@ -28,7 +28,7 @@ computation what Hadoop is for batch computation. In this section,
 you'll build a simple activity stream processing system that can be
 easily extended to solve real-world problems.(((Storm, project creation/setup)))
 
-First, create a new http://storm.incubator.apache.org/[Storm] project using its Leiningen template:
+First, create a new http://storm.incubator.apache.org/[Storm project] using its Leiningen template:
 
 [source,shell-session]
 ----
@@ -364,7 +364,7 @@ digesting; rather than storing each event separately, it could
 aggregate an incoming event with other similar events for the user's
 convenience.
 
-As described, this system has one enormous flaw. By default,
+As described, this system has one enormous flaw: by default,
 Storm tuples are delivered to exactly one instance of each bolt, and
 the number of instances in existence is not defined in the bolt
 implementation. If the topology operator adds more than one

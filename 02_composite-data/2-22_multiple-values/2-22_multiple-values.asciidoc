@@ -174,7 +174,7 @@ values, applied and tested using the +value-set+ and +value-set?+
 functions.(((functions, value-set)))
 
 This is to handle the edge case where the intended _value_ for a key
-is, itself, a set. The code needs a way to disambiguate between sets
+is itself a set. The code needs a way to disambiguate between sets
 it creates in order to manage multiple keys for a value and sets that
 are simply values provided by users.
 

@@ -116,4 +116,4 @@ every time.
 
 * The
   http://bit.ly/cascalog-checkpoint[+cascalog.checkpoint+
-  project page] on GitHub
+  project page] on pass:[<phrase role='keep-together'>GitHub</phrase>]

@@ -39,7 +39,7 @@ delimitation but exclude any trailing empty matches:
 ;; -> ["field1" "field2" "field3"]
 ----
 
-If you indeed want absolutely every match, including trailing empty ones, then you can specify +-1+ as the limit:
+If you want absolutely every match, including trailing empty ones, then you can specify +-1+ as the limit:
 
 [source,clojure]
 ----

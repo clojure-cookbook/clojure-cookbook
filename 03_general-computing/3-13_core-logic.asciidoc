@@ -4,7 +4,7 @@ by Ryan Senior
 
 ==== Problem
 
-You have a graph-like, hierarchical data structure, serialized as a
+You have a graph-like hierarchical data structure, serialized as a
 flat list of nodes, that you want to query. For example, you have a
 graph of movie metadata represented as entity-attribute-value triples.
 Writing this code with the standard +seq+ functions has proven to be too
@@ -117,8 +117,7 @@ at a given studio?" create a number of dots (_logic variables_) using
 
 miniKanren is a domain-specific language written in Scheme, intended
 to give many of the benefits of a logic programming language (such as
-Prolog) from within Scheme. David Nolen created an implementation of miniKanren was
-created by David Nolen for Clojure, with a focus on performance. One
+Prolog) from within Scheme. David Nolen created an implementation of miniKanren for Clojure, with a focus on performance. One
 of the benefits of logic programming languages is their very
 declarative style. By using +core.logic+, we are able to say _what_ we
 are looking for in the graph without saying _how_ +core.logic+ should go

@@ -97,6 +97,10 @@ Create the file _src/cookbook/aggregation.clj_ and add an aggregation query to i
     (aggregate-stats ?date ?url ?user :> ?out)))
 ----
 
+++++
+<?hard-pagebreak?>
+++++
+
 Add some sample data to the file _samples/posts/posts.csv_:
 
 ----

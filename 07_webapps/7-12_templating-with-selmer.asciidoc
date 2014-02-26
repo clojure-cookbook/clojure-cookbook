@@ -163,7 +163,7 @@ In many cases, you may wish to post-process the value of a variable. For example
 pluralize it, or parse it as a date. Variable filters (described in the following subsection) are used for this purpose.
 
 Tags are used to add various functionality to the template, such as looping and conditions. We already saw examples of 
-the +for+, +include+, and +extends+ tags. The tags use +{%+ an +%}+ to define their content.
+the +for+, +include+, and +extends+ tags. The tags use +{%+ and +%}+ to define their content.
 
 The default tag characters might conflict with client-side frameworks such as AngularJS.
 In this case, we can specify custom tags by passing a map containing any of the following keys to the parser:

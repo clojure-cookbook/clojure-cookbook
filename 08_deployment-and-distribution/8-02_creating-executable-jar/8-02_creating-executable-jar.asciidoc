@@ -122,10 +122,10 @@ Created /tmp/foo/target/jar/target/foo-0.1.0-SNAPSHOT.jar
 ----
 
 Listing the contents of the JAR file using the *+unzip+* command,footnote:[Available on most Unix-based systems.] you can see that very
-little is packaged--just a Maven _pom_ file, generated JVM class files,
+little is packaged--just a Maven _.pom_ file, generated JVM class files,
 and the project's miscellany:
 
- [source,shell-session]
+[source,shell-session]
 ----
 $ unzip -l target/foo-0.1.0-SNAPSHOT.jar
 Archive:  target/foo-0.1.0-SNAPSHOT.jar
@@ -170,6 +170,10 @@ Without its dependencies included--namely, Clojure--you'll need to do a bit more
 work to run the _foo_ application. First, download http://clojure.org/downloads[Clojure 1.5.1]. Then invoke +foo.core+  via the +java+
 command, including _clojure-1.5.1.jar_ and _foo-0.1.0-SNAPSHOT.jar_ on the
 classpath (via the +-cp+ option):
+
+++++
+<?hard-pagebreak?>
+++++
 
 [source,shell-session]
 ----

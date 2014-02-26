@@ -11,7 +11,7 @@ all inputs, and find input values that violate those properties.(((testing, fail
 
 ==== Solution
 
-Use https://github.com/reiddraper/simple-check[+simple-check+], a property-specification library for Clojure that
+Use https://github.com/reiddraper/simple-check[+simple-check+]. This is a property-specification library for Clojure that
 is capable of "shrinking" the input case to find the minimal failing
 input.footnote:[It is important to note that +simple-check+ finds a
 _local_ minimum, not the _global_ minimum.]

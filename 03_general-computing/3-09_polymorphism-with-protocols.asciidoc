@@ -174,7 +174,7 @@ make the intended arity of a multimethod more explicit:
 ----
 
 In all of the examples so far, we've always dispatched on a single
-value. Multimethods also support something called "multiple dispatch,"
+value. Multimethods also support something called _multiple dispatch_,
 whereby a function can be dispatched upon any number of factors. 
 
 By(((multiple dispatch)))
@@ -287,10 +287,9 @@ protocol's methods:
 Types and records share a very similar syntax, so it can be
 hard to understand how each should be used.(((types, vs. records)))(((records, vs. types)))
 
-Chas Emerick explained it best in an appendix to
-http://www.clojurebook.com/[_Clojure Programming_] (O'Reilly):
+Chas Emerick explained it best in an appendix to pass:[<emphasis><ulink role="orm:hideurl" url="http://www.clojurebook.com/">Clojure Programming</ulink></emphasis>] (O'Reilly):
 
-[quote, Chas Emerick, Clojure Programming]
+[quote]
 ____
 Is your class modeling a domain value--thus benefiting from hash
 map&#x2013;like functionality and semantics? Use +defrecord+.
@@ -305,6 +304,10 @@ For implementing protocols on existing types, you will want to use the
 +extend+ family of built-in functions (+extend+, +extend-type+, and
 +extend-protocol+). Instead of creating a new type, these functions
 define implementations for existing types.
+
+++++
+<?hard-pagebreak?>
+++++
 
 ==== See Also
 

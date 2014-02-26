@@ -7,7 +7,7 @@ by Ambrose Bonnaire-Sergeant
 
 Clojure strongly encourages higher-order functions, but tools for
 verifying their use focus on runtime verification. You want earlier(((compile-time verification)))(((functions, higher-order))) 
-feedback: at compile time.(((core.typed system, checking higher-order functions with)))(((higher-order functions)))
+feedback, preferably at compile time.(((core.typed system, checking higher-order functions with)))(((higher-order functions)))
 
 ==== Solution
 

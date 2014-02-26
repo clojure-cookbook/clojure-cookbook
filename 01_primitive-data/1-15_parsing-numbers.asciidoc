@@ -45,7 +45,7 @@ that matter) into infinite-precision containers:
 
 ==== See Also
 
-* The API documentation for http://bit.ly/javadoc-parseDouble[+Integer/parseInt+] and http://bit.ly/javadoc-parseDouble[+Double/parseDouble+]
+* The API documentation for http://bit.ly/javadoc-parseInt[+Integer/parseInt+] and http://bit.ly/javadoc-parseDouble[+Double/parseDouble+]
 
 ++++
 <?hard-pagebreak?>

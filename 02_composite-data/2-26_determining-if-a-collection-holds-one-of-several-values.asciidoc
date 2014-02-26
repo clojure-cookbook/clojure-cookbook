@@ -23,8 +23,7 @@ Use +some+, along with a set:
 
 ==== Discussion
 
-Since sets can act like functions, they can be used as predicates,
-testing whether the argument is a member of the set. This idiom will
+Since sets can act like functions, they can be used as predicates to test whether the argument is a member of the set. This idiom will
 test each item in a collection, returning either the first match or
 +nil+ if a match couldn't be found. However, a problem arises when +nil+ or +false+ is a member of the set
 you're using to test a collection with. Consider the following:

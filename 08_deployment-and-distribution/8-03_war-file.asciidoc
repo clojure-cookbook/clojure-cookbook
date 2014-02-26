@@ -138,7 +138,7 @@ keeping the classpaths and bundled libraries of different applications
 isolated from one another, you do have to be careful of the scenario
 where your application depends on a library that is part of the core
 J2EE _platform_, such as JDBC, the Servlet API, various XML libraries
-like JAX-*, StAX, JMS, etc.((("WAR (web archive) files", "dependencies and")))
+like pass:[<phrase role='keep-together'>JAX-*</phrase>], StAX, JMS, etc.((("WAR (web archive) files", "dependencies and")))
 
 These classes are usually provided by the application container
 itself, and if your application refers to them, those references will resolve to the

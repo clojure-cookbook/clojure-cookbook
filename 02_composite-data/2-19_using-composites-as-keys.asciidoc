@@ -114,5 +114,4 @@ dynamically at runtime.
 
 ==== See Also
 
-* <<sec_composite_retrieving_keys_map>>
-* <<sec_composite_data_maps_setting_keys>>
+* <<sec_composite_retrieving_keys_map>> and <<sec_composite_data_maps_setting_keys>>

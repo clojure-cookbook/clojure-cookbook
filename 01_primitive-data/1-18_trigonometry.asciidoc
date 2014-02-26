@@ -59,7 +59,7 @@ convert degrees to radians:
 
 It may be surprising to some that Clojure doesn't have its own internal
 math namespace, but why reinvent the wheel? Despite its tainted
-reputation, Java can perform, especially when it comes to math;
+reputation, Java can perform, especially when it comes to math.
 Clojure's Java interop forms and typing sugar make doing math using
 +java.lang.Math+ almost pleasant.
 

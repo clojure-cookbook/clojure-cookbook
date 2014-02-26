@@ -79,6 +79,10 @@ You may also want to control how values are interpreted. Use the
 +:value-fn+ option to specify how values are read/written. The function
 you provide will be invoked with two arguments, a key and its value:
 
+++++
+<?hard-pagebreak?>
+++++
+
 [source,clojure]
 ----
 ;; Properly read UUID values

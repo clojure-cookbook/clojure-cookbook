@@ -173,7 +173,7 @@ Datomic, a datastore that shares and extends much of Clojure's
 underlying philosophy of value, state, and identity to persistent
 storage.
 
-* <<ch_webapps>> dives in depth into one of the most common applications
+* <<ch_webapps>> dives in-depth into one of the most common applications
 for Clojure: building and maintaining dynamic websites. It provides
 comprehensive treatment of Ring (the most popular HTTP server library
 for Clojure), as well as tools for HTML templating and rendering.

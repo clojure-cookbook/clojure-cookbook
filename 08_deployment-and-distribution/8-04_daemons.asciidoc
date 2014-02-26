@@ -103,7 +103,7 @@ tick
 # ... Type Ctrl-C to stop the madness
 ----
 
-Once you've verified your application works correctly, install +jsvc+.footnote:[On OS X we suggest using http://http://brew.sh/[Homebrew] to
+Once you've verified your application works correctly, install +jsvc+.footnote:[On OS X we suggest using http://brew.sh/[Homebrew] to
 +brew install jsvc+. If you're using Linux, you'll likely find a
 +jsvc+ package in your favorite package manager. Windows users will
 need to install and use
