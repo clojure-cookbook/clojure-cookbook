@@ -157,9 +157,7 @@ tunes, and Daemon is one such "old tune."(((daemon execution, benefits/drawbacks
 Not all tunes are created equal, however. Where some Java libraries
 require a little Java interop, Daemon requires a lot. Daemonizing an
 application with Apache Commons Daemon requires getting two parts
-_just right_.(((daemon execution, interface for)))
-
-The first part is creating a class that implements the +Daemon+
+_just right_.(((daemon execution, interface for))) The first part is creating a class that implements the +Daemon+
 interface and packaging it as a JAR file. The +Daemon+ interface
 consists of four methods, called at different points in an daemonized
 application's life cycle:
@@ -183,7 +181,7 @@ Invoked after +stop+, but before the JVM process
   exits. In a traditional Java program, this is where you would free
   any resources you had acquired. You may be able to skip this method in
   Clojure applications if you've properly structured your application. It
-  doesn't hurt to include an empty function to prevent +jsvc+ from compaining.
+  doesn't hurt to include an empty function to prevent +jsvc+ from complaining.
 
 It's easy enough to create a record (with +defrecord+) that implements
 the +Daemon+ interface--but that isn't enough. +jsvc+ expects
