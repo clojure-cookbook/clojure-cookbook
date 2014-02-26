@@ -84,8 +84,7 @@ same syntax as assertions, but with a slightly different meaning:
 
 It is important to note you are not calling the `(+ 10 10)` function
 here--you are setting up a pattern. Every function call occurring in
-the test is checked to see if it matches this pattern. If it does, do
-not call the function, but instead return +0+. When defining mocks with
+the test is checked to see if it matches this pattern. If it does match, Midje will not call the function, but will instead return +0+. When defining mocks with
 +provided+, there is a lot of flexibility in terms of how to match mock functions
 against real calls. In the preceding solution, for example, regular
 expressions are used. This expression instructs Midje to mock calls to

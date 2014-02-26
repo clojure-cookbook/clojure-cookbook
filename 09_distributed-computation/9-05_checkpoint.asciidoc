@@ -94,7 +94,7 @@ workflow can resume from the last incomplete step.
 [NOTE]
 ====
 If you want to restart a step that successfully completed, delete the
-file at _<checkpoint-dir>/<step-name>_. The +temp-dirs+ from the step
+file at _<checkpoint-dir>/<step-name>_. The +:temp-dirs+ from the step
 definitions can be found in _<checkpoint-dir>/data/<temp-dir>_, in case
 you need to delete or modify the data there.
 ====

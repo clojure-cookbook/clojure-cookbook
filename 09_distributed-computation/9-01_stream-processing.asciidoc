@@ -193,8 +193,7 @@ difference--the second argument to +defspout+ is a list of names that
 will be assigned to elements of each tuple this spout produces. This
 lets you use tuples like vectors or maps interchangeably. The third
 argument to +defspout+ is a list of arguments that will be bound
-various components of Storm's operational infrastructure. +collector+
-is used here, ignoring the other two for now:
+various components of Storm's operational infrastructure. In the case of the +event-spout+ spout, only +collector+ is used:
 
 [source,clojure]
 ----
