@@ -224,6 +224,12 @@ the number of concurrent threads and the length of the run using the
 JVM system properties. Using Leiningen, you must set these options in
 the +:jvm-opts+ key in _project.clj_ like so:
 
+[source,clojure]
+----
+:jvm-opts ["-Dclojure.test.generative.threads=32"
+           "-Dclojure.test.generative.msec=10000"]
+----
+
 +clojure.test.generative.runner/-main+ will pick up any parameters
 provided in this way, and run accordingly.
 
