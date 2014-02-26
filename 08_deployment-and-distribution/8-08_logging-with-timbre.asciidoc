@@ -37,7 +37,7 @@ functions +info+, +error+, etc:
 ----
 
 
-The +div-4+ function takes a single argument and returns latexmath:[$\frac { 4 }{ n } $]. 
+The +div-4+ function takes a single argument and returns 4/n. 
 
 The +log/info+ calls will create a log message output at the "info" 
 level. Similarly, the +log/error+ call will create a log message at the
