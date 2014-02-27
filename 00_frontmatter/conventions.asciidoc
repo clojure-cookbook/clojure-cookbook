@@ -166,7 +166,7 @@ _Italic_::
 *+Constant width bold+*::
   Used to indicate commands that you should enter literally at the
   command line.
-<>::
+<replaceable-value>::
 Elements of pathnames, commands, function names, etc. that should be replaced with user-supplied values are shown in angle brackets.
 
 The names of libraries follow one of two conventions: libraries with proper
@@ -175,7 +175,12 @@ libraries with names meant to mimic code symbols are displayed in constant-width
 
 [TIP]
 ====
-This element signifies a tip, suggestion, or general note.
+This element signifies a tip or suggestion.
+====
+
+[NOTE]
+====
+This element signifies a general note.
 ====
 
 [WARNING]
