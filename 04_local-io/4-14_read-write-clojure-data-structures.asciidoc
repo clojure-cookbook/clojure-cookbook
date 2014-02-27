@@ -90,7 +90,7 @@ this approach is perfectly suitable. It is a good way to load
 configuration data and other types of simple structures.
 
 Reading and writing from streams is far more efficient because it
-buffers input and output, dealing with data a few bytes at a time.footnote:[See <<sec_local-io_read_write_files>> for notes on managing
+buffers input and output, dealing with data a few bytes at a time.footnote:[See <<sec_local-io_read_write_files>>, for notes on managing
 streams.]
 
 In addition to reading and writing a single data structure in a file,

@@ -166,6 +166,8 @@ _Italic_::
 *+Constant width bold+*::
   Used to indicate commands that you should enter literally at the
   command line.
+<>::
+Elements of pathnames, commands, function names, etc. that should be replaced with user-supplied values are shown in angle brackets.
 
 The names of libraries follow one of two conventions: libraries with proper
 names are displayed in plain text (e.g., "Hiccup" or "Swing"), while

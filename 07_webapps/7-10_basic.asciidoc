@@ -76,8 +76,8 @@ the recipe and point a browser at _http://localhost:3000_.
 
 ==== See Also
 
-* <<sec_webapps_ring_introduction>> for information on setting up
+* <<sec_webapps_ring_introduction>>, for information on setting up
   Ring
-* <<sec_webapps_compojure_compojure>> for more information on
+* <<sec_webapps_compojure_compojure>>, for more information on
   Compojure routes
 * Liberator's http://bit.ly/clj-liberator[home page]

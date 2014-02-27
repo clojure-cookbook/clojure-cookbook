@@ -55,7 +55,7 @@ parser and then later generate HTML on a server using a different parser. By vir
 With it, you can use the same parser on both the server and the client and be guaranteed
 that the documents will be rendered consistently.
 
-Let's take a look at some more examples of using the library. The code blocks can be annotated with language hints. In this case, the +pre+ tags
+Let's take a look at more examples of using the library. The code blocks can be annotated with language hints. In this case, the +pre+ tags
 will be decorated with a class compatible with the http://alexgorbatchev.com/SyntaxHighlighter/[SyntaxHighlighter]:
 
 [source,clojure]

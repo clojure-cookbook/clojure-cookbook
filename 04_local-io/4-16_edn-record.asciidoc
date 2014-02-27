@@ -80,6 +80,7 @@ The +tagged+ library makes both of these tasks quite easy.
 
 As seen in the preceding samples, Clojure's default printed value for
 records is close to, but not quite the tagged format edn expects.
+
 Where Clojure prints +"#user.SimpleRecord{:a 42}"+ for a
 +SimpleRecord+, what is really needed for edn is a tag-style string
 like +""#user/SimpleRecord {:a 42}"+. The
@@ -98,6 +99,6 @@ reader to properly interpret your tagged record values.
 
 ==== See Also
 
-* <<sec_default_data_reader>> for more information on the +:default+ option
+* <<sec_default_data_reader>>, for more information on the +:default+ option
 * https://github.com/edn-format/edn[edn: extensible data notation] on GitHub
 

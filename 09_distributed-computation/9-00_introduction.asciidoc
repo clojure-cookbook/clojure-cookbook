@@ -11,8 +11,8 @@ developed at Google in the early 2000s. Functional even in name, this
 technique uses +map+ and +reduce+ in parallel across multiple machines at
 tremendous scale to process data at phenomenal speeds. In this chapter,
 we'll be covering http://cascalog.org/[Cascalog], a data-processing
-library built on top of http://hadoop.apache.org/[Hadoop] (an open source MapReduce
-implementation).((("Amazon’s Elastic MapReduce (EMR)", see="Elastic MapReduce (EMR)")))((("MapReduce", see="Elastic MapReduce (EMR)")))((("cloud computing", see="distributed computation")))((("Elastic MapReduce (EMR)", "basics of")))(((distributed computation, Elastic MapReduce)))
+library built on top of http://hadoop.apache.org/[Hadoop], which is an open source MapReduce
+implementation.((("Amazon’s Elastic MapReduce (EMR)", see="Elastic MapReduce (EMR)")))((("MapReduce", see="Elastic MapReduce (EMR)")))((("cloud computing", see="distributed computation")))((("Elastic MapReduce (EMR)", "basics of")))(((distributed computation, Elastic MapReduce)))
 
 We'll also briefly cover http://storm-project.net/[Storm], a
 real-time stream-processing library in use at several tech giants

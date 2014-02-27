@@ -67,6 +67,10 @@ We define a group as having:
 * One name, which we index for fast search
 * Any number of related users
 
+++++
+<?hard-pagebreak?>
+++++
+
 Define the group as follows:
 
 [source,clojure]
@@ -131,9 +135,7 @@ runtime.
 
 Use namespaces in schema +:db/ident+ values to help classify entities
 (such as +user+ in +:user/email+). Datomic doesn't do anything
-specific with namespaces, so using them is optional.
-
-There are several options for +:db/valueType+, listed in <<table6-1>>.
+specific with namespaces, so using them is optional. There are several options for +:db/valueType+, listed in <<table6-1>>.
 
 [[table6-1]]
 .:db/valueType options
@@ -201,5 +203,5 @@ database.
 
 ==== See Also
 
-* <<sec_datomic_transact_basics>> for more information on
+* <<sec_datomic_transact_basics>>, for more information on
   transacting datoms (schemas!)

@@ -26,10 +26,6 @@ common to set this to match the platform one is on, for the sake of
 maximum usability. Setting the native look and feel is accomplished in
 Seesaw with the +native!+ function:
 
-++++
-<?hard-pagebreak?>
-++++
-
 [source,clojure]
 ----
 (require '[seesaw.core :refer [native! frame show! config!

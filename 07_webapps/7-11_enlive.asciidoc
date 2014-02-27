@@ -272,7 +272,7 @@ Selects all +<div>+ element nodes with a CSS class
 
 `[:div#summary]`::
 Selects the +<div>+ element with an HTML ID of
- + "summary"+.
+ +"summary"+.
 
 `[:p :span]`::
 Selects all +<span>+ elements that are descendants of

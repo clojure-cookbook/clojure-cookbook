@@ -213,6 +213,6 @@ desirable in larger code bases.
 ==== See Also
 
 * https://github.com/clojure/core.typed[+core.typed+ Home] on GitHub
-* The http://bit.ly/core-typed-doc[+core.typed+ API reference]--particularly the documentation for +non-nil-return+ and +nilable-param+
-* <<sec_avoid_null>> and <<sec_verify_hof>> for further
+* The http://bit.ly/core-typed-doc[+core.typed+ API reference]&#x2014;particularly the documentation for +non-nil-return+ and +nilable-param+
+* <<sec_avoid_null>>, and <<sec_verify_hof>>, for further
   examples of how to use +core.typed+

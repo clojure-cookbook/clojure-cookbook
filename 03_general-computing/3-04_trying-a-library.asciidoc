@@ -93,3 +93,4 @@ satisfaction from the sudden confluence of new abilities.(((Leiningen plugins, b
 ==== See Also
 
 * The official list of Leiningen http://bit.ly/lein-plugins[plug-ins]
+* <<sec_lein_try>>

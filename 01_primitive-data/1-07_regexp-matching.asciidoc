@@ -57,6 +57,6 @@ only if the _entire_ string matches the pattern:
   documentation] for +java.lang.Pattern+, which defines the exact
   regex syntax supported by Java (and Clojure's regular expression literals)
 
-* <<sec_primitives_strings_re_matches>> for information on extracting
+* <<sec_primitives_strings_re_matches>>, for information on extracting
   values from a string using regular expressions
 * <<sec_primitives_strings_find_replace>>

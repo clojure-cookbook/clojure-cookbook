@@ -83,7 +83,7 @@ the present scoped to your machine's local time zone:
 
 ==== See Also
 
-* <<sec_primitives_math_uuids>> to learn how to generate
+* <<sec_primitives_math_uuids>>, to learn how to generate
   universally unique IDs
-* <<sec_primitives_dates_reader_literal>> for more information on the
+* <<sec_primitives_dates_reader_literal>>, for more information on the
   +#inst+ reader literal

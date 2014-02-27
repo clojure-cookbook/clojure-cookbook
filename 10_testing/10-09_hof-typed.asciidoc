@@ -7,7 +7,7 @@ by Ambrose Bonnaire-Sergeant
 
 Clojure strongly encourages higher-order functions, but tools for
 verifying their use focus on runtime verification. You want earlier(((compile-time verification)))(((functions, higher-order))) 
-feedback: at compile time.(((core.typed system, checking higher-order functions with)))(((higher-order functions)))
+feedback, preferably at compile time.(((core.typed system, checking higher-order functions with)))(((higher-order functions)))
 
 ==== Solution
 
@@ -159,5 +159,5 @@ a regular Clojure +ArityException+.
 
 * The https://github.com/clojure/core.typed[+core.typed+ repository] on GitHub
 * The https://github.com/clojure/core.typed/wiki/User-Guide[+core.typed+ user guide], in particular its sections on polymorphism and function annotations
-*  <<sec_avoid_null>> and <<sec_verify_java>> for further
+*  <<sec_avoid_null>>, and <<sec_verify_java>>, for further
   examples of how to use +core.typed+ 

@@ -42,7 +42,7 @@ an +IndexOutOfBoundsException+.(((exceptions/errors, IllegalArgumentException)))
 
 Note that it _is_ possible to +assoc+ to an index equal to the current size 
 of the vector (one greater than the maximum index). This will have 
-the result of appending the item to the end (see <<sec_adding_to_a_vector>>).(((range="endofrange", startref="ix_CDvect")))
+the result of appending the item to the end.(((range="endofrange", startref="ix_CDvect")))
 
 ==== See Also
 

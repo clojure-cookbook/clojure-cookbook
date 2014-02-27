@@ -24,7 +24,9 @@ $ lein try clojurewerkz/cassaforte
 In order to connect to your Cassandra cluster and create and use your first(((Cassandra, connecting to)))
 keyspace, you will need the +clojurewerkz.cassaforte.client+,
 +clojurewerkz.cassaforte.cql+, and +clojurewerkz.cassaforte.query+
-namespaces. +clojurewerkz.cassaforte.client+ is responsible for
+namespaces. 
+
++clojurewerkz.cassaforte.client+ is responsible for
 connection--the other two provide an easy interface to execute queries:
 
 [source,clojure]
@@ -148,10 +150,6 @@ counters. Counter columns provide an efficient way to count or sum
 anything you need. This is achieved by using atomic increment/decrement
 operations on values. In order to create a table with a counter from
 Cassaforte, you can use the +:counter+ column type:
-
-++++
-<?hard-pagebreak?>
-++++
 
 [source,clojure]
 ----

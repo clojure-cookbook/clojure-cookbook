@@ -130,6 +130,10 @@ files, and merge them together:
 
 Using this approach on two separate edn config files, _config-public.edn_ and _config-private.edn_, yields a merged map.
 
+++++
+<?hard-pagebreak?>
+++++
+
 ._config-public.edn_:
 [source,clojure]
 ----

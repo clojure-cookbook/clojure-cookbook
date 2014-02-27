@@ -12,9 +12,7 @@ such as Tomcat, JBoss, or WebLogic.((("performance/production", "WAR file creati
 
 Assuming you are using Ring or a framework based on Ring (such as
 Compojure), the easiest way to structure your project to build as a
-WAR file is to use the +lein-ring+ plug-in for Leiningen.
-
-Say that your project has a Ring handler function defined in a
+WAR file is to use the +lein-ring+ plug-in for Leiningen. Say that your project has a Ring handler function defined in a
 namespace called +warsample.core+,footnote:[If you don't happen to already have a similarly named project, and you want to follow along, create a new one with *+lein new warsample+*.] like so:
 
 [source,clojure]
@@ -37,7 +35,7 @@ pairs to your Leiningen _project.clj_ file:
 ----
 
 You'll also need to make sure that your application declares a
-dependency on the javax servlet API library. Most web app libraries
+dependency on the +javax.servlet/servlet-api+ library. Most web app libraries
 do include a transitive dependency, which you can verify by running
 *+lein deps :tree+*. If no other library you're using includes it, you
 can include it yourself by adding `[javax.servlet/servlet-api "2.5"]`
@@ -138,7 +136,7 @@ keeping the classpaths and bundled libraries of different applications
 isolated from one another, you do have to be careful of the scenario
 where your application depends on a library that is part of the core
 J2EE _platform_, such as JDBC, the Servlet API, various XML libraries
-like JAX-*, StAX, JMS, etc.((("WAR (web archive) files", "dependencies and")))
+like pass:[<phrase role='keep-together'>JAX-*</phrase>], StAX, JMS, etc.((("WAR (web archive) files", "dependencies and")))
 
 These classes are usually provided by the application container
 itself, and if your application refers to them, those references will resolve to the

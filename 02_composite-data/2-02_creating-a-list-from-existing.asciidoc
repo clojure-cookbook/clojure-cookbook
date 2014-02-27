@@ -68,7 +68,7 @@ the element being added. Therefore, the first element in the input
 sequence will end up being the last item in the list, and so on.((("functions", "conj", id="ix_Fconj", range="startofrange")))
 
 So why ever choose +into+ over +apply+, given that it reverses the
-order? Speed. +into+ utilizes Clojure _transients_, which provides a
+order? Speed. +into+ utilizes Clojure _transients_, which provide a
 considerable performance improvement. On the author's machine,
 converting a million-item vector to a list using +apply+ took an
 average of 750 milliseconds, while using +into+ took about half that

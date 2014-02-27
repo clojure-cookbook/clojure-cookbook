@@ -98,9 +98,7 @@ corresponding keyword key in the map (the value of the +:name+ key).
 Beyond substituting simple values, it is also possible to perform
 further processing on those values. The +:heading+ portion of the
 +employee-template+ does precisely this by calling +(.toUpperCase
-$name)+.
-
-In +clj-pdf+, a document is represented by a vector containing a map of
+$name)+. In +clj-pdf+, a document is represented by a vector containing a map of
 metadata followed by the content. The content can in turn consist of
 strings, vectors, or collections of vectors.
 
@@ -196,4 +194,4 @@ larger than the page margins will automatically be scaled to fit.
 ==== See Also
 
 * For more information on using +clj-pdf+, including a complete list of
-  element types and charting capabilities, see the+ clj-pdf+ https://github.com/yogthos/clj-pdf[GitHub repository]
+  element types and charting capabilities, see the +clj-pdf+ https://github.com/yogthos/clj-pdf[GitHub repository]

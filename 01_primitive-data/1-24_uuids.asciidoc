@@ -24,10 +24,12 @@ unique ID (UUID):
 
 ==== Discussion
 
-Often times when building systems, you want to assign unique IDs to
+Oftentimes when building systems, you want to assign unique IDs to
 objects and records. IDs are usually simple integers that
 monotonically increase with time. This isn't without its problems,
-though. You can't mingle IDs of objects from different origins; and
+though. 
+
+You can't mingle IDs of objects from different origins; and
 worse, they reveal information about the amount and input volume of
 your data.
 
@@ -41,14 +43,12 @@ You may have noticed Clojure prints UUIDs with a +#uuid+ in front of
 them. This is a reader literal tag. It acts as a shortcut for the
 Clojure reader to read and initialize UUID objects. Reader literals
 are a lot like string or number literals like +"Hi"+ or +42+, but they
-can capture more complex data types. This makes it possible for
+can capture more complex data types. 
+
+This makes it possible for
 formats like https://github.com/edn-format/edn[edn] (extensible data notation) to communicate in
 a common lingo about things like UUIDs without resorting to string
 interning and accompanying custom parsing logic.
-
-++++
-<?hard-pagebreak?>
-++++
 
 .Sequential IDs
 ****
@@ -88,7 +88,7 @@ third
 ==== See Also
 
 * <<sec_primitives_math_bitwise>>
-* <<sec_primitives_dates_reader_literal>> for information on +#inst+,
+* <<sec_primitives_dates_reader_literal>>, for information on +#inst+,
   another example of a reader literal, for dates
 * The +java.util.UUID+ http://bit.ly/javadoc-uuid[API documentation]
 

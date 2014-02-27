@@ -119,7 +119,7 @@ operations on the same object, and it allows for multiple concrete
 implementations.
 
 In this case, there are three methods required to implement the
-desired functionality. Note that it does _not_ override or
+desired functionality. Note that the protocol implementation does _not_ override or
 reimplement any of the core map methods (+assoc+, +dissoc+, etc.). It is only the
 semantics of the new behavior that differ from those of regular maps. Clojure defines very strong semantics around core
 functions. Breaking or overriding these expectations is always a bad
@@ -174,7 +174,7 @@ values, applied and tested using the +value-set+ and +value-set?+
 functions.(((functions, value-set)))
 
 This is to handle the edge case where the intended _value_ for a key
-is, itself, a set. The code needs a way to disambiguate between sets
+is itself a set. The code needs a way to disambiguate between sets
 it creates in order to manage multiple keys for a value and sets that
 are simply values provided by users.
 

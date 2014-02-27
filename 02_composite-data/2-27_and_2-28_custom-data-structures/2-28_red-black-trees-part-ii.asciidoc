@@ -11,9 +11,7 @@ You want to use Clojure's core sequence functions (+conj+, +map+,
 ==== Solution
 
 In part one of this recipe (<<sec_red_black_part_i>>), you implemented
-all the functions necessary for creating an efficient red-black tree.
-
-What's missing is participation in Clojure's sequence abstraction.(((sequence abstraction, red-black trees and)))
+all the functions necessary for creating an efficient red-black tree. What's missing is participation in Clojure's sequence abstraction.(((sequence abstraction, red-black trees and)))
 
 The most important part of participating in sequence abstraction
 is the ability to expose values of a data structure sequentially. The
@@ -107,7 +105,7 @@ collection--in particular, instances act like sets:
 
 In the end, it doesn't take a lot to participate in the sequence
 abstraction. By implementing a small handful of interface functions, the
-red-black tree implementation from <<sec_red_black_part_i>> can
+red-black tree implementation from <<sec_red_black_part_i>>, can
 participate in an array of sequence-oriented functions: +map+,
 +filter+, +reduce+, you name it.
 
@@ -221,7 +219,9 @@ need to use the kludgy +/->RedBlackTree+ or +RedBlackTree.+ functions
 to create a new +RedBlackTree+ and add values to it manually. By
 convention, many built-in collections provide convenience functions
 for populating them (aside from literal tags like `[]` or +{}+, of
-course). It's easy enough to mirror +vec+ and +vector+ for ++RedBlackTree++s:
+course). 
+
+It's easy enough to mirror +vec+ and +vector+ for ++RedBlackTree++s:
 
 [source,clojure]
 ----
@@ -280,6 +280,6 @@ rbt-string
 
 * The first part of this recipe, <<sec_red_black_part_i>>, where we define the initial
   red-black tree implementation
-* <<sec_local_io_clojure_data_to_disk>> and
-  <<sec_default_data_reader>> for more information on reading Clojure
+* <<sec_local_io_clojure_data_to_disk>>, and
+  <<sec_default_data_reader>>, for more information on reading Clojure
   data(((range="endofrange", startref="ix_CDcust")))(((range="endofrange", startref="ix_datacust")))(((range="endofrange", startref="ix_rbt")))

@@ -74,4 +74,4 @@ values will always return a floating-point value.(((numeric operations, contagio
 
 ==== See Also
 
-* <<sec_primitives_rational_numbers>> for information on maintaining accuracy when using rational numbers
+* <<sec_primitives_rational_numbers>>, for information on maintaining accuracy when using rational numbers

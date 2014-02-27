@@ -241,8 +241,8 @@ so no comparison is provided.
 
 ==== See Also
 
-- The API documentation for http://bit.ly/javadoc-comparable[+java.lang.Comparable+]
-- The API documentation for http://bit.ly/javadoc-comparator[+java.util.Comparator+]
-- <<sec_primitives_numbers_fuzzy_comparison>>
-- <<sec_primitives_dates_comparing>>
+* The API documentation for http://bit.ly/javadoc-comparable[+java.lang.Comparable+]
+* The API documentation for http://bit.ly/javadoc-comparator[+java.util.Comparator+]
+* <<sec_primitives_numbers_fuzzy_comparison>>
+* <<sec_primitives_dates_comparing>>
 

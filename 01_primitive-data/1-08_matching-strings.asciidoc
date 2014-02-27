@@ -1,5 +1,5 @@
 [[sec_primitives_strings_re_matches]]
-=== Pulling Values out of a String Using Regular Expressions
+=== Pulling Values Out of a String Using Regular Expressions
 [role="byline"]
 by Ryan Neufeld
 
@@ -79,12 +79,15 @@ not to.((("regular expressions", "re-matcher")))
 
 ==== See Also
 
-* <<sec_primitives_strings_re_find>> for testing a string for the
+* <<sec_primitives_strings_re_find>>, for testing a string for the
   presence of a pattern
-* <<sec_primitives_strings_find_replace>> for information on using
+* <<sec_primitives_strings_find_replace>>, for information on using
   regular expressions to find and replace portions of a string
 * The
   http://bit.ly/javadoc-pattern[API
   documentation] for +java.lang.Pattern+, which defines the exact
   regex syntax supported by Java (and Clojure's regular expression literals)
-
+  
+++++
+<?hard-pagebreak?>
+++++

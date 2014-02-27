@@ -137,7 +137,7 @@ will be applied to a new, empty map.
 <?hard-pagebreak?>
 ++++
 
-.Treating Clojure's State Constructs like Maps
+.Treating Clojure's State Constructs Like Maps
 ****
 One other common use case for maps is as the values of one of
 Clojure's state constructs: _atoms_, _refs_, or _agents_. Clojure maps

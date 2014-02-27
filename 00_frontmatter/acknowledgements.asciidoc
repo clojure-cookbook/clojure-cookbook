@@ -77,7 +77,7 @@ it together. Those contributors are:
 * Travis Vachon, https://github.com/travis[travis] on GitHub
 * Stefan Karlsson, https://github.com/zclj[zclj] on GitHub
 
-Special thanks are also deserved by our biggest contributors: Adam
+Our biggest contributors also deserve special thanks: Adam
 Bard, Alan Busby, Alex Robbins, Ambrose Bonnaire-Sergeant, Dmitri Sotnikov,
 John Cromartie, John Jacobsen, Robert Stuttaford, Stefan Karlsson, and
 Tom Hicks. All together, these outstanding individuals contributed
@@ -93,7 +93,7 @@ they were a pleasure to work with and the book is much better because
 of their involvement.
 
 Finally, thanks to our employer, Cognitect, for giving us time to work
-on the book, and to all of our colleagues, who offered advice, feedback,
+on the book, and to all of our colleagues who offered advice, feedback,
 and best of all, more recipes!
 
 ==== Ryan Neufeld

@@ -10,9 +10,7 @@ You want to invoke your Clojure application from the command line.((("developmen
 ==== Solution
 
 In any Leiningen project, use the *+lein run+* command to invoke your
-application from the command line.
-
-To follow along with this recipe, create a new Leiningen project:
+application from the command line. To follow along with this recipe, create a new Leiningen project:
 
 [source,shell-session]
 ----
@@ -59,9 +57,7 @@ My CLI received arguments: (1 :foo bar)
 
 As it turns out, invoking your application from the command line
 couldn't be easier. Leiningen's +run+ command quickly and easily
-connects your application to the command line with little fuss.
-
-In its base form, +lein run+ will invoke the +-main+ function of
+connects your application to the command line with little fuss. In its base form, +lein run+ will invoke the +-main+ function of
 whatever namespace you have specified as +:main+ in your project's
 _project.clj_ file. For example, setting +:main my-cli.core+ will
 invoke +my-cli.core/-main+. Alternatively, you may omit implementing
@@ -73,7 +69,7 @@ While the printed arguments in the preceding solution _look_ like Clojure
 data, they are in fact regular strings. For simple arguments, you may
 choose to parse these strings yourself; otherwise, we suggest using the
 https://github.com/clojure/tools.cli[+tools.cli+] library. See
-<<sec_parse_command_line_arguments>> for more information on
+<<sec_parse_command_line_arguments>>, for more information on
 +tools.cli+.
 
 Although a project can only have one default +:main+ entry point, you
@@ -112,9 +108,9 @@ The sum is: 6
 
 ==== See Also
 
-* <<sec_running_programs>> to learn how to run plain Clojure files with *+java+*
-* <<sec_parse_command_line_arguments>> to learn how to parse
+* <<sec_running_programs>>, to learn how to run plain Clojure files with *+java+*
+* <<sec_parse_command_line_arguments>>, to learn how to parse
   command-line arguments using +tools.cli+
-* <<sec_packaging_jars>> to learn how to package an application as an
+* <<sec_packaging_jars>>, to learn how to package an application as an
   executable JAR
-* <<sec_daemons>> to learn how to daemonize applications
+* <<sec_daemons>>, to learn how to daemonize applications

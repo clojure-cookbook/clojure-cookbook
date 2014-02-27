@@ -55,7 +55,7 @@ As odd as this is, this isn't unexpected. The IEEE 754 specification
 for floating-point values is a purposefully limited format, a trade-off
 between accuracy and performance. If absolute precision is what you're
 after, then you should be using +BigDecimal+ or +BigInt+. See
-<<sec_primitives_math_arbitrary_precision>> for more information on those
+<<sec_primitives_math_arbitrary_precision>>, for more information on those
 two types.
 
 The +fuzzy=+ function, as written, has a number of interesting side
@@ -101,7 +101,3 @@ function +fuzzy-comparator+ that returns a comparator with a given tolerance:
   point]
 * <<sec_primitives_math_arbitrary_precision>>
 * <<sec_primitives_numbers_truncating_rounding>>
-
-++++
-<?hard-pagebreak?>
-++++

@@ -14,7 +14,7 @@ Build your transaction as usual, but instead of calling +d/transact+
 or +d/transact-async+, use +d/with+ to produce an in-memory database
 that includes the changes your transaction provides.
 
-To follow along with this recipe, complete the steps in the solutions to <<sec_datomic_connect_to_datomic>> and
+To follow along with this recipe, complete the steps in the solutions to <<sec_datomic_connect_to_datomic>>, and
 <<sec_datomic_schema>>. After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
 insert data.
@@ -70,7 +70,7 @@ you can test that the email was properly added:
 (def db-after (db-with (d/db conn) add-freds-email-tx))
 ----
 
-Now, compare the value of Fred's email in the current database with
+Compare the value of Fred's email in the current database with
 that of Fred's email in the in-memory database:
 
 [source,clojure]
@@ -113,5 +113,5 @@ values of the database as well.(((Datomic database, benefits of)))
 
 ==== See Also
 
-* <<sec_datomic_transact_basics>> for more general information on
+* <<sec_datomic_transact_basics>>, for more general information on
   transacting data

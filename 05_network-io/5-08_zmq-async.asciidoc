@@ -156,3 +156,7 @@ then you'll need multiple +zmq-async+ contexts.
 * The
   http://bit.ly/core-async-post[introductory
   blog post] for +core.async+, which provides a good overview
+  
+++++
+<?hard-pagebreak?>
+++++

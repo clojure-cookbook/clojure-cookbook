@@ -77,7 +77,7 @@ clusters.(((range="endofrange", startref="ix_DCcasc")))
 
 ==== See Also
 
-* <<sec_cascalog_etl>> to learn about building a simple Cascalog job
+* <<sec_cascalog_etl>>, to learn about building a simple Cascalog job
 * Amazon's
   http://bit.ly/emr-jar-cluster["Launch
   a Custom JAR Cluster"] documentation

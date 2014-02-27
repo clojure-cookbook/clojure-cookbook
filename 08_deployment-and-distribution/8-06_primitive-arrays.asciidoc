@@ -12,9 +12,7 @@ of data.((("performance/production", "fast math")))(((numeric operations, increa
 
 Primitive Java arrays are the canonical way to store large collections
 of numbers compactly and do math over them quickly (often 100 times faster
-than Clojure sequences).
-
-The https://github.com/Prismatic/hiphip[+hiphip+ (array)] library is a
+than Clojure sequences). The https://github.com/Prismatic/hiphip[+hiphip+ (array)] library is a
 quick and easy way to manipulate primitive arrays of +double+, +long+, +float+, or
 +int+ members.
 
@@ -161,7 +159,7 @@ If you're up to the challenge, you should keep these tips in mind:
   arrays of primitives to full C-style structs, which may be a good
   choice if you need to manipulate structured data (i.e., not just
   sequences of ++double++s) with maximal performance.
-* <<sec_primitives_math_type_hinting>> to learn more about
+* <<sec_primitives_math_type_hinting>>, to learn more about
   type hinting and unchecked math.
-* <<sec_profiling_timbre>> to learn about using Timbre to output
+* <<sec_profiling_timbre>>, to learn about using Timbre to output
   profiling statistics from your code.

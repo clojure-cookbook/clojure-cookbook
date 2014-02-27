@@ -11,7 +11,7 @@ all inputs, and find input values that violate those properties.(((testing, fail
 
 ==== Solution
 
-Use https://github.com/reiddraper/simple-check[+simple-check+], a property-specification library for Clojure that
+Use https://github.com/reiddraper/simple-check[+simple-check+]. This is a property-specification library for Clojure that
 is capable of "shrinking" the input case to find the minimal failing
 input.footnote:[It is important to note that +simple-check+ finds a
 _local_ minimum, not the _global_ minimum.]
@@ -139,13 +139,9 @@ useful to know the specific problematic value. And, the larger and
 more complex the inputs to the function are, the more useful it is to be
 able to reduce the failing case.
 
-++++
-<?hard-pagebreak?>
-++++
-
 .test.generative and simple-check
 ****
-You may have observed that +test.generative+ (discussed in <<sec_testing_generative>>) and +simple-check+ cover a
+pass:[<?dbhtml orphans="4"?>]You may have observed that +test.generative+ (discussed in <<sec_testing_generative>>) and +simple-check+ cover a
 lot of the same ground. They both generate a randomized distribution
 of inputs, and they both specify "success" conditions in terms of
 properties or qualities that must hold across all inputs and outputs,

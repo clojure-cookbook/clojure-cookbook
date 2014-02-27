@@ -7,8 +7,8 @@ together. As you'll see soon enough, data manipulation is one of
 Clojure's strong suits.
 
 What makes Clojure so good at manipulating collections? It comes down
-to three things: _immutability_, _persistence_, and the _sequence_
-abstraction. Every one of Clojure's built-in collection types has these
+to three things: _immutability_, _persistence_, and the _sequence
+abstraction_. Every one of Clojure's built-in collection types has these
 properties and is thus unified in its API's appearance and
 behavior.(((Clojure, benefits of)))
 
@@ -23,7 +23,7 @@ ____
 This chapter introduces Clojure collections and where/how to use them.
 Finally, we wrap things up by showing you how to build your own
 feature-complete types that look and behave just like the rest of
-Clojure's collections, by leveraging Clojure's capacity for interface
+Clojure's collections by leveraging Clojure's capacity for interface
 polymorphism.((("interface polymorphism")))
 
 ==== Immutability
@@ -33,7 +33,7 @@ never change. You can only "modify" an immutable data structure by
 creating a _new_ data structure that is a copy of the old, with the
 desired changes in place.((("immutability", "definition of")))(((Clojure, immutability of)))
 
-Immutability means that Clojure data structures, however deeply
+Immutability also means that Clojure data structures, however deeply
 nested, are simple _values_, just like the number +3+ or the character
 +\z+. It doesn't make sense to speak of "changing" the value of +3+&#x2014;
 it just is. If you "change" it by, say, incrementing it, you don't
@@ -84,7 +84,7 @@ participate in the +ISeq+ interface.(((ISeq interface)))
 
 Then, you can use Clojure's huge library of functions that can operate
 on sequences, with _any_ of the data structures. All of functional
-programming's best-beloved functions (+map+, +reduce+, +filter+, etc.)
+programming's most beloved functions (+map+, +reduce+, +filter+, etc.)
 will work interchangeably on any data structure. In essence, the
 sequence abstraction allows all the expressiveness of traditional
 list-based LISP programming without forcing you to actually use lists. Instead, use whatever type is most efficient for the task, knowing

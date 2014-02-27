@@ -6,7 +6,7 @@ by John Jacobsen
 ==== Problem
 
 You want to read data from a file, or write data to it, at various
-locations, rather than sequentially.((("I/O (input/output) streams", "reading/writing non-sequentially")))(((files, reading/writing non-sequentially)))(((random access)))(((Java, RandomAccessFile)))
+locations rather than sequentially.((("I/O (input/output) streams", "reading/writing non-sequentially")))(((files, reading/writing non-sequentially)))(((random access)))(((Java, RandomAccessFile)))
 
 ==== Solution
 
@@ -80,6 +80,6 @@ the hex representation of a big-endian integer with the value 1,234.
 
 ==== See Also
 
-* <<sec_local_io_clojure_data_to_disk>> for information on reading entire files
+* <<sec_local_io_clojure_data_to_disk>>, for information on reading entire files
 * The http://bit.ly/javadoc-raf[+java.io.RandomAccessFile+] API documentation
 * The Unix http://bit.ly/wiki-od[+od+] command

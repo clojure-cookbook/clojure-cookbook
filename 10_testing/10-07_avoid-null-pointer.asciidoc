@@ -151,5 +151,5 @@ argument types with each arity until one matches.
 * https://github.com/clojure/core.typed[+core.typed+ Home] on GitHub.
 * The http://bit.ly/core-typed-doc[+core.typed+ API reference] (particularly the list of core-type aliases--for example, the entry for http://bit.ly/anyinteger-doc[clojure.core.typed/AnyInteger])
 * The http://bit.ly/core-typed-types[Types wiki page], which documents valid types
-* <<sec_verify_java>> and <<sec_verify_hof>> for further
+* <<sec_verify_java>>, and <<sec_verify_hof>>, for further
   examples of how to use +core.typed+
