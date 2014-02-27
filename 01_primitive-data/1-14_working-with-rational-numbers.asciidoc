@@ -63,7 +63,3 @@ function. This function returns the rational value of any number. Calling +ratio
 ==== See Also
 
 * <<sec_primitives_math_arbitrary_precision>>
-
-++++
-<?hard-pagebreak?>
-++++

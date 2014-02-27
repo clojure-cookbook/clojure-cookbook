@@ -224,6 +224,6 @@ producer would not be able to put further values onto the channels.
 * +core.async+ has more advanced facilities for layout and coordination
   of channels. For more details, see the
   http://bit.ly/core-async-doc[+core.async+ overview].
-* <<sec_concurrent_zmq>> to see how to use +core.async+ to communicate
+* <<sec_concurrent_zmq>>, to see how to use +core.async+ to communicate
   over ZeroMQ.
 

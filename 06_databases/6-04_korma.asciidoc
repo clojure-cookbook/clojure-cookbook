@@ -236,3 +236,7 @@ multiple connections and wrap series of statements in a +with-db+ call:
 
 * The official http://sqlkorma.com/docs[Korma
   project page](((range="endofrange", startref="ix_DBsql")))
+  
+++++
+<?hard-pagebreak?>
+++++

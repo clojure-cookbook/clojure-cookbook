@@ -11,8 +11,10 @@ You need to add data to your Datomic database.(((Datomic database, adding data t
 
 Use a Datomic connection to transact data.
 
-To follow along with this recipe, complete the steps in the solutions to <<sec_datomic_connect_to_datomic>> and
-<<sec_datomic_schema>>. After doing this, you will have a
+To follow along with this recipe, complete the steps in the solutions to <<sec_datomic_connect_to_datomic>>, and
+<<sec_datomic_schema>>. 
+
+After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
 insert data:
 
@@ -104,10 +106,6 @@ instead, which will return its future immediately. In this case, as
 with all futures, when you dereference it, it will block until the
 transaction completes. Either way, dereferencing the future returns a
 map, with four keys:
-
-++++
-<?hard-pagebreak?>
-++++
 
 +:db-before+:: 
 The value of the database just before the transaction was committed

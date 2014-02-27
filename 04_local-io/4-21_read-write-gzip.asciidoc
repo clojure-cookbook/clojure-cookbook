@@ -68,7 +68,7 @@ classes.
 
 ==== See Also
 
-* <<sec_local_io_clojure_data_to_disk>> for information on reading
+* <<sec_local_io_clojure_data_to_disk>>, for information on reading
   Clojure data from files on disk
 * The +GZIPInputStream+
   http://bit.ly/javadoc-gzip-input[API

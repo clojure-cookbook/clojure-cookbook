@@ -163,7 +163,7 @@ nightmare.
 
 Because of this property, lean JAR files such as this are what is
 deployed to remote repositories when you use the +lein deploy+
-command.footnote:[See <<sec_deploy_clojars>> for more information on
+command.footnote:[See <<sec_deploy_clojars>>, for more information on
 releasing libraries.]
 
 Without its dependencies included--namely, Clojure--you'll need to do a bit more
@@ -191,7 +191,7 @@ Executed with the following args:  1 2 3
 
 ==== See Also
 
-* <<sec_command_line_applications>> to learn about running Clojure programs from Leiningen
+* <<sec_command_line_applications>>, to learn about running Clojure programs from Leiningen
 * <<sec_aot_compilation>>
 * https://github.com/Raynes/lein-bin[+lein-bin+], a Leiningen plug-in for
   producing standalone console executables that work on OS X, Linux, and

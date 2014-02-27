@@ -89,9 +89,9 @@ request completion:
 
 ==== See Also
 
-* See <<sec_http_request>> for details on making normal, nonasynchronous HTTP requests.
+* See <<sec_http_request>>, for details on making normal, nonasynchronous HTTP requests.
 
 * HTTP Kit is heavily inspired by the API of
   https://github.com/dakrone/clj-http[+clj-http+]; see
-  <<sec_http_request>> for more information on the library.
+  <<sec_http_request>>, for more information on the library.
 

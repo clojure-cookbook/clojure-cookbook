@@ -97,7 +97,7 @@ Joda-Time instances into other formats:
 * The +clj-time+ https://github.com/clj-time/clj-time[project page] on
   GitHub
 
-* <<sec_primitives_dates_parsing_dates>> for more detailed
+* <<sec_primitives_dates_parsing_dates>>, for more detailed
   information on +formatter+ and +formatters+
 
 * The official

@@ -13,7 +13,7 @@ To remove a value for an attribute, you should use the +:db/retract+
 operation in transactions.
 
 To follow along with this recipe, complete the steps in
-the solutions to <<sec_datomic_connect_to_datomic>> and
+the solutions to <<sec_datomic_connect_to_datomic>>, and
 <<sec_datomic_schema>>. After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
 insert data.
@@ -116,7 +116,3 @@ data permanently.
 ==== See Also
 
 * http://bit.ly/datomic-excision[The Datomic blog post] covering the excision feature
-
-++++
-<?hard-pagebreak?>
-++++

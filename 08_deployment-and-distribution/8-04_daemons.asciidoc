@@ -318,8 +318,8 @@ Neilson's http://www.neilson.co.za/?p=253["Creating a Java Daemon (System Servic
 * https://github.com/arohner/lein-daemon[+lein-daemon+], a Leiningen
   plug-in for creating daemons that can be managed via a +lein
   daemon+ command inside your project
-* <<sec_aot_compilation>> for more information on AOT compilation
-* <<sec_packaging_jars>> for more information on packaging JAR files
+* <<sec_aot_compilation>>, for more information on AOT compilation
+* <<sec_packaging_jars>>, for more information on packaging JAR files
 * Meikel Brandmeyer's blog post http://bit.ly/gen-class-post["gen-class--how it works and how to use it"]
 * Stuart Sierra's https://github.com/stuartsierra/component[Component]
   library, a tiny framework for managing the life cycle of software

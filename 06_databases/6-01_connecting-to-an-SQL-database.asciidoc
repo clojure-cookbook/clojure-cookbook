@@ -161,10 +161,10 @@ of everyday database access needs.
 
 ==== See Also
 
-* See <<sec_db_connecting_with_a_connection_pooling>> to learn about
+* See <<sec_db_connecting_with_a_connection_pooling>>, to learn about
   pooling connections to an SQL database with +c3p0+ and
   +clojure.java.jdbc+.
-* See <<sec_db_manipulating_a_sql_database>> to learn about using
+* See <<sec_db_manipulating_a_sql_database>>, to learn about using
   +clojure.java.jdbc+ to interact with an SQL database.
 * Visit the +clojure.java.jdbc+
   https://github.com/clojure/java.jdbc[GitHub repository] for more

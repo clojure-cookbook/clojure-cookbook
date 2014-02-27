@@ -54,7 +54,9 @@ Emitting: feeds-bolt default ["feeds produced: I'm bizarro Stormy!"]
 
 This generated example topology just babbles example messages
 incoherently, which probably isn't what you want, so begin by
-modifying the "spout" to produce realistic events. In Storm parlance,
+modifying the "spout" to produce realistic events. 
+
+In Storm parlance,
 the "spout" is the component that inserts data into the processing system
 and creates a data stream. Open _src/feeds/spouts.clj_ and replace the
 +defspout+ form with a new spout that will periodically produce random
@@ -193,7 +195,9 @@ difference--the second argument to +defspout+ is a list of names that
 will be assigned to elements of each tuple this spout produces. This
 lets you use tuples like vectors or maps interchangeably. The third
 argument to +defspout+ is a list of arguments that will be bound
-various components of Storm's operational infrastructure. In the case of the +event-spout+ spout, only +collector+ is used:
+various components of Storm's operational infrastructure. 
+
+In the case of the +event-spout+ spout, only +collector+ is used:
 
 [source,clojure]
 ----
@@ -217,10 +221,6 @@ This call to +spout+ creates an instance of a spout with the given
 implementation of +nextTuple+. This implementation simply sleeps for
 one second and then uses +emit-spout!+ to emit a one-element tuple
 consisting of a random event from the preceding list: 
-
-++++
-<?hard-pagebreak?>
-++++
 
 [source,clojure]
 ----
@@ -380,7 +380,9 @@ grouping_, which is defined in the Storm topology definition.
 The topology definition is where the rubber meets the road. Spouts are(((Storm, topology definition)))
 wired to bolts, which are wired to other bolts, and the flow of tuples
 between them can be configured to give useful properties to the
-computation. This is also where you define the component-level
+computation. 
+
+This is also where you define the component-level
 parallelism of the topology, which provides a rough sketch of the true
 operational parallelism of the system.
 

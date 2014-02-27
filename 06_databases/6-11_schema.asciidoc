@@ -28,10 +28,6 @@ Consider the attributes a user might have:
 To define this schema, create a vector with attribute maps for email,
 name, and role, as well as insertions of the three static roles:
 
-++++
-<?hard-pagebreak?>
-++++
-
 // TODO: Add UML schema diagrams for user and group.
 
 [source,clojure]
@@ -70,6 +66,10 @@ We define a group as having:
 * One UUID, which must be unique to the database
 * One name, which we index for fast search
 * Any number of related users
+
+++++
+<?hard-pagebreak?>
+++++
 
 Define the group as follows:
 
@@ -203,5 +203,5 @@ database.
 
 ==== See Also
 
-* <<sec_datomic_transact_basics>> for more information on
+* <<sec_datomic_transact_basics>>, for more information on
   transacting datoms (schemas!)

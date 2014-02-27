@@ -146,49 +146,49 @@ do a pass over the book adding our own.
 </remark>
 ++++
 
-* <<ch_primitive_data>> and <<ch_composite_data>> cover Clojure's
+* <<ch_primitive_data>>, and <<ch_composite_data>>, cover Clojure's
 built-in primitive and composite data structures, and explain many
 common (and less common) ways one might want to use them.
 
-* <<ch_general_computing>> is a grab bag of useful topics that are
+* <<ch_general_computing>>, is a grab bag of useful topics that are
 generally applicable in many different application areas and project
 domains, from Clojure features such as Protocols to alternate
 programming paradigms such as logic programming with +core.logic+ or
 asynchronous coordination with +core.async+.
 
-* <<ch_local_io>> deals with all the ways in which your program can
+* <<ch_local_io>>, deals with all the ways in which your program can
 interact with the local computer upon which it is running. This
 includes reading fromand writing to standard input and output streams,
 creating and manipulating files, serializing and deserializing files,
 etc.
 
-* <<ch_network_io>> contains recipes with similar themes to
+* <<ch_network_io>>, contains recipes with similar themes to
 <<ch_local_io>>, but instead deals with _remote_ communication over a
 network. It includes recipes on a variety of network communication
 protocols and libraries.
 
-* <<ch_databases>> demonstrates techniques and tools for connecting to
+* <<ch_databases>>, demonstrates techniques and tools for connecting to
 and using a variety of databases. Special attention is given to
 Datomic, a datastore that shares and extends much of Clojure's
 underlying philosophy of value, state, and identity to persistent
 storage.
 
-* <<ch_webapps>> dives in-depth into one of the most common applications
+* <<ch_webapps>>, dives in-depth into one of the most common applications
 for Clojure: building and maintaining dynamic websites. It provides
 comprehensive treatment of Ring (the most popular HTTP server library
 for Clojure), as well as tools for HTML templating and rendering.
 
-* <<ch_deployment_and_distribution>> explains what to do with a Clojure
+* <<ch_deployment_and_distribution>>, explains what to do with a Clojure
 program once you have one, going over common patterns for packaging,
 distributing, profiling, logging, and associated ongoing tasks over
 the lifetime of an application.
 
-* <<ch_distributed>> focuses on cloud computing and
+* <<ch_distributed>>, focuses on cloud computing and
 using Clojure for heavyweight distributed data crunching. Special
 attention is given to Cascalog, a declarative Clojure interface to the
 Hadoop MapReduce framework.
 
-* Last but not least, <<ch_testing>> covers a variety of techniques for
+* Last but not least, <<ch_testing>>, covers a variety of techniques for
 ensuring the integrity and correctness of your code and data, ranging
 from traditional unit and integration tests to more comprehensive
 generative and simulation testing, and even optional compile-time

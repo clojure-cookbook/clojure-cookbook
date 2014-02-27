@@ -103,4 +103,4 @@ directory was made, so that call would fail.(((functions, delete-directory)))
 ==== See Also
 
 * ++clojure.java.io++'s http://bit.ly/clj-java-io-api[API documentation]
-* <<sec_local-io_files_get_files_from_dir>> for more details on using a +file-seq+ to get the files from a directory
+* <<sec_local-io_files_get_files_from_dir>>, for more details on using a +file-seq+ to get the files from a directory

@@ -71,6 +71,6 @@ javadoc].
 
 ==== See Also
 
-* <<sec_primitives_math_type_hinting>> for tips on improving
+* <<sec_primitives_math_type_hinting>>, for tips on improving
   performance
 

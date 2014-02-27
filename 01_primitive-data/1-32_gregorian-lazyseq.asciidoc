@@ -154,10 +154,10 @@ Sundays in a year:
 
 ==== See Also
 
-* <<sec_primitives_dates_current_date>> for information on using
+* <<sec_primitives_dates_current_date>>, for information on using
   +java.util.Date+ from Clojure
-* <<sec_primitives_dates_reader_literal>> to learn about Clojure's +#inst+
+* <<sec_primitives_dates_reader_literal>>, to learn about Clojure's +#inst+
   reader literal for date/times
-* <<sec_primitives_dates_ranges>> for an alternative that utilizes
+* <<sec_primitives_dates_ranges>>, for an alternative that utilizes
   +clj-time+/Joda-Time(((range="endofrange", startref="ix_DTrange")))
 

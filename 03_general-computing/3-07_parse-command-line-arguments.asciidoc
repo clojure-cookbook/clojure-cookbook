@@ -199,10 +199,10 @@ $ lein run -- -n 5 --no-verbose
 
 ==== See Also
 
-* <<sec_command_line_applications>> to learn more about invoking
+* <<sec_command_line_applications>>, to learn more about invoking
   applications from the command line
-* <<sec_local_io_writing_to_stdout_and_stderr>> to learn about input and output streams
-* <<sec_packaging_jars>> to learn how to package an application as
+* <<sec_local_io_writing_to_stdout_and_stderr>>, to learn about input and output streams
+* <<sec_packaging_jars>>, to learn how to package an application as
   an executable JAR file
 * For building _ncurses_-style applications, see
   http://bit.ly/clj-lanterna[+clojure-lanterna+], a wrapper

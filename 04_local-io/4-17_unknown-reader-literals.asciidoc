@@ -130,7 +130,7 @@ for reading data, it's generally better to use the edn variants.footnote:[The Cl
 ==== See Also
 
 * https://github.com/edn-format/edn[edn: extensible data notation] on GitHub
-* <<sec_local_io_clojure_data_to_disk>> and <<sec_edn_record>>
+* <<sec_local_io_clojure_data_to_disk>>, and <<sec_edn_record>>
 
 ++++
 <?hard-pagebreak?>

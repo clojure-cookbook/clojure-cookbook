@@ -13,9 +13,7 @@ processing without loading the file into memory.((("I/O (input/output) streams",
 
 Use the https://github.com/thebusby/iota[Iota] library in
 conjunction with the +filter+, +map+, and +fold+ functions from the
-Clojure Reducers library in the +clojure.core.reducers+ namespace.((("Clojure", "clojure.core.reducers")))(((functions, filter)))(((functions, map)))(((functions, fold)))
-
-To follow along with this recipe, add `[iota "1.1.1"]` to your project's dependencies, or start a REPL with +lein-try+:
+Clojure Reducers library in the +clojure.core.reducers+ namespace.((("Clojure", "clojure.core.reducers")))(((functions, filter)))(((functions, map)))(((functions, fold))) To follow along with this recipe, add `[iota "1.1.1"]` to your project's dependencies, or start a REPL with +lein-try+:
 
 [source,shell-session]
 ----

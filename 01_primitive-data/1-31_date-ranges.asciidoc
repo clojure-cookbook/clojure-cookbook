@@ -97,5 +97,5 @@ without first-class laziness.
 
 * <<sec_primitives_dates_comparing>>
 * <<sec_primitives_dates_time_between>>
-* <<sec_date_range_native_types>> for an alternative that uses only native types
+* <<sec_date_range_native_types>>, for an alternative that uses only native types
 * <<sec_primitives_dates_relative>>

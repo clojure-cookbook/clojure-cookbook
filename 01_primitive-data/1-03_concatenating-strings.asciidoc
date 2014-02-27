@@ -106,12 +106,12 @@ Without, it returns each item squashed together, similar to what
 
 ==== See Also
 
-- <<sec_primitives_strings_formatting_strings>>
+* <<sec_primitives_strings_formatting_strings>>
 
-- The +clojure.string+ namespace
+* The +clojure.string+ namespace
   http://bit.ly/clj-string-api[API documentation]
 
-- The +java.lang.String+
+* The +java.lang.String+
   http://bit.ly/javadoc-string[API
   documentation]
 

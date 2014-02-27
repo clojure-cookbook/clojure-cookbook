@@ -13,9 +13,7 @@ Bitwise operations aren't quite as commonly used in high-level
 languages (like Clojure) as they are in systems languages like C or
 C\+\+, but the techniques learned in those systems languages can still
 be useful. Clojure exposes a number of bitwise operations in its core
-namespace, all prefixed with +bit-+.
-
-One place bitwise operations really shine is in compressing a large
+namespace, all prefixed with +bit-+. One place bitwise operations really shine is in compressing a large
 number of binary flags into a single value:
 
 [source,clojure]

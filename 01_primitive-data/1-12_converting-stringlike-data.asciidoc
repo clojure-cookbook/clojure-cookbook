@@ -134,4 +134,4 @@ handy to have in your tool belt.(((range="endofrange", startref="ix_PDstrng")))
 
 ==== See Also
 
-- <<sec_primitives_converting_characters_integers>>
+* <<sec_primitives_converting_characters_integers>>

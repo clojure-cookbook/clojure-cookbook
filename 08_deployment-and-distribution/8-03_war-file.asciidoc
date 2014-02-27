@@ -12,9 +12,7 @@ such as Tomcat, JBoss, or WebLogic.((("performance/production", "WAR file creati
 
 Assuming you are using Ring or a framework based on Ring (such as
 Compojure), the easiest way to structure your project to build as a
-WAR file is to use the +lein-ring+ plug-in for Leiningen.
-
-Say that your project has a Ring handler function defined in a
+WAR file is to use the +lein-ring+ plug-in for Leiningen. Say that your project has a Ring handler function defined in a
 namespace called +warsample.core+,footnote:[If you don't happen to already have a similarly named project, and you want to follow along, create a new one with *+lein new warsample+*.] like so:
 
 [source,clojure]

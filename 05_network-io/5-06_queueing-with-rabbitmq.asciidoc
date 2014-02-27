@@ -189,7 +189,7 @@ attributes to create your own types of exchanges.
 
 ===== Queues
 
-A queue is like a mailbox in a post office. The
+pass:[<?dbhtml orphans="4"?>]A queue is like a mailbox in a post office. The
 +langohr.queue/declare+ function creates named queues. Apart from the(((messages, queues for)))(((queues)))
 name, this function accepts a number of keyword arguments that vary
 the characteristics of the queue, including whether it is +:durable+,
@@ -308,17 +308,13 @@ as it sends it to a consumer) or manually.(((messages, acknowledgement of)))
 
 When a message is acknowledged, it is removed from the queue. If a
 channel closes unexpectedly before a delivery is acknowledged, it will
-be automatically requeued by RabbitMQ.
-
-Note that these acknowledgments have application-specific semantics
+be automatically requeued by RabbitMQ. Note that these acknowledgments have application-specific semantics
 and help ensure that messages are processed properly.
 
 With manual acknowledgment, it is application's responsibility to
 either acknowledge or reject a delivery. This is done with
 +langohr.basic/ack+ and +langohr.basic/nack+, respectively, each of which
-takes a metadata attribute called +delivery-tag+ (the delivery ID). 
-
-To
+takes a metadata attribute called +delivery-tag+ (the delivery ID). To
 enable manual acknowledgments, pass +:auto-ack false+ to
 +langohr.consumers/subscribe+:
 
@@ -365,3 +361,7 @@ and more. To learn more, see RabbitMQ and Langohr documentation sites.
   investigate using Clojure's Java interop to interact with the
   http://bit.ly/rmq-java-client[RabbitMQ Java client], the
   library upon which Langohr is based.
+  
+++++
+<?hard-pagebreak?>
+++++

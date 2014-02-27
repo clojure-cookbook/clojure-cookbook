@@ -100,6 +100,6 @@ runtime (or even make it worse).
 
 ==== See Also
 
-* <<rec_local_io_parallelizing_using_iota>> for a similar approach that parallelizes reading the file itself using
+* <<rec_local_io_parallelizing_using_iota>>, for a similar approach that parallelizes reading the file itself using
 memory mapping (as well as using Clojure reducers for greater
 efficiency)

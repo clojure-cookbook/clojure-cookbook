@@ -237,5 +237,5 @@ provided in this way, and run accordingly.
 
 - The https://github.com/clojure/test.generative[+test.generative+] page on GitHub
 - The http://hackage.haskell.org/package/QuickCheck[QuickCheck Haskell library]
-- <<sec_simplecheck>> on SimpleCheck, a property-based testing library for Clojure with some overlap with +test.generative+ and unique features
+- <<sec_simplecheck>>, on SimpleCheck, a property-based testing library for Clojure with some overlap with +test.generative+ and unique features
 

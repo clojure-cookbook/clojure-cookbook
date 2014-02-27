@@ -208,6 +208,6 @@ $ lein midje com.example.t-core
 
 ==== See Also
 
-* <<sec_unit_testing>> for information on more basic unit testing
+* <<sec_unit_testing>>, for information on more basic unit testing
   in Clojure
 * The Midje https://github.com/marick/Midje[GitHub repository]

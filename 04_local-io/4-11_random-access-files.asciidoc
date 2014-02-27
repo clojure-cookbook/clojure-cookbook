@@ -80,6 +80,6 @@ the hex representation of a big-endian integer with the value 1,234.
 
 ==== See Also
 
-* <<sec_local_io_clojure_data_to_disk>> for information on reading entire files
+* <<sec_local_io_clojure_data_to_disk>>, for information on reading entire files
 * The http://bit.ly/javadoc-raf[+java.io.RandomAccessFile+] API documentation
 * The Unix http://bit.ly/wiki-od[+od+] command

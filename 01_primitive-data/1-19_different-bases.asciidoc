@@ -62,7 +62,7 @@ wrapper around +Integer/toString+ to accomplish this:
 
 ==== See Also
 
-* <<sec_primitives_strings_formatting_strings>> for information on
+* <<sec_primitives_strings_formatting_strings>>, for information on
   +format+ (the +o+ and +x+ specifiers print integers in octal and
   hexadecimal, respectively)
 

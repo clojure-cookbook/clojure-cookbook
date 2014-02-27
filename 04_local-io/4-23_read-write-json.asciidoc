@@ -118,7 +118,7 @@ can also be used with the +write+ and +read+ functions.
 
 ==== See Also
 
-* <<sec_local_io_clojure_data_to_disk>> for information on
+* <<sec_local_io_clojure_data_to_disk>>, for information on
   reading/writing edn (Clojure) data.
 * The http://bit.ly/data-json-doc[API documentation] for
   +clojure.data.json+ for more information on reads/writes. Options

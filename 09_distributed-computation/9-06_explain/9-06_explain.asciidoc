@@ -10,7 +10,7 @@ Your Cascalog job runs very slowly and you aren't sure why.(((Cascalog, explaini
 
 Use the +cascalog.api/explain+ function to print out a DOT file of
 your query. You can follow along by launching a REPL in an existing
-project, such as that created in <<sec_cascalog_etl>>:
+project, like that created in <<sec_cascalog_etl>>:
 
 [source,clojure]
 ----
@@ -32,6 +32,7 @@ Now open _slow-query.png_ (shown in <<fig9-1>>) to see a diagram of your query.
 
 [[fig9-1]]
 ._slow-query.png_
+[float="true"]
 image::images/clcb_0901.png[]
 
 ==== Discussion
@@ -77,4 +78,4 @@ a small number of reducers.
 
 * <<sec_aggregating_large_files>>
 *   http://bit.ly/cascalog-flow-vis["Cascading
-  Flow Visualization"] on the Cascalog pass:[<phrase role='keep-together'>wiki</phrase>]
+  Flow Visualization"] on Cascalog pass:[<phrase role='keep-together'>wiki</phrase>]

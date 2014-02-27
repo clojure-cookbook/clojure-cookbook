@@ -74,9 +74,9 @@ Specifying some other positive number as a +limit+ will cause +split+ to return 
 
 ==== See Also
 
-- The +clojure.string+ namespace
+* The +clojure.string+ namespace
   http://bit.ly/clj-string-api[API documentation]
 
-- <<sec_primitives_strings_re_find>>
+* <<sec_primitives_strings_re_find>>
 
-- <<sec_primitives_strings_re_matches>>
+* <<sec_primitives_strings_re_matches>>

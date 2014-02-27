@@ -107,10 +107,6 @@ $ git checkout etl-sample
 ----
 ====
 
-++++
-<?hard-pagebreak?>
-++++
-
 You can now execute the job locally with *+lein run+*, providing an
 input and output file:
 
@@ -242,10 +238,6 @@ pipeline. It allows you to spend more time thinking about your data
 and less time thinking about the mechanics of reading files,
 distributing work, or managing dependencies. When writing your own ETL
 pipelines, it might help to follow this process:
-
-++++
-<?hard-pagebreak?>
-++++
 
 . Finalize the input format(s).
 . Finalize the output format(s).
