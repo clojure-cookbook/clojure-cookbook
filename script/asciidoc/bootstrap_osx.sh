@@ -51,11 +51,11 @@ JSON_STYLE_SOURCE="https://raw.github.com/freeformsystems/rlx/master/highlight/j
 ## rm $CLOJURE_LANG_FILE $JSON_LANG_FILE $JSON_STYLE_FILE $PLAIN_LANG_FILE
 
 # Clojure highlighting support
-test -f "$CLOJURE_LANG_FILE" || (echo "********** Adding $CLOJURE_LANG_FILE **********" && wget --no-check-certificate -O $CLOJURE_LANG_FILE $CLOJURE_LANG_SOURCE)
+test -f "$CLOJURE_LANG_FILE" || (echo "********** Adding $CLOJURE_LANG_FILE **********" && curl -L -o $CLOJURE_LANG_FILE $CLOJURE_LANG_SOURCE)
 
 # JSON highlighting support
-test -f "$JSON_LANG_FILE" || (echo "********** Adding $JSON_LANG_FILE **********" && wget --no-check-certificate -O $JSON_LANG_FILE $JSON_LANG_SOURCE)
-test -f "$JSON_STYLE_FILE" || (echo "********** Adding $JSON_STYLE_FILE **********" && wget --no-check-certificate -O $JSON_STYLE_FILE $JSON_STYLE_SOURCE)
+test -f "$JSON_LANG_FILE" || (echo "********** Adding $JSON_LANG_FILE **********" && curl -L -o $JSON_LANG_FILE $JSON_LANG_SOURCE)
+test -f "$JSON_STYLE_FILE" || (echo "********** Adding $JSON_STYLE_FILE **********" && curl -L -o $JSON_STYLE_FILE $JSON_STYLE_SOURCE)
 
 # CSV/text/plain highlighting
 # This is to avoid errors more than actually highlight anything.
