@@ -120,7 +120,7 @@ prepare it for reading and writing, respectively.
 ==== See Also
 
 - For more details on +ByteBuffer+, which plays a key role in Java's NIO
-library, see the http:/bit.ly/javadoc-nio[Java NIO documentation] or pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596002886.do">Java NIO</ulink></emphasis>] by Ron Hitchens (O'Reilly).
+library, see the http://bit.ly/javadoc-nio[Java NIO documentation] or pass:[<emphasis><ulink role="orm:hideurl" url="http://shop.oreilly.com/product/9780596002886.do">Java NIO</ulink></emphasis>] by Ron Hitchens (O'Reilly).
 
 - The Clojure library https://github.com/geoffsalmon/bytebuffer[+bytebuffer+] provides a
 thin, more idiomatic wrapper for +ByteBuffer+ operations.
