@@ -99,7 +99,7 @@ Check the namespace with +check-ns+ again:
 user=> (t/check-ns 'core-typed-samples)
 # ...
 :ok
------
+----
 
 Now that there is no way +nil+ could accidentally be passed to `+` by this
 code, a null-pointer exception is impossible.
