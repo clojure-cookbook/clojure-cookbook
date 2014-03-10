@@ -24,6 +24,10 @@ include::09_distributed-computation/ch09_distributed-computation.asciidoc[]
 
 include::10_testing/ch10_testing.asciidoc[]
 
+:leveloffset: 1
+
 include::index.asciidoc[]
 
 include::colo.asciidoc[]
+
+:leveloffset: 0
