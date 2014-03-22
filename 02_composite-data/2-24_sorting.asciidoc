@@ -74,7 +74,7 @@ This means that you can pass regular Clojure predicates to +sort+:
 (sort > [1 4 3 2])
 ;; -> (4 3 2 1)
 
-(sort > [1 4 3 2])
+(sort < [1 4 3 2])
 ;; -> (1 2 3 4)
 ----
 
