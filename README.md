@@ -52,7 +52,7 @@ With installation and configuration complete, all that is left is to run the `as
     # ... outputs book.html
     ```
 
-**NOTE**: Rendered out put is *similar* to the final book, but does not include O'Reilly style sheets.
+**NOTE**: Rendered output is *similar* to the final book, but does not include O'Reilly style sheets.
 
 ### Testing
 
