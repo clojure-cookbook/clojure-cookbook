@@ -74,8 +74,8 @@ specification map:
 (defn pooled-datasource [db-spec]
   (let [{:keys [classname subprotocol subname user password
                 init-pool-size max-pool-size idle-time partitions]} db-spec
-        min-connections (inc (int (/ init-pool-size partitions)))
-        max-connections (inc (int (/ max-pool-size partitions)))
+        min-connections (inc (quot init-pool-size partitions))
+        max-connections (inc (quot max-pool-size partitions))
         cpds (doto (BoneCPDataSource.)
                    (.setDriverClass classname)
                    (.setJdbcUrl (str "jdbc:" subprotocol ":" subname))
@@ -151,7 +151,7 @@ tested.
 
 Pooled data resources (threads and database connections) may be released by
 calling the +close+ method on the +BoneCPDataSource+ class of the(((exceptions/errors, SQL exceptions)))
-library. Attempting to reuse the pooled data source after it is closed will result 
+library. Attempting to reuse the pooled data source after it is closed will result
 in an SQL exception:
 
 [source,clojure]

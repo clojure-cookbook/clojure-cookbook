@@ -41,7 +41,7 @@ considering the mean of the _two_ middle values:
 (defn median [coll]
   (let [sorted (sort coll)
         cnt (count sorted)
-        halfway (int (/ cnt 2))]
+        halfway (quot cnt 2)]
     (if (odd? cnt)
       (nth sorted halfway) ; <1>
       (let [bottom (dec halfway)
