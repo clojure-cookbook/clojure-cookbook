@@ -46,6 +46,15 @@ yourself via a Gmail account:
 If all is well, you should receive an email from yourself shortly
 thereafter.
 
+[NOTE]
+====
+If you've set up two-factor authentication on your Gmail account, the +send-message+ call will
+fail with an +AuthenticationFailedException+. You can create an application-specific password
+here: https://accounts.google.com/b/0/IssuedAuthSubTokens?hide_authsub=1, and use that as the
+value for +pass+ instead.
+====
+
+
 ==== Discussion
 
 pass:[<?dbhtml orphans="4"?>]With the venerable JavaMail at its core, there isn't much +postal+
