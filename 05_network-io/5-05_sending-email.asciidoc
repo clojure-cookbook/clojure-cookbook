@@ -46,12 +46,13 @@ yourself via a Gmail account:
 If all is well, you should receive an email from yourself shortly
 thereafter.
 
-[NOTE]
+[WARNING]
 ====
-If you've set up two-factor authentication on your Gmail account, the +send-message+ call will
-fail with an +AuthenticationFailedException+. You can create an application-specific password
-here: https://accounts.google.com/b/0/IssuedAuthSubTokens?hide_authsub=1, and use that as the
-value for +pass+ instead.
+If you've set up two-factor authentication on your Gmail account,
++send-message+ will fail with an +AuthenticationFailedException+.
+To successfully authenticate, create an
+http://bit.ly/gmail-app-specific[application-specific password] and use it as
+the value for +pass+ instead.
 ====
 
 
@@ -69,7 +70,7 @@ connection details. The first argument to the +send-message+ function
 is a (versatile) map of connection details. Valid connection details
 are:
 
-+:host+:: 
++:host+::
   Hostname of the desired SMTP server. Optional if running locally.
 +:port+::
   Port of SMTP server. Numerous contextual defaults exist,
