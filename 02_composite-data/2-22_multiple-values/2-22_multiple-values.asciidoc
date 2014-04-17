@@ -124,7 +124,7 @@ reimplement any of the core map methods (+assoc+, +dissoc+, etc.). It is only th
 semantics of the new behavior that differ from those of regular maps. Clojure defines very strong semantics around core
 functions. Breaking or overriding these expectations is always a bad
 idea, especially when using a distinct set of functions makes it clear
-when multimap functionality is being used.((("Clojure", "clojure.lang.Associative")))
+when multimap functionality is being used.((("Clojure", "clojure.lang.Associative", id="ix_cloj-lang-assoc", range="startofrange")))
 
 The concrete implementation of +MultiAssociative+ extends the protocol
 to the +clojure.lang.Associative+ interface. It would certainly be
@@ -166,7 +166,7 @@ can be read with +get-all+, and values inserted using +insert+ can be
 removed with +dissoc+. All expectations regarding normal maps should
 hold. In the case of a normal +get+ on a key with multiple values, a
 set containing multiple items will be returned. This is probably what
-the user would expect upon inspecting the data.((("Clojure", "clojure.lang.Associative")))
+the user would expect upon inspecting the data.(((range="endofrange", startref="ix_cloj-lang-assoc")))
 
 There is one more feature of this code that deserves commentary: the
 use of +::multi-value+ metadata on the sets used to store multiple
