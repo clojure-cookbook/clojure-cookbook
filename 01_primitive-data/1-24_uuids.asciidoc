@@ -27,7 +27,7 @@ unique ID (UUID):
 Oftentimes when building systems, you want to assign unique IDs to
 objects and records. IDs are usually simple integers that
 monotonically increase with time. This isn't without its problems,
-though. 
+though.
 
 You can't mingle IDs of objects from different origins; and
 worse, they reveal information about the amount and input volume of
@@ -43,7 +43,7 @@ You may have noticed Clojure prints UUIDs with a +#uuid+ in front of
 them. This is a reader literal tag. It acts as a shortcut for the
 Clojure reader to read and initialize UUID objects. Reader literals
 are a lot like string or number literals like +"Hi"+ or +42+, but they
-can capture more complex data types. 
+can capture more complex data types.
 
 This makes it possible for
 formats like https://github.com/edn-format/edn[edn] (extensible data notation) to communicate in
@@ -57,6 +57,19 @@ One thing you will lose with the move from sequential IDs to UUIDs is(((sequenti
 the implicit sortability of a chronologically increasing number. What
 if you could generate UUIDs that were both unique _and_ sortable?
 Datomic does something similar with its +datomic.api/squuid+ function.(((Datomic database, UUID generation)))((("functions", "datomic.api/squuid")))
+
+[source,clojure]
+----
+(defn squuid []
+  (let [uuid (java.util.UUID/randomUUID)
+        time (System/currentTimeMillis)
+        secs (quot time 1000)
+        lsb (.getLeastSignificantBits uuid)
+        msb (.getMostSignificantBits uuid)
+        timed-msb (bit-or (bit-shift-left secs 32)
+                          (bit-and 0x00000000ffffffff msb))]
+    (java.util.UUID. timed-msb lsb)))
+----
 
 This approximation of Datomic's +squuid+ splits and reassembles a(((range="endofrange", startref="ix_PDnumer")))
 random UUID, using +bit-or+ to merge the current time with the most
