@@ -29,12 +29,6 @@ command -v source-highlight >/dev/null 2>&1 || {
   brew install source-highlight
 }
 
-# Install wget
-command -v wget >/dev/null 2>&1 || {
-    echo "Installing wget"
-    brew install wget
-}
-
 # Assume brew is going to use /usr/local/share/source-highlight
 SOURCE_HIGHLIGHT_DIR="${SOURCE_HIGHLIGHT_DIR:-/usr/local/share/source-highlight}"
 CLOJURE_LANG_FILE="${SOURCE_HIGHLIGHT_DIR}/clojure.lang"
