@@ -72,11 +72,8 @@ keys:
 ;; -> (1 :baz)
 ----
 
-Since maps are not ordered, it is _not_ safe to assume that the
-ordering of keys and values is identical (even if you stumble upon an
-example where it is). In cases where you're pulling multiple values
-from nonkeyword maps, it is probably easiest to wrap that interaction
-up via +juxt+:
+In cases where you're pulling multiple values from nonkeyword maps, it is probably
+easiest to wrap that interaction up via +juxt+:
 
 [source,clojure]
 ----
