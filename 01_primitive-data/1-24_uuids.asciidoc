@@ -79,19 +79,19 @@ yielding UUIDs that increase sequentially over time:
 
 [source,clojure]
 ----
-(def first (squuid))
-first
+(def u1 (squuid))
+u1
 ;; -> #uuid "527bf210-dfae-4c73-8b7a-302d3b511f41"
 
-(def second (squuid))
-second
+(def u2 (squuid))
+u2
 ;; -> #uuid "527bf219-65f0-4241-a165-c5c541cb98ea"
 
-(def third (squuid))
-third
+(def u3 (squuid))
+u3
 ;; -> #uuid "527bf232-42b2-44bc-8dd7-ddae2abfcb87"
 
-(sort [first second third])
+(sort [u1 u2 u3])
 ;; -> (#uuid "527bf210-dfae-4c73-8b7a-302d3b511f41"
 ;;     #uuid "527bf219-65f0-4241-a165-c5c541cb98ea"
 ;;     #uuid "527bf232-42b2-44bc-8dd7-ddae2abfcb87")
