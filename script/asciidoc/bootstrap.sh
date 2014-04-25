@@ -2,12 +2,14 @@
 
 # Clojure Cookbook Bootstrap
 #
-# If OSTYPE is Linux, you must supply
-# the PACKAGER environment variable to indicate
-# which one of pacman, apt, or yum should be used
-# for package installation.
+# This script will attempt to determine your local package manager (e.g. brew,
+# apt-get, yum or install) to install dependencies
+#
+# If your packager is not in the list above, you will need to specify a package
+# installation command via $PACKAGE_INSTALL
+#
 # Usage:
-#     PACKAGER=apt ./bootstrap.sh
+#     PACKAGE_INSTALL="sudo <my-packager> install" ./bootstrap.sh
 #
 # Override the $SOURCE_HIGHLIGHT_DIR if you prefer to not
 # alter the default source highlight installation.
@@ -20,45 +22,33 @@
 
 set -e
 
-if [[ "$OSTYPE" = "darwin"* ]]; then
-    ASCIIDOC_INSTALL_CMD="brew install asciidoc"
-    SOURCE_HIGHLIGHT_INSTALL_CMD="brew install source-highlight"
-    SUDO=""
+# Determine package installation command
+if [[ -n "$PACKAGE_INSTALL" ]]; then
+  # Do nothing
+elif [[ "$OSTYPE" = "darwin"* ]]; then
+  PACKAGE_INSTALL="brew install"
+elif command -v apt-get >/dev/null 2>&1; then
+  PACKAGE_INSTALL="sudo apt-get install"
+elif command -v yum >/dev/null 2>&1; then
+  PACKAGE_INSTALL="sudo yum install"
+elif command -v pacman >/dev/null 2>&1; then
+  PACKAGE_INSTALL="sudo pacman install"
 else
-    # Let's go with Linux
-    SUDO="sudo"
-    case $PACKAGER in
-        'apt')
-            ASCIIDOC_INSTALL_CMD="$SUDO apt-get install asciidoc"
-            SOURCE_HIGHLIGHT_INSTALL_CMD="$SUDO apt-get install source-highlight"
-            ;;
-        'yum')
-            ASCIIDOC_INSTALL_CMD="$SUDO yum install asciidoc"
-            SOURCE_HIGHLIGHT_INSTALL_CMD="$SUDO yum install source-highlight"
-            ;;
-        'pacman')
-            ASCIIDOC_INSTALL_CMD="$SUDO pacman install asciidoc"
-            SOURCE_HIGHLIGHT_INSTALL_CMD="$SUDO pacman install source-highlight"
-            ;;
-        *)
-            echo "On Linux, $PACKAGER must be one of apt, pacman or yum"
-            exit
-            ;;
-    esac
+  echo "Unable to determine local package manager. Provide one via \$PACKAGE_INSTALL like \"sudo <my-packager> install\""
 fi
 
-echo "Begin Setup"
+echo "Beginning Setup"
 
 # Install asciidoc
 command -v asciidoc >/dev/null 2>&1 || {
   echo "Installing asciidoc"
-  $ASCIIDOC_INSTALL_CMD
+  $PACKAGE_INSTALL asciidoc
 }
 
 # Install source-highlight
 command -v source-highlight >/dev/null 2>&1 || {
   echo "Installing source-highlight"
-  $SOURCE_HIGHLIGHT_INSTALL_CMD
+  $PACKAGE_INSTALL "source-highlight"
 }
 
 if [[ -d "/usr/local/share/source-highlight" ]] ; then
