@@ -79,7 +79,7 @@ Add a type hint to call the http://bit.ly/javadoc-file-constructor[`public File(
   (File. s))
 ----
 
-Checking again, +core.type+ is satisfied:
+Checking again, +core.typed+ is satisfied:
 
 [source,shell-session]
 ----
