@@ -94,8 +94,8 @@ must first delete all files in the given directory:
 The +delete-directory+ function will get a +file-seq+ with the
 contents of the given path. It will then filter to only get the files
 of that directory. The next step is to delete all the files, and then
-finish up by deleting the directory itself. Note the call to +doall+.
-If you do not call +doall+, the deletion of the files would be lazy and
+finish up by deleting the directory itself. Note the call to +doseq+.
+If you do not call +doseq+, the deletion of the files would be lazy and
 then the files would still exist when the call to delete the actual
 directory was made, so that call would fail.(((functions, delete-directory)))
 
