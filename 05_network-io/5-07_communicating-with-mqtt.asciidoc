@@ -157,7 +157,7 @@ A multilevel wildcard and needs to appear at the end of the string.
 For example, these subscriptions are possible:
 
 +SNControl/#+::
-Any device under +SNControl/Florida+ (e.g., +SNControl/Florida/device1/sensor1+ and +SNControl/Florida/device1/sensor2+) and +SNControl/California/device1+ will match.
+Any device under +SNControl+ (e.g., +SNControl/Florida/device1/sensor1+, +SNControl/Florida/device1/sensor2+ and +SNControl/California/device1+) will match.
 
 `SNControl/+/device1`::
 Any +device1+ in states under domain +SNControl+ will match(e.g., +SNControl/Florida/device1+ and +SNControl/California/device1+).
