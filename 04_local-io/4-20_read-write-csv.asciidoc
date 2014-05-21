@@ -33,7 +33,7 @@ Use +clojure.data.csv/write-csv+ to write CSV data to a +java.io.Writer+:
 
 The +clojure.data.csv+ library makes it easy to work with CSV.  You need to remember that +read-csv+ is lazy; if you want to force it to read data immediately, you'll need to wrap the call to +read-csv+ in +doall+.(((csv library)))
 
-When reading, you can change the separator and quote delimiters, which default to +\+ and +\"+, respectively. You must specify the delimiters using chars, not strings, though:
+When reading, you can change the separator and quote delimiters, which default to +\,+ and +\"+, respectively. You must specify the delimiters using chars, not strings, though:
 
 [source,clojure]
 ----
