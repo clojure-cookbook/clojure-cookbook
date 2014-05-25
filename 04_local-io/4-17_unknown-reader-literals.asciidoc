@@ -100,6 +100,12 @@ format:
 ;; -> #my.example/unknown 42
 ----
 
+Under the hood, +pr+ delegates to the multimethod +print-method+ to
+write a string representation of a value. By providing our own
+implementation of +print-method+ for +TaggedValue+, the +pr+ family of
+functions are able to serialize values in such a manner that they are
+recoverable later (as illustrated above).
+
 .clojure.core/read
 ****
 
