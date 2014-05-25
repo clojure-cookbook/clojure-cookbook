@@ -1,16 +1,6 @@
 # Contributing to Clojure Cookbook
 
----
-
-**NOTE: As of 2014-01-10 we are *not* soliciting any new recipe submissions *or corrections*. We are now working with O'Reilly to prepare the book for final publication. (This includes copyediting, quality assurance, indexing, etc.)**
-
-We will begin accepting whole recipes again once the book is published and we can begin working on the online resource complimentary to the print book.
-
----
-
 Our goal with *Clojure Cookbook* is to build the best possible cookbook, chock full of excellent Clojure recipes. To do this we need the help of the whole community. From typos and factual corrections, to ideas for recipes, to whole recipes themselves, your experience is what we need to build the best *Clojure Cookbook*.
-
-This document describes how you can contribute and what you'll receive if you do.
 
 ## Valuable Contributions
 
@@ -22,20 +12,6 @@ Nearly any knowledge or bit of information you could contribute to the cookbook 
 * Write a recipe yourself (find more details in the [Recipes](#recipes) section below.)
 
 *Major contributions such as a whole recipe require you to [license](#licensing) your submission. However, you can submit pull requests for typos, factual corrections and ideas without one*
-
-## Credits & Rewards
-
-Any contribution, big or small, will net you a digital copy of the book and your name and GitHub handle immortalized in a contributors list in the book (think of the glory it will bring your family).
-
-On a legal note, we're obligated to let you know that the above mentioned rewards will be a contributors sole consideration for their contributions. (That, of course, and our ever-lasting love :wink:.)
-
-### Write a recipe
-
-Contributors who write a full (or substantial portion) of a recipe will be listed as an author of that recipe.
-
-### Write 5+ recipes
-
-Make a substantial contribution to the book (five or more recipes) and we will send you a signed physical copy of the book once it hits the presses.
 
 ## Recipes
 
@@ -142,5 +118,3 @@ If you have any questions or concerns about the licensing model, please don't he
 ### Ideas
 
 You'll find a list of ideas under the [ideas tag](../../issues?labels=idea&milestone=&page=1&state=open) of our GitHub Issues page. Feel free to submit your own ideas with a title like: `Idea: recipe covering http-kit` or `Idea: Creating a leiningen plugin`.
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/clojure-cookbook/clojure-cookbook/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

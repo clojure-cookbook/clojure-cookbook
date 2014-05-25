@@ -63,7 +63,7 @@ will catch any exceptions and optionally overwrite:
              (or (:overwrite options) 
                  (= false (.exists destination))))
       (try
-        (= nil (clojure.java.io/copy source destination))	  ; <3>
+        (nil? (clojure.java.io/copy source destination))	  ; <3>
         (catch Exception e (str "exception: " (.getMessage e))))
       false)))
 
@@ -84,7 +84,7 @@ The +safe-copy+ function takes the source and destination file paths to copy fro
     destination file exists, and if so, if it should be overwritten. If
     all is OK, it will then perform the +copy+ inside a +try-catch+
     body.
-<3> Note the equality check against +nil+ for when the file is copied.
+<3> Note the test for +nil?+ when the file is copied.
     If you add this, you will always get a Boolean value from the
     function. This makes the function more convenient to use, since
     you can then conditionally check whether the operation succeed or not.

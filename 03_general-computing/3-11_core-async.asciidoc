@@ -207,7 +207,7 @@ Fewer changes are required to make +producer+ asynchronous:
    (doseq [msg (messages)
            out  channels] ; <1>
      (<! (timeout 100))   ; <2>
-     (>! out item))))     ; <3>
+     (>! out msg))))     ; <3>
 ----
 
 <1> For each message and channel...
