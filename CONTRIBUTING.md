@@ -2,8 +2,6 @@
 
 Our goal with *Clojure Cookbook* is to build the best possible cookbook, chock full of excellent Clojure recipes. To do this we need the help of the whole community. From typos and factual corrections, to ideas for recipes, to whole recipes themselves, your experience is what we need to build the best *Clojure Cookbook*.
 
-This document describes how you can contribute and what you'll receive if you do.
-
 ## Valuable Contributions
 
 Nearly any knowledge or bit of information you could contribute to the cookbook is valuable, but here are some concrete ideas:
