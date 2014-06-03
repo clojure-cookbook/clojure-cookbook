@@ -79,7 +79,7 @@ data rather than a random data generator):
        (emit-spout! collector [(rand-nth events)])))))
 ----
 
-Next, open _src/feeds/bolts/clj_. Add a bolt that accepts a user and
+Next, open _src/feeds/bolts.clj_. Add a bolt that accepts a user and
 an event and produces a tuple of +(user, event)+ for each user in the
 system. A bolt consumes a stream, does some processing, and emits a
 new stream:
