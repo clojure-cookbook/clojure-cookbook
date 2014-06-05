@@ -22,6 +22,8 @@ To start things off, add a user, Barney Rubble, and verify that he has an email 
 
 [source,clojure]
 ----
+(require '[datomic.api :as d])
+
 (def new-id (d/tempid :db.part/user))
 
 (def tx-result @(d/transact conn
