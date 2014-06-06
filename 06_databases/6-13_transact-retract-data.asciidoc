@@ -27,7 +27,7 @@ To start things off, add a user, Barney Rubble, and verify that he has an email 
 (def tx-result @(d/transact conn
                             [{:db/id new-id
                               :user/name "Barney Rubble"
-                              :user/email "barney@example.com"}]))
+                              :user/email "barney@rubble.me"}]))
 
 (def after-tx-db (:db-after tx-result))
 
@@ -51,7 +51,7 @@ To retract Barney's email, transact a transaction with the
 [source,clojure]
 ----
 (def retract-tx-result @(d/transact conn [[:db/retract barney-id
-                                           :user/email "barney@example.com"]]))
+                                           :user/email "barney@rubble.me"]]))
 
 (def after-retract-db (:db-after retract-tx-result))
 
