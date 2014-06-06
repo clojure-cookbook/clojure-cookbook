@@ -27,7 +27,7 @@ insert data:
                :user/name "Martin Fowler"
                :user/roles [:user.roles/author :user.roles/editor]}])
 
-@(d/transact conn tx-data)
+(def tx-result @(d/transact conn tx-data))
 
 (q '[:find ?name
      :where [?e :user/name ?name]]
