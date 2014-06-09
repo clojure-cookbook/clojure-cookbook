@@ -37,7 +37,7 @@ single string:
 ;; -> "ROT13: Whyvhf Pnrfne"
 
 ;; Or, to reconstitute a file from lines (if they already have newlines...)
-(def lines ["#! /bin/bash\n", "du -a ./ | sort -n -r\n"])
+(def lines ["#! /bin/bash\n" "du -a ./ | sort -n -r\n"])
 (apply str lines)
 ;; -> "#! /bin/bash\ndu -a ./ | sort -n -r\n"
 ----
@@ -80,7 +80,7 @@ of your +rows+ collection:
 ----
 ;; Constructing a CSV from a header string and vector of rows
 (def header "first_name,last_name,employee_number\n")
-(def rows ["luke,vanderhart,1","ryan,neufeld,2"])
+(def rows ["luke,vanderhart,1" "ryan,neufeld,2"])
 
 (apply str header (interpose "\n" rows))
 ;; -> "first_name,last_name,employee_number\nluke,vanderhart,1\nryan,neufeld,2"
