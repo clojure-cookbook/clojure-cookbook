@@ -12,7 +12,7 @@ You need to add data to your Datomic database.(((Datomic database, adding data t
 Use a Datomic connection to transact data.
 
 To follow along with this recipe, complete the steps in the solutions to <<sec_datomic_connect_to_datomic>>, and
-<<sec_datomic_schema>>. 
+<<sec_datomic_schema>>.
 
 After doing this, you will have a
 connection, +conn+, and a schema installed against which you can
@@ -21,6 +21,10 @@ insert data:
 [source,clojure]
 ----
 (require '[datomic.api :as d :refer [q db]])
+
+;; Please evaluate "Connecting to a Datomic Database" and
+;; "Defining a Schema for a Datomic Database" before
+;; running these examples
 
 (def tx-data [{:db/id (d/tempid :db.part/user)
                :user/email "fowler@acm.org"
@@ -107,10 +111,10 @@ with all futures, when you dereference it, it will block until the
 transaction completes. Either way, dereferencing the future returns a
 map, with four keys:
 
-+:db-before+:: 
++:db-before+::
 The value of the database just before the transaction was committed
 
-+:db-after+:: 
++:db-after+::
 The value of the database just after the transaction was committed
 
 +:tx-data+::

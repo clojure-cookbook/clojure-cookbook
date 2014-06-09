@@ -27,6 +27,10 @@ name:
 ----
 (require '[datomic.api :as d])
 
+;; Please evaluate "Connecting to a Datomic Database" and
+;; "Defining a Schema for a Datomic Database" before
+;; running these examples
+
 (def new-id (d/tempid :db.part/user))
 
 
@@ -80,7 +84,7 @@ that of Fred's email in the in-memory database:
   [db name]
   (-> (d/q '[:find ?email
             :in $ ?name
-            :where 
+            :where
             [?entity :user/name ?name]
             [?entity :user/email ?email]]
           db

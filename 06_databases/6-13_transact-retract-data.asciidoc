@@ -22,6 +22,12 @@ To start things off, add a user, Barney Rubble, and verify that he has an email 
 
 [source,clojure]
 ----
+(require '[datomic.api :as d])
+
+;; Please evaluate "Connecting to a Datomic Database" and
+;; "Defining a Schema for a Datomic Database" before
+;; running these examples
+
 (def new-id (d/tempid :db.part/user))
 
 (def tx-result @(d/transact conn
@@ -66,7 +72,7 @@ To retract entire entities, use the +:db.fn/retractEntity+ built-in transactor f
 
 [source,clojure]
 ----
-(def retract-entity-tx-result 
+(def retract-entity-tx-result
   @(d/transact conn [[:db.fn/retractEntity barney-id]]))
 
 (def after-retract-entity-db (:db-after retract-entity-tx-result))
