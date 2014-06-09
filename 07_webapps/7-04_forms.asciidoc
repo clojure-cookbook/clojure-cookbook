@@ -42,7 +42,7 @@ To follow along with this recipe, clone the https://github.com/clojure-cookbook/
   "Show a form requesting the user's name, or greet them if they
   submitted the form"
   [req]
-  (let [name (get-in req [:params "name"])]
+  (let [name (get-in req [:form-params "name"])]
     (if name
       (show-name name)
       (show-form))))

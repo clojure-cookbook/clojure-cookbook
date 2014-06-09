@@ -80,7 +80,7 @@ functions load the entire contents into memory.
 The parser accepts additional formatting options. These include +:heading-anchors+, +:code-style+,
 +:custom-transformers+, and +:replacement-transformers+.
 
-When the +:heading-anchors+ keyis set to +true+, an anchor will be generated for each heading tag:
+When the +:heading-anchors+ key is set to +true+, an anchor will be generated for each heading tag:
 
 [source,clojure]
 ----
