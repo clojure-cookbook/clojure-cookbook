@@ -14,10 +14,8 @@ Build your transaction as usual, but instead of calling +d/transact+
 or +d/transact-async+, use +d/with+ to produce an in-memory database
 that includes the changes your transaction provides.
 
-To follow along with this recipe, complete the steps in the solutions to <<sec_datomic_connect_to_datomic>>, and
-<<sec_datomic_schema>>. After doing this, you will have a
-connection, +conn+, and a schema installed against which you can
-insert data.
+To follow along with this recipe, first complete the recipes for <<sec_datomic_connect_to_datomic>>, and
+<<sec_datomic_schema>>. 
 
 First, add some data to the database about Fred Flintstone. As of
 about 4000 BCE, Fred didn't have an email, but we at least know his
@@ -26,10 +24,6 @@ name:
 [source,clojure]
 ----
 (require '[datomic.api :as d])
-
-;; Please evaluate "Connecting to a Datomic Database" and
-;; "Defining a Schema for a Datomic Database" before
-;; running these examples
 
 (def new-id (d/tempid :db.part/user))
 
