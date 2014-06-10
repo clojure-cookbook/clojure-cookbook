@@ -11,7 +11,7 @@ You need to add data to your Datomic database.(((Datomic database, adding data t
 
 Use a Datomic connection to transact data.
 
-To follow along with this recipe, first complete the steps in the solutions to 
+To follow along with this recipe, first complete the recipes for 
 <<sec_datomic_connect_to_datomic>>, and <<sec_datomic_schema>>.
 
 After doing this, you will have a
@@ -22,7 +22,7 @@ insert data:
 ----
 (require '[datomic.api :as d :refer [q db]])
 
-;; This code assumes you have already run the code in "Connecting to a Datomic Database"
+;; This code assumes you have completed the recipes for "Connecting to a Datomic Database"
 ;; and "Defining a Schema for a Datomic Database"
 
 (def tx-data [{:db/id (d/tempid :db.part/user)
