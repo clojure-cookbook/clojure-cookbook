@@ -16,7 +16,7 @@ the two in some way.(((Datomic database, schema definition)))(((schema definitio
 Datomic schemas are defined in terms of _attributes_. It's probably
 easiest to jump straight to an example.(((attributes)))
 
-To follow along with this recipe, complete the steps in the solution in <<sec_datomic_connect_to_datomic>>. After doing this, you
+To follow along with this recipe, first complete the steps in the solution in <<sec_datomic_connect_to_datomic>>. After doing this, you
 should have an in-memory database and connection, +conn+, to work with.
 
 Consider the attributes a user might have:
