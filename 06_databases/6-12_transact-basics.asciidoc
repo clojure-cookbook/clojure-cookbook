@@ -22,7 +22,7 @@ insert data:
 ----
 (require '[datomic.api :as d :refer [q db]])
 
-;; This code assumes you have already run the examples from "Connecting to a Datomic Database"
+;; This code assumes you have already run the code in "Connecting to a Datomic Database"
 ;; and "Defining a Schema for a Datomic Database"
 
 (def tx-data [{:db/id (d/tempid :db.part/user)
