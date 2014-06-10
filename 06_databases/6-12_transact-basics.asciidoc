@@ -22,9 +22,6 @@ insert data:
 ----
 (require '[datomic.api :as d :refer [q db]])
 
-;; This code assumes you have completed the recipes for "Connecting to a Datomic Database"
-;; and "Defining a Schema for a Datomic Database"
-
 (def tx-data [{:db/id (d/tempid :db.part/user)
                :user/email "fowler@acm.org"
                :user/name "Martin Fowler"
