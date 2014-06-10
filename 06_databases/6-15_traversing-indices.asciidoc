@@ -11,11 +11,8 @@ You want to execute simple Datomic queries with high performance.(((Datomic data
 Use the +datomic.api/datoms+ function to directly access the core
 Datomic indexes in your database.
 
-To follow along with this recipe, complete the steps in
-the solutions to <<sec_datomic_connect_to_datomic>>, and
-<<sec_datomic_schema>>. After doing this, you will have a
-connection, +conn+, and a schema installed against which you can
-insert data.
+To follow along with this recipe, first complete the recipes for <<sec_datomic_connect_to_datomic>>, and
+<<sec_datomic_schema>>. 
 
 For example, to quickly find the entities that have the provided attribute and
 value set, invoke +datomic.api/datoms+, specifying the +:avet+ index
