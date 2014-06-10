@@ -28,7 +28,7 @@ value:
 
 (d/transact conn [{:db/id (d/tempid :db.part/user)
                    :user/name "Barney Rubble"
-                   :user/email "barney@example.com"}])
+                   :user/email "barney@rubble.me"}])
 
 (defn entities-with-attr-val
   "Return entities with a given attribute and value."
@@ -40,7 +40,7 @@ value:
 
 (def barney (first (entities-with-attr-val (d/db conn)
                                            :user/email
-                                           "barney@example.com")))
+                                           "barney@rubble.me")))
 
 (:user/email barney)
 ;; -> "barney@example.com"
