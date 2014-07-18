@@ -46,11 +46,11 @@ of these accept a +java.net.Socket+ as an argument and will return a
 +java.io.Reader+ or +java.io.Writer+ built from the socket's input and
 output streams.
 
-+server+ handles actually creating an instance of +ServerSocket+ on a
+The +serve+ function handles actually creating an instance of +ServerSocket+ on a
 particular port. It also takes a handler function, which will be used
 to process the incoming request and determine a response message.
 
-After creating an instance of +ServerSocket+, +server+ immediately
+After creating an instance of +ServerSocket+, +serve+ immediately
 calls its +accept+ method, which blocks until a TCP connection is
 established. When a client connects, it returns the session as an
 instance of +java.net.Socket+.
@@ -64,9 +64,9 @@ also calls the +flush+ method on the writer to ensure that all the
 data is actually sent back to the client, instead of being buffered in
 the +Writer+ instance.
 
-After sending the response, the +serve+ method returns. Because it
+After sending the response, the +serve+ function returns. Because it
 used the +with-open+ macro when creating the server socket and the TCP
-session socket, it will invoke the +close+ method on each before
+session socket, it will invoke the +close+ function on each before
 returning, which disconnects the client and ends the session.
 
 To try it out, invoke the +serve+ function in the REPL. For a simple
@@ -125,13 +125,15 @@ typically you'd like to be able to serve multiple incoming
 connections.
 
 Fortunately, this is relatively straightforward to do given the
-concurrency tools that Clojure provides. Modifying the +serve+ function to work as a persistent server requires three changes:
+concurrency tools that Clojure provides. Modifying the +serve+ function to 
+work as a persistent server requires three changes:
 
 - Run the server on a separate thread so it doesn't block the REPL.
 - Don't close the server socket after handling the first request.
 - After handling a request, loop back to immediately handle another.
 
-Also, because the server will be running on a non-REPL thread, it would be good to provide a mechanism for terminating the server other
+Also, because the server will be running on a non-REPL thread, it 
+would be good to provide a mechanism for terminating the server other
 than killing the whole JVM.
 
 The modified code looks like this:
@@ -150,7 +152,8 @@ The modified code looks like this:
     running))
 ----
 
-pass:[<?dbhtml orphans="4"?>]The key feature of this code is that it launches the server socket
+pass:[<?dbhtml orphans="4"?>]The key feature of this code is that 
+it launches the server socket
 asynchronously inside a future and calls the +accept+ method inside
 of a loop. It also creates an atom called +running+ and returns it,
 checking it each time it loops. To stop the server, reset the atom to
