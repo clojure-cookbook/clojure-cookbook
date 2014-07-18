@@ -238,8 +238,9 @@ value given as its argument.(((transform function)))
 The return value is not itself a string, but a sequence of strings,
 each one a small fragment of HTML code. This allows the underlying
 data structure to be transformed to a string representation
-lazily. For simplicity, our example just reduces the string
-concatenation function +str+ across the results, but this is actually
+lazily. For simplicity, our example uses the string
+concatenation function +str+ to +reduce+ the 
+result of +all-posts-page+ , but this is actually
 not optimally performant. To build a string most efficiently, use the
 Java +StringBuilder+ class, which uses mutable state to build up a
 +String+ object with the best possible performance. Alternatively,
