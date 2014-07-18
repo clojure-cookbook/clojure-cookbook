@@ -34,8 +34,8 @@ arrays. +amap+ uses a parallel binding syntax similar to +doseq+:
 (defn map-sqrt [xs]
   (hiphip.double/amap [x xs] (Math/sqrt x)))
 
-(seq (map-sqrt (double-array (range 1000))))
-;; -> (2.0 3.0 4.0)
+(seq (map-sqrt (double-array (range 5)))) 
+;; -> (0.0 1.0 1.4142135623730951 1.7320508075688772 2.0)
 
 (defn pointwise-product
   "Produce a new double array with the product of corresponding elements of
