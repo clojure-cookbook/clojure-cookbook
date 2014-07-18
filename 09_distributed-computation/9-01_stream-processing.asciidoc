@@ -86,8 +86,8 @@ new stream:
 
 [source,clojure]
 ----
-(defbolt active-user-bolt ["user" "event"] [{event "event" :as tuple} collector]
-       (doseq [user [:jim :rob :karen :kaitlyn :emma :travis]]
+(defbolt active-user-bolt ["user" "event"] [{event "event" :as tuple} collector] 
+  (doseq [user [:jim :rob :karen :kaitlyn :emma :travis]]
     (emit-bolt! collector [user event]))
   (ack! collector tuple))
 ----
