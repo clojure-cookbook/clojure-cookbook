@@ -45,7 +45,7 @@ function with type annotations attached:
   (fn> [m :- Any]
     (when (map? m)
       (and (every? ks? (keys m))
-           (every? ks? (vals m))))))
+           (every? vs? (vals m))))))
 ----
 
 Each argument to +hash-of?+ has type `[Any -> Any]`: a single argument
