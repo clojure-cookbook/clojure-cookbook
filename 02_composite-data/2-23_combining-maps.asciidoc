@@ -77,17 +77,22 @@ concise solutions to common problems. For example, by merging with
 ----
 
 It is also possible to merge nested maps by creating a recursive merge
-function:
+function.
 
 [source,clojure]
 ----
-(defn deep-merge
-  [& maps]
-  (apply merge-with deep-merge maps))
+;; Copied verbatim from the defunct clojure-contrib (http://bit.ly/deep-merge-with)
+(defn deep-merge-with [f & maps]
+  (apply
+    (fn m [& maps]
+      (if (every? map? maps)
+        (apply merge-with m maps)
+        (apply f maps)))
+    maps))
 
-(deep-merge {:foo {:bar {:baz 1}}}
-            {:foo {:bar {:qux 42}}})
-;; -> {:foo {:bar {:qux 42, :baz 1}}}
+(deep-merge-with + {:foo {:bar {:baz 1}}}
+                   {:foo {:bar {:baz 6 :qux 42}}})
+;; -> {:foo {:bar {:qux 42, :baz 7}}}
 ----
 
 As you saw in the previous examples, +merge-with+ is a versatile tool: we
