@@ -142,9 +142,10 @@ functions and vars in a namespace. Even things defined _after_
 [source,clojure]
 ----
 (def my-inc inc)
-(defn my-dec [n] (dec n))
 
 (t/trace-ns 'user)
+
+(defn my-dec [n] (dec n))
 
 (my-inc (my-dec 0))
 ;; -> 0
