@@ -73,7 +73,7 @@ do with maps. Thus, the following is equivalent to having used +get+:
 ;; -> :green
 ----
 
-Note that, when using a set as a function, one cannot specify a second argument
+When using a set as a function, one cannot specify a second argument
 as a default value:
 
 [source,clojure]
