@@ -45,9 +45,10 @@ code point specified by the integer:
 (char 945)
 ;; -> \α
 
-(reduce #(str %1 (char %2))
-        ""
-        [115 101 99 114 101 116 32 109 101 115 115 97 103 101 115])
+
+(def codes [115 101 99 114 101 116 32 109 101 115 115 97 103 101 115])
+;; -> #'user/codes
+(apply str (map char codes))
 ;; -> "secret messages"
 ----
 
