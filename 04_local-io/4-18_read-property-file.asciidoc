@@ -83,7 +83,7 @@ capability to parse values into numbers or Booleans, and providing
 default values.
 
 By default, ++propertea++'s +read-properties+ function treats all
-property values as strings. Consider the following property file with
+property values as strings. Consider a file +other.properties+ with
 an integer and Boolean key:
 
 ----
