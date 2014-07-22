@@ -38,11 +38,11 @@ only if the _entire_ string matches the pattern:
 
 [source,clojure]
 ----
-;; In find, #"\w+" is any contiguous word characters 
+;; In re-find, #"\w+" is any contiguous word characters 
 (re-find #"\w+" "my-param")
 ;; -> "my"
 
-;; But in matches, #"\w+" means "all word characters"
+;; But in re-matches, #"\w+" means "all word characters"
 (re-matches #"\w+" "my-param")
 ;; -> nil
 
