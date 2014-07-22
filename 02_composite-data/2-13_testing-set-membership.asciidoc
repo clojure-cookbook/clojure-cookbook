@@ -15,10 +15,11 @@ is a member of the set:
 
 [source,clojure]
 ----
-(contains? #{:red :white :green} :blue)
+(def my-set #{:red :white :green})
+(contains? my-set :blue)
 ;; -> false
 
-(contains? #{:red :white :green} :green)
+(contains? my-set :green)
 ;; -> true
 ----
 
@@ -28,10 +29,22 @@ value itself if it is a member, or +nil+ if it is not:
 
 [source,clojure]
 ----
-(get #{:red :white :green} :blue)
+(get my-set :blue)
 ;; -> nil
 
-(get #{:red :white :green} :green)
+(get my-set :green)
+;; -> :green
+----
+
+If desired, you can also pass a third argument to be used as the default return value instead
+of +nil+ if a set doesn't contain the value:
+
+[source,clojure]
+----
+(get my-set :blue :no-such-luck)
+;; -> :no-such-luck
+
+(get my-set :green :no-such-luck)
 ;; -> :green
 ----
 
@@ -41,8 +54,6 @@ member, and +nil+ otherwise:
 
 [source,clojure]
 ----
-(def my-set #{:red :white :green})
-
 (my-set :blue)
 ;; -> nil
 
@@ -55,13 +66,32 @@ do with maps. Thus, the following is equivalent to having used +get+:
 
 [source,clojure]
 ----
-(:blue #{:red :white :green})
+(:blue my-set)
 ;; -> nil
 
-(:green #{:red :white :green})
+(:green my-set)
 ;; -> :green
 ----
 
+Note that, when using a set as a function, one cannot specify a second argument
+as a default value:
+
+[source,clojure]
+----
+(my-set :blue :no-such-luck)
+ArityException Wrong number of args (2) passed to: PersistentHashSet  clojure.lang.AFn.throwArity (AFn.java:429)
+----
+
+However, you can add a default value when using a keyword as a function with a set as the first argument:
+
+[source,clojure]
+----
+(:blue my-set :no-such-luck)
+;; -> :no-such-luck
+
+user=> (:green  my-set :no-such-luck)
+;; -> :green
+----
 
 ==== Discussion
 
