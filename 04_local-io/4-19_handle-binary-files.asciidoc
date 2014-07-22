@@ -62,7 +62,7 @@ using an intermediate `ByteBuffer`:
 (defn prepare-string [strdata]
   (let [strlen (count strdata)
         version 66
-        buflen (+ 1 4 (count strdata))
+        buflen (+ 1 4 strlen)
         bb (ByteBuffer/allocate buflen)
         buf (byte-array buflen)]
     (doto bb
