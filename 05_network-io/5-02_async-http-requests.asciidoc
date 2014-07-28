@@ -72,8 +72,8 @@ request completion:
 [source,clojure]
 ----
 (http/get "http://example.com"
-          {:timeout 1000 ;; ms
- 	         :query-params {:search "value"}}
+          {:timeout 1000  ;; ms
+           :query-params {:search "value"}}
           (fn [{:keys [status headers body error]}]
             (if error
               (binding [*out* *err*]
