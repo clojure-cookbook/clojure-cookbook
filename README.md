@@ -6,6 +6,32 @@
 
 With code recipes that teach you how to use the language in a variety of domains, *Clojure Cookbook* goes beyond simply teaching Clojure syntax and semantics. It contains annotated example code with detailed analysis and explanation for hundreds of real programming tasks. You can read the book straight through to gain insights about Clojure, or use it as a reference to solve particular problems.
 
+## Exploring the Book
+
+If you're an Emacs-wielding Clojurist, you will probably want to read this book in Emacs, too. Here is a function that "turns the page" from one recipe to the next (find and open the next recipe, close the buffer with the previous recipe).
+
+```emacs-lisp
+(defun increment-clojure-cookbook ()
+  "When reading the Clojure cookbook, find the next section, and close the buffer."
+  (interactive)
+  (let* ((cur (buffer-name))
+         (cur-sec (substring cur 0 (1+ (string-match "-" cur))))
+         (cur-chap (substring cur (1+ (string-match "-" cur)) (string-match "_" cur)))
+         (cur-chap-num (string-to-number cur-chap))
+         (next-chap-num (1+ cur-chap-num))
+         (next-search (concat cur-sec (number-to-string next-chap-num)))
+         (next-target (file-name-completion next-search "")))
+    (progn 
+      (find-file next-target)
+      (kill-buffer cur))))
+```
+
+You can then bind the function to a key, like so:
+
+```emacs-lisp
+(define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
+```
+
 ## Contributing
 
 As of Jan. 10, 2014 we are preparing the book for print. See [CONTRIBUTING.md](CONTRIBUTING.md) for more info.
