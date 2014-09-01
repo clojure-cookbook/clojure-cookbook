@@ -10,7 +10,7 @@ With code recipes that teach you how to use the language in a variety of domains
 
 If you're an Emacs-wielding Clojurist, you will probably want to read this book in Emacs, too. Here is a function that "turns the page" from one recipe to the next (find and open the next recipe, close the buffer with the previous recipe).
 
-```emacs-lisp
+```elisp
 (defun increment-clojure-cookbook ()
   "When reading the Clojure cookbook, find the next section, and close the buffer."
   (interactive)
@@ -28,7 +28,7 @@ If you're an Emacs-wielding Clojurist, you will probably want to read this book 
 
 You can then bind the function to a key, like so:
 
-```emacs-lisp
+```elisp
 (define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
 ```
 
