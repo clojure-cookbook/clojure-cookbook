@@ -12,7 +12,9 @@ If you're an Emacs-wielding Clojurist, you will probably want to read this book 
 
 ```elisp
 (defun increment-clojure-cookbook ()
-  "When reading the Clojure cookbook, find the next section, and close the buffer."
+  "When reading the Clojure cookbook, find the next section, and
+close the buffer. If the next section is a sub-directory or in
+the next chapter, open Dired so you can find it manually."
   (interactive)
   (let* ((cur (buffer-name))
 	 (split-cur (split-string cur "[-_]"))
