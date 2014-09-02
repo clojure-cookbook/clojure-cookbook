@@ -25,8 +25,10 @@ If you're an Emacs-wielding Clojurist, you will probably want to read this book 
 		       (concat "0" next-rec-s)
 		     next-rec-s))
 	 (target (file-name-completion (concat chap "-" next-rec) "")))
-    (progn
-      (find-file target)
+    (progn 
+      (if (equal target nil)
+	  (dired (file-name-directory (buffer-file-name)))
+	(find-file target))
       (kill-buffer cur))))
 ```
 
