@@ -34,19 +34,17 @@ the next chapter, open Dired so you can find it manually."
       (kill-buffer cur))))
 ```
 
-You can then bind the function to a key, like so:
+If you wish, you can then bind the function to a key:
 
 ```elisp
 (define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
 ```
 
-That key-binding function assumes you're using adoc-mode for reading .asciidoc files. If you're also using CIDER, you can start cider-mode when you're reading an asciidoc file:
+Of course, this binding assumes you're using adoc-mode for reading .asciidoc files. We suggest CIDER for evaluating code interactively. Adding the following hook to your config will enable cider-mode every time you enter an AsciiDoc file. Once active, you can start a REPL and evaluate code like you would do in any regular Clojure file.
 
 ```elisp
 (add-hook 'adoc-mode-hook 'cider-mode)
 ```
-
-(You'll probably only want to keep that around while you're reading the book.)
 
 ## Contributing
 
