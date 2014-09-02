@@ -38,6 +38,14 @@ You can then bind the function to a key, like so:
 (define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
 ```
 
+That key-binding function assumes you're using adoc-mode for reading .asciidoc files. If you're also using CIDER, you can start cider-mode when you're reading an asciidoc file:
+
+```elisp
+(add-hook 'adoc-mode-hook 'cider-mode)
+```
+
+(You'll probably only want to keep that around while you're reading the book.)
+
 ## Contributing
 
 As of Jan. 10, 2014 we are preparing the book for print. See [CONTRIBUTING.md](CONTRIBUTING.md) for more info.
