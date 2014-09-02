@@ -4,7 +4,49 @@
 
 *Clojure Cookbook* doesn't just teach you Clojure, it also shows you how to use the language and many of its common libraries. The most difficult part of mastering any language is knowing how to apply it, in an idiomatic way, to tasks that real software developers encounter every day. This is especially true of Clojure.
 
-With code recipes that teach you how to use the language in a variety of domains, *Clojure Cookbook* goes beyond simply teaching Clojure syntax and semantics. It contains annotated example code with detailed analysis and explanation for hundreds of real programming tasks. You can read the book straight through to gain insights about Clojure, or use it as a reference to solve particular problems
+With code recipes that teach you how to use the language in a variety of domains, *Clojure Cookbook* goes beyond simply teaching Clojure syntax and semantics. It contains annotated example code with detailed analysis and explanation for hundreds of real programming tasks. You can read the book straight through to gain insights about Clojure, or use it as a reference to solve particular problems.
+
+## Exploring the Book
+
+If you're an Emacs-wielding Clojurist, you will probably want to read this book in Emacs, too. Here is a function that "turns the page" from one recipe to the next (find and open the next recipe, close the buffer with the previous recipe).
+
+```elisp
+(defun increment-clojure-cookbook ()
+  "When reading the Clojure cookbook, find the next section, and
+close the buffer. If the next section is a sub-directory or in
+the next chapter, open Dired so you can find it manually."
+  (interactive)
+  (let* ((cur (buffer-name))
+	 (split-cur (split-string cur "[-_]"))
+	 (chap (car split-cur))
+	 (rec (car (cdr split-cur)))
+	 (rec-num (string-to-number rec))
+	 (next-rec-num (1+ rec-num))
+	 (next-rec-s (number-to-string next-rec-num))
+	 (next-rec (if (< next-rec-num 10)
+		       (concat "0" next-rec-s)
+		     next-rec-s))
+	 (target (file-name-completion (concat chap "-" next-rec) "")))
+    (progn 
+      (if (equal target nil)
+	  (dired (file-name-directory (buffer-file-name)))
+	(find-file target))
+      (kill-buffer cur))))
+```
+
+You can then bind the function to a key, like so:
+
+```elisp
+(define-key adoc-mode-map (kbd "M-+") 'increment-clojure-cookbook)
+```
+
+That key-binding function assumes you're using adoc-mode for reading .asciidoc files. If you're also using CIDER, you can start cider-mode when you're reading an asciidoc file:
+
+```elisp
+(add-hook 'adoc-mode-hook 'cider-mode)
+```
+
+(You'll probably only want to keep that around while you're reading the book.)
 
 ## Contributing
 
