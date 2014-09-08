@@ -61,18 +61,12 @@ installed and properly configured.)
 You must have the `asciidoc` and `source-highlight` command-line utilities
 installed and configured before attempting to build the book.
 
-To install and configure the tools on OS X,
-run the included [`bootstrap_osx.sh`](script/asciidoc/bootstrap_osx.sh) script:
+To install and configure the tools on OS X or Linux,
+run the included [`bootstrap.sh`](script/asciidoc/bootstrap.sh) script:
 
 ```sh
-$ ./script/asciidoc/bootstrap_osx.sh
+$ ./script/asciidoc/bootstrap.sh
 ```
-
-Linux users will need to follow a similar process to
-[`bootstrap_osx.sh`](script/asciidoc/bootstrap_osx.sh), but we have not
-automated it yet. The most important part after installing `asciidoc` and
-`source-highlight` is to obtain and configure the proper bindings for Clojure
-(and other) syntax highlighting.
 
 ### Rendering
 
