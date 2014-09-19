@@ -22,6 +22,15 @@
 
 set -e
 
+PROJECT_BASE=$(dirname $0)/../../
+OS=`uname -s`
+if [ "${OS}" = "Darwin" ] ; then
+    PROJECT_ROOT=`greadlink -f ${PROJECT_BASE}`
+else
+    PROJECT_ROOT=`readlink -f ${PROJECT_BASE}`
+fi
+export PROJECT_ROOT
+
 # Determine package installation command
 if [[ -n "$PACKAGE_INSTALL" ]]; then
   echo "Using '$PACKAGE_INSTALL' as install command"
@@ -69,8 +78,8 @@ JSON_STYLE_FILE="${SOURCE_HIGHLIGHT_DIR}/json.style"
 TEXT_LANG_FILE="${SOURCE_HIGHLIGHT_DIR}/text.lang"
 
 CLOJURE_LANG_SOURCE="https://gist.github.com/alandipert/265810/raw/8dec04317e02187b03e96bb1e0206e154e0ae5e2/clojure.lang"
-JSON_LANG_SOURCE="https://raw.github.com/freeformsystems/rlx/master/highlight/json.lang"
-JSON_STYLE_SOURCE="https://raw.github.com/freeformsystems/rlx/master/highlight/json.style"
+JSON_LANG_SOURCE="${PROJECT_ROOT}/script/asciidoc/source-highlight/json.lang"
+JSON_STYLE_SOURCE="${PROJECT_ROOT}/script/asciidoc/source-highlight/json.style"
 
 # uncomment the following to debug/start fresh
 # does not clean LANG_MAP_FILE
@@ -80,8 +89,8 @@ JSON_STYLE_SOURCE="https://raw.github.com/freeformsystems/rlx/master/highlight/j
 test -f "$CLOJURE_LANG_FILE" || (echo "** Adding $CLOJURE_LANG_FILE **" && $SUDO curl --location --silent --output "$CLOJURE_LANG_FILE" "$CLOJURE_LANG_SOURCE")
 
 # JSON highlighting support
-test -f "$JSON_LANG_FILE" || (echo "** Adding $JSON_LANG_FILE **" && $SUDO curl --location --silent --output "$JSON_LANG_FILE" "$JSON_LANG_SOURCE")
-test -f "$JSON_STYLE_FILE" || (echo "** Adding $JSON_STYLE_FILE **" && $SUDO curl --location --silent --output "$JSON_STYLE_FILE" "$JSON_STYLE_SOURCE")
+test -f "$JSON_LANG_FILE" || (echo "** Adding $JSON_LANG_FILE **" && $SUDO cp  "$JSON_LANG_SOURCE" "$JSON_LANG_FILE" )
+test -f "$JSON_STYLE_FILE" || (echo "** Adding $JSON_STYLE_FILE **" && $SUDO cp "$JSON_STYLE_SOURCE" "$JSON_STYLE_FILE" )
 
 # CSV/text/text highlighting
 # This is to avoid errors more than actually highlight anything.

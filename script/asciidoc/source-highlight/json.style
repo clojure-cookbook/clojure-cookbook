@@ -1,0 +1,12 @@
+string red b;
+keyword blue;
+number blue;
+type pink;
+normal black;
+symbol blue;
+
+// for JSON
+key bg:black;
+keyquote bg:black;
+valquote red;
+colon cyan;
