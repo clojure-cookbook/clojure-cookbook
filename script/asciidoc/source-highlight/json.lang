@@ -1,0 +1,19 @@
+# JSON lang definition file
+# Formerly https://raw.github.com/freeformsystems/rlx/master/highlight/json.lang
+
+# for string types
+(keyquote,key,keyquote,colon,valquote,string,valquote) = `(")([^"]+)(")(\s*:)(\s*")((?:\\"|.)*?)(")`
+
+# for string primitives
+(valquote,string,valquote) = `(^")((?:\\"|.)*?)("$)`
+
+# for non-string types and string values (array of strings)
+(keyquote,key,keyquote,colon) = `(")([^"]+)(")(\s*:?\s*)`
+
+# duplicated from number.lang - can just include
+number = 
+'\<[+-]?((0x[[:xdigit:]]+)|(([[:digit:]]*\.)?
+[[:digit:]]+([eE][+-]?[[:digit:]]+)?))u?((int(?:8|16|32|64))|L)?\>'
+
+symbol = ",","{","}","[","]"
+keyword = "true|false|null"
