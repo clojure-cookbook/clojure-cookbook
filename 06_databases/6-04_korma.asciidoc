@@ -49,7 +49,8 @@ acceptable to +:refer :all+ its contents into model namespaces:
 
 [source,clojure]
 ----
-(require '[korma.db :refer :all])
+(require '[korma.db   :refer :all]
+         '[korma.core :refer :all])
 
 (defdb db
   (postgres {:db "learn_korma"}))
