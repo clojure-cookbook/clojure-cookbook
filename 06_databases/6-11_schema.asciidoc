@@ -38,7 +38,7 @@ name, and role, as well as insertions of the three static roles:
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/unique :db.unique/identity
-    :db/id #db/id[:db.part/db]
+    :db/id (d/tempid :db.part/db)
     :db.install/_attribute :db.part/db}
 
    {:db/doc "User name"
@@ -46,19 +46,19 @@ name, and role, as well as insertions of the three static roles:
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/index true
-    :db/id #db/id[:db.part/db]
+    :db/id (d/tempid :db.part/db)
     :db.install/_attribute :db.part/db}
 
    {:db/doc "User roles"
     :db/ident :user/roles
     :db/valueType :db.type/ref
     :db/cardinality :db.cardinality/many
-    :db/id #db/id[:db.part/db]
+    :db/id (d/tempid :db.part/db)
     :db.install/_attribute :db.part/db}
 
-   [:db/add #db/id[:db.part/user] :db/ident :user.roles/guest]
-   [:db/add #db/id[:db.part/user] :db/ident :user.roles/author]
-   [:db/add #db/id[:db.part/user] :db/ident :user.roles/editor]])
+   [:db/add (d/tempid :db.part/user] :db/ident :user.roles/guest)
+   [:db/add (d/tempid :db.part/user] :db/ident :user.roles/author)
+   [:db/add (d/tempid :db.part/user] :db/ident :user.roles/editor]))
 ----
 
 We define a group as having:
@@ -81,7 +81,7 @@ Define the group as follows:
     :db/valueType :db.type/uuid
     :db/cardinality :db.cardinality/one
     :db/unique :db.unique/value
-    :db/id #db/id[:db.part/db]
+    :db/id (d/tempid :db.part/db)
     :db.install/_attribute :db.part/db}
 
    {:db/doc "Group name"
@@ -89,14 +89,14 @@ Define the group as follows:
     :db/valueType :db.type/string
     :db/cardinality :db.cardinality/one
     :db/index true
-    :db/id #db/id[:db.part/db]
+    :db/id (d/tempid :db.part/db)
     :db.install/_attribute :db.part/db}
 
    {:db/doc "Group users"
     :db/ident :group/users
     :db/valueType :db.type/ref
     :db/cardinality :db.cardinality/many
-    :db/id #db/id[:db.part/db]
+    :db/id (d/tempid :db.part/db)
     :db.install/_attribute :db.part/db}])
 ----
 
