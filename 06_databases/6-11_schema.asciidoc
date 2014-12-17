@@ -56,9 +56,9 @@ name, and role, as well as insertions of the three static roles:
     :db/id (d/tempid :db.part/db)
     :db.install/_attribute :db.part/db}
 
-   [:db/add (d/tempid :db.part/user] :db/ident :user.roles/guest)
-   [:db/add (d/tempid :db.part/user] :db/ident :user.roles/author)
-   [:db/add (d/tempid :db.part/user] :db/ident :user.roles/editor]))
+   [:db/add (d/tempid :db.part/user) :db/ident :user.roles/guest]
+   [:db/add (d/tempid :db.part/user) :db/ident :user.roles/author]
+   [:db/add (d/tempid :db.part/user) :db/ident :user.roles/editor]])
 ----
 
 We define a group as having:
