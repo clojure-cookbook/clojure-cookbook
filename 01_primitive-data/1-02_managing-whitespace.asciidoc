@@ -36,8 +36,8 @@ pass:[<phrase role='keep-together'><literal>clojure.string/replace</literal></ph
 
 What constitutes whitespace in Clojure? The answer depends on the
 function: some are more liberal than others, but you can safely assume
-that a space ( ), tab (+\t+), newline (+\n+), carriage return (+\r+), line
-feed (+\f+), and vertical tab (+\x0B+) will be treated as whitespace.
+that a space ( ), tab (+\t+), newline/linefeed (+\n+), carriage return (+\r+),
+form feed (+\f+), and vertical tab (+\x0B+) will be treated as whitespace.
 This set of characters is the set matched by +\s+ in Java's regular
 expression implementation.
 
