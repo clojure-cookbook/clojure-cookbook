@@ -32,7 +32,7 @@ elif command -v apt-get >/dev/null 2>&1; then
 elif command -v yum >/dev/null 2>&1; then
   PACKAGE_INSTALL="sudo yum install"
 elif command -v pacman >/dev/null 2>&1; then
-  PACKAGE_INSTALL="sudo pacman install"
+  PACKAGE_INSTALL="sudo pacman --noconfirm -S"
 else
   echo "Unable to determine local package manager. Provide one via \$PACKAGE_INSTALL like \"sudo <my-packager> install\""
 fi
