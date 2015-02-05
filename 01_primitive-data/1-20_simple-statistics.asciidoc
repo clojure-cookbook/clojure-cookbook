@@ -67,11 +67,11 @@ retrieve the discrete list of modes:
 ----
 (defn mode [coll]
   (let [freqs (frequencies coll)
-        occurrences (group-by second freqs)
+        occurrences (group-by val freqs)
         modes (last (sort occurrences))
         modes (->> modes
-                   second
-                   (map first))]
+                   val
+                   (map key))]
      modes))
 
 (mode [:alan :bob :alan :greg])
@@ -124,23 +124,23 @@ Here is a breakdown of how +mode+ works:
 ----
 (defn mode [coll]
   (let [freqs (frequencies coll)            ; <1>
-        occurrences (group-by second freqs) ; <2>
+        occurrences (group-by val freqs) ; <2>
         modes (last (sort occurrences))     ; <3>
         modes (->> modes                    ; <4>
-                   second
-                   (map first))]
+                   val
+                   (map key))]
      modes))
 ----
 
 <1> +frequencies+ returns a map that tallies the number of times
     each value in +coll+ occurs. This would be something like +{:a 1 :b 2}+.
-<2> +group-by+ with +second+ inverts the +freqs+ map, turning keys
+<2> +group-by+ with +val+ inverts the +freqs+ map, turning keys
     into values and merging duplicates into groups. This would turn +{:a 1 :b
     1}+ into `{1 [[:a 1] [:b 1]]}`.
 <3> The list of occurrences is now sortable. The last pair in the
     sorted list will be the modes, or most frequently occurring values.
 <4> The final step is processing the raw mode pairs into discrete
-    values. Taking +second+ turns pass:[<literal>[2 [[:alan 2\]\]\]</literal>] into pass:[<literal>[[:alan 2\]\]</literal>], and +(map first)+ turns that into +(:alan)+.
+    values. Taking +val+ turns pass:[<literal>[2 [[:alan 2\]\]\]</literal>] into pass:[<literal>[[:alan 2\]\]</literal>], and +(map key)+ turns that into +(:alan)+.
 
 The standard deviation measures how much, on average, the individual values in a
 population deviate from the mean: the higher the standard deviation is, the
