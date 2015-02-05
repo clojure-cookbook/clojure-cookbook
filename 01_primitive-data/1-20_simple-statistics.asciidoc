@@ -67,11 +67,11 @@ retrieve the discrete list of modes:
 ----
 (defn mode [coll]
   (let [freqs (frequencies coll)
-        occurrences (group-by second freqs)
+        occurrences (group-by val freqs)
         modes (last (sort occurrences))
         modes (->> modes
-                   second
-                   (map first))]
+                   val
+                   (map key))]
      modes))
 
 (mode [:alan :bob :alan :greg])
