@@ -75,7 +75,7 @@ beyond arithmetic, including rounding and currency conversion:
 ;; -> #<Money USD 154.92>
 ----
 
-The +round+ function takes four arguments. The first three are an amount of currency, a(((numeric types, rounding/truncating)))(((rounding up/down)))
+The +round+ function takes three arguments: an amount of currency, a(((numeric types, rounding/truncating)))(((rounding up/down)))
 scale factor, and a rounding mode. The scaling factor is a somewhat(((scaling factors)))
 peculiar argument. It might be familiar to you if you've ever done
 scaling with +BigDecimal+, which shares identical factors. A scale of
