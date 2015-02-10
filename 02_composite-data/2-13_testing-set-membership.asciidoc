@@ -115,7 +115,7 @@ itself is both easy and idiomatic:
 ----
 
 This snippet first creates an infinite lazy sequence consisting of
-random numbers between 1 and 10, using +repeatedly+ to call
+random integers between 0 (inclusive) and 10 (exclusive), using +repeatedly+ to call
 +rand-int+ (wrapped in an anonymous function) over and over. Then it
 feeds this sequence through a filter, with a set of the numbers 1&#x2013;3
 as the filter predicate.
