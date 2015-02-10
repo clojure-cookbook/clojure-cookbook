@@ -71,7 +71,7 @@ not found:
 [source,clojure]
 ----
 (get [:a :b :c] 5)
-;; -> :nil
+;; -> nil
 
 (get [:a :b :c] 5 :not-found)
 ;; -> :not-found
