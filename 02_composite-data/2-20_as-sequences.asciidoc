@@ -101,7 +101,7 @@ be used to retrieve the key and value of an entry:
 ;; -> :a
 
 (val entry)
-;; -> :1
+;; -> 1
 ----
 
 These functions should be preferred to using the +first+ and +second+
