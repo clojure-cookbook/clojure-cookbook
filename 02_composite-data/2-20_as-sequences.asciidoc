@@ -80,6 +80,20 @@ their sort order in the map. For example:
 ;; -> ([:a 1] [:b 2] [:c 3] [:d 4])
 ----
 
+It's also possible to retrieve the map entry for a particular key.
+Use the +find+ function, which is similar to +get+ except two facts:
+first, it returns map entries; second, it does'nt accept an optional
+default return value:
+
+[source,clojure]
+----
+(find {:name "Kvothe" :class "Bard"} :name)
+;; -> [:name "Kvothe"]
+
+(find {:name "Kvothe" :class "Bard"} :race)
+;; -> nil
+----
+
 There is another interesting fact about the entry values in this
 sequence. They are printed as vectors, and they _are_ vectors insofar
 as they implement the full vector interface. However, their concrete
