@@ -92,7 +92,7 @@ be used to retrieve the key and value of an entry:
 
 [source,clojure]
 ----
-(def entry (first {:a 1 :b 2}))
+(def entry (find {:a 1 :b 2} :a))
 
 (class entry)
 ;; -> clojure.lang.MapEntry
