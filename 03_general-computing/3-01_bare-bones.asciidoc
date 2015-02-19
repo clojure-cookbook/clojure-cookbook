@@ -37,7 +37,7 @@ Let's dissect the +java+ invocation here a bit. First, we set the Java classpath
 ----
 
 A full explanation of the classpath is beyond the scope
-of this recipe, but suffice it to say thatit is a list of places where Java
+of this recipe, but suffice it to say that it is a list of places where Java
 should look to load classes. A full discussion of classpaths on the(((Java, classpaths)))
 JVM can be found at http://bit.ly/docs-classpaths. In the final part of the invocation, we specify the class that Java should load and execute the +main+ method: 
 
