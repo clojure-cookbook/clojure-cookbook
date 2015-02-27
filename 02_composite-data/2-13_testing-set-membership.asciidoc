@@ -89,7 +89,7 @@ However, you can add a default value when using a keyword as a function with a s
 (:blue my-set :no-such-luck)
 ;; -> :no-such-luck
 
-user=> (:green  my-set :no-such-luck)
+(:green my-set :no-such-luck)
 ;; -> :green
 ----
 
