@@ -11,7 +11,7 @@ You want to know what namespaces are loaded and what public vars are available i
 
 Use +loaded-libs+ to obtain the set of currently loaded namespaces. For example, from a REPL:
 
-[source,shell-session]
+[source,text]
 ----
 user=> (pprint (loaded-libs))
 #{clojure.core.protocols clojure.instant clojure.java.browse
@@ -21,7 +21,7 @@ user=> (pprint (loaded-libs))
 
 Use +dir+ from a REPL to print the public vars in a namespace:
 
-[source,shell-session]
+[source,text]
 ----
 user=> (dir clojure.instant)
 parse-timestamp
