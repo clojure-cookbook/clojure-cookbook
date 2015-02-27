@@ -108,9 +108,14 @@ Here's a complete example:
 
 [source,clojure]
 ----
+(defn assoc-max [m k v]
+  (if (contains? m k)
+    (update-in m [k] max v)
+    (assoc m k v)))
+
 (def app-specs [["-n" "--count" :default 5
                                 :parse-fn #(Integer. %)
-                                :assoc-fn max]
+                                :assoc-fn assoc-max]
                 ["-v" "--verbose" :flag true
                                   :default true]])
 
