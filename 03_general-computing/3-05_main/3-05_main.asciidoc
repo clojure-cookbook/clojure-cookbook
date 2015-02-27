@@ -117,7 +117,7 @@ provides a +-main+ function, like so:
     (println (foo.util/greet name))))
 ----
 
-When you invoke Clojure with +foo.core+ as the "main" namespace, it
+When you invoke Clojure with +foo+ as the "main" namespace, it
 calls the +-main+ function with the provided command-line arguments:
 
 [source,shell-session]
