@@ -62,7 +62,7 @@ whatever namespace you have specified as +:main+ in your project's
 _project.clj_ file. For example, setting +:main my-cli.core+ will
 invoke +my-cli.core/-main+. Alternatively, you may omit implementing
 +-main+ and provide +:main+ with the fully qualified name of a
-function (e.g., +my.cli.core/alt-main+); this function will be invoked
+function (e.g., +my-cli.core/alt-main+); this function will be invoked
 instead of +-main+.
 
 While the printed arguments in the preceding solution _look_ like Clojure
@@ -82,7 +82,7 @@ no requirement that this function be prefixed with a +-+ (indicating it is
 a Java method); it simply must accept a variable number of arguments
 (as +-main+ normally does).(((functions, command line invocation of)))
 
-For example, you can add a function +add-main+ to +my.cli/core+:
+For example, you can add a function +add-main+ to +my-cli.core+:
 
 [source,clojure]
 ----
