@@ -42,7 +42,7 @@ you're using to test a collection with. Consider the following:
 ----
 
 Because the +some+ function returns the _value_ returned from the
-predicate function when it's logically true, or +nil+ otherwise, not just +true+ or +false+, using it with sets
+predicate function when it's logically true, not just +true+ or +false+, using it with sets
 that contain +nil+ or +false+ probably isn't what you want--it will
 return +nil+ if the item actually _is_ in the set. The simplest solution is to test for +nil+ or +false+ separately,
 using the +nil?+ or +false?+ predicate functions built into Clojure:
