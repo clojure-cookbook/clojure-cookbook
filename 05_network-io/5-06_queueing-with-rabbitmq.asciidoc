@@ -258,7 +258,7 @@ messages from them:
 * Pull, using +langohr.basic/get+
 * Push, using +langohr.consumers/subscribe+
 
-In the Push API, you make a synchronous invocation of the +get+ function
+In the Pull API, you make a synchronous invocation of the +get+ function
 to retrieve a single message from a queue. The return value of +get+
 is a tuple of metadata map and a body. The body payload, as returned,
 is an array of bytes--for plain-text messages you can use the string
@@ -276,7 +276,7 @@ invoke the +String+ constructor with an encoding option of +"UTF-8"+:
 
 When no messages are present on a queue, +get+ will return +nil+.
 
-In the Pull API, you subscribe to a queue using
+In the Push API, you subscribe to a queue using
 +langohr.consumers/subscribe+, providing a message handler function that
 will be invoked for each message the queue receives. This function
 will be invoked with three arguments: a channel, metadata, and the body
