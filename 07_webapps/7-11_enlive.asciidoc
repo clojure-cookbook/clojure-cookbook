@@ -21,7 +21,7 @@ To follow along with this recipe, start a REPL using +lein-try+:
 [source,shell-session]
 ----
 $ lein try enlive
----- 
+----
 
 To begin, create a file _post.html_ to serve as an Enlive template:
 
@@ -239,7 +239,7 @@ The return value is not itself a string, but a sequence of strings,
 each one a small fragment of HTML code. This allows the underlying
 data structure to be transformed to a string representation
 lazily. For simplicity, our example uses the string
-concatenation function +str+ to +reduce+ the 
+concatenation function +str+ to +reduce+ the
 result of +all-posts-page+ , but this is actually
 not optimally performant. To build a string most efficiently, use the
 Java +StringBuilder+ class, which uses mutable state to build up a
@@ -301,7 +301,7 @@ braces). The range selector contains two other selectors and
 inclusively matches all the nodes between the two matched nodes, in
 document order. The starting node is in key position in the map
 literal and the ending node is in value position, so the selector
-+{[:#foo] [:#bar]}+ will match all nodes between nodes with CSS ID of
++{[:#foo] [:#bar]}+ will match all nodes between nodes with a CSS ID of
 "foo" and a CSS ID of "bar".
 
 The example in the solution uses a range selector in the +defsnippet+
