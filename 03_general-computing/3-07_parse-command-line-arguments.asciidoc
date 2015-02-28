@@ -96,11 +96,11 @@ options:
 +:flag+:: If truthy (not +false+ or +nil+), indicates an argument
   behaves like a flag or switch. This argument will _not_ take any
   value as its input.
-  
+
 +:parse-fn+:: The function used to parse an argument's value. This can
   be used to turn string values into integers, floats, or other
   data types.
-  
+
 +:assoc-fn+:: The function used to combine multiple values for a
   single argument.
 
@@ -108,7 +108,10 @@ Here's a complete example:
 
 [source,clojure]
 ----
-(defn assoc-max [m k v]
+(defn assoc-max
+  "Associate a numeric value into a map. If a value already exists for the
+  desired key, keep the max of the new & old values."
+  [m k v]
   (if (contains? m k)
     (update-in m [k] max v)
     (assoc m k v)))
@@ -149,7 +152,7 @@ there is no +:required+ option):
 (def required-opts #{:port})
 
 (defn missing-required?
-  "Returns true if opts is missing any of the required-opts"  
+  "Returns true if opts is missing any of the required-opts"
   [opts]
   (not-every? opts required-opts))
 
