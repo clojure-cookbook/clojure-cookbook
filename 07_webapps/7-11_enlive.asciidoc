@@ -205,7 +205,7 @@ would be parsed into the Clojure data:
     ({:tag :div,
       :attrs {:id "foo"},
       :content
-      ({:tag :span, :attrs {:class "bar"}, :content ("Hello!")})})})}
+      ({:tag :span, :attrs {:id "bar"}, :content ("Hello!")})})})}
 ----
 
 This is more verbose, but it is easier to manipulate from Clojure. You
@@ -301,8 +301,8 @@ braces). The range selector contains two other selectors and
 inclusively matches all the nodes between the two matched nodes, in
 document order. The starting node is in key position in the map
 literal and the ending node is in value position, so the selector
-+{[:.foo] [:.bar]}+ will match all nodes between nodes with an ID of
-"foo" and an ID of "bar".
++{[:#foo] [:#bar]}+ will match all nodes between nodes with CSS ID of
+"foo" and a CSS ID of "bar".
 
 The example in the solution uses a range selector in the +defsnippet+
 form to select all the nodes that are part of the same logical blog
