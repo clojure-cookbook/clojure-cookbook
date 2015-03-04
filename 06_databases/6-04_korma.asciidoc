@@ -17,7 +17,7 @@ Before starting, add `[korma "0.3.0-RC6"]` and
 `[org.postgresql/postgresql "9.2-1002-jdbc4"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try korma org.postgresql/postgresql
 ----
@@ -34,7 +34,7 @@ wiki].]
 After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
-[source,shell-session]
+[source,text]
 ----
 # On Mac:
 $ /Applications/Postgres.app/Contents/MacOS/bin/createdb learn_korma

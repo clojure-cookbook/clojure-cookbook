@@ -19,7 +19,7 @@ need a functional Internet connection on your machine).
 
 To follow along with this recipe, launch a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try clojurewerkz/machine_head
 ----

@@ -16,7 +16,7 @@ dynamic content.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try selmer
 ----

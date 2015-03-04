@@ -19,7 +19,7 @@ instructions on how to install MongoDB on your local system.
 
 When you're ready to write a Clojure MongoDB client, start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.novemberain/monger
 ----

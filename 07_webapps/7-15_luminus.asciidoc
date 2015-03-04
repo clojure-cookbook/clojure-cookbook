@@ -18,7 +18,7 @@ Use the Luminus Leiningen template when creating a new project.
 
 At the command line, type:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein new luminus myapp
 ----
@@ -30,7 +30,7 @@ deployed on an application server.
 
 You can start the application in development mode by running:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein ring server
 ----
@@ -50,7 +50,7 @@ When creating the application, you can add functionality by specifying profiles 
 the relevant stubs. The following are some examples of initializing the
 application with default configurations for different databases:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein new luminus app1 +h2
 

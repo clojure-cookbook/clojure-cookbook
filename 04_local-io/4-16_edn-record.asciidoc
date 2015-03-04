@@ -16,7 +16,7 @@ edn tagged literal values.
 Before starting, add `[com.velisco/tagged "0.3.0"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.velisco/tagged
 ----

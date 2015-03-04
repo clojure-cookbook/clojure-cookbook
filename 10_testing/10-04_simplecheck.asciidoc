@@ -18,7 +18,7 @@ _local_ minimum, not the _global_ minimum.]
 
 To follow along with this recipe, add `[reiddraper/simple-check "0.5.3"]` to your project's dependencies, or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try reiddraper/simple-check
 ----

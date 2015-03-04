@@ -34,7 +34,7 @@ https://github.com/clojure/core.match[+core.match+] to simplify the
 implementation of an RBT. Add `[org.clojure/core.match "0.2.0"]` to your project's
 dependencies, or start a REPL with +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try org.clojure/core.match
 ----

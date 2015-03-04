@@ -14,7 +14,7 @@ logger and add logging messages to your code.
 Before starting, add `[com.taoensso/timbre "2.7.1"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.taoensso/timbre
 ----

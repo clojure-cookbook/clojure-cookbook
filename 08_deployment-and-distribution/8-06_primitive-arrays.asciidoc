@@ -19,7 +19,7 @@ quick and easy way to manipulate primitive arrays of +double+, +long+, +float+, 
 Before starting, add `[prismatic/hiphip "0.1.0"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try prismatic/hiphip
 ----

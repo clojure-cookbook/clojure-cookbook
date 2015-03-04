@@ -13,7 +13,7 @@ messages.(((postal wrapper)))(((Java, JavaMail package)))(((functions, postal.co
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.draines/postal
 ----

@@ -23,7 +23,7 @@ wiki].]
 After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
-[source,shell-session]
+[source,text]
 ----
 # On Mac:
 $ /Applications/Postgres93.app/Contents/MacOS/bin/createdb cookbook_experiments
@@ -39,7 +39,7 @@ along with this sample, use `[org.postgresql/postgresql
 "9.2-1003-jdbc4"]`. To start a REPL using +lein-try+, enter the
 following Leiningen command:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try org.clojure/java.jdbc "0.3.0" \
            java-jdbc/dsl "0.1.0" \

@@ -39,7 +39,7 @@ input is buffered as well by default. The JLine library provides a
 +ConsoleReader+ object whose +readCharacter+ method lets you avoid the
 input buffering. Beware, however, of testing +show-keystroke+ at the REPL:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein repl
 user=> (require '[keystroke.core :refer [show-keystroke]])
@@ -51,7 +51,7 @@ Enter a keystroke:
 In order to connect the console's input correctly to the REPL, use(((lein trampoline repl)))
 *+lein trampoline repl+* (the +<r>+ here means the user types the letter +r+):
 
-[source,shell-session]
+[source,text]
 ----
 $ lein trampoline repl
 user=> (require '[keystroke.core :refer [show-keystroke]])

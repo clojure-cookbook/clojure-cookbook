@@ -15,7 +15,7 @@ RabbitMQ client, to communicate with RabbitMQ.(((networking/web services, commun
 Before starting, add `[com.novemberain/langohr "1.6.0"]` to your
 project's dependencies, or follow along in a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.novemberain/langohr
 ----
@@ -26,7 +26,7 @@ http://bit.ly/rmq-download[installed and running].
 Once installed, start a standalone RabbitMQ server with the command
 *+rabbitmq-server+*:
 
-[source,shell-session]
+[source,text]
 ----
 $ rabbitmq-server
 ----

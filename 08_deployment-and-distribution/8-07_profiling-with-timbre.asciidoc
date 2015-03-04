@@ -17,7 +17,7 @@ in production.
 Before starting, add `[com.taoensso/timbre "2.6.3"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.taoensso/timbre
 ----
@@ -51,7 +51,7 @@ higher-order function +f+ that takes zero or one argument.
 
 Timbre outputs rich profiling information in a convenient table:
 
-[source,shell-session]
+[source,text]
 ----
 2013-Aug-25 ... Profiling :taoensso.timbre.profiling/Bench-f
                         Name  Calls    Min    Max   MAD   Mean Time%   Time

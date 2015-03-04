@@ -23,7 +23,7 @@ library to introduce and coordinate asynchronous channels.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try org.clojure/core.async
 ----

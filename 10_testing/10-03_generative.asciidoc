@@ -15,7 +15,7 @@ test it across randomly generated values.
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try org.clojure/test.generative "0.5.0"
 ----
@@ -213,7 +213,7 @@ _tests/generative_ directory inside a Leiningen project, you could
 execute tests by running the following at the shell, from your
 project's root directory:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein run -m clojure.test.generative.runner tests/generative
 ----

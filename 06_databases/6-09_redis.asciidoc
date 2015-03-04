@@ -18,7 +18,7 @@ Tech GitHub Redis project].
 
 To follow along with this recipe, add `[com.taoensso/carmine "2.2.0"]` to your project's dependencies, or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.taoensso/carmine
 ----

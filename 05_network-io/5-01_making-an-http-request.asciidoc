@@ -24,7 +24,7 @@ circumstances, or to get specific details about the response.(((clj-http library
 To follow along, add `[clj-http "0.7.7"]` to your project's
 dependencies, or use +lein-try+ to start a REPL:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try clj-http
 ----

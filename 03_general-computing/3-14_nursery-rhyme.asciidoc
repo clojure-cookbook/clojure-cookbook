@@ -18,7 +18,7 @@ additional installation concerns if you are running Overtone on Linux.
 See http://bit.ly/overtone-install[the Overtone wiki] for more
 detailed installation instructions.]
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try overtone
 ----
