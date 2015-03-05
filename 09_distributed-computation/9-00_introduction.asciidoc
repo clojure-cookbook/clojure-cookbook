@@ -14,7 +14,7 @@ we'll be covering http://cascalog.org/[Cascalog], a data-processing
 library built on top of http://hadoop.apache.org/[Hadoop], which is an open source MapReduce
 implementation.((("Amazon’s Elastic MapReduce (EMR)", see="Elastic MapReduce (EMR)")))((("MapReduce", see="Elastic MapReduce (EMR)")))((("cloud computing", see="distributed computation")))((("Elastic MapReduce (EMR)", "basics of")))(((distributed computation, Elastic MapReduce)))
 
-We'll also briefly cover http://storm-project.net/[Storm], a
+We'll also briefly cover http://storm.apache.org/[Storm], a
 real-time stream-processing library in use at several tech giants
 such as Twitter, Groupon, and Yahoo!.
 

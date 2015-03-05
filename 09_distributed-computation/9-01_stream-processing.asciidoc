@@ -22,13 +22,13 @@ they should provide high-level abstractions that help you organize and
 grow the complexity of your stream-processing logic to accommodate new
 features and a complex world.(((userbases)))(((realtime computation systems)))(((activity stream processing)))
 
-Clojure offers just such a tool in http://storm-project.net/[Storm], a
+Clojure offers just such a tool in http://storm.apache.org/[Storm], a
 distributed real-time computation system that aims to be for real-time
 computation what Hadoop is for batch computation. In this section,
 you'll build a simple activity stream processing system that can be
 easily extended to solve real-world problems.(((Storm, project creation/setup)))
 
-First, create a new http://storm.incubator.apache.org/[Storm project] using its Leiningen template:
+First, create a new http://storm.apache.org/[Storm project] using its Leiningen template:
 
 [source,shell-session]
 ----
@@ -544,7 +544,7 @@ code and happy programmers.
 
 ==== See Also
 
-* http://storm-project.net/[Storm's website]
+* http://storm.apache.org/[Storm's website]
 * The Storm http://bit.ly/storm-template[project template]
 * https://github.com/nathanmarz/storm-deploy[+storm-deploy+], a tool for easy Storm deployment
 * https://github.com/utahstreetlabs/risingtide[Rising Tide], the feed
