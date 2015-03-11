@@ -267,21 +267,21 @@ solution:
 ----
 (cl/run 1 [director-name]
   (cl/fresh [studio film-coll film cast director]
-    (cl/membero [studio :name "Newmarket Films"] graph)
-    (cl/membero [studio :type :FilmStudio] graph)
-    (cl/membero [studio :filmsCollection film-coll] graph)
+    (cl/membero [studio :name "Newmarket Films"] movie-graph)
+    (cl/membero [studio :type :FilmStudio] movie-graph)
+    (cl/membero [studio :filmsCollection film-coll] movie-graph)
 
-    (cl/membero [film-coll :type :FilmCollection] graph)
-    (cl/membero [film-coll :film film] graph)
+    (cl/membero [film-coll :type :FilmCollection] movie-graph)
+    (cl/membero [film-coll :film film] movie-graph)
 
-    (cl/membero [film :type :Film] graph)
-    (cl/membero [film :cast cast] graph)
+    (cl/membero [film :type :Film] movie-graph)
+    (cl/membero [film :cast cast] movie-graph)
 
-    (cl/membero [cast :type :FilmCast] graph)
-    (cl/membero [cast :director director] graph)
+    (cl/membero [cast :type :FilmCast] movie-graph)
+    (cl/membero [cast :director director] movie-graph)
     
-    (cl/membero [director :type :Person] graph)
-    (cl/membero [director :name director-name] graph)))
+    (cl/membero [director :type :Person] movie-graph)
+    (cl/membero [director :name director-name] movie-graph)))
 ;; -> ("Christopher Nolan")
 ----
 
