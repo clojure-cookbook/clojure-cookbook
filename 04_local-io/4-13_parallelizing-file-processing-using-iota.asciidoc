@@ -33,7 +33,7 @@ To count the words in a very large file, for example:
 (defn count-map
   "Returns a map of words to occurence count in the given string"
   [s]
-  (reduce (fn [m w] (update-in m [w] (fnil (partial inc) 0)))
+  (reduce (fn [m w] (update-in m [w] (fnil inc 0)))
           {}
           (str/split s #" ")))
 
