@@ -72,7 +72,7 @@ newline, including the last one:
 (defn spitn
   "Append to file with newline"
   [path text]
-  (spit path (str text "\n") :append true)
+  (spit path (str text "\n") :append true))
 ----
 
 When used with strings, +spit+ and +slurp+ deal with the entire
