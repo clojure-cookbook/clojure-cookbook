@@ -13,7 +13,7 @@ Write a string to a file with the built-in +spit+ function:
 
 [source,clojure]
 ----
-(spit "stuff.txt" "my stuff")
+(spit "stuff.txt" "all my stuff")
 ----
 
 Read the contents of a file with the built-in +slurp+ function:
@@ -72,7 +72,7 @@ newline, including the last one:
 (defn spitn
   "Append to file with newline"
   [path text]
-  (spit path (str text "\n") :append true)
+  (spit path (str text "\n") :append true))
 ----
 
 When used with strings, +spit+ and +slurp+ deal with the entire
