@@ -13,7 +13,7 @@ Write a string to a file with the built-in +spit+ function:
 
 [source,clojure]
 ----
-(spit "stuff.txt" "my stuff")
+(spit "stuff.txt" "all my stuff")
 ----
 
 Read the contents of a file with the built-in +slurp+ function:
