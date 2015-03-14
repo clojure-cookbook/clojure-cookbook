@@ -83,7 +83,7 @@ records is close to, but not quite the tagged format edn expects.
 
 Where Clojure prints +"#user.SimpleRecord{:a 42}"+ for a
 +SimpleRecord+, what is really needed for edn is a tag-style string
-like +""#user/SimpleRecord {:a 42}"+. The
+like +"#user/SimpleRecord {:a 42}"+. The
 +miner.tagged/pr-tagged-record-on+ function understands how to write
 records in this format (to a +java.io.Writer+). By extending Clojure's
 +print-method+ multimethod with this function, you ensure Clojure
