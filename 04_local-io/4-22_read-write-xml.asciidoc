@@ -24,7 +24,7 @@ use +clojure.xml/parse+:
 
 [source,clojure]
 ----
-(require '[clojure.xml :as xml])
+(require 'clojure.xml)
 (clojure.xml/parse (clojure.java.io/file "simple.xml"))
 ;; -> {:tag :simple, :attrs nil, :content [
 ;;    {:tag :item, :attrs {:id "1"}, :content ["First"]} 
@@ -36,7 +36,7 @@ function from the +clojure.core+ namespace:
 
 [source,clojure]
 ----
-(xml/xml-seq (clojure.xml/parse (clojure.java.io/file "simple.xml")))
+(xml-seq (clojure.xml/parse (clojure.java.io/file "simple.xml")))
 ----
 
 +xml-seq+ returns a tree sequence of nodes; that is, a sequence of
