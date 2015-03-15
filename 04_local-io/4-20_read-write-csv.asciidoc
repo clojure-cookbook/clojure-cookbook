@@ -8,16 +8,25 @@ You need to read or write CSV data.((("I/O (input/output) streams", "CSV data"))
 
 ==== Solution
 
-Use +clojure.data.csv/read-csv+ to lazily read CSV data from a +String+ or +java.io.Reader+:
+Use +clojure.data.csv/read-csv+ to lazily read CSV data from a +String+ or +java.io.Reader+.
+
+To follow along with this recipe, add `[org.clojure/data.csv "0.1.2"]` to your project’s dependencies, or start a REPL with +lein-try+:
+
+[source,shell-session]
+----
+$ lein try org.clojure/data.csv
+----
 
 [source,clojure]
 ----
-(clojure.data.csv/read-csv "this,is\na,test" )
+(require '[clojure.data.csv :as csv])
+
+(csv/read-csv "this,is\na,test")
 ;; -> (["this" "is"] ["a" "test"])
 
 (with-open [in-file (clojure.java.io/reader "in-file.csv")]
   (doall
-    (clojure.data.csv/read-csv in-file)))
+    (csv/read-csv in-file)))
 ;; -> (["this" "is"] ["a" "test"])
 ----
 
@@ -25,7 +34,7 @@ Use +clojure.data.csv/write-csv+ to write CSV data to a +java.io.Writer+:
 [source,clojure]
 ----
 (with-open [out-file (clojure.java.io/writer "out.csv")]
-            (clojure.data.csv/write-csv out-file [["this" "is"] ["a" "test"]]))
+            (csv/write-csv out-file [["this" "is"] ["a" "test"]]))
 ;; -> nil
 ----
 
@@ -46,7 +55,7 @@ When writing, as with +read-csv+, you can configure the separator, quote, and ne
 [source,clojure]
 ----
 (with-open [out-file (clojure.java.io/writer "out.csv")]
-            (clojure.data.csv/write-csv out-file [["this" "is"] ["a" "test"]]
+            (csv/write-csv out-file [["this" "is"] ["a" "test"]]
                                         :separator \$ :quote \-))
 ;; -> nil
 ----
