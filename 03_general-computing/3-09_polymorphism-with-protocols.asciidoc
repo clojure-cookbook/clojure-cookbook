@@ -267,7 +267,7 @@ protocol's methods:
 (perimeter (->Square 1))
 ;; -> 4
 
-;; Calculate the area of a parallelogram without defining a record
+;; Calculate the area of a rectangle without defining a record
 (area
   (let [b 2
         h 3]
