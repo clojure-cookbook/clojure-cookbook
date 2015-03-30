@@ -11,7 +11,14 @@ You need to read or write JSON data.((("I/O (input/output) streams", "JSON data"
 ==== Solution
 
 Use the +clojure.data.json/read-str+ function to read a string of JSON
-as Clojure data:
+as Clojure data.
+
+To follow along with this recipe, add `[org.clojure/data.json "0.2.6"]` to your project’s dependencies, or start a REPL with +lein-try+:
+
+[source,shell-session]
+----
+$ lein try org.clojure/data.json
+----
 
 [source,clojure]
 ----
