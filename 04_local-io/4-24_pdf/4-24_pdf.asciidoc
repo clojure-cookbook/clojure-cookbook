@@ -113,10 +113,10 @@ Under the hood, collections of content are automatically expanded:
 [source, clojure]
 ----
 ;; This *collection* of paragraphs...
-(pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
+(pdf/pdf [{} [[:paragraph "foo"] [:paragraph "bar"]]] "document.pdf")
 
 ;; is equivalent to these *individual* paragraphs
-(pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
+(pdf/pdf [{} [:paragraph "foo"] [:paragraph "bar"]] "document.pdf")
 ----
 
 Apart from plain strings, each content element is represented as a
