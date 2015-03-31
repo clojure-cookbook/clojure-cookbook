@@ -20,6 +20,9 @@ To follow along with this recipe, add `[org.clojure/data.json "0.2.6"]` to your 
 $ lein try org.clojure/data.json
 ----
 
+First things first, require `clojure.data.json`, then you're ready to start
+parsing some JSON!
+
 [source,clojure]
 ----
 (require '[clojure.data.json :as json])
@@ -54,7 +57,7 @@ same parameters and options as their string brethren:
   (json/read reader))
 ;; -> [{"foo" "bar"}]
 ----
-        
+
 By virtue of JavaScript's simpler types, JSON notation has a much
 lower fidelity than Clojure data. As such, you may find you want to tweak
 the way keys or values are interpreted.
