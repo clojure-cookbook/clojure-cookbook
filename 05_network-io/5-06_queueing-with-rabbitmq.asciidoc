@@ -78,6 +78,8 @@ channel, direct exchange, routing key (your queue name), and a message:
 
 [source,clojure]
 ----
+(require '[langohr.basic :as lb])
+
 (lb/publish ch "" resize-queue "hello.jpg")
 ----
 
