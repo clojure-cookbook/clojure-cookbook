@@ -37,10 +37,11 @@ listens to a topic and prints messages it receives:
 
 (defn connect-and-subscribe [broker-addr topics subscriberid]
   (let [qos-levels (vec (repeat (count topics) 2)) ;; All at qos 2
+        topics-and-qos (zipmap topics qos-levels)
         conn-sub (mh/connect broker-addr subscriberid)]
     (if (mh/connected? conn-sub)
       (do
-        (mh/subscribe conn-sub topics message-handler {:qos qos-levels})
+        (mh/subscribe conn-sub topics-and-qos message-handler)
         conn-sub)))) ;; Return conn-sub for later mh/disconnect...
 
 (def subscriberid (mh/generate-id))
@@ -172,8 +173,8 @@ arriving from the broker. In the +connect-and-subscribe+ method, the
 the broker address and client ID (generated using +generate-id+, or
 some other unique ID). Then it checks that the connection has been
 established using the +connected?+ method. The +subscribe+ method is
-invoked with the connection, a vector of topics to subscribe to, a message
-handler, and a +:qos+ option. The subscriber then waits for some time
+invoked with the connection, a map of topics to subscribe to with their respective qos and a message
+handler. The subscriber then waits for some time
 and disconnects using the +disconnect+ method.
 
 The +connect-and-publish+ method calls the method +connect+, which
