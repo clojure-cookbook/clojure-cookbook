@@ -126,7 +126,7 @@ and plain strings. For example, a complete URI string may be provided under the
 ----
 ;; As a spec string
 (def db-spec
-  "jdbc:postgresql://bilbo:secret@localhost:5432/cookbook_experiment")
+  "jdbc:postgresql://bilbo:secret@localhost:5432/cookbook_experiments")
 
 ;; As a connection URI map...
 ;; with a username and password...
