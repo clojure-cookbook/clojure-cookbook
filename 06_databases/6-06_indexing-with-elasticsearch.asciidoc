@@ -148,7 +148,7 @@ cause a document ID to be generated automatically:
 
 [source,clojure]
 ----
-(esr/put "test4" "person" "happyjoe" doc1)
+(esd/put "test4" "person" "happyjoe" doc1)
 ----
 
 ==== Discussion
