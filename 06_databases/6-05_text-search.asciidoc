@@ -93,7 +93,7 @@ generation:
 ;; -> org.apache.lucene.analysis.util.CharArraySet
 
 (def stop-words
-  (doto (CharArray. clucy.core/*version* 3 true)
+  (doto (CharArraySet. clucy.core/*version* 3 true)
     (.add "do")
     (.add "not")
     (.add "index")))
