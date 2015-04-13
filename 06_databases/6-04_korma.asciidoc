@@ -89,7 +89,7 @@ must match the names of the columns in the database:
 [source,clojure]
 ----
 (insert posts
-        (values nil {:title "First post" :content "blah blah blah"}))
+        (values {:title "First post" :content "blah blah blah"}))
 ----
 
 To retrieve values from the database, query using +select+. Successful
