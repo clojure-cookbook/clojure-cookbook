@@ -69,7 +69,7 @@ To create an index, use the +clojurewerkz.elastisch.rest.index/create+ function:
 (esi/create "test1")
 
 ;; Create an index with custom settings
-(esi/create "test2" :settings {"number_of_shards" 1}))
+(esi/create "test2" :settings {"number_of_shards" 1})
 ----
 
 A full explanation of the available indexing settings is outside the
@@ -101,7 +101,7 @@ an index is created using the +:mapping+ option:
                                               :term_vector
                                               "with_positions_offsets"}}}})
 
-(esi/create "test3" :mappings mapping-types)))
+(esi/create "test3" :mappings mapping-types)
 ----
 
 ===== Indexing documents
@@ -130,7 +130,7 @@ cause a document ID to be generated automatically:
 
 (esi/create "test4" :mappings mapping-types)
 
-(def doc {:username "happyjoe"
+(def doc1 {:username "happyjoe"
           :first-name "Joe"
           :last-name "Smith"
           :age 30
@@ -139,8 +139,8 @@ cause a document ID to be generated automatically:
           :biography "N/A"})
 
 
-(esd/create "test4" "person" doc)
-;; => {:ok true, :_index people, :_type person,
+(esd/create "test4" "person" doc1)
+;; => {:created true, :_index "test4", :_type "person",
 ;;     :_id "2vr8sP-LTRWhSKOxyWOi_Q", :_version 1}
 ----
 
@@ -148,7 +148,7 @@ cause a document ID to be generated automatically:
 
 [source,clojure]
 ----
-(esr/put "test4" "person" "happyjoe" doc)
+(esd/put "test4" "person" "happyjoe" doc1)
 ----
 
 ==== Discussion
