@@ -140,7 +140,7 @@ cause a document ID to be generated automatically:
 
 
 (esd/create "test4" "person" doc)
-;; => {:ok true, :_index people, :_type person,
+;; => {:created true, :_index "test4", :_type "person",
 ;;     :_id "2vr8sP-LTRWhSKOxyWOi_Q", :_version 1}
 ----
 
