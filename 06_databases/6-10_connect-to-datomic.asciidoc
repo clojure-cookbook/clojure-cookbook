@@ -19,7 +19,7 @@ $ lein try com.datomic/datomic-free
 ----
 
 To create and connect to an in-memory database, use
-+database.api/create-database+ and +datomic.api/connect+:
++datomic.api/create-database+ and +datomic.api/connect+:
 
 [source,clojure]
 ----
