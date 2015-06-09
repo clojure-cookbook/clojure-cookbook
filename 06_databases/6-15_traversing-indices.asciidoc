@@ -141,7 +141,7 @@ other hand, will return only entities with that specific attribute and
 value pair.
 
 What is returned by +datoms+ is a stream of +Datum+ objects. Each
-datum responds to +:a+, +:e+, +t+, +:v+, and +:added+ as functions.(((range="endofrange", startref="ix_DBdt")))
+datum responds to +:a+, +:e+, +:t+, +:v+, and +:added+ as functions.(((range="endofrange", startref="ix_DBdt")))
 
 ==== See Also
 
