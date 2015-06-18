@@ -12,7 +12,7 @@ Compojure at a higher level of abstraction, by defining resources.(((web applica
 Use https://github.com/clojure-liberator/liberator[Liberator] to
 create HTTP-compliant, RESTful web apps.
 
-To follow along with this recipe, create a new project using the command *+lein new liberator-test+*.
+To follow along with this recipe, create a new project using the command *+lein new app liberator-test+*.
 
 Inside your _project.clj_, add the following dependencies to your +:dependencies+ key:
 
