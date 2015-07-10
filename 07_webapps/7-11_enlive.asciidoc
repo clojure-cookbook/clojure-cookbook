@@ -79,7 +79,7 @@ single string:
   <body>
     <h1>Why Clojure Rocks</h1>
     <h3>By <span class="author">Luke VanderHart</span></h3>
-    </h3><div class="post-body">Functional programming!</div>
+    <div class="post-body">Functional programming!</div>
   </body>
 </html>
 ----
