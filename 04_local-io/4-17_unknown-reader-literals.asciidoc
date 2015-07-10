@@ -137,6 +137,11 @@ for reading data, it's generally better to use the edn variants.footnote:[The Cl
 
 * https://github.com/edn-format/edn[edn: extensible data notation] on GitHub
 * <<sec_local_io_clojure_data_to_disk>>, and <<sec_edn_record>>
+* The entry for 
+  https://clojuredocs.org/clojure.edn/read[+clojure.edn/read+ on 
+  ClojureDocs] for a discussion about how the +clojure.core+ and
+  +clojure.edn+ reader procedures differ with regard to
+  +data_readers.clj+.
 
 ++++
 <?hard-pagebreak?>
