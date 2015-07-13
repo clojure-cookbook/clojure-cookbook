@@ -367,7 +367,7 @@ recent +n+ comic titles in the XKCD archives:
 
 (comic-titles 5)
 ;; -> ("Oort Cloud" "Git Commit" "New Study"
-       "Telescope Names" "Job Interview")
+;;     "Telescope Names" "Job Interview")
 ----
 
 ===== When to use Enlive
