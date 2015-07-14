@@ -204,7 +204,7 @@ and display it on the page, we could write the following filter:footnote:[You'll
 [source, clojure]
 ----
 (require '[markdown.core :refer [md-to-html-string]]
-         '[selmer.filters/add-filter!])
+         '[selmer.filters :refer [add-filter!]])
 
 (add-filter! :markdown md-to-html-string)
 ----
