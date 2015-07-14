@@ -51,7 +51,7 @@ The template can then be rendered by calling the +selmer.parser/render-file+ fun
 
 [source, clojure]
 ----
-(require '[selmer.parser :refer [render-file]])
+(require '[selmer.parser :refer [render-file render]])
 
 (println
   (render-file "base.html"
