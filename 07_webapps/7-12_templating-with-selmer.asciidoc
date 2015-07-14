@@ -51,7 +51,7 @@ The template can then be rendered by calling the +selmer.parser/render-file+ fun
 
 [source, clojure]
 ----
-(require '[selmer.parser :refer [render-file]])
+(require '[selmer.parser :refer [render-file render]])
 
 (println
   (render-file "base.html"
@@ -204,7 +204,7 @@ and display it on the page, we could write the following filter:footnote:[You'll
 [source, clojure]
 ----
 (require '[markdown.core :refer [md-to-html-string]]
-         '[selmer.filters/add-filter!])
+         '[selmer.filters :refer [add-filter!]])
 
 (add-filter! :markdown md-to-html-string)
 ----
