@@ -22,7 +22,8 @@ Use +markdown.core/md-to-html+ to read a Markdown document and generate a string
 
 [source,clojure]
 ----
-(require '[markdown.core :as md])
+(require '[markdown.core :as md]
+         '[clojure.java.io :refer [input-stream output-stream])
 
 (md/md-to-html "input.md" "output.html")
 
