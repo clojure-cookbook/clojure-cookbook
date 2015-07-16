@@ -91,7 +91,7 @@ When the +:heading-anchors+ key is set to +true+, an anchor will be generated fo
 [source,html]
 ----
 <h3>
-  <a name=\"heading\" class=\"anchor\" href=\"#foo&#95;bar&#95;baz></a>
+  <a name=\"heading\" class=\"anchor\" href=\"#foo&#95;bar&#95;baz\"></a>
   foo bar BAz
 </h3>
 ----
