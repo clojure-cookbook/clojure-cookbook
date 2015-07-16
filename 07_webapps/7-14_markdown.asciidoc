@@ -134,7 +134,7 @@ Finally, we can provide a custom set of transformers to replace the built-in one
 
 [source,clojure]
 ----
-(markdown/md-to-html-string "#foo" :replacement-transformers [capitalize])
+(md/md-to-html-string "#foo" :replacement-transformers [capitalize])
 ----
 
 ==== See Also
