@@ -22,7 +22,8 @@ Use +markdown.core/md-to-html+ to read a Markdown document and generate a string
 
 [source,clojure]
 ----
-(require '[markdown.core :as md])
+(require '[markdown.core :as md]
+         '[clojure.java.io :refer [input-stream output-stream])
 
 (md/md-to-html "input.md" "output.html")
 
@@ -90,7 +91,7 @@ When the +:heading-anchors+ key is set to +true+, an anchor will be generated fo
 [source,html]
 ----
 <h3>
-  <a name=\"heading\" class=\"anchor\" href=\"#foo&#95;bar&#95;baz></a>
+  <a name=\"heading\" class=\"anchor\" href=\"#foo&#95;bar&#95;baz\"></a>
   foo bar BAz
 </h3>
 ----
@@ -133,7 +134,7 @@ Finally, we can provide a custom set of transformers to replace the built-in one
 
 [source,clojure]
 ----
-(markdown/md-to-html-string "#foo" :replacement-transformers [capitalize])
+(md/md-to-html-string "#foo" :replacement-transformers [capitalize])
 ----
 
 ==== See Also
