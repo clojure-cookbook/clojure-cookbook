@@ -48,7 +48,7 @@ with Markdown content to its HTML representation:
 ==== Discussion
 
 Markdown is a popular lightweight markup language that's easy to read and write and
-can be converted to structurally valid HTML.(((parsing, parser differences))) 
+can be converted to structurally valid HTML.(((parsing, parser differences)))
 
 Since Markdown leaves many aspects of rendering the HTML open to interpretation, it's
 not guaranteed that different parsers will produce the same representation. This can be a problem if you render a Markdown preview on the client using one
@@ -75,8 +75,8 @@ will be decorated with a class compatible with the http://alexgorbatchev.com/Syn
 +markdown-clj+ supports all the standard Markdown tags, with the exception of reference-style links (because the parser uses a single pass to generate the document).
 
 The +markdown.core/md-to-html+ processes the input line by line, and the entirety of the content
-does not need to be stored in memory when processing. On the other hand, both the +md-to-html-string+ and +md-to-html+ 
-functions load the entire contents into memory.
+does not need to be stored in memory when processing. On the other hand, the +md-to-html-string+
+function keeps the entire input and output in memory.
 
 The parser accepts additional formatting options. These include +:heading-anchors+, +:code-style+,
 +:custom-transformers+, and +:replacement-transformers+.
