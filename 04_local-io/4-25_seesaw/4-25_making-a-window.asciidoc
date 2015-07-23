@@ -64,7 +64,7 @@ actually display the frame (as seen in <<fig4-2>>), use +show!+:
 
 [[fig4-2]]
 .A simple window
-image::images/clcb_0402.png[]
+image::window-only.png[]
 
 ==== Discussion
 
@@ -83,7 +83,7 @@ The result is shown in <<fig4-3>>.
 
 [[fig4-3]]
 .A window with basic content
-image::images/clcb_0403.png[]
+image::content.png[]
 
 ===== Sizing the window
 
@@ -128,7 +128,7 @@ This content is too big to fit in the current window (see <<fig4-4>>):
 
 [[fig4-4]]
 .A window with more text than space
-image::images/clcb_0404.png[]
+image::no-longer-yours.png[]
 
 Normally, one would call +pack!+ again to adjust the window size to
 the new content. However, the content will not fit comfortably on most
@@ -144,7 +144,7 @@ screens, so set the size explicitly and add scroll bars, as seen in <<fig4-5>>:
 
 [[fig4-5]]
 .A larger window with a scroll bar
-image::images/clcb_0405.png[]
+image::sonnets.png[]
 
 The +:multi-line?+ option to the +text+ function selects +JTextArea+
 as the underlying object, rather than +JTextField+ (+JTextArea+ is
