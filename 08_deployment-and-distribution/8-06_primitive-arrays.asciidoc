@@ -106,10 +106,10 @@ using +asum+, primarily because +map+ produces sequences of
 an intermediate sequence, all arithmetic operations on boxed numbers
 are significantly slower than on their primitive counterparts.
 
-++hiphip++'s +amap+, +afill!+, +reduce+, and +asum+ macros (among others)
+++hiphip++'s +amap+, +afill!+, +areduce+, and +asum+ macros (among others)
 are available for +int+, +long+, +float+, and +double+ types. If you
 wanted to use +reduce+ over an array of floats, for example, you would
-use +hiphip.float/reduce+. These macros define the appropriate
+use +hiphip.float/areduce+. These macros define the appropriate
 type hints and optimizations per type.
 
 Clojure also comes with
