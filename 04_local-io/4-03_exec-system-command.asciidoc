@@ -161,6 +161,6 @@ sequence of promises returned by +sh-pipe+):(((functions, realized?)))
 
 ==== See Also
 
-* If you don't need piping or +clj-common-execs+ advanced features,
+* If you don't need piping or +clj-commons-exec+'s advanced features,
   consider using
   http://bit.ly/clj-java-shell-api[+clojure.java.shell+]
