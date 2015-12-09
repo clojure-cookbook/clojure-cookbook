@@ -58,6 +58,8 @@ elif [[ -d "/usr/local/share/source-highlight" ]] ; then
   SOURCE_HIGHLIGHT_DIR="/usr/local/share/source-highlight"
 elif [[ -d "/usr/share/source-highlight" ]] ; then
   SOURCE_HIGHLIGHT_DIR="/usr/share/source-highlight"
+elif [[ -d "/opt/local/share/source-highlight" ]] ; then
+  SOURCE_HIGHLIGHT_DIR="/opt/local/share/source-highlight"
 else
   echo "source-highlight directory not found. Provide one via \$SOURCE_HIGHLIGHT_DIR"
   exit
