@@ -101,10 +101,10 @@ LANG_MAP_FILE="$SOURCE_HIGHLIGHT_DIR/lang.map"
  grep clojure.lang "$LANG_MAP_FILE" >/dev/null &&
  grep shell-session "$LANG_MAP_FILE" >/dev/null ) || {
   echo "** Backing up original $LANG_MAP_FILE to ${LANG_MAP_FILE}.bak"
-  $SUDO cp "$LANG_MAP_FILE" "${LANG_MAP_FILE}.bak"
+  sudo cp "$LANG_MAP_FILE" "${LANG_MAP_FILE}.bak"
 
   echo "** Appending to $LANG_MAP_FILE"
-  cat <<END | $SUDO tee -a "$LANG_MAP_FILE" >/dev/null
+  cat <<END | sudo tee -a "$LANG_MAP_FILE" >/dev/null
 
 clojure = clojure.lang
 csv = text.lang
@@ -115,7 +115,7 @@ END
 
   echo "Cleaning $LANG_MAP_FILE"
   cleaned_contents="`sort "$LANG_MAP_FILE" | uniq`"
-  echo "$cleaned_contents" | $SUDO tee "$LANG_MAP_FILE" >/dev/null
+  echo "$cleaned_contents" | sudo tee "$LANG_MAP_FILE" >/dev/null
 }
 
 echo "Setup Complete"
