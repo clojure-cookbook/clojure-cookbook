@@ -95,7 +95,7 @@ ordinary Clojure, and this is generally what you should try first:
 [source,clojure]
 ----
 (defn dot-product [ws xs]
-  (reduce + (map * ws xs))
+  (reduce + (map * ws xs)))
 ----
 
 Once you identify a bottleneck in your mathematical operations,
