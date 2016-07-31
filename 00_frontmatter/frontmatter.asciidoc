@@ -158,7 +158,7 @@ asynchronous coordination with +core.async+.
 
 * <<ch_local_io>>, deals with all the ways in which your program can
 interact with the local computer upon which it is running. This
-includes reading fromand writing to standard input and output streams,
+includes reading from and writing to standard input and output streams,
 creating and manipulating files, serializing and deserializing files,
 etc.
 
