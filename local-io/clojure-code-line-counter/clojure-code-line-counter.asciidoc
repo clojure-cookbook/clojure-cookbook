@@ -1,0 +1,105 @@
+=== Counting lines of Clojure code
+
+// By David Clark
+
+===== Problem
+
+You need to count the lines of Clojure code in your project. Your project consists of one or more Clojure source files.
+
+===== Solution
+
+You can use Clojure's file and string handling functions to examine Clojure source files and count the lines of code, excluding blank and comment lines from the count.
+
+First provide access to the Clojure namespaces with the needed functions.
+
+[source,clojure]
+----
+(require '[clojure.java.io :as io])
+(require '[clojure.string :as str])
+----
+
+Next, define some functions to test whether a line of text is a line of code, that is neither blank nor a comment.
+
+[source,clojure]
+----
+(defn not-blank? [line] (not (str/blank? line)))
+
+(defn not-comment? [line] (not (= \; (first (str/triml line)))))
+
+(defn is-code? [line]
+  (and (not-blank? line)
+       (not-comment? line)))
+
+(is-code? "(+ 3 5)")
+;; -> true
+
+(is-code? "    ; This is only a comment")
+;; -> false
+----
+
+Add one more predicate to test whether a file is a Clojure source file by assuring that the file name ends in ".clj". Then define a function to cycle through all of the Clojure source files in a directory (and its subdirectories), counting the lines of code in each and summing the lines for all the files and returning the count.
+
+[source,clojure]
+----
+(defn is-source? [file] (.endsWith (.toString file) ".clj" ))
+
+(defn clojure-loc [base-file]
+  (reduce +
+    (for [file (file-seq base-file)
+          :when (is-source? file)]
+      (with-open [rdr (io/reader file)]
+        (let [cnt (count (filter is-code? (line-seq rdr)))]
+          (println " " (.getName file) ": " cnt " lines")
+----
+
+Finally, add a driver function to summarize the results. The driver function requires the name of a Clojure source file or a directory containing Clojure source files. It will print the total lines of Clojure code for all of the files counted.
+
+[source,clojure]
+----
+(defn clojure-loc [base-file]
+  (println (str base-file))
+  (println (str (clojure-loc (io/file base-file)) " lines of Clojure")))
+
+(clojure-loc "c:\\projects\\loclj\\src\\loclj\\core.clj")
+;; -> c:\projects\loclj\src\loclj\core.clj
+;; ->   core.clj :  22  lines
+;; -> 22 lines of Clojure
+;; -> nil
+
+(clojure-loc "c:\\projects\\important-project\\src")
+;; -> c:\projects\important-project\src
+;; ->   core.clj :  15  lines
+;; ->   actions.clj :  65  lines
+;; ->   analysis.clj :  18  lines
+;; -> 98 lines of Clojure
+;; -> nil
+----
+
+===== Discussion
+
+Within +clojure-loc+, the +file-seq+ function creates a list of files to examine based on the +base-file+ argument. The list comprehension macro +for+ passes only those files which are Clojure source files into the remainder of the function. Those files are opened and a sequence of lines in the file are filtered, counting up only those lines which appeat to have code. The results
+for each file are summed up for the return value.
+
+A variation of the +is-source?+ function could be used to count the lines of source for different source languages. For example, to count the lines of code in Clojure and Java source files, the function might be defined as:
+
+[source,clojure]
+----
+(defn is-source? [file]
+  (or (.endsWith (.toString file) ".clj")
+      (.endsWith (.toString file) ".java")))
+
+(is-source? (io/file "junk.clj"))
+;; -> true
+
+(is-source? (io/file "junk.java"))
+;; -> true
+
+(is-source? (io/file "junk.for"))
+;; -> false      
+----
+
+Note, however, that only Clojure-style comments would still be handled correctly. Java-style comments would be counted as code.
+
+===== See Also
+
+* <<sec_local-io_files_get_files_from_dir>> for more details on using a +file-seq+ to get the files from a directory.
