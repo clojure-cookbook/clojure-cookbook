@@ -1,0 +1,76 @@
+=== Clojure and Blinking Arduino
+
+// By Max Gonzih (Gonzih)
+
+===== Problem
+
+You have new shiny Arduino and want to play with it.
+But you don't want to write C++ code for it.
+You want to use Clojure with it.
+
+===== Solution
+
+You should use Clodiuno library for communication with Arduino.
+
+.project.clj
+[source,clojure]
+----
+(defproject arduino-blink "1.0.0-SNAPSHOT"
+              :dependencies [[clodiuno "0.0.4-SNAPSHOT"]])
+----
+
+In order to connect to your Arduino via serial port you need to deploy Firmata code to your Arduino.
+
+In Arduino IDE open Firmata sketch and deploy it to the board.
+
+----
+File -> Examples -> Firmata -> StandartFirmata
+----
+
+Plug in your Arduino and let's connect to our board from Clojure code.
+
+[source,clojure]
+----
+(ns arduino-blink.core
+  (:require [clodiuno.core :refer :all]
+            [clodiuno.firmata :refer :all]))
+
+(def board (arduino :firmata "/dev/tty.usbserial-A900adPT"))
+----
+
+Enable 13 pin for output on the board.
+
+[source,clojure]
+----
+(pin-mode board 13 OUTPUT)
+----
+
+Time to blink!
+
+[source,clojure]
+----
+(defn blink []
+  (digital-write board 13 HIGH)
+  (Thread/sleep 1000)
+  (digital-write board 13 HIGH)
+  (Thread/sleep 1000)
+  (recur))
+
+(blink)
+----
+
+===== Discussion
+
+Clodiuno is Firmata protocol implemented in Clojure.
+Firmata is protocol for communicating with microcontrollers from software on a host computer.
+You can use serial port, Bluetooth or WiFi to communicate with board.
+
+You can use serial port library with your own sketch on Arduino to achieve similar control.
+Using Firmata gives you way of expanding your communication possibilities easy in the future.
+
+You can do all that is possible in pure Arduino code but in beautiful Lisp dialect.
+
+===== See Also
+
+* https://github.com/nakkaya/clodiuno[Clodiuno on Github].
+* http://nakkaya.com/clodiuno.html[Clodiuno Homepage].
