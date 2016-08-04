@@ -1,0 +1,32 @@
+==== Clodiuno
+
+// By Halit Alptekin
+
+===== Problem
+
+You need to use Arduino with clojure using clodiuno lib.
+
+===== Solution
+
+Clodiuno is a library that allows you to control Arduino using Clojure allowing Clojure developers to interface with real world using Arduino hardware.
+
+You need to upload Firmata sketch to your Arduino +File -> Examples -> Firmata -> StandartFirmata+ .
+
+Then, you can use it following way.
+
+[source,clojure]
+----
+(ns clj-arduino
+  (:require [clodiuno.core    :refer :all])
+  (:require [clodiuno.firmata :refer :all]))
+
+(def board (arduino :firmata "/path/to/port"))
+; or
+(def board (arduino :firmata "/path/to/port" :baudrate 9600))
+; default baudrate is 57600
+----
+
+
+===== Usages
+
+You should visit <https://github.com/nakkaya/clodiuno> and <http://nakkaya.com/clodiuno.html>
