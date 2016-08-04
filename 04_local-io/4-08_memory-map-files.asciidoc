@@ -14,7 +14,7 @@ which wraps the memory-mapping functionality provided by Java's NIO (New I/O) li
 
 Before starting, add `[clj-mmap "1.1.2"]` to your project’s dependencies or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try clj-mmap
 ----

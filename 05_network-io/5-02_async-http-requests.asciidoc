@@ -15,7 +15,7 @@ HTTP client/server library.((("HTTP (Hypertext Transfer Protocol)", "asynchronou
 Before starting, add `[http-kit "2.1.12"]` to your project's
 dependencies, or follow along in a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try http-kit
 ----

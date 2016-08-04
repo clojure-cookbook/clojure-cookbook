@@ -16,7 +16,7 @@ Call the built-in +file-seq+ function.
 To follow along with this recipe, create some sample files and folders
 using these commands (on Linux or Mac):
 
-[source,shell-session]
+[source,text]
 ----
 $ mkdir -p next-gen
 $ touch next-gen/picard.jpg next-gen/locutus.bmp next-gen/data.txt

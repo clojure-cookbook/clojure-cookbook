@@ -73,7 +73,7 @@ repository].
 
 Check out that branch to retrieve a full working copy with sample data:
 
-[source,shell-session]
+[source,text]
 ----
 $ git checkout testing-complete
 ----
@@ -81,7 +81,7 @@ $ git checkout testing-complete
 
 Finally, run the tests with *+lein midje+*:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein midje
 2013-11-09 12:19:27.844 java[3620:1703] Unable to load realm info from

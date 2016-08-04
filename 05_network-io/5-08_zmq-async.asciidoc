@@ -21,14 +21,14 @@ ZeroMQ 3.2 installed.
 If you're on a Mac and have the http://brew.sh[Homebrew] package
 manager installed, use this command to install it:
 
-[source,shell-session]
+[source,text]
 ----
 $ brew install zeromq
 ----
 
 Or, if you are on Ubuntu:
 
-[source,shell-session]
+[source,text]
 ----
 $ apt-get install libzmq3
 ----
@@ -39,7 +39,7 @@ downloads page].
 Before starting, add `[com.keminglabs/zmq-async "0.1.0"]` to your
 project's dependencies, or follow along in a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.keminglabs/zmq-async
 ----

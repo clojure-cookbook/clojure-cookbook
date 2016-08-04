@@ -16,7 +16,7 @@ Use +core.typed+ to type-check higher-order functions.
 To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ touch core_typed_samples.clj
 $ lein try org.clojure/core.typed
@@ -113,7 +113,7 @@ only for checking your code, but also for investigating built-in functions.
 Invoking +cf+ on any of Clojure's higher-order functions reveals their
 type signatures:
 
-[source,shell-session]
+[source,text]
 -----
 user=> (t/cf iterate)
 (All [x] 
@@ -127,7 +127,7 @@ and returns an +x+, and takes an +x+, and returns a lazy sequence of +x+."
 The +cf+ macro can also detect when the wrong number of arguments are
 being passed to a function returned by another function:
 
-[source,shell-session]
+[source,text]
 -----
 user=> (t/cf (fn [] ((hash-of? + number?))))
 Type Error (user:1:15) Type mismatch:

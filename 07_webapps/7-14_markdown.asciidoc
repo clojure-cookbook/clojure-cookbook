@@ -13,7 +13,7 @@ Use the https://github.com/yogthos/markdown-clj[+markdown-clj+ library] to rende
 
 To follow along with this recipe, start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try markdown-clj
 ----

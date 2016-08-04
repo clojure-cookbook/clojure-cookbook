@@ -16,7 +16,7 @@ install Cassandra on the http://wiki.apache.org/cassandra/GettingStarted[Getting
 
 To follow along with this recipe, add `[clojurewerkz/cassaforte "1.1.0"]` to your project's dependencies, or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try clojurewerkz/cassaforte
 ----

@@ -96,7 +96,7 @@ Console sessions (e.g., shell commands) are denoted by monospace font,
 with lines beginning with a dollar sign (+$+) indicating a shell
 prompt. Output is printed without a leading +$+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein version
 Leiningen 2.0.0-preview10 on Java 1.6.0_29 Java HotSpot(TM) 64-Bit Server VM
@@ -132,7 +132,7 @@ user profile (_~/.lein/profiles.clj_) as follows:
 Now, inside of a project or out, you can use the *+lein try+* command
 to launch a REPL with access to whichever library you please:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try clj-time
 #...

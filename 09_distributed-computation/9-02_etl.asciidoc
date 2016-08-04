@@ -30,7 +30,7 @@ locally for small jobs or on a Hadoop cluster for larger jobs.((("ETL (Extract T
 
 To follow along with this recipe, create a new Leiningen project:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein new cookbook
 ----
@@ -99,7 +99,7 @@ repository.
 To retrieve a copy of the working project, clone the project from
 GitHub and check out the +etl-sample+ branch:
 
-[source,shell-session]
+[source,text]
 ----
 $ git clone https://github.com/clojure-cookbook/cascalog-samples.git
 $ cd cascalog-samples
@@ -110,7 +110,7 @@ $ git checkout etl-sample
 You can now execute the job locally with *+lein run+*, providing an
 input and output file:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein run -m cookbook.etl.Main samples/books/books.json samples/books/output
 

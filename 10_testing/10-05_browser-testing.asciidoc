@@ -14,7 +14,7 @@ actual browser environments.
 
 To follow along with this recipe, create a new Leiningen project:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein new browser-testing
 Generating a project called browser-testing based on the 'default' template.
@@ -70,7 +70,7 @@ _test/browser_testing/core_test.clj_, overwriting its content:
 ====
 A complete version of this repository is available https://github.com/clojure-cookbook/browser-testing[on GitHub]. Check out a copy locally to catch up:
 
-[source,shell-session]
+[source,text]
 ----
 $ git clone https://github.com/clojure-cookbook/browser-testing
 $ cd browser-testing
@@ -79,7 +79,7 @@ $ cd browser-testing
 
 Run the tests on the command line:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein test :browser
 
@@ -131,7 +131,7 @@ and the http://bit.ly/clj-webdriver-wiki[+clj-webdriver+ wiki].
 Before you dive into testing, you can experiment with +clj-webdriver+ at
 a REPL. Start up a REPL with +clj-webdriver+ using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try clj-webdriver "0.6.0"
 ----
@@ -253,7 +253,7 @@ selector argument to +lein test+:
 <?hard-pagebreak?>
 ++++
 
-[source,shell-session]
+[source,text]
 ----
 $ lein test :browser
 

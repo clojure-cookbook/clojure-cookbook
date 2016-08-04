@@ -14,7 +14,7 @@ representing, manipulating, and storing values in monetary units.
 To follow along with this recipe, add `[clojurewerkz/money "1.4.0"]`
 to your project's dependencies, or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try clojurewerkz/money
 ----

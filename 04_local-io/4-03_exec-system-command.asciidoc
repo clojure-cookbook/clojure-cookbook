@@ -14,7 +14,7 @@ system.((("clj-commons-exec library")))
 
 To follow along, start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try org.clojars.hozumi/clj-commons-exec "1.0.6"
 ----

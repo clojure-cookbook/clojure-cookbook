@@ -12,7 +12,7 @@ You want to invoke your Clojure application from the command line.((("developmen
 In any Leiningen project, use the *+lein run+* command to invoke your
 application from the command line. To follow along with this recipe, create a new Leiningen project:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein new my-cli
 ----
@@ -44,7 +44,7 @@ _project.clj_:
 
 Now, invoke *+lein run+* to run your application:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein run
 My CLI received arguments: nil
@@ -100,7 +100,7 @@ For example, you can add a function +add-main+ to +my-cli.core+:
 then invoke it from the command line with the command *+lein run -m
 my-cli.core/add-main+*:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein run -m my-cli.core/add-main 1 2 3
 The sum is: 6

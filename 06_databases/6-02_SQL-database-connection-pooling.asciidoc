@@ -26,7 +26,7 @@ wiki].]
 After you have PostgreSQL running (presumably on _localhost:5432_), run the following
 command to create a database for this recipe:
 
-[source,shell-session]
+[source,text]
 ----
 # On Mac:
 $ /Applications/Postgres93.app/Contents/MacOS/bin/createdb cookbook_experiments
@@ -40,7 +40,7 @@ Before starting, add the BoneCP dependency (`[com.jolbox/bonecp
 RDBMS, to your project's dependencies. You'll also need a valid SLF4J
 logger. Alternatively, you can follow along in a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.jolbox/bonecp "0.8.0.RELEASE" \
            org.clojure/java.jdbc "0.3.0" \

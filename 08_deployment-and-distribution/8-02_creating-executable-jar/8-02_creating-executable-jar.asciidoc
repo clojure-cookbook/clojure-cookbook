@@ -15,7 +15,7 @@ dependencies.
 
 To follow along with this recipe, create a new Leiningen project:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein new foo
 ----
@@ -54,7 +54,7 @@ To finish making the project executable, add a +-main+ function and
 Run the application using the *+lein run+* command to verify it is
 functioning correctly:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein run 1 2 3
 ----
@@ -62,7 +62,7 @@ $ lein run 1 2 3
 To package the application with all of its dependencies included,
 invoke *+lein uberjar+*:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein uberjar
 Created /tmp/foo/target/uberjar/foo-0.1.0-SNAPSHOT.jar
@@ -72,7 +72,7 @@ Created /tmp/foo/target/foo-0.1.0-SNAPSHOT-standalone.jar
 Execute the generated _target/foo-0.1.0-SNAPSHOT-standalone.jar_ file by
 passing it as the +-jar+ option to the +java+ executable:
 
-[source,shell-session]
+[source,text]
 ----
 $ java -jar target/foo-1.0.0-standalone.jar 1 2 3
 Executed with the following args:  1 2 3
@@ -115,7 +115,7 @@ file--you'll need to BYOC.footnote:[Bring your own Clojure!]
 By invoking the command *+lein jar+* in the +foo+ project, you'll
 generate _target/foo-0.1.0-SNAPSHOT.jar_:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein jar
 Created /tmp/foo/target/jar/target/foo-0.1.0-SNAPSHOT.jar
@@ -125,7 +125,7 @@ Listing the contents of the JAR file using the *+unzip+* command,footnote:[Avail
 little is packaged--just a Maven _.pom_ file, generated JVM class files,
 and the project's miscellany:
 
-[source,shell-session]
+[source,text]
 ----
 $ unzip -l target/foo-0.1.0-SNAPSHOT.jar
 Archive:  target/foo-0.1.0-SNAPSHOT.jar
@@ -175,7 +175,7 @@ classpath (via the +-cp+ option):
 <?hard-pagebreak?>
 ++++
 
-[source,shell-session]
+[source,text]
 ----
 # Download Clojure
 $ wget \

@@ -216,7 +216,7 @@ The one thing you _won't_ need to manually install is Clojure itself;
 Leiningen will do this for you on an ad hoc basis. To verify your
 installation, run *+lein repl+* and check your Clojure version:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein repl
 # ...

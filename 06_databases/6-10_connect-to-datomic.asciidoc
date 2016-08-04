@@ -13,7 +13,7 @@ You need to connect to a Datomic database.((("databases", "Datomic", id="ix_DBdt
 Before starting, add `[com.datomic/datomic-free "0.8.4218"]` to your project's
 dependencies or start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein try com.datomic/datomic-free
 ----

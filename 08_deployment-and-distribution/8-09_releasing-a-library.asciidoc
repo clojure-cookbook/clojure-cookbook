@@ -24,7 +24,7 @@ my-first-project-<firstname>-<lastname>+*, replacing +<firstname>+ and
 You can now use the command *+lein deploy clojars+* to release your
 library to Clojars:
 
-[source,shell-session]
+[source,text]
 ----
 $ lein deploy clojars
 WARNING: please set :description in project.clj.

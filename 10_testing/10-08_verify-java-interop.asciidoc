@@ -19,7 +19,7 @@ To type-check Java interop calls, use +core.typed+.
 To follow along with this recipe, create a file _core_typed_samples.clj_
 and start a REPL using +lein-try+:
 
-[source,shell-session]
+[source,text]
 ----
 $ touch core_typed_samples.clj
 $ lein try org.clojure/core.typed
@@ -81,7 +81,7 @@ Add a type hint to call the http://bit.ly/javadoc-file-constructor[`public File(
 
 Checking again, +core.typed+ is satisfied:
 
-[source,shell-session]
+[source,text]
 ----
 user=> (t/check-ns 'core-typed-samples)
 # ...
