@@ -30,9 +30,8 @@ function entry point to parse command-line arguments:footnote:[Since
 (require '[clojure.tools.cli :refer [parse-opts]])
 
 (defn -main [& args]
-  (let [{:keys [:options :arguments :summary :errors]} (parse-opts args
-                                [["-h" "--help" "Print this help"
-                                  :default false]])]
+  (let [{:keys [options arguments summary errors]} (parse-opts args
+                                                               [["-h" "--help" "Print this help" :default false]])]
     (when (:help options)
       (println summary))))
 
@@ -170,10 +169,9 @@ is also useful for ensuring the validity of arguments:
   (not-every? opts required-opts))
 
 (defn -main [& args]
-  (let [{:keys [:options :arguments :summary :errors]} (parse-opts args
-                                [["-h" "--help" "Print this help"
-                                  :default false]
-                                 ["-p" "--port PORT" :parse-fn #(Integer. %)]])]
+  (let [{:keys [options arguments summary errors]} (parse-opts args
+                                                               [["-h" "--help" "Print this help" :default false]
+                                                                ["-p" "--port PORT" :parse-fn #(Integer. %)]])]
     (when (or (:help options)
               (missing-required? options))
         (println summary))))
