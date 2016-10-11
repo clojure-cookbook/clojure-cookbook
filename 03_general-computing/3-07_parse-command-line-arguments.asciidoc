@@ -6,14 +6,14 @@ by Ryan Neufeld; originally submitted by Nicolas Bessi
 ==== Problem
 
 You want to write command-line tools in Clojure that can parse input
-arguments.(((command lines, parsing input arguments)))(((parsing, input arguments)))((("development ecosystem", "command line parsing")))(((tools.cli library)))((("Clojure", "clojure.tools.cli/cli")))
+arguments.(((command lines, parsing input arguments)))(((parsing, input arguments)))((("development ecosystem", "command line parsing")))(((tools.cli library)))((("Clojure", "clojure.tools.cli/parse-opts")))
 
 ==== Solution
 
 Use the https://github.com/clojure/tools.cli[+tools.cli+]
 library.
 
-Before starting, add `[org.clojure/tools.cli "0.2.4"]` to your project's
+Before starting, add `[org.clojure/tools.cli "0.3.1"]` to your project's
 dependencies, or start a REPL using +lein-try+:
 
 [source,shell-session]
@@ -21,46 +21,44 @@ dependencies, or start a REPL using +lein-try+:
 $ lein try org.clojure/tools.cli
 ----
 
-Use the +clojure.tools.cli/cli+ function in your project's +-main+
+Use the +clojure.tools.cli/parse-opts+ function in your project's +-main+
 function entry point to parse command-line arguments:footnote:[Since
 +tools.cli+ is so cool, this example can run entirely at the REPL.]
 
 [source,clojure]
 ----
-(require '[clojure.tools.cli :refer [cli]])
+(require '[clojure.tools.cli :refer [parse-opts]])
 
 (defn -main [& args]
-  (let [[opts args banner] (cli args
-                                ["-h" "--help" "Print this help"
-                                 :default false :flag true])]
-    (when (:help opts)
-      (println banner))))
+  (let [{:keys [:options :arguments :summary :errors]} (parse-opts args
+                                [["-h" "--help" "Print this help"
+                                  :default false]])]
+    (when (:help options)
+      (println summary))))
 
 ;; Simulate entry into -main at the command line
 (-main "-h")
 ;; *out*
-;; Usage:
-;;
-;;  Switches                 Default  Desc
-;;  --------                 -------  ----
-;;  -h, --no-help, --help    false    Print this help
+;;   -h, --help  Print this help
 ----
 
 ==== Discussion
 
 Clojure's +tools.cli+ is a simple library, with only one function,
-+cli+, and a slim data-oriented API for specifying how arguments
++parse-opts+, and a slim data-oriented API for specifying how arguments
 should be parsed. Handily enough, there isn't much special about this
 function: an arguments vector and specifications go in, and a map of parsed
-options, variadic arguments, and a help banner come out. It's really the
+options, variadic arguments, a help summary, and error messages come out. It's really the
 epitome of good, composable functional programming.
 
-To configure how options are parsed, pass any number of spec vectors
+To configure how options are parsed, pass a sequence of spec vectors
 after the +args+ list. To specify a +:port+ parameter, for example,
-you would provide the spec `["-p" "--port"]`. The +"-p"+ isn't
+you would provide the spec `["-p" "--port PORT"]`. The +"-p"+ isn't
 strictly necessary, but it is customary to provide a single-letter
-shortcut for command-line options (especially long ones). In the
-returned +opts+ map, the text of the last option name will be interned
+shortcut for command-line options (especially long ones). The +PORT+ is
+added to indicate the option requires an argument, of which +PORT+ is a
+short description. In the
+returned +options+ map, the text of the last option name will be interned
 to a keyword (less the +--+). For example, +"--port"+ would become
 +:port+, and +"--super-long-option"+ would become +:super-long-option+.
 
@@ -83,7 +81,7 @@ optional string following the final argument name:
 
 [source,clojure]
 ----
-["-p" "--port" "The incoming port the application will listen on."]
+["-p" "--port PORT" "The incoming port the application will listen on."]
 ----
 
 Everything after the argument name and description will be interpreted
@@ -91,11 +89,12 @@ as options in key/value pairs. +tools.cli+ provides the following
 options:
 
 +:default+:: The default value returned in the absence of user input.
-  Without specifying, the default of +:default+ is +nil+.
+  Without specifying, the resulting option map will not contain an entry
+  for this option unless set by user.
 
-+:flag+:: If truthy (not +false+ or +nil+), indicates an argument
-  behaves like a flag or switch. This argument will _not_ take any
-  value as its input.
++:default-desc+:: An optional description of the default value. This should
+  be used when the string representation of the default value is too ugly
+  to be printed on the command line.
 
 +:parse-fn+:: The function used to parse an argument's value. This can
   be used to turn string values into integers, floats, or other
@@ -103,6 +102,21 @@ options:
 
 +:assoc-fn+:: The function used to combine multiple values for a
   single argument.
+
++:validate-fn+:: A function that receives the parsed option value and returns
+  a falsy value when the value is invalid.
+
++:validate-msg+:: An optional message that will be added to the +:errors+
+  vector on validation failure.
+
++:validate+:: A vector of +[validate-fn validate-msg]+. You can either set
+  +:validate-fn+ and +:validate-msg+ seperately or bundle them together this
+  way.
+
++:id+, +:short-opt+, +:long-opt+, +:required+, +:desc+:: These options will
+  overwrite the values specified or indicated by the positional arguments, e.g.
+  +:port+, +"-p"+, +"--port"+, +PORT+, +"The incoming port the application
+  will listen on."+, respectively.
 
 Here's a complete example:
 
@@ -116,36 +130,35 @@ Here's a complete example:
     (update-in m [k] max v)
     (assoc m k v)))
 
-(def app-specs [["-n" "--count" :default 5
+(def app-specs [["-n" "--count COUNT" :default 5
+                                :default-desc "FIVE"
                                 :parse-fn #(Integer. %)
-                                :assoc-fn assoc-max]
-                ["-v" "--verbose" :flag true
-                                  :default true]])
+                                :assoc-fn assoc-max
+                                :validate [#(< % 100) "Reached the maximum."]]
+                ["-v" nil :long-opt "--verbose"
+                          :default false]])
 
-(first (apply cli ["-n" "2" "-n" "50"] app-specs))
-;; -> {:count 50, :verbose true}
+(select-keys (parse-opts ["-n" "2" "-n" "50"] app-specs) [:options :errors])
+;; -> {:errors nil, :options {:verbose false, :count 50}}
 
-(first (apply cli ["--no-verbose"] app-specs))
-;; -> {:count 5, :verbose false}
-----
+(select-keys (parse-opts ["-n" "2" "-n" "200"] app-specs) [:options :errors])
+;; -> {:errors ["Failed to validate \"-n 200\": Reached the maximum."], :options {:verbose false, :count 5}}
 
-When writing flag options, a useful shortcut is to omit the +:flag+
-option and add a "`[no-]`" prefix to the argument's name. +cli+ will
-interpret this argument spec as including +:flag true+ without you having
-to specify it as such:
+(select-keys (parse-opts ["--verbose"] app-specs) [:options :errors])
+;; -> {:errors nil, :options {:verbose true, :count 5}}
 
-[source,clojure]
-----
-["-v" "--[no-]verbose" :default true]
+(println (:summary (parse-opts ["--verbose"] app-specs)))
+;; *out*
+;;   -n, --count COUNT  FIVE
+;;   -v, --verbose
 ----
 
 One thing the +tools.cli+ library _doesn't_ provide is a hook into the
 application container's launch life cycle. It is your responsibility to
-add a +cli+ call to your +-main+ function and know when to print the
-help banner. A general pattern for use is to capture the results of
-+cli+ in a +let+ block and determine if help needs to be printed. This
-is also useful for ensuring the validity of arguments (especially since
-there is no +:required+ option):
+add a +parse-opts+ call to your +-main+ function and know when to print the
+help summary. A general pattern for use is to capture the results of
++parse-opts+ in a +let+ block and determine if help needs to be printed. This
+is also useful for ensuring the validity of arguments:
 
 [source,clojure]
 ----
@@ -157,40 +170,40 @@ there is no +:required+ option):
   (not-every? opts required-opts))
 
 (defn -main [& args]
-  (let [[opts args banner] (cli args
-                                ["-h" "--help" "Print this help"
-                                 :default false :flag true]
-                                ["-p" "--port" :parse-fn #(Integer. %)])]
-    (when (or (:help opts)
-              (missing-required? opts))
-        (println banner))))
+  (let [{:keys [:options :arguments :summary :errors]} (parse-opts args
+                                [["-h" "--help" "Print this help"
+                                  :default false]
+                                 ["-p" "--port PORT" :parse-fn #(Integer. %)]])]
+    (when (or (:help options)
+              (missing-required? options))
+        (println summary))))
 ----
 
 As with many applications, you may want to accept a variable number of
 arguments; for example, a list of filenames.
 In most cases, you don't need to do anything special to capture these
 arguments--just supply them after any other options. These variadic
-arguments will be returned as the second item in ++cli++'s returned vector:
+arguments will be returned as the value of key +:auguments+ in ++parse-opts++'s returned map:
 
 [source,clojure]
 ----
-(second (apply cli ["-n" "5" "foo.txt" "bar.txt"] app-specs))
+(:arguments (parse-opts ["-n" "5" "foo.txt" "bar.txt"] app-specs))
 ;; -> ["foo.txt" "bar.txt"]
 ----
 
 If your variadic arguments look like flags, however, you'll need(((variadic arguments)))((("arguments, variadic")))
-another trick. Use +--+ as an argument to indicate to +cli+ that
+another trick. Use +--+ as an argument to indicate to +parse-opts+ that
 everything that follows is a variadic argument. This is useful if
 you're invoking another program with the options originally passed to
 your program:
 
 [source,clojure]
 ----
-(second (apply cli ["-n" "5" "--port" "80"] app-specs))
-;; -> Exception '--port' is not a valid argument ...
+(select-keys (parse-opts ["-n" "5" "--port" "80"] app-specs) [:arguments :errors])
+;; -> {:errors ["Unknown option: \"--port\""], :arguments ["80"]}
 
-(second (apply cli ["-n" "5" "--" "--port" "80"] app-specs))
-;; -> ["--port" "80"]
+(select-keys (parse-opts ["-n" "5" "--" "--port" "80"] app-specs) [:arguments :errors])
+;; -> {:errors nil, :arguments ["--port" "80"]}
 ----
 
 Once you've finished toying with your application's option parsing at
@@ -202,7 +215,7 @@ pass on to subsequent programs, so too must you use +--+ to indicate to
 [source,shell-session]
 ----
 # If app-specs were rigged up to a project...
-$ lein run -- -n 5 --no-verbose
+$ lein run -- -n 5 --verbose
 ----
 
 ==== See Also
