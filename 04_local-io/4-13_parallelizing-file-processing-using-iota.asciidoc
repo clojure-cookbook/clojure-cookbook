@@ -24,7 +24,7 @@ To count the words in a very large file, for example:
 
 [source,clojure]
 ----
-(require '[iota                  :as io]
+(require '[iota                  :as iota]
          '[clojure.core.reducers :as r]
          '[clojure.string        :as str])
 
