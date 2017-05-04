@@ -1,0 +1,29 @@
+==== Enumerating Each Character in a String
+
+// By John Cromartie (jcromartie)
+
+===== Problem
+
+You need to treat each character in a String separately.
+
+===== Solution
+
+A seq on a String returns a sequence of its characters. All of
+Clojure's seq functions can operate on Strings.
+
+[source,clojure]
+----
+(seq "asdf")
+;; -> (\a \s \d \f)
+
+(filter #(Character/isUpperCase %) "This Is A Test")
+;; -> (\T \I \A \T)
+----
+
+===== Discussion
+
+In addition to other collection types, +seq+ coerces Strings into
+Clojure seqs. All of clojure's functions which operate on seqs call
++seq+ on their arguments first, so you can pass Strings directly to
++distinct+, +filter+, +take+, etc., to operate on the characters in a
+string.
