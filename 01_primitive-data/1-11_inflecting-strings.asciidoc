@@ -89,7 +89,7 @@ The library also has support for inflections like +camelize+,(((camel case)))(((
 [source,clojure]
 ----
 ;; Convert "snake_case" to "CamelCase"
-(inf/camelize "my_object")
+(inf/camel-case "my_object")
 ;; -> "MyObject"
 
 ;; Clean strings for usage as URL parameters
