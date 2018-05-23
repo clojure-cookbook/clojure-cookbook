@@ -149,6 +149,9 @@ The function under test is simply the function to call. Over the
 course of the generative test, it will be called many times, each time
 with different values.
 
+***** The code snippets have no example of using +:tag+ The following 4 
+paragraphs are thus a bit confusing! *****
+
 The argument specification is a vector of argument names and should
 match the signature of the function under test. Each argument should
 have _metadata_ attached. Specifically, it should have a +:tag+
