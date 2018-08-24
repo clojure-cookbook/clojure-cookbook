@@ -81,7 +81,7 @@ function.
 
 [source,clojure]
 ----
-;; Copied verbatim from the defunct [clojure-contrib](https://crossclj.info/ns/org.clojure/clojure-contrib/1.2.0/clojure.contrib.map-utils.html#_deep-merge-with)
+;; Copied verbatim from the defunct [clojure-contrib](https://clojure.github.io/clojure-contrib/map-utils-api.html#clojure.contrib.map-utils/deep-merge-with)
 (defn deep-merge-with 
   "Like merge-with, but merges maps recursively, applying the given fn
   only when there's a non-map at a particular level.
