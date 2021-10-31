@@ -181,7 +181,7 @@ As with many applications, you may want to accept a variable number of
 arguments; for example, a list of filenames.
 In most cases, you don't need to do anything special to capture these
 arguments--just supply them after any other options. These variadic
-arguments will be returned as the value of key +:auguments+ in ++parse-opts++'s returned map:
+arguments will be returned as the value of key +:arguments+ in ++parse-opts++'s returned map:
 
 [source,clojure]
 ----
