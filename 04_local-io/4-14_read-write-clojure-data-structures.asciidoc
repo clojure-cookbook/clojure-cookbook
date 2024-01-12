@@ -16,6 +16,10 @@ Use +pr-str+ and +spit+ to serialize small amounts of data:
 (spit "data.clj" (pr-str [:a :b :c]))
 ----
 
+TIP: Wrap it with `+(binding [*print-length* nil, *print-level* nil] ...)+` to prevent eliding the data, especially when running from the REPL.
+
+NOTE: `pr-str` is more reliable than `str` for round-tripping data, especially if they use custom tagged literals or overide .toString (as java.util.HashMap does).
+
 Use +read-string+ and +slurp+ to read small amounts of data:
 
 [source,clojure]
